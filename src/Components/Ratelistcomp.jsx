@@ -62,7 +62,8 @@ const Ratelistcomp = () => {
                 <div className="phone-number-box1">
                   <a className="" href="#">
                     {" "}
-                    <i className="fa-solid fa-angles-right"></i> Climstripe Shift
+                    <i className="fa-solid fa-angles-right"></i> Climstripe
+                    Shift
                   </a>
                 </div>
 
@@ -76,7 +77,8 @@ const Ratelistcomp = () => {
                 <div className="phone-number-box1">
                   <a href="#">
                     {" "}
-                    <i className="fa-solid fa-angles-right"></i> Green Saman Shop
+                    <i className="fa-solid fa-angles-right"></i> Green Saman
+                    Shop
                   </a>
                 </div>
 
@@ -268,7 +270,7 @@ const Ratelistcomp = () => {
 
                       <li>
                         <NavLink
-                          to="javascript:void(0);"
+                          to=""
                           data-toggle="modal"
                           data-target="#exampleModal"
                         >

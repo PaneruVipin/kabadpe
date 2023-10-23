@@ -1,37 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import "../style/LogReg.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const ResetPasswrdComp = () => {
-    const [resetpsswrd , setResetPsswrd] =  useState(false);
+  const [resetpsswrd, setResetPsswrd] = useState(false);
 
-    const ResetPasswrdFunc = () => {
+  const ResetPasswrdFunc = () => {
+    setResetPsswrd(true);
 
-        setResetPsswrd(true);
+    setTimeout(() => {
+      setResetPsswrd(false);
+    }, 3000);
+  };
 
-        setTimeout(() => {
-            setResetPsswrd(false);
-        }, 3000);
-        
-    }
-    
   return (
     <>
       <section className="reset-passwrd-comp">
         <div className="reset-passwrd-grid">
-
-            <div className="left-reset-passwrd-grid-bx">
-
+          <div className="left-reset-passwrd-grid-bx">
             <div className="login-form-bx">
               <div className="login-logo">
                 <img src="./images/resources/logo.png" alt="" />
               </div>
 
               <form action="#">
-              
-
-              
-
                 <div className="log-inpt-bx reset-psswrd-inpt">
                   <input
                     type="password"
@@ -54,34 +46,30 @@ const ResetPasswrdComp = () => {
                   />
                 </div>
 
-
-                <button onClick={() => ResetPasswrdFunc()} className="form-submit-btn reset-psswrd-btn">
-                 Reset Password
+                <button
+                  onClick={() => ResetPasswrdFunc()}
+                  className="form-submit-btn reset-psswrd-btn"
+                >
+                  Reset Password
                 </button>
 
                 <div className="thanks_para passwrd-chage-text">
-                    {resetpsswrd &&
-                    <p>
-                      Password has been changed...
-                    </p>
-                    }
+                  {resetpsswrd && <p>Password has been changed...</p>}
                 </div>
 
                 <div className="switch-form-btn switch-form-btn2">
                   <p>New to Kabadpe? </p>
-                  <NavLink to="/loginregist">Log In</NavLink>
+                  <NavLink to="/auth/collector">Log In</NavLink>
                 </div>
               </form>
             </div>
-                
-            </div>
+          </div>
 
-            <div className="right-reset-passwrd-grid-bx"></div>
-            
+          <div className="right-reset-passwrd-grid-bx"></div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default ResetPasswrdComp
+export default ResetPasswrdComp;

@@ -5,7 +5,6 @@ const LogReg = () => {
   return (
     <>
       <Wastecolloginregist />
-
     </>
   )
 }

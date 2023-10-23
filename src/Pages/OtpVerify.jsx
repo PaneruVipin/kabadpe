@@ -1,12 +1,12 @@
-import React from 'react'
-import Otp from '../Components/Otp'
+import React from "react";
+import Otp from "../Components/Otp";
 
 const OtpVerify = () => {
   return (
     <>
-    <Otp />
+      <Otp />
     </>
-  )
-}
+  );
+};
 
-export default OtpVerify
+export default OtpVerify;

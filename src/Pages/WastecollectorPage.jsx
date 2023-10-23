@@ -24,7 +24,7 @@ const WastecollectorPage = () => {
                     <div className="main-logo-box">
                         <NavLink to="/">
                             {/* <img src="assets/images/resources/logo.png" alt="Awesome Logo" title=""> */}
-                            <img src="../public/images/resources/logo.png" alt="" />
+                            <img src="images/resources/logo.png" alt="" />
                         </NavLink>
                     </div>
                 </div>
@@ -178,7 +178,7 @@ const WastecollectorPage = () => {
     <div className="menu-backdrop"></div>
     <div className="close-btn"><span className="icon fa fa-times-circle"></span></div>
     <nav className="menu-box">
-        <div className="nav-logo"><NavLink to="index.html"><img src="../public/images/resources/mobilemenu.png" alt="" /></NavLink></div>
+        <div className="nav-logo"><NavLink to="index.html"><img src="images/resources/mobilemenu.png" alt="" /></NavLink></div>
         <div className="menu-outer">
             {/* <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--> */}
         </div>

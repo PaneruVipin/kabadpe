@@ -351,7 +351,7 @@ const Pricelist = () => {
                 <a href="index.html" className="img-responsive">
                   {/* <img src="assets/images/resources/sticky-logo.png" alt="" title=""> */}
                   <img
-                    src="../public/images/resources/sticky-logo.png"
+                    src="images/resources/sticky-logo.png"
                     alt=""
                   />
                 </a>
@@ -377,7 +377,7 @@ const Pricelist = () => {
           <nav className="menu-box">
             <div className="nav-logo">
               <a href="index.html">
-                <img src="../public/images/resources/mobilemenu.png" alt="" />
+                <img src="images/resources/mobilemenu.png" alt="" />
               </a>
             </div>
             <div className="menu-outer">

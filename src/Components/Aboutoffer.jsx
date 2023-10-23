@@ -58,7 +58,7 @@ const Aboutoffer = () => {
               {/* 
               <div className="about-user-main-bx">
                 <div className="about-user-img">
-                    <img src="../public/images/customImg/about-user.png" alt="" />
+                    <img src="images/customImg/about-user.png" alt="" />
                 </div>
 
                 <div className="about-user-info">

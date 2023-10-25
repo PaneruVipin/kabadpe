@@ -29,6 +29,10 @@ const Ratelistcomp = () => {
     setmainPrice(true);
   };
   const handlePickupSubmit = async (data) => {
+    setApiErrors({
+      ...apiErrors,
+      shcedulPickup: "",
+    });
     const appointmentAddress = await userLocationByQuery(
       data?.appointmentAddress
     );
@@ -48,7 +52,12 @@ const Ratelistcomp = () => {
         ...apiErrors,
         shcedulPickup: res.message,
       });
+      return;
     }
+    setApiErrors({
+      ...apiErrors,
+      shcedulPickup: "",
+    });
   };
   return (
     <>
@@ -853,12 +862,24 @@ const Ratelistcomp = () => {
                                 <option disabled value="" hidden>
                                   Choose Time Slot
                                 </option>
-                                <option value="10-11">10.00 to 11.00</option>
-                                <option value="11-12">11.00 to 12.00</option>
-                                <option value="13-14">1.00 to 2.00</option>
-                                <option value="14-15">2.00 to 3.00</option>
-                                <option value="16-17">4.00 to 5.00</option>
-                                <option value="17-18">5.00 to 6.00</option>
+                                <option value="10:00-11:00">
+                                  10.00 to 11.00
+                                </option>
+                                <option value="11:00-12:00">
+                                  11.00 to 12.00
+                                </option>
+                                <option value="13:00-14:00">
+                                  1.00 to 2.00
+                                </option>
+                                <option value="14:00-15:00">
+                                  2.00 to 3.00
+                                </option>
+                                <option value="16:00-17:00">
+                                  4.00 to 5.00
+                                </option>
+                                <option value="17:00-18:00">
+                                  5.00 to 6.00
+                                </option>
                               </select>
                             </div>
                             {touched.appointmentTimeSlot &&

@@ -5,15 +5,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../style/Ratelist.css";
 import "../style/MyAccount.css";
 import { Form, Formik } from "formik";
-import { userSchedulePickup } from "../apis/kbadpeUser/schedule";
+import {
+  userCalculateKabadRate,
+  userRateListFetch,
+  userSchedulePickup,
+} from "../apis/kbadpeUser/schedule";
 import { validationSchedulePickup } from "../validators/kabadPeUser/schedule";
 import { userLocationByQuery } from "../apis/location";
-
+import { useQuery } from "@tanstack/react-query";
 const Ratelistcomp = () => {
   const [listBox, setListBox] = useState(false);
   const [mainPrice, setmainPrice] = useState(false);
   const [apiErrors, setApiErrors] = useState({ shcedulPickup: "" });
   const [selectedDate, setSelectedDate] = useState(null);
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
   const initialSchedulePickupValues = {
     appointmentAddress: "",
     appointmentContactNumber: "",
@@ -58,6 +63,17 @@ const Ratelistcomp = () => {
       ...apiErrors,
       shcedulPickup: "",
     });
+  };
+
+  const { isPending, data: kabadItems } = useQuery({
+    queryKey: ["repoData"],
+    queryFn: () => userRateListFetch(),
+  });
+  const calculateRate = async (data) => {
+    const totalPrice = await userCalculateKabadRate(data);
+    if (!totalPrice.error) setCalculatedPrice(totalPrice);
+    console.log(totalPrice, calculatedPrice);
+    hideFunc();
   };
   return (
     <>
@@ -413,106 +429,28 @@ const Ratelistcomp = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/magazine.png" alt="" />
-                        </div>
-                        <h6>Magazine</h6>
-                      </div>
-                    </td>
+                  {!kabadItems?.error
+                    ? kabadItems?.map(
+                        ({ id, initialPrice, categoryName }, i) => (
+                          <tr key={id}>
+                            <td>{i + 1}</td>
+                            <td>
+                              <div className="waste-prod-bx">
+                                <div className="waste-prod-img">
+                                  <img
+                                    src="./images/customImg/magazine.png"
+                                    alt=""
+                                  />
+                                </div>
+                                <h6>{categoryName}</h6>
+                              </div>
+                            </td>
 
-                    <td>₹20.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>2</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/cash.png" alt="" />
-                        </div>
-                        <h6>Papers</h6>
-                      </div>
-                    </td>
-
-                    <td>₹10.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>3</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/book.png" alt="" />
-                        </div>
-                        <h6>Books</h6>
-                      </div>
-                    </td>
-
-                    <td>₹40.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>4</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img
-                            src="./images/customImg/aluminium-paper.png"
-                            alt=""
-                          />
-                        </div>
-                        <h6>Aluminium</h6>
-                      </div>
-                    </td>
-
-                    <td>₹50.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>5</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/wheel.png" alt="" />
-                        </div>
-                        <h6>Wheels</h6>
-                      </div>
-                    </td>
-
-                    <td>₹53.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>6</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/plastic.png" alt="" />
-                        </div>
-                        <h6>Plastic</h6>
-                      </div>
-                    </td>
-
-                    <td>₹36.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>7</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/cardboard.png" alt="" />
-                        </div>
-                        <h6>Cardboard</h6>
-                      </div>
-                    </td>
-
-                    <td>₹29.00 </td>
-                  </tr>
+                            <td>₹{initialPrice?.toFixed(2)} </td>
+                          </tr>
+                        )
+                      )
+                    : null}
                 </tbody>
               </table>
             </div>
@@ -644,121 +582,58 @@ const Ratelistcomp = () => {
                 <div className="prod-list-main">
                   <span>E-WASTE RECYCLING</span>
                   <h4>Calculator</h4>
+                  <Formik onSubmit={calculateRate} initialValues={{}}>
+                    {({
+                      handleBlur,
+                      handleChange,
+                      values,
+                      errors,
+                      touched,
+                      ...rest
+                    }) => (
+                      <Form>
+                        <div className="prod-list-bx">
+                          {!kabadItems?.error
+                            ? kabadItems?.map(
+                                ({ id, initialPrice, categoryName }) => (
+                                  <div key={id} className="p-bx">
+                                    <div className="left-prod-i">
+                                      <img
+                                        src="./images/customImg/magazine.png"
+                                        alt=""
+                                      />
+                                      <h5>{categoryName}</h5>
+                                    </div>
 
-                  <div className="prod-list-bx">
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/magazine.png" alt="" />
-                        <h5>Magazine</h5>
-                      </div>
-
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/wheel.png" alt="" />
-                        <h5>Wheels</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/cash.png" alt="" />
-                        <h5>Papers</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/book.png" alt="" />
-                        <h5>Books</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/plastic.png" alt="" />
-                        <h5>Plastic</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/cardboard.png" alt="" />
-                        <h5>Cardboard</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/iron-bar.png" alt="" />
-                        <h5>Steel</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-
-                    <div className="p-bx">
-                      <div className="left-prod-i">
-                        <img src="./images/customImg/furniture.png" alt="" />
-                        <h5>Wood</h5>
-                      </div>
-                      <input
-                        type="text"
-                        name="value"
-                        id="value"
-                        placeholder=".../kg"
-                      />
-                    </div>
-                  </div>
-
-                  <button className="prod-submit-btn" onClick={hideFunc}>
-                    Calculate Benefits !
-                  </button>
+                                    <input
+                                      type="text"
+                                      name={id}
+                                      id="value"
+                                      placeholder=".../kg"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values?.[id] || ""}
+                                    />
+                                  </div>
+                                )
+                              )
+                            : null}
+                        </div>
+                        <button type="submit" className="prod-submit-btn">
+                          Calculate Benefits !
+                        </button>
+                      </Form>
+                    )}
+                  </Formik>
                 </div>
 
                 <div className="schedule-pickup-bx">
                   <h5>Total Valuation of your waste</h5>
 
-                  <h3>4,570.00/</h3>
+                  <h3>{calculatedPrice.toFixed(2)}/</h3>
 
                   <button
+                    disabled={!calculatedPrice}
                     onClick={ShcedulPickuFunc}
                     className="schedule-pickup-btn"
                   >

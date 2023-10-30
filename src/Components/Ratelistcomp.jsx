@@ -72,7 +72,6 @@ const Ratelistcomp = () => {
   const calculateRate = async (data) => {
     const totalPrice = await userCalculateKabadRate(data);
     if (!totalPrice.error) setCalculatedPrice(totalPrice);
-    console.log(totalPrice, calculatedPrice);
     hideFunc();
   };
   return (

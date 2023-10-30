@@ -429,26 +429,25 @@ const Ratelistcomp = () => {
                 </thead>
                 <tbody>
                   {!kabadItems?.error
-                    ? kabadItems?.map(
-                        ({ id, initialPrice, categoryName }, i) => (
-                          <tr key={id}>
-                            <td>{i + 1}</td>
-                            <td>
-                              <div className="waste-prod-bx">
-                                <div className="waste-prod-img">
-                                  <img
-                                    src="./images/customImg/magazine.png"
-                                    alt=""
-                                  />
+                    ? kabadItems
+                        ?.slice(0, Math.floor(kabadItems.length / 2))
+                        ?.map(
+                          ({ id, initialPrice, categoryName, image }, i) => (
+                            <tr key={id}>
+                              <td>{i + 1}</td>
+                              <td>
+                                <div className="waste-prod-bx">
+                                  <div className="waste-prod-img">
+                                    <img src={image} alt="" />
+                                  </div>
+                                  <h6>{categoryName}</h6>
                                 </div>
-                                <h6>{categoryName}</h6>
-                              </div>
-                            </td>
+                              </td>
 
-                            <td>₹{initialPrice?.toFixed(2)} </td>
-                          </tr>
+                              <td>₹{initialPrice?.toFixed(2)} </td>
+                            </tr>
+                          )
                         )
-                      )
                     : null}
                 </tbody>
               </table>
@@ -463,103 +462,29 @@ const Ratelistcomp = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>6</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/plastic.png" alt="" />
-                        </div>
-                        <h6>Plastic</h6>
-                      </div>
-                    </td>
+                  {!kabadItems?.error
+                    ? kabadItems
+                        ?.slice(Math.floor(kabadItems.length / 2))
+                        ?.map(
+                          ({ id, initialPrice, categoryName, image }, i) => (
+                            <tr key={id}>
+                              <td>
+                                {i + 1 + Math.floor(kabadItems.length / 2)}
+                              </td>
+                              <td>
+                                <div className="waste-prod-bx">
+                                  <div className="waste-prod-img">
+                                    <img src={image} alt="" />
+                                  </div>
+                                  <h6>{categoryName}</h6>
+                                </div>
+                              </td>
 
-                    <td>₹36.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>7</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/cardboard.png" alt="" />
-                        </div>
-                        <h6>Cardboard</h6>
-                      </div>
-                    </td>
-
-                    <td>₹29.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>8</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/coil.png" alt="" />
-                        </div>
-                        <h6>Copper</h6>
-                      </div>
-                    </td>
-
-                    <td>₹28.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>9</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/iron-bar.png" alt="" />
-                        </div>
-                        <h6>Iron</h6>
-                      </div>
-                    </td>
-
-                    <td>₹36.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>10</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/beam.png" alt="" />
-                        </div>
-                        <h6>Steel</h6>
-                      </div>
-                    </td>
-
-                    <td>₹47.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>11</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/broken.png" alt="" />
-                        </div>
-                        <h6>E-Waste</h6>
-                      </div>
-                    </td>
-
-                    <td>₹33.00 </td>
-                  </tr>
-
-                  <tr>
-                    <td>12</td>
-                    <td>
-                      <div className="waste-prod-bx">
-                        <div className="waste-prod-img">
-                          <img src="./images/customImg/furniture.png" alt="" />
-                        </div>
-                        <h6>Wood</h6>
-                      </div>
-                    </td>
-
-                    <td>₹33.00 </td>
-                  </tr>
+                              <td>₹{initialPrice?.toFixed(2)} </td>
+                            </tr>
+                          )
+                        )
+                    : null}
                 </tbody>
               </table>
             </div>

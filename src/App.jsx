@@ -35,7 +35,7 @@ function App() {
       <Route path="/rate" element={<Rate />} />
       <Route path="/kabadshop" element={<KabadShop />} />
       <Route path="/account" element={<Account />} />
-      <Route path="/wastecollector" element={<WastecollectorPage />} />
+      <Route path="/useraccounts" element={<WastecollectorPage />} />
       <Route path="/auth/collector" element={<LogReg />} />
       <Route path="/resetpasswrd" element={<ResetPassword />} />
       <Route path="/ratelist" element={<RateList />} />

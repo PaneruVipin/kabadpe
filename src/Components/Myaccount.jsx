@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/MyAccount.css";
+import "../style/WasteCollector.css";
 
 const Myaccount = () => {
   const [toggleSate, setToggleState] = useState(1);
@@ -23,6 +24,8 @@ const Myaccount = () => {
         <span className="u-pf-four"></span>
       </section>
 
+    <section className="prof-record-main-sect">
+      <div className="prof-record-grid main-container">
       <section className="user-prof-main-bx">
         <div className="user-prof-contanier">
           <div className="user-prf-main">
@@ -48,7 +51,7 @@ const Myaccount = () => {
           </div>
         </div>
       </section>
-
+      
       <section className="records-comp">
         <div className="user-prof-contanier">
           <div className="record-grid">
@@ -85,6 +88,8 @@ const Myaccount = () => {
             </div>
           </div>
         </div>
+      </section>
+      </div>
       </section>
       {/*  */}
       <section className="my-profile-comp">

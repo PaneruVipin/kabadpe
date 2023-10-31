@@ -1,0 +1,508 @@
+
+/* ______________________
+Our Support ticket css code
+---------------------- */
+
+.support-ticket-comp{
+    position: relative;
+    width: 100%;
+
+}
+
+.support-ticket-comp h5{
+    font-size: 1.76rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #000248;
+    margin-bottom: 1.5rem;
+}
+
+.support-ticket-table{
+    white-space: wrap;
+    border-radius: .5rem;
+}
+
+.support-ticket-table table tbody tr{
+    position: relative;
+    background-color: #f6f6ff;
+    padding: .5rem 1rem;
+}
+
+.support-ticket-table table tbody tr:nth-child(2n + 2){
+    background-color: #efefff;
+
+}
+
+.support-ticket-table table tbody tr td{
+    vertical-align:text-top;
+   
+}
+.sup-tick-data p{
+    font-size: .87rem;
+    max-width: 12rem;
+    line-height: 1.5;
+    display: flex;
+    font-weight: 400;
+    color: #555555;
+    letter-spacing: .5px;
+    
+}
+
+.sup-tick-data {
+    display: block;
+}
+
+.sup-tick-data span{
+    display: block;
+}
+
+
+.s-t-numb{
+    background-color: #dcdbff;
+}
+
+.sup-tick-data h6{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.sup-tick-btn-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+.sup-tick-btn-flex button{
+    position: relative;
+    width: max-content;
+    padding: .15rem .76rem;
+    background-color: #c7c8ff;
+    border-radius: .5rem;
+    font-size: .95rem;
+    letter-spacing: .7px;
+    font-weight: 500;
+    color: #000248;
+}
+
+.sup-tick-data5 {
+    display: block;
+    text-align: right;
+}
+
+.sup-tick-data5 h6{
+    font-size: .9rem;
+    color: #000248;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.sup-tick-data5 span{
+    font-size: .78rem;
+}
+
+
+/* ____________________________
+ Our support search bx css 
+ ---------- */
+
+ .top-user-prof-search-bx2{
+    padding: 0 0 !important;
+    margin-bottom: 5rem;
+ }
+
+ .u-p-cont3{
+    max-width: 100%;
+ }
+
+ .u-prf-srch-bx{
+    position: relative;
+    width: 20rem;
+    background-color: #f9f8f3;
+    height: 2.76rem;
+    border-radius: .5rem;
+ }
+
+ .u-prf-srch-bx input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding-inline: 1rem;
+    font-weight: 500;
+    color: #000248;
+    font-size: 1rem;
+    letter-spacing: .76px;
+ }
+
+ .sup-tick-data6{
+    text-align: left;
+    align-items: flex-start;
+    transform: translateY(10px);
+     }
+
+.sup-tick-data6 h6{
+    line-height: .76;
+    margin-bottom: 0;
+}
+
+.sup-tick-data6 span{
+    font-size: .8rem;
+    font-weight: 400;
+    letter-spacing: .7px;
+    color: #939393;
+}
+
+.sup-tb-data{
+    transform: translateY(10px);
+}
+
+.supp-btn-orng{
+    color: orange !important;
+    background-color: #feebe4 !important;
+    border: .05rem solid orange;
+    transition: 500ms ease;
+}
+
+.supp-btn-orng:hover{
+    background-color: orange !important;
+    color: #fff !important;
+}
+
+.supp-btn-red{
+    background-color: #ffc9c9 !important;
+    color: red !important;
+    border: .05rem solid red !important;
+}
+
+.supp-btn-blu{
+    background-color: #ddedff !important;
+    color: #2398ac !important;
+    transition: 500ms ease;
+    border: .05rem solid #2398ac;
+}
+
+.supp-btn-blu:hover{
+    background-color: #2398ac !important;
+    color: #fff !important;
+}
+.supp-btn-yelo{
+    background-color: #ffffe8 !important;
+    color: #c8c815 !important;
+    border: .05rem solid #c8c815 !important;
+    transition: 500ms ease;
+}
+
+.supp-btn-yelo:hover{
+    background-color: #c8c815 !important;
+    color: #fff !important;
+}
+
+.supp-btn-grn{
+    background-color: #efffec !important;
+    color: #45d027 !important;
+    transition: 500ms ease;
+    border: .05rem solid #45d027;
+}
+
+.supp-btn-grn:hover{
+    background-color: #45d027 !important;
+    color: #fff !important;
+}
+
+/* _________________________________
+ Our ticket form css styling 
+ ------------------- */
+
+ .ticket-form-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    transition: 500ms ease;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+ }
+
+ .ticket-form-comp.ticktformactive{
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+ }
+
+ .ticket-form-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000248;
+    opacity: 0.4;
+ }
+
+ .create-ticket-form-main{
+    position: relative;
+    top: 3rem;
+   width: 50rem;
+   height: 30rem;
+   overflow-y: auto;
+    background-color: #fff;
+    border-radius: .5rem;
+    padding: 2rem 2rem;
+ }
+
+ .create-ticket-form-main::-webkit-scrollbar{
+    width: .456rem;
+    background-color: transparent;
+ }
+
+ .create-ticket-form-main::-webkit-scrollbar-thumb{
+    background-color: #fffbe8;
+    border-radius: 5rem;
+ }
+
+ .create-ticket-form-main h6{
+    font-size: 1.56rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #000248;
+    margin-bottom: 1.5rem;
+ }
+
+ .ticket-form-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+ }
+
+ .tickt-inpt-bx{
+    position: relative;
+    width: 100%;
+    height: 2.76rem;
+    background-color: #f9f8f3;
+    margin-bottom: 1.5rem;
+    border-radius: .5rem;
+ }
+
+ .tickt-inpt-bx input , .tickt-sel-bx select{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding-inline: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+ }
+
+ 
+
+ .tickt-sel-bx:before{
+    content: "\f107";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: .87rem;
+    color: #000248;
+ }
+
+ .tickt-sel-bx select{
+    -webkit-appearance: none;
+    color: #aa8e07;
+ }
+
+ .tickt-inpt-bx input::placeholder{
+    font-weight: 400;
+    color: #aa8e07;
+ }
+
+ .input-file{
+    position: relative;
+    width: 100%;
+    height: 2.4rem;
+    margin-top: 2.5rem;
+    background-color: #f9f8f3;
+    border-radius: .5rem;
+
+ }
+
+ .input-file input{
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    font-weight: 400;
+    color: #000248;
+    cursor: pointer;
+
+ }
+
+ .input-file span{
+    font-size: .87rem;
+    font-weight: 400;
+    letter-spacing: .7px;
+
+ }
+
+::-webkit-file-upload-button{
+    width: max-content;
+    height: 100%;
+    margin-right: 1rem;
+    background-color: transparent;
+    border: none;
+    background-color: #e1c224;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: .4rem;
+    cursor: pointer;
+}
+
+ .add-file{
+    position: relative;
+    margin-left: auto;
+    width: max-content;
+    text-align: center;
+    margin-top: 1.56rem;
+
+ }
+
+ .chose-img{
+    position: relative;
+    width: 5rem;
+    height: auto;
+ }
+
+ .add-input-file-bx{
+    padding: .2rem .87rem;
+    background-color:#eaffe6;
+    border-radius: .55rem;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    color: #2dc20c;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+    
+ }
+
+ .ticket-submit-cancel-btn{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    margin-top: 2rem;
+    flex-direction: column;
+ }
+
+ .tickt-submit-btn{
+    position: relative;
+    width: max-content;
+    padding: .25rem 1.45rem;
+    border-radius: .5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #aa8e07;
+    background-color: #fff8d7;
+    border: .05rem solid #aa8e07;
+ }
+
+ .cancel-tickt{
+    background-color: #ffe2e2;
+    color: red;
+    border: .05rem solid red;
+ }
+
+ .close-ticket-form{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    background-color: #fee0e0;
+    color: #d71717;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+ }
+
+ .tickt-text{
+    position: relative;
+    font-size: .9rem;
+    letter-spacing: 1px;
+    color: #248b0d;
+    font-weight: 400;
+ }
+
+ .t-numbr , .t-icn{
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+
+ }
+
+ .t-numbr6{
+    background-color: #ffdcdc;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    
+ }
+
+ .s-h-ic5{
+    background-color: #ffdcdc;
+    color: #da2b2b;
+ }
+
+ .sup-tickt-search-main{
+   margin-top: 8rem;
+ }
+
+ .top-user-prof-search-bx2{
+   margin-bottom: 2rem;
+ }
+
+ .u-prf-srch-bx:before{
+   content: "\f002";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 1rem;
+   font-family: 'Font Awesome 6 Free';
+   font-weight: 900;
+   font-size: 1rem;
+   color: #000248;
+ }
+
+
+ @media all and (min-width: 1125px) and (max-width: 1380px){
+
+ .top-user-prof-search-bx2{
+   margin-bottom: 2rem;
+ }
+
+ .sup-tickt-search-main{
+   margin-top: 10rem;
+ }
+
+}
+

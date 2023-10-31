@@ -1,0 +1,1648 @@
+
+/* _______________________________________
+ Our User Profile comp css code styling
+ ________________________ */
+
+ header{
+    z-index: 10000  ;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+ }
+
+ 
+
+
+ .user-profile-side-nav-main{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 19rem;
+    height: 100vh;
+    background-color: #fff;
+    border: .1rem solid #eee;
+    padding: 2.45rem 2rem;
+    overflow-y: auto;
+    z-index: 100;
+    padding-top: 11rem;
+ }
+
+ .user-profile-side-nav-main::-webkit-scrollbar{
+    width: .445rem;
+ }
+
+ .user-profile-side-nav-main::-webkit-scrollbar-track{
+    background-color: transparent;
+ }
+
+ .user-profile-side-nav-main::-webkit-scrollbar-thumb{
+    background-color: #eaebf8;
+    border-radius: 5rem;
+ }
+
+ .user-prof-main-bx{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3.5rem;
+ }
+
+ .user-profi-img{
+    position: relative;
+    width: 5rem;
+    padding-bottom: 1rem;
+ }
+
+ .user-profi-img img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+ }
+
+ .user-prof-main-bx h6{
+    font-size: 1.25rem;
+    color: #000248;
+    font-weight: 600;
+    letter-spacing: .56px;
+ }
+
+ .user-prof-menu-main-flex-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+ }
+
+ .u-prf-bx{
+    position: relative;
+    width: 100%;
+    padding: .87rem .87rem;
+    gap: .76rem;
+    display: flex;
+    background-color: transparent;
+    border-radius: .87rem;
+    transition: 500ms ease;
+    color: #939393;
+    font-weight: 600;
+    letter-spacing: .5px;
+ }
+
+ .u-prf-bx.profactive{
+    background-color: #f9f8f3;
+    color: #000248;
+ }
+
+ .u-prf-bx:hover{
+    background-color: #f9f8f3;
+ }
+
+ .profile-log-out-btn{
+    position: absolute;
+    top: 135%;
+    left: 0;
+    margin-inline: 2rem;
+    display: flex;
+    align-items: center;
+    gap: .87rem;
+    padding-block: .65rem;
+    padding-inline: .87rem;
+    cursor: pointer;
+    transition: 500ms ease;
+ }
+
+ .profile-log-out-btn i{
+    transform: rotate(180deg);
+ }
+
+ /* _______________________________________
+  Our user profile top search bx comp styling'
+  -------------------------- */
+
+  
+
+  .top-user-prof-search-bx ,  .use-prf-left-main-bx{
+    position: relative;
+    width: 100%;
+  }
+
+  /* .use-prf-left-main-bx{
+
+  } */
+
+  
+
+
+  .user-prof-grid-comp{
+    position: relative;
+    width: 100%;
+    height:100%;
+    padding-inline-start: 20rem;
+    padding-inline-end: 21.5rem;
+
+  }
+
+  .top-user-prof-search-bx{
+    position: relative;
+    width: 100%;
+    padding: 2rem 0 1rem 0;
+  
+  }
+
+  .top-user-prof-search-bx-flex{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .left-user-prof-name-bx h5{
+    font-size: 1.67rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #000248;
+  }
+
+  .right-user-prof-search-flex-bx{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .u-prf-srch{
+    position: relative;
+    width: 3.2rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    color: #000248;
+    background-color: #f9f8f3;
+    border-radius: .78rem;
+    cursor: pointer;
+  }
+
+  .u-prf-btn-bx{
+    position: relative;
+    padding: 0 .5rem ;
+    height: 3rem;
+    border-radius: .78rem;
+    width: 10rem;
+    background-color: #2d2c38;
+    font-size: .95rem;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: .7px;
+    transition: 500ms ease;
+  }
+
+  .u-prf-btn-bx:hover{
+    background-color: #000248;
+  }
+
+  /* _______________________________
+   Our User Prof counter comp styling
+   ______________________ */
+
+   .user-prof-counter-comp{
+    position: relative;
+    width: 100%;
+    margin-top: 3rem;
+   }
+
+   /* .u-p-cont{
+    position: relative;
+    max-width: 52rem;
+    margin: 0 auto;
+
+   } */
+
+   .user-prof-count-grid-bx{
+    position: relative;
+    width: 100%;
+    background-color: #f9f8f3;
+    padding: 2.5rem 2rem;
+    border-radius: .87rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
+    row-gap: 1rem;
+   }
+
+   .usr-prf-count-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+   }
+
+  
+
+   .c-icn{
+    position: relative;
+    margin-bottom: .78rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: #fdedc6;
+    display: grid;
+    place-items: center;
+   }
+
+   .c-icn i{
+    font-size: 1.3rem;
+    color: #000248;
+
+   }
+
+   .u-prf-c-info h5{
+    font-size:1.1rem;
+    color: #000248;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: .87;
+   }
+
+   .u-prf-c-info h4{
+      margin-top: .4rem;
+      color: #000248;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+   }
+
+   .u-prf-c-info h5 span{
+        font-size: 1.5rem;
+        font-weight: 700;
+   }
+   
+   .u-prf-c-info span{
+    font-size: .87rem;
+    color: #000248;
+    font-weight: 600;
+    letter-spacing: .6px;
+   }
+
+   .u-prf-c-info p{
+    margin-top: .2rem;
+    font-size: .98rem;
+    font-weight: 600;
+    color: #000248;
+    letter-spacing: .5px;
+    margin-bottom: 0 !important;
+   }
+
+   /* _______________________________
+    Users prof cards css styling
+    ---------------------- */
+
+    .user-prf-cards-comp{
+        position: relative;
+        width: 100%;
+        margin: 2rem 0;
+    }
+
+    .user-prf-card-grid-bx{
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        scroll-snap-type: inline mandatory;
+        gap: 1rem;
+        overflow-x: auto;
+        margin-inline-end: -15px;
+        padding-inline-end: 15px;
+    }
+
+    .user-prf-card-grid-bx::-webkit-scrollbar{
+      height: .456rem;
+      background-color: transparent;
+    }
+
+    .user-prf-card-grid-bx::-webkit-scrollbar-thumb{
+      background-color: #e4ffcd;
+      border-radius: 5rem;
+    }
+
+    .scrollbar-item{
+      min-width: 31%;
+      height: 19rem;
+      overflow-y: auto;
+      scroll-snap-align: start;
+      margin-bottom: 1rem;
+    }
+
+    .scrollbar-item::-webkit-scrollbar{
+      background-color: transparent;
+      width: .345rem;
+    }
+
+    .scrollbar-item::-webkit-scrollbar-thumb{
+       background-color: transparent;
+    }
+
+    .u-p-card{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: #e4e5ff;
+        border-radius: .87rem;
+        padding: 1.5rem 1.45rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        justify-content: center;
+        gap: .87rem;
+        z-index: 10;
+    }
+
+   .u-p-card-dull{
+      background-color: #f1ecec !important;
+   }
+
+    .prof-shap-img{
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: -1;
+        width: 55%;
+    }
+
+    .prof-shap-img img{
+        width: 100%;
+        height: auto;
+    }
+
+    .u-p-icn{
+        position: relative;
+        width: 3rem;
+        height: 3rem;
+        display: grid;
+        place-items: center;
+        background-color: #d7d5fd;
+        border-radius: 50%;
+        z-index: 10;
+
+    }
+
+    .u-p-icn-dull{
+      background-color: #ddd !important;
+    }
+
+    .u-p-icn i{
+        font-size: 1.1rem;
+        color: #000248;
+    }
+
+    .u-p-card h6{
+        margin-top: .5rem;
+        font-size: 1.1rem;
+        color: #000248;
+        letter-spacing: .5px;
+        z-index: 10;
+
+    }
+
+    .u-p-card p{
+        font-size: .95rem;
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+
+    .u-p-card h5{
+        margin-top: 0;
+        font-size: .98rem;
+        color: #000248;
+        font-weight: 700;
+        letter-spacing: .5px;
+    }
+
+    .u-p-card h5 span{
+        color: #939393;
+        font-weight: 500;
+    }
+    
+    .u-p-progrs{
+        position: relative;
+        width: 100%;
+        z-index: 10;
+
+    }
+
+    .u-p-progrs span{
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: .6px;
+        color: #000248;
+        margin-bottom: 1rem;
+    }
+
+    .u-p-prg-bar{
+        position: relative;
+        width: 100%;
+        height: .35rem;
+        margin-top: .5rem;
+        background-color: #dcddf6;
+        border-radius: 5rem;
+    }
+
+    .u-p-prg-bar:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100%;
+        background-color: #6448ea;
+        border-radius: 5rem;
+
+    }
+
+    .prf-user-flex-bx{
+        margin-top: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        z-index: 10;
+
+    }
+
+    .prf-user-flex-bx img{
+        width: 2rem;
+        border-radius: 50%;
+        border: .1rem solid #fff;
+    }
+
+    .prf-user-flex-bx img:nth-child(2){
+        margin-left: -.87rem;
+    }
+
+    .prf-user-flex-bx img:nth-child(3){
+        margin-left: -.87rem;
+    }
+    .prf-user-flex-bx img:nth-child(4){
+        margin-left: -.87rem;
+    }
+    .prf-user-flex-bx img:nth-child(5){
+        margin-left: -.87rem;
+    }
+  
+  
+    .u-p-card2{
+        background-color: #e9f5ff;
+    }
+
+    .u-p-card3{
+        background-color: #ffddcf;
+    }
+
+    .u-p-icn2{
+        background-color: #cce7fd;
+    }
+
+    .u-p-icn3{
+        background-color: #f8c3b2;
+    }
+
+    .u-p-prg-bar3{
+        background-color: #f4d6ca;
+    }
+
+    .u-p-prg-bar3:before{
+        background-color: #fb6225;
+    }
+
+    .u-p-prg-bar2{
+        background-color: #e5ecf4;
+    }
+
+    .u-p-prg-bar2:before{
+        background-color: #5ba5db;
+    }
+
+    /* __________________________________________
+     Our User Prof Updates css code
+     ---------------------- */
+
+     .user-prf-update-comp{
+        position: relative;
+        width: 100%;
+     }
+
+     .user-prf-update-comp3{
+      margin-top: 8rem;
+
+     }
+
+     .user-prf-update-comp h5{
+        font-size: 1.67rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #000248;
+        margin-bottom: 1.5rem;
+     }
+
+     .u-p-updt-table-bx{
+      white-space: nowrap;
+      border-collapse: collapse;
+      overflow-x: auto;
+     }
+
+     
+     .u-p-updt-table-bx::-webkit-scrollbar{
+      background-color: transparent;
+      height: .345rem;
+
+     }
+
+       
+
+     .u-p-updt-table-bx::-webkit-scrollbar-thumb{
+        background-color: #e4e5ff;
+        border-radius: 5rem;
+     }
+
+     .u-p-updt-table-bx , table{
+        position: relative;
+        width: 100%;
+        border-collapse: collapse;
+        overflow-x: auto;
+     }
+
+     .u-p-updt-table-bx , table tbody{
+        position: relative;
+        width: 100%;
+     }
+
+     .u-p-updt-table-bx table tbody tr td{
+      padding-inline: .5rem;
+     }
+
+    
+
+     .u-p-tb-data{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-block: .3rem;
+       
+     }
+
+     .t-icn{
+        position: relative;
+        width: 3.5rem;
+        height: 3.5rem;
+        background-color: #f9f8f3;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: #000248;
+     }
+
+     .u-p-tb-info{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: .5rem;
+     }
+
+     .u-p-tb-info h6{
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #000248;
+     }
+
+     .u-p-tb-info span{
+        font-size: .95rem;
+        color: #939393;
+     }
+
+     .complet-bx{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: .6px;
+        background-color: #e8e5f7;
+        color: #6448ea;
+        width: max-content;
+        margin-left: auto;
+        text-align: center;
+        padding: .1rem .5rem;
+        border-radius: .5rem;
+        cursor: pointer;
+     }
+
+     .upcoming-bx{
+        background-color: #feebe4;
+        color: #fb6225;
+        
+     }
+
+     /* ____________________________
+     User Prof right comp styling
+     ---------------------- */
+
+     .user-prf-parent-soc-post-chat-gpt-bx{
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 21rem;
+      height: 100vh;
+      padding-inline-end: 1.5rem;
+      padding-top: 8rem !important;
+      overflow-y: auto;
+     }
+
+     .user-prf-parent-soc-post-chat-gpt-bx::-webkit-scrollbar{
+      width: .345rem;
+      background-color: transparent;
+     }
+
+     .user-prf-parent-soc-post-chat-gpt-bx::-webkit-scrollbar-thumb{
+      background-color: #fed2c2;
+      border-radius: 5rem;
+     }
+
+     .user-prof-right-main-bx{
+         position: relative;
+         width: 100%;
+
+     }
+
+     .link-bx{
+        position: relative;
+        width: 3rem;
+        height: 3rem;
+        background-color: #f9f8f3;
+        border-radius: .5rem;
+        display: grid;
+        cursor: pointer;
+        place-items: center;
+        color: #000248;
+        transition: 500ms ease;
+
+     }
+
+     .link-bx i{
+      font-size: 1.1rem;
+     }
+
+     .link-bx:hover{
+      background-color: #f0cd1c;
+      color: #fff;
+     }
+
+     .use-prof-right-info-bx{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+     }
+
+     .use-prof-right-info-bx span{
+        font-size: .95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .67px;
+        color: #6448ea;
+        padding: 0 .65rem;
+        background-color: #ebe8fa;
+        border-radius: .5rem;
+     }
+
+     .use-prof-right-info-bx h6{
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #000248;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+     }
+
+     .use-prof-right-info-bx p{
+        font-size: .96rem;
+        font-weight: 500;
+        letter-spacing: .5px;
+        color: #939393;
+     }
+
+     .skill-bx{
+        position: relative;
+        margin-top: 1rem;
+     }
+
+     .skill-bx h5{
+        font-size: 1.1rem;
+        color: #939393;
+        font-weight: 600;
+        letter-spacing: .5px;
+        margin-bottom: 1rem;
+     }
+
+     .skill-flex-bx{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+     }
+
+     .skill-flex-bx a{
+        font-size: .95rem;
+        color: #030303;
+        font-weight: 600;
+        letter-spacing: .5px;
+        padding: .1rem .35rem;
+        border: .1rem solid #eee;
+        border-radius: .5rem;
+        transition: 500ms ease;
+     }
+
+     .skill-flex-bx a:hover{
+        border: .1rem solid #eee;
+     }
+
+     .participants-main{
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+     }
+
+     .prf-user-flex-bx2 img{
+        width: 2.5rem;
+     }
+
+     .block-list-bx{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+     }
+     .blk-li{
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+     }
+
+     .blk-i{
+        font-size: 1.2rem;
+        color: #000248;
+        
+     }
+
+     .blk-info{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        margin-top: .2rem;
+     }
+
+     .blk-info h6{
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: .66;
+        color: #000248;
+     }
+
+     .blk-info span{
+        font-size: .95rem;
+        color: #939393;
+     }
+
+     .two-btns-flex-bx{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .76rem;
+        padding: 1.5rem 1rem 2rem 0;
+        flex-wrap: wrap;
+     }
+
+     .two-btns-flex-bx:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 95%;
+        height: .1rem;
+        background-color: #eee;
+     }
+
+     .two-btns-flex-bx button{
+        position: relative;
+        width: 7rem;
+        height: 3rem;
+        background-color: #2d2c38;
+        text-align: center;
+        color: #fff;
+        font-size: .95rem;
+        letter-spacing: .5px;
+        border-radius: .5rem;
+        transition: 500ms ease;
+        border: .1rem solid #2d2c38;
+
+     }
+
+     .two-btns-flex-bx button:last-child{
+        background-color: transparent;
+        color: #939393;
+        border: none;
+     }
+
+     
+     .two-btns-flex-bx button:first-child:hover{
+        background-color: transparent;
+        border: .1rem solid #2d2c38;
+        color: #2d2c38;
+     }
+
+     .two-btns-flex-bx button:last-child:hover{
+        background-color: #2d2c38;
+        color: #fff;
+     }
+
+     .u-p-tb-numb-bx h6{
+        color: #000248;
+        font-size: .95rem;
+     }
+
+   .userprfactive{
+    display: block;
+   }
+
+   /* ___________________________________
+    Our User Prof Form css code
+    ---------------- */
+
+    .User-prof-Form-Main-bx{
+        position: relative;
+        width: 100%;
+        margin-top: 7.56rem;
+        height: max-content;
+    }
+
+    .u-p-f-cont{
+        max-width: 73rem;
+        margin: 0 auto;
+    }
+
+  
+
+    .user-prof-form-grid{
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+
+    .user-prof-form-bx{
+        position: relative;
+        width: 100%;
+        background-color: #e4e5ff;
+        padding: 2.56rem 1.5rem;
+        border-radius: .65rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1rem;
+        text-align: left;
+    }
+
+    .u-p-f-i{
+        position: relative;
+        width: 3rem;
+        height: 3rem;
+        background-color: #d2d4fe;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        color: #000248;
+    }
+
+  
+
+    .u-p-f-det h6{
+        margin-bottom: .76rem;
+        font-size: 1.1rem;
+        color: #000248;
+        font-weight: 600;
+        letter-spacing: .5px;
+    }
+
+    .u-p-f-det p{
+        font-size: .95rem;
+        color: #939393;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    .u-p-f-det p span{
+        font-weight: 600;
+        color: #000248;
+    }
+
+    .user-prof-form-bx2{
+        background-color: #e9f5ff;
+    }
+
+    .user-prof-form-bx2 .u-p-f-i{
+        background-color: #d5eafd;
+    }
+
+    .user-prof-form-bx3{
+        background-color: #ffddcf;
+    }
+
+    .user-prof-form-bx3{
+        align-items: center;
+        text-align: center;
+    }
+
+    .user-prof-form-bx3 h6{
+        font-size: 1.45rem;
+        margin-bottom: 1.5rem;
+        color: #000248;
+    }
+
+    .add-user-info-btn{
+        position: relative;
+        width: 4rem;
+        height: 4rem;
+        background-color: #f9cbb8;
+        border-radius: 50%;
+        font-size: 1.56rem;
+        color: #000248;
+    }
+
+    .user-prof-form{
+        margin-top: 2rem;
+        position: relative;
+        width: 100%;
+        background-color: #d6ecfe;
+        padding: 2rem 2rem;
+        border-radius: .5rem;
+
+    }
+
+    .user-prof-form h5{
+        font-size: 1.56rem;
+        color: #000248;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+    }
+
+    .usr-prof-inpt-bx{
+        position: relative;
+        width: 100%;
+        height: 2.78rem;
+    }
+
+    .usr-prof-inpt-bx input{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: .1rem solid #d6ecfe;
+        border-radius: .5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000248;
+        padding-inline: 1rem;
+    }
+
+    .usr-prof-inpt-bx input:focus-within ,   .usr-prof-inpt-bx select:focus-within{
+        box-shadow: none;
+        border-color: #d6ecfe;
+    }
+
+    .usr-prof-form-grid-bx{
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.5rem;
+        row-gap: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .usr-prof-form-grid-bx2{
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 1.5rem;
+        row-gap: 1.5rem;
+    }
+
+    .usr-prof-inpt-bx select{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: .1rem solid #d6ecfe;
+        border-radius: .5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000248;
+        padding-inline: 1rem;
+        cursor: pointer;
+    }
+
+    .u-prf-submit-btn{
+        margin-top: 2rem;
+        position: relative;
+        width: 10rem;
+        height: 3rem;
+        background-color: #98bbf8;
+        border: .1rem solid #98bbf8;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: .7px;
+        color: #fff;
+        border-radius: .35rem;
+        transition: 500ms ease;
+    }
+
+    .u-prf-submit-btn:hover{
+        background-color: #f9ab8e;
+        border-color: #f9ab8e;
+    }
+
+    .prof-data-edit{
+        position: absolute;
+        top: .67rem;
+        right: 3.5rem;
+        color: #000200;
+        width: 2rem ;
+        height: 2rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255,0.3);
+        border: .1rem solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.01);
+        display: grid;
+        place-items: center;
+        font-size: .89rem;
+        cursor: pointer;
+    }
+
+    .prof-data-close{
+        position: absolute;
+        top: .67rem;
+        right: 1rem;
+        color: #000200;
+        width: 2rem ;
+        height: 2rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255,0.3);
+        border: .1rem solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.01);
+        display: grid;
+        place-items: center;
+        font-size: .89rem;
+        cursor: pointer;
+    }
+
+    .user-prof-form{
+        display: none;
+    }
+
+    
+    .user-prof-form.profformactive{
+        display: block;
+    }
+
+    .user-prof-main-bx .em-text ,  .user-prof-main-bx .num-text{
+        line-height: 1.3;
+        letter-spacing: .5px;
+        font-size: .87rem;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+    }
+
+    .user-prof-main-bx .em-text i ,    .user-prof-main-bx .num-text i{
+        font-size: .8rem;
+        color: #a7a2a2;
+    }
+
+
+    /* ________________________________________
+     Our Profile Edit popup comp 
+     ------------------ */
+
+     .user-prof-edit-popup-comp{
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        transition: 500ms ease;
+        visibility: hidden;
+        opacity: 0;
+     }
+
+     .user-prof-edit-popup-comp.editpopupcompshow{
+        visibility: visible;
+        opacity: 1;
+     }
+
+     .user-prof-edit-popup-comp:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000200;
+        opacity: 0.4;
+       
+     }
+
+     .u-prf-edit-popup-bx{
+            position: relative;
+            top: 7rem;
+            background-color: #fff;
+            padding: 2.56rem 2.5rem;
+            width: 25rem;
+            border-radius: .3rem;
+     }
+
+     .u-prf-edit-popup-bx h5{
+        font-size: 1.56rem;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: #000200;
+        text-align: center;
+     }
+
+     .u-prf-edit-popup-bx form{
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+     }
+
+     .u-prf-edt-inpt-bx{
+        position: relative;
+        width: 100%;
+        height: 2.5rem;
+        background-color: transparent;
+        border: .1rem solid #e4e5ff;
+        border-radius: .2rem;
+     }
+
+     .u-prf-edt-inpt-bx input{
+        width: 100%;
+        height: 100%;
+        padding-inline: 1rem;
+        font-size: 1rem;
+        color: #757272;
+        font-weight: 500;
+        letter-spacing: .5px;
+     }
+
+     .u-prf-edt-inpt-bx input::placeholder{
+        font-weight: 400;
+        color: #939393;
+     }
+
+     .prof-chagen-btn{
+        width: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem auto 0 auto;
+        height: 2.56rem;
+        background-color: #e4e5ff;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color: #000248;
+        border-radius: .2rem;
+        cursor: pointer;
+        transition: 500ms ease;
+     }
+
+     .prof-chagen-btn:hover{
+        background-color: #8b8ff4;
+        color: #fff;
+     }
+
+     .prof-user-edit-form-bx-close{
+        position: absolute;
+        top: .87rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: #000248;
+        cursor: pointer;
+
+     }
+
+     /* ____________________________________
+      Our prof password comp styling 
+      ------------------- */
+
+      .prof-passwrd-comp{
+        position: relative;
+        width: 100%;
+        margin-top: 2rem;
+        width: 100%;
+        background-color: #fed2c2;
+        padding: 2rem 2rem;
+        border-radius: .3rem;
+      }
+
+      .prf-passwrd-form h5{
+        font-size: 1.55rem;
+        font-weight: 600;
+        color: #000248;
+        letter-spacing: 1px;
+        margin-bottom: 1.3rem;
+      }
+
+      .prf-passwrd-form form{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 3rem;
+        row-gap: 3rem;
+      }
+
+      .prf-passwrd-bx{
+        position: relative;
+        width: 100%;
+        height: 2.76rem;
+        background-color: #fff;
+        border-radius: .5rem;
+      }
+
+      .prf-passwrd-bx input{
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 1rem;
+        color: #000248;
+        font-weight: 500;
+        letter-spacing: .7px;
+        padding-inline: 1rem;
+
+      }
+
+      .prf-passwrd-bx input::placeholder{
+        font-weight: 400;
+      }
+
+      .prf-passwrd-btn{
+        position: relative;
+        width: 10rem;
+        height: 2.9rem;
+        background-color: #f88a62;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #fff;
+        font-size: 1.1rem;
+        border-radius: .4rem;
+      }
+
+      .edit-prof-btn{
+        font-size: .87rem;
+        cursor: pointer;
+        color: #c9c6c6;
+      }
+
+      .complet-bx3{
+         margin-left: 0;
+      }
+
+      .tb-reshed-btn , .tb-call-btn{
+         width: max-content;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         text-align: center;
+         padding: .15rem .78rem;
+         background-color: #ddedff;
+         border-radius: .5rem;
+         letter-spacing: .78px;
+         color: #156bce;
+         cursor: pointer;
+         font-size: 1rem;
+      }
+
+      .tb-call-btn{
+         background-color: #efffec;
+         color: #45d013;
+
+      }
+
+      .prog-edit-prof-flex-bx{
+         display: flex;
+         align-items: center;
+         gap: .78rem;
+         margin-top: .55rem;
+      }
+
+      .prog-bar-bx{
+         position: relative;
+         width: 14rem;
+         height: 1.6rem;
+         background-color: #f0f7eb;
+         border-radius: 5rem;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: .5rem .65rem;
+         z-index: 1;
+      }
+
+      .prog-bar-bx:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 70%;
+         height: 100%;
+         border-radius: 5rem;
+         background-color: #45d013;
+         z-index: -1;
+      }
+
+      .prog-bar-bx span:nth-child(1){
+         display: flex;
+         font-size: .87rem;
+         letter-spacing: .3px;
+         font-weight: 400;
+         color: #fff;
+
+      }
+
+      .prog-bar-bx .prog-num{
+         font-size: .95rem;
+         font-weight: 500;
+         letter-spacing: .5px;
+         color: #000248;
+      }
+      
+
+      .top-user-prof-search-bx{
+         margin-top: 8rem;
+      }
+
+      .user-prof-counter-comp{
+         margin-top: 2rem;
+      }
+
+      .apply-coupn-btn{
+         position: relative;
+         width: max-content;
+         padding: .15rem .78rem;
+         font-size: .9rem;
+         font-weight: 500;
+         letter-spacing: .7px;
+         text-align: center;
+         background-color: #d7d5fd;
+         border-radius: .55rem;
+         transition: 500ms ease;
+      }
+
+      .apply-coupn-btn2{
+         background-color: #cce7fd;
+      }
+
+      .apply-coupn-btn2:hover{
+         background-color: #b1dafb !important;
+
+      }
+
+      .apply-coupn-btn:hover{
+         background-color: #b7b3fa;
+      }
+
+      
+
+      .apply-coupn-btn3{
+         background-color: #f8c3b2;
+      }
+
+      .apply-coupn-btn3:hover{
+         background-color: #f8ac92;
+
+      }
+
+      .conceld-bx{
+         background-color: #ffdada;
+         color: red;
+      }
+
+      .user-profi-img{
+         overflow: hidden;
+      }
+
+      .prof-edit-text-btn{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            z-index: 1;
+            cursor: pointer;
+            font-size: .95rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 500ms ease;
+            opacity: 0;
+            color: #000248;
+
+      }
+
+      .prof-edit-text-btn:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #fff;
+         opacity: 0.8;
+         z-index: -1;
+      }
+
+      .user-profi-img:hover .prof-edit-text-btn{
+         opacity: 1;
+      } 
+    
+
+      .user-prof-change-popup-box{
+         position: fixed;
+         top: 0;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         width: 100%;
+         height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: flex-start;
+         z-index: 1000;
+         display: none;
+
+      }
+
+      .user-prof-change-popup-box:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #00020053;
+         
+      }
+
+      .user-prof-change-popup-box.prof-chang-popupactive{
+            display: flex;
+      }
+
+      .user-prof-popup-bx{
+         position: relative;
+         top: 5rem;
+         width: 20rem;
+         background-color: #fff;
+         padding: 2rem 1rem 2rem 1rem;
+         border-radius: .45rem;
+      }
+
+      .prof-chang-img{
+         width: 10rem;
+         height: 10rem;
+         margin: 0 auto;
+      }
+
+      .prof-chang-img img{
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         border-radius: 50%;
+      }
+
+      .user-prof-popup-bx input{
+         display: none;
+      }
+
+      .prof-input-file-bx{
+         width: 10rem;
+         margin: 2rem auto 0 auto;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         text-align: center;
+         padding: .56rem .45rem;
+         background-color: #000248;
+         color: #fff;
+         font-size: .8rem;
+         border-radius: .45rem;
+         font-weight: 500;
+         letter-spacing: .65px;
+      }
+
+      .prof-input-file-bx label{
+         cursor: pointer;
+      }
+
+      .prof-popup-close-btn{
+         position: absolute;
+         top: .56rem;
+         right: .87rem;
+         font-size: 1.3rem;
+         cursor: pointer;
+         color: #000200;
+      }
+
+      .pan-box-nav{
+         display: flex;
+         align-items: center;
+         gap: .3rem;
+      }
+
+      .pan-box-nav a i{
+         transform: translateY(.5px);
+         color: #000248;
+      }
+ 
+
+      @media all and (min-width: 1125px) and (max-width: 1380px){
+
+         html{
+            font-size: 85%;
+         }
+
+         .profile-log-out-btn{
+            top: 127%;
+         }
+
+         .user-profile-side-nav-main{
+            padding-top: 12.5rem;
+         }
+      
+         .chat-message-btn-flex-bx{
+            padding-top: 2.5rem ;
+         }
+
+         .user-prof-counter-comp {
+            margin-top: 2rem;
+         }
+
+         .User-prof-Form-Main-bx{
+            margin-top: 9.56rem;
+         }
+
+         .user-prf-update-comp3{
+            margin-top: 9rem;
+         }
+
+         .top-user-prof-search-bx{
+            margin-top: 10rem;
+         }
+
+        
+         
+        }
+
+      
+
+
+
+
+
+    
+
+     

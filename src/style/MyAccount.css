@@ -200,8 +200,8 @@ ____________________________________ */
 
 .user-prf-btn{
     position: relative;
-    width: 16rem;
-    padding: .87rem .5rem;
+    width: 12rem;
+    padding: .67rem .5rem;
     background-color: transparent;
     border: .1rem solid #0e4e51;
     transition: 500ms ease;

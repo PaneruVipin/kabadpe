@@ -8,7 +8,7 @@ const UserProfUpdates = () => {
     <section className="user-prf-update-comp">
         <div className="u-p-cont">
 
-            <h5>Appointments</h5>
+            <h5>Today Appointments</h5>
 
             <div className="u-p-updt-table-bx">
                 <table>

@@ -352,7 +352,7 @@ const UserProfile = () => {
    { profBtn === 2 ?  <UserProfForm/> : null};
    { profBtn === 4 ?  <SalesHistoryComp/> : null};
    { profBtn === 3 ?  <AppointmentComp/> : null};
-   { profBtn === 6 ?  <Supportticket/> : null};
+   { profBtn === 6 ?  <Supportticket /> : null};
    { profBtn === 9 ?  <UserOrders/> : null};
 
    

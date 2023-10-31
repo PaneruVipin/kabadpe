@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Redirect from "./Auth/RedirectIfLogin";
 import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
+import Protect from "./Auth/ProtectComp";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();

@@ -29,7 +29,7 @@ const Aboutoffer = () => {
               <div className="about-offer-prof-grid-bx">
                 <div className="abt-off-prof-bx">
                   <div className="a-check-bx">
-                    <i class="fa-solid fa-check"></i>
+                    <i className="fa-solid fa-check"></i>
                   </div>
                   <h4>We’re Professional</h4>
                   <p>Lorem ipsum is simply free dolor sit amet.</p>
@@ -37,7 +37,7 @@ const Aboutoffer = () => {
 
                 <div className="abt-off-prof-bx">
                   <div className="a-check-bx">
-                    <i class="fa-solid fa-check"></i>
+                    <i className="fa-solid fa-check"></i>
                   </div>
                   <h4>We’re Professional</h4>
                   <p>Lorem ipsum is simply free dolor sit amet.</p>

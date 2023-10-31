@@ -15,35 +15,35 @@ const Home = () => {
       {/* <!-- Main header--> */}
       <header className="main-header header-style-one">
         {/* <!--Start Header Top--> */}
-        <div class="header-top">
-          <div class="auto-container">
-            <div class="outer-box outer-box2">
-              <div class="t-headr-left-links-bx">
+        <div className="header-top">
+          <div className="auto-container">
+            <div className="outer-box outer-box2">
+              <div className="t-headr-left-links-bx">
                 <a href="#">
                   {" "}
-                  <i class="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
+                  <i className="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
                 </a>
-                <a href="#" class="linkactive">
-                  <i class="fa-solid fa-angles-right"></i> Kabadpe
+                <a href="#" className="linkactive">
+                  <i className="fa-solid fa-angles-right"></i> Kabadpe
                 </a>
                 <a href="#">
-                  <i class="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
+                  <i className="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
                 </a>
                 <a href="#">
                   {" "}
-                  <i class="fa-solid fa-angles-right"></i> Climconnect{" "}
+                  <i className="fa-solid fa-angles-right"></i> Climconnect{" "}
                 </a>
               </div>
 
-              <div class="header-top__left header-top_right">
-                <div class="header-contact-info-style1">
+              <div className="header-top__left header-top_right">
+                <div className="header-contact-info-style1">
                   <ul>
                     <li>
-                      <div class="icon">
+                      <div className="icon">
                         <img src="./images/customImg/game.png" />
                         <img src="./images/customImg/app-store.png" />
                       </div>
-                      <div class="text">
+                      <div className="text">
                         <p>Download App</p>
                       </div>
                     </li>
@@ -205,11 +205,13 @@ const Home = () => {
                           <span>Kabad Shop</span>
                         </NavLink>
                       </li>
-                      <li>
-                        <NavLink to="/account current">
-                          <span>My Account</span>
-                        </NavLink>
-                      </li>
+                      <Protect>
+                        <li>
+                          <NavLink to="/account">
+                            <span>My Account</span>
+                          </NavLink>
+                        </li>
+                      </Protect>
                       <Protect reverse>
                         <li>
                           <button
@@ -264,10 +266,7 @@ const Home = () => {
               <div className="logo float-left">
                 <NavLink to="index.html" className="img-responsive">
                   {/* <img src="assets/images/resources/sticky-logo.png" alt="" title=""> */}
-                  <img
-                    src="../public/images/resources/sticky-logo.png"
-                    alt=""
-                  />
+                  <img src="/images/resources/sticky-logo.png" alt="" />
                 </NavLink>
               </div>
               {/* <!--Right Col--> */}
@@ -291,7 +290,7 @@ const Home = () => {
           <nav className="menu-box">
             <div className="nav-logo">
               <NavLink to="index.html">
-                <img src="../public/images/resources/mobilemenu.png" alt="" />
+                <img src="/images/resources/mobilemenu.png" alt="" />
               </NavLink>
             </div>
             <div className="menu-outer">

@@ -109,7 +109,7 @@ const UserForm = ({ closepopUpUserForm }) => {
           }
         >
           <div onClick={closepopUpUserForm} className="user-form-close-btn">
-            <i class="fa-regular fa-circle-xmark"></i>
+            <i className="fa-regular fa-circle-xmark"></i>
           </div>
 
           <div
@@ -142,7 +142,6 @@ const UserForm = ({ closepopUpUserForm }) => {
                     touched,
                     ...rest
                   }) => {
-                    console.log("errors", errors);
                     return (
                       <Form>
                         <div className="user-form-inpt-bx user-form-inpt-bx1 user-form-inpt-bx3">
@@ -236,17 +235,17 @@ const UserForm = ({ closepopUpUserForm }) => {
 
                         <div className="other-pltofrm-login-link-flex-bx">
                           <button className="login-link-bx">
-                            <i class="fa-brands fa-facebook"></i>
+                            <i className="fa-brands fa-facebook"></i>
                             Facebook
                           </button>
 
                           <button className="login-link-bx login-link-bx2">
-                            <i class="fa-brands fa-google-plus"></i>
+                            <i className="fa-brands fa-google-plus"></i>
                             Google
                           </button>
 
                           {/* <button className="login-link-bx login-link-bx3">
-                        <i class="fa-brands fa-linkedin"></i>
+                        <i className="fa-brands fa-linkedin"></i>
                         Linkedin
                         </button> */}
                         </div>
@@ -310,12 +309,12 @@ const UserForm = ({ closepopUpUserForm }) => {
                     <div className="other-pltofrm-login-link-flex-bx">
 
                         <button className="login-link-bx">
-                        <i class="fa-brands fa-facebook"></i>
+                        <i className="fa-brands fa-facebook"></i>
                         Facebook
                         </button>
 
                         <button className="login-link-bx login-link-bx2">
-                        <i class="fa-brands fa-google-plus"></i>
+                        <i className="fa-brands fa-google-plus"></i>
                         Google
                         </button>
 

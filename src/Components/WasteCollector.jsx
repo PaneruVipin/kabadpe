@@ -36,12 +36,12 @@ const WasteCollector = () => {
           </p>
 
           <button className="navigate-link-btn mt-3">
-            <i class="fa-solid fa-location-dot"></i>
+            <i className="fa-solid fa-location-dot"></i>
             Click to Navigate Link
           </button>
 
           <button onClick={() => setAddressPopup(false)} className="cross-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
       </section>
@@ -96,7 +96,7 @@ const WasteCollector = () => {
           </div>
 
           <button onClick={() => setPopUp(false)} className="cross-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </button>
 
           {/* _______________ when user click confirm btn then after show a text  */}
@@ -110,7 +110,7 @@ const WasteCollector = () => {
           >
             <p>Waste Pickup Scheduled and information has been sent to User</p>
             <button className="navigate-link-btn">
-              <i class="fa-solid fa-location-dot"></i>
+              <i className="fa-solid fa-location-dot"></i>
               Click to Navigate Link
             </button>
           </div>
@@ -385,7 +385,7 @@ const WasteCollector = () => {
                   }
                 >
                   <div className="tab-icon">
-                    <i class="fa-solid fa-gear"></i>
+                    <i className="fa-solid fa-gear"></i>
                   </div>
                   My account setings
                 </button>

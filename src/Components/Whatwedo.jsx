@@ -157,35 +157,35 @@ const Whatwedo = () => {
               <div className="ot-serv-list">
                 <li>
                   <a className="servactive" href="#">
-                    EPR Services <i class="fa-solid fa-arrow-right-long"></i>
+                    EPR Services <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
 
                 <li>
                   <a href="#">
                     Shredding Services{" "}
-                    <i class="fa-solid fa-arrow-right-long"></i>
+                    <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
 
                 <li>
                   <a href="#">
                     Dismantling Services{" "}
-                    <i class="fa-solid fa-arrow-right-long"></i>
+                    <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
 
                 <li>
                   <a href="#">
                     Scrap Collection{" "}
-                    <i class="fa-solid fa-arrow-right-long"></i>
+                    <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
 
                 <li>
                   <a href="#">
                     Zero Waste Services{" "}
-                    <i class="fa-solid fa-arrow-right-long"></i>
+                    <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
               </div>

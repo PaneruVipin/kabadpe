@@ -16,6 +16,7 @@ import OtpVerify from "./Pages/OtpVerify";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "./features/user/userActions";
+import { userLocationByQuery } from "./apis/location";
 
 function App() {
   const dispatch = useDispatch();

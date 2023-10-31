@@ -74,17 +74,16 @@ const Pricelist = () => {
     setWeightValue(wValue);
   };
 
-  const addStaticRow = () => { // Replace with your static data
-    setDataTable([...dataTable, dataTable[dataTable.length-1]+1]);
+  const addStaticRow = () => {
+    // Replace with your static data
+    setDataTable([...dataTable, dataTable[dataTable.length - 1] + 1]);
   };
 
   const deleteStaticRow = () => {
-    const newData =  [...dataTable];
+    const newData = [...dataTable];
     newData.pop();
     setDataTable(newData);
-
-    
-  }
+  };
 
   // console.log(productImages[selectedValue[2]])
 
@@ -100,28 +99,30 @@ const Pricelist = () => {
                 <div className="phone-number-box1">
                   <a className="" href="#">
                     {" "}
-                    <i class="fa-solid fa-angles-right"></i> Climstripe Shift
+                    <i className="fa-solid fa-angles-right"></i> Climstripe
+                    Shift
                   </a>
                 </div>
 
                 <div className="phone-number-box1">
                   <a className="active" href="index.html">
                     {" "}
-                    <i class="fa-solid fa-angles-right"></i> Kabadpe
+                    <i className="fa-solid fa-angles-right"></i> Kabadpe
                   </a>
                 </div>
 
                 <div className="phone-number-box1">
                   <a href="#">
                     {" "}
-                    <i class="fa-solid fa-angles-right"></i> Green Saman Shop
+                    <i className="fa-solid fa-angles-right"></i> Green Saman
+                    Shop
                   </a>
                 </div>
 
                 <div className="phone-number-box1">
                   <a href="#">
                     {" "}
-                    <i class="fa-solid fa-angles-right"></i> Climconnect
+                    <i className="fa-solid fa-angles-right"></i> Climconnect
                   </a>
                 </div>
               </div>
@@ -306,7 +307,7 @@ const Pricelist = () => {
 
                       <li>
                         <NavLink
-                          to="javascript:void(0);"
+                          to=""
                           data-toggle="modal"
                           data-target="#exampleModal"
                         >
@@ -350,10 +351,7 @@ const Pricelist = () => {
               <div className="logo float-left">
                 <a href="index.html" className="img-responsive">
                   {/* <img src="assets/images/resources/sticky-logo.png" alt="" title=""> */}
-                  <img
-                    src="images/resources/sticky-logo.png"
-                    alt=""
-                  />
+                  <img src="images/resources/sticky-logo.png" alt="" />
                 </a>
               </div>
               {/* <!--Right Col--> */}
@@ -501,11 +499,14 @@ const Pricelist = () => {
                             onClick={addStaticRow}
                             className="add-btn table-btn"
                           >
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                           </div>
 
-                          <div onClick={deleteStaticRow} className="add-btn table-btn">
-                            <i class="fa-solid fa-minus"></i>
+                          <div
+                            onClick={deleteStaticRow}
+                            className="add-btn table-btn"
+                          >
+                            <i className="fa-solid fa-minus"></i>
                           </div>
                         </div>
                       </td>
@@ -561,11 +562,11 @@ const Pricelist = () => {
                         <div className="add-remov-btn">
 
                             <div onClick={addStaticRow} className="add-btn table-btn">
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                             </div>
             
                             <div className="add-btn table-btn">
-                            <i class="fa-solid fa-minus"></i>
+                            <i className="fa-solid fa-minus"></i>
                             </div>
                         </div>
                         
@@ -580,7 +581,7 @@ const Pricelist = () => {
           <div className="subtotal-bx">
             <h5>SubTotal</h5>
             <div className="total-amount-bx">
-            <p>
+              <p>
                 <td>
                   <p className="amount-text">
                     {/* {productPrice[selectedValue] * weightValue} */}
@@ -588,8 +589,7 @@ const Pricelist = () => {
                   </p>
                 </td>
               </p>
-              <h6>Total Amount  </h6>
-              
+              <h6>Total Amount </h6>
             </div>
           </div>
         </div>

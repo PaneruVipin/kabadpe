@@ -202,7 +202,7 @@ const Myaccount = () => {
                   }
                 >
                   <div className="tab-icon">
-                    <i class="fa-solid fa-gear"></i>
+                    <i className="fa-solid fa-gear"></i>
                   </div>
                   My account setings
                 </button>
@@ -533,8 +533,8 @@ const Myaccount = () => {
 
                   <p className="tex-line mt-4">Delivery address</p>
 
-                  <div class="form-check">
-                    {/* <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> */}
+                  <div className="form-check">
+                    {/* <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"> */}
                     <input
                       className="form-check-input"
                       type="checkbox"

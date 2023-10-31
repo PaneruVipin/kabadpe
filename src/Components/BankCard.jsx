@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style/profile.css";
+import "../style/Profile.css";
 import "../style/BankCard.css";
 import AccountForm from "./AccountForm";
 

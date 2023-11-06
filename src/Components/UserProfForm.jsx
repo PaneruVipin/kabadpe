@@ -6,6 +6,7 @@ import BankCard from "./BankCard";
 import UserBankCard from "./UserBankCard";
 import { useQuery } from "@tanstack/react-query";
 import {
+  userAddressDelete,
   userAddressesAdd,
   userAddressesFetch,
   userAddressesUpdate,
@@ -37,11 +38,9 @@ const UserProfForm = () => {
     setFormTypeEdit(true);
   };
 
-  const deleteDataBx = (index) => {
-    const updatedData = inputArr.filter((item, id) => {
-      return index !== id;
-    });
-    setInputArr(updatedData);
+  const deleteDataBx = async (id) => {
+    await userAddressDelete(id);
+    refetch();
   };
 
   const handleAddUserAddress = async (data, { resetForm }) => {

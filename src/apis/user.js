@@ -61,14 +61,27 @@ export const userAddressesUpdate = resolvePromise(
 export const userAddressDelete = resolvePromise(async (id) => {
   const apiUrl = ENV_API_BASE_URL + `/user/address/${id}`;
   const token = getFromLocalStorage("token");
-  const { data: res } = await axios.delete(
-    apiUrl,
-    {},
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
+  const { data: res } = await axios.delete(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
   return res?.message;
 });
+
+export const userResetPassword = resolvePromise(
+  async ({ newPassword, confirmNewPassword }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/password/reset`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { newPassword, confirmNewPassword },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

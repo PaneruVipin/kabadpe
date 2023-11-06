@@ -1,9 +1,55 @@
 import React, { useState } from "react";
 import UserBankForm from "./UserBankForm";
 import "../style/BankCard.css";
+import {
+  userBankAccountAdd,
+  userBankAccountDelete,
+  userBankAccountFetch,
+  userBankAccountUpdate,
+} from "../apis/bankAccount";
+import { useQuery } from "@tanstack/react-query";
 
 const UserBankCard = () => {
-    const [userBankForm , setUserBankForm] = useState(false);
+  const initialValueAccountDetail = {
+    bankName: "",
+    accountHolderName: "",
+    accountNumber: "",
+    IFSCCode: "",
+  };
+  const [initialValues, setInitialValues] = useState(initialValueAccountDetail);
+  const [userBankForm, setUserBankForm] = useState(false);
+  const [formTypeEdit, setFormTypeEdit] = useState(false);
+  const { data: bankAccounts, refetch } = useQuery({
+    queryKey: ["bankAccounts"],
+    queryFn: () => userBankAccountFetch(),
+  });
+
+  const handleAddAccountDeatil = async (data) => {
+    await userBankAccountAdd(data);
+    refetch();
+    setFormTypeEdit(false);
+    setUserBankForm(!userBankForm);
+  };
+  const handleUpdateAccountDetail = async (data) => {
+    await userBankAccountUpdate(data);
+    refetch();
+    setFormTypeEdit(false);
+    setUserBankForm(!userBankForm);
+  };
+  const handleUpdateIconClick = (data) => {
+    setInitialValues(data);
+    setUserBankForm(!userBankForm);
+    setFormTypeEdit(true);
+  };
+  const handledeleteIconClick = async (id) => {
+    await userBankAccountDelete(id);
+    refetch();
+  };
+  const handleAddDataBtnClick = () => {
+    setInitialValues(initialValueAccountDetail);
+    setUserBankForm(!userBankForm);
+    setFormTypeEdit(false);
+  };
   return (
     <>
       <section className="user-bank-comp">
@@ -11,76 +57,81 @@ const UserBankCard = () => {
           <h5>Bank Card Details</h5>
 
           <div className="bank-card-table bank-card-table2">
-              <table>
-            <thead>
-              <tr>
-                <th>Card Name</th>
-                <th>Card Holder</th>
-                <th>Card Number</th>
-                <th>Edit/Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Kotak Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>Kotak Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>HDFC Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-            </tbody>
-              </table>
+            <table>
+              <thead>
+                <tr>
+                  <th>Bank Name</th>
+                  <th>Account Holder Name</th>
+                  <th>IFSC Code</th>
+                  <th>Account Number</th>
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!bankAccounts?.error
+                  ? bankAccounts?.map(
+                      ({
+                        IFSCCode,
+                        accountNumber,
+                        accountHolderName,
+                        bankName,
+                        id,
+                      }) => (
+                        <tr>
+                          <td>{bankName}</td>
+                          <td>{accountHolderName}</td>
+                          <td>
+                            <div className="card-num-bx">
+                              <span>xxxx</span> <span>xxxx</span>{" "}
+                              <span>{IFSCCode?.slice(-4)}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="card-num-bx">
+                              <span>xxxx</span> <span>xxxx</span>{" "}
+                              <span>{accountNumber?.slice(-4)}</span>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="edit-del-flex-btn ">
+                              <div
+                                onClick={() =>
+                                  handleUpdateIconClick({
+                                    IFSCCode,
+                                    accountNumber,
+                                    accountHolderName,
+                                    bankName,
+                                    id,
+                                  })
+                                }
+                                className="prof-data-edit tb-edit-btn"
+                              >
+                                <i class="fa-solid fa-pen-to-square"></i>
+                              </div>
+                              <div
+                                onClick={() => handledeleteIconClick(id)}
+                                className="prof-data-close tb-del-btn"
+                              >
+                                <i class="fa-solid fa-trash"></i>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    )
+                  : null}
+              </tbody>
+            </table>
           </div>
 
-          <button  onClick={() => setUserBankForm(!userBankForm)} className="table-card-add-data-btn table-card-add-data-btn2">
-          <i class="fa-solid fa-plus"></i> Add Card Data
+          <button
+            onClick={handleAddDataBtnClick}
+            className="table-card-add-data-btn table-card-add-data-btn2"
+          >
+            <i class="fa-solid fa-plus"></i> Add Card Data
           </button>
-          
-{/*           
+
+          {/*           
           <div className="user-bank-grid">
             <div className="user-bank-card-bx bank-card-bx">
               <h5>Kotak Bank</h5>
@@ -120,9 +171,16 @@ const UserBankCard = () => {
             </div>
           </div> */}
 
-
-        { userBankForm ? <UserBankForm /> : null }
-          
+          {userBankForm ? (
+            <UserBankForm
+              initialValues={initialValues}
+              onSubmit={
+                formTypeEdit
+                  ? handleUpdateAccountDetail
+                  : handleAddAccountDeatil
+              }
+            />
+          ) : null}
         </div>
       </section>
     </>

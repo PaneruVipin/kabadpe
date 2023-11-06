@@ -66,7 +66,7 @@ const Ratelistcomp = () => {
   };
 
   const { isPending, data: kabadItems } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["rateList"],
     queryFn: () => userRateListFetch(),
   });
   const calculateRate = async (data) => {

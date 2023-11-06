@@ -13,4 +13,62 @@ export const getUser = async () => {
   return res;
 };
 
-export const testApi = resolvePromise(getUser);
+export const userAddressesFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/user/address`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.addresses;
+});
+
+export const userAddressesAdd = resolvePromise(
+  async ({ street, city, state, zipCode, locationType, landmark }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/address`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.post(
+      apiUrl,
+      { street, city, state, zipCode, locationType, landmark },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const userAddressesUpdate = resolvePromise(
+  async ({ street, city, state, zipCode, locationType, landmark, id }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/address/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { street, city, state, zipCode, locationType, landmark },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const userAddressDelete = resolvePromise(async (id) => {
+  const apiUrl = ENV_API_BASE_URL + `/user/address/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.delete(
+    apiUrl,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

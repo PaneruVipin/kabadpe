@@ -4,7 +4,7 @@ import "../style/BankCard.css";
 import AccountForm from "./AccountForm";
 
 const BankCard = () => {
-    const [accountForm , setAccountForm] =  useState(false);
+  const [accountForm, setAccountForm] = useState(false);
   return (
     <>
       <section className="bank-card-cmp">
@@ -12,76 +12,94 @@ const BankCard = () => {
           <h4>Your Card Details</h4>
 
           <div className="bank-card-table">
-              <table>
-            <thead>
-              <tr>
-                <th>Card Type</th>
-                <th>Card Holder</th>
-                <th>Card Number</th>
-                <th>Edit/Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Credit Card</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setAccountForm(!accountForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>Credit Card</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setAccountForm(!accountForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>Credit Card</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setAccountForm(!accountForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-            </tbody>
-              </table>
+            <table>
+              <thead>
+                <tr>
+                  <th>Card Type</th>
+                  <th>Card Holder</th>
+                  <th>Card Number</th>
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Credit Card</td>
+                  <td>Preet Aggarwal</td>
+                  <td>
+                    <div className="card-num-bx">
+                      <span>xxxx</span> <span>xxxx</span> <span>2509</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="edit-del-flex-btn ">
+                      <div
+                        onClick={() => setAccountForm(!accountForm)}
+                        className="prof-data-edit tb-edit-btn"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </div>
+                      <div className="prof-data-close tb-del-btn">
+                        <i class="fa-solid fa-trash"></i>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Credit Card</td>
+                  <td>Preet Aggarwal</td>
+                  <td>
+                    <div className="card-num-bx">
+                      <span>xxxx</span> <span>xxxx</span> <span>2509</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="edit-del-flex-btn ">
+                      <div
+                        onClick={() => setAccountForm(!accountForm)}
+                        className="prof-data-edit tb-edit-btn"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </div>
+                      <div className="prof-data-close tb-del-btn">
+                        <i class="fa-solid fa-trash"></i>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Credit Card</td>
+                  <td>Preet Aggarwal</td>
+                  <td>
+                    <div className="card-num-bx">
+                      <span>xxxx</span> <span>xxxx</span> <span>2509</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="edit-del-flex-btn ">
+                      <div
+                        onClick={() => setAccountForm(!accountForm)}
+                        className="prof-data-edit tb-edit-btn"
+                      >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </div>
+                      <div className="prof-data-close tb-del-btn">
+                        <i class="fa-solid fa-trash"></i>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <button onClick={() => setAccountForm(!accountForm)} className="table-card-add-data-btn">
-          <i class="fa-solid fa-plus"></i> Add Card Data
+          <button
+            onClick={() => setAccountForm(!accountForm)}
+            className="table-card-add-data-btn"
+          >
+            <i class="fa-solid fa-plus"></i> Add Card Data
           </button>
-          
-{/* 
+
+          {/* 
           <div className="bank-card-grid">
             <div className="bank-card-bx">
               <h5>Credit Card</h5>
@@ -131,17 +149,10 @@ const BankCard = () => {
                 
             </div>
           </div> */}
-
-          
-          
         </div>
 
-       { accountForm ? <AccountForm /> : null }
+        {accountForm ? <AccountForm /> : null}
       </section>
-
-
-  
-      
     </>
   );
 };

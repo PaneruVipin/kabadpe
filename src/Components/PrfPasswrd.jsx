@@ -9,12 +9,14 @@ const PrfPasswrd = () => {
     newPassword: "",
     confirmNewPassword: "",
   };
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data, { resetForm }) => {
     setApiErrors({ ...apiErrors, resetPassword: "" });
     const action = await userResetPassword(data);
     if (action?.error) {
       setApiErrors({ ...apiErrors, resetPassword: action?.message });
+      return;
     }
+    resetForm();
   };
   return (
     <>

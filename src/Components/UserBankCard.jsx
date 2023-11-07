@@ -54,7 +54,7 @@ const UserBankCard = () => {
     <>
       <section className="user-bank-comp">
         <div className="bank-cont">
-          <h5>Bank Card Details</h5>
+          <h5>Your Bank Details</h5>
 
           <div className="bank-card-table bank-card-table2">
             <table>

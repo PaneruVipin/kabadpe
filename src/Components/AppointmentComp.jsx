@@ -3,7 +3,7 @@ import UseProfRightbx from "./UseProfRightbx";
 import "../style/Profile.css";
 import { NavLink } from "react-router-dom";
 
-const AppointmentComp = () => {
+const AppointmentComp = ({onSupportClick}) => {
     const [popupUser, setPopupUser] = useState(false);
   return (
     <>
@@ -20,7 +20,7 @@ const AppointmentComp = () => {
                     <input type="text" name="search" id="search" placeholder="Search..." />
                 </div>
 
-                <button  className="supp-link-btn">
+                <button onClick={onSupportClick}  className="supp-link-btn">
                 <i class="fa-solid fa-hands-holding-child"></i>
                     Support
                 </button>
@@ -60,7 +60,7 @@ const AppointmentComp = () => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn">Call to Confirm</div>
+                      <div className=" tb-call-btn">Call</div>
                     </td>
 
                     <td>
@@ -96,7 +96,7 @@ const AppointmentComp = () => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn">Call to Confirm</div>
+                      <div className=" tb-call-btn">Call </div>
                     </td>
 
                     <td>
@@ -130,6 +130,14 @@ const AppointmentComp = () => {
                     <td>
                       <div className="complet-bx complet-bx3">Completed</div>
                     </td>
+
+                    <td>
+                    <button onClick={onSupportClick} className="supp-link-btn supp-link-btn2">
+                <i class="fa-solid fa-hands-holding-child"></i>
+                    Support
+                </button>
+                    </td>
+                    
                   </tr>
 
                   <tr>
@@ -158,6 +166,14 @@ const AppointmentComp = () => {
                     <td>
                       <div className="complet-bx complet-bx3">Completed</div>
                     </td>
+
+                    <td>
+                    <button onClick={onSupportClick} className="supp-link-btn supp-link-btn2">
+                <i class="fa-solid fa-hands-holding-child"></i>
+                    Support
+                </button>
+                    </td>
+                    
                   </tr>
 
                   <tr>

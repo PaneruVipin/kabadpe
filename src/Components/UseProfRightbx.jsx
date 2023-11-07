@@ -3,13 +3,15 @@ import '../style/ChatSoclPost.css';
 import Chats from "./Chats";
 import '../style/SocialPost.css'
 import Socialpost from "./Socialpost";
+import CenterSocialPost from "./CenterSocialPost";
+import '../style/CenterSocialPost.css'
 
 
 const UseProfRightbx = () => {
 const [chat, setChat] = useState(false)
 const [socPost, setSocPost] = useState(true)
+const [socPostOne , setSocPostOne] = useState(false);
 
- 
 const handleChat = () => {
 
     setChat(true)
@@ -60,11 +62,15 @@ const socpostFunc = () => {
 
       <div className={socPost === true ? "social-post soclpostactive" : "social-post"}>
 
-<Socialpost />
+<Socialpost onclickShowSocPost={ () => setSocPostOne(true) }  />
   
 </div>
 
 </section>
+
+  
+{socPostOne === true ? <CenterSocialPost   onClickCloseSocPost={ () => setSocPostOne(false) } />  : null }
+
     </>
   );
 };

@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "./features/user/userActions";
 import { userLocationByQuery } from "./apis/location";
+import WasteCollectorDashboard from "./Pages/WasteCollectorDashboard";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ function App() {
       <Route path="/ratelist" element={<RateList />} />
       <Route path="/pricelist" element={<PricelistPage />} />
       <Route path="/otpverify" element={<OtpVerify />} />
+      <Route path="/wastecolectdashboard" element={<WasteCollectorDashboard />} />
+
     </Routes>
   );
 }

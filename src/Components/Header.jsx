@@ -185,6 +185,19 @@ const Header = () => {
                           </div>
                         </div>
                       </li>
+
+                      <li>
+                        <NavLink to="/schedulepickup">
+                          <span>Schedule Pickup</span>
+                        </NavLink>
+                      </li>
+  
+                      <li>
+                        <NavLink to="/ratelist">
+                          <span>Rate list</span>
+                        </NavLink>
+                      </li>
+
                       <li className="aboutdrpdwn">
                         <NavLink to="/about">
                           <span>About Us</span>
@@ -201,21 +214,8 @@ const Header = () => {
                           </p>
                         </div>
                       </li>
-                      <li>
-                        <NavLink to="/wastegept">
-                          <span>Wastegpt</span>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/ratelist">
-                          <span>Rate list</span>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/kabadshop">
-                          <span>Kabad Shop</span>
-                        </NavLink>
-                      </li>
+
+                    
                       <li>
                         <NavLink to="/account">
                           <span>My Account</span>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LightGallery from "lightgallery/react";
 
+
 // import styles
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
@@ -12,9 +13,9 @@ import "lightgallery/css/lg-rotate.css";
 import lgThumbnail from "lightgallery/plugins/thumbnail";
 import lgZoom from "lightgallery/plugins/zoom";
 import '../style/CenterSocialPost.css'
-import CenterSocialPost from "./CenterSocialPost";
 
-const Socialpost = ({onclickShowSocPost}) => {
+
+const CenterSocialPostInfo = () => {
   const items = [
     { name: "Public", imageUrl: "./images/chats/globe.png" },
     { name: "Friends", imageUrl: "./images/chats/friends.png" },
@@ -128,14 +129,8 @@ nesciunt nulla natus ex, qui
 
   return (
     <>
-      <div className="social-post-main-bx">
-        <div className="soc-post-heading-flex">
+      <div className="social-post-main-bx social-post-main-bx2">
         <h4>Social Post</h4>
-
-        <div onClick={onclickShowSocPost} className="expand-btn">
-      <i class="fa-solid fa-expand"></i>
-      </div>
-        </div>
 
         <div className="soc-post-max-height">
           {galleryData.map(
@@ -150,11 +145,11 @@ nesciunt nulla natus ex, qui
             }) => (
               <div key={{ id }} className="user-soc-post-main">
                 <div className="soc-post-box">
-                  <div className="left-soc-post-img">
+                  <div className="left-soc-post-img left-soc-post-img2">
                     <img src={profileImage} alt="" />
                   </div>
 
-                  <div className="right-soc-post-info">
+                  <div className="right-soc-post-info right-soc-post-info2">
                     <h5>{name}</h5>
                     <p>
                       {date}
@@ -167,7 +162,7 @@ nesciunt nulla natus ex, qui
                   <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
                     {descImages.map((path) => (
                       <a  href={path} className="soc-post-img">
-                        <img style={{width:descImages.length>1?"8rem":"98%", height:descImages.length>1? "6rem": "7rem"}} src={path} alt="" />
+                        <img style={{width:descImages.length>1?"16rem":"100%", height:descImages.length>1? "10rem": "15rem"}} src={path} alt="" />
                       </a>
                     ))}
                     {/* <a href="./images/customImg/blog-2.jpg" className="soc-post-img">
@@ -183,7 +178,7 @@ nesciunt nulla natus ex, qui
                 </div>
 
 
-                  <div className="post-like-share-comment-btns-flex-bx">
+                  <div className="post-like-share-comment-btns-flex-bx post-like-share-comment-btns-flex-bx2">
 
                     <div onClick={() => setPostLike(!postLike)} className="post-btn">
                   {postLike === true ? 
@@ -199,13 +194,13 @@ nesciunt nulla natus ex, qui
             
   </div>
 
-                <p className="soc-para">{desc}</p>
+                <p className="soc-para soc-para2">{desc}</p>
 
              <div className="comment-post-box">
-              <div className="left-comment-prof-logo">
+              <div className="left-comment-prof-logo left-comment-prof-logo2">
                 <img src="./images/customImg/client-01.png" alt="" />
               </div>
-              <div className="comment-input">
+              <div className="comment-input comment-input2">
                 <input type="text" name="comment" id="comment" placeholder="Add a Comment" />
                 <div className="send-comment-btn">
                 <i class="fa-regular fa-paper-plane"></i>
@@ -319,7 +314,7 @@ nesciunt nulla natus ex, qui
         <div
           onClick={() => handlePOpup()}
           className={
-            clickpopupBx ? "popup-clik-box popupclickbxhide" : "popup-clik-box"
+            clickpopupBx ? "popup-clik-box popup-clik-box2 popupclickbxhide" : "popup-clik-box popup-clik-box2"
           }
         >
           <span>Whats on your mind...</span>
@@ -331,14 +326,14 @@ nesciunt nulla natus ex, qui
           cretPost ? "create-post-sec cretpostactive" : "create-post-sec"
         }
       >
-        <div className="create-post-main-bx">
+        <div className="create-post-main-bx create-post-main-bx2">
           <h5>Create Post</h5>
 
           <div className="create-post-user-bx">
-            <div className="left-crt-post-img">
+            <div className="left-crt-post-img left-crt-post-img2">
               <img src="./images/chats/chat-2.jpg" alt="" />
             </div>
-            <div className="right-crt-post-det">
+            <div className="right-crt-post-det right-crt-post-det2">
               <h6>Faiz Alam</h6>
               <div className="select-post">
                 {selectedItemImage && (
@@ -358,7 +353,7 @@ nesciunt nulla natus ex, qui
             </div>
           </div>
 
-          <div className="type-message">
+          <div className="type-message type-message2">
             <textarea
               name="content"
               id="content"
@@ -376,7 +371,7 @@ nesciunt nulla natus ex, qui
             )}
           </div>
 
-          <div className="selct-file-path-bx">
+          <div className="selct-file-path-bx selct-file-path-bx2">
             <p>Add your Post</p>
             <label htmlFor="input_file">
               {" "}
@@ -397,11 +392,9 @@ nesciunt nulla natus ex, qui
           </div>
         </div>
       </div>
-
-            
-      
     </>
   );
 };
 
-export default Socialpost;
+export default CenterSocialPostInfo;
+

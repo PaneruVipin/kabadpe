@@ -1,0 +1,149 @@
+
+/* ___________________________________
+ Our center social post css code
+ --------------------- */
+
+
+ .user-prf-parent-soc-post-chat-gpt-bx2{
+    position: relative;
+    width: 60rem;
+    height: 40rem;
+    z-index: 1000 !important;
+    padding-top: 0 !important;
+
+ }
+
+
+ .center-social-post-main-bx{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000 !important;
+ }
+
+
+
+ .center-social-post-main-bx:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.56;
+    z-index: -1;
+ }
+
+ .lg-react-element {
+    margin-block: 1rem;
+ }
+
+ .social-post-main-bx2 h4{
+    text-align: center ;
+    font-size: 2rem;
+
+ }
+
+ .post-like-share-comment-btns-flex-bx2 i{
+    font-size: 1.3rem;
+ }
+
+ .soc-para2{
+    font-size: 1.2rem;
+    max-width: 30rem;
+ }
+
+ .left-soc-post-img2{
+    width: 3.5rem;
+    height: 3.3rem;
+ }
+
+ .right-soc-post-info2 h5{
+    font-size: 1.25rem;
+ }
+
+ .right-soc-post-info2 p ,  .right-soc-post-info2 p i{
+    font-size: 1.2rem;
+ }
+
+ .left-comment-prof-logo2{
+    width: 2.87rem;
+    height: 2.5rem;
+ }
+
+ .comment-input2 input{
+    font-size: 1.25rem;
+ }
+
+ .popup-clik-box2 span{
+    font-size: 1.25rem;
+ }
+
+ .soc-logo2{
+    width: 9rem !important;
+ }
+
+ .create-post-main-bx2 h5{
+    font-size: 1.76rem;
+ }
+
+ .left-crt-post-img2{
+    width: 3rem;
+    height:3rem;
+ }
+
+ .right-crt-post-det2 h6{
+    font-size: 1.25rem;
+ }
+
+ .select-post select{
+    font-size: 1.1rem;
+ }
+
+.type-message2 textarea{ 
+    font-size: 1.2rem ;
+}
+
+.selct-file-path-bx2 p{
+    font-size: 1.2rem;
+}
+
+.close-soc-btn{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    color: #000;
+    cursor: pointer;
+}
+
+.soc-post-heading-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.soc-post-heading-flex h4{
+    margin-bottom: 0;
+}
+
+.expand-btn{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgb(250, 243, 215);
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    color: burlywood;
+    cursor: pointer;
+}

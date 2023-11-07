@@ -1821,6 +1821,16 @@
          gap: .67rem;
          letter-spacing: 1px;
       }
+
+      .supp-link-btn2{
+         width: auto;
+         background-color: #ffdfff;
+         color: purple;
+         height: max-content;
+         padding-block: .15rem;
+         padding-inline: 1.23rem;
+
+      }
       
 
       @media all and (min-width: 1125px) and (max-width: 1380px){

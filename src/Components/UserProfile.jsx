@@ -7,6 +7,7 @@ import AppointmentComp from './AppointmentComp';
 import Supportticket from './Supportticket';
 import UserOrders from './UserOrders';
 import { NavLink } from 'react-router-dom';
+import Header from './Header';
 
 const UserProfile = () => {
   const [profBtn, setProfBtn] = useState(1);
@@ -33,7 +34,7 @@ const UserProfile = () => {
   
   return (
     <>
-
+{/* 
 <header className="main-header header-style-one">
 
 
@@ -220,7 +221,8 @@ const UserProfile = () => {
     </nav>
 </div>
 
-</header>
+</header> */}
+    <Header />
 
     <div className="user-profile-side-nav-main">
 
@@ -267,7 +269,7 @@ const UserProfile = () => {
                 Dashboard
             </button>
 
-            <button onClick={() => filterTab(5)} className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}>
+            <button onClick={() => filterTab(5)} className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}>
             <div className="u-prf-tab-icon">
             <i class="fa-solid fa-wallet"></i>
                   </div>
@@ -351,8 +353,8 @@ const UserProfile = () => {
    { profBtn === 1 ?  <UserProfGridComp/> : null};
    { profBtn === 2 ?  <UserProfForm/> : null};
    { profBtn === 4 ?  <SalesHistoryComp/> : null};
-   { profBtn === 3 ?  <AppointmentComp/> : null};
-   { profBtn === 6 ?  <Supportticket /> : null};
+   { profBtn === 3 ?  <AppointmentComp onSupportClick={()=>setProfBtn(6)}/> : null};//
+   { profBtn === 6 ?  <Supportticket /> : null};//
    { profBtn === 9 ?  <UserOrders/> : null};
 
    

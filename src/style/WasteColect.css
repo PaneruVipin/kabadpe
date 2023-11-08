@@ -533,6 +533,17 @@ border-bottom-color: #4e49b8 ;
     color: #000248;
 }
 
-
+.pricelist-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem .87rem;
+    cursor: pointer;
+    text-align: center;
+    font-size: .95rem;
+    letter-spacing: .56px;
+    background-color: #b8e6a7;
+    border-radius: .35rem;
+    color: #2d830e;
+}
 
 /* 57a13c */

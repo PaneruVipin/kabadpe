@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import '../style/WasteColect.css'
+import {NavLink} from 'react-router-dom'
 
 const WasteAppointment = () => {
   const [popUp, setPopUp] = useState(false);
@@ -177,6 +178,7 @@ const WasteAppointment = () => {
         <th>Customer Name</th>
         <th>Customer Address</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -192,7 +194,14 @@ const WasteAppointment = () => {
             Details
           </button>
         </td>
-        <td>Visited</td>
+        <td>Visit Soon</td>
+        <td>
+          <NavLink to="/pricelist">
+          <button className="pricelist-btn">
+            Buy Waste 
+          </button>
+          </NavLink>
+        </td>
       </tr>
 
       <tr>
@@ -208,6 +217,7 @@ const WasteAppointment = () => {
           </button>
         </td>
         <td>Cancelled</td>
+        <td></td>
       </tr>
 
       <tr>
@@ -223,6 +233,8 @@ const WasteAppointment = () => {
           </button>
         </td>
         <td>Cancelled</td>
+        <td></td>
+
       </tr>
       
       <tr>
@@ -245,7 +257,26 @@ const WasteAppointment = () => {
                           Confirm Status
                         </button>
                       </td>
+        <td></td>
+
                     </tr>
+
+                    <tr>
+        <td>5</td>
+        <td>22-09-2023</td>
+        <td>Rohan Das</td>
+        <td>
+          <button
+            onClick={() => setAddressPopup(true)}
+            className="status-btn status-btn-changed"
+          >
+            Details
+          </button>
+        </td>
+        <td>Under Review <br/> (Reschedule)</td>
+        <td></td>
+
+      </tr>
     </tbody>
   </table>
 </div>

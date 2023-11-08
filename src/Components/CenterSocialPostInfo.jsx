@@ -68,6 +68,7 @@ const CenterSocialPostInfo = () => {
       id: 1,
       profileImage: "images/customImg/client-01.png",
       name: "Nazmin perween 1",
+      folw : "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -83,6 +84,7 @@ nesciunt nulla natus ex, qui
       id: 2,
       profileImage: "images/customImg/client-01.png",
       name: "Khushi Shrivastav",
+      folw : "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -101,6 +103,7 @@ nesciunt nulla natus ex, qui
       id: 3,
       profileImage: "images/customImg/client-01.png",
       name: "Muskan Sharma",
+      folw : "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -116,6 +119,7 @@ nesciunt nulla natus ex, qui
       id: 4,
       profileImage: "images/customImg/client-01.png",
       name: "Muskan Sharma",
+      folw : "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -132,7 +136,7 @@ nesciunt nulla natus ex, qui
       <div className="social-post-main-bx social-post-main-bx2">
         <h4>Social Post</h4>
 
-        <div className="soc-post-max-height">
+        <div className="soc-post-max-height soc-post-max-height2">
           {galleryData.map(
             ({
               id,
@@ -142,6 +146,7 @@ nesciunt nulla natus ex, qui
               descImages,
               date,
               visibility,
+              folw,
             }) => (
               <div key={{ id }} className="user-soc-post-main">
                 <div className="soc-post-box">
@@ -151,10 +156,18 @@ nesciunt nulla natus ex, qui
 
                   <div className="right-soc-post-info right-soc-post-info2">
                     <h5>{name}</h5>
+                    <div className="right-soc-follw-flex-bx">
                     <p>
                       {date}
                       {visibility === "public" ?  <i class="fa-solid fa-earth-asia"></i> :<i class="fa-solid fa-user-group"></i>}
                     </p>
+
+                    <button className={folw === "Following"  ?  "followers Following" : "followers" }>
+                      {folw}
+                    </button>
+
+                    
+                    </div>
                   </div>
                 </div>
 

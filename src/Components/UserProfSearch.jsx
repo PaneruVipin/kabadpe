@@ -8,6 +8,7 @@ import '../style/Support.css';
 
 const UserProfSearch = () => {
   const [prfEditForm, setPrfEditForm] = useState(false);
+  const [confirmOtp , setConfirmOtp] =  useState(false);
   return (
     <>
     <section className="use-prf-left-main-bx">
@@ -56,11 +57,26 @@ const UserProfSearch = () => {
             <input type="text" name='mobile' id='mobile' placeholder='Mobile' />
         </div>
 
-        <button className="prof-chagen-btn">
+        <button onClick={() => setConfirmOtp(true)} className="prof-chagen-btn">
             Update
         </button>
         
     </form>
+
+    <div className={ confirmOtp === true ?  "confirm-otp-box otpactive" : "confirm-otp-box" }>
+
+        <h6>Confirm OTP</h6>
+
+        <div className="otp-field">
+            <input type="text" name='otp' id='otp' placeholder='Enter OTP' />
+        </div>
+
+        <button className="otp-btn">
+                Submit
+        </button>
+
+        
+    </div>
 
 <div onClick={() => setPrfEditForm(false)} className="prof-user-edit-form-bx-close">
     <i class="fa-regular fa-circle-xmark"></i>

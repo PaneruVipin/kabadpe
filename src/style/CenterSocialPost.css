@@ -7,7 +7,7 @@
  .user-prf-parent-soc-post-chat-gpt-bx2{
     position: relative;
     width: 60rem;
-    height: 40rem;
+    height: 36rem;
     z-index: 1000 !important;
     padding-top: 0 !important;
 
@@ -147,3 +147,67 @@
     color: burlywood;
     cursor: pointer;
 }
+
+.social-post-main-bx2 h4{
+   position: absolute;
+   top: -4.5rem;
+   left: 50%;
+   transform: translateX(-50%);
+
+}
+
+.soc-post-max-height2{
+   padding: 1rem 1rem;
+}
+
+.right-soc-follw-flex-bx{
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.followers{
+   position: relative;
+   width: max-content;
+   padding: 0 .78rem;
+   background-color: #e0eaff;
+   border-radius: .4rem;
+}
+
+.Following{
+   background-color: #8faef8 ;
+   color: #fff;
+}
+
+.followers2{
+   font-size: .87rem;
+}
+
+.confirm-otp-box{
+   position: relative;
+   width: 100%;
+   margin-top: 1.5rem;
+}
+
+.create-post-main-bx3 h5{
+   text-align: left;
+   font-size: 1.4rem;
+}
+
+.left-crt-post-img2 {
+   width: 2.5rem;
+   height: 2.5rem;
+}
+
+.right-crt-post-det3 h6{
+   font-size: .87rem;
+}
+
+.select-post3 select{
+   font-size: .87rem;
+}
+
+.selct-file-path-bx3 p{
+   font-size: .87rem;
+}
+

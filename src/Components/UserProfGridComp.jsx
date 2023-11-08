@@ -8,14 +8,9 @@ const UserProfGridComp = () => {
 
     <section className="user-prof-grid-comp">
 
-    
       <UserProfSearch />
 
-
       <UseProfRightbx />
-
-     
-      
 
     </section>
 

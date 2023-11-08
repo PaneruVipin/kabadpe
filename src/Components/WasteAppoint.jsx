@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
-import '../style/WasteColect.css'
+import React, { useState } from "react";
+import "../style/WasteColect.css";
 
-const WasteAppointment = () => {
+const WasteAppoint = () => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
   const [addressPopup, setAddressPopup] = useState(false);
-
   return (
     <>
-
-<section
+      <section
         className={
           popUp === true
-            ? "appoint-popup-main popupactive"
-            : "appoint-popup-main"
+            ? "appoint-popup-main appoint-popup-main2  popupactive"
+            : "appoint-popup-main appoint-popup-main2"
         }
       >
         <div className="appoint-popup-bx appoint-popup-bx2">
@@ -58,7 +56,10 @@ const WasteAppointment = () => {
             </button>
           </div>
 
-          <button onClick={() => setPopUp(false)} className="cross-btn cross-btn2">
+          <button
+            onClick={() => setPopUp(false)}
+            className="cross-btn cross-btn2"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
 
@@ -112,7 +113,9 @@ const WasteAppointment = () => {
                   </select>
                 </div>
 
-                <button className="resd-sub-btn navigate-link-btn3">Send Request</button>
+                <button className="resd-sub-btn navigate-link-btn3">
+                  Send Request
+                </button>
               </div>
             </form>
           </div>
@@ -124,108 +127,115 @@ const WasteAppointment = () => {
           >
             <p>Are you sure to Cancel Your Waste Pickup appointment</p>
 
-            <button onClick={() => setPopUp(false)} className="ok-btn navigate-link-btn3">
+            <button
+              onClick={() => setPopUp(false)}
+              className="ok-btn navigate-link-btn3"
+            >
               Confirm
             </button>
           </div>
         </div>
       </section>
 
-<section
+      <section
         className={
-          addressPopup === true ? "cust-add-comp cust-add-comp2 addrssactive" : "cust-add-comp cust-add-comp2"
+          addressPopup === true
+            ? "cust-add-comp cust-add-comp2 addrssactive"
+            : "cust-add-comp cust-add-comp2"
         }
       >
         <div className="cust-add-bx">
           <h3>Customer Address</h3>
 
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque
-            tenetur quisquam dolor quae ea maiores obcaecati architecto, vel rem
-            expedita praesentium amet voluptatibus quidem reprehenderit ...
-          </p>
+         <div className="cust-add">
+
+            <h6>Name : <span>Waqqar Alam</span></h6>
+            <h6>Phone : <span>9013546734</span></h6>
+            <h6>Date : <span>10-Oct.-2023</span></h6>
+            <h6>Type  : <span>Daily</span></h6>
+            <h6>Time Slot : <span>11AM to 2PM</span></h6>
+            <h6>Address : <span>32 C/10 Krishna Nagar Delhi 110032</span></h6>
+         </div>
 
           <button className="navigate-link-btn navigate-link-btn3 mt-3">
             <i className="fa-solid fa-location-dot"></i>
             Click to Navigate Link
           </button>
 
-          <button onClick={() => setAddressPopup(false)} className="cross-btn cross-btn2">
+          <button
+            onClick={() => setAddressPopup(false)}
+            className="cross-btn cross-btn2"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
       </section>
 
-    <section className="waste-appoint-ment-comp">
-    <div
-                className= "right-tab-main-bx  tab-bx tabbxactive"
-                
-              >
-                <div className="tab-main-bx tab-main-bx3">
-                  <h3>Appointments</h3>
+      <section className="waste-appoint-ment-comp waste-appoint-ment-comp3">
+        <div className="right-tab-main-bx right-tab-main-bx3 tab-bx tabbxactive">
+          <div className="tab-main-bx tab-main-bx3">
 
-                  <div className="waste-appoint-main-bx">
+            <div className="waste-appoint-main-bx">
+              <p className="tex-line tex-line2 tex-line5">Today Appointments</p>
 
-                  <p className="tex-line tex-line2"> Appointments</p>
+              <div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx wasteappoint-prof-table-main-bx5">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>SN</th>
+                      <th>Date</th>
+                      <th>Customer Name</th>
+                      <th>Customer Address</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>29-09-2023</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Visited</td>
+                    </tr>
 
-<div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx">
-  <table>
-    <thead>
-      <tr>
-        <th>SN</th>
-        <th>Date</th>
-        <th>Customer Name</th>
-        <th>Customer Address</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>29-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Visited</td>
-      </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>26-09-2023</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Cancelled</td>
+                    </tr>
 
-      <tr>
-        <td>2</td>
-        <td>26-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Cancelled</td>
-      </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>22-09-2023</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Cancelled</td>
+                    </tr>
 
-      <tr>
-        <td>3</td>
-        <td>22-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Cancelled</td>
-      </tr>
-      
-      <tr>
+                    <tr>
                       <td>4</td>
                       <td>29-09-2023</td>
                       <td>Rohan Das</td>
@@ -246,19 +256,15 @@ const WasteAppointment = () => {
                         </button>
                       </td>
                     </tr>
-    </tbody>
-  </table>
-</div>
-
-
-                  </div>
-                  
-                </div>
+                  </tbody>
+                </table>
               </div>
-    </section>
-       
+            </div>
+          </div>
+        </div>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default WasteAppointment
+export default WasteAppoint;

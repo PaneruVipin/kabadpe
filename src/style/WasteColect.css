@@ -42,7 +42,7 @@
 }
 
 .wasteappoint-prof-table-main-bx table thead tr th {
-    background-color: #45d013;
+    background-color: #57a13c;
     border: none;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .navigate-link-btn3 {
-    background-color: #0ac10a;
+    background-color: #57a13c;
     color: #fff;
 }
 
@@ -76,8 +76,8 @@
 }
 
 .cross-btn2 {
-    border-color: #45d013;
-    color: #45d013;
+    border-color: #57a13c;
+    color: #57a13c;
 }
 
 .appoint-popup-bx2 h3 {
@@ -91,12 +91,12 @@
 
 .reshd-inpt-bx3 {
     background-color: #eeffe8;
-    border: .1rem solid #45d013;
+    border: .1rem solid #57a13c;
     border-radius: .3rem;
 }
 
 .reshd-inpt-bx3:before {
-    color: #45d013;
+    color: #57a13c;
 }
 
 .reshd-inpt-bx3 input,
@@ -281,7 +281,7 @@ border-bottom-color: #4e49b8 ;
 .details-main-bx{
     position: relative;
     width: 100%;
-    padding: 2rem 2rem;
+    padding: 2rem 2rem 0 2rem;
 }
 
 .det-table-bx{
@@ -345,6 +345,14 @@ border-bottom-color: #4e49b8 ;
 .add-det-info-bx{
     margin-top: 2rem;
 
+}
+
+.add-det-info-bx5{
+    margin-top: 0;
+}
+
+.add-det-info-bx5 h6{
+    margin-bottom: 2rem !important; 
 }
 
 .add-det-info-bx h6{
@@ -462,3 +470,69 @@ border-bottom-color: #4e49b8 ;
 .det-table-bx3 table tbody tr:nth-child(2n + 2){
     background-color: #ddf0ff;
 }
+
+.waste-appoint-ment-comp3{
+    padding-inline-start: 0 ;
+}
+
+.right-tab-main-bx3{
+    padding: 3rem 0 3rem 0 !important;
+}
+
+.wasteappoint-prof-table-main-bx5 table thead tr th{
+    background-color: #57a13c !important;
+}
+
+.tex-line5{
+    font-size: 1.5rem !important; 
+}.appoint-popup-main
+
+.appoint-popup-main{
+    position: fixed !important;
+    top: 0;
+    left: 0;
+}
+
+.cust-add h6{
+    color: #000248;
+    font-weight: 600;
+}
+
+.cust-add h6 span{
+    font-weight: 400;
+    letter-spacing: .56px;
+}
+
+
+.primary-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem .87rem;
+    background-color: #5ab0f7;
+    color: #fff;
+    letter-spacing: .45px;
+    border-radius: .34rem;
+    cursor: pointer;
+}
+
+.edit-b-btn{
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    font-size: .95rem;
+    color: #000248;
+    cursor: pointer;
+    background-color: #d8e9f8;
+    border-radius: 50%;
+}
+
+.primary-text{
+    background-color: transparent;
+    color: #000248;
+}
+
+
+
+/* 57a13c */

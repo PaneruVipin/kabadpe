@@ -10,11 +10,12 @@ import WasteColectin from './WasteColectin';
 import WasteSales from './WasteSales';
 import WasteWallet from './WasteWallet';
 import UserProfGridComp from './UserProfGridComp';
+import WasteColectSearch from './WasteColectSearch';
+import WasteCollectersReviews from './WasteCollectersReviews';
 
 
 const Wastecollectdashboard = () => {
   const [profBtn, setProfBtn] = useState(1);
-  const [selectedImage, setSelectedImage] = useState('./images/customImg/836.jpg');
   const [profChange , setProfChange] = useState(false);
 
   const filterTab = (index) => {
@@ -42,21 +43,28 @@ const Wastecollectdashboard = () => {
 <div className="user-prof-main-bx">
 
     <div  className="user-profi-img ">
-        <img src="./images/customImg/test-img-1.jpg" alt="" />
-        <div onClick={() => setProfChange(true)} className="prof-edit-text-btn">
+        <img src="./images/customImg/client-03.png" alt="" />
+        <div onClick={() => filterTab(3)}  className="prof-edit-text-btn">
             Edit
         </div>
     </div>
 
    
 
-    <h6>Alysia Darmott</h6>
+    <h6>Tom Holland</h6>
     <span className='em-text'>
     <i class="fa-regular fa-envelope"></i>
       User011@gmail.com</span>
     <span className='num-text'>
     <i class="fa-solid fa-mobile-screen"></i>
       7008322134</span>
+      <div className="rating-prof">
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star"></i>
+      <i class="fa-solid fa-star-half-stroke"></i>
+      <i class="fa-regular fa-star"></i>
+      </div>
 
     <div className="prog-edit-prof-flex-bx">
 
@@ -65,7 +73,7 @@ const Wastecollectdashboard = () => {
         <span className="prog-num">70%</span>
     </div>
 
-    <div className="edit-prof-btn" title='edit profile'>
+    <div onClick={() => filterTab(3)} className="edit-prof-btn" title='edit profile'>
       <i class="fa-solid fa-pen-to-square"></i>
       </div>
     </div>
@@ -94,6 +102,13 @@ const Wastecollectdashboard = () => {
     <i class="fa-solid fa-user"></i>
           </div>
         My Details
+    </button>
+
+    <button  onClick={() => filterTab(8)} className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}>
+    <div className="u-prf-tab-icon">
+    <i class="fa-regular fa-comment-dots"></i>
+          </div>
+        My Reviews
     </button>
 
 
@@ -137,34 +152,18 @@ const Wastecollectdashboard = () => {
 </div>
 
 
-<div className={profChange ? "user-prof-change-popup-box prof-chang-popupactive" : "user-prof-change-popup-box"}>
-                <div className="user-prof-popup-bx">
-                  
-                    <div className="prof-chang-img">
-                    {selectedImage && (
-        <img src={selectedImage} alt="Selected" />
-      )}
-                    </div>
-
-                        <div className="prof-input-file-bx">
-                            <label htmlFor="prof_input">Update profile Image</label>
-                            <input type="file" accept='image/*' onChange={handleImageChange} id='prof_input' />
-                        </div>
-                    
-                    <div onClick={() => setProfChange(false)} className="prof-popup-close-btn">
-                    <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </div>
-            </div>
 
 
-  { profBtn === 1 ? <WasteDashboard /> : null}
+
+  { profBtn === 1 ? <WasteDashboard onclickShowDetailComp={() => filterTab(3)} /> : null}
   { profBtn === 2 ? <WasteAppointment /> : null}
   { profBtn === 3 ? <WasteDetail /> : null}
   { profBtn === 4 ? <WasteWorkLocat /> : null}
   { profBtn === 5 ? <WasteColectin /> : null}
   { profBtn === 6 ? <WasteSales/> : null}
   { profBtn === 7 ? <WasteWallet /> : null}
+  { profBtn === 8 ? <WasteCollectersReviews /> : null}
+
 
 
      

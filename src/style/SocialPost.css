@@ -540,6 +540,11 @@
     .soc-post-max-height{
       height: 30rem;
     }
+
+    .chat-message-btn-flex-bx3{
+      margin-top: 0;
+      padding-top: 2rem;
+    }
     
   }
   

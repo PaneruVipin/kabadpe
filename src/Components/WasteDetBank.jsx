@@ -8,11 +8,14 @@ const WasteDetBank = () => {
 
 <section className="waste-details-comp waste-colectin-comp waste-appoint-ment-comp">
         
-        <h3>Account Details</h3>
 
          <div className="details-main-bx details-main-bx3">
-
+      
           <div className="det-table-bx det-table-bx3">
+
+          <div className="add-det-info-bx add-det-info-bx5">
+      <h6>Bank Details</h6>
+    </div>
             <table>
               <thead>
                 <tr>
@@ -20,6 +23,8 @@ const WasteDetBank = () => {
                   <th>Full Name</th>
                   <th>Account Number</th>
                   <th>IFSC Code</th>
+                  <th>Bank Status</th>
+                  <th>Edit</th>
                 </tr>
               </thead>
               <tbody>
@@ -28,24 +33,30 @@ const WasteDetBank = () => {
                   <td>Faiz Alam</td>
                   <td>2114504750</td>
                   <td>AAAABCCCCCC</td>
+                  <td>
+                    <div className="primary-btn primary-text"> Primary</div>
+                  </td>
+
+                  <td>
+                    <div onClick={() => setAddInfo(!addInfo) } className="edit-b-btn">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
                   <td>Kotak Bank</td>
                   <td>Faiz Alam</td>
                   <td>2114504750</td>
                   <td>AAAABCCCCCC</td>
-                </tr>
-                <tr>
-                  <td>Kotak Bank</td>
-                  <td>Faiz Alam</td>
-                  <td>2114504750</td>
-                  <td>AAAABCCCCCC</td>
-                </tr>
-                <tr>
-                  <td>Kotak Bank</td>
-                  <td>Faiz Alam</td>
-                  <td>2114504750</td>
-                  <td>AAAABCCCCCC</td>
+                  <td>
+                    <div className="primary-btn">Make Primary</div>
+                  </td>
+
+                  <td>
+                    <div onClick={() => setAddInfo(!addInfo) } className="edit-b-btn">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>

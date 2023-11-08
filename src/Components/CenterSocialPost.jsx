@@ -17,7 +17,7 @@ const CenterSocialPost = ({onClickCloseSocPost}) => {
         <section className="user-prf-parent-soc-post-chat-gpt-bx user-prf-parent-soc-post-chat-gpt-bx2">
       <div className="user-prof-right-main-bx">
 
-        <div className="chat-message-btn-flex-bx">
+        <div className="chat-message-btn-flex-bx chat-message-btn-flex-bx3">
 
          <div className="soc-logo soc-logo2">
           <img src="./images/customImg/nav-logo.png" alt="" />

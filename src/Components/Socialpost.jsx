@@ -67,6 +67,7 @@ const Socialpost = ({onclickShowSocPost}) => {
       id: 1,
       profileImage: "images/customImg/client-01.png",
       name: "Nazmin perween 1",
+      folw : "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -82,6 +83,7 @@ nesciunt nulla natus ex, qui
       id: 2,
       profileImage: "images/customImg/client-01.png",
       name: "Khushi Shrivastav",
+      folw : "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -100,6 +102,7 @@ nesciunt nulla natus ex, qui
       id: 3,
       profileImage: "images/customImg/client-01.png",
       name: "Muskan Sharma",
+      folw : "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -115,6 +118,7 @@ nesciunt nulla natus ex, qui
       id: 4,
       profileImage: "images/customImg/client-01.png",
       name: "Muskan Sharma",
+      folw : "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
@@ -147,6 +151,7 @@ nesciunt nulla natus ex, qui
               descImages,
               date,
               visibility,
+              folw,
             }) => (
               <div key={{ id }} className="user-soc-post-main">
                 <div className="soc-post-box">
@@ -156,10 +161,17 @@ nesciunt nulla natus ex, qui
 
                   <div className="right-soc-post-info">
                     <h5>{name}</h5>
+                    <div className="right-soc-follw-flex-bx">
                     <p>
                       {date}
                       {visibility === "public" ?  <i class="fa-solid fa-earth-asia"></i> :<i class="fa-solid fa-user-group"></i>}
                     </p>
+
+                    <button className={ folw === "Following" ? "followers Following followers2" : "followers followers2" }>
+                      {folw}
+                    </button>
+                    
+                    </div>
                   </div>
                 </div>
 
@@ -331,16 +343,16 @@ nesciunt nulla natus ex, qui
           cretPost ? "create-post-sec cretpostactive" : "create-post-sec"
         }
       >
-        <div className="create-post-main-bx">
+        <div className="create-post-main-bx create-post-main-bx3">
           <h5>Create Post</h5>
 
           <div className="create-post-user-bx">
-            <div className="left-crt-post-img">
+            <div className="left-crt-post-img left-crt-post-img2">
               <img src="./images/chats/chat-2.jpg" alt="" />
             </div>
-            <div className="right-crt-post-det">
+            <div className="right-crt-post-det right-crt-post-det3">
               <h6>Faiz Alam</h6>
-              <div className="select-post">
+              <div className="select-post select-post3">
                 {selectedItemImage && (
                   <div className="sel-post-type-img">
                     <img src={selectedItemImage} alt={selectedItem} />
@@ -376,7 +388,7 @@ nesciunt nulla natus ex, qui
             )}
           </div>
 
-          <div className="selct-file-path-bx">
+          <div className="selct-file-path-bx selct-file-path-bx3">
             <p>Add your Post</p>
             <label htmlFor="input_file">
               {" "}

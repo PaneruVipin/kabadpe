@@ -36,12 +36,12 @@ const UserProfile = () => {
   return (
     <>
       <header className="main-header header-style-one">
-        <div class="header-top">
-          <div class="auto-container">
-            <div class="outer-box outer-box2">
-              <div class="t-headr-left-links-bx">
+        <div className="header-top">
+          <div className="auto-container">
+            <div className="outer-box outer-box2">
+              <div className="t-headr-left-links-bx">
                 <a href="#"> Climstripe Shift </a>
-                <a href="#" class="linkactive">
+                <a href="#" className="linkactive">
                   {" "}
                   Kabadpe
                 </a>
@@ -49,15 +49,15 @@ const UserProfile = () => {
                 <a href="#"> Climconnect </a>
               </div>
 
-              <div class="header-top__left header-top_right">
-                <div class="header-contact-info-style1">
+              <div className="header-top__left header-top_right">
+                <div className="header-contact-info-style1">
                   <ul>
                     <li>
-                      <div class="icon">
+                      <div className="icon">
                         <img src="./images/customImg/game.png" />
                         <img src="./images/customImg/app-store.png" />
                       </div>
-                      <div class="text">
+                      <div className="text">
                         <p>Download App</p>
                       </div>
                     </li>
@@ -214,7 +214,7 @@ const UserProfile = () => {
 
                       <li>
                         <NavLink
-                          to="javascript:void(0);"
+                          to=""
                           data-toggle="modal"
                           data-target="#exampleModal"
                         >
@@ -307,11 +307,11 @@ const UserProfile = () => {
 
           <h6>{user?.fullname}</h6>
           <span className="em-text">
-            <i class="fa-regular fa-envelope"></i>
+            <i className="fa-regular fa-envelope"></i>
             {user?.email}
           </span>
           <span className="num-text">
-            <i class="fa-solid fa-mobile-screen"></i>
+            <i className="fa-solid fa-mobile-screen"></i>
             {user?.phoneNumber}
           </span>
 
@@ -322,7 +322,7 @@ const UserProfile = () => {
             </div>
 
             <div className="edit-prof-btn" title="edit profile">
-              <i class="fa-solid fa-pen-to-square"></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </div>
           </div>
         </div>
@@ -333,7 +333,7 @@ const UserProfile = () => {
             className={profBtn === 1 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-chart-line"></i>
+              <i className="fa-solid fa-chart-line"></i>
             </div>
             Dashboard
           </button>
@@ -343,7 +343,7 @@ const UserProfile = () => {
             className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-wallet"></i>
+              <i className="fa-solid fa-wallet"></i>
             </div>
             My Wallet
           </button>
@@ -353,7 +353,7 @@ const UserProfile = () => {
             className={profBtn === 2 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </div>
             My Details
           </button>
@@ -363,7 +363,7 @@ const UserProfile = () => {
             className={profBtn === 3 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-file-pen"></i>
+              <i className="fa-solid fa-file-pen"></i>
             </div>
             My Appointments
           </button>
@@ -373,7 +373,7 @@ const UserProfile = () => {
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-file-pen"></i>
+              <i className="fa-solid fa-file-pen"></i>
             </div>
             Refer and Earn
           </button>
@@ -383,7 +383,7 @@ const UserProfile = () => {
             className={profBtn === 4 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-recycle"></i>
+              <i className="fa-solid fa-recycle"></i>
             </div>
             My sales history
           </button>
@@ -393,7 +393,7 @@ const UserProfile = () => {
             className={profBtn === 9 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-cart-shopping"></i>
+              <i className="fa-solid fa-cart-shopping"></i>
             </div>
             My Orders
           </button>
@@ -403,14 +403,14 @@ const UserProfile = () => {
             className={profBtn === 6 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-hands-holding-child"></i>
+              <i className="fa-solid fa-hands-holding-child"></i>
             </div>
             Support
           </button>
         </div>
 
         <div className="profile-log-out-btn">
-          <i class="fa-solid fa-right-from-bracket"></i>
+          <i className="fa-solid fa-right-from-bracket"></i>
           <span>Log Out</span>
         </div>
       </div>
@@ -440,7 +440,7 @@ const UserProfile = () => {
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

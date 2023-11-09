@@ -94,7 +94,7 @@ const UserProfSearch = () => {
               onClick={() => setPrfEditForm(false)}
               className="prof-user-edit-form-bx-close"
             >
-              <i class="fa-regular fa-circle-xmark"></i>
+              <i className="fa-regular fa-circle-xmark"></i>
             </div>
           </div>
         </section>

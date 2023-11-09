@@ -77,7 +77,7 @@ const UserBankCard = () => {
                         bankName,
                         id,
                       }) => (
-                        <tr>
+                        <tr key={id}>
                           <td>{bankName}</td>
                           <td>{accountHolderName}</td>
                           <td>
@@ -106,13 +106,13 @@ const UserBankCard = () => {
                                 }
                                 className="prof-data-edit tb-edit-btn"
                               >
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                               </div>
                               <div
                                 onClick={() => handledeleteIconClick(id)}
                                 className="prof-data-close tb-del-btn"
                               >
-                                <i class="fa-solid fa-trash"></i>
+                                <i className="fa-solid fa-trash"></i>
                               </div>
                             </div>
                           </td>
@@ -128,7 +128,7 @@ const UserBankCard = () => {
             onClick={handleAddDataBtnClick}
             className="table-card-add-data-btn table-card-add-data-btn2"
           >
-            <i class="fa-solid fa-plus"></i> Add Card Data
+            <i className="fa-solid fa-plus"></i> Add Card Data
           </button>
 
           {/*           
@@ -154,10 +154,10 @@ const UserBankCard = () => {
               </div>
 
               <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit">
-                <i class="fa-solid fa-pen-to-square"></i>
+                <i className="fa-solid fa-pen-to-square"></i>
               </div>
               <div className="prof-data-close">
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark"></i>
               </div>
             </div>
 
@@ -166,7 +166,7 @@ const UserBankCard = () => {
                onClick={() => setUserBankForm(!userBankForm)}
                 className="add-card-btn add-card-btn2"
               >
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-plus"></i>
               </div>
             </div>
           </div> */}

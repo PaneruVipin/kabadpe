@@ -38,11 +38,11 @@ const socpostFunc = () => {
           <div className="right-soc-flex">
 
         <div onClick={socpostFunc} className={socPost ? "link-bx socl-btn soc-post-btnactive" : "link-bx socl-btn"} title="Social Post">
-          <i class="fa-solid fa-users"></i>
+          <i className="fa-solid fa-users"></i>
           </div>
 
           <div onClick={handleChat}   className={chat ?   "link-bx chat-gpt-btn chat-gpt-btnactive" : "link-bx chat-gpt-btn"} title="Chat GPT">
-          <i class="fa-brands fa-facebook-messenger"></i>
+          <i className="fa-brands fa-facebook-messenger"></i>
           </div>
 
           </div>

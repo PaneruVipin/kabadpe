@@ -78,9 +78,9 @@ const UserProfForm = () => {
                         id,
                         locationType,
                       }) => (
-                        <div className="user-prof-form-bx">
+                        <div key={id} className="user-prof-form-bx">
                           <div className="u-p-f-i">
-                            <i class="fa-solid fa-house"></i>
+                            <i className="fa-solid fa-house"></i>
                           </div>
                           <div className="u-p-f-det">
                             <h6>Address</h6>
@@ -104,13 +104,13 @@ const UserProfForm = () => {
                             }
                             className="prof-data-edit"
                           >
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <i className="fa-solid fa-pen-to-square"></i>
                           </div>
                           <div
                             onClick={() => deleteDataBx(id)}
                             className="prof-data-close"
                           >
-                            <i class="fa-solid fa-xmark"></i>
+                            <i className="fa-solid fa-xmark"></i>
                           </div>
                         </div>
                       )
@@ -124,7 +124,7 @@ const UserProfForm = () => {
                     onClick={toggleAddressForm}
                     className="add-user-info-btn"
                   >
-                    <i class="fa-solid fa-plus"></i>
+                    <i className="fa-solid fa-plus"></i>
                   </button>
                 </div>
               </div>
@@ -277,7 +277,7 @@ const UserProfForm = () => {
                   onClick={() => setProfForm(false)}
                   className="close-my-det-bx"
                 >
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </div>
               </div>
             ) : null}

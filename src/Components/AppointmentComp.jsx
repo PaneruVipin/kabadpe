@@ -4,6 +4,7 @@ import "../style/Profile.css";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { userAppoinmentsFetch } from "../apis/kbadpeUser/orders";
+import { DateTime } from "luxon";
 
 const AppointmentComp = () => {
   const { data: appoinments, refetch } = useQuery({
@@ -22,47 +23,68 @@ const AppointmentComp = () => {
               <table>
                 <tbody>
                   {!appoinments?.error
-                    ? appoinments?.map(({ id }) => (
-                        <tr key={id}>
-                          <td>
-                            <div className="u-p-tb-data">
-                              <div className="t-icn">1</div>
-                              <div className="u-p-tb-info">
-                                <h6>Brand Orbitor</h6>
-                                <span className="pan-box-nav">
-                                  Aman Aggarwal / 110031{" "}
-                                  <NavLink to="#">
-                                    <i className="fa-solid fa-circle-arrow-right"></i>
-                                  </NavLink>{" "}
+                    ? appoinments?.map(
+                        (
+                          {
+                            id,
+                            appointmentDate,
+                            appointmentTimeSlot,
+                            Franchise,
+                            Arium,
+                            KabadCollector,
+                          },
+                          index
+                        ) => (
+                          <tr key={id}>
+                            <td>
+                              <div className="u-p-tb-data">
+                                <div className="t-icn">{index + 1}</div>
+                                <div className="u-p-tb-info">
+                                  <h6>{Franchise?.name}</h6>
+                                  <span className="pan-box-nav">
+                                    {KabadCollector
+                                      ? KabadCollector?.fullname
+                                      : "Unassigned"}{" "}
+                                    / {Arium?.pincode}{" "}
+                                    <NavLink to="#">
+                                      <i className="fa-solid fa-circle-arrow-right"></i>
+                                    </NavLink>{" "}
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+
+                            <td>
+                              <div className="u-p-tb-numb-bx">
+                                <h6>
+                                  {DateTime.fromISO(appointmentDate, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy")}
+                                </h6>
+                                <span>
+                                  Ap.No.- <NavLink to="#"> 8447532101 </NavLink>
                                 </span>
                               </div>
-                            </div>
-                          </td>
+                            </td>
 
-                          <td>
-                            <div className="u-p-tb-numb-bx">
-                              <h6>Tomorrow, 10:00 AM </h6>
-                              <span>
-                                Ap.No.- <NavLink to="#"> 8447532101 </NavLink>
-                              </span>
-                            </div>
-                          </td>
+                            <td>
+                              <div className=" tb-reshed-btn">Reschedule</div>
+                            </td>
 
-                          <td>
-                            <div className=" tb-reshed-btn">Reschedule</div>
-                          </td>
+                            <td>
+                              <div className=" tb-call-btn">
+                                Call to Confirm
+                              </div>
+                            </td>
 
-                          <td>
-                            <div className=" tb-call-btn">Call to Confirm</div>
-                          </td>
-
-                          <td>
-                            <div className="complet-bx upcoming-bx">
-                              Upcoming
-                            </div>
-                          </td>
-                        </tr>
-                      ))
+                            <td>
+                              <div className="complet-bx upcoming-bx">
+                                Upcoming
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      )
                     : null}
                 </tbody>
               </table>

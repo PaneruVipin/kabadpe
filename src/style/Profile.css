@@ -1187,7 +1187,7 @@
 
      .u-prf-edit-popup-bx{
             position: relative;
-            top: 7rem;
+            top: 5rem;
             background-color: #fff;
             padding: 2.56rem 2.5rem;
             width: 25rem;
@@ -1597,7 +1597,304 @@
          transform: translateY(.5px);
          color: #000248;
       }
+
+      .pop-up-box-10{
+         position: fixed;
+         top: 0;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         display: flex;
+         justify-content: center;
+         align-items: flex-start;
+         width: 100%;
+         height: 100vh;
+         z-index: 1000;
+         display: none;
+
+      }
+
+      .pop-up-box-10.popupactive{
+         display: flex;
+      }
+
+      .pop-up-box-10:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #030303;
+         opacity: 0.7;
+         z-index: -1;
+      }
+
+      .user-info-pop-up-bx{
+         position: relative;
+         top: 5rem;
+         width: 40rem;
+         background-color: #fff;
+         border-radius: .55rem;
+         padding: 2rem 2rem;
+
+      }
+
+      .left-waste-col-logo {
+         position: relative;
+      
+      }
+
+      .left-waste-col-logo img{
+         width: 6rem;
+         height: 6rem;
+         object-fit: cover;
+         border-radius: 50%;
+      }
+
+      .user-info-pop-up-bx h5{
+         font-size: 2rem;
+         color: #000248;
+         font-weight: 500;
+         letter-spacing: 1px;
+         text-align: center;
+         margin-bottom: 2rem;
+      }
+
+      .waste-coll-logo-user-det-flex-bx{
+         position: relative;
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: flex-start;
+         gap: 2rem;
+      }
+
+      .user-det-bx{
+         position: relative;
+         display: flex;
+         flex-direction: column;
+         gap: .76rem;
+         align-items: flex-start;
+
+      }
+
+      .user-det-bx h6{
+         font-size: 1.1rem;
+         font-weight: 700;
+         letter-spacing: .87px;
+         color: #000248;
+         max-width: 25rem;
+      }
+
+      .user-det-bx h6 span{
+         font-weight: 500;
+         font-size: 1rem;
+      }
+
+      .user-info-pop-up-bx h5:last-of-type{
+         margin-top: 2rem;
+      }
+
+      .org-logo-info-flex-bx{
+         display: flex;
+         align-items: center;
+         width: 100%;
+         justify-content: flex-start;
+         gap: 2rem;
+      }
+
+      .left-org-logo{
+         position: relative;
+         width: 6rem;
+         height: 6rem;
+      }
+
+      .left-org-logo img{
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         border-radius: 50%;
+      }
+
+      .org-info{
+         display: flex;
+         flex-direction: column;
+         gap: .65rem;
+      }
+
+      .org-info h6{
+         font-size: 1.1rem;
+         font-weight: 700;
+         letter-spacing: 1px;
+         color: #000248;
+      }
+
+      .org-info h6 span{
+         font-size: 1rem;
+
+      }
+
+      .pop-user-info-close{
+         position: absolute;
+         top: .76rem;
+         right: 1rem;
+         font-size: 1.2rem;
+         color: #000248;
+         cursor: pointer;
+      }
+
+      .stars-flex-bx{
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         padding-top: .5rem;
+      }
+
+      .stars-flex-bx i{
+         font-size: .76rem;
+         color: orange;
+      }
+
+      .tick-check{
+         position: absolute;
+         top: 1rem;
+         right: 0;
+         transform: translateX(40%);
+         font-size: 1.1rem;
+         color: #156bce;
+      }
  
+      .appoint-search-supp-btn-flex-bx{
+         position: relative;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         width: 100%;
+         margin-bottom: 2rem;
+      }
+
+      .appoint-search-supp-btn-flex-bx h5{
+         margin-bottom: 0;
+      }
+
+      .search-supp-flex-bx{
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+      }
+
+      .search-bx-appt{
+         position: relative;
+         width: 18rem;
+         height: 2.56rem;
+         background-color: #f3ffef;
+         border: .06rem solid #45d013;
+         border-radius: .45rem;
+      }
+
+      .search-bx-appt input{
+         width: 100%;
+         height: 100%;
+         background-color: transparent;
+         border: none;
+         padding-inline: 1rem;
+         font-size: 1rem;
+         font-weight: 500;
+         letter-spacing: 1px;
+
+      }
+
+      .supp-link-btn{
+         position: relative;
+         width: 9rem;
+         background-color: #000248;
+         height: 2.56rem;
+         border-radius: .45rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         text-align: center;
+         font-size: .95rem;
+         font-weight: 500;
+         color: #fff;
+         gap: .67rem;
+         letter-spacing: 1px;
+      }
+
+      .supp-link-btn2{
+         width: auto;
+         background-color: #dfefff;
+         color: #2a8ed4;
+         height: max-content;
+         padding-block: .15rem;
+         padding-inline: 1.23rem;
+
+      }
+
+      .confirm-otp-box{
+         position: relative;
+         display: flex;
+         justify-content: center;
+         flex-direction: column;
+         align-items: flex-start;
+         display: none;
+      }
+
+      .confirm-otp-box.otpactive{
+         display: flex;
+      }
+
+      .confirm-otp-box h6{
+         font-size: 1rem;
+         color: #000248;
+         letter-spacing: .76px;
+         margin-bottom: 1rem;
+         text-align: left;
+      }
+
+      .otp-field{
+         position: relative;
+         width: 100%;
+         height: 2.5rem;
+         border: .1rem solid #e4ffcd;
+         border-radius: .45rem;
+      }
+
+      .otp-field input{
+         font-size: 1rem;
+         letter-spacing: .67px;
+         font-weight: 400;
+         padding-inline: 1rem;
+         width: 100%;
+         height: 100%;
+      }
+
+      .otp-btn{
+         position: relative;
+         width: 8rem;
+         margin: 1.5rem auto 0 auto ;
+         text-align: center;
+         background-color: #45d013;
+         height: 2.5rem;
+         color: #fff;
+         font-size: 1rem;
+         letter-spacing: .76px;
+         border-radius: .25rem;
+      }
+      
+
+      .user-prof-count-grid-bx3{
+         grid-template-columns: repeat(5, 1fr);
+      }
+      
+      .cust-add{
+         position: relative;
+         width: 100%;
+         display: flex;
+         flex-direction: column;
+         gap: .45rem;
+      }
 
       @media all and (min-width: 1125px) and (max-width: 1380px){
 

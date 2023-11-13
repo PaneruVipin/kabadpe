@@ -98,8 +98,8 @@
     font-size: .95rem;
     line-height: 1.5;
     letter-spacing: 1px;
-    font-weight: 400;
-    color: #939393;
+    font-weight: 500;
+    color: #0e0e0e;
     margin-bottom: 1rem;
   }
 
@@ -289,7 +289,8 @@
     background-color: transparent;
     border: none;
     font-size: .87rem;
-    -webkit-appearance: none;
+    appearance: none;
+    -webkit-appearance: none ;
     letter-spacing: .5px;
     cursor: pointer;
    }
@@ -468,12 +469,81 @@
     padding-inline-start: 1rem;
     border: .05rem solid #c0a310;
    }
-  
 
+   .post-like-share-comment-btns-flex-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+   }
+  
+   .post-like-share-comment-btns-flex-bx i{
+    color: #000 ;
+   }
+   .comment-post-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+   }
+
+   .left-comment-prof-logo{
+    position: relative;
+    width: 2.5rem;
+    height: 2rem;
+   }
+
+   .left-comment-prof-logo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+   }
+
+   .comment-input{
+    position: relative;
+    width: 100%;
+    background-color: transparent;
+    border-bottom: .1rem solid #878787;
+    z-index: 5;
+   }
+
+   .comment-input input{
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: .87px;
+    background-color: transparent;
+   }
+   
+   .send-comment-btn{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    cursor: pointer;
+    z-index: 10;
+    background-color: #fff;
+    padding-inline: .65rem;
+
+   }
+
+   .send-comment-btn i{
+    font-size: 1rem;
+    color: #1f1f20;
+   }
+   
   @media all and (min-width : 1125px) and (max-width: 1380px){
 
     .soc-post-max-height{
       height: 30rem;
+    }
+
+    .chat-message-btn-flex-bx3{
+      margin-top: 0;
+      padding-top: 2rem;
     }
     
   }

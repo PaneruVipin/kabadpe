@@ -1,0 +1,549 @@
+/* ________________________________
+ Waste Colect Dashboard css code
+ ----------------------- */
+
+.waste-colect-db-side-nav-main {
+    padding-top: 3rem;
+}
+
+.profile-log-out-btn2 {
+    top: 120%;
+}
+
+.user-prof-grid-comp2 {
+    padding-inline-end: 1rem;
+}
+
+.top-user-prof-search-bx2 {
+    margin-top: 3rem;
+}
+
+.waste-appoint-ment-comp {
+    padding-inline-start: 18rem;
+}
+
+.tab-main-bx3 h3,
+.tex-line2,
+.waste-work-locat-comp3 h3 {
+    color: #000248 !important;
+}
+
+.waste-work-locat-comp3 h3 {
+    font-size: 2.2rem !important;
+}
+
+.tex-line2:before {
+    background-color: #000248 !important;
+}
+
+.waste-appoint-main-bx {
+    background-color: #ebffef !important;
+    padding: 1.5rem 1.5rem;
+}
+
+.wasteappoint-prof-table-main-bx table thead tr th {
+    background-color: #57a13c;
+    border: none;
+}
+
+.wasteappoint-prof-table-main-bx table tbody tr {
+    background-color: #ecffec;
+}
+
+.wasteappoint-prof-table-main-bx table tbody tr td {
+    border: none !important;
+
+}
+
+.wasteappoint-prof-table-main-bx table tbody tr:nth-child(2n + 2) {
+    background-color: #dafeda;
+}
+
+.status-btn-changed,
+.status-btn-changed:hover {
+    background-color: #b8e6a7;
+    border-color: transparent;
+    color: #2d830e;
+}
+
+.navigate-link-btn3 {
+    background-color: #57a13c;
+    color: #fff;
+}
+
+.cust-add-comp2 h3 {
+    color: #000248;
+}
+
+.cross-btn2 {
+    border-color: #57a13c;
+    color: #57a13c;
+}
+
+.appoint-popup-bx2 h3 {
+    color: #000248 
+}
+
+.appoint-prof-table-main-bx table tbody tr td:nth-child(5):hover,
+.appoint-prof-table-main-bx table tbody tr td:nth-child(4):hover {
+    background-color: transparent;
+}
+
+.reshd-inpt-bx3 {
+    background-color: #eeffe8;
+    border: .1rem solid #57a13c;
+    border-radius: .3rem;
+}
+
+.reshd-inpt-bx3:before {
+    color: #57a13c;
+}
+
+.reshd-inpt-bx3 input,
+.reshd-inpt-bx3 select {
+    border: none;
+    background-color: transparent;
+    color: #000248;
+}
+
+
+.tb-para-chng-col{
+    color: #000248 !important;
+
+}
+
+.tb-para-chng-col:before{
+    background-color: #000248 !important;
+}
+
+.comn-inpt-bg{
+background-color: transparent !important;
+border-radius: .45rem;
+border: .05rem solid #babeff;
+box-shadow: 0 0 2cap #ecedff;
+}
+
+.prof-intp-bx3 label{
+    color: #000248 ;
+}
+
+.comn-inpt-bg , .comn-inpt-bg input{
+    background-color: transparent;
+border-color:  #4e49b8 !important;
+color: #000248;
+
+
+}
+
+.comn-inpt-bg input:focus-within{
+border-bottom-color: #4e49b8 ;
+
+}
+
+.comn-inpt-bg input::placeholder{
+    color: #000248;
+}
+
+.pin-submit-btn2{
+    background-color: #4e49b8;
+    border-color: #4e49b8;
+}
+
+.prof-table-main-bx4 table thead tr th{
+    background-color: #4e49b8 ;
+    border: none !important;
+}
+
+.prof-table-main-bx4 table tbody tr{
+    background-color: #e8e9ff;
+    
+}
+
+.prof-table-main-bx4 table tbody tr:nth-child(2n + 2){
+    background-color: #dbddff;
+}
+
+.prof-table-main-bx4 table tbody tr td{
+    padding: .67rem 1rem;
+    border: none !important;
+}
+
+.tbledatadeactive{
+    background-color: #d1d4ff;
+    color: #000248 !important;
+}
+
+.address-info-bx3 h6{
+    color: #000248;
+}
+
+.address-btn4{
+    width: 12rem;
+}
+
+.address-btn4:hover{
+    color: #000248;
+}
+
+.comn-inpt-bg2 input{
+    border-bottom: none !important;
+}
+
+
+
+.waste-colectin-comp h3{
+    margin-left: 2rem;
+    margin-top: 3rem;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.table-parent-bx10{
+    background-color: transparent;
+    height: initial;
+    
+}
+
+.wastecolect-table-main-bx-waste-collec-tble{
+    padding: 2.5rem 2.5rem;
+    margin-top: 1rem;
+    background-color: #e9f5ff;
+    width: 100%;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble table thead tr th{
+    background-color: #5ab0f7;
+    border: none !important;
+    padding-block: .87rem;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble table tbody tr td{
+    padding-block: .65rem;
+    border: none !important;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble table tbody tr{
+    background-color: #e4f4ff;
+
+}
+
+.wastecolect-table-main-bx-waste-collec-tble table tbody tr:nth-child(2n + 2){
+    background-color: #d8eefe;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble2 {
+    background-color: #ffffeb;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble2 table thead tr th{
+    background-color: #d5d529;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble2 table tbody tr{
+    background-color: #ffffd1;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble2 table tbody tr:nth-child(2n + 2){
+    background-color: #f4f4b9;
+}
+
+.td-flex2{
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.waste-appoint-ment-comp h3{
+    color: #000248 ;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble3 {
+    background-color: #effeff;
+}
+
+
+.wastecolect-table-main-bx-waste-collec-tble3 table thead tr th{
+    background-color: #26a1a9;
+    padding-block: .87rem;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble3 table tbody tr td{
+    padding-block: .76rem ;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble3 table tbody tr{
+    background-color: #ecfeff;
+}
+
+.wastecolect-table-main-bx-waste-collec-tble3 table tbody tr:nth-child(2n + 2){
+    background-color: #e2feff;
+}
+
+.details-main-bx{
+    position: relative;
+    width: 100%;
+    padding: 2rem 2rem 0 2rem;
+}
+
+.det-table-bx{
+    position: relative;
+    width: 100%;
+    padding: 2rem 2rem;
+    background-color: #edffe7;
+    white-space: nowrap;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+.det-table-bx table{
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+
+}
+
+.det-table-bx table thead tr th{
+    padding: .76rem .87rem;
+    background-color: #45d013;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.det-table-bx table tbody tr td{
+    padding: .76rem .87rem;
+    color: #000248;
+    letter-spacing: .5px;
+}
+
+.det-table-bx table tbody tr{
+    background-color: #eeffe9;
+
+}
+
+.det-table-bx table tbody tr:nth-child(2n + 2){
+    background-color: #e5ffdc;
+
+}
+
+.add-det-btn{
+    position: relative;
+    margin-top: 2rem;
+    width: auto;
+    padding: .56rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: .45rem;
+    background-color: #54d127;
+    color: #fff;
+    border-radius: .45rem;
+
+}
+
+.add-det-info-bx{
+    margin-top: 2rem;
+
+}
+
+.add-det-info-bx5{
+    margin-top: 0;
+}
+
+.add-det-info-bx5 h6{
+    margin-bottom: 2rem !important; 
+}
+
+.add-det-info-bx h6{
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: .56px;
+    color: #000248;
+    margin-bottom: .56rem;
+}
+
+.add-det-info-bx p{
+    font-size: 1rem;
+    font-weight: 400;
+    white-space: wrap;
+    max-width: 40rem;
+    line-height: 1.5;
+}
+
+.add-det-info-form , form{
+    position: relative;
+    width: 100%;
+}
+
+.det-grid{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4rem;
+    row-gap: 4rem;
+    margin-top: 1.5rem;
+}
+
+.det-input-bx{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.det-input-bx label{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000248;
+    letter-spacing: .67px;
+}
+
+.det-input-bx input , .det-input-bx select{
+    padding: .45rem .78rem;
+    font-size: 1rem;
+    color: #000248;
+    border-radius: .45rem;
+}
+
+.det-input-bx select{
+    padding-block: .55rem;
+    cursor: pointer;
+}
+
+.det-save-btn{
+    position: relative;
+    width: 10rem;
+    margin-top: 2rem;
+    background-color: #45d013;
+    padding-block: .4rem;
+    font-size: 1rem;
+    letter-spacing: .76px;
+    color: #fff;
+    font-weight: 500;
+    border-radius: .45rem;
+}
+
+.pass-det-box{
+    position: relative;
+    width: 100%;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+    padding-inline-start: 20rem;
+    padding-inline-end: 2rem;
+}
+
+.det-pass-wrap-bx{
+    position: relative;
+    width: 100%;
+    padding: 2rem 2rem;
+    background-color: rgb(255, 241, 215);
+}
+
+.det-save-btn2{
+    background-color: orange;
+}
+
+.add-det-info-form-bx{
+    display: none;
+}
+
+.add-det-info-form-bx.adddetinfoactive{
+    display: block;
+}
+
+
+.det-table-bx3{
+    background-color: #e6f4ff;
+    
+}
+
+.det-table-bx3 table thead tr th , .add-det-btn5{
+    background-color: #5ab0f7;
+}
+
+.det-table-bx3 table tbody tr{
+    background-color: #ebf6ff;
+}
+
+.det-table-bx3 table tbody tr:nth-child(2n + 2){
+    background-color: #ddf0ff;
+}
+
+.waste-appoint-ment-comp3{
+    padding-inline-start: 0 ;
+}
+
+.right-tab-main-bx3{
+    padding: 3rem 0 3rem 0 !important;
+}
+
+.wasteappoint-prof-table-main-bx5 table thead tr th{
+    background-color: #57a13c !important;
+}
+
+.tex-line5{
+    font-size: 1.5rem !important; 
+}.appoint-popup-main
+
+.appoint-popup-main{
+    position: fixed !important;
+    top: 0;
+    left: 0;
+}
+
+.cust-add h6{
+    color: #000248;
+    font-weight: 600;
+}
+
+.cust-add h6 span{
+    font-weight: 400;
+    letter-spacing: .56px;
+}
+
+
+.primary-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem .87rem;
+    background-color: #5ab0f7;
+    color: #fff;
+    letter-spacing: .45px;
+    border-radius: .34rem;
+    cursor: pointer;
+}
+
+.edit-b-btn{
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    font-size: .95rem;
+    color: #000248;
+    cursor: pointer;
+    background-color: #d8e9f8;
+    border-radius: 50%;
+}
+
+.primary-text{
+    background-color: transparent;
+    color: #000248;
+}
+
+.pricelist-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem .87rem;
+    cursor: pointer;
+    text-align: center;
+    font-size: .95rem;
+    letter-spacing: .56px;
+    background-color: #b8e6a7;
+    border-radius: .35rem;
+    color: #2d830e;
+}
+
+/* 57a13c */

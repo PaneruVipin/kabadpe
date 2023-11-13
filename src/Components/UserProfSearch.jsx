@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 const UserProfSearch = () => {
   const [prfEditForm, setPrfEditForm] = useState(false);
-  const user = useSelector((s) => s.user.userInfo);
   return (
     <>
       <section className="use-prf-left-main-bx">
@@ -87,19 +86,21 @@ const UserProfSearch = () => {
                 />
               </div>
 
-              <button className="prof-chagen-btn">Update</button>
-            </form>
+        <button className="prof-chagen-btn">
+            Update
+        </button>
+        
+    </form>
 
-            <div
-              onClick={() => setPrfEditForm(false)}
-              className="prof-user-edit-form-bx-close"
-            >
-              <i className="fa-regular fa-circle-xmark"></i>
-            </div>
-          </div>
-        </section>
+<div onClick={() => setPrfEditForm(false)} className="prof-user-edit-form-bx-close">
+    <i class="fa-regular fa-circle-xmark"></i>
+    </div>
+    
+</div>
 
-        <UserProfCounter />
+</section>
+    
+  <UserProfCounter />
 
         <UserProfCards />
 

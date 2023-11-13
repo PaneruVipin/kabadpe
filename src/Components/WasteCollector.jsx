@@ -1108,6 +1108,7 @@ const WasteCollector = () => {
           </div>
         </div>
       </section>
+      
     </>
   );
 };

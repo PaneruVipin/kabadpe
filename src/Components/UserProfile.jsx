@@ -7,7 +7,6 @@ import AppointmentComp from "./AppointmentComp";
 import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const user = useSelector((s) => s.user.userInfo);
@@ -36,12 +35,12 @@ const UserProfile = () => {
   return (
     <>
       <header className="main-header header-style-one">
-        <div className="header-top">
-          <div className="auto-container">
-            <div className="outer-box outer-box2">
-              <div className="t-headr-left-links-bx">
+        <div class="header-top">
+          <div class="auto-container">
+            <div class="outer-box outer-box2">
+              <div class="t-headr-left-links-bx">
                 <a href="#"> Climstripe Shift </a>
-                <a href="#" className="linkactive">
+                <a href="#" class="linkactive">
                   {" "}
                   Kabadpe
                 </a>
@@ -440,7 +439,7 @@ const UserProfile = () => {
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
           >
-            <i className="fa-solid fa-xmark"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

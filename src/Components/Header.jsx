@@ -9,61 +9,40 @@ const Header = () => {
       {/* <!-- Main header--> */}
       <header className="main-header header-style-one">
         {/* <!--Start Header Top--> */}
-        <div className="header-top">
-          <div className="auto-container">
-            <div className="outer-box outer-box2">
-              <div className="header-right header-left_btns-flex">
-                <div className="phone-number-box1">
-                  <a className="" href="#">
-                    {" "}
-                    <i className="fa-solid fa-angles-right"></i> Climstripe
-                    Shift
-                  </a>
-                </div>
+        <div class="header-top">
+                <div class="auto-container">
+                    <div class="outer-box outer-box2">
+                        <div class="t-headr-left-links-bx">
 
-                <div className="phone-number-box1">
-                  <a className="active" href="index.html">
-                    {" "}
-                    <i className="fa-solid fa-angles-right"></i> Kabadpe
-                  </a>
-                </div>
+                            <a href="#">  Climstripe Shift </a>
+                            <a href="#" class="linkactive"> Kabadpe</a>
+                            <a href="#"> Green Saman Shop </a>
+                            <a href="#">  Climconnect </a>
 
-                <div className="phone-number-box1">
-                  <a href="#">
-                    {" "}
-                    <i className="fa-solid fa-angles-right"></i> Green Saman
-                    Shop
-                  </a>
-                </div>
 
-                <div className="phone-number-box1">
-                  <a href="#">
-                    {" "}
-                    <i className="fa-solid fa-angles-right"></i> Climconnect
-                  </a>
-                </div>
-              </div>
+                        </div>
 
-              <div className="header-top__left header-top_right">
-                <div className="header-contact-info-style1">
-                  <ul>
-                    <li>
-                      <div className="icon">
-                        {/* <img src="assets/images/customImg/game.png"> */}
-                        <img src="./images/customImg/game.png" alt="" />
-                        <img src="./images/customImg/app-store.png" alt="" />
-                        {/* <img src="assets/images/customImg/app-store.png"> */}
-                      </div>
-                      <div className="text">
-                        <p>Download App</p>
-                      </div>
-                    </li>
-                  </ul>
+                        <div class="header-top__left header-top_right">
+                            <div class="header-contact-info-style1">
+                                <ul>
+
+                                    <li>
+                                        <div class="icon">
+                                            <img src="./images/customImg/game.png"/>
+                                            <img src="./images/customImg/app-store.png"/>
+                                        </div>
+                                        <div class="text">
+                                            <p>Download App</p>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
         {/* <!--End Header Top--> */}
 
         {/* <!--Start Header--> */}
@@ -185,6 +164,19 @@ const Header = () => {
                           </div>
                         </div>
                       </li>
+
+                      <li>
+                        <NavLink to="/schedulepickup">
+                          <span>Schedule Pickup</span>
+                        </NavLink>
+                      </li>
+  
+                      <li>
+                        <NavLink to="/ratelist">
+                          <span>Rate list</span>
+                        </NavLink>
+                      </li>
+
                       <li className="aboutdrpdwn">
                         <NavLink to="/about">
                           <span>About Us</span>
@@ -201,21 +193,8 @@ const Header = () => {
                           </p>
                         </div>
                       </li>
-                      <li>
-                        <NavLink to="/wastegept">
-                          <span>Wastegpt</span>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/ratelist">
-                          <span>Rate list</span>
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/kabadshop">
-                          <span>Kabad Shop</span>
-                        </NavLink>
-                      </li>
+
+                    
                       <li>
                         <NavLink to="/account">
                           <span>My Account</span>

@@ -8,10 +8,9 @@ import { DateTime } from "luxon";
 
 const AppointmentComp = () => {
   const { data: appoinments, refetch } = useQuery({
-    queryKey: ["userOrders"],
+    queryKey: ["userAppoinments"],
     queryFn: () => userAppoinmentsFetch(),
   });
-  console.log("appoinments", appoinments);
   return (
     <>
       <section className="user-prof-grid-comp">
@@ -32,6 +31,7 @@ const AppointmentComp = () => {
                             Franchise,
                             Arium,
                             KabadCollector,
+                            orderStatus,
                           },
                           index
                         ) => (
@@ -59,7 +59,7 @@ const AppointmentComp = () => {
                                 <h6>
                                   {DateTime.fromISO(appointmentDate, {
                                     zone: "utc",
-                                  }).toFormat("ccc dd LLL yyyy")}
+                                  }).toFormat("ccc dd LLL yyyy")}{" "}
                                 </h6>
                                 <span>
                                   Ap.No.- <NavLink to="#"> 8447532101 </NavLink>
@@ -71,11 +71,13 @@ const AppointmentComp = () => {
                               <div className=" tb-reshed-btn">Reschedule</div>
                             </td>
 
-                            <td>
-                              <div className=" tb-call-btn">
-                                Call to Confirm
-                              </div>
-                            </td>
+                            {KabadCollector?.id && orderStatus == "1" ? (
+                              <td>
+                                <div className=" tb-call-btn">
+                                  Call to Confirm
+                                </div>
+                              </td>
+                            ) : null}
 
                             <td>
                               <div className="complet-bx upcoming-bx">

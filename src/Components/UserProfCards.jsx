@@ -15,7 +15,7 @@ const UserProfCards = () => {
                     <div className="u-p-icn">
                     <i className="fa-solid fa-layer-group"></i>
                     </div>
-                    <h6>Offer Heading</h6>
+                    <h6>Offer Heading </h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
 
                     <h5>Expiry Date : <span>10/10/2023</span> </h5>

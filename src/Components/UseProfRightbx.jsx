@@ -3,13 +3,15 @@ import '../style/ChatSoclPost.css';
 import Chats from "./Chats";
 import '../style/SocialPost.css'
 import Socialpost from "./Socialpost";
+import CenterSocialPost from "./CenterSocialPost";
+import '../style/CenterSocialPost.css'
 
 
 const UseProfRightbx = () => {
 const [chat, setChat] = useState(false)
 const [socPost, setSocPost] = useState(true)
+const [socPostOne , setSocPostOne] = useState(false);
 
- 
 const handleChat = () => {
 
     setChat(true)
@@ -38,11 +40,11 @@ const socpostFunc = () => {
           <div className="right-soc-flex">
 
         <div onClick={socpostFunc} className={socPost ? "link-bx socl-btn soc-post-btnactive" : "link-bx socl-btn"} title="Social Post">
-          <i class="fa-solid fa-users"></i>
+          <i className="fa-solid fa-users"></i>
           </div>
 
           <div onClick={handleChat}   className={chat ?   "link-bx chat-gpt-btn chat-gpt-btnactive" : "link-bx chat-gpt-btn"} title="Chat GPT">
-          <i class="fa-brands fa-facebook-messenger"></i>
+          <i className="fa-brands fa-facebook-messenger"></i>
           </div>
 
           </div>
@@ -60,11 +62,15 @@ const socpostFunc = () => {
 
       <div className={socPost === true ? "social-post soclpostactive" : "social-post"}>
 
-<Socialpost />
+<Socialpost onclickShowSocPost={ () => setSocPostOne(true) }  />
   
 </div>
 
 </section>
+
+  
+{socPostOne === true ? <CenterSocialPost   onClickCloseSocPost={ () => setSocPostOne(false) } />  : null }
+
     </>
   );
 };

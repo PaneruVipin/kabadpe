@@ -43,7 +43,7 @@ const UserOrders = () => {
     </div>
 
     <div className="sales-search-btn">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i className="fa-solid fa-magnifying-glass"></i>
     </div>
     
 </div>
@@ -106,7 +106,7 @@ const UserOrders = () => {
                                 <div className="complet-bx upcoming-bx sale-hist-data sale-hist-data56 sale-hist-data55">
                                 CSS09480 
                                 <div className="s-h-ic s-h-ic5 t-numb-ord2">
-                                <i class="fa-solid fa-arrow-down"></i>
+                                <i className="fa-solid fa-arrow-down"></i>
                                 </div>
                                 </div>
                             </td>
@@ -152,7 +152,7 @@ const UserOrders = () => {
                                 <div className="complet-bx upcoming-bx sale-hist-data sale-hist-data56 sale-hist-data55">
                                 CSS09480 
                                 <div className="s-h-ic s-h-ic5 t-numb-ord2">
-                                <i class="fa-solid fa-arrow-down"></i>
+                                <i className="fa-solid fa-arrow-down"></i>
                                 </div>
                                 </div>
                             </td>
@@ -200,7 +200,7 @@ const UserOrders = () => {
                                 <div className="complet-bx upcoming-bx sale-hist-data sale-hist-data56 sale-hist-data55">
                                 CSS09480 
                                 <div className="s-h-ic s-h-ic5 t-numb-ord2">
-                                <i class="fa-solid fa-arrow-down"></i>
+                                <i className="fa-solid fa-arrow-down"></i>
                                 </div>
                                 </div>
                             </td>
@@ -248,7 +248,7 @@ const UserOrders = () => {
                                 <div className="complet-bx upcoming-bx sale-hist-data sale-hist-data56 sale-hist-data55">
                                 CSS09480 
                                 <div className="s-h-ic s-h-ic5 t-numb-ord2">
-                                <i class="fa-solid fa-arrow-down"></i>
+                                <i className="fa-solid fa-arrow-down"></i>
                                 </div>
                                 </div>
                             </td>

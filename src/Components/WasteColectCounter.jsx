@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/Profile.css';
 
-const UserProfCounter = () => {
+const WasteColectCounter = () => {
   return (
     <>
 
@@ -9,17 +9,17 @@ const UserProfCounter = () => {
 
     <section className="user-prof-counter-comp">
     <div className="u-p-cont">
-        <div className="user-prof-count-grid-bx">
+        <div className="user-prof-count-grid-bx user-prof-count-grid-bx3">
 
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i className="fa-solid fa-wallet"></i>
+                <i class="fa-solid fa-user-pen"></i>
                 </div>
 
                 <div className="u-prf-c-info">
-                    <h5>Wallet Balance</h5>
-                    <h4>2500</h4>
+                    <h5>Appointments</h5>
+                    <h4>20</h4>
 
 
                     
@@ -31,15 +31,14 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i className="fa-solid fa-indian-rupee-sign"></i>
+                <i class="fa-solid fa-wallet"></i>
                 </div>
 
                 <div className="u-prf-c-info">
-                    <h5>Total Waste Sold </h5>
-                    <h4>500</h4>
+                    <h5>Wallet Balance </h5>
+                    <h4>236.00</h4>
 
 
-                    
                 </div>
                 
             </div>
@@ -48,12 +47,13 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i className="fa-solid fa-dumpster"></i>
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
                 </div>
 
                 <div className="u-prf-c-info">
-                    <h5>Waste Sold</h5>
-                     <h4>50</h4>
+                    <h5>Cash Paid</h5>
+                     <h4>3500</h4>
 
                     
                 </div>
@@ -63,15 +63,34 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
             <div className="c-icn">
-            <i className="fa-solid fa-people-arrows"></i>
+            <i class="fa-solid fa-dumpster"></i>
             </div>
 
             <div className="u-prf-c-info">
-                <h5>Followers</h5>
-                <h4>15K</h4>
+                <h5>Total Waste Collected</h5>
+                <h4>1500</h4>
 
                 
             </div>
+
+
+
+            </div>
+
+            <div className="usr-prf-count-bx">
+
+            <div className="c-icn">
+            <i class="fa-solid fa-water-ladder"></i>
+            </div>
+
+            <div className="u-prf-c-info">
+                <h5>Total Waste Sold</h5>
+                <h4>1500</h4>
+
+                
+            </div>
+
+
 
             </div>
             
@@ -83,4 +102,4 @@ const UserProfCounter = () => {
   )
 }
 
-export default UserProfCounter
+export default WasteColectCounter

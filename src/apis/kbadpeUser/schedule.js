@@ -4,7 +4,8 @@ import { getFromLocalStorage } from "../../lib/localStorage";
 
 export const userSchedulePickup = resolvePromise(
   async ({
-    appointmentAddress,
+    coordAddress,
+    formatedAddress,
     appointmentContactNumber,
     appointmentPersonName,
     appointmentDate,
@@ -16,7 +17,8 @@ export const userSchedulePickup = resolvePromise(
     const { data: res } = await axios.post(
       apiUrl,
       {
-        appointmentAddress,
+        coordAddress,
+        formatedAddress,
         appointmentContactNumber,
         appointmentPersonName,
         appointmentDate,

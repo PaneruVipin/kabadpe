@@ -15,7 +15,7 @@ export const signup = async ({
     },
     user: {
       path: "/auth/signup",
-      payload: { email, password, phone: phoneNumber },
+      payload: { fullname, email, password, phone: phoneNumber },
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;

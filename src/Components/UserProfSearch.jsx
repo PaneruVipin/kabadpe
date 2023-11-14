@@ -7,6 +7,7 @@ import "../style/Support.css";
 import { useSelector } from "react-redux";
 
 const UserProfSearch = () => {
+  const user = useSelector((s) => s.user.userInfo);
   const [prfEditForm, setPrfEditForm] = useState(false);
   return (
     <>
@@ -86,21 +87,19 @@ const UserProfSearch = () => {
                 />
               </div>
 
-        <button className="prof-chagen-btn">
-            Update
-        </button>
-        
-    </form>
+              <button className="prof-chagen-btn">Update</button>
+            </form>
 
-<div onClick={() => setPrfEditForm(false)} className="prof-user-edit-form-bx-close">
-    <i class="fa-regular fa-circle-xmark"></i>
-    </div>
-    
-</div>
+            <div
+              onClick={() => setPrfEditForm(false)}
+              className="prof-user-edit-form-bx-close"
+            >
+              <i class="fa-regular fa-circle-xmark"></i>
+            </div>
+          </div>
+        </section>
 
-</section>
-    
-  <UserProfCounter />
+        <UserProfCounter />
 
         <UserProfCards />
 

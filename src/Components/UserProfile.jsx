@@ -7,6 +7,7 @@ import AppointmentComp from "./AppointmentComp";
 import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
   const user = useSelector((s) => s.user.userInfo);

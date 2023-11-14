@@ -64,6 +64,10 @@ const AppointmentComp = ({onSupportClick}) => {
                     </td>
 
                     <td>
+                      <div className=" tb-call-btn tb-report-btn">Report</div>
+                    </td>
+
+                    <td>
                       <div className="complet-bx upcoming-bx">Upcoming</div>
                     </td>
                   </tr>
@@ -97,6 +101,10 @@ const AppointmentComp = ({onSupportClick}) => {
 
                     <td>
                       <div className=" tb-call-btn">Call </div>
+                    </td>
+
+                    <td>
+                      <div className=" tb-call-btn tb-report-btn">Report</div>
                     </td>
 
                     <td>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/WasteColect.css";
+import {NavLink} from 'react-router-dom'
 
 const WasteAppoint = () => {
   const [popUp, setPopUp] = useState(false);
@@ -187,6 +188,7 @@ const WasteAppoint = () => {
                       <th>Customer Name</th>
                       <th>Customer Address</th>
                       <th>Status</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -203,6 +205,13 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Visited</td>
+                      <td>
+          <NavLink to="/pricelist">
+          <button className="pricelist-btn">
+            Buy Waste 
+          </button>
+          </NavLink>
+        </td>
                     </tr>
 
                     <tr>
@@ -218,6 +227,7 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Cancelled</td>
+                      <td></td>
                     </tr>
 
                     <tr>
@@ -233,6 +243,8 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Cancelled</td>
+                      <td></td>
+
                     </tr>
 
                     <tr>
@@ -255,6 +267,8 @@ const WasteAppoint = () => {
                           Confirm Status
                         </button>
                       </td>
+                      <td></td>
+
                     </tr>
                   </tbody>
                 </table>

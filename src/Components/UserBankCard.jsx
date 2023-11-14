@@ -4,15 +4,42 @@ import "../style/BankCard.css";
 
 const UserBankCard = () => {
     const [userBankForm , setUserBankForm] = useState(false);
+    const [formBox, setFormBox] =  useState(false);
+    const [showhide , setShowhide] = useState('Show');
+
+    const showHide = () => {
+
+      setFormBox(!formBox)
+
+      if(showhide == 'Hide'){
+          setShowhide('Show')
+      }else{
+          setShowhide('Hide')
+
+      }
+      
+  }
+    
   return (
     <>
       <section className="user-bank-comp">
         <div className="bank-cont">
+        <div className="comn-top-flex-bx">
           <h5>Bank Card Details</h5>
+
+          <button onClick={showHide} className="show-hide show-hide3">
+                {showhide}
+            </button>
+
+          </div>
+
+          <div className={formBox ? ' formboxxactive' : 'form-boxx'}>
+
 
           <div className="bank-card-table bank-card-table2">
               <table>
             <thead>
+
               <tr>
                 <th>Card Name</th>
                 <th>Card Holder</th>
@@ -79,6 +106,8 @@ const UserBankCard = () => {
           <button  onClick={() => setUserBankForm(!userBankForm)} className="table-card-add-data-btn table-card-add-data-btn2">
           <i class="fa-solid fa-plus"></i> Add Card Data
           </button>
+
+          </div>
           
 {/*           
           <div className="user-bank-grid">

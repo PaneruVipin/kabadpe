@@ -1,0 +1,244 @@
+
+/* ___________________________________
+ side product css code
+ ------------------ */
+
+ .product-side-comp{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 27.56rem;
+    height: 100vh;
+    background-color: #fff;
+    border-left: .1rem solid #ddd;
+    padding-top: 7rem;
+    padding-inline: 2rem;
+ }
+
+ .product-side-comp h4{
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: 600;
+    color: #000248;
+    letter-spacing: .5px;
+ }
+
+ .chat-message-main-bx2{
+    display: block;
+    width: 70%;
+    bottom: 1.1rem;
+    left: 62%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    height: 4rem;
+    transition: 500ms ease;
+    
+ }
+
+ .chat-message-main-bx2 .right-user-messge-info p{
+    opacity: 0;
+ }
+
+ .chat-message-main-bx2 .left-user-messge-img{
+    width: 2.5rem;
+    height: 2.5rem;
+ }
+
+ 
+ .chat-message-main-bx2.chatsideactive{
+    left: 50%;
+    width: 85%;
+    height: 27rem;
+ }
+
+ .chat-message-main-bx2.chatsideactive  .left-user-messge-img{
+    width: 3rem;
+    height: 3rem;
+ }
+
+ .chat-message-main-bx2.chatsideactive .right-user-messge-info p{
+    opacity: 1;
+ }
+
+ .minimize-maximize-btn{
+    position: absolute;
+    top: .5rem;
+    right: 3rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: grid;
+    place-items: center;
+    background-color: #e1ffe1;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: .87rem;
+    color: #128812;
+    transition: 400ms ease;
+ }
+
+ .minimize-maximize-btn.minimaxiactive{
+    transform: rotate(180deg);
+ }
+
+ /* ______________________________
+  Our gallery css code
+  -=--------------- */
+
+  .gall-grid{
+    position: relative;
+    width: 100%;
+    padding-bottom: 2rem;
+  }
+
+  .gallery-comp h6{
+    font-size: 2.3rem;
+  }
+
+  .img-link{
+    position: relative;
+    width: 10rem;
+    height: 10rem;
+   overflow: hidden;
+   display: inline-flex;
+   z-index: 2;
+   margin-bottom: .5rem;
+   margin-right: .5rem;
+
+  }
+
+  
+  .gall-box::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg , transparent 1% , rgba(2, 23, 2, 0.597) 35.5% , #010101a5 55% );
+    opacity: 0.7;
+    transition: 500ms ease;
+    transform: scale(2);
+    opacity: 0;
+  }
+
+  .gall-box:hover:before{
+    transform: scale(1);
+    opacity: 0.7;
+
+  }
+
+  .gall-img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .gall-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* _________________________________
+   Our followers css code
+   ------------------- */
+
+   .folow-list-main{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    padding-inline-end: .5rem;
+
+   }
+
+   .folow-li-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-radius: .45rem;
+    background-color: #fff7f7;
+
+   }
+
+   .folow-li-box:nth-child(2n + 1){
+    background-color: #fff;
+   }
+
+   .folow-user-img{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .87rem;
+   }
+
+   .folow-user-img img{
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+   }
+
+   .folow-right-info{
+    transform: translateY(5px);
+   }
+
+   .folow-right-info h6{
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    line-height: .87;
+
+   }
+
+   .folow-text{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+   } 
+
+   .folow-text span{
+    font-size: .9rem;
+    letter-spacing: .56px;
+    color: #000248;
+   }
+
+   .folow-text span:last-of-type{
+    color: #6c6e6c !important;
+   }
+
+   .folow-btn{
+    margin-left: 1rem;
+    width: max-content;
+    padding: .1rem .87rem;
+    background-color: #def3ff;
+    border-radius: .56rem;
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #1577b0;
+   }
+
+   .folow-btn.folowbtnactive{
+    background-color: #c5e8fd;
+
+   }
+
+   .right-remove-btn{
+    position: relative;
+    width: max-content;
+    padding: .1rem .87rem;
+    background-color: #ffeded;
+    color: red;
+    border-radius: .45rem;
+   }
+
+   .right-folw-remv-btn{
+    display: flex;
+    align-items: center;
+    gap: .76rem;
+    
+
+   }

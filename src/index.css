@@ -4490,7 +4490,7 @@ Our contributon sec Css
 .t-headr-left-links-bx a {
   display: block;
   position: relative;
-  color: #fff;
+  color: #000248;
   transition: 500ms ease;
 
 }
@@ -4522,7 +4522,9 @@ Our contributon sec Css
 }
 
 .header-top{
-  background-color: #050a34 !important;
+  /* background-color: #050a34 !important; */
+  background-color: #fff;
+  border-bottom: .1rem solid #eee;
 }
 
 
@@ -4590,6 +4592,7 @@ Our contributon sec Css
 .header-top .outer-box .header-right a {
   position: relative;
   font-size: 14px;
+  
 }
 
 .header-top .outer-box .phone-number-box1 {
@@ -4641,6 +4644,7 @@ Our contributon sec Css
   background: url(images/customImg/left-top-menu-before.png) no-repeat;
   background-size: 100%;
 }
+
 
 .header-top .outer-box .header-right a:hover {
   background-color: #2ac4c8 !important;
@@ -4771,9 +4775,9 @@ css code */
 
 ::-webkit-scrollbar {
   background-color: transparent;
-  width: 0.765rem;
+  width: 0.765rem ;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #105266;
+  background-color: #0b59d9;
 }

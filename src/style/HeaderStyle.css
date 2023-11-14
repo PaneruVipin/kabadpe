@@ -120,7 +120,7 @@
 .header-top {
     position: relative;
     display: block;
-    background: var(--thm-black);
+    /* background: var(--thm-black); */
     z-index: 1;
 }
 

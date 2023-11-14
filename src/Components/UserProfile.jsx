@@ -8,6 +8,8 @@ import Supportticket from './Supportticket';
 import UserOrders from './UserOrders';
 import { NavLink } from 'react-router-dom';
 import Header from './Header';
+import ReferEarn from './ReferEarn';
+import MyWallet from './MyWallet';
 
 const UserProfile = () => {
   const [profBtn, setProfBtn] = useState(1);
@@ -269,7 +271,7 @@ const UserProfile = () => {
                 Dashboard
             </button>
 
-            <button onClick={() => filterTab(5)} className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}>
+            <button onClick={() => filterTab(7)} className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}>
             <div className="u-prf-tab-icon">
             <i class="fa-solid fa-wallet"></i>
                   </div>
@@ -293,7 +295,7 @@ const UserProfile = () => {
 
             <button onClick={() => filterTab(5)} className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}>
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-file-pen"></i>
+            <i class="fa-solid fa-hand-holding-dollar"></i>
                   </div>
                 Refer and Earn
             </button>
@@ -354,8 +356,10 @@ const UserProfile = () => {
    { profBtn === 2 ?  <UserProfForm/> : null};
    { profBtn === 4 ?  <SalesHistoryComp/> : null};
    { profBtn === 3 ?  <AppointmentComp onSupportClick={()=>setProfBtn(6)}/> : null};//
-   { profBtn === 6 ?  <Supportticket /> : null};//
+   { profBtn === 6 ?  <Supportticket /> : null};
    { profBtn === 9 ?  <UserOrders/> : null};
+   { profBtn === 5 ?  <ReferEarn/> : null};
+   { profBtn === 7 ?  <MyWallet/> : null};
 
    
    

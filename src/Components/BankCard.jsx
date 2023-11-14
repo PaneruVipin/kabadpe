@@ -5,11 +5,37 @@ import AccountForm from "./AccountForm";
 
 const BankCard = () => {
     const [accountForm , setAccountForm] =  useState(false);
+    const [formBox, setFormBox] =  useState(false);
+    const [showhide , setShowhide] = useState('Show');
+
+    const showHide = () => {
+
+      setFormBox(!formBox)
+
+      if(showhide == 'Hide'){
+          setShowhide('Show')
+      }else{
+          setShowhide('Hide')
+
+      }
+      
+  }
+    
   return (
     <>
       <section className="bank-card-cmp">
         <div className="b-c-cont">
+        <div className="comn-top-flex-bx">
           <h4>Your Card Details</h4>
+
+          <button onClick={showHide} className="show-hide show-hide2">
+                {showhide}
+            </button>
+          
+          </div>
+
+          <div className={formBox ? ' formboxxactive' : 'form-boxx'}>
+
 
           <div className="bank-card-table">
               <table>
@@ -80,6 +106,8 @@ const BankCard = () => {
           <button onClick={() => setAccountForm(!accountForm)} className="table-card-add-data-btn">
           <i class="fa-solid fa-plus"></i> Add Card Data
           </button>
+
+          </div>
           
 {/* 
           <div className="bank-card-grid">

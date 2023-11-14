@@ -12,7 +12,7 @@ const Detailslist = () => {
         <div className="about-container serv-container">
 
            <div className="service-Det-text">
-
+    
             <h3>Zero Waste Society</h3>
             
            </div>

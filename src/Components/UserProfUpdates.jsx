@@ -49,6 +49,10 @@ const UserProfUpdates = ({onSupportClick}) => {
                     </td>
 
                     <td>
+                      <div className=" tb-call-btn tb-report-btn">Report</div>
+                    </td>
+
+                    <td>
                       <div className="complet-bx upcoming-bx">Upcoming</div>
                     </td>
                             

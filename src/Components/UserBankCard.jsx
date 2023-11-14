@@ -5,18 +5,18 @@ import "../style/BankCard.css";
 const UserBankCard = () => {
     const [userBankForm , setUserBankForm] = useState(false);
     const [formBox, setFormBox] =  useState(false);
-    const [showhide , setShowhide] = useState('Show');
+    const [showhide , setShowhide] = useState('fa-plus');
 
     const showHide = () => {
 
       setFormBox(!formBox)
 
-      if(showhide == 'Hide'){
-          setShowhide('Show')
-      }else{
-          setShowhide('Hide')
+     if(showhide === 'fa-plus'){
+      setShowhide('fa-minus')
+     }else{
+      setShowhide('fa-plus')
 
-      }
+     }
       
   }
     
@@ -28,12 +28,12 @@ const UserBankCard = () => {
           <h5>Bank Card Details</h5>
 
           <button onClick={showHide} className="show-hide show-hide3">
-                {showhide}
+                <i className={`fa-solid ${showhide}`}></i>
             </button>
 
           </div>
 
-          <div className={formBox ? ' formboxxactive' : 'form-boxx'}>
+          <div className={formBox ? ' formboxxactive' : 'form-boxx'} style={{marginTop: "2rem"}}>
 
 
           <div className="bank-card-table bank-card-table2">

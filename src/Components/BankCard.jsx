@@ -6,18 +6,19 @@ import AccountForm from "./AccountForm";
 const BankCard = () => {
     const [accountForm , setAccountForm] =  useState(false);
     const [formBox, setFormBox] =  useState(false);
-    const [showhide , setShowhide] = useState('Show');
+    const [showhide , setShowhide] = useState('fa-plus');
+
 
     const showHide = () => {
 
       setFormBox(!formBox)
 
-      if(showhide == 'Hide'){
-          setShowhide('Show')
-      }else{
-          setShowhide('Hide')
+     if(showhide === 'fa-plus'){
+      setShowhide('fa-minus')
+     }else{
+      setShowhide('fa-plus')
 
-      }
+     }
       
   }
     
@@ -29,12 +30,12 @@ const BankCard = () => {
           <h4>Your Card Details</h4>
 
           <button onClick={showHide} className="show-hide show-hide2">
-                {showhide}
+                <i className={`fa-solid ${showhide}`}></i>
             </button>
           
           </div>
 
-          <div className={formBox ? ' formboxxactive' : 'form-boxx'}>
+          <div className={formBox ? ' formboxxactive' : 'form-boxx'} style={{marginTop: "2rem"}}>
 
 
           <div className="bank-card-table">

@@ -60,7 +60,7 @@ const AppointmentComp = ({onSupportClick}) => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn">Call</div>
+                      <div className=" tb-call-btn tb-call-btn5">Call</div>
                     </td>
 
                     <td>
@@ -100,7 +100,7 @@ const AppointmentComp = ({onSupportClick}) => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn">Call </div>
+                      <div className=" tb-call-btn tb-call-btn5">Call </div>
                     </td>
 
                     <td>

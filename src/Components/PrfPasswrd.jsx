@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 
 const PrfPasswrd = () => {
     const [formBox, setFormBox] =  useState(false);
-    const [showhide , setShowhide] = useState('Show');
+    const [showhide , setShowhide] = useState('fa-plus');
 
     const showHide = () => {
 
         setFormBox(!formBox)
 
-        if(showhide == 'Hide'){
-            setShowhide('Show')
-        }else{
-            setShowhide('Hide')
+       if(showhide === 'fa-plus'){
+        setShowhide('fa-minus')
+       }else{
+        setShowhide('fa-plus')
 
-        }
+       }
         
     }
     
@@ -27,12 +27,12 @@ const PrfPasswrd = () => {
             <h5>Password</h5>
 
             <button onClick={showHide} className="show-hide">
-                {showhide}
+                <i className={`fa-solid ${showhide}`}></i>
             </button>
             
             </div>
 
-            <div className={formBox ? ' formboxxactive' : 'form-boxx'}>
+            <div className={formBox ? ' formboxx active' : 'form-boxx'} style={{marginTop : "2rem"}}>
 
             <form action="#">
 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import '../style/WasteColect.css'
-import {NavLink} from 'react-router-dom'
+import React, { useState } from "react";
+import "../style/WasteColect.css";
+import { NavLink } from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 const WasteAppointment = () => {
   const [popUp, setPopUp] = useState(false);
@@ -8,11 +9,12 @@ const WasteAppointment = () => {
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
   const [addressPopup, setAddressPopup] = useState(false);
+  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
+  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
 
   return (
     <>
-
-<section
+      <section
         className={
           popUp === true
             ? "appoint-popup-main popupactive"
@@ -59,7 +61,10 @@ const WasteAppointment = () => {
             </button>
           </div>
 
-          <button onClick={() => setPopUp(false)} className="cross-btn cross-btn2">
+          <button
+            onClick={() => setPopUp(false)}
+            className="cross-btn cross-btn2"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
 
@@ -74,8 +79,7 @@ const WasteAppointment = () => {
           >
             <p>Waste Pickup Scheduled and information has been sent to User</p>
             <button className="navigate-link-btn navigate-link-btn3">
-              <i className="fa-solid fa-location-dot"></i>
-              Click to Navigate Link
+              Confirm
             </button>
           </div>
 
@@ -113,7 +117,9 @@ const WasteAppointment = () => {
                   </select>
                 </div>
 
-                <button className="resd-sub-btn navigate-link-btn3">Send Request</button>
+                <button className="resd-sub-btn navigate-link-btn3">
+                  Send Request
+                </button>
               </div>
             </form>
           </div>
@@ -125,16 +131,21 @@ const WasteAppointment = () => {
           >
             <p>Are you sure to Cancel Your Waste Pickup appointment</p>
 
-            <button onClick={() => setPopUp(false)} className="ok-btn navigate-link-btn3">
+            <button
+              onClick={() => setPopUp(false)}
+              className="ok-btn navigate-link-btn3"
+            >
               Confirm
             </button>
           </div>
         </div>
       </section>
 
-<section
+      <section
         className={
-          addressPopup === true ? "cust-add-comp cust-add-comp2 addrssactive" : "cust-add-comp cust-add-comp2"
+          addressPopup === true
+            ? "cust-add-comp cust-add-comp2 addrssactive"
+            : "cust-add-comp cust-add-comp2"
         }
       >
         <div className="cust-add-bx">
@@ -151,95 +162,140 @@ const WasteAppointment = () => {
             Click to Navigate Link
           </button>
 
-          <button onClick={() => setAddressPopup(false)} className="cross-btn cross-btn2">
+          <button
+            onClick={() => setAddressPopup(false)}
+            className="cross-btn cross-btn2"
+          >
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
       </section>
 
-    <section className="waste-appoint-ment-comp">
-    <div
-                className= "right-tab-main-bx  tab-bx tabbxactive"
-                
-              >
-                <div className="tab-main-bx tab-main-bx3">
-                  <h3>Appointments</h3>
+      <section className="waste-appoint-ment-comp">
+        <div className="right-tab-main-bx  tab-bx tabbxactive">
+          <div className="tab-main-bx tab-main-bx3">
+            <h3>Appointments</h3>
 
-                  <div className="waste-appoint-main-bx">
+            <div className="waste-appoint-main-bx">
+              <div className="appointment-flex-box">
+                <p className="tex-line tex-line2"> Appointments</p>
 
-                  <p className="tex-line tex-line2"> Appointments</p>
+                <div className="right-search-date-filter-box">
+                  <div className="A-search-box">
+                    <input
+                      type="text"
+                      name="search"
+                      id="search"
+                      autoComplete="off"
+                      placeholder="Search..."
+                    />
+                  </div>
 
-<div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx">
-  <table>
-    <thead>
-      <tr>
-        <th>SN</th>
-        <th>Date</th>
-        <th>Customer Name</th>
-        <th>Customer Address</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>29-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Visit Soon</td>
-        <td>
-          <NavLink to="/pricelist">
-          <button className="pricelist-btn">
-            Buy Waste 
-          </button>
-          </NavLink>
-        </td>
-      </tr>
+                  <div className="dates-flex-box">
+                    <div className="sel-date">
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                    </div>
 
-      <tr>
-        <td>2</td>
-        <td>26-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Cancelled</td>
-        <td></td>
-      </tr>
+                    <span>to</span>
 
-      <tr>
-        <td>3</td>
-        <td>22-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Cancelled</td>
-        <td></td>
+                    <div className="sel-date">
+                      <DatePicker
+                        selected={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
+                      />
+                    </div>
+                  </div>
 
-      </tr>
-      
-      <tr>
+                  <div className="search-btn">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  </div>
+                  
+                </div>
+              </div>
+
+              <div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>SN</th>
+                      <th>Date</th>
+                      <th>Time Slots</th>
+                      <th>Customer Name</th>
+                      <th>Customer Address</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>29-09-2023</td>
+                      <td>10.00 to 11.00</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Visit Soon</td>
+                      <td>
+                        <NavLink to="/pricelist">
+                          <button className="pricelist-btn">Buy Waste</button>
+                        </NavLink>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>2</td>
+                      <td>26-09-2023</td>
+                      <td>11.00 to 12.00</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Cancelled</td>
+                      <td></td>
+                    </tr>
+
+                    <tr>
+                      <td>3</td>
+                      <td>22-09-2023</td>
+                      <td>12.00 to 1.00</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>Cancelled</td>
+                      <td></td>
+                    </tr>
+
+                    <tr>
                       <td>4</td>
                       <td>29-09-2023</td>
+                      <td>1.00 to 2.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -257,39 +313,36 @@ const WasteAppointment = () => {
                           Confirm Status
                         </button>
                       </td>
-        <td></td>
-
+                      <td></td>
                     </tr>
 
                     <tr>
-        <td>5</td>
-        <td>22-09-2023</td>
-        <td>Rohan Das</td>
-        <td>
-          <button
-            onClick={() => setAddressPopup(true)}
-            className="status-btn status-btn-changed"
-          >
-            Details
-          </button>
-        </td>
-        <td>Under Review <br/> (Reschedule)</td>
-        <td></td>
-
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-
-                  </div>
-                  
-                </div>
+                      <td>5</td>
+                      <td>22-09-2023</td>
+                      <td>2.00 to 3.00</td>
+                      <td>Rohan Das</td>
+                      <td>
+                        <button
+                          onClick={() => setAddressPopup(true)}
+                          className="status-btn status-btn-changed"
+                        >
+                          Details
+                        </button>
+                      </td>
+                      <td>
+                        Under Review <br /> (Reschedule)
+                      </td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-    </section>
-       
+            </div>
+          </div>
+        </div>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default WasteAppointment
+export default WasteAppointment;

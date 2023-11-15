@@ -1,0 +1,129 @@
+/* __________________-
+My reviews css code
+-------------- */
+
+.my-review-comp {
+    position: relative;
+    width: 100%;
+    padding-inline-start: 20rem;
+    padding-inline-end: 1.87rem;
+    padding-top: 3rem;
+}
+
+.my-review-comp h6 {
+    font-size: 1.65rem;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .65px;
+}
+
+.review-grid {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+}
+
+.review-box {
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 1.5rem 1rem;
+    border-radius: .55rem;
+    border: .1rem solid #eee;
+    transition: 400ms ease;
+}
+
+.review-box:hover{
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    /* box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
+
+}
+
+.review-top-flex-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-usr-img {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+}
+
+.review-usr-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.rview-det-box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.rview-det-box h6{
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #4a4949;
+}
+
+.rview-det-box span{
+    font-size: .87rem;
+    letter-spacing: .34px;
+    color: rgb(159, 158, 158);
+}
+
+.rev-rating{
+    display: flex;
+    align-items: center;
+    gap: .1rem;
+}
+
+.rev-rating i{
+    font-size: .87rem;
+    margin-bottom: 1.4rem;
+    color: orange;
+}
+
+.review-box p{
+    font-size: .95rem;
+    line-height: 1.4;
+    letter-spacing: .56px;
+    color: #a3a2a2;
+}
+
+.view-more{
+    width: 12rem;
+    margin: 2.3rem auto 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #000248;
+    height: 3rem;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .65px;
+    cursor: pointer;
+    border-radius: .45rem;
+    transition: 400ms ease;
+    border: .1rem solid #000248;
+}
+
+.view-more:hover{
+    background-color: transparent;
+    color: #000248;
+}

@@ -253,7 +253,11 @@
 }
 
 .ord-inpt input ,.ord-inpt select {
-   border-color: #66f866;
+   border-color: #57a13c;
+}
+
+.ord-inpt input:focus-within , .ord-inpt select:focus-within{
+   border-color: #57a13c;
 }
 
  .u-p-updt-table-bx11{
@@ -261,7 +265,7 @@
  }
 
  .u-p-updt-table-bx11 table thead tr{
-   background-color: #45d013;
+   background-color: #57a13c;
  }
 
  .u-p-updt-table-bx11 table thead tr th{

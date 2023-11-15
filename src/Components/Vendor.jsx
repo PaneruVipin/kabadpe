@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import WasteDetailsPasswd from './WasteDetailsPasswd';
 import WasteDetBank from './WasteDetBank';
 
-const WasteDetail = () => {
+const Vendor = () => {
 
   const [addInfo , setAddInfo] =  useState(false);
-  const [selectedImage, setSelectedImage] = useState('./images/customImg/836.jpg');
-  const [selectedImageoOne, setSelectedImageOne] = useState('./images/customImg/aadhar-img.png');
-  const [profChange , setProfChange] = useState(false);
+  const [selectedImage , setSelectedImage] = useState('./images/customImg/aadhar-img.png');
 
     const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -19,74 +17,9 @@ const WasteDetail = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  const handleImageChangeOne = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setSelectedImageOne(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
   
   return (
     <>
-
-<div className={profChange ? "user-prof-change-popup-box prof-chang-popupactive" : "user-prof-change-popup-box"}>
-                <div className="user-prof-popup-bx">
-                  
-                    <div className="prof-chang-img">
-                    {selectedImage && (
-        <img src={selectedImage} alt="Selected" />
-      )}
-                    </div>
-
-                        <div className="prof-input-file-bx">
-                            <label htmlFor="prof_input">Update profile Image</label>
-                            <input type="file" accept='image/*' onChange={handleImageChange} id='prof_input' />
-                        </div>
-                    
-                    <div onClick={() => setProfChange(false)} className="prof-popup-close-btn">
-                    <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </div>
-            </div>
-    
-
-    <section className="waste-details-comp waste-colectin-comp waste-appoint-ment-comp  ">
-
-      <h3>Photo</h3>
-
-    <div className="photo-content-box details-main-bx">
-
-      <div className="photo-info-main-box">
-
-        <div className="left-photo-info-box">
-
-          <img src="./images/customImg/waste-profile-refrence.png" alt="" />
-
-        </div>
-
-        <div className="photo-det-bx">
-
-          <p>चेहरा साफ़ दिखाई दे </p>
-          <p>धूप का चश्मा, मास्क और कोई टोपी पहनी है तो वह हटा दें। </p>
-          <p>कपड़े पहने हुए हों, हाथ पूरी तरह से खाली हो, कोई फ़िल्टर का इस्तेमाल ना करें, सिर्फ आप फ्रेम में दिखाई देने चाहिए।</p>
-
-          <button onClick={() => setProfChange(true)} className="add-img-btn">
-            Add Photo
-          </button>
-          
-        </div>
-        
-      </div>
-                      
-    </div>
-      
-    </section>
-    
       <section className="waste-details-comp waste-colectin-comp waste-appoint-ment-comp">
         
         <h3>Details</h3>
@@ -103,25 +36,13 @@ const WasteDetail = () => {
            </div>
 
            <div className="det-user-bx">
-            <h6>Date of Birth :</h6>
-            <span>05-07-1990 (33 Years)</span>
+            <h6>Age :</h6>
+            <span>30</span>
            </div>
-
-          
 
            <div className="det-user-bx">
             <h6>Gender :</h6>
             <span>Male</span>
-           </div>
-
-           <div className="det-user-bx">
-            <h6>Social Secuity :</h6>
-            <span>1234567890</span>
-           </div>
-
-           <div className="det-user-bx">
-            <h6>Mobile Number :</h6>
-            <span>2034551212</span>
            </div>
 
            <div className="det-user-bx">
@@ -130,50 +51,42 @@ const WasteDetail = () => {
            </div>
 
            <div className="det-user-bx">
-            <h6>Aadhar  :</h6>
+            <h6>Document Proof :</h6>
             <img src="./images/customImg/aadhar-img.png" className='documt-img'  alt="" />
            </div>
 
            <div className="det-user-bx">
-            <h6>Aadhar  :</h6>
-            <img src="./images/customImg/aadhar-img.png" className='documt-img'  alt="" />
+            <h6>Bank Details :</h6>
+            <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae officiis ullam sit optio, nulla doloremque molestiae quas minus nihil labore.</span>
            </div>
 
            <div className="det-user-bx">
-            <h6>Insurance  :</h6>
-            <span>1234567890</span>
-
+            <h6>Last Health Check-up :</h6>
+            <span>5-Oct.-2023</span>
            </div>
 
            <div className="det-user-bx">
-            <h6>Police Verification  :</h6>
-            <span>Verified ✅</span>
-
+            <h6>Phone Number :</h6>
+            <span>2034551212</span>
            </div>
-           <div className="det-user-bx">
-            <h6>Last Health Checkup Date  :</h6>
-            <span> 15-08-2023 📅</span>
 
            </div>
 
-           <div className="det-user-bx">
-            <h6>Emergency Contact Person :</h6>
-            <span> Rahul Jain </span>
-           </div>
+           <div className="vendor-btn-flex-box">
 
-           <div className="det-user-bx">
-            <h6>Emergency Contact Number :</h6>
-            <span> 9876450123 </span>
-           </div>
-
-          
-
-           </div>
-
-            <button onClick={() => setAddInfo(!addInfo)} className="add-det-btn">
+           <button onClick={() => setAddInfo(!addInfo)} className="add-det-btn add-det-btn2">
             {/* <i class="fa-solid fa-plus"></i> */}
             Edit
             </button>
+
+            <button className="add-det-btn vend-btn">
+            {/* <i class="fa-solid fa-plus"></i> */}
+            Request To Change Vendor
+            </button>
+
+           </div>
+
+           
 
             <div className={ addInfo  ? "add-det-info-form-bx adddetinfoactive" : "add-det-info-form-bx"}>
 
@@ -220,12 +133,12 @@ const WasteDetail = () => {
 
 <div className="det-input-bx det-input-bx3">
                 <label htmlFor="document">Docuemnt Proof</label>
-                <input type="file" accept='image/*' onChange={handleImageChangeOne} id='document' autoComplete='off'required  />
+                <input type="file" accept='image/*' onChange={handleImageChange} id='document' autoComplete='off'required  />
               </div>
 
               <div className="select-File">
-                {selectedImageoOne && (
-                     <img src={selectedImageoOne} alt="" />
+                {selectedImage && (
+                     <img src={selectedImage} alt="" />
                 )}
              
               </div>
@@ -275,4 +188,4 @@ const WasteDetail = () => {
   )
 }
 
-export default WasteDetail
+export default Vendor

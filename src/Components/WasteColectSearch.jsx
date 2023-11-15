@@ -27,6 +27,16 @@ const WasteColectSearch = ({onclickShowDetail}) => {
     <button onClick={onclickShowDetail} className="u-prf-btn-bx">
         Edit Profile
     </button>
+
+    <button  className="u-prf-btn-bx u-prf-btn-bx5">
+        Sale Waste
+    </button>
+
+    <button  className="u-prf-btn-bx u-prf-btn-bx6">
+        Buy Waste (Guest)
+    </button>
+
+    
     
 </div>
 

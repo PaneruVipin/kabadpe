@@ -6,7 +6,8 @@ import WalletData from './WalletData';
 import DatePicker from "react-datepicker";
 import ConfirmOtp from './ConfirmOtp';
 import WaletBalance from './WaletBalance';
-// import "react-datepicker/dist/react-datepicker.css";
+import '../style/SideProduct.css'
+
 
 const MyWallet = () => {
     const [waletData , setWaletData] =  useState(WalletData);
@@ -61,7 +62,7 @@ const MyWallet = () => {
   return (
     <>
 
-    <section className="user-prof-grid-comp  referearn-comp wallet-comp">
+    <section className="user-prof-grid-comp  referearn-comp wallet-comp wallet-comp7">
 
         <div className="top-wallet-box">
 
@@ -236,6 +237,12 @@ const MyWallet = () => {
             </table>
         </div>
     
+    </section>
+
+    <section className="product-side-comp product-side-comp-wallet">
+
+    <h4>Products</h4>
+
     </section>
 
    {otp == true ? <ConfirmOtp onclickcloseOtp={() => setOtp(false)} onClickOpen={() => {setTransaction(true) , setOtp(false)}} /> : null}

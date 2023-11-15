@@ -75,8 +75,7 @@ const WasteAppoint = () => {
           >
             <p>Waste Pickup Scheduled and information has been sent to User</p>
             <button className="navigate-link-btn navigate-link-btn3">
-              <i className="fa-solid fa-location-dot"></i>
-              Click to Navigate Link
+              Confirm
             </button>
           </div>
 
@@ -185,6 +184,7 @@ const WasteAppoint = () => {
                     <tr>
                       <th>SN</th>
                       <th>Date</th>
+                      <th>Time Slots</th>
                       <th>Customer Name</th>
                       <th>Customer Address</th>
                       <th>Status</th>
@@ -195,6 +195,7 @@ const WasteAppoint = () => {
                     <tr>
                       <td>1</td>
                       <td>29-09-2023</td>
+                      <td>10.00 to 11.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -217,6 +218,7 @@ const WasteAppoint = () => {
                     <tr>
                       <td>2</td>
                       <td>26-09-2023</td>
+                      <td>11.00 to 12.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -233,6 +235,7 @@ const WasteAppoint = () => {
                     <tr>
                       <td>3</td>
                       <td>22-09-2023</td>
+                      <td>12.00 to 1.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -250,6 +253,7 @@ const WasteAppoint = () => {
                     <tr>
                       <td>4</td>
                       <td>29-09-2023</td>
+                      <td>1.00 to 2.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button

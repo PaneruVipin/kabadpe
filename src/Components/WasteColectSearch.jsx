@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../style/Profile.css';
 import UserProfCards from './UserProfCards';
 import UserProfUpdates from './UserProfUpdates';
@@ -8,6 +8,7 @@ import WasteAppoint from './WasteAppoint';
 
 
 const WasteColectSearch = ({onclickShowDetail}) => {
+    const [notBox , setNotBox] = useState(false);
   return (
     <>
     <section className="use-prf-left-main-bx">
@@ -35,6 +36,74 @@ const WasteColectSearch = ({onclickShowDetail}) => {
     <button  className="u-prf-btn-bx u-prf-btn-bx6">
         Buy Waste (Guest)
     </button>
+
+    <div  className="notif-main-box">
+                <div onClick={() => setNotBox(!notBox)} className="bell-icon bell-icon2">
+                  <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div className={ notBox ? "notif-box notactive" : "notif-box"}>
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2">
+                      <h6>KG</h6>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-3.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2 left-not-box3">
+                    <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <button className="sell-all-not-btn">
+                    See all notifications
+                  </button>
+                  
+                </div>
+              </div>
 
     
     

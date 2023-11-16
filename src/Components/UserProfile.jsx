@@ -239,7 +239,7 @@ const UserProfile = () => {
 
            
 
-            <h6>Alysia Darmott</h6>
+            <h6 className='bell-text'>Alysia Darmott </h6>
             <span className='em-text'>
             <i class="fa-regular fa-envelope"></i>
               User011@gmail.com</span>

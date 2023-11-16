@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import '../style/BlogPost.css'
+import '../style/Blogpost.css'
 import JoditEditor from 'jodit-react';
 
 

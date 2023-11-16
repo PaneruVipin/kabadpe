@@ -4,7 +4,8 @@ import { getFromLocalStorage } from "../../lib/localStorage";
 
 export const userSchedulePickup = resolvePromise(
   async ({
-    appointmentAddress,
+    coordAddress,
+    formatedAddress,
     appointmentContactNumber,
     appointmentPersonName,
     appointmentDate,
@@ -16,7 +17,8 @@ export const userSchedulePickup = resolvePromise(
     const { data: res } = await axios.post(
       apiUrl,
       {
-        appointmentAddress,
+        coordAddress,
+        formatedAddress,
         appointmentContactNumber,
         appointmentPersonName,
         appointmentDate,
@@ -59,3 +61,19 @@ export const userCalculateKabadRate = resolvePromise(async (data, pincode) => {
   });
   return res?.totalPrice;
 });
+export const userReschedulePickup = resolvePromise(
+  async ({ appointmentTimeSlot, appointmentDate, id }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/kabadPe/reschedualPickup/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { appointmentDate, appointmentTimeSlot },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

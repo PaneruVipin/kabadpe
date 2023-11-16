@@ -164,7 +164,7 @@ nesciunt nulla natus ex, qui
                     <div className="right-soc-follw-flex-bx">
                     <p>
                       {date}
-                      {visibility === "public" ?  <i class="fa-solid fa-earth-asia"></i> :<i class="fa-solid fa-user-group"></i>}
+                      {visibility === "public" ?  <i className="fa-solid fa-earth-asia"></i> :<i className="fa-solid fa-user-group"></i>}
                     </p>
 
                     <button className={ folw === "Following" ? "followers Following followers2" : "followers followers2" }>
@@ -238,7 +238,7 @@ nesciunt nulla natus ex, qui
               <div className="right-soc-post-info">
                 <h5>Faiz Alam</h5>
                 <p>
-                  25-10-23 <i class="fa-solid fa-earth-asia"></i>
+                  25-10-23 <i className="fa-solid fa-earth-asia"></i>
                 </p>
               </div>
             </div>
@@ -287,7 +287,7 @@ nesciunt nulla natus ex, qui
               <div className="right-soc-post-info">
                 <h5>Faiz Alam</h5>
                 <p>
-                  25-10-23 <i class="fa-solid fa-earth-asia"></i>
+                  25-10-23 <i className="fa-solid fa-earth-asia"></i>
                 </p>
               </div>
             </div>
@@ -392,7 +392,7 @@ nesciunt nulla natus ex, qui
             <p>Add your Post</p>
             <label htmlFor="input_file">
               {" "}
-              <i class="fa-regular fa-image"></i>{" "}
+              <i className="fa-regular fa-image"></i>{" "}
             </label>
             <input
               type="file"
@@ -405,7 +405,7 @@ nesciunt nulla natus ex, qui
           <button className="post-submit">Post</button>
 
           <div onClick={() => closePopUp()} className="close-cret-post">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

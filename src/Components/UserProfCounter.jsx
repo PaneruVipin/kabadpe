@@ -14,7 +14,7 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i class="fa-solid fa-wallet"></i>
+                <i className="fa-solid fa-wallet"></i>
                 </div>
 
                 <div className="u-prf-c-info">
@@ -31,7 +31,7 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i class="fa-solid fa-indian-rupee-sign"></i>
+                <i className="fa-solid fa-indian-rupee-sign"></i>
                 </div>
 
                 <div className="u-prf-c-info">
@@ -48,7 +48,7 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
                 <div className="c-icn">
-                <i class="fa-solid fa-dumpster"></i>
+                <i className="fa-solid fa-dumpster"></i>
                 </div>
 
                 <div className="u-prf-c-info">
@@ -63,7 +63,7 @@ const UserProfCounter = () => {
             <div className="usr-prf-count-bx">
 
             <div className="c-icn">
-            <i class="fa-solid fa-people-arrows"></i>
+            <i className="fa-solid fa-people-arrows"></i>
             </div>
 
             <div className="u-prf-c-info">

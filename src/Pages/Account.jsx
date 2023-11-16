@@ -2,55 +2,58 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Myaccount from "../Components/Myaccount";
 import WasteCollector from "../Components/WasteCollector";
-import UserForm from '../Components/UserForm'
-
+import UserForm from "../Components/UserForm";
 
 const Account = () => {
-    const [userForm, setUserForm] =  useState(false);
+  const [userForm, setUserForm] = useState(false);
 
-    const popUpUserForm = () => {
-        setUserForm(!userForm);
-    }
-    
+  const popUpUserForm = () => {
+    setUserForm(!userForm);
+  };
+
   return (
     <>
       {/* <!-- Main header--> */}
       <header className="main-header header-style-one">
         {/* <!--Start Header Top--> */}
-<div class="header-top">
-                <div class="auto-container">
-                    <div class="outer-box outer-box2">
-                        <div class="t-headr-left-links-bx">
+        <div className="header-top">
+          <div className="auto-container">
+            <div className="outer-box outer-box2">
+              <div className="t-headr-left-links-bx">
+                <a href="#">
+                  {" "}
+                  <i className="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
+                </a>
+                <a href="#" className="linkactive">
+                  <i className="fa-solid fa-angles-right"></i> Kabadpe
+                </a>
+                <a href="#">
+                  <i className="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <i className="fa-solid fa-angles-right"></i> Climconnect{" "}
+                </a>
+              </div>
 
-                            <a href="#"> <i class="fa-solid fa-angles-right"></i> Climstripe Shift </a>
-                            <a href="#" class="linkactive"><i class="fa-solid fa-angles-right"></i> Kabadpe</a>
-                            <a href="#"><i class="fa-solid fa-angles-right"></i> Green Saman Shop </a>
-                            <a href="#"> <i class="fa-solid fa-angles-right"></i> Climconnect </a>
-
-
-                        </div>
-
-                        <div class="header-top__left header-top_right">
-                            <div class="header-contact-info-style1">
-                                <ul>
-
-                                    <li>
-                                        <div class="icon">
-                                            <img src="./images/customImg/game.png"/>
-                                            <img src="./images/customImg/app-store.png"/>
-                                        </div>
-                                        <div class="text">
-                                            <p>Download App</p>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
+              <div className="header-top__left header-top_right">
+                <div className="header-contact-info-style1">
+                  <ul>
+                    <li>
+                      <div className="icon">
+                        <img src="./images/customImg/game.png" />
+                        <img src="./images/customImg/app-store.png" />
+                      </div>
+                      <div className="text">
+                        <p>Download App</p>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
+              </div>
             </div>
+          </div>
+        </div>
         {/* <!--End Header Top--> */}
 
         {/* <!--Start Header--> */}
@@ -209,15 +212,22 @@ const Account = () => {
                         </NavLink>
                       </li>
 
-                            <li><NavLink to="javascript:void(0);" data-toggle="modal" data-target="#exampleModal"><span>Login</span></NavLink></li>
-                        </ul>
-                        <div className="menuBtn-togg">
-                           <div className="spanline"></div>
-                           <div className="spanline"></div>
-                           <div className="spanline"></div>
-
-                        </div>
+                      <li>
+                        <NavLink
+                          to=""
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                        >
+                          <span>Login</span>
+                        </NavLink>
+                      </li>
+                    </ul>
+                    <div className="menuBtn-togg">
+                      <div className="spanline"></div>
+                      <div className="spanline"></div>
+                      <div className="spanline"></div>
                     </div>
+                  </div>
                 </nav>
 
                 {/* <!-- Main Menu End--> */}
@@ -314,8 +324,7 @@ const Account = () => {
       </header>
       <Myaccount />
 
-      { userForm?  <UserForm closepopUpUserForm={popUpUserForm}/> : null}
-      
+      {userForm ? <UserForm closepopUpUserForm={popUpUserForm} /> : null}
     </>
   );
 };

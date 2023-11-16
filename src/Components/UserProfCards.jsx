@@ -13,9 +13,9 @@ const UserProfCards = () => {
                 <div className="scrollbar-item">
                 <div className="u-p-card">
                     <div className="u-p-icn">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i className="fa-solid fa-layer-group"></i>
                     </div>
-                    <h6>Offer Heading</h6>
+                    <h6>Offer Heading </h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
 
                     <h5>Expiry Date : <span>10/10/2023</span> </h5>
@@ -36,7 +36,7 @@ const UserProfCards = () => {
                 <div className="scrollbar-item">
                 <div className="u-p-card u-p-card2">
                     <div className="u-p-icn u-p-icn2">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i className="fa-solid fa-layer-group"></i>
                     </div>
                     <h6>Offer Heading</h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
@@ -57,7 +57,7 @@ const UserProfCards = () => {
                 <div className="scrollbar-item">
                 <div className="u-p-card u-p-card3">
                     <div className="u-p-icn u-p-icn3">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i className="fa-solid fa-layer-group"></i>
                     </div>
                     <h6>Offer Heading</h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
@@ -78,7 +78,7 @@ const UserProfCards = () => {
                 <div className="scrollbar-item">
                 <div className="u-p-card u-p-card3 u-p-card-dull">
                     <div className="u-p-icn u-p-icn3 u-p-icn-dull">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i className="fa-solid fa-layer-group"></i>
                     </div>
                     <h6>Offer Heading</h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
@@ -94,7 +94,7 @@ const UserProfCards = () => {
                 <div className="scrollbar-item">
                 <div className="u-p-card u-p-card3 u-p-card-dull">
                     <div className="u-p-icn u-p-icn3 u-p-icn-dull">
-                    <i class="fa-solid fa-layer-group"></i>
+                    <i className="fa-solid fa-layer-group"></i>
                     </div>
                     <h6>Offer Heading</h6>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>

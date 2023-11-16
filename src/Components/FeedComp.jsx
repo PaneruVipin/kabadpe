@@ -240,8 +240,8 @@ const FeedComp = () => {
                         <img
                           src={path}
                           style={{
-                            width: elem.postImg.length > 1 ? "20rem" : "100%",
-                            height: elem.postImg.length > 1 ? "16rem" : "16rem",
+                            width: elem.postImg.length > 1 ? "14rem" : "100%",
+                            height: elem.postImg.length > 1 ? "13rem" : "16rem",
                           }}
                           alt=""
                         />

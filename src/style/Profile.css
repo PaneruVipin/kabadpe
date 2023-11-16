@@ -2115,7 +2115,130 @@
          cursor: pointer;
 
       }
+
+      .rev-btun{
+         background-color: #ffa500;
+         color: #fff;
+      }
+
+      .rev-comp{
+         position: fixed;
+         top: 0;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 100%;
+         height: 100vh;
+         z-index: 1000;
+
+      }
+
+      .rev-comp:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         opacity: 0.7;
+         z-index: -1;
+      }
+
+      .review-popup-box{
+         position: relative;
+         width: 30rem;
+         background-color: #fff;
+         border-radius: .35rem;
+         padding: 1.5rem 1.5rem;
+      }
+
+      .review-popup-box h6{
+         text-align: center;
+         font-size: 1.65rem;
+         color: #000248;
+         letter-spacing: .56px;
+         margin-bottom: 1.5rem;
+      }
+
+      .star-rat-flex-bx{
+         position: relative;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: .2rem;
+      }
+
+      .type-message-box{
+         position: relative;
+         width: 100%;
+         background-color: #f3ffe8;
+         margin-top: 1rem;
+        
+
+      }
+
+      .type-message-box textarea{
+         font-size: 1rem;
+         font-weight: 500;
+         color: #000248;
+         letter-spacing: .67px;
+         background-color: transparent;
+         border: none;
+         resize: none;
+         padding-inline: 1rem;
+         padding-top: .65rem;
+
+      }
+
+      .rev-submit-btn{
+         position: relative;
+         width: 10rem;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin: 1rem auto 0 auto;
+         background-color: #000248;
+         height: 2.65rem;
+         font-size: 1rem;
+         font-weight: 600;
+         letter-spacing: .67px;
+         color: #fff;
+         border-radius: .45rem;
+      }
+
+     .close-rating-box{
+      position: absolute;
+      top: .55rem;
+      right: .87rem;
+      font-size: 1.2rem;
+      color: #000248;
+      cursor: pointer;
+     }
       
+     .report-title{
+      position: relative;
+      width: 100%;
+      height: 2.56rem;
+      background-color:#f3ffe8;
+      border-radius: .4rem;
+     }
+
+     .report-title input{
+      width: 100%;
+      height: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: .65px;
+      background-color: transparent;
+      border: none;
+      padding-inline: 1rem;
+
+     }   
+     
 
       /* ffa500 */
 

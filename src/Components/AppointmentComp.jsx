@@ -3,11 +3,14 @@ import UseProfRightbx from "./UseProfRightbx";
 import "../style/Profile.css";
 import { NavLink } from "react-router-dom";
 import "../style/WasteColect.css";
-
+import ReviewPopup from './ReviewPopup';
+import ReportPopup from './ReportPopup';
 
 const AppointmentComp = ({onSupportClick}) => {
     const [popupUser, setPopupUser] = useState(false);
     const [reshBox, setReshBox] = useState(false);
+    const [revBox , setRevBox] = useState(false);
+    const [repBox , setRepBox] = useState(false);
 
   return (
     <>
@@ -68,7 +71,7 @@ const AppointmentComp = ({onSupportClick}) => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn tb-report-btn">Report</div>
+                      <div onClick={() => setRepBox(true)} className=" tb-call-btn tb-report-btn">Report</div>
                     </td>
 
                     <td>
@@ -108,7 +111,7 @@ const AppointmentComp = ({onSupportClick}) => {
                     </td>
 
                     <td>
-                      <div className=" tb-call-btn tb-report-btn">Report</div>
+                      <div onClick={() => setRepBox(true)} className=" tb-call-btn tb-report-btn">Report</div>
                     </td>
 
                     <td>
@@ -149,6 +152,12 @@ const AppointmentComp = ({onSupportClick}) => {
                     Support
                 </button>
                     </td>
+
+                    <td>
+                    <button onClick={() => setRevBox(true)} className="supp-link-btn supp-link-btn2 rev-btun">
+                    Review
+                </button>
+                    </td>
                     
                   </tr>
 
@@ -183,6 +192,12 @@ const AppointmentComp = ({onSupportClick}) => {
                     <button onClick={onSupportClick} className="supp-link-btn supp-link-btn2">
                 <i class="fa-solid fa-hands-holding-child"></i>
                     Support
+                </button>
+                    </td>
+
+                    <td>
+                    <button onClick={() => setRevBox(true)} className="supp-link-btn supp-link-btn2 rev-btun">
+                    Review
                 </button>
                     </td>
                     
@@ -353,6 +368,10 @@ const AppointmentComp = ({onSupportClick}) => {
         </div>
         
       </section>
+
+      {revBox ?  <ReviewPopup onclickRevPopupClose={() => setRevBox(false)} /> : null}
+
+  { repBox ?  <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
       
     </>
   );

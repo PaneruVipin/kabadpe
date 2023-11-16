@@ -99,7 +99,7 @@
  }
 
  .bank-card-cmp{
-    background:  #dad8ff ;
+    background:  #d0cdff ;
     padding: 2rem 2rem 3rem 2rem;
     border-radius: .4rem;
     margin-top:2rem;
@@ -221,7 +221,7 @@
     width: 100%;
     margin-top: 2rem;
     padding: 2rem 2rem 2rem 2rem;
-    background: #eef8ff;
+    background: #d6ecfe;
     border-radius: .5rem;
 
    }
@@ -280,6 +280,7 @@
 
    .user-bank-card-add{
     background: linear-gradient(145deg, #1bbfef , #0482a2);
+    /* background-color: #ebfaff; */
    }
 
    .add-card-btn2{

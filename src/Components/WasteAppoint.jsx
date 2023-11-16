@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../style/WasteColect.css";
+import {NavLink} from 'react-router-dom'
 
 const WasteAppoint = () => {
   const [popUp, setPopUp] = useState(false);
@@ -74,8 +75,7 @@ const WasteAppoint = () => {
           >
             <p>Waste Pickup Scheduled and information has been sent to User</p>
             <button className="navigate-link-btn navigate-link-btn3">
-              <i className="fa-solid fa-location-dot"></i>
-              Click to Navigate Link
+              Confirm
             </button>
           </div>
 
@@ -184,15 +184,18 @@ const WasteAppoint = () => {
                     <tr>
                       <th>SN</th>
                       <th>Date</th>
+                      <th>Time Slots</th>
                       <th>Customer Name</th>
                       <th>Customer Address</th>
                       <th>Status</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>1</td>
                       <td>29-09-2023</td>
+                      <td>10.00 to 11.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -203,11 +206,19 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Visited</td>
+                      <td>
+          <NavLink to="/pricelist">
+          <button className="pricelist-btn">
+            Buy Waste 
+          </button>
+          </NavLink>
+        </td>
                     </tr>
 
                     <tr>
                       <td>2</td>
                       <td>26-09-2023</td>
+                      <td>11.00 to 12.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -218,11 +229,13 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Cancelled</td>
+                      <td></td>
                     </tr>
 
                     <tr>
                       <td>3</td>
                       <td>22-09-2023</td>
+                      <td>12.00 to 1.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -233,11 +246,14 @@ const WasteAppoint = () => {
                         </button>
                       </td>
                       <td>Cancelled</td>
+                      <td></td>
+
                     </tr>
 
                     <tr>
                       <td>4</td>
                       <td>29-09-2023</td>
+                      <td>1.00 to 2.00</td>
                       <td>Rohan Das</td>
                       <td>
                         <button
@@ -255,6 +271,8 @@ const WasteAppoint = () => {
                           Confirm Status
                         </button>
                       </td>
+                      <td></td>
+
                     </tr>
                   </tbody>
                 </table>

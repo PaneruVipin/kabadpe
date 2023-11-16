@@ -8,6 +8,9 @@ import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Header from "./Header";
+import ReferEarn from "./ReferEarn";
+import MyWallet from "./MyWallet";
 
 const UserProfile = () => {
   const user = useSelector((s) => s.user.userInfo);
@@ -339,7 +342,7 @@ const UserProfile = () => {
           </button>
 
           <button
-            onClick={() => filterTab(5)}
+            onClick={() => filterTab(7)}
             className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
@@ -373,7 +376,7 @@ const UserProfile = () => {
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i className="fa-solid fa-file-pen"></i>
+              <i class="fa-solid fa-hand-holding-dollar"></i>
             </div>
             Refer and Earn
           </button>
@@ -436,6 +439,16 @@ const UserProfile = () => {
             />
           </div>
 
+          <div className="prof-input-file-bx">
+            <label htmlFor="prof_input">Update profile Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              id="prof_input"
+            />
+          </div>
+
           <div
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
@@ -447,9 +460,14 @@ const UserProfile = () => {
       {profBtn === 1 ? <UserProfGridComp /> : null};
       {profBtn === 2 ? <UserProfForm /> : null};
       {profBtn === 4 ? <SalesHistoryComp /> : null};
-      {profBtn === 3 ? <AppointmentComp /> : null};
+      {profBtn === 3 ? (
+        <AppointmentComp onSupportClick={() => setProfBtn(6)} />
+      ) : null}
+      ;//
       {profBtn === 6 ? <Supportticket /> : null};
       {profBtn === 9 ? <UserOrders /> : null};
+      {profBtn === 5 ? <ReferEarn /> : null};
+      {profBtn === 7 ? <MyWallet /> : null};
     </>
   );
 };

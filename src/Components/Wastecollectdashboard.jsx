@@ -12,6 +12,8 @@ import WasteWallet from './WasteWallet';
 import UserProfGridComp from './UserProfGridComp';
 import WasteColectSearch from './WasteColectSearch';
 import WasteCollectersReviews from './WasteCollectersReviews';
+import MyReviews from './MyReviews';
+import Vendor from './Vendor';
 
 
 const Wastecollectdashboard = () => {
@@ -55,9 +57,12 @@ const Wastecollectdashboard = () => {
     <span className='em-text'>
     <i class="fa-regular fa-envelope"></i>
       User011@gmail.com</span>
+    
     <span className='num-text'>
     <i class="fa-solid fa-mobile-screen"></i>
       7008322134</span>
+      <span className='em-text'>
+      Brand Orbiter</span>
       <div className="rating-prof">
       <i class="fa-solid fa-star"></i>
       <i class="fa-solid fa-star"></i>
@@ -90,6 +95,13 @@ const Wastecollectdashboard = () => {
         Dashboard
     </button>
 
+    <button onClick={() => filterTab(7)} className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}>
+    <div className="u-prf-tab-icon">
+    <i class="fa-solid fa-wallet"></i>
+          </div>
+          My Wallet History
+    </button>
+
     <button onClick={() => filterTab(2)} className={profBtn === 2 ? "u-prf-bx profactive" : "u-prf-bx"}>
     <div className="u-prf-tab-icon">
     <i class="fa-solid fa-file-pen"></i>
@@ -102,6 +114,13 @@ const Wastecollectdashboard = () => {
     <i class="fa-solid fa-user"></i>
           </div>
         My Details
+    </button>
+
+    <button  onClick={() => filterTab(9)} className={profBtn === 9 ? "u-prf-bx profactive" : "u-prf-bx"}>
+    <div className="u-prf-tab-icon">
+    <i class="fa-solid fa-building"></i>
+          </div>
+        Vendor
     </button>
 
     <button  onClick={() => filterTab(8)} className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}>
@@ -133,12 +152,7 @@ const Wastecollectdashboard = () => {
           My sales history
     </button>
 
-    <button onClick={() => filterTab(7)} className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}>
-    <div className="u-prf-tab-icon">
-    <i class="fa-solid fa-wallet"></i>
-          </div>
-          My Wallet History
-    </button>
+
     
   
 
@@ -162,7 +176,8 @@ const Wastecollectdashboard = () => {
   { profBtn === 5 ? <WasteColectin /> : null}
   { profBtn === 6 ? <WasteSales/> : null}
   { profBtn === 7 ? <WasteWallet /> : null}
-  { profBtn === 8 ? <WasteCollectersReviews /> : null}
+  { profBtn === 8 ? <MyReviews /> : null}
+  { profBtn === 9 ? <Vendor /> : null}
 
 
 

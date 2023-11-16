@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../style/BlogPost.css'
+import '../style/Blogpost.css'
 import BlogPostEdit from "./BlogPostEdit";
 
 const BlogPost = () => {
@@ -86,7 +86,7 @@ const BlogPost = () => {
     
   ]
   
-  return (
+  return (  
     <>
       <section className="comn-soc-feed-comp blog-post-comp">
         <div className="blog-post-flex-box">

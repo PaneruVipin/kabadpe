@@ -685,5 +685,61 @@ border-bottom-color: #4e49b8 ;
     border-radius: .45rem;
 }
 
+.date-picker-box{
+    position: relative;
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.date-picker-box input[type='Datepicker']{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.select-File{
+    width: 100%;
+}
+
+.select-File img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.add-grid-box{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-block: 1rem;
+}
+
+.det-grid5{
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+}
+
+.att-inpt-box{
+    position: relative;
+    height: 2.76rem;
+}
+
+.att-inpt-box input{
+    height: 100%;
+}
+
+.att-inpt-box:before{
+    content: '\f0c6';
+    position: absolute;
+    top: 0%;
+    transform: translateY(-120%);
+    right: .45rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: .87rem;
+    color: #000248;
+
+}
 
 /* 57a13c */

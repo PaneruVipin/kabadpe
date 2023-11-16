@@ -19,6 +19,7 @@ import { userFetch } from "./features/user/userActions";
 import { userLocationByQuery } from "./apis/location";
 import WasteCollectorDashboard from "./Pages/WasteCollectorDashboard";
 import SocialFeedsPage from "./Pages/SocialFeedsPage";
+import AdminPanel from "./Pages/AdminPanel";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
       <Route path="/otpverify" element={<OtpVerify />} />
       <Route path="/wastecolectdashboard" element={<WasteCollectorDashboard />} />
       <Route path="/socialfeeds" element={<SocialFeedsPage />} />
+      <Route path="/admin" element={<AdminPanel />} />
 
     </Routes>
   );

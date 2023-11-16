@@ -6,6 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import { userAppoinmentsFetch } from "../apis/kbadpeUser/orders";
 import { DateTime } from "luxon";
 import "../style/WasteColect.css";
+import ReviewPopup from "./ReviewPopup";
+import ReportPopup from "./ReportPopup";
+
 const AppointmentComp = ({ onSupportClick }) => {
   const [collectorInfo, setCollectorInfo] = useState({});
   const { data: appoinments, refetch } = useQuery({
@@ -14,6 +17,8 @@ const AppointmentComp = ({ onSupportClick }) => {
   });
   const [popupUser, setPopupUser] = useState(false);
   const [reshBox, setReshBox] = useState(false);
+  const [revBox, setRevBox] = useState(false);
+  const [repBox, setRepBox] = useState(false);
   return (
     <>
       <section className="user-prof-grid-comp ">
@@ -269,6 +274,11 @@ const AppointmentComp = ({ onSupportClick }) => {
           </div>
         </div>
       </section>
+      {revBox ? (
+        <ReviewPopup onclickRevPopupClose={() => setRevBox(false)} />
+      ) : null}
+
+      {repBox ? <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
     </>
   );
 };

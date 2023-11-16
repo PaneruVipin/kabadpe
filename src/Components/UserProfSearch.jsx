@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 const UserProfSearch = () => {
   const user = useSelector((s) => s.user.userInfo);
   const [prfEditForm, setPrfEditForm] = useState(false);
+  const [confirmOtp, setConfirmOtp] = useState(false);
+  const [notBox , setNotBox] = useState(false);
   return (
     <>
       <section className="use-prf-left-main-bx">
@@ -36,6 +38,74 @@ const UserProfSearch = () => {
               >
                 Edit Profile
               </button>
+
+              <div  className="notif-main-box">
+                <div onClick={() => setNotBox(!notBox)} className="bell-icon bell-icon2">
+                  <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div className={ notBox ? "notif-box notactive" : "notif-box"}>
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2">
+                      <h6>KG</h6>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="./images/customImg/team-3.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2 left-not-box3">
+                    <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <button className="sell-all-not-btn">
+                    See all notifications
+                  </button>
+                  
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -87,8 +157,34 @@ const UserProfSearch = () => {
                 />
               </div>
 
-              <button className="prof-chagen-btn">Update</button>
+              <button
+                onClick={() => setConfirmOtp(true)}
+                className="prof-chagen-btn"
+              >
+                Update
+              </button>
             </form>
+
+            <div
+              className={
+                confirmOtp === true
+                  ? "confirm-otp-box otpactive"
+                  : "confirm-otp-box"
+              }
+            >
+              <h6>Confirm OTP</h6>
+
+              <div className="otp-field">
+                <input
+                  type="text"
+                  name="otp"
+                  id="otp"
+                  placeholder="Enter OTP"
+                />
+              </div>
+
+              <button className="otp-btn">Submit</button>
+            </div>
 
             <div
               onClick={() => setPrfEditForm(false)}

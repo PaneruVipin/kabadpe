@@ -4,6 +4,8 @@ import { userAppoinmentsFetch } from "../apis/kbadpeUser/orders";
 import { DateTime } from "luxon";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import ReviewPopup from "./ReviewPopup";
+import ReportPopup from "./ReportPopup";
 const UserProfUpdates = ({ onSupportClick }) => {
   const [popupUser, setPopupUser] = useState(false);
   const [collectorInfo, setCollectorInfo] = useState({});
@@ -17,7 +19,8 @@ const UserProfUpdates = ({ onSupportClick }) => {
   });
   console.log("todays appoinments", appoinments);
   const [reshBox, setReshBox] = useState(false);
-
+  const [revBox, setRevBox] = useState(false);
+  const [repBox, setRepBox] = useState(false);
   return (
     <>
       <section className="user-prf-update-comp">
@@ -250,6 +253,12 @@ const UserProfUpdates = ({ onSupportClick }) => {
           </div>
         </div>
       </section>
+
+      {revBox ? (
+        <ReviewPopup onclickRevPopupClose={() => setRevBox(false)} />
+      ) : null}
+
+      {repBox ? <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
     </>
   );
 };

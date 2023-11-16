@@ -106,7 +106,7 @@ const Chats = () => {
               {" "}
               Hello{" "}
              <div className="messge-tick">
-             <i class="fa-solid fa-check"></i>
+             <i className="fa-solid fa-check"></i>
              </div>
             </p>
           </div>
@@ -115,7 +115,7 @@ const Chats = () => {
             <p className="right-chat">
               I am fine{" "}
               <div className="messge-tick">
-             <i class="fa-solid fa-check"></i>
+             <i className="fa-solid fa-check"></i>
              </div>
             </p>
           </div>
@@ -124,7 +124,7 @@ const Chats = () => {
             <p className="right-chat">
               and you{" "}
               <div className="messge-tick tickactive">
-             <i class="fa-solid fa-check"></i>
+             <i className="fa-solid fa-check"></i>
              </div>
             </p>
           </div>
@@ -133,7 +133,7 @@ const Chats = () => {
             <p className="right-chat">
               No{" "}
               <div className="messge-tick tickactive">
-             <i class="fa-solid fa-check"></i>
+             <i className="fa-solid fa-check"></i>
              </div>
             </p>
           </div>
@@ -142,14 +142,14 @@ const Chats = () => {
         <div className="user-type-message-main-bx">
 
             <div className="left-type-message-bx">
-            <i class="fa-regular fa-image"></i>
+            <i className="fa-regular fa-image"></i>
             </div>
 
             <div className="type-message-inpt-bx">
                 <input type="text" name="message" id="message" placeholder="Type message here ..." />
 
                 <div className="send-message-btn">
-                <i class="fa-solid fa-caret-right"></i>
+                <i className="fa-solid fa-caret-right"></i>
                 </div>
                 
             </div>
@@ -157,7 +157,7 @@ const Chats = () => {
         </div>
 
         <div onClick={() => setMessage(false)} className="close-chat-bx">
-        <i class="fa-solid fa-xmark"></i>
+        <i className="fa-solid fa-xmark"></i>
         </div>
         
       </div>

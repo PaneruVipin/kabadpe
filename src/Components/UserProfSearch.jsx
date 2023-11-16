@@ -4,8 +4,10 @@ import UserProfCounter from "./UserProfCounter";
 import UserProfCards from "./UserProfCards";
 import UserProfUpdates from "./UserProfUpdates";
 import "../style/Support.css";
+import { useSelector } from "react-redux";
 
 const UserProfSearch = () => {
+  const user = useSelector((s) => s.user.userInfo);
   const [prfEditForm, setPrfEditForm] = useState(false);
   const [confirmOtp, setConfirmOtp] = useState(false);
   const [notBox , setNotBox] = useState(false);
@@ -16,7 +18,7 @@ const UserProfSearch = () => {
           <div className="u-p-cont top-user-prof-search-bx-flex">
             <div className="left-user-prof-name-bx">
               <h5>
-                Hi, <span>Alysia</span>
+                Hi, <span>{user?.fullname}</span>
               </h5>
             </div>
 

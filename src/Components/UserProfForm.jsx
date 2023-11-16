@@ -4,80 +4,62 @@ import UseProfRightbx from "./UseProfRightbx";
 import PrfPasswrd from "./PrfPasswrd";
 import BankCard from "./BankCard";
 import UserBankCard from "./UserBankCard";
+import { useQuery } from "@tanstack/react-query";
+import {
+  userAddressDelete,
+  userAddressesAdd,
+  userAddressesFetch,
+  userAddressesUpdate,
+} from "../apis/user";
+import { Form, Formik } from "formik";
+import { validationAddressForm } from "../validators/user/addressFormValidator";
 const UserProfForm = () => {
-  const [inputData, setInputData] = useState({
-    address: "",
+  const initailAddress = {
+    street: "",
     city: "",
     state: "",
-    pin: "",
+    zipCode: "",
     landmark: "",
-    locationtype: "",
+    locationType: "",
+  };
+  const { data: addresses, refetch } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: () => userAddressesFetch(),
   });
+  const [fromTypeEdit, setFormTypeEdit] = useState(false);
+  const [initialValuesAddresss, setInitialValuesAddresss] =
+    useState(initailAddress);
   const [inputArr, setInputArr] = useState([]);
   const [profForm, setProfForm] = useState(false);
- 
-  
 
-  const iconMapping = {
-    office: <i class="fa-solid fa-building"></i>,
-    home: <i class="fa-solid fa-home"></i>,
-  };
-  
-
-  const handleInputChange = (e) => {
-    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  const editDataBtn = (data) => {
+    toggleAddressForm();
+    setInitialValuesAddresss(data);
+    setFormTypeEdit(true);
   };
 
- 
-
-  const handleChangeStore = () => {
-   
-
-      
- 
-      let { address, city, state, pin, landmark, locationtype } = inputData;
-      setInputArr([
-        ...inputArr,
-        { address, city, state, pin, landmark, locationtype },
-      ]);
-     
-      setInputData({
-        address: "",
-        city: "",
-        state: "",
-        pin: "",
-        landmark: "",
-        locationtype: "",
-      });
-  
-      if(locationtype === "office"){
-          <i class="fa-solid fa-building"></i>
-      }else{
-          <i class="fa-solid fa-home"></i>
-      }
-    
-    
+  const deleteDataBx = async (id) => {
+    await userAddressDelete(id);
+    refetch();
   };
 
-  const editDataBtn = () => {
+  const handleAddUserAddress = async (data, { resetForm }) => {
+    await userAddressesAdd(data);
+    refetch();
+    resetForm();
+  };
 
-        setProfForm(!profForm)
-  }
-
-  const deleteDataBx = (index) => {
-
-    const updatedData = inputArr.filter((item, id) => {
-
-      return(
-        index !== id
-      )
-
-    })
-
-    setInputArr(updatedData);
-    
-  }
-
+  const handleUpdateUserAddress = async (data, { resetForm }) => {
+    await userAddressesUpdate(data);
+    refetch();
+    resetForm();
+    toggleAddressForm();
+  };
+  const toggleAddressForm = () => {
+    setInitialValuesAddresss(initailAddress);
+    setFormTypeEdit(false);
+    setProfForm(!profForm);
+  };
   return (
     <>
       <section className="user-prof-grid-comp">
@@ -85,187 +67,227 @@ const UserProfForm = () => {
           <div className="u-p-f-cont">
             <div className="usr-prof-form-bx">
               <div className="user-prof-form-grid">
-                <div className="user-prof-form-bx">
-                  <div className="u-p-f-i">
-                    <i class="fa-solid fa-house"></i>
-                  </div>
-                  <div className="u-p-f-det">
-                    <h6>Address</h6>
-                    <p>
-                      65A, Street No 4, Kundan Nagar, Laxmi Nagar ,Delhi ,New
-                      Delhi , 110092 , <span>LandMark</span> Near Lovely Public
-                      School , 9012455676
-                    </p>
-                  </div>
-                  <div onClick={() => editDataBtn()} className="prof-data-edit">
-                        <i class="fa-solid fa-pen-to-square"></i>
+                {!addresses?.error
+                  ? addresses?.map(
+                      ({
+                        street,
+                        city,
+                        zipCode,
+                        state,
+                        landmark,
+                        id,
+                        locationType,
+                      }) => (
+                        <div key={id} className="user-prof-form-bx">
+                          <div className="u-p-f-i">
+                            <i className="fa-solid fa-house"></i>
+                          </div>
+                          <div className="u-p-f-det">
+                            <h6>Address</h6>
+                            <p>
+                              {street}, {city}, {state}, {zipCode}{" "}
+                              <span>LandMark </span>
+                              {landmark} , 9012455676
+                            </p>
+                          </div>
+                          <div
+                            onClick={() =>
+                              editDataBtn({
+                                street,
+                                city,
+                                zipCode,
+                                state,
+                                landmark,
+                                id,
+                                locationType,
+                              })
+                            }
+                            className="prof-data-edit"
+                          >
+                            <i className="fa-solid fa-pen-to-square"></i>
+                          </div>
+                          <div
+                            onClick={() => deleteDataBx(id)}
+                            className="prof-data-close"
+                          >
+                            <i className="fa-solid fa-xmark"></i>
+                          </div>
                         </div>
-                        <div onClick={() => deleteDataBx(id)}  className="prof-data-close">
-                        <i class="fa-solid fa-xmark"></i>
-                        </div>
-                </div>
-
-                <div className="user-prof-form-bx user-prof-form-bx2">
-                  <div className="u-p-f-i">
-                    <i class="fa-solid fa-building"></i>
-                  </div>
-                  <div className="u-p-f-det">
-                    <h6>Address</h6>
-                    <p>
-                      65A, Street No 4, Kundan Nagar, Laxmi Nagar ,Delhi ,New
-                      Delhi , 110092 , <span>LandMark</span> Near Lovely Public
-                      School , 9012455676
-                    </p>
-                  </div>
-                  <div onClick={() => editDataBtn()} className="prof-data-edit">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                        <div onClick={() => deleteDataBx(id)}  className="prof-data-close">
-                        <i class="fa-solid fa-xmark"></i>
-                        </div>
-                </div>
-
-                {inputArr.map((infor,id) => {
-                    return(
-                        <>
-
-           <div className="user-prof-form-bx user-prof-form-bx4" key={infor.id}>
-                  <div className="u-p-f-i">
-                        {iconMapping[infor.locationtype]}
-                  </div>
-                  <div className="u-p-f-det">
-                    <h6>Address</h6>
-                    <p>
-                     {infor.address}, {infor.city} , {infor.state} , {infor.pin} , {infor.landmark}  </p>
-                  </div>
-                  <div onClick={() => editDataBtn()} className="prof-data-edit">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        </div>
-                        <div onClick={() => deleteDataBx(id)} className="prof-data-close">
-                        <i class="fa-solid fa-xmark"></i>
-                        </div>
-                </div>
-                       
-                        </>
+                      )
                     )
-                })}
+                  : null}
 
                 <div className="user-prof-form-bx user-prof-form-bx3">
                   <h6>Add User Info</h6>
 
-                  <button onClick={() => setProfForm(!profForm)} className="add-user-info-btn">
-                    <i class="fa-solid fa-plus"></i>
+                  <button
+                    onClick={toggleAddressForm}
+                    className="add-user-info-btn"
+                  >
+                    <i className="fa-solid fa-plus"></i>
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className={profForm ? "user-prof-form profformactive" : "user-prof-form"}>
-              <h5>My Details</h5>
-              <form action="#">
-                <div className="usr-prof-inpt-bx">
-                  <input
-                    type="text"
-                    name="address"
-                    id="address"
-                    value={inputData.address}
-                    onChange={handleInputChange} placeholder="Address" autoComplete="off" required
-                  />
-                </div>
-
-                <div className="usr-prof-form-grid-bx">
-                  <div className="usr-prof-inpt-bx">
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      value={inputData.city}
-                      onChange={handleInputChange} placeholder="City" autoComplete="off" required
-                    /> 
-                  </div>
-
-                  <div className="usr-prof-inpt-bx">
-                    <input
-                      type="text"
-                      name="state"
-                      id="state"
-                      value={inputData.state}
-                      onChange={handleInputChange} placeholder="State" autoComplete="off" required
-                    />
-                  </div>
-
-                  <div className="usr-prof-inpt-bx">
-                    <input
-                      type="text"
-                      name="pin"
-                      id="pin"
-                      value={inputData.pin}
-                      onChange={handleInputChange} placeholder="Pin" autoComplete="off" required
-                    />
-                  </div>
-                </div>
-
-                <div className="usr-prof-form-grid-bx2">
-                  <div className="usr-prof-inpt-bx">
-                    <input
-                      type="text"
-                      name="landmark"
-                      id="landmark"
-                      value={inputData.landmark}
-                      onChange={handleInputChange} placeholder="Land-mark" autoComplete="off" required
-                    />
-                  </div>
-
-                  <div className="usr-prof-inpt-bx">
-                    <select
-                      name="locationtype"
-                      value={inputData.locationtype}
-                      onChange={handleInputChange}
-                      id="locationtype"
-                    >
-                      <option value="Choose">Choose</option>
-
-                      <option value="office">Office</option>
-                      <option value="home">Home</option>
-                    </select>
-
-      
-                  </div>
-                </div>
-
-              </form>
-
-              
-              <button
-                  onClick={handleChangeStore}
-                  className="u-prf-submit-btn"
+            {profForm ? (
+              <div
+                className={
+                  profForm ? "user-prof-form profformactive" : "user-prof-form"
+                }
+              >
+                <h5>My Details</h5>
+                <Formik
+                  initialValues={initialValuesAddresss}
+                  onSubmit={
+                    fromTypeEdit
+                      ? handleUpdateUserAddress
+                      : handleAddUserAddress
+                  }
+                  validationSchema={validationAddressForm}
                 >
-                  Save
-                </button>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => (
+                    <Form>
+                      <div className="usr-prof-inpt-bx">
+                        <input
+                          type="text"
+                          name="street"
+                          id="address"
+                          placeholder="Address"
+                          autoComplete="off"
+                          required
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.street}
+                        />
+                        {touched.street && errors.street ? (
+                          <div style={{ color: "red" }}>{errors.street}</div>
+                        ) : null}
+                      </div>
 
-                <div onClick={() => setProfForm(false)} className="close-my-det-bx">
-                <i class="fa-solid fa-xmark"></i>
+                      <div className="usr-prof-form-grid-bx">
+                        <div className="usr-prof-inpt-bx">
+                          <input
+                            type="text"
+                            name="city"
+                            id="city"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.city}
+                            placeholder="City"
+                            autoComplete="off"
+                            required
+                          />
+                          {touched.city && errors.city ? (
+                            <div style={{ color: "red" }}>{errors.city}</div>
+                          ) : null}
+                        </div>
+
+                        <div className="usr-prof-inpt-bx">
+                          <input
+                            type="text"
+                            name="state"
+                            id="state"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.state}
+                            placeholder="State"
+                            autoComplete="off"
+                            required
+                          />
+                          {touched.state && errors.state ? (
+                            <div style={{ color: "red" }}>{errors.state}</div>
+                          ) : null}
+                        </div>
+
+                        <div className="usr-prof-inpt-bx">
+                          <input
+                            type="text"
+                            name="zipCode"
+                            id="pin"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.zipCode}
+                            placeholder="Pin"
+                            autoComplete="off"
+                            required
+                          />
+                          {touched.zipCode && errors.zipCode ? (
+                            <div style={{ color: "red" }}>{errors.zipCode}</div>
+                          ) : null}
+                        </div>
+                      </div>
+
+                      <div className="usr-prof-form-grid-bx2">
+                        <div className="usr-prof-inpt-bx">
+                          <input
+                            type="text"
+                            name="landmark"
+                            id="landmark"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.landmark}
+                            placeholder="Land-mark"
+                            autoComplete="off"
+                            required
+                          />
+                          {touched.landmark && errors.landmark ? (
+                            <div style={{ color: "red" }}>
+                              {errors.landmark}
+                            </div>
+                          ) : null}
+                        </div>
+
+                        <div className="usr-prof-inpt-bx">
+                          <select
+                            name="locationType"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.locationType}
+                            id="locationtype"
+                          >
+                            <option value="" disabled hidden>
+                              Choose
+                            </option>
+
+                            <option value="office">Office</option>
+                            <option value="home">Home</option>
+                          </select>
+                          {touched.locationType && errors.locationType ? (
+                            <div style={{ color: "red" }}>
+                              {errors.locationType}
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                      <button type="submit" className="u-prf-submit-btn">
+                        Save
+                      </button>
+                    </Form>
+                  )}
+                </Formik>
+                <div
+                  onClick={() => setProfForm(false)}
+                  className="close-my-det-bx"
+                >
+                  <i className="fa-solid fa-xmark"></i>
                 </div>
-                
-            </div>
+              </div>
+            ) : null}
           </div>
-
           <PrfPasswrd />
-
           <BankCard />
-
           <UserBankCard />
-
         </section>
-
-
         <UseProfRightbx />
-
-        
       </section>
-
-   
-      
     </>
   );
 };

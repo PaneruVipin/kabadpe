@@ -50,7 +50,8 @@ const Ratelistcomp = () => {
     }
     const res = await userSchedulePickup({
       ...data,
-      appointmentAddress: appointmentAddress?.coord_address,
+      coordAddress: appointmentAddress?.coord_address,
+      formatedAddress: appointmentAddress?.formatted_address,
     });
     if (res.error) {
       setApiErrors({
@@ -66,7 +67,7 @@ const Ratelistcomp = () => {
   };
 
   const { isPending, data: kabadItems } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["rateList"],
     queryFn: () => userRateListFetch(),
   });
   const calculateRate = async (data) => {

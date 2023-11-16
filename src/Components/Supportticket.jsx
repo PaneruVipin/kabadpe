@@ -422,7 +422,7 @@ const Supportticket = () => {
 
 
 <div className="add-file">
-<button onClick={addInputFile} className='add-input-file-bx'> <i class="fa-solid fa-plus"></i> Add </button>
+<button onClick={addInputFile} className='add-input-file-bx'> <i className="fa-solid fa-plus"></i> Add </button>
 </div>
 
 
@@ -444,7 +444,7 @@ const Supportticket = () => {
     </form>
     
     <div onClick={() => setTicketForm(false)} className="close-ticket-form">
-    <i class="fa-solid fa-xmark"></i>
+    <i className="fa-solid fa-xmark"></i>
     </div>
 </div>
 

@@ -1,115 +1,165 @@
 import React, { useState } from "react";
 import UserBankForm from "./UserBankForm";
 import "../style/BankCard.css";
+import {
+  userBankAccountAdd,
+  userBankAccountDelete,
+  userBankAccountFetch,
+  userBankAccountUpdate,
+} from "../apis/bankAccount";
+import { useQuery } from "@tanstack/react-query";
 
 const UserBankCard = () => {
-    const [userBankForm , setUserBankForm] = useState(false);
-    const [formBox, setFormBox] =  useState(false);
-    const [showhide , setShowhide] = useState('fa-plus');
+  const initialValueAccountDetail = {
+    bankName: "",
+    accountHolderName: "",
+    accountNumber: "",
+    IFSCCode: "",
+  };
+  const [initialValues, setInitialValues] = useState(initialValueAccountDetail);
+  const [userBankForm, setUserBankForm] = useState(false);
+  const [formTypeEdit, setFormTypeEdit] = useState(false);
+  const { data: bankAccounts, refetch } = useQuery({
+    queryKey: ["bankAccounts"],
+    queryFn: () => userBankAccountFetch(),
+  });
 
-    const showHide = () => {
+  const handleAddAccountDeatil = async (data) => {
+    await userBankAccountAdd(data);
+    refetch();
+    setFormTypeEdit(false);
+    setUserBankForm(!userBankForm);
+  };
+  const handleUpdateAccountDetail = async (data) => {
+    await userBankAccountUpdate(data);
+    refetch();
+    setFormTypeEdit(false);
+    setUserBankForm(!userBankForm);
+  };
+  const handleUpdateIconClick = (data) => {
+    setInitialValues(data);
+    setUserBankForm(!userBankForm);
+    setFormTypeEdit(true);
+  };
+  const handledeleteIconClick = async (id) => {
+    await userBankAccountDelete(id);
+    refetch();
+  };
+  const handleAddDataBtnClick = () => {
+    setInitialValues(initialValueAccountDetail);
+    setUserBankForm(!userBankForm);
+    setFormTypeEdit(false);
+  };
+  const [formBox, setFormBox] = useState(false);
+  const [showhide, setShowhide] = useState("fa-plus");
 
-      setFormBox(!formBox)
+  const showHide = () => {
+    setFormBox(!formBox);
 
-     if(showhide === 'fa-plus'){
-      setShowhide('fa-minus')
-     }else{
-      setShowhide('fa-plus')
+    if (showhide === "fa-plus") {
+      setShowhide("fa-minus");
+    } else {
+      setShowhide("fa-plus");
+    }
+  };
 
-     }
-      
-  }
-    
   return (
     <>
       <section className="user-bank-comp">
         <div className="bank-cont">
-        <div className="comn-top-flex-bx">
-          <h5>Bank Card Details</h5>
+          <div className="comn-top-flex-bx">
+            <h5>Bank Card Details</h5>
 
-          <button onClick={showHide} className="show-hide show-hide3">
-                <i className={`fa-solid ${showhide}`}></i>
+            <button onClick={showHide} className="show-hide show-hide3">
+              <i className={`fa-solid ${showhide}`}></i>
             </button>
-
           </div>
 
-          <div className={formBox ? ' formboxxactive' : 'form-boxx'} style={{marginTop: "2rem"}}>
-
-
-          <div className="bank-card-table bank-card-table2">
+          <div
+            className={formBox ? " formboxxactive" : "form-boxx"}
+            style={{ marginTop: "2rem" }}
+          >
+            <div className="bank-card-table bank-card-table2">
               <table>
-            <thead>
-
-              <tr>
-                <th>Card Name</th>
-                <th>Card Holder</th>
-                <th>Card Number</th>
-                <th>Edit/Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Kotak Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>Kotak Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-              <tr>
-                <td>HDFC Bank</td>
-                <td>Preet Aggarwal</td>
-                <td><div className="card-num-bx">
-                  <span>xxxx</span> <span>xxxx</span> <span>2509</span>
-                  </div></td>
-                  <td><div className="edit-del-flex-btn ">
-                  <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit tb-edit-btn">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </div>
-              <div className="prof-data-close tb-del-btn">
-              <i class="fa-solid fa-trash"></i>
-              </div>
-           
-                    
-                    </div></td>
-              </tr>
-            </tbody>
+                <thead>
+                  <tr>
+                    <th>Bank Name</th>
+                    <th>Account Holder Name</th>
+                    <th>IFSC Code</th>
+                    <th>Account Number</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {!bankAccounts?.error
+                    ? bankAccounts?.map(
+                        ({
+                          IFSCCode,
+                          accountNumber,
+                          accountHolderName,
+                          bankName,
+                          id,
+                        }) => (
+                          <tr key={id}>
+                            <td>{bankName}</td>
+                            <td>{accountHolderName}</td>
+                            <td>
+                              <div className="card-num-bx">
+                                <span>xxxx</span> <span>xxxx</span>{" "}
+                                <span>{IFSCCode?.slice(-4)}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="card-num-bx">
+                                <span>xxxx</span> <span>xxxx</span>{" "}
+                                <span>{accountNumber?.slice(-4)}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="edit-del-flex-btn ">
+                                <div
+                                  onClick={() =>
+                                    handleUpdateIconClick({
+                                      IFSCCode,
+                                      accountNumber,
+                                      accountHolderName,
+                                      bankName,
+                                      id,
+                                    })
+                                  }
+                                  className="prof-data-edit tb-edit-btn"
+                                >
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div
+                                  onClick={() => handledeleteIconClick(id)}
+                                  className="prof-data-close tb-del-btn"
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      )
+                    : null}
+                </tbody>
               </table>
+            </div>
+
+            <button
+              onClick={handleAddDataBtnClick}
+              className="table-card-add-data-btn table-card-add-data-btn2"
+            >
+              <i className="fa-solid fa-plus"></i> Add Card Data
+            </button>
           </div>
-
-          <button  onClick={() => setUserBankForm(!userBankForm)} className="table-card-add-data-btn table-card-add-data-btn2">
-          <i class="fa-solid fa-plus"></i> Add Card Data
-          </button>
-
+          {/*           
+=======
           </div>
           
 {/*           
+>>>>>>> 44bf5b46b8e26d90665442eec69147e4c1accde1
           <div className="user-bank-grid">
             <div className="user-bank-card-bx bank-card-bx">
               <h5>Kotak Bank</h5>
@@ -132,10 +182,10 @@ const UserBankCard = () => {
               </div>
 
               <div onClick={() => setUserBankForm(!userBankForm)} className="prof-data-edit">
-                <i class="fa-solid fa-pen-to-square"></i>
+                <i className="fa-solid fa-pen-to-square"></i>
               </div>
               <div className="prof-data-close">
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark"></i>
               </div>
             </div>
 
@@ -144,14 +194,21 @@ const UserBankCard = () => {
                onClick={() => setUserBankForm(!userBankForm)}
                 className="add-card-btn add-card-btn2"
               >
-                <i class="fa-solid fa-plus"></i>
+                <i className="fa-solid fa-plus"></i>
               </div>
             </div>
           </div> */}
 
-
-        { userBankForm ? <UserBankForm /> : null }
-          
+          {userBankForm ? (
+            <UserBankForm
+              initialValues={initialValues}
+              onSubmit={
+                formTypeEdit
+                  ? handleUpdateAccountDetail
+                  : handleAddAccountDeatil
+              }
+            />
+          ) : null}
         </div>
       </section>
     </>

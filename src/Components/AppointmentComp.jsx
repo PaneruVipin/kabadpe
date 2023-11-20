@@ -3,7 +3,7 @@ import UseProfRightbx from "./UseProfRightbx";
 import "../style/Profile.css";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { userAppoinmentsFetch } from "../apis/kbadpeUser/orders";
+import { userAppoinmentsFetch } from "../apis/kbadpeUser/appoinment";
 import { DateTime } from "luxon";
 import "../style/WasteColect.css";
 import ReviewPopup from "./ReviewPopup";
@@ -278,7 +278,9 @@ const AppointmentComp = ({ onSupportClick }) => {
         <ReviewPopup onclickRevPopupClose={() => setRevBox(false)} />
       ) : null}
 
-      {repBox ? <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
+      {"repBox" ? (
+        <ReportPopup onclickRepClose={() => setRepBox(false)} />
+      ) : null}
     </>
   );
 };

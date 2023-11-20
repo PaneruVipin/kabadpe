@@ -83,7 +83,7 @@ const UserProfUpdates = ({ onSupportClick }) => {
                                   zone: "utc",
                                 }).toFormat("ccc dd LLL yyyy")}{" "}
                               </h6>
-                              <span>7054387420</span>
+                              {/* <span>7054387420</span> */}
                             </div>
                           </td>
 
@@ -97,9 +97,11 @@ const UserProfUpdates = ({ onSupportClick }) => {
                           </td>
 
                           <td>
-                            <div className=" tb-call-btn tb-call-btn5">
-                              Call
-                            </div>
+                            <a href="tel:9087543213">
+                              <div className=" tb-call-btn tb-call-btn5">
+                                Call
+                              </div>
+                            </a>
                           </td>
 
                           <td>

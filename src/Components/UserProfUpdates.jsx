@@ -1,6 +1,6 @@
 import "../style/Profile.css";
 import { useQuery } from "@tanstack/react-query";
-import { userAppoinmentsFetch } from "../apis/kbadpeUser/orders";
+import { userAppoinmentsFetch } from "../apis/kbadpeUser/appoinment";
 import { DateTime } from "luxon";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";

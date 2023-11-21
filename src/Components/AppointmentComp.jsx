@@ -278,9 +278,7 @@ const AppointmentComp = ({ onSupportClick }) => {
         <ReviewPopup onclickRevPopupClose={() => setRevBox(false)} />
       ) : null}
 
-      {"repBox" ? (
-        <ReportPopup onclickRepClose={() => setRepBox(false)} />
-      ) : null}
+      {repBox ? <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
     </>
   );
 };

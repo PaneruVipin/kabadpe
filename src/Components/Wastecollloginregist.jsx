@@ -22,6 +22,8 @@ const Wastecolloginregist = () => {
   const [forgotPara, setForgotPara] = useState(false);
   const [formComp, setFormComp] = useState(false);
   const [termsChecked, setTermsChecked] = useState(false);
+  const [checkBxValue , setCheckBxValue] = useState(false);
+  const [checkBxValueNo , setCheckBxValueNo] = useState(false);
 
   const sendReuqestfuct = () => {
     setForgotPara(true);
@@ -64,6 +66,7 @@ const Wastecolloginregist = () => {
           password: "",
           pincode: "",
           phoneNumber: "",
+          companynumber : "",
         }
       : {
           email: "",
@@ -82,6 +85,21 @@ const Wastecolloginregist = () => {
       : (data) => {
           dispatch(userLogin({ ...data, loginType: "collector" }));
         };
+
+      const checboxyes = () => {
+
+          setCheckBxValue(true)
+          setCheckBxValueNo(false)
+        
+      }
+
+      const checboxno = () => {
+        setCheckBxValue(false)
+        setCheckBxValueNo(true)
+      }
+
+       
+        
   return (
     <>
       <Redirect />
@@ -120,8 +138,11 @@ const Wastecolloginregist = () => {
                           : "log-regst-form"
                       }
                     >
+                      <div className="register-form-height-box">
                       {formBox === true ? (
                         <>
+                   
+                        
                           <div className="log-inpt-bx reg-inpt-bx">
                             <input
                               type="text"
@@ -140,6 +161,320 @@ const Wastecolloginregist = () => {
                               </div>
                             ) : null}
                           </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="dateofbirth"
+                              id="dateofbirth"
+                              placeholder="Date Of Birth"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.dateofbirth}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="caste"
+                              id="caste"
+                              placeholder="Caste"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="religion"
+                              id="religion"
+                              placeholder="Religion"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="workcity"
+                              id="workcity"
+                              placeholder="Area of work within city"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <span className="soc-sec-text">Social Security</span>
+
+                          <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <label htmlFor="aadharfront">Aadhar Front</label>
+                            <input
+                              type="file"
+                              accept = "image/*"
+                              name="aadharfront"
+                              id="aadharfront"
+                              placeholder="Aadhar Front"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <label htmlFor="aadharfront">Aadhar Back</label>
+                            <input
+                              type="file"
+                              accept = "image/*"
+                              name="aadharback"
+                              id="aadharback"
+                              placeholder="Aadhar Back"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+
+                          <span className="soc-sec-text">Do you have Insurance ?</span>
+
+                          <div className="insu-btn-flex-box">
+
+                            <div className="ins-btn-box">
+                              <div onClick={checboxyes} className={ checkBxValue === true ? "ins-tick-btn instickactive" : "ins-tick-btn"}></div>
+                              <span>Yes</span>
+                            </div>
+
+                            <div  className="ins-btn-box">
+                              <div onClick={checboxno} className={ checkBxValueNo === true ? "ins-tick-btn instickactive" : "ins-tick-btn"}></div>
+                              <span>No</span>
+                            </div>
+                            
+                          </div>
+
+                          <div className={ checkBxValue ? "log-inpt-bx reg-inpt-bx reg-inpt-bx-ins insinputactive" : "log-inpt-bx reg-inpt-bx reg-inpt-bx-ins"}>
+                            <input
+                              type="text"
+                              name="insurance"
+                              id="insurance"
+                              placeholder="Insurance"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          
+                          <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <label htmlFor="aadharfront">Police Verification</label>
+                            <input
+                              type="file"
+                              accept = "image/*"
+                              name="verification"
+                              id="verification"
+                              placeholder="Police Verification"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.caste}
+                            />
+                            {touched.fullname && errors.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors.fullname}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                          <label htmlFor="">Health check up</label>
+                            <input
+                              type="date"
+                              name="date"
+                              id="date"
+                              placeholder="Health check up"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <label htmlFor="">Training on safety</label>
+                            <input
+                              type="date"
+                              name="date"
+                              id="date"
+                              placeholder="Training on safety"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="bankname"
+                              id="bankname"
+                              placeholder="Bank Name"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="password"
+                              name="banknumber"
+                              id="banknumber"
+                              placeholder="Account Number"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="ifsc"
+                              id="ifsc"
+                              placeholder="IFSC Code"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="banknumber"
+                              id="banknumber"
+                              placeholder="Account Number"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="pancard"
+                              id="pancard"
+                              placeholder="PAN card"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.phoneNumber}
+                            />
+                            {touched.phoneNumber && errors.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.phoneNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
                           <div className="log-inpt-bx reg-inpt-bx">
                             <input
                               type="text"
@@ -176,8 +511,35 @@ const Wastecolloginregist = () => {
                               </div>
                             ) : null}
                           </div>
+
+                          <span className="soc-sec-text">Company Referral Number</span>
+                          <div className="log-inpt-bx reg-inpt-bx">
+                            <input
+                              type="text"
+                              name="companynumber"
+                              id="companynumber"
+                              placeholder="Company Referral Number"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.companynumber}
+                            />
+                            {touched.companynumber && errors.companynumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.companynumber}
+                              </div>
+                            ) : null}
+                          </div>
+                            
+
+                      {/* </div>/ */}
+                          
                         </>
+
                       ) : null}
+
+                    
 
                       <div className="log-inpt-bx log-inpt-bx-login">
                         <input
@@ -212,6 +574,30 @@ const Wastecolloginregist = () => {
                           <div style={{ color: "red" }}>{errors.password}</div>
                         ) : null}
                       </div>
+
+                      {formBox === true ? (
+                        <>
+                        <div className="log-inpt-bx log-inpt-bx-login">
+                        <input
+                          type="text"
+                          name="emergencynumber"
+                          id="emergencynumber"
+                          placeholder="Emergency Number"
+                          autoComplete="off"
+                          required
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        {touched.email && errors.email ? (
+                          <div style={{ color: "red" }}>{errors.email}</div>
+                        ) : null}
+                      </div>
+                        </>
+
+                        ) : null}
+                      </div>
+
 
                       <div className="forgt-passwrd-check-bx-flex">
                         <div className="form-check">

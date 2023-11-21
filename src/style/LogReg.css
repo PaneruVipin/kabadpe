@@ -141,7 +141,9 @@ Our Login Registration CSS code styling
 }
 
 
-.log-regst-form.registformactive .reg-inpt-bx{
+
+
+.log-regst-form .reg-inpt-bx{
     /* animation: showinpt .5s ease forwards; */
     height: 3rem;
     opacity: 1;
@@ -149,9 +151,120 @@ Our Login Registration CSS code styling
     pointer-events: auto;
 }
 
+/* {
+   height: 20rem;
+   overflow-y: auto;
+} */
+
 .log-regst-form.registformactive .reg-inpt-bx:nth-child(1){
     margin-top: 2rem;
 }
+
+.log-regst-form.registformactive .register-form-height-box{
+   height: 20rem;
+   overflow-y: auto;
+}
+
+.soc-sec-text{
+   position: relative;
+   font-size: 1.1rem;
+   color: #14a3a8;
+   font-weight: 600;
+   letter-spacing: 1px;
+}
+.reg-inpt-bx5{
+   height: initial !important;
+}
+
+ 
+.reg-inpt-bx5 input{
+   height: 100%;
+}
+
+.reg-inpt-bx5 label{
+   font-size: .9rem;
+   letter-spacing: .87px;
+   font-weight: 500;
+   color: #414141;
+}
+
+.reg-inpt-bx5 input::file-selector-button{
+   background-color: #14a3a8;
+   font-size: .9rem;
+   border-radius: 0;
+}
+
+.insu-btn-flex-box{
+   margin-top: 1rem;
+   display: flex;
+   align-items: center;
+   gap: 1.5rem;
+}
+
+.ins-btn-box{
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+
+}
+
+.ins-tick-btn{
+   position: relative;
+   width: 1rem;
+   height: 1rem;
+   background-color: #fff;
+   border: .1rem solid #ddd;
+   z-index: 2;
+   cursor: pointer;
+}
+
+.ins-tick-btn:before{
+   content: "\f00c";
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+   color: #fff;
+   font-size: .65rem;
+   opacity: 0;
+}
+
+.instickactive.ins-tick-btn:before{
+   opacity: 1;
+}
+
+.ins-tick-btn:after{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #2ac4c8;
+   z-index: -1;
+   border-color: #2ac4c8;
+   opacity: 0;
+
+}
+
+.instickactive.ins-tick-btn:after{
+   opacity: 1;
+}
+
+.reg-inpt-bx-ins{
+   display: none;
+}
+
+.reg-inpt-bx-ins.insinputactive{
+   display: flex;
+}
+
 /* 
 @keyframes showinpt {
     0%{

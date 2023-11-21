@@ -1,0 +1,513 @@
+
+
+/* __________________________________________
+ All user data comp css
+ code
+ -------------------- */
+
+ .all-user-data-comp{
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+    padding-inline-end: 1rem;
+ }
+
+ .all-user-data-main-box{
+    position: relative;
+    width: 100%;
+ }
+
+ .user-det-top-flex-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+
+ .user-det-top-flex-box h6{
+    font-size: 1.55rem;
+    letter-spacing: .76px;
+    color: #000;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+
+ }
+
+ .all-user-table{
+    position: relative;
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    overflow-x: auto;
+ }
+
+ .all-user-table table{
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+ }
+
+ .all-user-table table thead{
+    position: relative;
+    width: 100%;
+ }
+
+ .all-user-table table thead tr th{
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .56px;
+    padding: .5rem .55rem;
+    background-color: #0ea5e9;
+    color: #fff;
+
+ }
+
+ .user-prof-img{
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+ }
+
+ .all-user-table table tbody tr td{
+    padding: .55rem .3rem;
+ }
+
+ .user-prof-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+ }
+
+ 
+ .all-user-table table tbody tr td span{
+    font-size: .95rem;
+    color: #8e8e8e;
+    font-weight: 500;
+    letter-spacing: .67px;
+ }
+
+ .all-user-table table tbody tr{
+    background-color: #f3fbff;
+ }
+
+ .all-user-table table tbody tr:nth-child(2n + 2){
+    background-color: #ffffff;
+ }
+
+ .edit-user-btn{
+    position: relative;
+    cursor: pointer;
+ }
+
+ .all-user-editable-form-main-box{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+ }
+
+ .all-user-editable-form-main-box.editformactive{
+    display: flex;
+ }
+
+ .all-user-editable-form-main-box:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.7;
+    z-index: -1;
+ }
+
+ .all-user-edit-form-box{
+    position: relative;
+    top: 0;
+    background-color: #fff;
+    width: 60rem;
+    height: 30rem;
+    overflow-y: auto;
+    border-radius: .4rem;
+    padding: 1.5rem 1.5rem;
+ }
+
+ .update-prof-img-flex-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+    flex-direction: column;
+ }
+
+ .update-prof-img-flex-box input{
+    display: none;
+ }
+
+ .update-prof-img{
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    cursor: pointer;
+ }
+
+ .update-prof-img:hover 
+ .prof-user-data-edit-btn{
+    opacity: 1;
+ }
+
+ .prof-user-data-edit-btn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 2;
+    font-size: 1rem;
+    text-align: center;
+    color: #000248;
+    transition: 400ms ease;
+    opacity: 0;
+ }
+
+ .prof-user-data-edit-btn:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3fbff9e;
+    z-index: -1;
+ }
+
+ .update-prof-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+ }
+
+ .update-prof-img-flex-box label{
+    position: relative;
+    display: inline-block;
+    width: max-content;
+    padding: .34rem 1.3rem;
+    background-color: #028afa;
+    color: #fff;
+    border-radius: .55rem;
+    cursor: pointer;
+    font-size: .9rem;
+    letter-spacing: .56px;
+ }
+
+ .user-data-form-edit{
+    margin-top: 2.5rem;
+    position: relative;
+    width: 100%;
+ }
+
+ .userdata-form-grid{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-bottom: 2rem;
+ }
+
+ .user-edit-inpt-box{
+    position: relative;
+    width: 100%;
+
+ }
+
+ .user-edit-inpt-box label{
+    font-size: 1rem;
+    letter-spacing: .65px;
+    color: #000248;
+    margin-bottom: .5rem;
+ }
+
+ .user-edit-inpt{
+    position: relative;
+    width: 100%;
+    height: 2.3rem;
+    background-color: #fff;
+    border: .1rem solid #eee;
+    border-radius: .5rem;
+ }
+
+ .user-edit-inpt input , .user-edit-inpt select{
+    width: 100%;
+    height: 100%;
+    padding-inline: .87rem;
+    background-color: transparent;
+    border: none;
+    font-size: .87rem;
+    font-weight: 500;
+    letter-spacing: .65px;
+    color: #000;
+ }
+
+ .user-edit-inpt select{
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+ }
+
+ .user-edit-inpt2:before{
+        content: "\f107";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: .56rem;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #000248;
+        font-size: .87rem;
+ }
+
+ .edit-form-close-btn{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.3rem;
+    color: red;
+    cursor: pointer;
+    ;
+ }
+
+  /* filter part comp css code 
+  ----------------------------- */
+
+  .right-user-filter-data-flex-box{
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: flex-end;
+
+  }
+
+  .user-data-search-box{
+    position: relative;
+    width: 20rem;
+    height: 2.2rem;
+    background-color: #fff;
+    border-radius: .45rem;
+    border: .1rem solid #eee;
+  }
+
+  .user-type-sel-box{
+    width: 10rem;
+  }
+
+  .user-data-search-box input , .user-type-sel-box select{
+    width: 100%;
+    height: 100%;
+    font-size: .87rem;
+    padding-inline: .76rem;
+    background-color: transparent;
+    border: none;
+    color: #000;
+  }
+
+  .sel-user-date-flex{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .user-det-top-flex-box{
+    margin-bottom: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .user-det-top-flex-box h6{
+    margin-bottom: 0;
+  }
+
+  .user-data-search-btn{
+    cursor: pointer;
+  }
+
+  .upload-user-Btn{
+    position: relative;
+    width: 9rem;
+    height: 2.45rem;
+    background-color: #0ea5e9;
+     border-radius: .45rem;
+     color: #fff;
+     font-size: 1rem;
+     font-weight: 500;
+     letter-spacing: .76px;
+  }
+
+
+  .confirm-prof-btn{
+    position: relative;
+    height: 2.87rem;
+    width: 9rem;
+    margin: 1.5rem auto 0 auto;
+    text-align: center;
+    background-color: #1f7906;
+    border-radius: .4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 500;
+  }
+ 
+
+  .user-prof-data-box{
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 1rem;
+    row-gap: 2rem;
+    margin-bottom: 1.45rem;
+
+  }
+
+  .user-prof-info-box{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+  }
+
+  .user-prof-info-box label{
+    font-size: 1rem;
+    display: block;
+    font-weight: 600;
+    letter-spacing: .56px;
+    color: #000248;
+  }
+
+  .user-prof-info-box span{
+    display: block;
+    font-size: .9rem;
+    color: #727273;
+    line-height: 1.6;
+    font-weight: 500;
+
+  }
+
+  .user-prof-editable-box h5{
+    text-align: center;
+    font-size: 1.87rem;
+    color: #000248;
+    letter-spacing: .56px;
+    font-weight: 700;
+  }
+
+  .user-prof-table-data-box{
+    position: relative;
+    width: 100%;
+    white-space: nowrap;
+    border-collapse: collapse;
+    overflow-x: auto;
+  }
+
+  .user-prof-table-data-box table{
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .user-prof-table-data-box table thead tr th{
+    font-size: 1rem;
+    letter-spacing: .65px;
+    font-weight: 700;
+    color:#353535;
+    background-color: #f5f5f5;
+    padding: .2rem .45rem;
+
+    
+  }
+
+  .user-prof-table-data-box table tbody tr td{
+    padding: .2rem .45rem;
+    font-size: .9rem;
+    letter-spacing: .4px;
+  }
+
+  .actin-btn{
+    position: relative;
+    width: max-content;
+    padding: 0 .87rem;
+    background-color: #028afa;
+    border-radius: .5rem;
+    font-size: .9rem;
+    letter-spacing: .56px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .actin-btn2{
+    background-color: #1f7906;
+  }
+
+  .edit-user-btn2{
+    right: 3rem;
+    color: #000248;
+  }
+
+  .user-edit-main-form{
+    display: none;
+  }
+
+  .user-edit-main-form.editformactive{
+    display: block;
+  }
+
+  .sqave-chang-btn{
+   position: relative;
+   width: 10rem;
+   margin: 2.5rem auto 1rem auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 2.65rem;
+   background-color: #0ea5e9;
+   color: #fff;
+   font-size: 1rem;
+   font-weight: 500;
+   border-radius: .45rem;
+  }
+
+  .act{
+   color: #1f7906;
+  }
+
+  
+
+  .status-t.statColor{
+   color: #ff3131 !important;
+  }

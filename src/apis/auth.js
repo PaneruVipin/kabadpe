@@ -6,12 +6,55 @@ export const signup = async ({
   phoneNumber,
   password,
   pincode,
+  emergencyPhone,
+  panNo,
+  ifsc,
+  bankAccountNumber,
+  bankName,
+  saftyTrainingDate,
+  heathCheckupDate,
+  policeVerification,
+  insurance,
+  aadharBack,
+  aadharFront,
+  workCity,
+  religion,
+  caste,
+  dob,
+  bankAccountHolderName,
+  companyRef,
   loginType = "user",
 }) => {
   const setting = {
     collector: {
       path: "/auth/kabadCollector/signup",
-      payload: { fullname, email, password, phone: phoneNumber, pincode },
+      payload: {
+        fullname,
+        email,
+        password,
+        phoneNumber,
+        pincode,
+        emergencyPhone,
+        panNo,
+        ifsc,
+        bankAccountNumber,
+        bankName,
+        saftyTrainingDate,
+        heathCheckupDate,
+        policeVerification,
+        insurance,
+        aadharBack,
+        aadharFront,
+        workCity,
+        religion,
+        caste,
+        dob,
+        bankAccountHolderName,
+        companyRef,
+      },
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     },
     user: {
       path: "/auth/signup",
@@ -19,7 +62,13 @@ export const signup = async ({
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
-  const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
+  const { data: res } = await axios.post(
+    apiUrl,
+    setting?.[loginType]?.payload,
+    {
+      headers: setting?.[loginType]?.headers || {},
+    }
+  );
   return res;
 };
 

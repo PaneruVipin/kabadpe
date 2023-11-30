@@ -41,7 +41,7 @@ const AdminPanel = () => {
       (buttonName === adminNavBtn
         ? "admin-nv-btn adminnavbtnActive"
         : "admin-nv-btn ")
-    );
+    ); 
   };
 
   const getButonClasnameTwo = (butonIndex) => {

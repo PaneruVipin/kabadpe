@@ -57,83 +57,107 @@ const BankCard = () => {
     setFormTypeEdit(false);
   };
 
+  const [formBox, setFormBox] = useState(false);
+  const [showhide, setShowhide] = useState("fa-plus");
+
+  const showHide = () => {
+    setFormBox(!formBox);
+
+    if (showhide === "fa-plus") {
+      setShowhide("fa-minus");
+    } else {
+      setShowhide("fa-plus");
+    }
+  };
+
   return (
     <>
       <section className="bank-card-cmp">
         <div className="b-c-cont">
-          <h4>Your Card Details</h4>
+          <div className="comn-top-flex-bx">
+            <h4>Your Card Details</h4>
 
-          <div className="bank-card-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Card Type</th>
-                  <th>Card Holder</th>
-                  <th>Card Number</th>
-                  <th>Edit/Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {!cardDetails?.error
-                  ? cardDetails?.map(
-                      ({
-                        CVV,
-                        cardNumber,
-                        cardHolderName,
-                        cardType,
-                        expiryDate,
-                        id,
-                      }) => (
-                        <tr key={id}>
-                          <td>{cardType}</td>
-                          <td>{cardHolderName}</td>
-                          <td>
-                            <div className="card-num-bx">
-                              <span>xxxx</span> <span>xxxx</span>{" "}
-                              <span>{cardNumber?.slice(-4)}</span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className="edit-del-flex-btn ">
-                              <div
-                                onClick={() =>
-                                  handleUpdateIconClick({
-                                    CVV,
-                                    cardNumber,
-                                    cardHolderName,
-                                    cardType,
-                                    expiryDate,
-                                    id,
-                                  })
-                                }
-                                className="prof-data-edit tb-edit-btn"
-                              >
-                                <i className="fa-solid fa-pen-to-square"></i>
-                              </div>
-                              <div
-                                onClick={() => handledeleteIconClick(id)}
-                                className="prof-data-close tb-del-btn"
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    )
-                  : null}
-              </tbody>
-            </table>
+            <button onClick={showHide} className="show-hide show-hide2">
+              <i className={`fa-solid ${showhide}`}></i>
+            </button>
           </div>
 
-          <button
-            onClick={handleAddDataBtnClick}
-            className="table-card-add-data-btn"
+          <div
+            className={formBox ? " formboxxactive" : "form-boxx"}
+            style={{ marginTop: "2rem" }}
           >
-            <i className="fa-solid fa-plus"></i> Add Card Data
-          </button>
+            <div className="bank-card-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Card Type</th>
+                    <th>Card Holder</th>
+                    <th>Card Number</th>
+                    <th>Edit/Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {!cardDetails?.error
+                    ? cardDetails?.map(
+                        ({
+                          CVV,
+                          cardNumber,
+                          cardHolderName,
+                          cardType,
+                          expiryDate,
+                          id,
+                        }) => (
+                          <tr key={id}>
+                            <td>{cardType}</td>
+                            <td>{cardHolderName}</td>
+                            <td>
+                              <div className="card-num-bx">
+                                <span>xxxx</span> <span>xxxx</span>{" "}
+                                <span>{cardNumber?.slice(-4)}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="edit-del-flex-btn ">
+                                <div
+                                  onClick={() =>
+                                    handleUpdateIconClick({
+                                      CVV,
+                                      cardNumber,
+                                      cardHolderName,
+                                      cardType,
+                                      expiryDate,
+                                      id,
+                                    })
+                                  }
+                                  className="prof-data-edit tb-edit-btn"
+                                >
+                                  <i className="fa-solid fa-pen-to-square"></i>
+                                </div>
+                                <div
+                                  onClick={() => handledeleteIconClick(id)}
+                                  className="prof-data-close tb-del-btn"
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )
+                      )
+                    : null}
+                </tbody>
+              </table>
+            </div>
 
-          {/* 
+            <button
+              onClick={handleAddDataBtnClick}
+              className="table-card-add-data-btn"
+            >
+              <i className="fa-solid fa-plus"></i> Add Card Data
+            </button>
+
+            {/* 
+>>>>>>> 44bf5b46b8e26d90665442eec69147e4c1accde1
           <div className="bank-card-grid">
             <div className="bank-card-bx">
               <h5>Credit Card</h5>
@@ -181,8 +205,8 @@ const BankCard = () => {
                 <i className="fa-solid fa-plus"></i>
                 </div>
                 
-            </div>
-          </div> */}
+                              </div>*/}
+          </div>
         </div>
 
         {accountForm ? (

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { resolvePromise } from "../lib/http";
 
 export const signup = async ({
   fullname,
@@ -6,12 +7,24 @@ export const signup = async ({
   phoneNumber,
   password,
   pincode,
+  emergencyPhone,
+  workCity,
+  companyRef,
   loginType = "user",
 }) => {
   const setting = {
     collector: {
       path: "/auth/kabadCollector/signup",
-      payload: { fullname, email, password, phone: phoneNumber, pincode },
+      payload: {
+        fullname,
+        email,
+        password,
+        phoneNumber,
+        pincode,
+        emergencyPhone,
+        workCity,
+        companyRef,
+      },
     },
     user: {
       path: "/auth/signup",
@@ -19,7 +32,10 @@ export const signup = async ({
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
-  const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
+  const { data: res } = await axios.post(
+    apiUrl,
+    setting?.[loginType]?.payload,
+  );
   return res;
 };
 
@@ -42,3 +58,11 @@ export const verifysignup = async ({ email, otp, loginType = "user" }) => {
   const { data: res } = await axios.post(apiUrl, { email, otp });
   return res;
 };
+
+export const userValidateKabadPeRefrral = resolvePromise(async (code) => {
+  const apiUrl = ENV_API_BASE_URL + `/kabadCollector/refrral/validate`;
+  const { data: res } = await axios.get(apiUrl, {
+    params: { code },
+  });
+  return res?.franchise;
+});

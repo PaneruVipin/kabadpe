@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/Profile.css";
 import UserProfGridComp from "./UserProfGridComp";
 import UserProfForm from "./UserProfForm";
@@ -7,13 +7,21 @@ import AppointmentComp from "./AppointmentComp";
 import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Header from "./Header";
+import ReferEarn from "./ReferEarn";
+import MyWallet from "./MyWallet";
+import { userProfileImageAdd } from "../apis/user";
+import { userFetch } from "../features/user/userActions";
 
 const UserProfile = () => {
-  const user = useSelector((s) => s.user.userInfo);
+  const dispatch = useDispatch();
+  const { userInfo: user, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
   const [selectedImage, setSelectedImage] = useState(
     "./images/customImg/836.jpg"
   );
+  const [profileImage, setProfileImage] = useState(null);
   const [profChange, setProfChange] = useState(false);
   // const [userPrf, setUserPrf] = useState(false);
 
@@ -23,6 +31,7 @@ const UserProfile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setProfileImage(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -31,7 +40,17 @@ const UserProfile = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleUpadateProfileImage = () => {
+    if (profileImage)
+      userProfileImageAdd(profileImage).then(() => {
+        dispatch(userFetch());
+      });
+    setProfChange(false);
+  };
 
+  useEffect(() => {
+    if (user?.profileImage) setSelectedImage(user?.profileImage);
+  }, [user?.profileImage]);
   return (
     <>
       <header className="main-header header-style-one">
@@ -295,7 +314,16 @@ const UserProfile = () => {
       <div className="user-profile-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
-            <img src="./images/customImg/test-img-1.jpg" alt="" />
+            {loading ? null : (
+              <img
+                src={
+                  user?.profileImage
+                    ? user?.profileImage
+                    : `./images/customImg/test-img-1.jpg`
+                }
+                alt=""
+              />
+            )}
             <div
               onClick={() => setProfChange(true)}
               className="prof-edit-text-btn"
@@ -338,7 +366,7 @@ const UserProfile = () => {
           </button>
 
           <button
-            onClick={() => filterTab(5)}
+            onClick={() => filterTab(7)}
             className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
@@ -372,7 +400,7 @@ const UserProfile = () => {
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i className="fa-solid fa-file-pen"></i>
+              <i class="fa-solid fa-hand-holding-dollar"></i>
             </div>
             Refer and Earn
           </button>
@@ -435,6 +463,17 @@ const UserProfile = () => {
             />
           </div>
 
+          <div>
+            <button
+              onClick={handleUpadateProfileImage}
+              className="prof-input-file-bx"
+              style={{ color: "white" }}
+            >
+              {" "}
+              Save
+            </button>
+          </div>
+
           <div
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
@@ -446,9 +485,14 @@ const UserProfile = () => {
       {profBtn === 1 ? <UserProfGridComp /> : null};
       {profBtn === 2 ? <UserProfForm /> : null};
       {profBtn === 4 ? <SalesHistoryComp /> : null};
-      {profBtn === 3 ? <AppointmentComp /> : null};
+      {profBtn === 3 ? (
+        <AppointmentComp onSupportClick={() => setProfBtn(6)} />
+      ) : null}
+      ;//
       {profBtn === 6 ? <Supportticket /> : null};
       {profBtn === 9 ? <UserOrders /> : null};
+      {profBtn === 5 ? <ReferEarn /> : null};
+      {profBtn === 7 ? <MyWallet /> : null};
     </>
   );
 };

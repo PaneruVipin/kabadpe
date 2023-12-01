@@ -217,17 +217,20 @@
 
 .comn-appoint-btn1 {
     background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(37, 131, 201, 1) 0%, rgba(15, 57, 192, 1) 75%);
+    /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(37, 131, 201, 1) 0%, rgba(15, 57, 192, 1) 75%); */
+    background-color: #57a13c;
 }
 
 .comn-appoint-btn2 {
     background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(201, 37, 37, 1) 0%, rgba(204, 90, 19, 1) 86%);
+    /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(201, 37, 37, 1) 0%, rgba(204, 90, 19, 1) 86%); */
+    background-color: #5ab0f7;
 }
 
 .comn-appoint-btn3 {
     background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(200, 11, 11, 1) 0%, rgba(239, 21, 21, 1) 86%);
+    /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(200, 11, 11, 1) 0%, rgba(239, 21, 21, 1) 86%); */
+    background-color: #ffa500;
 }
 
 .confirm-text {
@@ -623,7 +626,7 @@
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 4rem;
     row-gap: 2rem;
     white-space: wrap;
@@ -698,6 +701,17 @@
     font-size: .76rem;
     color: orange;
 }
+
+.vendor-btn-flex-box{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.add-det-btn2 , .vend-btn{
+    background-color: #57a13c !important;
+}
+
 
 
 /* ____________________________________________- */

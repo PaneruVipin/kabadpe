@@ -52,23 +52,23 @@ const WasteWorkLocat = () => {
                         <tbody>
                           <tr>
                             <td>110032</td>
-                            <td className="">Approved</td>
+                            <td className="text-g">Approved</td>
                             <td>110032</td>
-                            <td className="tbledatadeactive">Pending</td>
+                            <td className="text-o ">Pending</td>
                           </tr>
 
                           <tr>
                             <td>110032</td>
-                            <td className="">Approved</td>
+                            <td className="text-g">Approved</td>
                             <td>110032</td>
-                            <td className="tbledatadeactive">Pending</td>
+                            <td className="text-o">Pending</td>
                           </tr>
 
                           <tr>
                             <td>110032</td>
-                            <td className="">Approved</td>
+                            <td className="text-g">Approved</td>
                             <td>110032</td>
-                            <td className="tbledatadeactive">Pending</td>
+                            <td className="text-o">Pending</td>
                           </tr>
                         </tbody>
                       </table>

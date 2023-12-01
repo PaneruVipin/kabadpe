@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "./features/user/userActions";
 import { userLocationByQuery } from "./apis/location";
 import WasteCollectorDashboard from "./Pages/WasteCollectorDashboard";
+import SocialFeedsPage from "./Pages/SocialFeedsPage";
+import AdminPanel from "./AdminPages/AdminPanel";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +46,9 @@ function App() {
       <Route path="/pricelist" element={<PricelistPage />} />
       <Route path="/otpverify" element={<OtpVerify />} />
       <Route path="/wastecolectdashboard" element={<WasteCollectorDashboard />} />
+      <Route path="/socialfeeds" element={<SocialFeedsPage />} />
+      <Route path="/admin" element={<AdminPanel />} />
+
 
     </Routes>
   );

@@ -161,7 +161,7 @@ const AdminPanel = () => {
         
     </section>
 
-    {/* side admin navbar component  */}
+    {/* side admin navbar component ---  */}
 
     <section className={sideAdminNav ? "side-admin-navbar-comp sideAdminNavActive" : "side-admin-navbar-comp"}>
 

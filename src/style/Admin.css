@@ -255,11 +255,11 @@
     overflow: visible;
 }
 
-.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box{
-    /* opacity: 0;
+/* .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box{
+    opacity: 0;
     visibility: hidden;
-    pointer-events: none; */
-}
+    pointer-events: none;
+} */
 
 .side-admin-navbar-comp.sideAdminNavActive{
   padding: 7rem .87rem;

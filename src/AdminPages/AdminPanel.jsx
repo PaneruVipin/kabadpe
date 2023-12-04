@@ -34,6 +34,9 @@ const AdminPanel = () => {
     const [activeTav , setActiveTab] = useState('');
     const [orderActive , setOrderActive] = useState(Orders);
     const [orderTab , setOrderTab] = useState(null);
+    const [changeProfile , setChangeProfile] = useState(false);
+    const [profileImg , setProfileImg] = useState('./images/customImg/c-3.jpg')
+    const [notifActive , setNotifActive] = useState(false);
 
 
    
@@ -81,10 +84,6 @@ const AdminPanel = () => {
       
     })
 
-   
-
-
-
     setUserFiltData(updatedData);
       setActiveTab(index)
     
@@ -101,7 +100,23 @@ const AdminPanel = () => {
       setOrderTab(value)
   }
      
+const handleProfileChange = (e) => {
 
+    const file = e.target.files[0];
+    if(file){
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+
+            setProfileImg(event.target.result);
+            
+        }
+
+        reader.readAsDataURL(file)
+        
+    }
+    
+}
     
   return (
     <>
@@ -138,11 +153,79 @@ const AdminPanel = () => {
                 <i class="fa-regular fa-comments"></i>
                 </button>
 
-                <button  className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
+            <div className="notif-main-box">
+                <button onClick={() => setNotifActive(!notifActive)}  className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
                 <i class="fa-regular fa-bell"></i>
                 </button>
 
-                <div className="admin-top-prof-box">
+                <div className={notifActive ? "noti-dropdown-box notisactive" : "noti-dropdown-box"}>
+
+                    <div className="noti-li-box">
+                        <div className="not-img">
+                            <img src="./images/customImg/c-3.jpg" alt="" />
+                        </div>
+                        <div className="not-info">
+                            <h6>New Order Request</h6>
+                            <span>Id : 2114504750</span>
+                        </div>
+                    </div>
+
+                    <div className="noti-li-box">
+                        <div className="not-img">
+                            <img src="./images/customImg/c-2.jpg" alt="" />
+                        </div>
+                        <div className="not-info">
+                            <h6>New User Assign</h6>
+                            <span>Id : 2114504750</span>
+
+                        </div>
+                    </div>
+
+                    <div className="noti-li-box">
+                        <div className="not-img">
+                            <img src="./images/customImg/c-1.jpg" alt="" />
+                        </div>
+                        <div className="not-info">
+                            <h6>New Appointment Scheduled</h6>
+                            <span>Id : 2114504750</span>
+
+                        </div>
+                    </div>
+
+                    <div className="noti-li-box">
+                        <div className="not-img">
+                            <img src="./images/customImg/c-2.jpg" alt="" />
+                        </div>
+                        <div className="not-info">
+                            <h6>New User Assign</h6>
+                            <span>Id : 2114504750</span>
+
+                        </div>
+                    </div>
+
+                    <div className="noti-li-box">
+                        <div className="not-img">
+                            <img src="./images/customImg/c-4.jpg" alt="" />
+                        </div>
+                        <div className="not-info">
+                            <h6>New Order Dispatched</h6>
+                            <span>Id : 2114504750</span>
+
+                        </div>
+                    </div>
+
+                    <NavLink to='#' className={"view-not-btn"}>View All</NavLink>
+
+                 
+
+                    
+                    
+                </div>
+                
+                </div>
+
+                <div className="admin-top-prof-main">
+                <div onClick={() => setChangeProfile(!changeProfile)} className="admin-top-prof-box">
 
                     <div className="left-admin-prof-img">
                         <img src="./images/customImg/team-3.jpg" alt="" />
@@ -154,7 +237,48 @@ const AdminPanel = () => {
                     </div>
                     
                 </div>
+
+                <div className={ changeProfile ? "change-prof-dropdown-box profdropdownactive" : "change-prof-dropdown-box"}>
+
+                    <div className="change-prof-img-box">
+
+                        <div className="left-prof-img-round">
+                            <img src={profileImg} alt="" />
+                        </div>
+
+                        <div className="right-change-img-btn-box">
+                            <label htmlFor="img-update">Change</label>
+                            <input type="file" accept='image/*' name='file' id='img-update' onChange={handleProfileChange} />
+                        </div>
+                        
+                    </div>
+
+                    <form action="#">
+
+                    <div className="admin-login-fild mt-3">
+              <label htmlFor="name">Name</label>
+              <div className="admin-login-input">
+                <input type="text" name='name' id='name' placeholder='Enter Name'  autoComplete='off' />
+              </div>
+            </div>
+
+            <div className="admin-login-fild mt-3">
+              <label htmlFor="Password">Password</label>
+              <div className="admin-login-input">
+                <input type="text" name='Password' id='Password' placeholder='Enter Password'  autoComplete='off' />
+              </div>
+            </div>
+                        
+                    </form>
+
+                    <button className="submit-btn prof-chnge-btn">
+                        Save
+                    </button>
+                    
+                </div>
                 
+                </div>
+
             </div>
             
         </div>
@@ -270,7 +394,7 @@ const AdminPanel = () => {
             </div>
             
             <div className="admin-nv-li">
-                <div onClick={() => handleButtonClick(6)} className={getButtonClassName(6)}>
+                <div onClick={() =>{handleViewComp('reviews')}} className={component === 'reviews' ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive" : "admin-nv-btn admin-nv-btn2"}>
                 <div className="a-nv-i">
                 <FaWpforms />
                 </div>
@@ -473,6 +597,7 @@ const AdminPanel = () => {
    { component === 'frenchies' ? <Frienchies /> : null }
    { component === 'wastecolectr' ? <Wastecolect /> : null }
    { component === 'subscriptionplan' ? <SubscriptionPlan /> : null }
+
 
     </section>
     

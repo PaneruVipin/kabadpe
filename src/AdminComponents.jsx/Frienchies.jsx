@@ -117,6 +117,7 @@ const Frienchies = () => {
                   <th>Zip Code</th>
                   <th>Edit</th>
                   <th>View</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               
@@ -180,6 +181,22 @@ const Frienchies = () => {
                           <i class="fa-regular fa-eye"></i>
                           </div>
                         </td>
+
+                        <td>
+                          <div className="icon-flex-box">
+                            <button className="app-dis-btn" title="approve">
+                            <i class="fa-regular fa-circle-check"></i>
+                            </button>
+                            <button className="app-dis-btn" title="diapprove">
+                            <i class="fa-regular fa-circle-xmark"></i>
+                            </button>
+                          </div>
+                        </td>
+
+                      
+
+                        {/*     */ }
+                        
                       </tr>
                     </>
                   );

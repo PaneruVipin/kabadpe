@@ -13,6 +13,8 @@ const wastecolectData = [
         categoryStatus : "active",
         City: "Delhi",
         Zip: "110008",
+        action : 'disapprove',
+
     },
 
     {
@@ -28,6 +30,7 @@ const wastecolectData = [
         categoryStatus : "active",
         City: "Delhi",
         Zip: "110008",
+        action : 'approve',
     },
 
 
@@ -45,6 +48,7 @@ const wastecolectData = [
         categoryStatus : "banned",
         City: "Delhi",
         Zip: "110008",
+        action : 'disapprove',
     },
 
 
@@ -62,6 +66,8 @@ const wastecolectData = [
         categoryStatus : "active",
         City: "Delhi",
         Zip: "110008",
+        action : 'disapprove',
+
     },
 
 
@@ -79,6 +85,8 @@ const wastecolectData = [
         categoryStatus : "banned",
         City: "Delhi",
         Zip: "110008",
+        action : 'approve',
+
     },
 
 
@@ -96,6 +104,9 @@ const wastecolectData = [
         categoryStatus : "banned",
         City: "Delhi",
         Zip: "110008",
+        action : 'disapprove',
+
+
     },
 
     

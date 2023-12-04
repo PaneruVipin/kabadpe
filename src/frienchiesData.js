@@ -14,6 +14,7 @@ const frienchiesData = [
         substype : "Monthly",
         City: "Delhi",
         Zip: "110008",
+        action : 'approve',
     },
 
 
@@ -31,6 +32,8 @@ const frienchiesData = [
         substype : "Monthly",
         City: "Mumbai",
         Zip: "110008",
+        action : 'disapprove',
+
     },
 
     {
@@ -47,6 +50,9 @@ const frienchiesData = [
         substype : "Monthly",
         City: "Mumbai",
         Zip: "110008",
+        action : 'approve',
+        
+
     },
 
 
@@ -64,6 +70,8 @@ const frienchiesData = [
         substype : "Monthly",
         City: "Delhi",
         Zip: "110008",
+        action : 'disapprove',
+
     },
 
 
@@ -81,6 +89,8 @@ const frienchiesData = [
         substype : "Quaterly",
         City: "Mumbai",
         Zip: "110008",
+        action : 'approve',
+
     },
 
     {
@@ -98,6 +108,8 @@ const frienchiesData = [
 
         City: "Mumbai",
         Zip: "110008",
+        action : 'disapprove',
+
     },
 
 

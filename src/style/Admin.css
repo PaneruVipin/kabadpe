@@ -1988,3 +1988,213 @@ side nav icon Btn on hover show list box
    .admin-nv-btn2:before{
     display: none ;
    }
+
+   .fa-circle-check , .fa-circle-xmark{
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+   }
+
+   .fa-circle-check{
+    color: #1bae5a;
+   }
+
+   .fa-circle-xmark{
+    color: #ff3c3c;
+   }
+
+   /* _________________________ our chart css code
+   ---------------------------------------------------- */
+
+   .chart-comp{
+    position: relative;
+    width: 80%;
+    height: 100%;
+    background-color: #fff;
+    margin: 5rem auto;
+   }
+
+   .area-char{
+    position: relative;
+    width: 100%;
+    height: 400px;
+   }
+
+   .admin-top-prof-main{
+    position: relative;
+   }
+
+   .admin-top-prof-box{
+    cursor: pointer;
+   }
+
+   .change-prof-dropdown-box{
+    position: absolute;
+    top: 120%;
+    left: -6rem;
+    background-color: #fff;
+    width: 15rem;
+    height: max-content;
+    padding: 1.5rem 1.5rem;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    z-index: 1000;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: 500ms ease;
+
+   }
+
+   .change-prof-dropdown-box.profdropdownactive{
+    transform: scaleY(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+   }
+
+
+   .change-prof-img-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+   }
+
+   .left-prof-img-round{
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+   }
+
+   .left-prof-img-round img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+   }
+
+   .right-change-img-btn-box label{
+    position: relative;
+    display: inline-block;
+    width: max-content;
+    padding: .2rem 1.5rem;
+    background-color: transparent;
+    border: .1rem solid #1362fc;
+    color: #1362fc;
+    cursor: pointer;
+    border-radius: .5rem;
+   }
+
+   .prof-chnge-btn{
+    margin: 1rem auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1362fc;
+    border-color: #1362fc;
+    color: #fff;
+    height: 2.6rem;
+   }
+
+   .icon-flex-box{
+    display: flex;
+    align-items: center;
+    gap: .56rem;
+
+   }
+
+   .notif-main-box{
+    position: relative;
+   }
+
+   .noti-dropdown-box{
+    position: absolute;
+    top: 120%;
+    left: -10rem;
+    background-color: #fff;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    z-index: 1000;
+    border-radius: .55rem;
+    width: 15rem;
+    transition: 500ms ease;
+    transform-origin: top;
+    opacity: 0;
+    transform: scaleY(0);
+    visibility: hidden;
+    pointer-events: none;
+   }
+
+   .noti-dropdown-box.notisactive{
+    opacity: 1;
+    transform: scaleY(1);
+    visibility: visible;
+    pointer-events: auto;
+   }
+
+   .noti-li-box{
+    position: relative;
+    width: 100%;
+    padding: .65rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: .1rem solid #ddd;
+   }
+
+   .not-img{
+    position: relative;
+    width: 3rem;
+    max-height: 3rem;
+   }
+
+   .not-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+   }
+
+   
+ 
+
+   .not-info h6{
+    font-size: .9rem;
+    color: #000248;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0;
+   }
+
+   .not-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+   }
+
+   .not-info span{
+    font-size: .9rem;
+    display: inline-block;
+    line-height: 1.3;
+   }
+
+   .view-not-btn{
+    display: inline-block;
+    padding: .76rem 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #000248;
+    font-size: 1rem;
+    letter-spacing: .5px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border-radius: .5rem;
+   }
+

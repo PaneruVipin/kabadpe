@@ -391,7 +391,7 @@
     color: #fff;
 }
 
-.admin-nv-btn:before{
+.admin-nv-btn.multi-child:before{
     content: "\f0da";
     position: absolute;
     top: 50%;

@@ -256,16 +256,64 @@
 }
 
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box{
-    opacity: 0;
+    /* opacity: 0;
     visibility: hidden;
-    pointer-events: none;
+    pointer-events: none; */
 }
 
-.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-icons-box{
+.side-admin-navbar-comp.sideAdminNavActive{
+  padding: 7rem .87rem;
+}
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li span{
+  opacity: 0;
+  display: none;
+}
+
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn{
+  text-align: center;
+  justify-content: center;
+}
+
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover{
+  background-color: #0ea5e9;
+}
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover .a-nv-i{
+  color: #fff;
+
+}
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:before{
+  display: none;
+}
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list{
+  position: absolute;
+  top: 0;
+  right: -12rem;
+  background-color: #fff;
+  width: 10rem;
+  border-radius: .45rem;
+  box-shadow: rgb(189, 209, 226) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list li{
+  padding-left: 0;
+}
+
+
+.side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list li:before{
+  display: none;
+}
+
+/* .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-icons-box{
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-}
+} */
 
 .admin-side-nav-icons-main-box{
     position: relative;
@@ -1277,6 +1325,666 @@ side nav icon Btn on hover show list box
     background-color: #0ea5e9;
   }
 
+  /* _______________________________________________
+   Our Admin Login css code
+   -------------------------------- */
+
+   .admin-login-comp{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #dee6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+
+   .admin-login-main{
+    position: relative;
+    width: 34rem;
+    padding: 1.5rem 2.5rem 2rem 2.5rem;
+    background-color: #fff;
+    margin: 0 auto;
+    border-radius: 1.3rem;
+   }
+
+   .admin-login-img{
+    position: relative;
+    width: 11rem;
+    margin: 0 auto 1rem auto;
+   }
+
+   .admin-login-img img{
+    width: 100%;
+    height: auto;
+   }
+
+   .admin-login-main p{
+    text-align: center;
+    font-size: 1.2rem;
+    color: #242424;
+    letter-spacing: .76px;
+    font-weight: 500;
+   }
+
+   .admin-login-form{
+    margin-top: 1.5rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .87rem;
+   }
+
+   .admin-login-fild{
+    position: relative;
+    width: 100%;
+   }
+
+   .admin-login-fild label{
+    display: block;
+    font-size: 1rem;
+    color: #242424;
+    letter-spacing: .76px;
+    margin-bottom: .45rem;
+   }
+
+   .admin-login-input{
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    border: .1rem solid #eee;
+    background-color: #fff;
+    border-radius: .5rem;
+
+   }
+
+   .admin-login-input input{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    padding-inline: 1rem;
+    font-size: 1rem;
+    letter-spacing: .76px;
+    font-weight: 500;
+    color: #5b5959;
+   }
+
+   .form-check2{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+   }
+
+   .form-check2 input{
+    width: 1.2rem;
+    height: 1.2rem;
+    border: .1rem solid #eee;
+   }
+
+   .form-check2 input:focus-within{
+    box-shadow: none;
+   }
+
+
+   .form-check2 label{
+    margin-bottom: 0;
+    font-size: .87rem;
+    letter-spacing: .76px;
+    color: #8a8a8a;
+    margin-top: .3rem;
+    font-weight: 400;
+   }
+
+   .admin-forgot-passwrd-btn{
+    font-size: .87rem;
+    color: #8a8a8a;
+    font-weight: 500;
+    letter-spacing: .65px ;
+    margin-top: .45rem;
+   }
+
+   .admin-form-btn{
+    margin-top: 1rem;
+    position: relative;
+    width: 100%;
+    height: 3.4rem;
+    background-color: #1362fc;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: .55rem;
+   }
+
+   .view-eye-btn{
+    position: absolute;
+    top: 54%;
+    font-size: 1rem;
+    cursor: pointer;
+    transform: translateY(-50%);
+    right: 1rem;
+   }
+
  
+   .signuptext{
+    display: flex;
+    justify-content: flex-start ;
+    margin-top: 1rem;
+    font-size: .95rem !important;
+   }
+
+   .signuptext a{
+    color: #1add6f;
+    margin-left: .5rem;
+   }
+
+   .frenchiessingup .frenchies-singup-box{
+    display: none;
+   }
+
+   .frenchiessingup.frencactive .admin-login-form{
+    display: none;
+   }
+
+   .frenchiessingup.frencactive .frenchies-singup-box{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: .65rem;
+    max-height: 15rem;
+    overflow-y: auto;
+   }
+
+
+
+   .frenchiessingup.frencactive .admin-forgot-passwrd-btn{
+    display: none;
+   }
+
+   .admin-login-main .verify-otp-box{
+    display: none;
+   }
+
+   .admin-login-main.otpactive .verify-otp-box{
+    display: block;
+   }
+
+   .admin-login-main.otpactive .admin-login-form ,
+   .admin-login-main.otpactive .frenchies-singup-box , 
+   .admin-login-main.otpactive .form-check2 ,
+   .admin-login-main.otpactive .admin-forgot-passwrd-btn,
+   .admin-login-main.otpactive .admin-form-btn2 , 
+   .admin-login-main.otpactive .signuptext
+    {
+    display: none;
+   }
+
+   .admin-form-btn4{
+    display: none;
+   }
+
+ 
+
+   .frenchiessingup.frencactive .admin-form-btn3{
+    display: none  ;
+
+   }
+
+   .frenchiessingup.frencactive .admin-form-btn4{
+    display: block  ;
+
+   }
+
+   .admin-login-main.otpactive  .admin-form-btn4{
+    display: none ;
+   }
+
+   .thank-text{
+    font-size: .9rem !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+    margin-top: 1rem !important;
+    width: 25rem !important;
+    color: #1bae5a !important;
+   }
+
+   .frenchies-login-parent-box{
+    position: relative;
+    width: 100%;
+
+   }
+
+   .thank-u-box{
+    display: none;
+   }
+
+   
   
 
+   .frenchies-login-parent-box.frencparentactive .admin-login-main , 
+   .frenchies-login-parent-box.frencparentactive .admin-login-main{
+    display: none;
+   }
+
+   .thank-u-box{
+    position: relative;
+    background-color: #fff;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 3rem 3rem;
+    border-radius: .76rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    display: none;
+    
+   }
+
+   .frenchies-login-parent-box.frencparentactive  .thank-u-box{
+    display: flex;
+   }
+
+   .thank-u-gif{
+    position: relative;
+    width: 10rem;
+   }
+
+   .thank-u-gif img{
+    width: 100%;
+    height: auto;
+   }
+
+   .thank-u-box p{
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 2rem;
+   }
+  
+   .dashb-btn{
+    position: relative;
+    width: 10rem;
+    padding: .56rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: transparent;
+    border: .1rem solid #1362fc;
+    color: #1362fc;
+    font-size: 1rem;
+    letter-spacing: .5px;
+    border-radius: .5rem;
+    transition: 400ms ease;
+
+   }
+
+   .dashb-btn:hover{
+    border: .1rem solid #1362fc;
+    border-color: #1362fc;
+
+   }
+
+   .forgot-password .otp-input{
+    display: none;
+   }
+
+   .forgot-password.forgtpasswrdactive .otp-input{
+      display: block;
+   }
+
+   .forgot-password.forgtpasswrdactive .forgotpasswrd-input{
+    display: none;
+   }
+
+   .new-password-bx{
+    display: none;
+   }
+
+   .forgot-newpasswrd-thanksmessage-mainbx.newpasswrdactive .new-password-bx{
+    display: block;
+   }
+
+   
+   .forgot-newpasswrd-thanksmessage-mainbx.newpasswrdactive.forgot-password{
+    display: none;
+   }
+
+ 
+
+   .passwrd-otp-btn{
+    display: none;
+   }
+
+   .forgot-password.forgtpasswrdactive .passwrd-otp-btn{
+    display: block;
+   }
+
+   .forgot-password.forgtpasswrdactive .forgt-passwrd-btn{
+    display: none;
+   }
+
+   .forgot-newpasswrd-thanksmessage-mainbx.newpasswrdactive .forgot-password{
+    display: none;
+   }
+
+   .frenchies-thanks-main.frenthankmain .thank-u-box2{
+    display: flex;
+   }
+
+   .frenchies-thanks-main.frenthankmain .admin-login-main{
+    display: none;
+   }
+
+   /* ___________________________________________________-
+    Our Frenchies edit popup-comp css code
+    ---------------------- */
+
+    .french-edit-comp{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .french-edit-comp:before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #2424247d;
+      z-index: -1;
+    }
+
+    .french-edit-main-box{
+      position: relative;
+      width: 55rem;
+      background-color: #fff;
+      padding: 2rem 3rem;
+      border-radius: .56rem;
+    }
+
+    .french-edit-main-box h5{
+      text-align: center;
+      font-size: 1.78rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #000;
+      margin-bottom: 1.5rem;
+    }
+
+    .french-det-logo-box{
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .f-logo{
+      position: relative;
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+
+    .f-logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .french-logo-btn{
+      position: relative;
+      width: max-content;
+      padding: .25rem .76rem;
+      color: #fff;
+      font-size: .87rem;
+      letter-spacing: .78px;
+      border-radius: .5rem;
+      background-color: #1bae5a;
+      cursor: pointer;
+    }
+
+    input[type="file"]{
+      display: none;
+    }
+
+    .french-edit-main-box{
+      height: 35rem;
+      overflow-y: auto;
+    }
+
+    .french-det-grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1rem;
+      row-gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .admin-login-fild select{
+      width: 100%;
+      height: 100%;
+      padding-inline: 1rem;
+    }
+
+    .close-popup-btn{
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      color: #ff3c3c;
+
+    }
+
+    .french-det-grid{
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 2rem;
+      row-gap: 2rem;
+
+    }
+
+
+    .french-det-box{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      width: 100%;
+
+    }
+
+    .french-det-box h6{
+      font-size: 1rem;
+      color: #000248;
+      letter-spacing: .45px;
+      font-weight: 800;
+    }
+
+    .french-det-box span{
+      font-size: 1rem;
+      letter-spacing: .45px;
+      color: #3d3d3d;
+    }
+
+    .banktext{
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      color: #000;
+    }
+
+    .submit-btn5{
+      margin: 2rem auto 0 auto;
+      width: 12rem;
+      letter-spacing: .67px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #1362fc;
+      border-color: #1362fc;
+    }
+    .submit-btn5:hover{
+      color: #1362fc;
+      border-color: #1362fc;
+    }
+
+    .invoice-downlod {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      cursor: pointer;
+    }
+
+    .invoice-downlod i{
+      color: #0ea5e9;
+    }
+
+    /* _____________________________________
+     subscription plan comp css code
+     ------------------------ */
+
+     .subscrip-plan-comp{
+      position: relative;
+      width: 100%;
+      padding-inline-end: 1.4rem;
+      margin-top: 2rem;
+     }
+
+     .subscrip-plan-comp h6{
+      font-size: 1.5rem;
+      color: #000248;
+      font-weight: 700;
+      letter-spacing: .45px;
+      margin-bottom: 1.5rem;
+     }
+
+     .subsdata-det-grid{
+      grid-template-columns: repeat(3, 1fr);
+     }
+
+     .subsdata-edit-main-box{
+      height: max-content;
+      width: 50rem;
+     }
+
+     .upload-img-bx , .selctd-img{
+      position: relative;
+      width: 100% ;
+     }
+
+     .selctd-img {
+      height: 9rem;
+
+     }
+
+     .selctd-img img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+     } 
+
+     .img-upld-btn{
+      border: none;
+      padding: 0 0;
+     }
+
+     .img-upld-btn label{
+      margin-top: .65rem;
+      width: max-content;
+      background-color: #ffa500;
+    padding:  .25rem 1rem;
+    border-radius: .45rem;
+    color: #fff;
+    cursor: pointer;
+     
+     }
+
+    .pol-ver-field input[type = "file"]{
+      display: block;
+      padding: 0 0;
+    }
+
+    .pol-ver-field input[type = "file"]::-webkit-file-upload-button{
+      font-size: .87rem;
+    }
+
+    .verif-flex-box{
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .confirm-verif-btn{
+      width: max-content;
+      padding: .3rem 1.65rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1rem;
+      color: #1362fc;
+      border: .1rem solid #1362fc;
+      background-color: transparent;
+      border-radius: .5rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .confirm-verif-btn2{
+      border-color: #ff3c3c;
+      color: #ff3c3c;
+    }
+    
+
+    .variable-fixed-input-box{
+      margin-top: 1.5rem;
+    }
+
+   .areaprice-inpt:before{
+    content: "\e1bc";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: .98rem;
+    color: #242424;
+   }
+
+   .fixed-box , .variable.box{
+    position: relative;
+    width: 100%;
+   }
+
+   .areaprice-inpt2:before{
+    content: "\25";
+   }
+
+   .subsdata-edit-main-box{
+    height: 30rem;
+   }
+   
+   .admin-nv-btn2:before{
+    display: none ;
+   }

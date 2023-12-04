@@ -19,6 +19,10 @@ import alluserData from '../AlluserData';
 import AdminAllProduct from '../AdminComponents.jsx/AdminAllProduct';
 import AdminOrder from '../AdminComponents.jsx/AdminOrder';
 import Orders from '../OrderData';
+import AdminLogin from './AdminLogin';
+import Frienchies from '../AdminComponents.jsx/Frienchies';
+import Wastecolect from '../AdminComponents.jsx/Wastecolect';
+import SubscriptionPlan from '../AdminComponents.jsx/SubscriptionPlan';
 
 const AdminPanel = () => {
     const [barClick , setBarClick] = useState(false);
@@ -163,29 +167,14 @@ const AdminPanel = () => {
 
         <div className="side-admin-nav-list-box">
 
-            <div className="admin-nv-li">
-                <div onClick={() => handleButtonClick(1)} className={getButtonClassName(1)}>
+            <div className="admin-nv-li admin-nv-li-dashbrd">
+                <div onClick={() => {handleButtonClick(1) ,handleViewComp('dashboard') }} className={component === 'dashboard' ? 'admin-nv-btn admin-nv-btn2 adminnavbtnActive' : 'admin-nv-btn admin-nv-btn2'}>
                 <div className="a-nv-i">
                 <RiTableFill />
                 </div>
                 <span>Dashboard</span>
                 </div>
 
-                <div className={ getButonClasnameTwo(1) }>
-
-                    <li onClick={() => handleViewComp('dashboard')}  className={ component === 'dashboard' ? 'page-link-btn pagelinkactive' : 'page-link-btn' } > <NavLink to="#">Dashboard One</NavLink> </li>
-                    <li> <NavLink to="#">Dashboard Two</NavLink> </li>
-                    <li> <NavLink to="#">Dashboard Dark</NavLink> </li>
-                    <li> <NavLink to="#">Reviews</NavLink> </li>
-                    <li> <NavLink to="#">Guest Detail</NavLink> </li>
-                    <li> <NavLink to="#">Guest</NavLink> </li>
-                    <li> <NavLink to="#">Rooms</NavLink> </li>
-
-
-
-                    
-                </div>
-                
             </div>
 
             
@@ -204,6 +193,9 @@ const AdminPanel = () => {
                     <li onClick={() => handleFilter('Active')} className={ activeTav === 'Active' ? 'page-link-btn pagelinkactive' : 'page-link-btn' } > <NavLink to="#">Active Users</NavLink> </li>
                     <li onClick={() => handleFilter('Banned')} className={ activeTav === 'Banned' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#">Banned Users </NavLink> </li>
                     <li onClick={() => handleFilter('Unverified')} className={ activeTav === 'Unverified' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#">Unverified Users</NavLink> </li>
+                    <li onClick={() => handleViewComp('frenchies')} className={ component === 'frenchies' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#"   >Frienchies</NavLink> </li>
+                    <li onClick={() => handleViewComp('wastecolectr')} className={ component === 'wastecolectr' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#"   >Waste Collector</NavLink> </li>
+                    <li onClick={() => handleViewComp('vendor')} className={ component === 'vendor' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#"   >Vendor</NavLink> </li>
 
 
 
@@ -232,6 +224,22 @@ const AdminPanel = () => {
 
 
                     
+                </div>
+                
+            </div>
+
+            <div className="admin-nv-li">
+                <div onClick={() => handleButtonClick(9)} className={getButtonClassName(9)}>
+                <div className="a-nv-i">
+                <CiShop />
+                </div>
+                <span> Subscriptions</span>
+                </div>
+
+                <div className={ getButonClasnameTwo(9) }>
+
+                    <li onClick={() => handleViewComp('subscriptionplan')} className={ component === 'subscriptionplan' ? 'page-link-btn pagelinkactive' : 'page-link-btn' }> <NavLink to="#"> Subscriptions Plans </NavLink> </li>
+
                 </div>
                 
             </div>
@@ -266,16 +274,16 @@ const AdminPanel = () => {
                 <div className="a-nv-i">
                 <FaWpforms />
                 </div>
-                <span>Forms</span>
+                <span>Reviews</span>
                 </div>
 
                 <div className={ getButonClasnameTwo(6) }>
 
-                    <li> <NavLink to="#">Profile</NavLink> </li>
+                    {/* <li> <NavLink to="#">Profile</NavLink> </li>
                     <li> <NavLink to="#">Post Details</NavLink> </li>
                     <li> <NavLink to="#">Email </NavLink> </li>
                     <li> <NavLink to="#">Calendar</NavLink> </li>
-                    <li> <NavLink to="#">Shop</NavLink> </li>
+                    <li> <NavLink to="#">Shop</NavLink> </li> */}
 
 
 
@@ -297,7 +305,7 @@ const AdminPanel = () => {
 
                     <li> <NavLink to="#">Profile</NavLink> </li>
                     <li> <NavLink to="#">Post Details</NavLink> </li>
-                    <li> <NavLink to="#">Email </NavLink> </li>
+                    <li onClick={() => handleViewComp('login') } className={component === 'login' ? 'page-link-btn pagelinkactive' : 'page-link-btn' } > <NavLink to="#">Log-in </NavLink> </li>
                     <li> <NavLink to="#">Calendar</NavLink> </li>
                     <li> <NavLink to="#">Shop</NavLink> </li>
 
@@ -333,7 +341,7 @@ const AdminPanel = () => {
             
             
         </div>
-
+{/* 
         <div className="side-admin-nav-icons-box">
 
             <div  className= "admin-side-nav-icons-main-box" >
@@ -442,7 +450,7 @@ const AdminPanel = () => {
                 </div>
           
             
-        </div>
+        </div> */}
         
     </section>
 
@@ -462,6 +470,9 @@ const AdminPanel = () => {
 
   { component === 'orders' ?  <AdminOrder orderUpdatedData={orderActive} /> :  null}
 
+   { component === 'frenchies' ? <Frienchies /> : null }
+   { component === 'wastecolectr' ? <Wastecolect /> : null }
+   { component === 'subscriptionplan' ? <SubscriptionPlan /> : null }
 
     </section>
     

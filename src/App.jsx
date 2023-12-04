@@ -20,6 +20,10 @@ import { userLocationByQuery } from "./apis/location";
 import WasteCollectorDashboard from "./Pages/WasteCollectorDashboard";
 import SocialFeedsPage from "./Pages/SocialFeedsPage";
 import AdminPanel from "./AdminPages/AdminPanel";
+import AdminLogin from "./AdminPages/AdminLogin";
+import FrenchiesLogin from "./AdminPages/FrenchiesLogin";
+import FrenchiesForgotPasswrd from "./AdminPages/FrenchiesForgotPasswrd";
+import FrenchiesDashboard from "./AdminPages/FrenchiesDashboard";
 
 
 function App() {
@@ -48,6 +52,10 @@ function App() {
       <Route path="/wastecolectdashboard" element={<WasteCollectorDashboard />} />
       <Route path="/socialfeeds" element={<SocialFeedsPage />} />
       <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/adminlogin" element={<AdminLogin />} />
+      <Route path="/frenchieslogin" element={<FrenchiesLogin />} />
+      <Route path="/forgotpassword" element={<FrenchiesForgotPasswrd />} />
+      <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
 
 
     </Routes>

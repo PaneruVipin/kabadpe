@@ -145,10 +145,10 @@ const AllUser = ({updatedFilterData}) => {
             <table>
               <thead>
                 <tr>
-                  <th>S-No.</th>
+                  <th>SNo.</th>
                   <th>Profile</th>
                   <th>User Id</th>
-                  <th>UserName</th>
+                  <th>User Name</th>
                   <th>Mobile No.</th>
                   <th>Email</th>
                   <th>User Type</th>

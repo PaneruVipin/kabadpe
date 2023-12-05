@@ -99,5 +99,5 @@ export const userProfileImageAdd = resolvePromise(async (image) => {
       },
     }
   );
-  return res?.addresses;
+  return res?.message;
 });

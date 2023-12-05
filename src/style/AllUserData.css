@@ -507,7 +507,9 @@
   }
 
   
-
+  .substype-text{
+   color: #1362fc !important;
+  }
   .status-t.statColor{
    color: #ff3131 !important;
   }

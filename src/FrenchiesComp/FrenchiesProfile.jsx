@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../style/FrenchiesPanel.css';
+import '../style/Frenchiespanel.css';
 import FrenchEdit from '../AdminComponents.jsx/FrenchEdit';
 
 const FrenchiesProfile = () => {

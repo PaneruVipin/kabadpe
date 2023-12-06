@@ -23,9 +23,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
-         npm i
-         npm run build
+    - run: npm i
+
+    - name: build
+    - run:  npm run build
          # touch .env
          # echo ${{secrets.ENV_SATAGGING}} >> .env
          # pm2 restart kabadpe-stg-api

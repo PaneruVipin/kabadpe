@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import WasteDetailsPasswd from "./WasteDetailsPasswd";
 import WasteDetBank from "./WasteDetBank";
 import DatePicker from "react-datepicker";
+import CompltProfPopup from "./CompltProfPopup";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -418,6 +419,8 @@ const WasteDetail = () => {
       <WasteDetBank />
 
       <WasteDetailsPasswd />
+
+   
     </>
   );
 };

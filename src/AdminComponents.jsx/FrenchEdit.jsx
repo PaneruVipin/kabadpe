@@ -150,7 +150,7 @@ const FrenchEdit = ({onClickCloseEditForm}) => {
             
         </div>
 
-        <button onClick={onClickCloseEditForm} className="close-popup-btn">
+        <button onClick={() => onClickCloseEditForm()} className="close-popup-btn">
         <i class="fa-solid fa-xmark"></i>
         </button>
 

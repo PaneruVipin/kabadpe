@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../style/Profile.css';
 import '../style/WasteColect.css';
 import { NavLink } from 'react-router-dom';
@@ -14,11 +14,13 @@ import WasteColectSearch from './WasteColectSearch';
 import WasteCollectersReviews from './WasteCollectersReviews';
 import MyReviews from './MyReviews';
 import Vendor from './Vendor';
+import CompltProfPopup from './CompltProfPopup';
 
 
 const Wastecollectdashboard = () => {
   const [profBtn, setProfBtn] = useState(1);
   const [profChange , setProfChange] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const filterTab = (index) => {
 
@@ -36,6 +38,23 @@ const Wastecollectdashboard = () => {
       reader.readAsDataURL(file);
     }
   };
+
+
+  
+    useEffect(() => {
+      // Simulating page load delay with setTimeout (you can replace this with your own logic)
+      const delay = setTimeout(() => {
+        setShowPopup(true);
+      }, 2000); // Adjust the delay time as needed (in milliseconds)
+  
+      return () => clearTimeout(delay); // Cleanup function to clear the timeout on unmounting
+    }, []); // Empty dependency array ensures this runs only once on mount
+  
+    const handleClosePopup = () => {
+      setShowPopup(false);
+    };
+
+  
   
   return (
     <>
@@ -180,6 +199,13 @@ const Wastecollectdashboard = () => {
   { profBtn === 9 ? <Vendor /> : null}
 
 
+  <div>
+      {showPopup && (
+
+        <CompltProfPopup onclickRedirectDetPage={() => setProfBtn(3)} />
+       
+      )}
+    </div>
 
      
     </>

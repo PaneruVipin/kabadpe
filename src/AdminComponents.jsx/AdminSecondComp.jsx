@@ -1,4 +1,88 @@
 import React, { useState } from "react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const data = [
+  {
+    date: "1",
+    ord: 130,
+    apnt: 150,
+    amt: 100,
+  },
+  {
+    date: "2",
+    ord: 300,
+    apnt: 230,
+    amt: 200,
+  },
+  {
+    date: "3",
+    ord: 250,
+    apnt: 80,
+    amt: 400,
+  },
+  {
+    date: "4",
+    ord: 400,
+    apnt: 300,
+    amt: 600,
+  },
+  {
+    date: "5",
+    ord: 600,
+    apnt: 445,
+    amt: 800,
+  },
+  {
+    date: "6",
+    ord: 550,
+    apnt: 375,
+    amt: 1000,
+  },
+  {
+    date: "7",
+    ord: 650,
+    apnt: 550,
+    amt: 1000,
+  },
+  {
+    date: "8",
+    ord: 450,
+    apnt: 285,
+    amt: 1000,
+  },
+  {
+    date: "9",
+    ord: 750,
+    apnt: 490,
+    amt: 1000,
+  },
+  {
+    date: "10",
+    ord: 800,
+    apnt: 360,
+    amt: 1000,
+  },
+  {
+    date: "11",
+    ord: 1000,
+    apnt: 700,
+    amt: 1000,
+  },
+  {
+    date: "12",
+    ord: 970,
+    apnt: 700,
+    amt: 1000,
+  },
+];
 
 const AdminSecondComp = () => {
   const [editBx, setEditBx] = useState(false);
@@ -17,7 +101,7 @@ const AdminSecondComp = () => {
               </div>
             </div> */}
 
-            <div className="left-ad-progress-bar-main mb-4" >
+            <div className="left-ad-progress-bar-main mb-4">
               <h6>Today's Appointments</h6>
 
               <div className="ad-prog-bar-box">
@@ -120,11 +204,10 @@ const AdminSecondComp = () => {
 
             <div className="graph-top-flex-box">
               <div className="left-graph-title">
-                <h6>Reservation Statistic</h6>
-                <span>Lorem ipsum dolor sit amet</span>
+                <h6>Last 10 Days Orders/Appointments</h6>
               </div>
 
-              <div className="right-graph-num-flex-box">
+              {/* <div className="right-graph-num-flex-box">
                 <div className="graph-num-box">
                   <div className="graph-num-dot"></div>
                   <h5>549</h5>
@@ -137,11 +220,54 @@ const AdminSecondComp = () => {
                   <h5>327</h5>
                   <span>Check Out</span>
                 </div>
-              </div>
+              </div> */}
             </div>
 
-            <div className="graph-img">
-              <img src="./images/customImg/graph-img.png" alt="" />
+            <div className="area-char">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  width={500}
+                  height={400}
+                  data={data}
+                  margin={{ top: 20, right: 0, left: 0, bottom: 20 }}
+                >
+                  <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#96d884" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#96d884" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#d097ff" stopOpacity={0.2  } />
+                      <stop offset="95%" stopColor="#d097ff" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis
+                    dataKey="date"
+                    axisLine={false}
+                    textAnchor="end"
+                  />
+                  <YAxis dataKey="amt" axisLine={false} offset={0} />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="ord"
+                    stroke="#96d884"
+                    strokeWidth="4"
+                    fillOpacity={1}
+                    fill="url(#colorUv)"
+                    activeDot={{ r: 10 }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="apnt"
+                    stroke="#b661fc"
+                    strokeWidth="4"
+                    fillOpacity={1}
+                    fill="url(#colorPv)"
+                    activeDot={{ r: 10 }}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>

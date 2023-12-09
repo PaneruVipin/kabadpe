@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/LogReg.css";
 import { Form, Formik } from "formik";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
@@ -6,11 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { userVerifySignup } from "../features/auth/authActions";
 import { VerifyToSignup } from "./Auth/VerifyToSignup";
 import Redirect from "./Auth/RedirectIfLogin";
+import { getFromLocalStorage, setInLocalStorage } from "../lib/localStorage";
+import { userResendOtp } from "../apis/auth";
 
 const Otp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((s) => s.auth);
   const { errors: errorsInAuth } = useSelector((s) => s.auth);
+  const initialTime = 60;
+  const [remainingTime, setRemainingTime] = useState(initialTime);
+  const [isResendActive, setIsResendActive] = useState(false);
+
   const initialValues = {
     otp: "",
   };
@@ -18,9 +24,27 @@ const Otp = () => {
     const newData = { ...data, email: user?.email, loginType: user?.loginType };
     dispatch(userVerifySignup(newData));
   };
+
+  const handleResendClick = () => {
+    setIsResendActive(false);
+    setRemainingTime(initialTime);
+    userResendOtp(user?.email);
+  };
+
+  useEffect(() => {
+    let timer;
+    if (remainingTime > 0) {
+      timer = setInterval(() => setRemainingTime(remainingTime - 1), 1000);
+    } else {
+      setIsResendActive(true);
+    }
+    return () => clearInterval(timer);
+  }, [remainingTime]);
   return (
     <>
-      <VerifyToSignup />
+      <VerifyToSignup
+        path={user?.loginType == "kabadCollector" ? "/auth/collector" : "/"}
+      />
       <Redirect />
       <section className="reset-passwrd-comp">
         <div className="reset-passwrd-grid">
@@ -42,7 +66,6 @@ const Otp = () => {
                   touched,
                   ...rest
                 }) => {
-                
                   return (
                     <Form>
                       <div className="log-inpt-bx reset-psswrd-inpt otp-inpt-bx">
@@ -60,7 +83,19 @@ const Otp = () => {
                         {touched.otp && errors.otp ? (
                           <div style={{ color: "red" }}>{errors.otp}</div>
                         ) : null}
-                      </div>
+                      </div>{" "}
+                      {remainingTime > 0 ? (
+                        <span>Resend in: {remainingTime} seconds</span>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled={!isResendActive}
+                          onClick={handleResendClick}
+                          className="form-submit-btn reset-psswrd-btn"
+                        >
+                          Re-Send OTP
+                        </button>
+                      )}
                       <button
                         type="submit"
                         className="form-submit-btn reset-psswrd-btn"

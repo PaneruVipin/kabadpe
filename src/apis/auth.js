@@ -32,10 +32,7 @@ export const signup = async ({
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
-  const { data: res } = await axios.post(
-    apiUrl,
-    setting?.[loginType]?.payload,
-  );
+  const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
   return res;
 };
 
@@ -66,3 +63,9 @@ export const userValidateKabadPeRefrral = resolvePromise(async (code) => {
   });
   return res?.franchise;
 });
+
+export const userResendOtp = async (email) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/resendotp";
+  const { data: res } = await axios.post(apiUrl, { email });
+  return res?.message;
+};

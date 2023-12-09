@@ -12,38 +12,13 @@ const SubscriptionPlan = () => {
 
     }
 
-    const [selectedOption, setSelectedOption] = useState('fixed');
-
-    const handleOptionChange = (event) => {
-      setSelectedOption(event.target.value);
-    };
+ 
 
 
     
   return (
     <>
 
-<div>
-      <select value={selectedOption} onChange={handleOptionChange}>
-        <option value="fixed">Fixed</option>
-        <option value="variable">Variable</option>
-      </select>
-      {selectedOption === 'fixed' ? (
-        <div>
-          <label>
-            Message:
-            <input type="text" placeholder="Enter message" />
-          </label>
-        </div>
-      ) : (
-        <div>
-          <label>
-            Name:
-            <input type="text" placeholder="Enter name" />
-          </label>
-        </div>
-      )}
-    </div>
 
     <section className="subscrip-plan-comp">
 

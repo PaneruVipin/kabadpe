@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const SubsDetEdit = ({onclickCloseSubsDat}) => {
-  const [selectedOption , setSelectedOption] =  useState('');
+  const [selectedOption , setSelectedOption] =  useState('variable');
 
   const handleOptionChange = (event) => {
 
@@ -44,7 +44,6 @@ const SubsDetEdit = ({onclickCloseSubsDat}) => {
               <label htmlFor="Charges">Subscription Type</label>
               <div className="admin-login-input">
                <select name="plantitle" id="plantitle" value={selectedOption} onChange={handleOptionChange}>
-               <option value="Choose">Choose</option>
                 <option value="fixed">Fixed</option>
                 <option value="variable">Variable</option>
 

@@ -24,6 +24,7 @@ import AdminLogin from "./AdminPages/AdminLogin";
 import FrenchiesLogin from "./AdminPages/FrenchiesLogin";
 import FrenchiesForgotPasswrd from "./AdminPages/FrenchiesForgotPasswrd";
 import FrenchiesDashboard from "./AdminPages/FrenchiesDashboard";
+import FrenchiesPanel from "./FrenchiesPage/FrenchiesPanel";
 
 
 function App() {
@@ -56,8 +57,7 @@ function App() {
       <Route path="/frenchieslogin" element={<FrenchiesLogin />} />
       <Route path="/forgotpassword" element={<FrenchiesForgotPasswrd />} />
       <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
-
-
+      <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
     </Routes>
   );
 }

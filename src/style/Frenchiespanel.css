@@ -1,0 +1,421 @@
+
+
+.frenchies-prof-view-comp{
+    position: relative;
+    width: 100%;
+    padding-right: 1rem;
+}
+
+ .title{
+    font-size: 1.65rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: .5px;
+    font-weight: 700;
+    color: #000248;
+    margin-top: 1rem;
+}
+
+.french-prof-edit-btn{
+    position: absolute;
+    top: .5rem;
+    right: 1.5rem;
+    font-size: 1.3rem;
+    color: #1362fc;
+}
+
+.french-card-box{
+    cursor: pointer;
+}
+
+.french-card-box .left-card-info p{
+    font-size: .9rem;
+}
+
+.french-rev-comp{
+    position: relative;
+    width: 100%;
+    padding-inline-end: 1.5rem;
+    padding-inline-start: 1rem;
+}
+
+.french-rev-grid{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-top: 2rem;
+}
+
+.rench-rev-box{
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    padding: 1.4rem 1.4rem;
+    border-radius: .55rem;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.french-rev-img{
+    position: relative;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-top: -2.87rem;
+    margin-bottom: 1rem;
+}
+
+.french-rev-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+
+.french-rev-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+.french-rev-info h6{
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: #000248;
+}
+
+.french-rev-info span{
+    font-size: .9rem;
+}
+
+.stars-flex{
+    display: flex;
+    align-items: center;
+    gap: .1rem;
+}
+
+.stars-flex i{
+    font-size: .9rem;
+    color: orangered;
+}
+
+.apnt-text{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: .9rem;
+}
+
+.french-appoint-comp{
+    padding-inline-end: 1.3rem;
+}
+
+.french-appoint-box{
+    background-color: transparent !important;
+}
+
+.french-appoint-table-box table thead tr th{
+    background-color: #0ea5e9;
+}
+
+.french-appoint-table-box table tbody tr{
+    background-color: #fff !important;
+}
+
+.french-appoint-table-box table tbody tr:nth-child(2n + 1){
+    background-color: #f3fbff !important;
+}
+
+.status-btn-changed3{
+    background-color: transparent;
+    border: .1rem solid #0ea5e9;
+    color: #0ea5e9;
+}
+
+.status-btn-changed3:hover{
+    background-color: #0ea5e9;
+    color: #fff;
+}
+
+.cust-add-bx3 p{
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.cust-add-bx3 p span{
+    font-weight: 700;
+    padding-right: .5rem;
+}
+
+.appoint-flex-btns{
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+}
+
+.appoint-flex-btns button i{
+    font-size: 1.1rem;
+}
+
+.appoint-flex-btns button .fa-calendar-days{
+    color: #0ea5e9;
+}
+
+.appoint-popup-info2 h6{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000248;
+}
+
+.assign-appoint-form{
+    margin-top: 1rem;
+    padding-inline: 1.87rem;
+    margin-bottom: 1rem;
+}
+
+.assign-inpt-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+
+}
+
+.assign-inpt-bx label{
+    font-size: 1rem;
+    color: #000248;
+}
+
+.assign-inpt-bx input{
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: #000248;
+    background-color: transparent;
+    border: .1rem solid #ddd;
+    border-radius: .5rem;
+    padding-inline: 1rem;
+}
+
+.appoint-btn{
+    margin-top: 1rem;
+    position: relative;
+    width: max-content;
+    padding: .4rem 1rem;
+    font-size: .95rem;
+    font-weight: 500;
+    color: #0ea5e9;
+    background-color: transparent !important;
+    border: .1rem solid #0ea5e9;
+    border-radius: .55rem;
+
+}
+
+.comn-appoint-btn1{
+    background-color: transparent;
+    color: #43cf7f;
+    border:.1rem solid  #43cf7f;
+}
+
+.comn-appoint-btn2{
+    background-color: transparent;
+    color: #0ea5e9;
+    border:.1rem solid  #0ea5e9;
+}
+
+.comn-appoint-btn3{
+    background-color: transparent;
+    border: .1rem solid #ffa500;
+    color: #ffa500;
+}
+
+
+.comn-appoint-btn1:hover , 
+.navigate-link-btn5:hover{
+    background-color: #43cf7f;
+    color: #fff;
+}
+.comn-appoint-btn2:hover{
+    background-color: #0ea5e9;
+    color: #fff;
+}
+.comn-appoint-btn3:hover{
+    background-color: #ffa500;
+    color: #fff;
+}
+
+.navigate-link-btn5{
+    background-color: transparent;
+    border: .1rem solid #43cf7f;
+    color: #43cf7f;
+    border-radius: .5rem;
+}
+
+.appnt-stats{
+    font-size: .9rem;
+}
+
+.appnt-stats.appntstatactive{
+    color: #ffa500 !important;
+}
+
+button:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: #0002485f; */
+    z-index: -1;
+}
+
+.admin-login-comp2{
+    flex-direction: column;
+}
+
+.choose-your-plan-main-bx{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    padding: 2rem 2rem;
+    /* background-color: #eff7ff; */
+    background-color: #fff;
+    width: 33rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: none;
+}
+
+.choose-your-plan-main-bx.choseplanactive{
+    display: flex;
+}
+
+.choose-your-plan-main-bx h6{
+    font-size: 1.3rem;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .65px;
+    margin-bottom: 1rem;
+}
+
+.chose-plan-flex-bx{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.3rem;
+}
+
+
+.chose-plan-flex-bx button{
+    position: relative;
+    width: max-content;
+    padding: .4rem 2rem;
+    background-color: transparent;
+    color: #1362fc;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .56px;
+    border-radius: .5rem;
+    transition: 500ms ease;
+    border: .1rem solid #1362fc;
+}
+
+
+.chose-plan-flex-bx button:hover{
+    background-color: #1362fc ;
+    color: #fff;
+}
+
+.numbr-wast-colect-bx p{ 
+    font-size: 1rem;
+    letter-spacing: .5px;
+    color: #000248;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.waste-colect-btn{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.waste-colect-btn button{
+    width: max-content;
+    padding: .3rem 1.2rem;
+    text-align: center;
+    background-color: transparent;
+    border: .1rem solid #000248;
+    font-weight: 600;
+    color: #000248;
+}
+
+.pay-nw-btn{
+    margin-top:2rem;
+    position: relative;
+    width: max-content;
+    padding-inline: 2rem;
+    background-color: #1362fc;
+    border-color: #1362fc;
+}
+
+.pay-nw-btn:hover{
+    color: #1362fc;
+}
+
+.price-show-bx{
+    margin-top: 1.65rem;
+}
+
+.price-show-bx p{
+    margin-bottom: 0;
+    font-size: 1.1rem;
+    letter-spacing: .76px;
+    color: #000248;
+}
+
+.numbr-wast-colect-bx{
+    display: none;
+}
+
+.numbr-wast-colect-bx.numbwasteactive{
+    display: block !important;
+}
+
+
+
+ 
+.admin-login-comp2.frenchLoginActive .thank-u-box{
+    display: none ;
+
+}
+
+ 
+.admin-login-comp2.frenchLoginActive .frenchies-login-parent-box{
+    display: none;
+}
+
+.admin-login-comp2.frenchLoginActive .choose-your-plan-main-bx{
+    display: flex;
+}
+
+.french-login-main.mainfrenchloginactive .choose-your-plan-main-bx ,
+.french-login-main.mainfrenchloginactive  .frenchies-login-parent-box {
+        display: none;
+}
+
+.french-login-main.mainfrenchloginactive .thank-u-box{
+    display: flex;
+}
+

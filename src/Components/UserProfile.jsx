@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/Profile.css";
 import UserProfGridComp from "./UserProfGridComp";
 import UserProfForm from "./UserProfForm";
@@ -7,17 +7,21 @@ import AppointmentComp from "./AppointmentComp";
 import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import ReferEarn from "./ReferEarn";
 import MyWallet from "./MyWallet";
+import { userProfileImageAdd } from "../apis/user";
+import { userFetch } from "../features/user/userActions";
 
 const UserProfile = () => {
-  const user = useSelector((s) => s.user.userInfo);
+  const dispatch = useDispatch();
+  const { userInfo: user, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
   const [selectedImage, setSelectedImage] = useState(
     "./images/customImg/836.jpg"
   );
+  const [profileImage, setProfileImage] = useState(null);
   const [profChange, setProfChange] = useState(false);
   // const [userPrf, setUserPrf] = useState(false);
 
@@ -27,6 +31,7 @@ const UserProfile = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setProfileImage(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -35,7 +40,17 @@ const UserProfile = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleUpadateProfileImage = () => {
+    if (profileImage)
+      userProfileImageAdd(profileImage).then(() => {
+        dispatch(userFetch());
+      });
+    setProfChange(false);
+  };
 
+  useEffect(() => {
+    if (user?.profileImage) setSelectedImage(user?.profileImage);
+  }, [user?.profileImage]);
   return (
     <>
       <header className="main-header header-style-one">
@@ -299,7 +314,16 @@ const UserProfile = () => {
       <div className="user-profile-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
-            <img src="./images/customImg/test-img-1.jpg" alt="" />
+            {loading ? null : (
+              <img
+                src={
+                  user?.profileImage
+                    ? user?.profileImage
+                    : `./images/customImg/test-img-1.jpg`
+                }
+                alt=""
+              />
+            )}
             <div
               onClick={() => setProfChange(true)}
               className="prof-edit-text-btn"
@@ -439,14 +463,15 @@ const UserProfile = () => {
             />
           </div>
 
-          <div className="prof-input-file-bx">
-            <label htmlFor="prof_input">Update profile Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              id="prof_input"
-            />
+          <div>
+            <button
+              onClick={handleUpadateProfileImage}
+              className="prof-input-file-bx"
+              style={{ color: "white" }}
+            >
+              {" "}
+              Save
+            </button>
           </div>
 
           <div

@@ -376,6 +376,7 @@ const WasteDetail = () => {
                         required
                       />
                       </div>
+                      <button className="att-inpt-box"></button>
                     </div>
 
                     <div className="select-File">

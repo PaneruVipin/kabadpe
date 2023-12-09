@@ -18,7 +18,7 @@ import CompltProfPopup from "./CompltProfPopup";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
-  console.log("store", loading);
+  // console.log("store", loading);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
 

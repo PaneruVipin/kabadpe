@@ -23,6 +23,9 @@ import AdminLogin from './AdminLogin';
 import Frienchies from '../AdminComponents.jsx/Frienchies';
 import Wastecolect from '../AdminComponents.jsx/Wastecolect';
 import SubscriptionPlan from '../AdminComponents.jsx/SubscriptionPlan';
+import Addsubscription from '../FrenchiesComp/Addsubscription';
+import AddWorkArea from '../FrenchiesComp/AddWorkArea';
+import DiscountCoupon from '../AdminComponents.jsx/DiscountCoupon';
 
 const AdminPanel = () => {
     const [barClick , setBarClick] = useState(false);
@@ -147,6 +150,14 @@ const handleProfileChange = (e) => {
 
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
+
+                <button onClick={() => handleViewComp('addworkarea')} className={component === 'addworkarea' ? "addnew-work-btn addworkactive" : "addnew-work-btn"}>
+                    Add Work Area
+                </button>
+
+                <button onClick={() => handleViewComp('addsubscription')} className={component === 'addsubscription' ? "addnew-work-btn addnew-work-btn2 addworkactive" : "addnew-work-btn addnew-work-btn2"}>
+                    Add Subscription Plan
+                </button>
 
                 
                 <button  className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
@@ -422,16 +433,15 @@ const handleProfileChange = (e) => {
                 <FaPagelines />
 
                 </div>
-                <span>Pages</span>
+                <span>Discounts</span>
                 </div>
 
                 <div className={ getButonClasnameTwo(8) }>
 
-                    <li> <NavLink to="#">Profile</NavLink> </li>
-                    <li> <NavLink to="#">Post Details</NavLink> </li>
-                    <li onClick={() => handleViewComp('login') } className={component === 'login' ? 'page-link-btn pagelinkactive' : 'page-link-btn' } > <NavLink to="#">Log-in </NavLink> </li>
-                    <li> <NavLink to="#">Calendar</NavLink> </li>
-                    <li> <NavLink to="#">Shop</NavLink> </li>
+                    <li onClick={() => handleViewComp('discount') } className={component === 'discount' ? 'page-link-btn pagelinkactive' : 'page-link-btn' } > <NavLink to="#">Add Coupons</NavLink> </li>
+                    <li> <NavLink to="#">Active Coupons</NavLink> </li>
+                    <li> <NavLink to="#">Expire Coupons</NavLink> </li>
+                    <li> <NavLink to="#">Deactive Coupons</NavLink> </li>
 
 
 
@@ -597,11 +607,14 @@ const handleProfileChange = (e) => {
    { component === 'frenchies' ? <Frienchies /> : null }
    { component === 'wastecolectr' ? <Wastecolect /> : null }
    { component === 'subscriptionplan' ? <SubscriptionPlan /> : null }
-
+   { component === 'addworkarea' ? <AddWorkArea /> : null }
+    { component === 'addsubscription' ? <Addsubscription /> : null }
+    { component === 'discount' ? <DiscountCoupon /> : null }
+    
 
     </section>
     
-
+   
       
     </>
   )

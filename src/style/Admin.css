@@ -2275,3 +2275,502 @@ side nav icon Btn on hover show list box
  .complt-prof-popup-bx.disablePopup{
   display: none;
  }
+
+ .add-money-btn{
+  background-color: #1362fc;
+  border-color: #1362fc;
+ }
+
+ .upgrade-btn{
+  position: relative;
+  width: max-content;
+  padding: .3rem 1.87rem;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: .1rem solid #1362fc;
+  color: #1362fc;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: .45px;
+  border-radius: .55rem;
+  transition: 400ms ease;
+ }
+
+ .upgrade-btn:hover{
+  background-color: #1362fc;
+  color: #fff;
+ }
+
+ .upgrade-popup-comp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+ }
+
+ .upgrade-popup-comp:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.7;
+  z-index: -1;
+ }
+
+ .upgrade-popup-bx{
+  position: relative;
+  width: 35rem;
+  background-color: #fff;
+  border-radius: .55rem;
+  padding: 2rem 2rem;
+
+ }
+
+ .upgrade-popup-bx h6{
+  font-size: 1.2rem;
+  color: #000;
+  letter-spacing: .4px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+ }
+
+ .waste-colect-price-btn-flex-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+ }
+
+ .w-price-btn{
+  position: relative;
+  padding-inline: 1.2rem;
+  height: 2.87rem;
+  background-color: transparent;
+  border: .1rem solid #000;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  transition: 500ms ease;
+  border-radius: .5rem;
+ }
+
+ .w-price-btn:hover{
+  background-color: #000;
+  color: #fff;
+ }
+
+ .w-price-btn.pricebtnactive{
+  background-color: #000;
+  color: #fff;
+ }
+
+ .waste-colct-area-btn-flex-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+ }
+
+ .area-btn{
+  position: relative;
+  width: max-content;
+  padding: .3rem 1rem;
+  background-color: transparent;
+  border: .1rem solid #000;
+  border-radius: .5rem;
+  transition: 500ms ease;
+ }
+
+ .area-btn:hover , .area-btn.areaactive{
+  background-color: #000;
+  color: #fff;
+ }
+
+ .blank-bx-flex{
+  position: relative;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+ }
+
+ .blank-bx{
+  position: relative;
+  width: 6rem;
+  height: 2.78rem;
+  background-color: #eaf4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .4rem;
+ }
+
+ .blank-bx h6{
+  margin-bottom: 0;
+ }
+
+ .total_price{
+  position: relative;
+  width: max-content;
+  padding: .3rem 1.3rem;
+  background-color: #1362fc;
+  border: .1rem solid #1362fc;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: .55rem;
+  letter-spacing: .45px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+/* 
+ .blank-bx-flex:before{
+  content: "\2b";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 6.5rem;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: .87rem;
+  color: #000;
+
+ } */
+
+
+ .equality{
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+ }
+
+ .close-upgrade-bx-btn{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.3rem;
+  color: #ff3c3c;
+  cursor: pointer;
+ }
+
+ .pagination{
+  display: flex;
+  align-items: center;
+  gap: .87rem;
+ }
+
+ 
+ .prod-edit-bin-vw-flx-box span{
+  cursor: pointer;
+ }
+
+ .coupon-btn-flex-bx span:last-child:before{
+  display: none;
+ }
+
+ .all-prod-table-comp table tbody tr td{
+  vertical-align: text-top;
+ }
+
+ .all-coupon-filter-flex{
+  align-items: flex-end !important;
+ }
+
+ .crt-copn-btn{
+  background-color: #1bae5a !important;
+  color: #fff !important;
+  border-color: #1bae5a !important;
+ }
+
+ .coupon-pop-up-comp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .coupon-pop-up-comp:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.67;
+  z-index: -1;
+ }
+
+ .coupon-popup-bx{
+  position: relative;
+  width: 50rem;
+  height: 35rem;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: .55rem;
+  padding: 2rem 2rem;
+  z-index: 2;
+
+ }
+
+
+ .coupon-popup-bx::-webkit-scrollbar{
+  width: .345rem;
+  background-color: transparent;
+ }
+
+ .coupon-popup-bx::-webkit-scrollbar-thumb{
+  border-radius: .55rem;
+ }
+
+ .coupon-popup-bx h6{
+  text-align: center;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: .45px;
+  color: #000248;
+  margin-bottom: 1.5rem;
+ }
+
+ .coupon-grid-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+ }
+
+ .coupon-code-inpt-field-bx{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+
+ }
+
+ .coupon-code-inpt-field-bx label{
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .34px;
+  color: #000;
+ }
+
+ .coupon-code-inpt-field-bx input , .coupon-code-inpt-field-bx select,
+ .coupon-code-inpt-field-bx textarea{
+  position: relative;
+  width: 100%;
+  height: 2.76rem;
+  border: .1rem solid #ddd;
+  border-radius: .5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #242424;
+  letter-spacing: .45px;
+  padding-inline: 1rem;
+  background-color: #fff;
+ }
+
+ .coupon-code-inpt-field-bx select{
+  padding-inline: .45rem;
+  cursor: pointer;
+ }
+
+ .coupon-code-inpt-field-bx input:focus-within , 
+ .coupon-code-inpt-field-bx select:focus-within,
+ .coupon-code-inpt-field-bx textarea:focus-within{
+  border-color: #ddd;
+ }
+
+ .coupon-code-inpt-field-bx select{
+  text-transform: capitalize;
+ }
+
+ .coupon-code-inpt-field-bx textarea{
+  height: 100%;
+  resize: none;
+  padding: .76rem 1rem;
+ }
+
+ .selcted-option-bx{
+  position: relative;
+  width: 100%;
+  margin-top: 1.5rem;
+ }
+
+ .selcted-option-bx p{
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: .4px;
+  color: #000;
+ }
+
+ .add-tag-input-field-main-bx{
+  position: relative;
+  width: 100%;
+  min-height: 3rem;
+  border: .1rem solid #ddd;
+  padding: .5rem .5rem;
+  border-radius: .5rem;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: .4rem;
+  
+ }
+
+ .tags-flex-bx{
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+
+ }
+
+ .type-tag-inpt-bx{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+ }
+
+ .type-tag-inpt-bx input{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  background-color: transparent;
+  border: none;
+  
+ }
+
+ .tag-bx{
+  position: relative;
+  width: max-content;
+  height: 2rem;
+  padding-inline: .65rem;
+  background-color: #1bae5a;
+  border-radius: .4rem;
+  color: #fff;
+  font-size: .87rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+ }
+
+ .tags-flex-bx button{
+  font-size: .87rem;
+  color: #f5f5f5;
+ }
+
+ .tags-flex-bx{
+  gap: .3rem;
+  flex-wrap: wrap;
+ }
+
+ .multiple-tags-flex-bx{
+  position: relative;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+ }
+
+ .inpt-tag-field-main{
+  position: relative;
+  width: max-content;
+  display: block;
+  margin-left: 1rem;
+ }
+
+ .coupon-date-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  margin-bottom: .3rem;
+ }
+
+ .coupon-date-bx label{
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: .4px;
+ }
+
+ .date-field{
+  position: relative;
+  width: 100%;
+  height: 2.76rem;
+  background-color: transparent;
+  border: .1rem solid #ddd;
+  border-radius: .5rem;
+  background-color: transparent;
+  padding-inline: 1rem;
+  display: flex;
+  align-items: center;
+ }
+
+ .date-field input{
+  width: 100%;
+  height: 100%;
+ }
+
+ .search-key-pointer{
+  cursor: pointer;
+ }
+
+ .date-grid-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: .5rem;
+  row-gap: .5rem;
+ }
+
+ 
+
+ .coupon-code-inpt-field-bx textarea{
+  width: 100%;
+ }
+
+ .three-fields-bx{
+  position: relative;
+  width: 100%;
+ }

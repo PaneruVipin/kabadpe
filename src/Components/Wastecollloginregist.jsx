@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
 
-
-const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
+const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
   const dispatch = useDispatch();
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
   const [formBox, setFormBox] = useState(false);
@@ -159,25 +158,8 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                               ) : null}
                             </div>
 
-                            <div className="log-inpt-bx reg-inpt-bx">
-                              <input
-                                type="date"
-                                name="dob"
-                                id="dateofbirth"
-                                placeholder="Date Of Birth"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.dob}
-                              />
-                              {touched?.dob && errors?.dob ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.dob}
-                                </div>
-                              ) : null}
-                            </div>
+                        
 
-                            
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
@@ -197,22 +179,24 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                             </div>
 
                             <div className="log-inpt-bx log-inpt-bx-login">
-                          <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Email or Username"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.email}
-                          />
-                          {touched?.email && errors?.email ? (
-                            <div style={{ color: "red" }}>{errors?.email}</div>
-                          ) : null}
-                        </div>
+                              <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Email or Username"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.email}
+                              />
+                              {touched?.email && errors?.email ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.email}
+                                </div>
+                              ) : null}
+                            </div>
 
-                        <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
                                 name="companyRef"
@@ -266,13 +250,12 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                               ) : null}
                             </div>
 
-                          
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
-                                name="panNo"
-                                id="pancard"
-                                placeholder="PAN card"
+                                name="aadharcard"
+                                id="aadharcard"
+                                placeholder="Aadhar Card"
                                 autoComplete="off"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -285,10 +268,25 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                               ) : null}
                             </div>
 
-
                             {/* </div>/ */}
                           </>
                         ) : null}
+
+                        <div className="log-inpt-bx log-inpt-bx-login">
+                          <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Email or Username"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.email}
+                          />
+                          {touched?.email && errors?.email ? (
+                            <div style={{ color: "red" }}>{errors?.email}</div>
+                          ) : null}
+                        </div>
 
                         <div className="log-inpt-bx log-inpt-bx-login">
                           <input
@@ -308,11 +306,7 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                           ) : null}
                         </div>
 
-                        {formBox === true ? (
-                          <>
-                            
-                          </>
-                        ) : null}
+                        {formBox === true ? <></> : null}
                       </div>
 
                       <div className="forgt-passwrd-check-bx-flex">
@@ -341,7 +335,7 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
                         </p>
                       </div>
 
-                      <button 
+                      <button
                         type="submit"
                         // onClick={() => thanksBtn()}
                         className="form-submit-btn"
@@ -428,9 +422,6 @@ const Wastecollloginregist = ({onClickRedirectMyDetailsPage}) => {
           </div>
         </div>
       </section>
-
-    
-      
     </>
   );
 };

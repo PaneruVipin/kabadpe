@@ -7,6 +7,8 @@ import WalletData from './WalletData';
 import DatePicker from "react-datepicker";
 import ConfirmOtp from './ConfirmOtp';
 import WaletBalance from './WaletBalance';
+import AddMoneyOtp from './AddMoneyOtp';
+import AddMoneyAmount from './AddMoneyAmount';
 
 const WasteWallet = () => {
     const [waletData , setWaletData] =  useState(WalletData);
@@ -16,6 +18,9 @@ const WasteWallet = () => {
     const [searchItem , setSearchItem] = useState('');
     const [otp , setOtp ] = useState(false);
     const [transaction , setTransaction ] = useState(false);
+    const [addMoneyOtp , setAddMoneyOtp] = useState(false)
+    const [addAmount , setAddAmount] = useState(false)
+
 
 
    const filterData = (categValue) => {
@@ -68,6 +73,11 @@ const WasteWallet = () => {
             <h6>Transactions</h6>
 
             <div className="right-wallet-box">
+
+                
+            <button onClick={() => setAddMoneyOtp(true)}   className="tranfer-btn add-money-btn">
+                    Add Money
+                </button>
 
                 <button onClick={() => setOtp(true)} className="tranfer-btn">
                     Withdraw Now
@@ -243,8 +253,11 @@ const WasteWallet = () => {
     
     </section>
 
+  
    {otp == true ? <ConfirmOtp onclickcloseOtp={() => setOtp(false)} onClickOpen={() => {setTransaction(true) , setOtp(false)}} /> : null}
    { transaction === true ? <WaletBalance oncClickclose={() => {setTransaction(false) , setOtp(false) }}   /> : null}
+  {addMoneyOtp ? <AddMoneyOtp onclickcloseOtp={() => setAddMoneyOtp(false) } onclickOpenAmountBx={() => {setAddAmount(true) , setAddMoneyOtp(false) }} /> : null }
+  {addAmount ? <AddMoneyAmount onclickCloseAmount={() => setAddAmount(false)}   /> : null}
     
    
     </>

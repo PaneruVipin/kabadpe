@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import subsData from '../subscriptionData'
 import SubsDetEdit from './SubsDetEdit';
+import Upgradepopupbx from './Upgradepopupbx';
 
 const SubscriptionPlan = () => {
     const [subsPlan , setSubsPlan] = useState(subsData);
     const [subsDataBox , setSubsDataBox] = useState(false);
+    const [upgradeBx , setUpgradeBx] =  useState(false);
 
     const subsDataClose = () => {
 
@@ -52,8 +54,8 @@ const SubscriptionPlan = () => {
                         <td> <span> {elem.zip} </span> </td>
                         <td> <span> {elem.charges} </span> </td>
                         <td>
-                          <div onClick={() => setSubsDataBox(true)} className="edit-user-btn">
-                            <i class="fa-regular fa-pen-to-square"></i>
+                          <div  className="edit-user-btn " style={{color : "green"}} >
+                          <i class="fa-solid fa-square-check"></i>
                           </div>
                         </td>
 
@@ -63,18 +65,29 @@ const SubscriptionPlan = () => {
                         )
                         
                     })}
+
+                    {/* onClick={() => setSubsDataBox(true)} */}
                     
                    
                 </tbody>
             </table>
             
         </div>
+
+     
+
+        <button onClick={() => setUpgradeBx(true)} className="upgrade-btn">
+            Upgrade
+        </button>
+
+
+        
         
     </section>
 
     
 
-
+   {upgradeBx ? <Upgradepopupbx onclickCloseUpgradeBx={() => setUpgradeBx(false)} /> : null}
     {subsDataBox ?  <SubsDetEdit onclickCloseSubsDat={subsDataClose} /> : null}
     </>
   )

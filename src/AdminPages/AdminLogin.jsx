@@ -18,13 +18,14 @@ const AdminLogin = () => {
     
   }
   
+
   
   return (
     <>
 
     <section className="admin-login-comp">
 
-      <div className="admin-login-main">
+      <div className="admin-login-main admin-login-main-loginonly ">
 
         <div className="admin-login-img">
           <img src="./images/customImg/nav-logo.png" alt="" />

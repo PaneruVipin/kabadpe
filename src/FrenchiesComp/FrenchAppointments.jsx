@@ -17,30 +17,28 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
   const confirmPopupfunc = () => {
 
     setPopUp(true)
-    setConfirmPopup(true)
-    setReshedPopup(false)
-    setCancelPopupPopup(false)
+  
 
     
   }
 
-  const reschedulePopupfunc = () => {
+  // const reschedulePopupfunc = () => {
 
-    setPopUp(true)
-    setConfirmPopup(false)
-    setReshedPopup(true)
-    setCancelPopupPopup(false)
+  //   setPopUp(true)
+  //   setConfirmPopup(false)
+  //   setReshedPopup(true)
+  //   setCancelPopupPopup(false)
     
-  }
+  // }
 
-  const cancelPopupFunc = () => {
+  // const cancelPopupFunc = () => {
 
-    setPopUp(true)
-    setConfirmPopup(false)
-    setReshedPopup(false)
-    setCancelPopupPopup(true)
+  //   setPopUp(true)
+  //   setConfirmPopup(false)
+  //   setReshedPopup(false)
+  //   setCancelPopupPopup(true)
     
-  }
+  // }
 
   return (
     <>
@@ -308,7 +306,7 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                     <td> <span className={ elem.statustype === "reschedule" || elem.statustype === "schdule"  ? "appnt-stats  appntstatactive" : "appnt-stats" } style={{color : elem.statustype === "cancelled" || elem.statustype === "underprocess" ? "red" : "#43cf7f"  }} > {elem.status} </span> </td>
                     <td>
                       <div className="appoint-flex-btns">
-                        <button onClick={() => confirmPopupfunc()}>
+                        {/* <button onClick={() => confirmPopupfunc()}>
                           <i class="fa-regular fa-circle-check"></i>
                         </button>
                         <button onClick={() => reschedulePopupfunc()}>
@@ -316,6 +314,10 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                         </button>
                         <button onClick={() => cancelPopupFunc()}>
                         <i class="fa-regular fa-circle-xmark"></i>
+                        </button> */}
+
+                       <button className="assign-btn" onClick={() => confirmPopupfunc()}>
+                        Assign
                         </button>
                       </div>
                     </td>

@@ -497,11 +497,11 @@
 //         </div>
 //       </section>
 //     </>
-//   );
+//   ); 
 // };
 
 // export default Wastecolloginregist;
-import React from 'react'
+import React,{ useState } from 'react'
 
 const Wastecollloginregist = () => {
   return (

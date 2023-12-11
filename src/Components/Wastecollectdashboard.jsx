@@ -15,6 +15,7 @@ import WasteCollectersReviews from "./WasteCollectersReviews";
 import MyReviews from "./MyReviews";
 import Vendor from "./Vendor";
 import CompltProfPopup from "./CompltProfPopup";
+import { useSelector } from "react-redux";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);

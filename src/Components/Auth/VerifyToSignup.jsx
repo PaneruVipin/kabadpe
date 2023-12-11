@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const VerifyToSignup = ({ path = "/auth/collector" }) => {
+export const VerifyToSignup = ({ path = "/" }) => {
   const navigate = useNavigate();
   const {
     success: { signup },

@@ -11,8 +11,13 @@ import Redirect from "./Auth/RedirectIfLogin";
 import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
+import { userValidateKabadPeRefrral } from "../apis/auth";
 
+<<<<<<< HEAD
 const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
+=======
+const Wastecolloginregist = () => {
+>>>>>>> c1833d28252fcbb141ecdf16770afd67a3fbf222
   const dispatch = useDispatch();
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
   const [formBox, setFormBox] = useState(false);
@@ -24,6 +29,7 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
   const [termsChecked, setTermsChecked] = useState(false);
   const [checkBxValue, setCheckBxValue] = useState(false);
   const [checkBxValueNo, setCheckBxValueNo] = useState(false);
+  const [refrralValidation, setRefrralValidation] = useState(null);
 
   const sendReuqestfuct = () => {
     setForgotPara(true);
@@ -66,7 +72,7 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
           password: "",
           pincode: "",
           phoneNumber: "",
-          companynumber: "",
+          companyRef: "",
         }
       : {
           email: "",
@@ -127,8 +133,8 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                   touched,
                   ...rest
                 }) => {
-                  console.log("errors", errors);
-                  console.log("values", values);
+                  console.log("errors  1", errors);
+                  // console.log("values", values);
                   return (
                     <Form
                       className={
@@ -158,7 +164,27 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                               ) : null}
                             </div>
 
+<<<<<<< HEAD
                         
+=======
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="workCity"
+                                id="workcity"
+                                placeholder="Area of work within city"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workCity}
+                              />
+                              {touched?.workCity && errors?.workCity ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.workCity}
+                                </div>
+                              ) : null}
+                            </div>
+>>>>>>> c1833d28252fcbb141ecdf16770afd67a3fbf222
 
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
@@ -177,6 +203,7 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                                 </div>
                               ) : null}
                             </div>
+<<<<<<< HEAD
 
                             <div className="log-inpt-bx log-inpt-bx-login">
                               <input
@@ -214,6 +241,8 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                               ) : null}
                             </div>
 
+=======
+>>>>>>> c1833d28252fcbb141ecdf16770afd67a3fbf222
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
@@ -232,22 +261,35 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                               ) : null}
                             </div>
 
+                            <span className="soc-sec-text">
+                              Company Referral Number
+                            </span>
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
-                                name="workCity"
-                                id="workcity"
-                                placeholder="Area Name"
+                                name="companyRef"
+                                id="companyRef"
+                                placeholder="Company Referral Number"
                                 autoComplete="off"
-                                onChange={handleChange}
+                                onChange={async (e) => {
+                                  values.companyRef = e.target.value;
+                                  const result =
+                                    await userValidateKabadPeRefrral(
+                                      values.companyRef
+                                    );
+                                  document.getElementById("email").focus();
+                                  document.getElementById("companyRef").focus();
+                                  setRefrralValidation(result);
+                                }}
                                 onBlur={handleBlur}
-                                value={values?.workCity}
+                                value={values?.companyRef}
                               />
-                              {touched?.workCity && errors?.workCity ? (
+                              {touched.companyRef && errors?.companyRef ? (
                                 <div style={{ color: "red" }}>
-                                  {errors?.workCity}
+                                  {errors?.companyRef}
                                 </div>
                               ) : null}
+<<<<<<< HEAD
                             </div>
 
                             <div className="log-inpt-bx reg-inpt-bx">
@@ -262,10 +304,17 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                                 value={values?.panNo}
                               />
                               {touched?.panNo && errors?.panNo ? (
+=======
+                              {refrralValidation?.error ? (
+>>>>>>> c1833d28252fcbb141ecdf16770afd67a3fbf222
                                 <div style={{ color: "red" }}>
-                                  {errors?.panNo}
+                                  {refrralValidation?.message}
                                 </div>
-                              ) : null}
+                              ) : (
+                                <div style={{ color: "green" }}>
+                                  {refrralValidation?.name}
+                                </div>
+                              )}
                             </div>
 
                             {/* </div>/ */}
@@ -306,7 +355,32 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
                           ) : null}
                         </div>
 
+<<<<<<< HEAD
                         {formBox === true ? <></> : null}
+=======
+                        {formBox === true ? (
+                          <>
+                            <div className="log-inpt-bx log-inpt-bx-login">
+                              <input
+                                type="text"
+                                name="emergencyPhone"
+                                id="emergencynumber"
+                                placeholder="Emergency Number"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.emergencyPhone}
+                              />
+                              {touched?.emergencyPhone &&
+                              errors?.emergencyPhone ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.emergencyPhone}
+                                </div>
+                              ) : null}
+                            </div>
+                          </>
+                        ) : null}
+>>>>>>> c1833d28252fcbb141ecdf16770afd67a3fbf222
                       </div>
 
                       <div className="forgt-passwrd-check-bx-flex">
@@ -426,4 +500,4 @@ const Wastecollloginregist = ({ onClickRedirectMyDetailsPage }) => {
   );
 };
 
-export default Wastecollloginregist;
+export default Wastecolloginregist;

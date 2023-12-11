@@ -1,4 +1,5 @@
 import axios from "axios";
+import { resolvePromise } from "../lib/http";
 
 export const signup = async ({
   fullname,
@@ -7,21 +8,7 @@ export const signup = async ({
   password,
   pincode,
   emergencyPhone,
-  panNo,
-  ifsc,
-  bankAccountNumber,
-  bankName,
-  saftyTrainingDate,
-  heathCheckupDate,
-  policeVerification,
-  insurance,
-  aadharBack,
-  aadharFront,
   workCity,
-  religion,
-  caste,
-  dob,
-  bankAccountHolderName,
   companyRef,
   loginType = "user",
 }) => {
@@ -35,25 +22,8 @@ export const signup = async ({
         phoneNumber,
         pincode,
         emergencyPhone,
-        panNo,
-        ifsc,
-        bankAccountNumber,
-        bankName,
-        saftyTrainingDate,
-        heathCheckupDate,
-        policeVerification,
-        insurance,
-        aadharBack,
-        aadharFront,
         workCity,
-        religion,
-        caste,
-        dob,
-        bankAccountHolderName,
         companyRef,
-      },
-      headers: {
-        "Content-Type": "multipart/form-data",
       },
     },
     user: {
@@ -62,13 +32,7 @@ export const signup = async ({
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
-  const { data: res } = await axios.post(
-    apiUrl,
-    setting?.[loginType]?.payload,
-    {
-      headers: setting?.[loginType]?.headers || {},
-    }
-  );
+  const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
   return res;
 };
 
@@ -90,4 +54,18 @@ export const verifysignup = async ({ email, otp, loginType = "user" }) => {
   const apiUrl = ENV_API_BASE_URL + paths[loginType];
   const { data: res } = await axios.post(apiUrl, { email, otp });
   return res;
+};
+
+export const userValidateKabadPeRefrral = resolvePromise(async (code) => {
+  const apiUrl = ENV_API_BASE_URL + `/kabadCollector/refrral/validate`;
+  const { data: res } = await axios.get(apiUrl, {
+    params: { code },
+  });
+  return res?.franchise;
+});
+
+export const userResendOtp = async (email) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/resendotp";
+  const { data: res } = await axios.post(apiUrl, { email });
+  return res?.message;
 };

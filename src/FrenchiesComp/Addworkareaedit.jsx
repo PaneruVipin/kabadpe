@@ -134,7 +134,15 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
                         <div style={{ color: "red" }}>{errors.subAriaName}</div>
                       ) : null}
                     </div>
+                    <div className="admin-login-fild">
+              <label htmlFor="subarea">Price</label>
+              <div className="admin-login-input">
+                <input type="text" name='cityprice' id='cityprice' placeholder='Enter your City Price'   autoComplete='off' />
+              </div>
+            </div>
                   </div>
+
+                 
 
                   <button type="submit" className="add-work-area-btn">
                     Save
@@ -144,52 +152,10 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
             }}
           </Formik>
 
-<<<<<<< HEAD
-            <div className="admin-login-fild">
-              <label htmlFor="zipcode">Zip Code</label>
-              <div className="admin-login-input">
-                <input type="text" name='zipcode' id='zipcode' placeholder='Enter your zipcode'   autoComplete='off' />
-              </div>
-            </div>
-
-            <div className="admin-login-fild">
-              <label htmlFor="Area">Area</label>
-              <div className="admin-login-input">
-                <input type="text" name='Area' id='Area' placeholder='Enter your Area'   autoComplete='off' />
-              </div>
-            </div>
-
-            <div className="admin-login-fild">
-              <label htmlFor="subarea">Sub Area</label>
-              <div className="admin-login-input">
-                <input type="text" name='subarea' id='subarea' placeholder='Enter your sub area'   autoComplete='off' />
-              </div>
-            </div>
-
-
-            <div className="admin-login-fild">
-              <label htmlFor="subarea">Price</label>
-              <div className="admin-login-input">
-                <input type="text" name='cityprice' id='cityprice' placeholder='Enter your City Price'   autoComplete='off' />
-              </div>
-            </div>
-                    
-                </div>
-                
-            </form>
-
-            <button className="add-work-area-btn">
-                Save
-            </button>
-
-
-            <div onClick={onclickCloseAddWorkEdit} className="close-add-work-bx-btn">
-=======
           <div
             onClick={onclickCloseAddWorkEdit}
             className="close-add-work-bx-btn"
           >
->>>>>>> 80059b15ae6f7d0eb4d8751302c1319dae4ac7eb
             <i class="fa-solid fa-xmark"></i>
           </div>
         </div>

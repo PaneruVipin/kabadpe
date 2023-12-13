@@ -5,7 +5,6 @@ import UseProfRightbx from './UseProfRightbx'
 const UserProfGridComp = () => {
   return (
     <>
-
     <section className="user-prof-grid-comp">
 
       <UserProfSearch />

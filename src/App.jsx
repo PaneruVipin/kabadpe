@@ -31,10 +31,11 @@ function App() {
   const dispatch = useDispatch();
   const {
     success: { login, verifySignup },
+    loading: { login: loginLoading, verifySignup: verifyLoading },
   } = useSelector((s) => s.auth);
   useEffect(() => {
     dispatch(userFetch());
-  }, [login, verifySignup]);
+  }, [login, verifySignup, loginLoading, verifyLoading]);
   return (
     <Routes>
       <Route path="/" element={<MainOutLet />}>

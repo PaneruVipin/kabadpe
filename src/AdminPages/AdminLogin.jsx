@@ -1,17 +1,28 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { validationLoginAdmin } from "../validators/auth/admin";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../features/auth/authActions";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const despatch = useDispatch();
-
+  const { success, userInfo, loading } = useSelector((s) => s.user);
+  const {
+    errors: { login },
+  } = useSelector((s) => s.auth);
   const initialValues = { email: "", password: "", rememberMe: false };
   const handleSubmit = (data) => {
     despatch(userLogin({ ...data, loginType: "admin" }));
   };
+  useEffect(() => {
+    if (success && userInfo?.role == "superAdmin") {
+      navigate("/admin");
+    }
+  }, [success, userInfo, loading]);
   return (
     <>
       <section className="admin-login-comp">
@@ -102,7 +113,10 @@ const AdminLogin = () => {
                     {touched.rememberMe && errors.rememberMe ? (
                       <div style={{ color: "red" }}>{errors.rememberMe}</div>
                     ) : null}
-                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
                       Remember my preference
                     </label>
                   </div>
@@ -110,7 +124,7 @@ const AdminLogin = () => {
                   <button type="button" className="admin-forgot-passwrd-btn">
                     Forgot Password ?
                   </button>
-
+                  {login ? <div style={{ color: "red" }}>{login}</div> : null}
                   <button type="submit" className="admin-form-btn">
                     Sign Me In
                   </button>

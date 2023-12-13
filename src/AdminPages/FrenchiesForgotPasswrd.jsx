@@ -62,16 +62,12 @@ const FrenchiesForgotPasswrd = () => {
 
             </div>
         
-        <div className="admin-login-main">
+        <div className="admin-login-main admin-login-main3">
           <div className="admin-login-img">
             <img src="./images/customImg/nav-logo.png" alt="" />
           </div>
 
           <p> {forgtPaswrdHead} </p>
-
-
-        
-            
 
 
           <div className={newPasswrd ? "forgot-newpasswrd-thanksmessage-mainbx newpasswrdactive" : "forgot-newpasswrd-thanksmessage-mainbx"}>
@@ -80,7 +76,7 @@ const FrenchiesForgotPasswrd = () => {
 
                 <form action="#">
 
-            <div className="admin-login-fildnew-passwrd">
+            <div className=" ">
             <label htmlFor="Company_Name">New Password</label>
             <div className="admin-login-input">
             <input
@@ -148,7 +144,7 @@ const FrenchiesForgotPasswrd = () => {
             </form>
 
             <button onClick={() => forgotPassFunc()} className="admin-form-btn mt-5 forgt-passwrd-btn"> Reset Password Request </button>
-            <button onClick={() => newPasswrdFunc()}  className="admin-form-btn mt-5 passwrd-otp-btn"> Verify OTP </button>
+            <button onClick={() => newPasswrdFunc()}  className="admin-form-btn mt-5 passwrd-otp-btn "> Verify OTP </button>
 
             
           </div> 

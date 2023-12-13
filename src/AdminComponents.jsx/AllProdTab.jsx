@@ -45,6 +45,7 @@ const AllProdTab = () => {
         />
               </th>
               <th>S-No.</th>
+              <th>Vendor Name</th>
               <th>
                 {" "}
                 <div className="prod-img">
@@ -103,6 +104,10 @@ const AllProdTab = () => {
 
                     <td>
                       <span> {index + 1} </span>
+                    </td>
+
+                    <td>
+                      <span> {elem.vendName} </span>
                     </td>
 
                     <td>

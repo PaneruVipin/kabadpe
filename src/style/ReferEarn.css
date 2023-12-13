@@ -844,3 +844,61 @@
    letter-spacing: .5px;
    margin-bottom: 0;
  }
+
+ .admin-login-field{
+  margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .45rem;
+ }
+
+ .admin-login-field label{
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: .5px;
+  color: #000248;
+ }
+
+ .amount-inpt-bx{
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  height: 2.76rem;
+  border: .1rem solid #ddd;
+  border-radius: .55rem;
+  z-index: 2;
+ }
+
+ .amount-inpt-bx input{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-inline: 1.65rem;
+  border-radius: .55rem;
+  letter-spacing: .4px;
+  font-weight: 500;
+  background-color: transparent;
+
+  
+ }
+
+ .amount-inpt-bx:before{
+  content: "\e1bc";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: .5rem;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  z-index: -1;
+  color: #939393;
+  font-size: .9rem;
+ }
+
+ .amount-inpt-bx input:focus-within{
+  border-color: #ddd;
+ }
+

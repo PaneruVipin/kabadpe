@@ -24,40 +24,47 @@ import AdminLogin from "./AdminPages/AdminLogin";
 import FrenchiesLogin from "./AdminPages/FrenchiesLogin";
 import FrenchiesForgotPasswrd from "./AdminPages/FrenchiesForgotPasswrd";
 import FrenchiesDashboard from "./AdminPages/FrenchiesDashboard";
-
+import FrenchiesPanel from "./FrenchiesPage/FrenchiesPanel";
+import MainOutLet from "./Components/Outlets/MainOuTlet";
 
 function App() {
   const dispatch = useDispatch();
   const {
     success: { login, verifySignup },
+    loading: { login: loginLoading, verifySignup: verifyLoading },
   } = useSelector((s) => s.auth);
   useEffect(() => {
     dispatch(userFetch());
-  }, [login, verifySignup]);
+  }, [login, verifySignup, loginLoading, verifyLoading]);
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/service" element={<Service />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/wastegept" element={<Wastgept />} />
-      <Route path="/rate" element={<Rate />} />
-      <Route path="/kabadshop" element={<KabadShop />} />
-      <Route path="/account" element={<Account />} />
-      <Route path="/useraccounts" element={<WastecollectorPage />} />
+      <Route path="/" element={<MainOutLet />}>
+        <Route index element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/account" element={<WastecollectorPage />} />
+        <Route path="/service" element={<Service />} />
+        <Route path="/rate" element={<RateList />} />
+        <Route path="/kabadshop" element={<KabadShop />} />
+        <Route path="/wastegept" element={<Wastgept />} />
+        <Route path="/resetpasswrd" element={<ResetPassword />} />
+      </Route>
+
+      {/* <Route path="/useraccounts" element={<WastecollectorPage />} /> */}
       <Route path="/auth/collector" element={<LogReg />} />
-      <Route path="/resetpasswrd" element={<ResetPassword />} />
       <Route path="/ratelist" element={<RateList />} />
       <Route path="/pricelist" element={<PricelistPage />} />
       <Route path="/otpverify" element={<OtpVerify />} />
-      <Route path="/wastecolectdashboard" element={<WasteCollectorDashboard />} />
+      <Route
+        path="/wastecolectdashboard"
+        element={<WasteCollectorDashboard />}
+      />
       <Route path="/socialfeeds" element={<SocialFeedsPage />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/adminlogin" element={<AdminLogin />} />
       <Route path="/frenchieslogin" element={<FrenchiesLogin />} />
       <Route path="/forgotpassword" element={<FrenchiesForgotPasswrd />} />
       <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
-
-
+      <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
     </Routes>
   );
 }

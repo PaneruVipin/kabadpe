@@ -32,20 +32,29 @@ export const signup = async ({
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
-  const { data: res } = await axios.post(
-    apiUrl,
-    setting?.[loginType]?.payload,
-  );
+  const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
   return res;
 };
 
-export const login = async ({ email, password, loginType = "user" }) => {
-  const paths = {
-    user: "/auth/login",
-    collector: "/auth/kabadCollector/login",
+export const login = async ({
+  email,
+  password,
+  rememberMe,
+  loginType = "user",
+}) => {
+  const setting = {
+    user: { path: "/auth/login", payload: { email, password } },
+    collector: {
+      path: "/auth/kabadCollector/login",
+      payload: { email, password },
+    },
+    admin: {
+      path: "/auth/superAdmin/login",
+      payload: { email, password, rememberMe },
+    },
   };
-  const apiUrl = ENV_API_BASE_URL + paths[loginType];
-  const { data: res } = await axios.post(apiUrl, { email, password });
+  const apiUrl = ENV_API_BASE_URL + setting[loginType]?.path;
+  const { data: res } = await axios.post(apiUrl, setting[loginType]?.payload);
   return res;
 };
 
@@ -66,3 +75,9 @@ export const userValidateKabadPeRefrral = resolvePromise(async (code) => {
   });
   return res?.franchise;
 });
+
+export const userResendOtp = async (email) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/resendotp";
+  const { data: res } = await axios.post(apiUrl, { email });
+  return res?.message;
+};

@@ -217,9 +217,8 @@ const WasteAppointment = () => {
                   </div>
 
                   <div className="search-btn">
-                  <i class="fa-solid fa-magnifying-glass"></i>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                   </div>
-                  
                 </div>
               </div>
 
@@ -232,6 +231,7 @@ const WasteAppointment = () => {
                       <th>Time Slots</th>
                       <th>Customer Name</th>
                       <th>Customer Address</th>
+                      <th>Mobile</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -248,6 +248,11 @@ const WasteAppointment = () => {
                           className="status-btn status-btn-changed"
                         >
                           Details
+                        </button>
+                      </td>
+                      <td>
+                        <button className="status-btn status-btn-changed">
+                          Call Now
                         </button>
                       </td>
                       <td>Visit Soon</td>
@@ -271,6 +276,11 @@ const WasteAppointment = () => {
                           Details
                         </button>
                       </td>
+                      <td>
+                        <button className="status-btn status-btn-changed">
+                          Call Now
+                        </button>
+                      </td>
                       <td>Cancelled</td>
                       <td></td>
                     </tr>
@@ -288,6 +298,11 @@ const WasteAppointment = () => {
                           Details
                         </button>
                       </td>
+                      <td>
+                        <button className="status-btn status-btn-changed">
+                          Call Now
+                        </button>
+                      </td>
                       <td>Cancelled</td>
                       <td></td>
                     </tr>
@@ -303,6 +318,11 @@ const WasteAppointment = () => {
                           className="status-btn status-btn-changed"
                         >
                           Details
+                        </button>
+                      </td>
+                      <td>
+                        <button className="status-btn status-btn-changed">
+                          Call Now
                         </button>
                       </td>
                       <td>
@@ -327,6 +347,11 @@ const WasteAppointment = () => {
                           className="status-btn status-btn-changed"
                         >
                           Details
+                        </button>
+                      </td>
+                      <td>
+                        <button className="status-btn status-btn-changed">
+                          Call Now
                         </button>
                       </td>
                       <td>

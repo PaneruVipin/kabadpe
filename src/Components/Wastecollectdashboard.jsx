@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
 import "../style/WasteColect.css";
 import { NavLink } from "react-router-dom";
@@ -14,12 +14,12 @@ import WasteColectSearch from "./WasteColectSearch";
 import WasteCollectersReviews from "./WasteCollectersReviews";
 import MyReviews from "./MyReviews";
 import Vendor from "./Vendor";
+import CompltProfPopup from "./CompltProfPopup";
 import { useSelector } from "react-redux";
-import { StrictMode } from "react";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
-  console.log("store", loading);
+  // console.log("store", loading);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
 

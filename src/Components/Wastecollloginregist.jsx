@@ -213,6 +213,24 @@ const Wastecolloginregist = () => {
                               ) : null}
                             </div>
 
+                            <div className="log-inpt-bx reg-inpt-bx">
+                             <select name="workertype" id="workertype">
+                             <option value="workertype">Choose</option>
+                              <option value="workertype">KabadiWala</option>
+                              <option value="Toilet_Cleaner">Toilet Cleaner</option>
+                              <option value="workertype">Septic Tank safai krne wala</option>
+                              <option value="workertype">Naali saaf krne wala</option>
+                              <option value="workertype">Cleaner</option>
+
+
+                             </select>
+                              {touched?.pincode && errors?.pincode ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.pincode}
+                                </div>
+                              ) : null}
+                            </div>
+
                             <span className="soc-sec-text">
                               Company Referral Number
                             </span>

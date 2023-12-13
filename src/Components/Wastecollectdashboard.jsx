@@ -16,6 +16,7 @@ import MyReviews from "./MyReviews";
 import Vendor from "./Vendor";
 import CompltProfPopup from "./CompltProfPopup";
 import { useSelector } from "react-redux";
+import BuyWasteTable from "../WasteColectComp/BuyWasteTable";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -190,7 +191,7 @@ const Wastecollectdashboard = () => {
       </div>
 
       {profBtn === 1 ? (
-        <WasteDashboard onclickShowDetailComp={() => filterTab(3)} />
+        <WasteDashboard onclickShowDetailComp={() => filterTab(3)} onclickRedirectBuyWasteTable={() => filterTab(10)}  />
       ) : null}
       {profBtn === 2 ? <WasteAppointment /> : null}
       {profBtn === 3 ? <WasteDetail /> : null}
@@ -200,6 +201,8 @@ const Wastecollectdashboard = () => {
       {profBtn === 7 ? <WasteWallet /> : null}
       {profBtn === 8 ? <MyReviews /> : null}
       {profBtn === 9 ? <Vendor /> : null}
+      {profBtn === 10 ? <BuyWasteTable /> : null}
+
     </>
   );
 };

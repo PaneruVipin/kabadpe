@@ -5,8 +5,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Scheduled',
+        status : 'Assign',
         statustype : 'schdule',
+        subarea : 'Laxmi Nagar',
+        locationtype : 'Office',
 
     },
 
@@ -15,8 +17,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Scheduled',
+        status : 'Assign',
         statustype : 'schdule',
+        subarea : 'Shahdra',
+        locationtype : 'Office',
         
     },
 
@@ -27,6 +31,8 @@ const FrenchAppointData = [
         custname : 'Rohan Das',
         status : 'Cancelled',
         statustype : 'cancelled',
+        subarea : 'Kundan Nagar',
+        locationtype : 'Office',
         
     },
 
@@ -37,6 +43,8 @@ const FrenchAppointData = [
         custname : 'Rohan Das',
         status : 'Rescheduled',
         statustype : 'reschedule',
+        subarea : 'Kanti Nagar',
+        locationtype : 'Home',
         
     },
 
@@ -47,6 +55,8 @@ const FrenchAppointData = [
         custname : 'Rohan Das',
         status : 'Completed',
         statustype : 'complete',
+        subarea : 'Kanti Nagar',
+        locationtype : 'Home',
         
     },
 
@@ -57,6 +67,8 @@ const FrenchAppointData = [
         custname : 'Rohan Das',
         status : 'Completed',
         statustype : 'complete',
+        subarea : 'Azad Nagar',
+        locationtype : 'Shop',
         
     },
 
@@ -66,9 +78,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Today',
-        statustype : 'today',
-        
+        status : 'Unassigned',
+        statustype : 'underprocess',
+        subarea : 'Azad Nagar',
+        locationtype : 'Shop',
     },
 
 
@@ -77,9 +90,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Under process',
+        status : 'Unassigned',
         statustype : 'underprocess',
-        
+        subarea : 'Azad Nagar',
+        locationtype : 'Shop',
     },
 
     {
@@ -87,9 +101,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Today',
-        statustype : 'today',
-        
+        status : 'Unassigned',
+        statustype : 'underprocess',
+        subarea : 'Laxmi Nagar',
+        locationtype : 'Office',
     },
 
     {
@@ -97,8 +112,10 @@ const FrenchAppointData = [
         date : '29-09-2023',
         timeslot : '10.00 to 11.00',
         custname : 'Rohan Das',
-        status : 'Under process',
+        status : 'Unassigned',
         statustype : 'underprocess',
+        subarea : 'Laxmi Nagar',
+        locationtype : 'Office',
         
     },
 
@@ -109,6 +126,8 @@ const FrenchAppointData = [
         custname : 'Rohan Das',
         status : 'Rescheduled',
         statustype : 'reschedule',
+        subarea : 'Laxmi Nagar',
+        locationtype : 'Office',
         
     },
 

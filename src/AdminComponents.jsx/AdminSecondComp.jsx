@@ -108,6 +108,8 @@ const AdminSecondComp = () => {
                 <div className="inner-prog-bar"></div>
               </div>
 
+           
+
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar inner-prog-bar2"></div>
               </div>

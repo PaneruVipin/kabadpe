@@ -765,6 +765,7 @@ button:before{
 }
 
 input[type="number"]{
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -1184,3 +1185,460 @@ input[type="number"]::-webkit-inner-spin-button{
     color: #000000;
     font-weight: 600;
 }
+
+.progress-det-flex-box{
+    flex-wrap: wrap;
+}
+
+.inner-prog-bar4{
+    width: 30%;
+    background:  linear-gradient(90deg , #0ea5e9 , #1362fc);
+}
+
+.admin-secd-grid-box{
+    grid-template-columns: 1.67fr 2.5fr;
+}
+
+.prog-dot-det-box4{
+    background: linear-gradient(90deg, #0ea5e9 , #1362fc);
+}
+
+.left-appont-bx{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sel-opt-bx{
+    width: 10rem;
+    padding-inline: .5rem;
+}
+
+.sel-opt-bx select{
+    width: 100%;
+}
+
+.locntext.locntextdark{
+    color: #ffa500 !important; 
+    /* color: #1362fc; */
+}
+
+
+/* ________________- our appointment slots 
+------------------------------------------------ */
+
+.appoint-slots-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.appoint-slots-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+    opacity: 0.67;
+    z-index: -1;
+
+}
+
+.appoint-slots-main-bx{
+    position: relative;
+    width: 60rem;
+    height: 35rem;
+    background-color: #fff;
+    border-radius: .55rem;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+}
+
+
+.appoint-slots-main-bx h6{
+    font-size: 1.65rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.appoint-slot-table table thead tr th{
+    background-color: #54be73;
+    font-size: .85rem;
+    letter-spacing: .5px;
+    height: max-content;
+    padding: .4rem 1rem 0 1rem;
+}
+
+.appoint-slot-table table tbody tr td span{
+    color: #797878;
+}
+
+.appoint-slot-table table tbody tr{
+    background-color: #fff;
+}
+
+.appoint-slot-table table tbody tr:nth-child(2n + 2){
+    background-color: #fff;
+}
+
+.appoint-slot-table table tbody td{
+    border-bottom: .1rem solid #d9dadc;
+    border-left: .1rem solid #d9dadc;
+}
+
+.appoint-slot-table table tbody td:last-child{
+    border-right: .1rem solid #d9dadc;
+}
+
+.appoint-slot-table table tbody tr td{
+    padding-block: .65rem;
+}
+
+.assign-btn3{
+    height: max-content;
+    padding: .01rem 1.2rem;
+    border-radius: .2rem;
+    border: .1rem solid #54be73;
+    color: #54be73;
+    font-size: .87rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assign-btn3:hover{
+    background-color: #54be73;
+}
+
+.slot-text-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.slot-text-flex p{
+    margin-bottom: 0;
+    line-height: 1;
+    font-size: .8rem;
+    
+}
+
+.assign-flex-bx{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+}
+
+.slot-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-data span{
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: .87rem;
+    line-height: 1.6;
+    color: #797878;
+}
+
+.close-appoint-btn-bx{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
+}
+
+.appoint-det{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-inline: 1.87rem;
+}
+
+.appoint-det p{
+    margin-bottom: 0;
+    font-size: .95rem;
+    color: #54be73;
+}
+
+.appoint-det p span{
+    color: #000248;
+}
+
+
+.note-text{
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #ff0000;
+}
+
+.current-date-bx-flex{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+}
+.current-date-bx-flex p{
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.current-date-bx-flex p span{
+    font-weight: 500;
+    color: #1362fc;
+}
+
+.select-date-bx{
+    position: relative;
+    width: max-content;
+    height: 2.3rem; 
+    background-color: transparent;
+    border: .1rem solid #1362fc;
+    padding-inline: .5rem;
+    border-radius: .4rem;
+    background-color: #1362fc;
+
+}
+
+.select-date-bx input{
+    width: 100%;
+    font-size: .9rem;
+    height: 100%;
+    font-weight: 500;
+    color: #fff;
+    background-color: transparent;
+
+
+
+}
+
+.select-date-bx:before{
+    content: '\f271';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .76rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: .87rem;
+    color: #fff;
+}
+
+
+.select-date-bx input::-webkit-calendar-picker-indicator{
+    opacity: 0;
+}
+
+.comp-refrl-bx{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: #fff;
+    padding-inline: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.03);
+    border-radius: .5rem;
+    transition: 400ms ease;
+    overflow: hidden;
+}
+
+.comp-refrl-bx .comp-icon{
+    position: relative;
+    font-size: 1.2rem;
+    color: #0ea5e9;
+    transform: translateX(9px) translateY(2px);
+    transition: 400ms ease;
+
+}
+
+
+.comp-refrl-bx span{
+    display: flex;
+    gap: .5rem;
+    position: absolute;
+    top: 50%;
+    left: 58%;
+    transform: translateY(-50%) translateX(-50%);
+    transition: 300ms ease;
+    opacity: 0;
+    color: #0ea5e9;
+    font-weight: 500;
+    letter-spacing: .4px;
+}
+
+.comp-refrl-bx span i{
+    transform: translateY(7px);
+}
+
+.comp-refrl-bx:hover{
+    width: 10rem;
+}
+
+.comp-refrl-bx:hover .comp-icon{
+    transform: translateX(4px);
+}
+
+.comp-refrl-bx:hover span{
+    opacity: 1;
+}
+
+
+
+.user-det-top-flex-box h6{
+    width: max-content;
+}
+
+.icon-flex-box{
+    justify-content: center;
+}
+
+.app-dis-btn i{
+    color: #43cf7f;
+}
+
+.user-det-top-flex-box4{
+    flex-direction: column !important;
+}
+
+.ledger-trnsctin-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+}
+
+.ledger-trnsctin-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.67;
+    z-index: -1;
+}
+
+.ledger-trnsctin-main-bx{
+    position: relative;
+    width: 55rem;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+    border-radius: .5rem;
+}
+
+.ledger-trnsctin-main-bx h5{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: .56px;
+    color: #000248;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.trnsctin-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+}
+
+.trnsctin-info h6{
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #000000;
+}
+
+.trnsctin-info h6 span{
+    color: #1362fc;
+}
+
+
+.trnsctin-table table tbody tr td{
+    text-align: center;
+}
+
+.inovice-btn{
+    cursor: pointer;
+    font-size: 1rem;
+    color: #54be73;
+}
+
+.trans-flex-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total-waste-amount-flex-bx{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.total-bx{
+    position: relative;
+    width: max-content;
+    padding-inline: .87rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    background-color: #fffaf1;
+    padding-block: .25rem;
+    border: .1rem solid #fdf2dd;
+    border-radius: .4rem;
+}
+
+.total-bx h6{
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .35px;
+    color: #000248;
+}
+
+
+.total-bx span{
+    color: #5e5e5e;
+    font-weight: 500;
+}
+
+/* 54be73 */
+

@@ -47,6 +47,14 @@ const Addworkareaedit = ({onclickCloseAddWorkEdit}) => {
                 <input type="text" name='subarea' id='subarea' placeholder='Enter your sub area'   autoComplete='off' />
               </div>
             </div>
+
+
+            <div className="admin-login-fild">
+              <label htmlFor="subarea">Price</label>
+              <div className="admin-login-input">
+                <input type="text" name='cityprice' id='cityprice' placeholder='Enter your City Price'   autoComplete='off' />
+              </div>
+            </div>
                     
                 </div>
                 

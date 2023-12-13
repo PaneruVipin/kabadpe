@@ -241,6 +241,15 @@ const FrenchiesPanel = () => {
               </div>
             </div>
 
+            <button className=" comp-refrl-bx">
+                  <div className="comp-icon">
+                  <i class="fa-regular fa-building"></i>
+                  </div>
+
+                  <span>2114504750 <i class="fa-solid fa-share-nodes"></i></span>
+                  
+            </button>
+
             <div className="admin-top-prof-main admin-top-prof-main2 ">
               <div
                 onClick={() => handleViewComp("frenchiesprofile")}
@@ -407,9 +416,9 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Scheduled Appointment </NavLink>{" "}
+                <NavLink to="#">Assign Appointment </NavLink>{" "}
               </li>
-              <li
+              {/* <li
                 onClick={() => handleFilterAppoint("today")}
                 className={
                   apntTab === "today"
@@ -419,7 +428,7 @@ const FrenchiesPanel = () => {
               >
                 {" "}
                 <NavLink to="#">Today Appointment</NavLink>{" "}
-              </li>
+              </li> */}
               <li
                 onClick={() => handleFilterAppoint("underprocess")}
                 className={
@@ -429,7 +438,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Under Process </NavLink>{" "}
+                <NavLink to="#">Unassigned Appointment </NavLink>{" "}
               </li>
               <li
                 onClick={() => handleFilterAppoint("reschedule")}

@@ -4,12 +4,15 @@ import DatePicker from "react-datepicker";
 import wastecolectData from '../WastecolectData';
 import WasteColectEdit from '../AdminComponents.jsx/WasteColectEdit';
 import WasteColectVew from '../AdminComponents.jsx/WasteColectVew';
+import FrenchWasteEdit from './FrenchWasteEdit';
+import LedgerComp from './LedgerComp';
 const FrenchWasteColect = ({updatedWasteColectData}) => {
     const [startDate, setStartDate] = useState(new Date("2014/02/08"));
     const [endDate, setEndDate] = useState(new Date("2014/02/10"));
     const [wasteColectData , setWasteColectData] =  useState(wastecolectData);
     const [wasteDataBox , setWasteDataBox] = useState(false);
     const [wasteViewData , setWasteViewData]  = useState(false);
+    const [transctn , setTransctn] = useState(false);
     const subsDataClose = () => {
 
         setWasteDataBox(false);
@@ -26,7 +29,7 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
 
 <section className="all-user-data-comp">
         <div className="all-user-data-main-box">
-          <div className="user-det-top-flex-box">
+          <div className="user-det-top-flex-box user-det-top-flex-box4">
             <h6>Waste Collector </h6>
 
             <div className="right-user-filter-data-flex-box">
@@ -102,7 +105,7 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
                   <th>Zip Code</th>
                   <th>Edit</th>
                   <th>View</th>
-                  <th>Action</th>
+                  <th>Ledger</th>
                 </tr>
               </thead>
               
@@ -162,12 +165,10 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
 
                         <td>
                           <div className="icon-flex-box">
-                            <button className="app-dis-btn" title="approve">
-                            <i class="fa-regular fa-circle-check"></i>
+                            <button onClick={() => setTransctn(true)} className="app-dis-btn" title="approve">
+                            <i class="fa-solid fa-money-bill-transfer"></i>
                             </button>
-                            <button className="app-dis-btn" title="diapprove">
-                            <i class="fa-regular fa-circle-xmark"></i>
-                            </button>
+                           
                           </div>
                         </td>
                         
@@ -182,8 +183,10 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
       </section>
 
      {wasteDataBox ? <WasteColectEdit onClickCloseEditForm={subsDataClose} /> : null}
+                
+     {wasteViewData ? <FrenchWasteEdit onClickCloseWasteColectData={closewasteDataVw}/> : null}
 
-     {wasteViewData ? <WasteColectVew onClickCloseWasteColectData={closewasteDataVw}/> : null}
+     { transctn ?  <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
     
     </>
       

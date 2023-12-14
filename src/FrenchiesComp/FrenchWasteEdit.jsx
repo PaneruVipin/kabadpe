@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WasteColectVew = ({onClickCloseWasteColectData}) => {
+const FrenchWasteEdit = ({onClickCloseWasteColectData}) => {
     
   return (
     <>
@@ -105,14 +105,14 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
             </div>
 
             <div className="verif-flex-box">
-
+{/* 
             <button className="confirm-verif-btn">
               Approve  
             </button>
 
             <button className="confirm-verif-btn confirm-verif-btn2">
                 Disapprove
-            </button>
+            </button> */}
             
             <button className="confirm-verif-btn confirm-verif-btn2 ban-btn">
                 Ban
@@ -131,4 +131,4 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
   )
 }
 
-export default WasteColectVew
+export default FrenchWasteEdit

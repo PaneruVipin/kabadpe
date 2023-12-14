@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "../style/Frenchiespanel.css";
 import FrenchAppointData from "../FrenchAppointData";
+import AppointSlot from "./AppointSlot";
 
 const FrenchAppointments = ({updatedFrenchAppointData}) => {
   const [popUp, setPopUp] = useState(false);
@@ -12,6 +13,7 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
   const [addressPopup, setAddressPopup] = useState(false);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [apntSlot , setApntSlot] =  useState(false);
   
 
   const confirmPopupfunc = () => {
@@ -55,20 +57,15 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
             <h6>Assign Appointment to your waste collector</h6>
           </div>
 
-          <form action="#">
-          <div className="assign-appoint-form">
-            
+        <div className="appoint-det">
+          <p>Name : <span>Faiz Alam</span> </p>
+          <p>Time Slot : <span>1PM - 3PM</span> </p>
+          <p>Area : <span>Kanti Nagar</span> </p>
 
-                <div className="assign-inpt-bx">
-                    <label htmlFor="#">Type Waste Collector Name</label>
-                    <input type="text" name="wastecolectname" id="wastecolectname" placeholder="Type here.." autoComplete="off" />
-                </div>
+        </div>
 
-                
-                
-            
-          </div>
-          </form>
+
+        <p className="note-text">Note : The KabadiWala is already have a job in same area .  </p>
 
 
           <div className="appoint-change-btns-flex">
@@ -226,7 +223,20 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
 
           <div className="waste-appoint-main-bx french-appoint-box">
             <div className="appointment-flex-box">
+              <div className="left-appont-bx">
               <p className="tex-line tex-line2"> Appointments</p>
+
+              <div className="A-search-box sel-opt-bx">
+                <select name="select" id="select">
+                  <option value="Today">Today</option>
+                  <option value="LastWeek">LastWeek</option>
+                  <option value="LastMonth">LastMonth</option>
+
+                </select>
+              </div>
+
+              </div>
+              
 
               <div className="right-search-date-filter-box">
                 <div className="A-search-box">
@@ -277,6 +287,8 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                     <th>SN</th>
                     <th>Date</th>
                     <th>Time Slots</th>
+                    <th>Sub Area</th>
+                    <th>Location Type</th>
                     <th>Customer Name</th>
                     <th>Customer Address</th>
                     <th>Status</th>
@@ -294,6 +306,9 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                     <td> {elem.id} </td>
                     <td> {elem.date} </td>
                     <td> {elem.timeslot} </td>
+                    <td> {elem.subarea} </td>
+                    <td> <span style={{ color : elem.locationtype === 'Home' ? "#1362fc" : "#43cf7f" }} className={ elem.locationtype === 'Shop' ? "locntext locntextdark" : "locntext"}> {elem.locationtype} </span>  </td>
+
                     <td> {elem.custname} </td>
                     <td>
                       <button
@@ -303,7 +318,7 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                         Details
                       </button>
                     </td>
-                    <td> <span className={ elem.statustype === "reschedule" || elem.statustype === "schdule"  ? "appnt-stats  appntstatactive" : "appnt-stats" } style={{color : elem.statustype === "cancelled" || elem.statustype === "underprocess" ? "red" : "#43cf7f"  }} > {elem.status} </span> </td>
+                    <td> <span className={ elem.statustype === "reschedule" || elem.statustype === "schdule"  ? "appnt-stats  appntstatactive" : "appnt-stats" } style={{color : elem.statustype === "cancelled" || elem.statustype === "underprocess" ? "#1362fc" : "#43cf7f"  }} > {elem.status} </span> </td>
                     <td>
                       <div className="appoint-flex-btns">
                         {/* <button onClick={() => confirmPopupfunc()}>
@@ -314,9 +329,12 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
                         </button>
                         <button onClick={() => cancelPopupFunc()}>
                         <i class="fa-regular fa-circle-xmark"></i>
-                        </button> */}
+                        </button> 
 
-                       <button className="assign-btn" onClick={() => confirmPopupfunc()}>
+                         onClick={() => confirmPopupfunc()}
+                        */}
+
+                       <button onClick={() => setApntSlot(true)} className="assign-btn">
                         Assign
                         </button>
                       </div>
@@ -334,6 +352,8 @@ const FrenchAppointments = ({updatedFrenchAppointData}) => {
           </div>
         </div>
       </section>
+
+     { apntSlot ?  <AppointSlot onClickOpenPopup={() => {confirmPopupfunc() , setApntSlot(false)}} onclickCloseApntSlot={() => setApntSlot(false)} /> : null}
     </>
   );
 };

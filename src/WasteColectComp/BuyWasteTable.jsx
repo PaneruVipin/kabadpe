@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { TbPlaceholder } from "react-icons/tb";
 
-const BuyWasteComp = () => {
+const BuyWasteTable = () => {
   const initialData = [
     {
       id: 1,
@@ -99,23 +99,24 @@ const BuyWasteComp = () => {
 
   return (
     <>
-      <section className="buy-waste-table-comp">
+      <section className="buy-waste-table-comp buy-waste-table-comp3">
 
-        
-      <div className="user-info" style={{display: "flex", alignItems : "center" , justifyContent: "space-between", marginBottom: "1.5rem", paddingInlineEnd: "1.5rem"}}>
+        <h6 className="banktext bywste2">Buy Waste</h6>
 
-<div className="u-i-lft">
-        <p>Name : <span>Faiz Alam</span></p>
-        <p>Phone : <span> +91 9971464659 </span></p>
+        <div className="user-info" style={{display: "flex", alignItems : "center" , justifyContent: "space-between", marginBottom: "1.5rem", paddingInlineEnd: "1.5rem"}}>
+
+    <div className="u-i-lft">
+            <p>Name : <span>Faiz Alam</span></p>
+            <p>Phone : <span> +91 9971464659 </span></p>
+            </div>
+
+            <div className="u-i-rgt u-i-lft">
+            
+            <p>Address : <span>4929 c/10 kanti nagar old seelumpur delhi-110031</span></p>
+            <p>Area : <span>Azad Nagar</span></p>
+            </div>
         </div>
-
-        <div className="u-i-rgt u-i-lft">
         
-        <p>Address : <span>4929 c/10 kanti nagar old seelumpur delhi-110031</span></p>
-        <p>Area : <span>Azad Nagar</span></p>
-        </div>
-    </div>
-    
         <div className="buy-waste-table">
         <table>
           <thead>
@@ -221,4 +222,4 @@ const BuyWasteComp = () => {
   );
 };
 
-export default BuyWasteComp;
+export default BuyWasteTable;

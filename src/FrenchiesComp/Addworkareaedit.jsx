@@ -134,7 +134,15 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
                         <div style={{ color: "red" }}>{errors.subAriaName}</div>
                       ) : null}
                     </div>
+                    <div className="admin-login-fild">
+              <label htmlFor="subarea">Price</label>
+              <div className="admin-login-input">
+                <input type="text" name='cityprice' id='cityprice' placeholder='Enter your City Price'   autoComplete='off' />
+              </div>
+            </div>
                   </div>
+
+                 
 
                   <button type="submit" className="add-work-area-btn">
                     Save

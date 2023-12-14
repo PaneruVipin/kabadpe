@@ -1,0 +1,26 @@
+frenchies panel main box
+today appointment box add four progress bar fourth progress bar bg color blue 
+1st progress name is total aoopintment 
+2nd progress name is Unassigned  (blue progress bar)
+3rd progress name is Pending 
+4th progress name is Completed
+
+Frenchies panel main 
+all appointments box total 4 tabs 
+scheduled text replace Assign 
+Unassigned - blue
+completed , Rescheduled , Cancelled add on 
+status column  underprocess and today  text remove .
+
+select add on aapointment head bx  
+underprocess and today  
+options name is today , lastweek , lastmonth
+
+two column add in the appointment table 
+1st tr name is Sub area and 2nd location type 
+location type example office ,shop ,home .
+
+
+
+
+

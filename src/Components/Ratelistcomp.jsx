@@ -20,11 +20,12 @@ const Ratelistcomp = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const initialSchedulePickupValues = {
-    appointmentAddress: "",
+    formatedAddress: "",
     appointmentContactNumber: "",
     appointmentPersonName: "",
     appointmentTimeSlot: "",
     appointmentDate: null,
+    pincode: "",
   };
   const hideFunc = () => {
     setListBox(true);
@@ -38,20 +39,8 @@ const Ratelistcomp = () => {
       ...apiErrors,
       shcedulPickup: "",
     });
-    const appointmentAddress = await userLocationByQuery(
-      data?.appointmentAddress
-    );
-    if (!appointmentAddress?.coord_address) {
-      setApiErrors({
-        ...apiErrors,
-        shcedulPickup: appointmentAddress?.message || "address not found",
-      });
-      return;
-    }
     const res = await userSchedulePickup({
       ...data,
-      coordAddress: appointmentAddress?.coord_address,
-      formatedAddress: appointmentAddress?.formatted_address,
     });
     if (res.error) {
       setApiErrors({
@@ -86,7 +75,6 @@ const Ratelistcomp = () => {
 
         <h2>Rate List</h2>
       </section>
-
 
       <section className="ratelist-comp">
         <div className="ratelist-container">
@@ -361,12 +349,30 @@ const Ratelistcomp = () => {
                               </div>
                             ) : null}
                           </div>
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt bor-inpt">
+                              <input
+                                type="text"
+                                name="pincode"
+                                id="pincode"
+                                placeholder="pincode"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.pincode}
+                              />
+                            </div>
+                            {touched.pincode && errors.pincode ? (
+                              <div style={{ color: "red" }}>
+                                {errors.pincode}
+                              </div>
+                            ) : null}
+                          </div>
 
                           <div className="pickup-inpt-bx">
                             <div className="sched-inpt bor-inpt">
                               <input
                                 type="text"
-                                name="appointmentAddress"
+                                name="formatedAddress"
                                 id="address"
                                 placeholder="Address"
                                 onChange={handleChange}
@@ -374,10 +380,10 @@ const Ratelistcomp = () => {
                                 value={values.appointmentAddress}
                               />
                             </div>
-                            {touched.appointmentAddress &&
-                            errors.appointmentAddress ? (
+                            {touched.formatedAddress &&
+                            errors.formatedAddress ? (
                               <div style={{ color: "red" }}>
-                                {errors.appointmentAddress}
+                                {errors.formatedAddress}
                               </div>
                             ) : null}
                           </div>
@@ -400,83 +406,6 @@ const Ratelistcomp = () => {
           </div>
         </div>
       </section>
-
-      {/* 
-        <div>
-      <h2>Select a Fruit:</h2>
-      <select value={selectedValue} onChange={handleSelectChange}>
-        {Object.keys(fruitImages).map((fruit, index) => (
-          <option key={index} value={fruit}>
-            {fruit} 
-          </option>
-        ))}
-      </select>
-
-      <div className="image-container">
-        <img
-          src={fruitImages[selectedValue]}
-          alt={selectedValue}
-          width="200"
-          height="200"
-        />
-      </div>
-    </div> */}
-
-      {/* 
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr >
-              <td>1</td>
-              <td>Faiz</td>
-              <td>
-                <button onClick={() => handleDeleteData(item.id)}>Delete</button>
-              </td>
-            </tr>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>1</td>
-              <td>Faiz</td>
-              <td>
-                <button onClick={() => handleDeleteData(item.id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <button onClick={handleAddData}>Add Data</button>
-    </div> */}
-
-      {/* 
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((row, index) => (
-            <tr key={index}>
-              <td><input type="text" /></td>
-              <td><select name="" id="">
-                <option value="">Option1</option></select></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <button onClick={addStaticRow}>Add Static Row</button>
-    </div> */}
     </>
   );
 };

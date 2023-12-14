@@ -9,6 +9,7 @@ import "../style/WasteColect.css";
 import ReviewPopup from "./ReviewPopup";
 import ReportPopup from "./ReportPopup";
 import UserAppoinmentDetail from "./UserAppoinmentDetail";
+import { Formik, Form } from "formik";
 
 const AppointmentRows = ({ onSupportClick, appoinments }) => {
   const [collectorInfo, setCollectorInfo] = useState({});
@@ -131,38 +132,58 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
           <h6>Reschedule Appointment</h6>
 
           <div className="reshedule-box res-appint-fild-flex-box reshedactive">
-            <form action="#" className="reshed-form reshed-form5">
-              <div className="reshed-form-grid reshed-form-grid5">
-                <div className="reshd-inpt-bx reshd-inpt-bx3">
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    autoComplete="off"
-                    required
-                  />
-                </div>
+            <Formik
+            //   initialValues={initialValues}
+            //   onSubmit={handleSubmit}
+            //   validationSchema={validationLoginAdmin}
+            >
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                return (
+                  <Form className="reshed-form reshed-form5">
+                    <div className="reshed-form-grid reshed-form-grid5">
+                      <div className="reshd-inpt-bx reshd-inpt-bx3">
+                        <input
+                          type="date"
+                          name="appointmentDate"
+                          id="date"
+                          autoComplete="off"
+                          required
+                        />
+                      </div>
 
-                <div className="reshed-select-bx reshd-inpt-bx3">
-                  <select name="time_slot" id="time_slot">
-                    <option value="Choose Time">Choose Time</option>
-                    <option value="Choose Time">10:00 to 11:00</option>
-                    <option value="Choose Time">12:00 to 1:00</option>
-                    <option value="Choose Time">1:00 to 2:00</option>
-                    <option value="Choose Time">2:00 to 3:00</option>
-                  </select>
-                </div>
+                      <div className="reshed-select-bx reshd-inpt-bx3">
+                        <select name="appointmentTimeSlot" id="time_slot">
+                          <option value="Choose Time">Choose Time</option>
+                          <option value="Choose Time">10:00 to 11:00</option>
+                          <option value="Choose Time">12:00 to 1:00</option>
+                          <option value="Choose Time">1:00 to 2:00</option>
+                          <option value="Choose Time">2:00 to 3:00</option>
+                        </select>
+                      </div>
 
-                <button className="resd-sub-btn navigate-link-btn3">
-                  Send Request
-                </button>
-              </div>
+                      <button
+                        type="submit"
+                        className="resd-sub-btn navigate-link-btn3"
+                      >
+                        Send Request
+                      </button>
+                    </div>
 
-              <p>
-                Change date time for reschedule your waste pickup appoint,
-                Appoint will be send to Waste Collector for confirmation
-              </p>
-            </form>
+                    <p>
+                      Change date time for reschedule your waste pickup appoint,
+                      Appoint will be send to Waste Collector for confirmation
+                    </p>
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
 
           <div onClick={() => setReshBox(false)} className="resh-box-close-btn">

@@ -10,6 +10,10 @@ export const signup = async ({
   emergencyPhone,
   workCity,
   companyRef,
+  gst,
+  franchiseAddress,
+  companyName,
+  confirmPassword,
   loginType = "user",
 }) => {
   const setting = {
@@ -29,6 +33,19 @@ export const signup = async ({
     user: {
       path: "/auth/signup",
       payload: { fullname, email, password, phone: phoneNumber },
+    },
+    franchise: {
+      path: "/_auth/franchise/signup",
+      payload: {
+        fullname,
+        email,
+        password,
+        phone: phoneNumber,
+        gst,
+        companyName,
+        confirmPassword,
+        franchiseAddress,
+      },
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
@@ -52,6 +69,10 @@ export const login = async ({
       path: "/auth/superAdmin/login",
       payload: { email, password, rememberMe },
     },
+    franchise: {
+      path: "/_auth/franchise/login",
+      payload: { email, password },
+    },
   };
   const apiUrl = ENV_API_BASE_URL + setting[loginType]?.path;
   const { data: res } = await axios.post(apiUrl, setting[loginType]?.payload);
@@ -62,6 +83,7 @@ export const verifysignup = async ({ email, otp, loginType = "user" }) => {
   const paths = {
     user: "/auth/verifySignup",
     collector: "/auth/kabadCollector/verifySignup",
+    franchise: "/_auth/franchise/verifysignup",
   };
   const apiUrl = ENV_API_BASE_URL + paths[loginType];
   const { data: res } = await axios.post(apiUrl, { email, otp });

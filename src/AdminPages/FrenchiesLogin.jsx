@@ -1,20 +1,30 @@
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import {
+  userLogin,
+  userSignup,
+  userVerifySignup,
+} from "../features/auth/authActions";
+import {
+  validationLoginFranchise,
+  validationSignupFranchise,
+} from "../validators/franchise/auth";
+import { useEffect } from "react";
+import { number, object, string } from "yup";
 
 const FrenchiesLogin = () => {
-  const [adminEmail, setAdminEmail] = useState("Type your Email or Mobile No.");
-  const [adminpaswrd, setAdminPaswrd] = useState("12345");
-
-  // frenchies singup placeholder-text
-  const [frenComp, setFrenComp] = useState("Type your company name");
-  const [gst, setGst] = useState("Type your GST");
-  const [fullName, setFullName] = useState("Type your full name");
-  const [mobNum, setMobNum] = useState("Type your phone number");
-  const [emailAdd, setEmailAdd] = useState("Type your Email Id");
-  const [workArea, setWorkArea] = useState("Type your Work Area");
-  const [passwrd, setPasswrd] = useState("Type your Password");
-  const [confPasswrd, setConfPasswrd] = useState("Type your confirm password");
-
+  const dispatch = useDispatch();
+  const {
+    user,
+    success: { login, signup, verifySignup },
+  } = useSelector((s) => s.auth);
+  const {
+    userInfo: franchise,
+    success: userSuccess,
+    loading,
+  } = useSelector((s) => s.user);
   const [showPassword, setShowPassword] = useState(false);
   const [frenchiesSignup, setFrenchiesSignup] = useState(false);
   // const [signupText , setSignupText] = useState('Sign Me In');
@@ -29,26 +39,14 @@ const FrenchiesLogin = () => {
   const [frenchLoginMain, setFrenchLoginMain] = useState(false);
   const [mainFrenchLogin, setMainFrenchLogin] = useState(false);
   const [selctArea, setSelctArea] = useState(false);
-  const [areaSelct , setAreaSelct] = useState([]);
+  const [areaSelct, setAreaSelct] = useState([]);
 
   const handleAreaChange = (area) => {
     if (areaSelct.includes(area)) {
-        setAreaSelct(areaSelct.filter((item) => item !== area));
+      setAreaSelct(areaSelct.filter((item) => item !== area));
     } else {
-        setAreaSelct([...areaSelct, area]);
+      setAreaSelct([...areaSelct, area]);
     }
-  };
-
-
-  const handleChangeFunc = function (e) {
-    setAdminEmail(e.target.value);
-    setFullName(e.target.value);
-    setGst(e.target.value);
-    setMobNum(e.target.value);
-    setEmailAdd(e.target.value);
-    setWorkArea(e.target.value);
-    setPasswrd(e.target.value);
-    setConfPasswrd(e.target.value);
   };
 
   const handleChangeFuncPasswrd = function (e) {
@@ -57,14 +55,6 @@ const FrenchiesLogin = () => {
 
   const frenchiesSubmitBtn = () => {
     setFrenchiesSignup(!frenchiesSignup);
-
-    // if(signupText === 'Sign Me In'){
-    //   setSignupText('Sign Me Up')
-    // }else{
-    //   setSignupText('Sign Me In')
-
-    // }
-
     if (signIn === "Sign up") {
       setSignIn("sign In");
     } else {
@@ -104,6 +94,59 @@ const FrenchiesLogin = () => {
     setSelctArea(!selctArea);
   };
 
+  const signupInitialValues = frenchiesSignup
+    ? {
+        fullname: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+        gst: "",
+        companyName: "",
+        confirmPassword: "",
+        franchiseAddress: "",
+      }
+    : { email: "", password: "" };
+  const handleSignupSubmiSubmit = (data) => {
+    if (frenchiesSignup) {
+      dispatch(userSignup({ ...data, loginType: "franchise" }));
+    } else {
+      dispatch(userLogin({ ...data, loginType: "franchise" }));
+    }
+  };
+  const handleOTPSubmit = (data) => {
+    dispatch(
+      userVerifySignup({ ...data, email: user?.email, loginType: "franchise" })
+    );
+  };
+  const signupSchema = frenchiesSignup
+    ? validationSignupFranchise
+    : validationLoginFranchise;
+  useEffect(() => {
+    if (user?.loginType == "franchise") {
+      if (login) {
+        if (user?.user?.unverified) {
+          otpFunc();
+        }
+      } else if (signup) {
+        otpFunc();
+      }
+    }
+  }, [login, signup, verifySignup, user]);
+
+  useEffect(() => {
+    console.log(
+      "running this, ",
+      franchise,
+      franchise?.role == "franchiseAdmin",
+      franchise?.franchiseStatus == "1"
+    );
+    if (franchise?.role == "franchiseAdmin") {
+      if (franchise?.franchiseStatus == "1") {
+        payFunc();
+      } else if (franchise?.franchiseStatus == "1") {
+      }
+    }
+  }, [franchise, userSuccess, loading]);
   return (
     <>
       <main
@@ -140,262 +183,374 @@ const FrenchiesLogin = () => {
                 </div>
 
                 <p> {frenHead} </p>
-                <form action="#">
-                  <div className="admin-login-fild">
-                    <label htmlFor="Company_Name">OTP Verification</label>
-                    <div className="admin-login-input">
-                      <input
-                        type="text"
-                        name="otp"
-                        id="otp"
-                        placeholder=""
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-                </form>
-
-                <button
-                  onClick={() => verifOtp()}
-                  className="admin-form-btn mt-5"
+                <Formik
+                  initialValues={{ otp: "" }}
+                  onSubmit={handleOTPSubmit}
+                  validationSchema={object().shape({
+                    otp: number().required("Valid OTP Requird"),
+                  })}
                 >
-                  Verifi OTP
-                </button>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form>
+                        <div className="admin-login-fild">
+                          <label htmlFor="Company_Name">OTP Verification</label>
+                          <div className="admin-login-input">
+                            <input
+                              type="text"
+                              name="otp"
+                              id="otp"
+                              placeholder=""
+                              autoComplete="off"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.otp}
+                            />
+                          </div>
+                          {touched.otp && errors.otp ? (
+                            <div style={{ color: "red" }}>{errors.otp}</div>
+                          ) : null}
+                        </div>
+                        <button type="submit" className="admin-form-btn mt-5">
+                          Verify OTP
+                        </button>
+                        ;
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </div>
-
-              <form
-                action="#"
-                className={
-                  frenchiesSignup
-                    ? "frenchiessingup frencactive"
-                    : "frenchiessingup"
-                }
+              <Formik
+                initialValues={signupInitialValues}
+                onSubmit={handleSignupSubmiSubmit}
+                validationSchema={signupSchema}
               >
-                <div className="frenchies-singup-box">
-                  <div className="french-signup-form-bx">
-                    <div className="admin-login-img">
-                      <img src="./images/customImg/nav-logo.png" alt="" />
-                    </div>
-
-                    <p> {frenHead} </p>
-
-                    <div className="frenchies-signup-grid">
-                      <div className="admin-login-fild">
-                        <label htmlFor="Company_Name">Company Name</label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="company"
-                            id="company"
-                            placeholder=""
-                            value={frenComp}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="gst">GST (Optional) </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="gst"
-                            id="gst"
-                            placeholder=""
-                            value={gst}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="fulname">Full Name </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="fulname"
-                            id="fulname"
-                            placeholder=""
-                            value={fullName}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="mobnum">Mobile Number </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="mobnum"
-                            id="mobnum"
-                            placeholder=""
-                            value={mobNum}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="Id">Email Id </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="Id"
-                            id="Id"
-                            placeholder=""
-                            value={emailAdd}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="areawork">Area Of Work </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="areawork"
-                            id="areawork"
-                            placeholder=""
-                            value={workArea}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="password">Password </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="password"
-                            id="password"
-                            placeholder=""
-                            value={passwrd}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="admin-login-fild">
-                        <label htmlFor="confpassword">Confirm Password </label>
-                        <div className="admin-login-input">
-                          <input
-                            type="text"
-                            name="confpassword"
-                            id="confpassword"
-                            placeholder=""
-                            value={confPasswrd}
-                            onChange={handleChangeFunc}
-                            autoComplete="off"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => otpFunc()}
-                      className="admin-form-btn admin-form-btn2 admin-form-btn4 "
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form
+                      className={
+                        frenchiesSignup
+                          ? "frenchiessingup frencactive"
+                          : "frenchiessingup"
+                      }
                     >
-                      Sign Me Up
-                    </button>
+                      {frenchiesSignup ? (
+                        <div className="frenchies-singup-box">
+                          <div className="french-signup-form-bx">
+                            <div className="admin-login-img">
+                              <img
+                                src="./images/customImg/nav-logo.png"
+                                alt=""
+                              />
+                            </div>
 
-                    <p className="signuptext">
-                      Don't have an account ?{" "}
-                      <a href="#" onClick={() => frenchiesSubmitBtn()}>
-                        {signIn}
-                      </a>{" "}
-                    </p>
-                  </div>
-                </div>
+                            <p> {frenHead} </p>
 
-                <div className="admin-login-form">
-                  <div className="admin-login-img">
-                    <img src="./images/customImg/nav-logo.png" alt="" />
-                  </div>
-                  <div className="admin-login-form-mini-bx"></div>
+                            <div className="frenchies-signup-grid">
+                              <div className="admin-login-fild">
+                                <label htmlFor="Company_Name">
+                                  Company Name
+                                </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="companyName"
+                                    id="company"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.companyName}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.companyName && errors.companyName ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.companyName}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <p> {frenHead} </p>
-                  <div className="admin-login-fild">
-                    <label htmlFor="email">Email / Mobile No.</label>
-                    <div className="admin-login-input">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder=""
-                        value={adminEmail}
-                        onChange={handleChangeFunc}
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
+                              <div className="admin-login-fild">
+                                <label htmlFor="gst">GST (Optional) </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="gst"
+                                    id="gst"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.gst}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.gst && errors.gst ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.gst}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <div className="admin-login-fild">
-                    <label htmlFor="email">Password</label>
-                    <div className="admin-login-input">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        placeholder=""
-                        value={adminpaswrd}
-                        onChange={handleChangeFuncPasswrd}
-                        autoComplete="off"
-                      />
+                              <div className="admin-login-fild">
+                                <label htmlFor="fulname">Full Name </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="fullname"
+                                    id="fulname"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.fullname}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.fullname && errors.fullname ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.fullname}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                      <div
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="view-eye-btn"
-                      >
-                        {showPassword ? (
-                          <i class="fa-regular fa-eye"></i>
-                        ) : (
-                          <i class="fa-regular fa-eye-slash"></i>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                              <div className="admin-login-fild">
+                                <label htmlFor="mobnum">Mobile Number </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="phoneNumber"
+                                    id="mobnum"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.phoneNumber}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.phoneNumber && errors.phoneNumber ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.phoneNumber}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <div class="form-check2">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                    <label class="form-check-label" for="flexCheckDefault">
-                      Remember my preference
-                    </label>
-                  </div>
+                              <div className="admin-login-fild">
+                                <label htmlFor="Id">Email Id </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="email"
+                                    id="Id"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.email && errors.email ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.email}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <NavLink to="/forgotpassword">
-                    {" "}
-                    <button className="admin-forgot-passwrd-btn">
-                      Forgot Password ?
-                    </button>
-                  </NavLink>
+                              <div className="admin-login-fild">
+                                <label htmlFor="areawork">Area Of Work </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="franchiseAddress"
+                                    id="areawork"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.franchiseAddress}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.franchiseAddress &&
+                                errors.franchiseAddress ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.franchiseAddress}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <button className="admin-form-btn admin-form-btn2 admin-form-btn3">
-                    Sign Me In
-                  </button>
+                              <div className="admin-login-fild">
+                                <label htmlFor="password">Password </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="password"
+                                    id="password"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.password}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.password && errors.password ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.password}
+                                  </div>
+                                ) : null}
+                              </div>
 
-                  <p className="signuptext">
-                    Don't have an account ?{" "}
-                    <a href="#" onClick={() => frenchiesSubmitBtn()}>
-                      {signIn}
-                    </a>{" "}
-                  </p>
-                </div>
-              </form>
+                              <div className="admin-login-fild">
+                                <label htmlFor="confpassword">
+                                  Confirm Password{" "}
+                                </label>
+                                <div className="admin-login-input">
+                                  <input
+                                    type="text"
+                                    name="confirmPassword"
+                                    id="confpassword"
+                                    placeholder=""
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.confirmPassword}
+                                    autoComplete="off"
+                                  />
+                                </div>
+                                {touched.confirmPassword &&
+                                errors.confirmPassword ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors.confirmPassword}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+
+                            <button
+                              type="submit"
+                              className="admin-form-btn admin-form-btn2 admin-form-btn4 "
+                            >
+                              Sign Me Up
+                            </button>
+
+                            <p className="signuptext">
+                              have an account ?{" "}
+                              <a href="#" onClick={() => frenchiesSubmitBtn()}>
+                                {signIn}
+                              </a>{" "}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="admin-login-form">
+                          <div className="admin-login-img">
+                            <img src="./images/customImg/nav-logo.png" alt="" />
+                          </div>
+                          <div className="admin-login-form-mini-bx"></div>
+
+                          <p> {frenHead} </p>
+                          <div className="admin-login-fild">
+                            <label htmlFor="email">Email / Mobile No.</label>
+                            <div className="admin-login-input">
+                              <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder=""
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.email}
+                                autoComplete="off"
+                              />
+                            </div>
+                            {errors.email ? (
+                              <div style={{ color: "red" }}>{errors.email}</div>
+                            ) : null}
+                          </div>
+
+                          <div className="admin-login-fild">
+                            <label htmlFor="email">Password</label>
+                            <div className="admin-login-input">
+                              <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                id="password"
+                                placeholder=""
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.password}
+                                autoComplete="off"
+                              />
+
+                              <div
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="view-eye-btn"
+                              >
+                                {showPassword ? (
+                                  <i className="fa-regular fa-eye"></i>
+                                ) : (
+                                  <i className="fa-regular fa-eye-slash"></i>
+                                )}
+                              </div>
+                              {errors.password ? (
+                                <div style={{ color: "red" }}>
+                                  {errors.password}
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
+
+                          <div className="form-check2">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexCheckDefault"
+                            >
+                              Remember my preference
+                            </label>
+                          </div>
+
+                          <NavLink to="/forgotpassword">
+                            {" "}
+                            <button className="admin-forgot-passwrd-btn">
+                              Forgot Password ?
+                            </button>
+                          </NavLink>
+
+                          <button
+                            type="submit"
+                            className="admin-form-btn admin-form-btn2 admin-form-btn3"
+                          >
+                            Sign Me In
+                          </button>
+
+                          <p className="signuptext">
+                            Don't have an account ?{" "}
+                            <a href="#" onClick={() => frenchiesSubmitBtn()}>
+                              {signIn}
+                            </a>{" "}
+                          </p>
+                        </div>
+                      )}
+                    </Form>
+                  );
+                }}
+              </Formik>
             </div>
           </div>
 
@@ -456,25 +611,49 @@ const FrenchiesLogin = () => {
               </div>
             </div>
 
-            <div className={ wasteColectPrice || selctArea ? "select-area-main-bx selctareaactive" : "select-area-main-bx"}>
+            <div
+              className={
+                wasteColectPrice || selctArea
+                  ? "select-area-main-bx selctareaactive"
+                  : "select-area-main-bx"
+              }
+            >
               <div className="selct-area-main">
                 <p> Select Area </p>
 
                 <div className="select-area-flex-bx">
-                <button className={areaSelct.includes('laxminagar') ? "area-btn areaactive" : "area-btn"}
-                onClick={() => handleAreaChange('laxminagar')}>
+                  <button
+                    className={
+                      areaSelct.includes("laxminagar")
+                        ? "area-btn areaactive"
+                        : "area-btn"
+                    }
+                    onClick={() => handleAreaChange("laxminagar")}
+                  >
                     Laxmi Nagar
-                </button> 
+                  </button>
 
-                <button className={areaSelct.includes('azadnagar') ? "area-btn areaactive" : "area-btn"}
-                onClick={() => handleAreaChange('azadnagar')}>
+                  <button
+                    className={
+                      areaSelct.includes("azadnagar")
+                        ? "area-btn areaactive"
+                        : "area-btn"
+                    }
+                    onClick={() => handleAreaChange("azadnagar")}
+                  >
                     Azad Nagar
-                </button> 
+                  </button>
 
-                <button className={areaSelct.includes('gandhinagar') ? "area-btn areaactive" : "area-btn"}
-                onClick={() => handleAreaChange('gandhinagar')}>
+                  <button
+                    className={
+                      areaSelct.includes("gandhinagar")
+                        ? "area-btn areaactive"
+                        : "area-btn"
+                    }
+                    onClick={() => handleAreaChange("gandhinagar")}
+                  >
                     Gandhi Nagar
-                </button> 
+                  </button>
                 </div>
               </div>
             </div>

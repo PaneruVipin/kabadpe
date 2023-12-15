@@ -2949,4 +2949,12 @@ side nav icon Btn on hover show list box
   cursor: pointer;
  }
 
+ .admin-login-select{
+  padding-inline: .65rem;
+ }
+
+ .admin-login-select select{
+  padding-inline: 0 !important;
+ }
+
 

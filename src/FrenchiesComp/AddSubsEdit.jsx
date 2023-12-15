@@ -60,34 +60,23 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx}) => {
             </div>
           </div>
 
-          <div className="admin-login-fild mt-3">
-              <label htmlFor="City">Price</label>
-              <div className="admin-login-input">
-                <input
-                  type="text"
-                  name="City"
-                  id="City"
-                  placeholder="Total Price"
-                  autoComplete="off"
-                  readOnly
-                  value={calculatePrice()}
-                />
-              </div>
-            </div>
-
-            <div className="addwrkarea-form-bx mt-3">
+          <div className="addwrkarea-form-bx mt-3">
             <div className="admin-login-fild">
-              <label htmlFor="City">City</label>
-              <div className="admin-login-input">
-                <input
-                  type="number"
-                  name="City"
-                  id="City"
+              <label htmlFor="City">Area</label>
+              <div className="admin-login-input admin-login-select">
+                <select
+                  name="Area"
+                  id="Area"
                   value={cityAmount}
                   onChange={handleCityChangeAmount}
-                  placeholder="Enter city amount"
-                  autoComplete="off"
-                />
+                >
+                  <option value="">Choose</option>
+                  <option value="50">Laxmi Nagar</option>
+                  <option value="70">Kundan Nagar</option>
+                  <option value="100">Azad Nagar</option>
+                  <option value="150">Gandhi Nagar</option>
+
+                  </select>
               </div>
             </div>
 
@@ -108,11 +97,28 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx}) => {
               </div>
             </div>
           </div>
+
+          <div className="admin-login-fild mt-3">
+              <label htmlFor="City">Price</label>
+              <div className="admin-login-input">
+                <input
+                  type="text"
+                  name="City"
+                  id="City"
+                  placeholder="Total Price"
+                  autoComplete="off"
+                  readOnly
+                  value={calculatePrice()}
+                />
+              </div>
+            </div>
+
+       
             </form>
 
             
             <button className="add-work-area-btn">
-                Save
+                Add Plan
             </button>
 
             <div onClick={onclickCloseSubsPlanBx} className="close-add-work-bx-btn">

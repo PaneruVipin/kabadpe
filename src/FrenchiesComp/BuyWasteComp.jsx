@@ -215,6 +215,7 @@ const BuyWasteComp = () => {
             <p>2000 :  <span>Total Amount</span></p>
         </div>
 
+
       </section>
 
     </>

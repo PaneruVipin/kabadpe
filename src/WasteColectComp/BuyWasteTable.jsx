@@ -3,6 +3,8 @@ import { FaPlaceOfWorship } from "react-icons/fa";
 import { TbPlaceholder } from "react-icons/tb";
 
 const BuyWasteTable = () => {
+  const [pay , setPay] = useState(false);
+  
   const initialData = [
     {
       id: 1,
@@ -214,9 +216,35 @@ const BuyWasteTable = () => {
             <h6> Total</h6>
 
             <p>2000 :  <span>Total Amount</span></p>
+
+            
+        <button onClick={() => setPay(true)}  className="paynow-btn">
+          Pay Now
+        </button>
         </div>
 
+
       </section>
+
+      <div  className={ pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}>
+
+        <div className="paynow-btn-flex">
+
+        <button className="pay-btn">
+          Cash Paid
+        </button>
+
+        <button className="pay-btn">
+          Wallet Tranfer
+        </button>
+
+        <div onClick={() => setPay(false)} className="close-btn ">
+        <i class="fa-solid fa-xmark"></i>
+        </div>
+          
+        </div>
+                      
+      </div>
 
     </>
   );

@@ -8,12 +8,14 @@ import WasteAppoint from "./WasteAppoint";
 import ActiveToday from "../WasteColectComp/ActiveToday";
 import BuyWaste from "../WasteColectComp/BuyWaste";
 import Holiday from "../WasteColectComp/Holiday";
+import GuestPopup from "../WasteColectComp/GuestPopup";
 
-const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage}) => {
+const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage , onclickRedirectNewPage}) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday , setActToday] = useState(false);
   const [buyWaste , setBuyWaste] = useState(false);
   const [holiday , setHoliday] = useState(false);
+  const [guest , setGuest] = useState(false)
 
   return (
     <>
@@ -156,9 +158,9 @@ const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage}) => {
 
       { actToday ?  <ActiveToday onclickClose={() => setActToday(false)} /> : null}
 
-      { buyWaste ? <BuyWaste onclickCloseBuyWaste={() => setBuyWaste()} onclickRedirectBuywaste={onclickRedirectPage} /> : null}
+      { buyWaste ? <BuyWaste onclickVisible={() => {setGuest(true)}} onclickCloseBuyWaste={() => setBuyWaste()} onclickRedirectBuywaste={onclickRedirectPage}  /> : null}
       { holiday ?  <Holiday onclickCloseHoliday={() => setHoliday(false)} /> : null}
-      
+      {guest ? <GuestPopup verifyClickBtnRedirect={onclickRedirectNewPage}   onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null}
       </section>
     </>
   );

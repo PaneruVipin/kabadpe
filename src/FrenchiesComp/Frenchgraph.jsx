@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import '../style/Frenchiespanel.css';
+import TodayFrenchAppoint from "./TodayFrenchAppoint";
+
 
 const data = [
   {
@@ -85,7 +87,7 @@ const data = [
   },
 ];
 
-const Frenchgraph = () => {
+const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
   const [editBx, setEditBx] = useState(false);
 
   return (
@@ -158,8 +160,9 @@ const Frenchgraph = () => {
             </div>
 
             <div className="left-ad-progress-bar-main">
-              <h6>You are not authorize for this part</h6>
+              <h6>Today Appointments</h6>
 
+            <TodayFrenchAppoint onclickRedirectFrenchApnt={onclickRedirectAllAppointment} TodayFrenchData={todayData}   />
              
             </div>
           </div>

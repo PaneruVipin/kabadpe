@@ -650,7 +650,7 @@ side nav icon Btn on hover show list box
     position: relative;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2.5fr 2fr !important;
     column-gap: 2rem;
     row-gap: 2rem;
   }
@@ -757,9 +757,10 @@ side nav icon Btn on hover show list box
   .right-graph-main-box{
     position: relative;
     width: 100%;
-    padding: 1.5rem 1.5rem;
+    padding: 1rem 1rem;
     background-color: #fff;
     border-radius: .55rem;
+    height: max-content;
 
   }
 
@@ -2956,5 +2957,218 @@ side nav icon Btn on hover show list box
  .admin-login-select select{
   padding-inline: 0 !important;
  }
+
+
+
+ .left-waste-prod-filt-bx{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
+ }
+
+ .add-product-btn{
+  position: absolute;
+  top: 2.87rem;
+  right: .5rem;
+  width: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: #ffa500;
+  padding: .2rem .67rem;
+  cursor: pointer;
+  border-radius: .5rem;
+
+ }
+
+ .waste-prod-table table thead tr th{
+  background-color: #ffa500 !important;
+  padding-inline: .56rem !important;
+ }
+
+ .waste-prod-table table tbody tr td{
+  padding-inline: 1rem !important;
+ }
+
+ .waste-prod-table table tbody tr{
+  background-color: #fff8e9 !important;
+ }
+ 
+
+ .waste-prod-table table tbody tr:nth-child(2n + 2) {
+      background-color: #fff1d6 !important;
+ }
+
+ .waste-prod-table table tbody tr td img{
+  width: 2rem;
+  height: auto;
+ }
+
+ .edit-remove-flex{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+ }
+
+ .edit-remove-flex button{
+  font-size: .87rem;
+  color: #ffa500;
+ }
+ .edit-remove-flex button:last-child{
+  color: #ff3c3c;
+ }
+
+ .waste-prod-edit-comp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+ }
+
+ .waste-prod-edit-comp:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.67;
+  z-index: -1;
+ }
+
+ .waste-prod-edit-main-bx{
+  position: relative;
+  width: 45rem;
+  height: 30rem;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: .5rem;
+  padding: 2rem 2rem;
+
+ }
+
+ .waste-prod-edit-main-bx h5{
+  text-align: center;
+  font-size: 1.4rem;
+  color: #000248;
+  font-weight: 700;
+  margin-bottom:1rem;
+ }
+
+ .admin-login-fild3 label{
+  margin-bottom: .3rem;
+  font-weight: 600;
+  padding-inline: .4rem;
+
+ }
+
+ .admin-login-fild3 input{
+  background-color: #fff5e3;
+  height: 2.56rem;
+  padding-inline: 1rem;
+  font-weight: 500;
+  color: #000;
+  font-size: 1rem;
+  border-radius: .5rem;
+ } 
+
+ .three-fild-bx{
+  margin-top: 1rem;
+ }
+
+ 
+ .three-fild-bx h6{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #242424;
+  letter-spacing: .5px;
+ }
+
+ .three-fild-grid{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+  margin-top: 1rem;
+ }
+
+ .fild-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+ }
+
+ .prod-image-main h6{
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: #242424;
+  margin-bottom: 1rem;
+ }
+
+ .image-fild-flex-bx{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+ }
+
+ .image-add-bx{
+  position: relative;
+  width: 6rem;
+  height: 4.4rem;
+  border-radius: .5rem;
+  background-color: #fff5e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .image-add-bx img{
+      width: calc(100% - 2.5rem);
+      height:calc(100% - .5rem);
+      object-fit: cover;
+ }
+
+ .input-file-btn label{
+  font-size: 1rem;
+  display: inline-block;
+  width: max-content;
+  padding-inline: 1.2rem;
+  height: 2.55rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #ffb834;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .5rem;
+  cursor: pointer;
+ }
+
+ .add-prod-btn{
+  height: 2.6rem !important;
+ }
+
+.stock-tble table tr td{
+  padding-inline: 1rem !important;
+}
+
+.stock-tble table thead  tr th{
+  background-color: #1bae5a !important;
+}
 
 

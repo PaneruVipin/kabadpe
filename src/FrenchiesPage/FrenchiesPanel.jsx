@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { HiMiniUsers } from "react-icons/hi2";
 import { IoIosStar } from "react-icons/io";
 import { CiShop } from "react-icons/ci";
+import { FiAnchor } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { FaWpforms } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
@@ -35,6 +36,9 @@ import Addsubscription from "../FrenchiesComp/Addsubscription";
 import BuyWastePOpup from "../FrenchiesComp/BuyWastePOpup";
 import BuyWasteComp from "../FrenchiesComp/BuyWasteComp";
 import ViewHistory from "../FrenchiesComp/ViewHistory";
+import WasteProduct from "../AdminComponents.jsx/WasteProduct";
+import Bidcomp from "../FrenchiesComp/Bidcomp";
+// import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
   const [barClick, setBarClick] = useState(false);
@@ -51,6 +55,9 @@ const FrenchiesPanel = () => {
   const [notifActive, setNotifActive] = useState(false);
   const [apntData, setApntData] = useState(FrenchAppointData);
   const [buyWasteBx, setBuyWasteBx] = useState(false);
+  const [paymntHist , setPaymntHist] = useState(false);
+  const [guest , setGuest] = useState(false)
+  const [bid , setBid] = useState(false);
 
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
@@ -157,22 +164,166 @@ const FrenchiesPanel = () => {
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
 
-            <button
-              onClick={() => {
+            
+            <button  onClick={() => {
+                setBid(true);
+              }} className=" comp-refrl-bx comp-refrl-bx4">
+                  <div className="comp-icon">
+                  <i class="fa-solid fa-layer-group"></i>
+                  </div>
+
+                  <span>Bid </span>
+                  
+            </button>
+
+            <button  onClick={() => {
                 setBuyWasteBx(true);
-              }}
+              }} className=" comp-refrl-bx comp-refrl-bx3">
+                  <div className="comp-icon">
+                  <i class="fa-solid fa-bag-shopping"></i>  
+                  </div>
+
+                  <span>Buy Waste </span>
+                  
+            </button>
+{/* 
+            <button
+             
               className="buy-waste-btn"
             >
               Buy Waste
-            </button>
+            </button> */}
 
-            <button className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
+
+            
+
+            <div className="notif-main-box wallet-main-bx">
+            <button onClick={() =>{ setPaymntHist(!paymntHist) , setNotifActive(false)}} className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
               <i class="fa-solid fa-wallet"></i>
             </button>
 
+            <div className={paymntHist ? "wallet-dropdown-main-bx waletactive" : "wallet-dropdown-main-bx"}>
+              <h5>Payment History</h5>
+
+              <div className="wallet-search-bx">
+                <input type="text" name="waletsearch" id="waletsearch" placeholder="Search or filter payments" />
+              </div>
+
+              <div className="al-walt-hist-list">
+
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx">
+                  <span>FA</span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx">
+                    <h6>Faiz Alam</h6>
+                    <span> <i class="fa-solid fa-plus"></i> ₹450.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx left-name-alpha-bx2">
+                  <span>FA</span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx wallet-info-top-bx2">
+                    <h6>Khushi Mehta</h6>
+                    <span> <i class="fa-solid fa-plus"></i> ₹560.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
+                  <span><i class="fa-solid fa-wallet"></i></span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
+                    <h6>Harsh Mehta</h6>
+                    <span> <i class="fa-solid fa-plus"></i> ₹880.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx left-name-alpha-bx3">
+                  <span>FK</span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx wallet-info-top-bx3">
+                    <h6>Faruk</h6>
+                    <span> <i class="fa-solid fa-minus"></i> ₹200.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx left-name-alpha-bx4">
+                  <span>AH</span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx wallet-info-top-bx4">
+                    <h6>Ahmad Hasan</h6>
+                    <span> <i class="fa-solid fa-minus"></i> ₹450.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="pyment-info-main">
+                <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
+                  <span><i class="fa-solid fa-wallet"></i></span>
+                </div>
+                <div className="right-payment-bx">
+                  <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
+                    <h6> Fahad Alam </h6>
+                    <span> <i class="fa-solid fa-plus"></i> ₹880.00</span>
+                  </div>
+                  <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
+                    <p>Sent on 08 Dec, 08:30 PM</p>
+                    <span>From  <i class="fa-solid fa-wallet"></i> </span>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
+              <div className="view-all-btn">
+                View All <i class="fa-solid fa-angle-down"></i>
+              </div>
+              
+            </div>
+            
+            </div>
+
+
             <div className="notif-main-box">
               <button
-                onClick={() => setNotifActive(!notifActive)}
+                onClick={() => {setNotifActive(!notifActive) , setPaymntHist(false)}}
                 className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
               >
                 <i class="fa-regular fa-bell"></i>
@@ -321,7 +472,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">All Users</NavLink>{" "}
+                <NavLink to="#">All Kabadiwala</NavLink>{" "}
               </li>
               <li
                 onClick={() => handleFilter("active")}
@@ -332,7 +483,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Active Users</NavLink>{" "}
+                <NavLink to="#">Active Kabadiwala</NavLink>{" "}
               </li>
               <li
                 onClick={() => handleFilter("banned")}
@@ -343,9 +494,9 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Banned Users </NavLink>{" "}
+                <NavLink to="#">Banned Kabadiwala </NavLink>{" "}
               </li>
-              <li
+              {/* <li
                 onClick={() => handleFilter("unverified")}
                 className={
                   activeTav === "unverified"
@@ -366,7 +517,7 @@ const FrenchiesPanel = () => {
               >
                 {" "}
                 <NavLink to="#">Vendor</NavLink>{" "}
-              </li>
+              </li> */}
             </div>
           </div>
 
@@ -453,6 +604,42 @@ const FrenchiesPanel = () => {
               </li>
             </div>
           </div>
+
+                <div className="admin-nv-li admin-nv-li-dashbrd">
+          <div
+              onClick={() => {
+                handleButtonClick(12), handleViewComp("wasteproduct");
+              }}
+              className={
+                component === "wasteproduct"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="a-nv-i">
+              <CiShop />
+              </div>
+              <span>Waste Products</span>
+            </div>
+            </div>
+{/* 
+                <div className="admin-nv-li admin-nv-li-dashbrd">
+            <div
+              onClick={() => {
+                handleButtonClick(12), handleViewComp("bid");
+              }}
+              className={
+                component === "bid"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="a-nv-i">
+              <FiAnchor /> 
+              </div>
+              <span>Bid</span>
+            </div>
+            </div> */}
 
           <div className="admin-nv-li">
             <div
@@ -676,7 +863,7 @@ const FrenchiesPanel = () => {
       >
         {component === "dashboard" ? <FrenchCard /> : null}
 
-        {component === "dashboard" ? <Frenchgraph /> : null}
+        {component === "dashboard" ? <Frenchgraph onclickRedirectAllAppointment={() => handleViewComp("appointments")} todayData={apntData} /> : null}
 
         {component === "dashboard" ? <FrenchReview /> : null}
 
@@ -684,7 +871,7 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments updatedFrenchAppointData={apntData} />
+          <FrenchAppointments  updatedFrenchAppointData={apntData} />
         ) : null}
 
         {component === "orders" ? (
@@ -703,6 +890,9 @@ const FrenchiesPanel = () => {
         {component === "buywaste" ? <BuyWasteComp /> : null}
 
         {component === "viewhistory" ? <ViewHistory /> : null}
+        {component === "wasteproduct" ? <WasteProduct /> : null}
+        {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}
+
       </section>
 
       {buyWasteBx ? (
@@ -712,8 +902,13 @@ const FrenchiesPanel = () => {
             handleViewComp("buywaste"), setBuyWasteBx(false);
           }}
           onclickViewHistBtn={() => { handleViewComp('viewhistory') , setBuyWasteBx(false) }}
+          
         />
       ) : null}
+
+
+     {/* {guest ? <GuestPopup  onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null} */}
+
     </>
   );
 };

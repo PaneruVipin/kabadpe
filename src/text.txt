@@ -1,26 +1,27 @@
-frenchies panel main box
-today appointment box add four progress bar fourth progress bar bg color blue 
-1st progress name is total aoopintment 
-2nd progress name is Unassigned  (blue progress bar)
-3rd progress name is Pending 
-4th progress name is Completed
 
-Frenchies panel main 
-all appointments box total 4 tabs 
-scheduled text replace Assign 
-Unassigned - blue
-completed , Rescheduled , Cancelled add on 
-status column  underprocess and today  text remove .
+1. appointment slot mai date section space between hoga or date
+ ka bg color change hoga white mai or left right arrow add hoga . 
 
-select add on aapointment head bx  
-underprocess and today  
-options name is today , lastweek , lastmonth
+2. frenchiespanel mai waste colect tab mai all user name replace krke all kabadi
+ wala or vendor unverified remove hoga . ✅
 
-two column add in the appointment table 
-1st tr name is Sub area and 2nd location type 
-location type example office ,shop ,home .
+3. admin mai waste product ka button top header mai nhi side nav mai tab add hoga  waste product uske page open hoga details here . 
+check your frenchies panel waste colector tab button
+  and check your mobile photo (screenshot). filter
+  part mai search bar and two select box add hoga date section add nhi hoga .
+  same copy add hoga frenchies ke section mai bhi .  ✅
+    
 
+  
+4. side nav mai frenchies panel ki  bid tab (button) add hoga , click krne popup mai 2 option hoge ek
+ prepaid plan or dusra comission based plan .   ✅
 
+5.wastecolector ke  side nav mai ek tab button add hoga clear-stock  ka (details) , 
+stock mai  filter add hoga search date or add ka button add hoga  or table add hoga 
+(check your mobile photos screenshot ) .   
+
+6. wallet ek - + box add hoga or wallet ka icon add hoga screenshot pr check krna hai.
+ ✅
 
 
 

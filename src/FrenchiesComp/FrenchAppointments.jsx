@@ -5,7 +5,7 @@ import "../style/Frenchiespanel.css";
 import FrenchAppointData from "../FrenchAppointData";
 import AppointSlot from "./AppointSlot";
 
-const FrenchAppointments = ({updatedFrenchAppointData}) => {
+const FrenchAppointments = ({updatedFrenchAppointData }) => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { TbPlaceholder } from "react-icons/tb";
 
-const BuyWasteTable = () => {
+const GuestBuyWaste = () => {
   const [pay , setPay] = useState(false);
   const [waltTranfer , setWaltTranfer] = useState(false);
   
@@ -104,19 +104,19 @@ const BuyWasteTable = () => {
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
 
-        <h6 className="banktext bywste2">Buy Waste</h6>
+        <h6 className="banktext bywste2">Buy Waste From Guest </h6>
 
         <div className="user-info" style={{display: "flex", alignItems : "center" , justifyContent: "space-between", marginBottom: "1.5rem", paddingInlineEnd: "1.5rem"}}>
 
     <div className="u-i-lft">
-            <p>Name : <span>Faiz Alam</span></p>
-            <p>Phone : <span> +91 9971464659 </span></p>
+            <p>Guest Name : <span>Faiz Alam</span></p>
+            <p>Guest Phone : <span> +91 9971464659 </span></p>
             </div>
 
             <div className="u-i-rgt u-i-lft">
             
-            <p>Address : <span>4929 c/10 kanti nagar old seelumpur delhi-110031</span></p>
-            <p>Area : <span>Azad Nagar</span></p>
+            <p>Guest Address : <span>4929 c/10 kanti nagar old seelumpur delhi-110031</span></p>
+            <p>Guest Area : <span>Azad Nagar</span></p>
             </div>
         </div>
         
@@ -277,4 +277,4 @@ const BuyWasteTable = () => {
   );
 };
 
-export default BuyWasteTable;
+export default GuestBuyWaste;

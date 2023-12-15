@@ -262,7 +262,7 @@ const Wastecolect = () => {
 
      {wasteViewData ? <WasteColectVew onClickCloseWasteColectData={closewasteDataVw}/> : null}
 
-   { addWork ?  <AddWorkerComp onClickClose={() => setAddWork(false)} /> : null}
+   { addWork ?  <AddWorkerComp  onClickClose={() => setAddWork(false)} /> : null}
       
     </>
   )

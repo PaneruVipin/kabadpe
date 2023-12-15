@@ -1,12 +1,33 @@
 import React, { useState } from 'react'
 
 const AppointSlot = ({onclickCloseApntSlot , onClickOpenPopup}) => {
-    const [date , setDate] = useState('')
+    const [currentDate , setcurrentdate] = useState(new Date());
     
-    const handleChangeData = (event) => {
+    const handleChangeDate =(event) => {
 
-        const date = event.target.value ;
-        setDate(date)
+        const inputData = new Date(event.target.value)
+
+        setcurrentdate(inputData)
+
+      
+
+
+
+        
+    }
+
+    const handleDateChange = (direction) => {
+        const newDate = new Date(currentDate);
+    
+        if (direction === 'left') {
+          newDate.setDate(newDate.getDate() - 1);
+        } else if (direction === 'right') {
+          newDate.setDate(newDate.getDate() + 1);
+        }
+
+        setcurrentdate(newDate)
+
+
     }
     
   return (
@@ -22,11 +43,24 @@ const AppointSlot = ({onclickCloseApntSlot , onClickOpenPopup}) => {
             <h6>Appointments Slots</h6>
 
             <div className="current-date-bx-flex">
-
-                <p> Current Date : <span> { date || '2023-11-30' }   </span> </p>
+{/* toISOString().split('T')[0] */}
+                <p> Current Date : <span> { currentDate.toISOString().split('T')[0] || '2023-11-30' }   </span> </p>
 
                 <div className="select-date-bx">
-                    <input type="date" name='date' id='date' value={date} onChange={handleChangeData} />
+                    <input type="date" name='date' id='date' value={currentDate} onChange={handleChangeDate} />
+                </div>
+
+                <div className="left-right-arrow-btn-flex">
+
+                    <button onClick={() => handleDateChange("left")} className="date-btn">
+                    <i class="fa-solid fa-angle-left"></i>
+                    </button>
+
+                    
+                    <button onClick={() => handleDateChange("right")} className="date-btn">
+                    <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                    
                 </div>
                 
             </div>

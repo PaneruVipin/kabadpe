@@ -11,6 +11,7 @@ const FrenchAppointData = [
         locationtype : 'Office',
 
     },
+    
 
     {
         id : 2,

@@ -460,7 +460,7 @@ const FrenchiesLogin = () => {
 
                           <p> {frenHead} </p>
                           <div className="admin-login-fild">
-                            <label htmlFor="email">Email / Mobile No.</label>
+                            <label htmlFor="email">Email.</label>
                             <div className="admin-login-input">
                               <input
                                 type="email"

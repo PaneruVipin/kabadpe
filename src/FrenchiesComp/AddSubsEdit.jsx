@@ -4,9 +4,9 @@ import { MdDelete } from "react-icons/md";
 const TimeVariationRow = ({ onDelete }) => {
   return (
     <>
-      <div className="flex gap-x-4">
+      <div className="tw-flex tw-gap-x-4">
         <select
-          className="rounded-md py-2 px-4 bg-gray-100"
+          className="tw-rounded-md tw-py-2 tw-px-4 tw-bg-gray-100"
           name="Area"
           id="Area"
         >
@@ -14,7 +14,7 @@ const TimeVariationRow = ({ onDelete }) => {
           <option value="70">Quaterly</option>
         </select>
         <input
-          className="mt-1 p-2 w-36 border rounded-md focus:outline-none  "
+          className="tw-mt-1 tw-p-2 tw-w-36 tw-border tw-rounded-md focus:tw-outline-none  "
           type="text"
           name="planname"
           id="planname"
@@ -22,7 +22,7 @@ const TimeVariationRow = ({ onDelete }) => {
           autoComplete="off"
         />
         <input
-          className="mt-1 p-2 w-full border rounded-md focus:outline-none  "
+          className="tw-mt-1 tw-p-2 tw-w-full tw-border tw-rounded-md focus:tw-outline-none "
           type="text"
           name="planname"
           id="planname"
@@ -31,7 +31,7 @@ const TimeVariationRow = ({ onDelete }) => {
         />
 
         <input
-          className="mt-1 p-2 w-full border rounded-md focus:outline-none  "
+          className="tw-mt-1 tw-p-2 tw-w-full tw-border tw-rounded-md focus:tw-outline-none  "
           type="text"
           name="City"
           id="City"
@@ -97,8 +97,8 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
               </div>
             </div>
 
-            <div className="mt-3 space-y-3">
-              <h6 className=" text-left">
+            <div className="tw-mt-3 tw-space-y-3">
+              <h6 className=" tw-text-left">
                 Discount Acording Subscription Period
               </h6>
               {new Array(variationsCount).fill(0).map((e, i) => (
@@ -109,7 +109,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
               ))}
               <button
                 onClick={() => setVariationCount(variationsCount + 1)}
-                className="bg-green-300  text-black hover:bg-green-600 rounded-2xl px-4 text-center py-1"
+                className="tw-bg-green-300  tw-text-black hover:tw-bg-green-600 tw-rounded-2xl tw-px-4 tw-text-center tw-py-1"
               >
                 Add New Subscription Period
               </button>

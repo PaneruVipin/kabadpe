@@ -15,9 +15,6 @@
 
 **********************************************/
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --thm-font: "Catamaran", sans-serif;
@@ -4790,3 +4787,8 @@ css code */
   background-color: #05152f;
   color: #fff;
 }
+
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */

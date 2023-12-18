@@ -13,26 +13,31 @@ const TimeVariationRow = ({ onDelete }) => {
           <option value="50">Monthly</option>
           <option value="70">Quaterly</option>
         </select>
+        <input
+          className="mt-1 p-2 w-36 border rounded-md focus:outline-none  "
+          type="text"
+          name="planname"
+          id="planname"
+          placeholder="Plan Name"
+          autoComplete="off"
+        />
+        <input
+          className="mt-1 p-2 w-full border rounded-md focus:outline-none  "
+          type="text"
+          name="planname"
+          id="planname"
+          placeholder="Discount Collector Amount %"
+          autoComplete="off"
+        />
 
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="planname"
-            id="planname"
-            placeholder="Discount Collector Amount %"
-            autoComplete="off"
-          />
-        </div>
-
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="City"
-            id="City"
-            placeholder="Discount Aria Amount %"
-            autoComplete="off"
-          />
-        </div>
+        <input
+          className="mt-1 p-2 w-full border rounded-md focus:outline-none  "
+          type="text"
+          name="City"
+          id="City"
+          placeholder="Discount Area Amount %"
+          autoComplete="off"
+        />
         <button onClick={onDelete} className="add-wrok-actn-btn">
           <i class="fa-solid fa-trash"></i>
         </button>
@@ -66,19 +71,6 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
 
           <div>
             <div className="addwrkarea-form-bx">
-              <div className="admin-login-fild">
-                <label htmlFor="planname">Plan Name</label>
-                <div className="admin-login-input">
-                  <input
-                    type="text"
-                    name="planname"
-                    id="planname"
-                    placeholder="Enter your Plan Name"
-                    autoComplete="off"
-                  />
-                </div>
-              </div>
-
               <div className="admin-login-fild">
                 <label htmlFor="City">No. of Waste Collector</label>
                 <div className="admin-login-input">

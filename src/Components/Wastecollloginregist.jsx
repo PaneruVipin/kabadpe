@@ -71,7 +71,7 @@ const Wastecolloginregist = () => {
           companyRef: "",
         }
       : {
-          email: "",
+          phoneNumber: "",
           password: "",
         };
   const validationSchema =
@@ -178,7 +178,7 @@ const Wastecolloginregist = () => {
                               ) : null}
                             </div>
 
-                            <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx log-inpt-bx-login">
                               <input
                                 type="text"
                                 name="phoneNumber"
@@ -214,16 +214,20 @@ const Wastecolloginregist = () => {
                             </div>
 
                             <div className="log-inpt-bx reg-inpt-bx">
-                             <select name="workertype" id="workertype">
-                             <option value="workertype">Choose</option>
-                              <option value="workertype">KabadiWala</option>
-                              <option value="Toilet_Cleaner">Toilet Cleaner</option>
-                              <option value="workertype">Septic Tank safai krne wala</option>
-                              <option value="workertype">Naali saaf krne wala</option>
-                              <option value="workertype">Cleaner</option>
-
-
-                             </select>
+                              <select name="workertype" id="workertype">
+                                <option value="workertype">Choose</option>
+                                <option value="workertype">KabadiWala</option>
+                                <option value="Toilet_Cleaner">
+                                  Toilet Cleaner
+                                </option>
+                                <option value="workertype">
+                                  Septic Tank safai krne wala
+                                </option>
+                                <option value="workertype">
+                                  Naali saaf krne wala
+                                </option>
+                                <option value="workertype">Cleaner</option>
+                              </select>
                               {touched?.pincode && errors?.pincode ? (
                                 <div style={{ color: "red" }}>
                                   {errors?.pincode}
@@ -274,7 +278,7 @@ const Wastecolloginregist = () => {
                           </>
                         ) : null}
 
-                        <div className="log-inpt-bx log-inpt-bx-login">
+                        <div className="log-inpt-bx reg-inpt-bx">
                           <input
                             type="email"
                             name="email"

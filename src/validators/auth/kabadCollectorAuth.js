@@ -28,7 +28,9 @@ export const validationSignupCollector = object().shape({
 });
 
 export const validationLoginCollector = object().shape({
-  email: string().required().email(),
+  phoneNumber: string()
+    .required()
+    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
   password: string().required(),
 });
 

@@ -16,6 +16,12 @@
 **********************************************/
 
 
+
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+/* @tailwind variants; */
+
 :root {
   --thm-font: "Catamaran", sans-serif;
   --thm-font-2: "Caveat", cursive;

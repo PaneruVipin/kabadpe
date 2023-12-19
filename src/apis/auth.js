@@ -56,6 +56,7 @@ export const signup = async ({
 export const login = async ({
   email,
   password,
+  phoneNumber,
   rememberMe,
   loginType = "user",
 }) => {
@@ -79,7 +80,12 @@ export const login = async ({
   return res;
 };
 
-export const verifysignup = async ({ email, otp, loginType = "user" }) => {
+export const verifysignup = async ({
+  email,
+  otp,
+  code,
+  loginType = "user",
+}) => {
   const setting = {
     user: { path: "/auth/verifySignup", payload: { email, otp } },
     collector: {

@@ -13,7 +13,7 @@ import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
 import { userValidateKabadPeRefrral } from "../apis/auth";
 
-const Wastecolloginregist = () => {
+const  Wastecolloginregist = () => {
   const dispatch = useDispatch();
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
   const [formBox, setFormBox] = useState(false);
@@ -101,7 +101,7 @@ const Wastecolloginregist = () => {
 
   return (
     <>
-      <Redirect />
+      <Redirect path="/wastecolectdashboard" />
       <SignUpToVerify />
       <section
         className={
@@ -130,7 +130,6 @@ const Wastecolloginregist = () => {
                   ...rest
                 }) => {
                   console.log("errors  1", errors);
-                  // console.log("values", values);
                   return (
                     <Form
                       className={
@@ -177,24 +176,28 @@ const Wastecolloginregist = () => {
                                 </div>
                               ) : null}
                             </div>
-
-                            <div className="log-inpt-bx log-inpt-bx-login">
-                              <input
-                                type="text"
-                                name="phoneNumber"
-                                id="mobile"
-                                placeholder="Phone No."
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.phoneNumber}
-                              />
-                              {touched?.phoneNumber && errors?.phoneNumber ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.phoneNumber}
-                                </div>
-                              ) : null}
+                          </>
+                        ) : null}
+                        <div className="log-inpt-bx log-inpt-bx-login">
+                          <input
+                            type="text"
+                            name="phoneNumber"
+                            id="phone"
+                            placeholder="Phone No."
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.phoneNumber}
+                          />
+                          {touched?.phoneNumber && errors?.phoneNumber ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.phoneNumber}
                             </div>
+                          ) : null}
+                        </div>
+
+                        {formBox === true ? (
+                          <>
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
@@ -273,27 +276,25 @@ const Wastecolloginregist = () => {
                                 </div>
                               )}
                             </div>
-
-                            {/* </div>/ */}
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Email or Username"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.email}
+                              />
+                              {touched?.email && errors?.email ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.email}
+                                </div>
+                              ) : null}
+                            </div>
                           </>
                         ) : null}
-
-                        <div className="log-inpt-bx reg-inpt-bx">
-                          <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Email or Username"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.email}
-                          />
-                          {touched?.email && errors?.email ? (
-                            <div style={{ color: "red" }}>{errors?.email}</div>
-                          ) : null}
-                        </div>
-
                         <div className="log-inpt-bx log-inpt-bx-login">
                           <input
                             type="password"

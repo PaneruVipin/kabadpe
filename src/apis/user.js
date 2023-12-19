@@ -101,3 +101,39 @@ export const userProfileImageAdd = resolvePromise(async (image) => {
   );
   return res?.message;
 });
+
+export const userUpdateProfileRequset = resolvePromise(
+  async ({ fullname, email, phoneNumber }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/profile/request`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { fullname, email, phoneNumber },
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res?.code;
+  }
+);
+
+export const userUpdateProfileCallback = resolvePromise(
+  async ({ otp, code }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/profile/callback`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { otp, code },
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res?.meassage;
+  }
+);

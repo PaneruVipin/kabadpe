@@ -80,7 +80,7 @@ const AllUser = ({updatedFilterData}) => {
     <>
       <section className="all-user-data-comp">
         <div className="all-user-data-main-box">
-          <div className="user-det-top-flex-box">
+          <div className="user-det-top-flex-box user-det-top-flex-box4">
             <h6>All User Details</h6>
 
             <div className="right-user-filter-data-flex-box">

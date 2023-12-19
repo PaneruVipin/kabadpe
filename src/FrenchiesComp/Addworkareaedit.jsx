@@ -17,7 +17,6 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
     }
     resetForm();
   };
-  const validationSchema = {};
 
   return (
     <>
@@ -132,6 +131,24 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
                       </div>
                       {touched.subAriaName && errors.subAriaName ? (
                         <div style={{ color: "red" }}>{errors.subAriaName}</div>
+                      ) : null}
+                    </div>
+                    <div className="admin-login-fild">
+                      <label htmlFor="subarea">Price</label>
+                      <div className="admin-login-input">
+                        <input
+                          type="number"
+                          name="price"
+                          id="price"
+                          placeholder="Enter your City Price"
+                          autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.price}
+                        />
+                      </div>
+                      {touched.price && errors.price ? (
+                        <div style={{ color: "red" }}>{errors.price}</div>
                       ) : null}
                     </div>
                   </div>

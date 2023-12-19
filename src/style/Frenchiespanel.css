@@ -698,7 +698,7 @@ button:before{
 
 .add-work-area-edit-main-bx{
     position: relative;
-    width: 40rem;
+    width: 60rem;
     background-color: #fff;
     border-radius: .55rem;
     padding: 2rem 2rem;
@@ -765,6 +765,7 @@ button:before{
 }
 
 input[type="number"]{
+    appearance: textfield;
     -moz-appearance: textfield;
 }
 
@@ -1183,4 +1184,940 @@ input[type="number"]::-webkit-inner-spin-button{
 .trsnct-table table tbody tr td{
     color: #000000;
     font-weight: 600;
+}
+
+.progress-det-flex-box{
+    flex-wrap: wrap;
+}
+
+.inner-prog-bar4{
+    width: 30%;
+    background:  linear-gradient(90deg , #0ea5e9 , #1362fc);
+}
+
+.admin-secd-grid-box{
+    grid-template-columns: 1.67fr 2.5fr;
+}
+
+.prog-dot-det-box4{
+    background: linear-gradient(90deg, #0ea5e9 , #1362fc);
+}
+
+.left-appont-bx{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sel-opt-bx{
+    width: 10rem;
+    padding-inline: .5rem;
+}
+
+.sel-opt-bx select{
+    width: 100%;
+}
+
+.locntext.locntextdark{
+    color: #ffa500 !important; 
+    /* color: #1362fc; */
+}
+
+
+/* ________________- our appointment slots 
+------------------------------------------------ */
+
+.appoint-slots-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.appoint-slots-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000000;
+    opacity: 0.67;
+    z-index: -1;
+
+}
+
+.appoint-slots-main-bx{
+    position: relative;
+    width: 60rem;
+    height: 35rem;
+    background-color: #fff;
+    border-radius: .55rem;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+}
+
+
+.appoint-slots-main-bx h6{
+    font-size: 1.65rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.appoint-slot-table table thead tr th{
+    background-color: #54be73;
+    font-size: .85rem;
+    letter-spacing: .5px;
+    height: max-content;
+    padding: .4rem 1rem 0 1rem;
+}
+
+.appoint-slot-table table tbody tr td span{
+    color: #797878;
+}
+
+.appoint-slot-table table tbody tr{
+    background-color: #fff;
+}
+
+.appoint-slot-table table tbody tr:nth-child(2n + 2){
+    background-color: #fff;
+}
+
+.appoint-slot-table table tbody td{
+    border-bottom: .1rem solid #d9dadc;
+    border-left: .1rem solid #d9dadc;
+}
+
+.appoint-slot-table table tbody td:last-child{
+    border-right: .1rem solid #d9dadc;
+}
+
+.appoint-slot-table table tbody tr td{
+    padding-block: .65rem;
+}
+
+.assign-btn3{
+    height: max-content;
+    padding: .01rem 1.2rem;
+    border-radius: .2rem;
+    border: .1rem solid #54be73;
+    color: #54be73;
+    font-size: .87rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assign-btn3:hover{
+    background-color: #54be73;
+}
+
+.slot-text-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.slot-text-flex p{
+    margin-bottom: 0;
+    line-height: 1;
+    font-size: .8rem;
+    
+}
+
+.assign-flex-bx{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+}
+
+.slot-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-data span{
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: .87rem;
+    line-height: 1.6;
+    color: #797878;
+}
+
+.close-appoint-btn-bx{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+    color: red;
+    cursor: pointer;
+}
+
+.appoint-det{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-inline: 1.87rem;
+}
+
+.appoint-det p{
+    margin-bottom: 0;
+    font-size: .95rem;
+    color: #54be73;
+}
+
+.appoint-det p span{
+    color: #000248;
+}
+
+
+.note-text{
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #ff0000;
+}
+
+.current-date-bx-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+}
+.current-date-bx-flex p{
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.current-date-bx-flex p span{
+    font-weight: 500;
+    color: #43cf7f;
+}
+
+.select-date-bx{
+    position: relative;
+    width: max-content;
+    height: 2.3rem; 
+    background-color: transparent;
+    border: .1rem solid #ddd;
+    padding-inline: .5rem;
+    border-radius: .4rem;
+    background-color: #fff;
+    margin-right: 2rem;
+
+}
+
+.select-date-bx input{
+    width: 100%;
+    font-size: .9rem;
+    height: 100%;
+    font-weight: 500;
+    color: #000248;
+    background-color: transparent;
+
+
+
+}
+
+.select-date-bx:before{
+    content: '\f271';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: .76rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: .87rem;
+    color: #43cf7f;
+}
+
+
+.select-date-bx input::-webkit-calendar-picker-indicator{
+    opacity: 0;
+}
+
+.comp-refrl-bx{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    width: 3rem;
+    height: 3rem;
+    background-color: #fff;
+    padding-inline: .5rem;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.03);
+    border-radius: .5rem;
+    transition: 400ms ease;
+    overflow: hidden;
+}
+
+.comp-refrl-bx .comp-icon{
+    position: relative;
+    font-size: 1.2rem;
+    color: #0ea5e9;
+    transform: translateX(9px) translateY(2px);
+    transition: 400ms ease;
+
+}
+
+
+.comp-refrl-bx span{
+    display: flex;
+    gap: .5rem;
+    position: absolute;
+    top: 50%;
+    left: 58%;
+    transform: translateY(-50%) translateX(-50%);
+    transition: 300ms ease;
+    opacity: 0;
+    color: #0ea5e9;
+    font-weight: 500;
+    letter-spacing: .4px;
+}
+
+.comp-refrl-bx span i{
+    transform: translateY(7px);
+}
+
+.comp-refrl-bx:hover{
+    width: 10rem;
+}
+
+.comp-refrl-bx:hover .comp-icon{
+    transform: translateX(4px);
+}
+
+.comp-refrl-bx:hover span{
+    opacity: 1;
+}
+
+
+
+.user-det-top-flex-box h6{
+    width: max-content;
+}
+
+.icon-flex-box{
+    justify-content: center;
+}
+
+.app-dis-btn i{
+    color: #43cf7f;
+}
+
+.user-det-top-flex-box4{
+    flex-direction: column !important;
+}
+
+.ledger-trnsctin-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+}
+
+.ledger-trnsctin-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.67;
+    z-index: -1;
+}
+
+.ledger-trnsctin-main-bx{
+    position: relative;
+    width: 55rem;
+    padding: 1.5rem 2rem;
+    background-color: #fff;
+    border-radius: .5rem;
+}
+
+.ledger-trnsctin-main-bx h5{
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: .56px;
+    color: #000248;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.trnsctin-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+}
+
+.trnsctin-info h6{
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #000000;
+}
+
+.trnsctin-info h6 span{
+    color: #1362fc;
+}
+
+
+.trnsctin-table table tbody tr td{
+    text-align: center;
+}
+
+.inovice-btn{
+    cursor: pointer;
+    font-size: 1rem;
+    color: #54be73;
+}
+
+.trans-flex-bx{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total-waste-amount-flex-bx{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.total-bx{
+    position: relative;
+    width: max-content;
+    padding-inline: .87rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    background-color: #fffaf1;
+    padding-block: .25rem;
+    border: .1rem solid #fdf2dd;
+    border-radius: .4rem;
+}
+
+.total-bx h6{
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .35px;
+    color: #000248;
+}
+
+
+.total-bx span{
+    color: #5e5e5e;
+    font-weight: 500;
+}
+
+.wallet-payment-sec{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    display: none;
+}
+
+.wallet-payment-sec.walletpaymtactive{
+    display: grid;
+}
+
+.wallet-payment-sec:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #000000;
+    opacity: 0.67;
+}
+
+.wallet-pay-bx{
+    position: relative;
+    width: 30rem;
+    background-color: #fff;
+    border-radius: .5rem;
+    padding: 1.5rem 1.5rem;
+}
+
+.wallet-pay-bx h6{
+    font-size: 1.3rem;
+    text-align: center;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .45px;
+    margin-bottom: 1rem;
+}
+
+.wallet-pay-bx p{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1;
+    
+}
+
+.wallet-pay-bx p span{
+    color: #1362fc;
+    margin-left: .5rem;
+}
+
+
+.confirm-btn{
+    margin: 2rem auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: max-content;
+    height: 2.45rem;
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #1362fc;
+    border-radius: .4rem;
+    font-weight: 500;
+    letter-spacing: .4px;
+
+}
+
+.wallet-pay-bx p:last-of-type{
+    font-weight: 800;
+}
+
+.today-french-appnt-data thead tr th{
+    font-size: .87rem;
+    color: #fff;
+    font-weight: 500;
+    padding: .3rem .87rem;
+}
+
+.today-french-appnt-data tbody tr td{
+    font-size: .87rem;
+    padding-block: .345rem;
+    padding-inline: .87rem;
+}
+
+.assign-btn2{
+    font-size: .76rem;
+    height: max-content;
+}
+
+.view-all-bx{
+    width: 1.87rem;
+    height: 1.87rem;
+    margin: 1.87rem auto 0 auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: .1rem solid #797878;
+    border-radius: 50%;
+    font-size: .9rem;
+    color: #797878;
+    animation: downup 1s ease-in-out infinite alternate;
+}
+
+@keyframes downup {
+    0%{
+        transform: translateY(10px);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}
+
+
+.wallet-dropdown-main-bx{
+    position: absolute;
+    top: 100%;
+    margin-top: 1rem;
+    left: -13rem;
+    width: 19rem;
+    background-color: #fff;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    border-radius: .55rem;
+}
+
+.wallet-dropdown-main-bx h5{
+    font-size: 1.2rem;
+    text-align: left;
+    padding: .56rem .56rem;
+    font-weight: 600;
+    color: #000248;
+}
+
+.wallet-search-bx{
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    height: 2.4rem;
+    background-color: #fff;
+    border: .1rem solid #000248;
+    border-radius: .5rem;
+    margin-bottom: .5rem;
+
+}
+
+.wallet-search-bx input{
+    width: 100%;
+    height: 100%;
+    font-size: .89rem;
+    font-weight: 500;
+    background-color: transparent;
+    border: none;
+    color: #000248;
+    padding-inline: 1.76rem;
+
+}
+
+.al-walt-hist-list{
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+
+.wallet-search-bx:before{
+    content: "\f002";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: .3rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1rem;
+    color: #0ea5e9;
+}
+
+.pyment-info-main{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .76rem;
+    padding-inline: .87rem;
+    padding-block-start: .78rem;
+    padding-block-end: .76rem;
+}
+
+
+
+.pyment-info-main:last-child{
+    margin-bottom: .3rem;
+}
+
+.left-name-alpha-bx{
+    position: relative;
+    width:2.65rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff0000;
+    border-radius: 50%;
+    font-weight: 600;
+}
+
+.left-name-alpha-bx2{
+    background-color: #1362fc;
+    
+}
+
+.left-name-alpha-bx3{
+    background-color: #54be73;
+    
+}
+
+
+.left-name-alpha-bx4{
+    background-color: #ffa500;
+    
+}
+
+
+.right-payment-bx{
+    position: relative;
+    width: calc(100% - 3.25rem)
+}
+
+.wallet-info-top-bx{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right-payment-bx h6{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000248;
+    letter-spacing: .4px;
+}
+
+.right-payment-bx span{
+    font-size: .87rem;
+    display: inline-block;
+    font-weight: 700;
+    color: #43cf7f;
+    margin-bottom: 0;
+    line-height: 1;
+}
+
+.wallet-info-second-bx p{
+    font-size: .75rem;
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: 1.7;
+    font-weight: 600;
+}
+
+.wallet-info-second-bx span{
+    color: #9a9a9a;
+    display: inline-block;
+    font-weight: 500;
+    letter-spacing: .4px;
+}
+
+.wallet-info-second-bx span i{
+    color: #43cf7f;
+    margin-left: .4rem;
+}
+
+.view-all-btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    margin: 0 auto;
+    gap: .65rem;
+    font-size: .8rem;
+    letter-spacing: .4px;
+    color: #000248;
+    font-weight: 600;
+    padding: .05rem .78rem;
+    border: .1rem solid #ddd;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.wallet-dropdown-main-bx{
+    transition: 400ms ease;
+    opacity: 0;
+    transform-origin: top;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 100;
+    transform: scaleY(0);
+}
+
+.wallet-dropdown-main-bx.waletactive{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scaleY(1);
+}
+
+.guest-bx{
+    position: relative;
+    width: 40rem;
+    background-color: #fff;
+    border-radius: .55rem;
+    padding: 2rem 2rem;
+}
+
+.guest-bx h6{
+    text-align: center;
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: .4px;
+    color: #000248;
+    margin-bottom: 1rem;
+}
+
+.guest-grid{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.gest-field{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+}
+
+.gest-field label{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000000;
+    font-weight: 600;
+    letter-spacing: .45px;
+}
+
+.gest-field input{
+    position: relative;
+    width: 100%;
+    height: 2.45rem;
+    padding-inline: .78rem;
+    font-weight: 500;
+    color: #000000;
+    border: none;
+    border: .1rem solid #ddd;
+    border-radius: .5rem;
+
+}
+
+.gest-field input:focus-within{
+    border-color: #ddd;
+}
+
+.otp-btn3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto 0 auto;
+}
+
+.otp-field-main{
+    display: none;
+}
+
+.guest-bx.guestactive .otp-field-main{
+    display: block;
+}
+
+.guest-bx.guestactive .guest-fields-grid ,
+.guest-bx.guestactive .confirm-btn3{
+    display: none;
+}
+
+.left-right-arrow-btn-flex{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+}
+
+.date-btn{
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border: .1rem solid #43cf7f;
+    font-size: .87rem;
+    border-radius: .45rem;
+    color: #43cf7f;
+    transition: 400ms ease;
+}
+
+.date-btn:hover{
+    background-color: #43cf7f;
+    color: #fff;
+}
+
+.comp-refrl-bx3 span{
+    line-height: 1.4;
+    display: inline-block;
+    left: 0;
+    transform: translateY(-50%) translateX(75%);
+
+}
+
+.comp-refrl-bx3:hover{
+    width: 9rem;
+}
+
+.comp-refrl-bx4 span{
+
+    transform: translateY(-50%) translateX(25%);
+}
+
+.comp-refrl-bx4:hover{
+    width: 6rem;
+
+}
+
+.wallet-info-second-bx span{
+    font-size: .76rem;
+}
+
+.wallet-info-top-bx span i{
+    font-size: .65rem;
+}
+
+.left-name-alpha-bx2{
+    height: 2.67rem;
+
+}
+
+.walet-bx{
+    background-color: #f1fbff;
+    border: .05rem solid #0ea5e9;
+}
+
+.walet-bx-right span{
+    color: #0ea5e9;
+}
+
+.walet-bx-right2 span i{
+    color: #0ea5e9;
+}
+
+.walet-bx span{
+    color: #0ea5e9;
+    font-size: .87rem;
 }

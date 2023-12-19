@@ -10,11 +10,15 @@ export const signup = async ({
   emergencyPhone,
   workCity,
   companyRef,
+  gst,
+  franchiseAddress,
+  companyName,
+  confirmPassword,
   loginType = "user",
 }) => {
   const setting = {
     collector: {
-      path: "/auth/kabadCollector/signup",
+      path: "/_auth/kabadCollector/signup",
       payload: {
         fullname,
         email,
@@ -30,6 +34,19 @@ export const signup = async ({
       path: "/auth/signup",
       payload: { fullname, email, password, phone: phoneNumber },
     },
+    franchise: {
+      path: "/_auth/franchise/signup",
+      payload: {
+        fullname,
+        email,
+        password,
+        phone: phoneNumber,
+        gst,
+        companyName,
+        confirmPassword,
+        franchiseAddress,
+      },
+    },
   };
   const apiUrl = ENV_API_BASE_URL + setting?.[loginType]?.path;
   const { data: res } = await axios.post(apiUrl, setting?.[loginType]?.payload);
@@ -39,18 +56,23 @@ export const signup = async ({
 export const login = async ({
   email,
   password,
+  phoneNumber,
   rememberMe,
   loginType = "user",
 }) => {
   const setting = {
     user: { path: "/auth/login", payload: { email, password } },
     collector: {
-      path: "/auth/kabadCollector/login",
-      payload: { email, password },
+      path: "/_auth/kabadCollector/login",
+      payload: { phoneNumber, password },
     },
     admin: {
       path: "/auth/superAdmin/login",
       payload: { email, password, rememberMe },
+    },
+    franchise: {
+      path: "/_auth/franchise/login",
+      payload: { email, password },
     },
   };
   const apiUrl = ENV_API_BASE_URL + setting[loginType]?.path;
@@ -58,13 +80,25 @@ export const login = async ({
   return res;
 };
 
-export const verifysignup = async ({ email, otp, loginType = "user" }) => {
-  const paths = {
-    user: "/auth/verifySignup",
-    collector: "/auth/kabadCollector/verifySignup",
+export const verifysignup = async ({
+  email,
+  otp,
+  code,
+  loginType = "user",
+}) => {
+  const setting = {
+    user: { path: "/auth/verifySignup", payload: { email, otp } },
+    collector: {
+      path: "/_auth/kabadCollector/verifySignup",
+      payload: { code, otp },
+    },
+    franchise: {
+      path: "/_auth/franchise/verifysignup",
+      payload: { email, otp },
+    },
   };
-  const apiUrl = ENV_API_BASE_URL + paths[loginType];
-  const { data: res } = await axios.post(apiUrl, { email, otp });
+  const apiUrl = ENV_API_BASE_URL + setting[loginType]?.path;
+  const { data: res } = await axios.post(apiUrl, setting[loginType]?.payload);
   return res;
 };
 

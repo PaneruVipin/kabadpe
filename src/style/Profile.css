@@ -171,7 +171,7 @@
   .right-user-prof-search-flex-bx{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .76rem;
   }
 
   .u-prf-srch{
@@ -2385,6 +2385,120 @@
       color: #156bce;
      }
 
+     .u-prf-btn-bx8{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      border-radius: 2rem;
+      width: 3rem;
+      background-color: #000200;
+      white-space: nowrap;
+      overflow: hidden3
+     }
+
+     .prf-icon{
+      transform: translateX(8.5px);
+     }
+
+     .u-prf-btn-bx8 span{
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 60%;
+      transform: translateY(-50%) translateX(-50%);
+      transition: 300ms ease;
+      opacity: 0;
+
+
+     }
+
+     .u-prf-btn-bx8:hover {
+      width: 9rem;
+     }
+
+     .u-prf-btn-bx8:hover span{
+      opacity: 1;
+     }
+
+     .u-prf-btn-bx8{
+      background-color: #ededff;
+     }
+
+     .u-prf-btn-bx8 .prf-icon{
+      transition: 400ms ease;
+      color: #000248;
+     }
+
+     .u-prf-btn-bx5{
+      background-color: #10ae32;
+     }
+
+     .u-prf-btn-bx6{
+      background-color: #fb6225;
+     }
+
+     .u-prf-btn-bx6:hover{
+      width: 11.87rem;
+     }
+
+     .u-prf-btn-bx10{
+      background-color: #000248;
+     }
+
+     
+     .u-prf-btn-bx10:hover{
+      background-color: #050629;
+     }
+
+     .u-prf-btn-bx10:hover{
+      width: 10rem;
+     }
+
+     .u-prf-btn-bx11{
+      background-color: #fff2dc;
+     }
+
+     .u-prf-btn-bx9{
+      background-color: #edffe6;
+     }
+
+     .u-prf-btn-bx11:hover{
+      background-color: #eca219;
+     }
+
+     .prf-icon2 i{
+      font-size: 1.25rem;
+      color: #fff;
+     }
+
+     .u-prf-btn-bx8:hover .prf-icon{
+      color: #fff;
+     }
+
+     .notif-main-box{
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      display: grid;
+      place-items: center;
+     }
+
+     .u-prf-btn-bx6{
+      background-color: #fff4f0;
+     }
+
+     
+     .u-prf-btn-bx6 .prf-icon{
+      transform: translateX(7px);
+     }
+
+     .u-prf-btn-bx10{
+      background-color: #fff4d1;
+     }
+
       /* ffa500 */
 
       @media all and (min-width: 1125px) and (max-width: 1380px){
@@ -2425,7 +2539,257 @@
          
         }
 
+        .comn-popup-comp{
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         z-index: 1000;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+        }
+
+        .comn-popup-comp:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         opacity: 0.67;
+         z-index: -1;
+        }
+
+
+        .comn-popup-bx{
+         position: relative;
+         width: 35rem;
+         background-color: #fff;
+         padding: 2rem 2rem;
+         border-radius: .55rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-direction: column;
+         text-align: center;
+        }
+
+        .comn-popup-bx h6{
+         font-size: 1.4rem;
+         color: #000248;
+         font-weight: 700;
+         margin-bottom: 2rem;
+         text-transform: capitalize;
+        }
+
+        .popup-action-btn{
+         position: relative;
+         width: max-content;
+         padding: .3rem 2rem;
+         background-color: transparent;
+         border: .1rem solid #347b1a;
+         border-radius: .5rem;
+         transition: 400ms ease;
+         color: #347b1a;
+         font-weight: 500;
+         letter-spacing: .45px;
+        }
+
+        .popup-action-btn:hover{
+         background-color: #347b1a;
+         color: #fff;
+        }
+
+        .close-btn{
+         position: absolute;
+         top: 1rem;
+         right: 1.5rem;
+         font-size: 1.2rem;
+         color: #fb6225;
+         cursor: pointer;
+        }
+
+        .confirm-buy-wste-btn{
+         border-color: #347b1a !important;
+         color: #347b1a !important;
+        }
+
+        .confirm-buy-wste-btn:hover{
+         background-color: #347b1a !important;
+         color: #fff !important;
+        }
+
+        .buy-waste-table-comp3{
+         padding-inline-start: 20rem;
+        }
+
+        .bywste2{
+         margin-top: 3rem !important;
+         font-size: 1.8rem !important;
+         margin-bottom: 2rem !important;
+        }
+
+        .u-i-lft p{
+         margin-bottom: 0 !important;
+         color: #757272 !important;
+        }
+
+        .u-i-lft p span {
+         color: #000248 !important;
+         font-weight: 600 !important;
+        }
+
+        .date-holiday{
+         position: relative;
+         width: 100%;
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         column-gap: 1rem;
+         row-gap: 1rem;
+         margin-bottom: 1.5rem;
+        }
+
+        .leave-date{
+         display: flex;
+         flex-direction: column;
+         align-items: flex-start;
+        }
+
+        .leave-date span{
+         display: inline-block;
+         font-size: 1rem;
+         font-weight: 600;
+         color: #000;
+        }
+
+        .leave-date input{
+         width: 100%;
+         border: none;
+         background-color: #e7ffec;
+         height: 3rem;
+         padding-inline:1rem;
+        }
       
+        .buy-waste-grid-input{
+         position: relative;
+         width: 100%;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 1rem;
+        }
+
+        .guest-btn{
+         width: 10rem;
+         height: 2.76rem;
+         border-radius: .4rem;
+         border: .1rem solid #e69706 !important;
+         font-size: 1rem !important;
+         color: #e69706 !important;
+         font-weight: 600;
+         letter-spacing: .5px !important;
+         margin-top: .78rem !important;
+         transition: 400ms ease !important;
+        }
+
+        .guest-btn:hover{
+         background-color: #e69706 !important;
+         color: #fff !important;
+        }
+
+        .u-prf-btn-bx66:hover{
+         width: 9rem ;
+        }
+
+        .reg-inpt-bx {
+         position: relative;
+         width: 100%;
+        }
+
+        .reg-inpt-bx select{
+         width: 100%;
+         border-bottom: .1rem solid #ddd;
+         padding: .76rem 0 .5rem 0;
+         font-size: 1.1rem;
+         color: #939393;
+         font-weight: 400;
+         letter-spacing: .87px;
+         background-color: transparent;
+        }
+
+        .paynow-btn{
+         position: absolute;
+         top: 100%;
+         left: 0;
+         margin-top: 1rem;
+         width: max-content;
+         padding-inline: 1rem;
+         height: 2.4rem;
+         background-color: #ffa500;
+         color: #fff;
+         border-radius: .5rem;
+        }
+
+        .pay-now-btn-sec{
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         z-index: 1000;
+         display: grid;
+         place-items: center;
+         display: none;
+        }
+
+        .pay-now-btn-sec.payactive{
+         display: flex;
+        }
+
+        .pay-now-btn-sec:before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #000;
+         opacity: 0.67;
+         z-index: -1;
+        }
+
+        .paynow-btn-flex{
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50% , -50%);
+         width: max-content;
+         padding: 4rem 2rem 2rem 2rem;
+         background-color: #fff;
+         border-radius: .5rem;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 2rem;
+         z-index: 10000;
+        }
+
+        .pay-btn{
+         position: relative;
+         width: max-content;
+         padding-inline: 1.45rem;
+         height: 2.5rem;
+         background-color: #ffa500;
+         color: #fff;
+         font-weight: 500;
+         border-radius: .5rem;
+
+        }
+
 
 
 

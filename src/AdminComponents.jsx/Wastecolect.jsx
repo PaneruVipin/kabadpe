@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import wastecolectData from '../WastecolectData';
 import WasteColectEdit from './WasteColectEdit';
 import WasteColectVew from './WasteColectVew';
+import AddWorkerComp from './AddWorkerComp';
 
 const Wastecolect = () => {
     const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -11,7 +12,21 @@ const Wastecolect = () => {
     const [wasteColectData , setWasteColectData] =  useState(wastecolectData);
     const [wasteDataBox , setWasteDataBox] = useState(false);
     const [wasteViewData , setWasteViewData]  = useState(false);
+    const [workChange , setWorkChange] = useState('');
+    const [addWork , setAddWork] = useState(false);
 
+    const data = {
+
+      cleaner : [ 'Cleaner' ],
+      kabadiwala : [ 'Kabadiwala' ],
+      toiletcleaner : [ 'Toilet Cleaner' ],
+      sweeper : [ 'Sweeper' ],
+      septictankcleaner : [ 'Septic Tank cleaner' ],
+
+      
+      
+    }
+    
     const subsDataClose = () => {
 
       setWasteDataBox(false);
@@ -23,19 +38,70 @@ const Wastecolect = () => {
     setWasteViewData(false)
     
   }
+
+  const onWorkChange = (event) => {
+
+    const value = (event.target.value);
+    setWorkChange(value);
+
+    const filteredData =  wastecolectData.filter((item ) => {
+      return item.checkworktype === value 
+    })
+
+    setWasteColectData(filteredData)
+
+    
+  }
+
+  
     
   return (
     <>
+
+    
+    
        <section className="all-user-data-comp">
         <div className="all-user-data-main-box">
-          <div className="user-det-top-flex-box">
+          <div className="user-det-top-flex-box user-det-top-flex-box5">
             <h6>Waste Collector </h6>
 
-            <div className="right-user-filter-data-flex-box">
+            <div className="right-worker-type-flex-bx right-worker-type-flex-bx5">
 
-                <div className="user-data-search-box">
+             <div className="user-data-search-box">
                     <input type="text" name="search" id="search" placeholder="Search..." autoComplete="off" />
                 </div>
+
+              <button onClick={() => setAddWork(true)} className="work-type-btn">
+                Add Worker Type
+              </button>
+
+              <div className="export-btn">
+              <i class="fa-regular fa-file-excel"></i>
+              </div>
+
+              <div className="export-btn">
+              <i class="fa-regular fa-file-pdf"></i>
+              </div>
+              
+            </div>
+
+            </div>
+
+            <div className="right-user-filter-data-flex-box right-user-filter-data-flex-box6">
+
+            <div className="add-work-sel-bx user-type-sel-box user-data-search-box">
+                <select name="worktype" id="worktype" value={workChange} onChange={ onWorkChange}>
+                <option value="">Choose</option>
+                  <option value="cleaner">Cleaner</option>
+                  <option value="kabadiwala">Kabadiwala</option>
+                  <option value="toiletcleaner">Toilet Cleaner</option>
+                  <option value="septictankcleaner">Septic Tank Cleaner</option>
+                  <option value="sweeper">Sweeper</option>
+
+
+
+                </select>
+              </div>
 
                 <div className="user-type-sel-box user-data-search-box">
                     <select name="user-type-data" id="user-type-data">
@@ -87,7 +153,8 @@ const Wastecolect = () => {
                 
             </div>
             
-          </div>
+
+          
 
           <div className="all-user-table">
             <table>
@@ -101,11 +168,12 @@ const Wastecolect = () => {
                   <th>Work Area </th>
                   <th>Mobile No.</th>
                   <th>Email</th>
+                  <th>Work Type</th>
                   <th>User Status</th>
                   <th>Zip Code</th>
                   <th>Edit</th>
                   <th>View</th>
-                  <th>Action</th>
+                  {/* <th>Action</th> */}
                 </tr>
               </thead>
               
@@ -144,6 +212,10 @@ const Wastecolect = () => {
                         <td>
                           <span> {curElem.email} </span>
                         </td>
+                        <td>
+                          <span className='worktype-text'> {curElem.worktype} </span>
+                        </td>
+                        
                         
                         <td>
                           <span style={{ color : curElem.categoryStatus === "banned"  ? "red" : "green"  }}  className={ curElem.categoryStatus === "Banned" ? "status-t statColor" : "status-t"} > {curElem.userStatus} </span>
@@ -165,7 +237,7 @@ const Wastecolect = () => {
                           </div>
                         </td>
 
-                        <td>
+                        {/* <td>
                           <div className="icon-flex-box">
                             <button className="app-dis-btn" title="approve">
                             <i class="fa-regular fa-circle-check"></i>
@@ -174,7 +246,7 @@ const Wastecolect = () => {
                             <i class="fa-regular fa-circle-xmark"></i>
                             </button>
                           </div>
-                        </td>
+                        </td> */}
                         
                       </tr>
                     </>
@@ -189,6 +261,8 @@ const Wastecolect = () => {
      {wasteDataBox ? <WasteColectEdit onClickCloseEditForm={subsDataClose} /> : null}
 
      {wasteViewData ? <WasteColectVew onClickCloseWasteColectData={closewasteDataVw}/> : null}
+
+   { addWork ?  <AddWorkerComp  onClickClose={() => setAddWork(false)} /> : null}
       
     </>
   )

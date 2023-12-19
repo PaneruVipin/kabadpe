@@ -4,26 +4,24 @@ import { getFromLocalStorage } from "../../lib/localStorage";
 
 export const userSchedulePickup = resolvePromise(
   async ({
-    coordAddress,
     formatedAddress,
     appointmentContactNumber,
     appointmentPersonName,
     appointmentDate,
     appointmentTimeSlot,
-    orderDetail,
+    pincode,
   }) => {
     const apiUrl = ENV_API_BASE_URL + "/user/kabadPe/schedualPickup";
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
       {
-        coordAddress,
         formatedAddress,
         appointmentContactNumber,
         appointmentPersonName,
         appointmentDate,
         appointmentTimeSlot,
-        orderDetail,
+        pincode,
       },
       {
         headers: {

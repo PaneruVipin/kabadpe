@@ -307,7 +307,7 @@
 
   .user-data-search-box{
     position: relative;
-    width: 20rem;
+    width: 16rem;
     height: 2.2rem;
     background-color: #fff;
     border-radius: .45rem;
@@ -513,3 +513,54 @@
   .status-t.statColor{
    color: #ff3131 !important;
   }
+
+  .user-det-top-flex-box{
+   justify-content: space-between;
+   flex-direction: row;
+  }
+
+  .right-worker-type-flex-bx5{
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+  }
+
+  .work-type-btn{
+   position: relative;
+   width: max-content;
+   padding-inline: 1.5rem;
+   height: 2.2rem;
+   font-weight: 500;
+   background-color: transparent;
+   border: .1rem solid #028afa;
+   font-size: .87rem;
+   color: #028afa;
+   font-weight: 500;
+   letter-spacing: .45px;
+   transition: 400ms ease;
+   border-radius: .5rem;
+  }
+
+  .work-type-btn:hover{
+   background-color: #028afa;
+   color: #fff;
+  }
+
+  .export-btn{
+   font-size: 1.2rem;
+   padding-inline: 1rem;
+   height: 2.2rem;
+   display: grid;
+   place-items: center;
+   background-color: #fff;
+   border-radius: .45rem;
+   cursor: pointer;
+   color: #000248;
+   border: .1rem solid #000248;
+  }
+
+  .right-user-filter-data-flex-box6{
+   justify-content: flex-start;
+   margin-bottom: 1.5rem;
+  }
+

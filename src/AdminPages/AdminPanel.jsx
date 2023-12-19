@@ -26,6 +26,7 @@ import SubscriptionPlan from "../AdminComponents.jsx/SubscriptionPlan";
 import Addsubscription from "../FrenchiesComp/Addsubscription";
 import AddWorkArea from "../FrenchiesComp/AddWorkArea";
 import DiscountCoupon from "../AdminComponents.jsx/DiscountCoupon";
+import WasteProduct from "../AdminComponents.jsx/WasteProduct";
 
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
@@ -472,6 +473,26 @@ const AdminPanel = () => {
             </div>
           </div>
 
+
+          <div className="admin-nv-li admin-nv-li-dashbrd">
+          <div
+              onClick={() => {
+                handleButtonClick(12), handleViewComp("wasteproduct");
+              }}
+              className={
+                component === "wasteproduct"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="a-nv-i">
+              <CiShop />
+              </div>
+              <span>Waste Products</span>
+            </div>
+            </div>
+
+
           <div className="admin-nv-li">
             <div
               onClick={() => handleButtonClick(9)}
@@ -819,6 +840,8 @@ const AdminPanel = () => {
         {component === "addworkarea" ? <AddWorkArea /> : null}
         {component === "addsubscription" ? <Addsubscription /> : null}
         {component === "discount" ? <DiscountCoupon /> : null}
+        {component === "wasteproduct" ? <WasteProduct /> : null}
+
       </section>
     </>
   );

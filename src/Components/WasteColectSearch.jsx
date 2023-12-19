@@ -5,9 +5,18 @@ import UserProfUpdates from "./UserProfUpdates";
 import "../style/Support.css";
 import WasteColectCounter from "./WasteColectCounter";
 import WasteAppoint from "./WasteAppoint";
+import ActiveToday from "../WasteColectComp/ActiveToday";
+import BuyWaste from "../WasteColectComp/BuyWaste";
+import Holiday from "../WasteColectComp/Holiday";
+import GuestPopup from "../WasteColectComp/GuestPopup";
 
-const WasteColectSearch = ({ onclickShowDetail }) => {
+const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage , onclickRedirectNewPage}) => {
   const [notBox, setNotBox] = useState(false);
+  const [actToday , setActToday] = useState(false);
+  const [buyWaste , setBuyWaste] = useState(false);
+  const [holiday , setHoliday] = useState(false);
+  const [guest , setGuest] = useState(false)
+
   return (
     <>
       <section className="use-prf-left-main-bx">
@@ -29,15 +38,46 @@ const WasteColectSearch = ({ onclickShowDetail }) => {
                 />
               </div>
 
-              <button onClick={onclickShowDetail} className="u-prf-btn-bx">
-                Edit Profile
+              <button onClick={onclickShowDetail} className="u-prf-btn-bx u-prf-btn-bx8">
+                <div className="prf-icon">
+                <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+               <span> Edit Profile</span>
               </button>
 
-              <button className="u-prf-btn-bx u-prf-btn-bx5">Sale Waste</button>
-
-              <button className="u-prf-btn-bx u-prf-btn-bx6">
-                Buy Waste (Guest)
+              <button onClick={() => setActToday(true)}  className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx11 ">
+                <div className="prf-icon">
+                <i class="fa-regular fa-user"></i>
+                </div>
+               <span> Active Today</span>
               </button>
+
+
+              <button  className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx9">
+                <div className="prf-icon">
+                <i class="fa-solid fa-coins"></i>
+                </div>
+               <span> Sale Waste</span>
+              </button>
+
+           
+
+              
+              <button onClick={() => setBuyWaste(true)}  className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx6 u-prf-btn-bx66">
+                <div className="prf-icon">
+                <i class="fa-solid fa-cart-arrow-down"></i>
+                </div>
+               <span> Buy Waste </span>
+              </button>
+
+              <button onClick={() => setHoliday(true)}  className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx10">
+                <div className="prf-icon">
+                <i class="fa-solid fa-snowman"></i>
+                </div>
+               <span> Leave Request</span>
+              </button>
+
+
 
               <div className="notif-main-box">
                 <div
@@ -115,6 +155,12 @@ const WasteColectSearch = ({ onclickShowDetail }) => {
         <WasteColectCounter />
 
         <WasteAppoint />
+
+      { actToday ?  <ActiveToday onclickClose={() => setActToday(false)} /> : null}
+
+      { buyWaste ? <BuyWaste onclickVisible={() => {setGuest(true)}} onclickCloseBuyWaste={() => setBuyWaste()} onclickRedirectBuywaste={onclickRedirectPage}  /> : null}
+      { holiday ?  <Holiday onclickCloseHoliday={() => setHoliday(false)} /> : null}
+      {guest ? <GuestPopup verifyClickBtnRedirect={onclickRedirectNewPage}   onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null}
       </section>
     </>
   );

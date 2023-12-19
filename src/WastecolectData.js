@@ -14,6 +14,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
+        worktype : 'kabadiwala',
+        checkworktype : 'kabadiwala',
 
     },
 
@@ -31,6 +33,9 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'approve',
+        worktype : 'Kabadiwala',
+        checkworktype : 'kabadiwala',
+
     },
 
 
@@ -49,6 +54,9 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
+        worktype : 'Toilet Cleaner',
+        checkworktype : 'toiletcleaner',
+
     },
 
 
@@ -67,6 +75,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
+        worktype : 'Sweeper',
+        checkworktype : 'sweeper',
 
     },
 
@@ -86,7 +96,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'approve',
-
+        worktype : 'Sweeper',
+        checkworktype : 'sweeper',
     },
 
 
@@ -105,7 +116,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
-
+        worktype : 'Cleaner',
+        checkworktype : 'cleaner',
 
     },
 
@@ -124,7 +136,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
-
+        worktype : 'Septic Tank cleaner',
+        checkworktype : 'septictankcleaner',
 
     },
 
@@ -144,7 +157,8 @@ const wastecolectData = [
         City: "Delhi",
         Zip: "110008",
         action : 'disapprove',
-
+        worktype : 'Septic Tank cleaner',
+        checkworktype : 'septictankcleaner',
 
     },
 

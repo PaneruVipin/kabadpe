@@ -8,6 +8,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import '../style/Frenchiespanel.css';
+import TodayFrenchAppoint from "./TodayFrenchAppoint";
+
 
 const data = [
   {
@@ -84,7 +87,7 @@ const data = [
   },
 ];
 
-const Frenchgraph = () => {
+const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
   const [editBx, setEditBx] = useState(false);
 
   return (
@@ -107,6 +110,9 @@ const Frenchgraph = () => {
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar"></div>
               </div>
+              <div className="ad-prog-bar-box">
+                <div className="inner-prog-bar inner-prog-bar4"></div>
+              </div>
 
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar inner-prog-bar2"></div>
@@ -120,18 +126,28 @@ const Frenchgraph = () => {
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
                     <div className="prog-dot-det-box"></div>
-                    <span>Pending</span>
+                    <span>Total</span>
                   </div>
                   <h6>234</h6>
                 </div>
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
-                    <div className="prog-dot-det-box prog-dot-det-box2"></div>
-                    <span>Done</span>
+                    <div className="prog-dot-det-box prog-dot-det-box2 prog-dot-det-box4"></div>
+                    <span>Unassigned</span>
                   </div>
                   <h6>65</h6>
                 </div>
+
+                <div className="prog-info-box">
+                  <div className="prog-dot-box-flex">
+                    <div className="prog-dot-det-box prog-dot-det-box2"></div>
+                    <span>Pending</span>
+                  </div>
+                  <h6>85</h6>
+                </div>
+
+                
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
@@ -144,8 +160,9 @@ const Frenchgraph = () => {
             </div>
 
             <div className="left-ad-progress-bar-main">
-              <h6>You are not authorize for this part</h6>
+              <h6>Today Appointments</h6>
 
+            <TodayFrenchAppoint onclickRedirectFrenchApnt={onclickRedirectAllAppointment} TodayFrenchData={todayData}   />
              
             </div>
           </div>

@@ -21,7 +21,7 @@ const Otp = () => {
     otp: "",
   };
   const handleSubmit = (data) => {
-    const newData = { ...data, email: user?.email, loginType: user?.loginType };
+    const newData = { ...data, code: user?.code, loginType: user?.loginType };
     dispatch(userVerifySignup(newData));
   };
 
@@ -53,6 +53,11 @@ const Otp = () => {
               <div className="login-logo login-logo2">
                 <img src="./images/resources/logo.png" alt="" />
               </div>
+              <div className=" tw-text-green-500">
+                Hey, just an FYI – we're currently testing some updates on DLT.
+                For now, feel free to use this OTP:{" "}
+                <span className="tw-text-yellow-900">{user?.otp}</span>. Cheers!
+              </div>
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationVerifyOtpCollector}
@@ -68,6 +73,18 @@ const Otp = () => {
                 }) => {
                   return (
                     <Form>
+                      {remainingTime > 0 ? (
+                        <span>Resend in: {remainingTime} seconds</span>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled={!isResendActive}
+                          onClick={handleResendClick}
+                          className=""
+                        >
+                          Re-Send OTP
+                        </button>
+                      )}
                       <div className="log-inpt-bx reset-psswrd-inpt otp-inpt-bx">
                         <input
                           type="text"
@@ -84,18 +101,6 @@ const Otp = () => {
                           <div style={{ color: "red" }}>{errors.otp}</div>
                         ) : null}
                       </div>{" "}
-                      {remainingTime > 0 ? (
-                        <span>Resend in: {remainingTime} seconds</span>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled={!isResendActive}
-                          onClick={handleResendClick}
-                          className="form-submit-btn reset-psswrd-btn"
-                        >
-                          Re-Send OTP
-                        </button>
-                      )}
                       <button
                         type="submit"
                         className="form-submit-btn reset-psswrd-btn"

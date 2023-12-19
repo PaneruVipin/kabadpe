@@ -16,6 +16,9 @@ import MyReviews from "./MyReviews";
 import Vendor from "./Vendor";
 import CompltProfPopup from "./CompltProfPopup";
 import { useSelector } from "react-redux";
+import BuyWasteTable from "../WasteColectComp/BuyWasteTable";
+import GuestBuyWaste from "../WasteColectComp/GuestBuyWaste";
+import ClearStock from "./ClearStock";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -109,7 +112,7 @@ const Wastecollectdashboard = () => {
             <div className="u-prf-tab-icon">
               <i class="fa-solid fa-wallet"></i>
             </div>
-            My Wallet History
+            My Transactions
           </button>
 
           <button
@@ -143,6 +146,16 @@ const Wastecollectdashboard = () => {
           </button>
 
           <button
+            onClick={() => filterTab(12)}
+            className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
+          >
+            <div className="u-prf-tab-icon">
+            <i class="fa-solid fa-money-bill-trend-up"></i>
+            </div>
+            Clear Stock
+          </button>
+
+          <button
             onClick={() => filterTab(8)}
             className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -162,7 +175,7 @@ const Wastecollectdashboard = () => {
             My Work Location
           </button>
 
-          <button
+          {/* <button
             onClick={() => filterTab(5)}
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -170,9 +183,9 @@ const Wastecollectdashboard = () => {
               <i class="fa-solid fa-dumpster"></i>
             </div>
             Waste Collection
-          </button>
+          </button> */}
 
-          <button
+          {/* <button
             onClick={() => filterTab(6)}
             className={profBtn === 6 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -180,7 +193,7 @@ const Wastecollectdashboard = () => {
               <i class="fa-solid fa-capsules"></i>
             </div>
             My sales history
-          </button>
+          </button> */}
         </div>
 
         <div className="profile-log-out-btn profile-log-out-btn2">
@@ -190,7 +203,7 @@ const Wastecollectdashboard = () => {
       </div>
 
       {profBtn === 1 ? (
-        <WasteDashboard onclickShowDetailComp={() => filterTab(3)} />
+        <WasteDashboard onclickRedirectGuestBuyWaste={() => filterTab(11)} onclickShowDetailComp={() => filterTab(3)} onclickRedirectBuyWasteTable={() => filterTab(10)}  />
       ) : null}
       {profBtn === 2 ? <WasteAppointment /> : null}
       {profBtn === 3 ? <WasteDetail /> : null}
@@ -200,6 +213,12 @@ const Wastecollectdashboard = () => {
       {profBtn === 7 ? <WasteWallet /> : null}
       {profBtn === 8 ? <MyReviews /> : null}
       {profBtn === 9 ? <Vendor /> : null}
+      {profBtn === 10 ? <BuyWasteTable /> : null}
+      {profBtn === 11 ? <GuestBuyWaste /> : null}
+      {profBtn === 12 ? <ClearStock /> : null}
+
+
+
     </>
   );
 };

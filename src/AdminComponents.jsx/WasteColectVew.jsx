@@ -113,6 +113,10 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
             <button className="confirm-verif-btn confirm-verif-btn2">
                 Disapprove
             </button>
+            
+            <button className="confirm-verif-btn confirm-verif-btn2 ban-btn">
+                Ban
+            </button>
 
             </div>
             

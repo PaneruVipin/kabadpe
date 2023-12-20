@@ -153,7 +153,7 @@ const FrenchiesDashboard = () => {
         </div>
         <div className="tw-pt-3 tw-rounded-md tw-bg-white tw-text-center tw-flex  tw-justify-start  tw-w-full tw-font-[inherient] ">
           <div className="tw-w-[15%]">
-            <p className="tw-bg-[#0ea5e9]  mb-0">Satet</p>
+            <p className="tw-bg-[#0ea5e9]  mb-0">Satate</p>
             {satates.map(({ id, name }) => (
               <div
                 onClick={handleStateClick}

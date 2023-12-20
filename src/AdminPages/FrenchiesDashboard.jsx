@@ -99,13 +99,14 @@ const FrenchiesDashboard = () => {
   return (
     <div
       className={
-        "choose-your-plan-main-bx choseplanactive tw-flex tw-flex-col tw-justify-center tw-w-full tw-h-full tw-text-[#000248] tw-space-y-3 "
+        "choose-your-plan-main-bx choseplanactive tw-flex tw-flex-col   tw-justify-center tw-w-full tw-h-full tw-text-[#000248] tw-space-y-3 "
       }
     >
       <div className="admin-login-img">
         <img src="./images/customImg/nav-logo.png" alt="" />
       </div>
       <h6>Choose Your Plan</h6>
+      <div className="tw-space-y-8">
       <div className="tw-flex tw-w-full tw-justify-center tw-items-start tw-gap-x-6 ">
         <div
           className={
@@ -130,7 +131,7 @@ const FrenchiesDashboard = () => {
               <p className="tw-text-2xl"> 5 </p>
               <span>₹215</span>
             </div>
-             <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4 tw-cursor-pointer">
+            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4 tw-cursor-pointer">
               <p className="tw-text-2xl"> 10 </p>
               <span>₹300</span>
             </div>
@@ -181,7 +182,7 @@ const FrenchiesDashboard = () => {
           <button className="pay-nw-btn submit-btn">Pay Now</button>
         </div>
       </div>
-      <div className="tw-flex tw-w-full tw-font-[inherient] tw-gap-x-4">
+      <div className="tw-flex tw-mt-6  tw-justify-start tw-pl-[5%] tw-w-full tw-font-[inherient] tw-gap-x-4 ">
         <div className="tw-w-[15%]">
           <p>Satet</p>
           {satates.map(({ id, name }) => (
@@ -236,6 +237,7 @@ const FrenchiesDashboard = () => {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

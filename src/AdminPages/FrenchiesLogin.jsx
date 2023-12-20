@@ -35,8 +35,8 @@ const FrenchiesLogin = () => {
   const [frencParent, setFrencParent] = useState(false);
   const [priceNum, setPriceNum] = useState(null);
   const [wasteColectPrice, setWasteColectPrice] = useState(false);
-  const [chosePlan, setChosePlan] = useState(true);
-  const [frenchLoginMain, setFrenchLoginMain] = useState(true);
+  const [chosePlan, setChosePlan] = useState(false);
+  const [frenchLoginMain, setFrenchLoginMain] = useState(false);
   const [mainFrenchLogin, setMainFrenchLogin] = useState(false);
   const [selctArea, setSelctArea] = useState(false);
   const [areaSelct, setAreaSelct] = useState([]);

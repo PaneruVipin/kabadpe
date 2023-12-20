@@ -35,8 +35,8 @@ const FrenchiesLogin = () => {
   const [frencParent, setFrencParent] = useState(false);
   const [priceNum, setPriceNum] = useState(null);
   const [wasteColectPrice, setWasteColectPrice] = useState(false);
-  const [chosePlan, setChosePlan] = useState(false);
-  const [frenchLoginMain, setFrenchLoginMain] = useState(false);
+  const [chosePlan, setChosePlan] = useState(true);
+  const [frenchLoginMain, setFrenchLoginMain] = useState(true);
   const [mainFrenchLogin, setMainFrenchLogin] = useState(false);
   const [selctArea, setSelctArea] = useState(false);
   const [areaSelct, setAreaSelct] = useState([]);
@@ -554,7 +554,7 @@ const FrenchiesLogin = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             className={
               chosePlan
                 ? "choose-your-plan-main-bx choseplanactive"
@@ -661,7 +661,7 @@ const FrenchiesLogin = () => {
             <button onClick={() => payFunc()} className="pay-nw-btn submit-btn">
               Pay Now
             </button>
-          </div>
+          </div> */}
 
           <div className="thank-u-box">
             <div className="thank-u-gif">

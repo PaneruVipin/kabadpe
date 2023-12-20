@@ -17,6 +17,7 @@ const TimeVariationRow = ({
           value={data?.subscriptionType}
           className="tw-rounded-md tw-py-1 tw-px-4 tw-bg-gray-100"
           name="subscriptionType"
+          defaultValue={data?.subscriptionType || ""}
         >
           <option value="" disabled hidden>
             choose
@@ -27,7 +28,7 @@ const TimeVariationRow = ({
         <input
           onChange={onChange}
           value={data?.planeName}
-          className="tw-mt-1 tw-py-1 tw-w-36 tw-px-4 border tw-rounded-xl focus:tw-outline-none  "
+          className="tw-mt-1 tw-py-1 tw-w-full tw-px-4 border tw-rounded-xl focus:tw-outline-none  "
           type="text"
           name="planName"
           id="planname"

@@ -114,7 +114,7 @@ const FrenchiesDashboard = () => {
           </div>
           <div className="tw-w-[30%] tw-text-center tw-h-full">
             <p className="wastecolect-text">Choose Plan</p>
-            <div className="  tw-gap-x-2 tw-justify-center tw-flex-wrap  tw-h-60 tw-overflow-scroll  tw-text-[.9rem]">
+            <div className="  tw-gap-x-2 tw-justify-center tw-flex-wrap  tw-h-44 tw-overflow-scroll  tw-text-[.9rem]">
               {Array(10)
                 .fill(0)
                 .map(() => (
@@ -128,7 +128,7 @@ const FrenchiesDashboard = () => {
           </div>
           <div className=" tw-w-[44%] tw-text-center">
             <p>Selected Areas</p>
-            <div className=" tw-px-2  tw-gap-x-1 tw-gap-y-1 tw-text-[.9rem] tw-h-60 tw-overflow-scroll">
+            <div className=" tw-px-2  tw-gap-x-1 tw-gap-y-1 tw-text-[.9rem] tw-h-44 tw-overflow-scroll">
               {Array(5)
                 .fill(0)
                 .map(() => (
@@ -151,7 +151,7 @@ const FrenchiesDashboard = () => {
             <button className="pay-nw-btn submit-btn">Pay Now</button>
           </div>
         </div>
-        <div className="tw-bg-white tw-text-center tw-flex  tw-justify-start  tw-w-full tw-font-[inherient] ">
+        <div className="tw-pt-3 tw-rounded-md tw-bg-white tw-text-center tw-flex  tw-justify-start  tw-w-full tw-font-[inherient] ">
           <div className="tw-w-[15%]">
             <p className="tw-bg-[#0ea5e9]  mb-0">Satet</p>
             {satates.map(({ id, name }) => (

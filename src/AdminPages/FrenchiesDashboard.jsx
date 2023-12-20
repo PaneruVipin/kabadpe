@@ -99,145 +99,115 @@ const FrenchiesDashboard = () => {
   return (
     <div
       className={
-        "choose-your-plan-main-bx choseplanactive tw-flex tw-flex-col   tw-justify-center tw-w-full tw-h-full tw-text-[#000248] tw-space-y-3 "
+        " tw-flex tw-flex-col  tw-justify-center tw-w-full tw-text-[#000248] tw-space-y-3 tw-bg-[#f8fafc] tw-p-6 "
       }
     >
-      <div className="admin-login-img">
-        <img src="./images/customImg/nav-logo.png" alt="" />
-      </div>
-      <h6>Choose Your Plan</h6>
+      {/* <h6>Choose Your Plan</h6> */}
       <div className="tw-space-y-8">
-      <div className="tw-flex tw-w-full tw-justify-center tw-items-start tw-gap-x-6 ">
-        <div
-          className={
-            "numbr-wast-colect-bx numbwasteactive  tw-border-solid tw-w-[20%] tw-border-[0.5px] tw-h-40 tw-rounded-md tw-overflow-scroll"
-          }
-        >
-          <p className="wastecolect-text">Plan Duration</p>
-          <div className="chose-plan-flex-bx tw-flex-wrap">
-            <button>Monthly</button>
-            <button>Quaterly</button>
+        <div className="tw-flex tw-w-full tw-justify-center  tw-gap-x-6  ">
+          <div className="">
+            <p className="wastecolect-text ">Plan Duration</p>
+            <select className=" tw-px-4 tw-py-1 tw-rounded-md tw-text-[.9rem]">
+              <option>Monthly</option>
+              <option>Quaterly</option>
+            </select>
           </div>
-        </div>
-        <div
-          className={
-            "numbr-wast-colect-bx numbwasteactive  tw-border-solid tw-w-[20%] tw-border-[0.5px] tw-h-40 tw-rounded-md tw-overflow-scroll"
-          }
-        >
-          <p className="wastecolect-text">Number of Waste Collector</p>
-
-          <div className="tw-flex tw-w-full tw-gap-x-2 tw-justify-center tw-flex-wrap">
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4  tw-cursor-pointer">
-              <p className="tw-text-2xl"> 5 </p>
-              <span>₹215</span>
-            </div>
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4 tw-cursor-pointer">
-              <p className="tw-text-2xl"> 10 </p>
-              <span>₹300</span>
-            </div>
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4 tw-cursor-pointer">
-              <p className="tw-text-2xl"> 15 </p>
-              <span>₹370</span>
+          <div className="tw-w-[30%] tw-text-center tw-h-full">
+            <p className="wastecolect-text">Choose Plan</p>
+            <div className="  tw-gap-x-2 tw-justify-center tw-flex-wrap  tw-h-60 tw-overflow-scroll  tw-text-[.9rem]">
+              {Array(10)
+                .fill(0)
+                .map(() => (
+                  <div className="hover:tw-bg-[#000] hover:tw-text-white tw-flex tw-justify-between tw-gap-x-4 tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4 tw-cursor-pointer">
+                    <p className="tw-mb-0">Plane Name</p>
+                    <p className="tw-mb-0"> 5 waste collectors</p>
+                    <p className="tw-mb-0">₹215</p>
+                  </div>
+                ))}
             </div>
           </div>
-        </div>
-        <div className=" tw-border-solid tw-w-[30%] tw-border-[0.5px] tw-h-40 tw-rounded-md tw-overflow-scroll">
-          <p>Selected Areas</p>
-          <div className="tw-flex tw-flex-wrap tw-p-2  tw-gap-x-1 tw-gap-y-1">
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
-            </div>{" "}
-            <div className="tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
-              Laxmi Nagar
+          <div className=" tw-w-[44%] tw-text-center">
+            <p>Selected Areas</p>
+            <div className=" tw-px-2  tw-gap-x-1 tw-gap-y-1 tw-text-[.9rem] tw-h-60 tw-overflow-scroll">
+              {Array(5)
+                .fill(0)
+                .map(() => (
+                  <div className="tw-flex tw-justify-between tw-gap-x-4 tw-border-[0.5px] tw-border-solid tw-rounded-md tw-px-4">
+                    <p className="tw-mb-0">State</p>
+                    <p className="tw-mb-0"> City</p>
+                    <p className="tw-mb-0">Area</p>
+                    <p className="tw-mb-0">SubArea</p>
+                    <p className="tw-mb-0">₹215</p>
+                  </div>
+                ))}
             </div>
           </div>
-        </div>
-        <div>
-          <div className="price-show-bx">
-            <p>
-              Total Price : <span>₹512</span>{" "}
-            </p>
+          <div>
+            <div className="price-show-bx">
+              <p>
+                Total Price : <span>₹512</span>{" "}
+              </p>
+            </div>
+            <button className="pay-nw-btn submit-btn">Pay Now</button>
           </div>
-          <button className="pay-nw-btn submit-btn">Pay Now</button>
         </div>
-      </div>
-      <div className="tw-flex tw-mt-6  tw-justify-start tw-pl-[5%] tw-w-full tw-font-[inherient] tw-gap-x-4 ">
-        <div className="tw-w-[15%]">
-          <p>Satet</p>
-          {satates.map(({ id, name }) => (
-            <div
-              onClick={handleStateClick}
-              className="tw-text-center tw-cursor-pointer hover:tw-bg-[#000] hover:tw-text-white tw-w-full tw-border tw-border-solid tw-border-black tw-px-6 tw-py-2"
-              key={id}
-            >
-              {uppercase(name)}
-            </div>
-          ))}
-        </div>
-        <div className="tw-w-[15%]">
-          <p>City</p>
-          {cities.map(({ id, name }) => (
-            <div
-              onClick={handleCityClick}
-              className="tw-text-center tw-cursor-pointer hover:tw-bg-[#000] hover:tw-text-white tw-w-full tw-border tw-border-solid tw-border-black tw-px-6 tw-py-2"
-              key={id}
-            >
-              {uppercase(name)}
-            </div>
-          ))}
-        </div>
-        <div className="tw-w-[15%]">
-          <p>Area</p>
-          {arias.map(({ id, name }) => (
-            <div
-              onClick={handleAriaClick}
-              className="tw-text-center tw-cursor-pointer hover:tw-bg-[#000] hover:tw-text-white tw-w-full tw-border tw-border-solid tw-border-black tw-px-6 tw-py-2"
-              key={id}
-            >
-              {uppercase(name)}
-            </div>
-          ))}
-        </div>
-        <div>
-          {" "}
-          <p>Choose Areas</p>
-          <div className="tw-flex tw-flex-wrap tw-gap-x-4 tw-gap-y-2 tw-w-max tw-items-start tw-justify-center ">
-            {subArias.map(({ id, name }) => (
+        <div className="tw-bg-white tw-text-center tw-flex  tw-justify-start  tw-w-full tw-font-[inherient] ">
+          <div className="tw-w-[15%]">
+            <p className="tw-bg-[#0ea5e9]  mb-0">Satet</p>
+            {satates.map(({ id, name }) => (
               <div
-                onClick={handleSubAriaClick}
+                onClick={handleStateClick}
+                className="tw-w-full hover:tw-bg-[#000] hover:tw-text-white tw-cursor-pointer"
                 key={id}
-                className="tw-text-center tw-cursor-pointer hover:tw-bg-[#000] hover:tw-text-white  tw-border tw-border-solid tw-border-black tw-px-6 tw-py-2"
               >
-                <p>{uppercase(name)}</p>
-                <p>
-                  Price : <span>₹215</span>{" "}
-                </p>
+                {uppercase(name)}
               </div>
             ))}
           </div>
+          <div className="tw-w-[15%] ">
+            <p className="tw-bg-[#0ea5e9] mb-0">City</p>
+            {cities.map(({ id, name }) => (
+              <div
+                onClick={handleCityClick}
+                className="tw-w-full hover:tw-bg-[#000] hover:tw-text-white tw-cursor-pointer"
+                key={id}
+              >
+                {uppercase(name)}
+              </div>
+            ))}
+          </div>
+          <div className="tw-w-[15%] ">
+            <p className="tw-bg-[#0ea5e9] mb-0">Area</p>
+            {arias.map(({ id, name }) => (
+              <div
+                onClick={handleAriaClick}
+                className="tw-w-full hover:tw-bg-[#000] hover:tw-text-white tw-cursor-pointer"
+                key={id}
+              >
+                {uppercase(name)}
+              </div>
+            ))}
+          </div>
+          <div>
+            {" "}
+            <p>Choose Areas</p>
+            <div className=" tw-gap-x-4 tw-gap-y-2 tw-w-max tw-items-start tw-justify-center ">
+              {subArias.map(({ id, name }) => (
+                <div
+                  onClick={handleSubAriaClick}
+                  key={id}
+                  className="tw-flex tw-justify-between tw-gap-x-6 tw-text-center tw-cursor-pointer tw-border tw-border-solid tw-border-black tw-px-6 tw-py-2 tw-rounded-md"
+                >
+                  <p>{uppercase(name)}</p>
+                  <p>
+                    Price : <span>₹215</span>{" "}
+                  </p>
+                  <button className="pay-nw-btn submit-btn">Add Now</button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

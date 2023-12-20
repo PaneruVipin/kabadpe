@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { adminSubsAdd } from "../apis/admins/subscription";
 
 const TimeVariationRow = ({
   onDelete,
@@ -10,19 +11,24 @@ const TimeVariationRow = ({
 }) => {
   return (
     <>
-      <div className="tw-flex tw-gap-x-4">
+      <div className="tw-flex tw-gap-x-4 tw-items-center">
         <select
-          className="tw-rounded-md tw-py-2 tw-px-4 tw-bg-gray-100"
-          name="Area"
-          id="Area"
+          onChange={onChange}
+          value={data?.subscriptionType}
+          className="tw-rounded-md tw-py-1 tw-px-4 tw-bg-gray-100"
+          name="subscriptionType"
+          defaultValue={data?.subscriptionType || ""}
         >
-          <option value="50">Monthly</option>
-          <option value="70">Quaterly</option>
+          <option value="" disabled hidden>
+            choose
+          </option>
+          <option value="monthly">Monthly</option>
+          <option value="quaterly">Quaterly</option>
         </select>
         <input
           onChange={onChange}
           value={data?.planeName}
-          className="tw-mt-1 tw-p-2 tw-w-36 border tw-rounded-xl focus:tw-outline-none  "
+          className="tw-mt-1 tw-py-1 tw-w-full tw-px-4 border tw-rounded-xl focus:tw-outline-none  "
           type="text"
           name="planName"
           id="planname"
@@ -31,10 +37,10 @@ const TimeVariationRow = ({
         />
         <input
           onChange={onChange}
-          value={data?.disounctCollectorAmount}
-          className="tw-mt-1 tw-p-2 tw-w-full border  tw-rounded-xl "
+          value={data?.collectorsPriceDiscount}
+          className="tw-mt-1 tw-py-1  tw-px-4 tw-w-full border  tw-rounded-xl "
           type="text"
-          name="disounctCollectorAmount"
+          name="collectorsPriceDiscount"
           id="planname"
           placeholder="Discount Collector Amount %"
           autoComplete="off"
@@ -42,10 +48,10 @@ const TimeVariationRow = ({
 
         <input
           onChange={onChange}
-          value={data?.disounctAriaAmount}
-          className="tw-mt-1 tw-p-2 tw-w-full border  tw-rounded-xl "
+          value={data?.ariasPriceDiscount}
+          className="tw-mt-1 tw-py-1 tw-px-4 tw-w-full border  tw-rounded-xl "
           type="text"
-          name="disounctAriaAmount"
+          name="ariasPriceDiscount"
           id="disounctAriaAmount"
           placeholder="Discount Area Amount %"
           autoComplete="off"
@@ -92,8 +98,9 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
     setVariation(newVariation);
   };
   const initialValues = {};
-  const handleSubmit = (data) => {
-    
+  const handleSubmit = async (data) => {
+    const newData = { ...data, variations: variation };
+    const res = await adminSubsAdd(newData);
   };
   return (
     <>
@@ -117,24 +124,40 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
                       <div className="admin-login-input">
                         <input
                           type="text"
-                          name="City"
+                          name="collectrsCount"
                           id="City"
                           placeholder="No. of waste collector"
                           autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.collectrsCount}
                         />
                       </div>
+                      {touched?.collectrsCount && errors?.collectrsCount ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.collectrsCount}
+                        </div>
+                      ) : null}
                     </div>
                     <div className="admin-login-fild">
                       <label htmlFor="City">Price</label>
                       <div className="admin-login-input">
                         <input
                           type="text"
-                          name="City"
+                          name="collectorsPrice"
                           id="City"
                           placeholder="Waste Collectors Price"
                           autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.collectorsPrice}
                         />
                       </div>
+                      {touched?.collectorsPrice && errors?.collectorsPrice ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.collectorsPrice}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
@@ -160,6 +183,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
                       );
                     })}
                     <button
+                      type="button"
                       onClick={() => {
                         setVariation([
                           ...variation,

@@ -19,9 +19,10 @@ export const validationSignupCollector = object().shape({
   // religion: string().required(),
   // caste: string().required(),
   // dob: string().required(),
-  email: string().required().email(),
+  email: string().email(),
   password: string().required(),
   pincode: number().required(),
+  workerRole: string().required(),
   phoneNumber: string()
     .required()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),

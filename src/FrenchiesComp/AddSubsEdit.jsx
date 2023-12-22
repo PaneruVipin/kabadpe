@@ -68,7 +68,12 @@ const TimeVariationRow = ({
   );
 };
 
-const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
+const AddSubsEdit = ({
+  onclickCloseSubsPlanBx,
+  refetch,
+  formType = "add",
+  initialUpdateValues,
+}) => {
   const [cityAmount, setCityAmount] = useState(null);
   const [wasteColectAmount, setWasteColectAmount] = useState(null);
   const [variation, setVariation] = useState([{ id: 1 }]);
@@ -97,11 +102,22 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
     });
     setVariation(newVariation);
   };
-  const initialValues = {};
+  const initialValues =
+    formType == "add"
+      ? {}
+      : {
+          collectorsPrice: initialUpdateValues?.collectorsPrice,
+          collectrorsCount: initialUpdateValues?.collectrorsCount,
+        };
   const handleSubmit = async (data) => {
-    const newData = { ...data, variations: variation };
-    const res = await adminSubsAdd(newData);
+    if (formType == "add") {
+      const newData = { ...data, variations: variation };
+      const res = await adminSubsAdd(newData);
+    } else if (formType == "update") {
+    }
+    refetch();
   };
+  useEffect(() => {}, []);
   return (
     <>
       <section className="add-work-area-edit-comp ">
@@ -114,33 +130,54 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
             return (
               <Form className="add-work-area-edit-main-bx add-subs-plan tw-h-screen tw-overflow-scroll">
                 <h6 className="banktext">
-                  Add Subscription Plan (Add or Edit)
+                  {formType == "add"
+                    ? "Add Subscription Plan"
+                    : "Update Subscription Plan"}
                 </h6>
 
-                <div>
+                <div className="tw-mt-6 tw-space-y-6">
+                  {formType == "update"
+                    ? variation?.map((data, i) => {
+                        return (
+                          <TimeVariationRow
+                            data={data}
+                            onChange={handleVariationChange(data.id)}
+                            showDeleteButton={variation.length > 1}
+                            onDelete={() => {
+                              const newVariation = variation.filter(
+                                (v) => v.id != data?.id
+                              );
+                              setVariation(newVariation);
+                            }}
+                            key={data.id}
+                            id={data.id}
+                          />
+                        );
+                      })
+                    : null}
                   <div className="addwrkarea-form-bx">
                     <div className="admin-login-fild">
-                      <label htmlFor="City">No. of Waste Collector</label>
+                      {/* <label htmlFor="City">No. of Waste Collector</label> */}
                       <div className="admin-login-input">
                         <input
                           type="text"
-                          name="collectrsCount"
+                          name="collectrorsCount"
                           id="City"
                           placeholder="No. of waste collector"
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values?.collectrsCount}
+                          value={values?.collectrorsCount}
                         />
                       </div>
-                      {touched?.collectrsCount && errors?.collectrsCount ? (
+                      {touched?.collectrorsCount && errors?.collectrorsCount ? (
                         <div style={{ color: "red" }}>
-                          {errors?.collectrsCount}
+                          {errors?.collectrorsCount}
                         </div>
                       ) : null}
                     </div>
                     <div className="admin-login-fild">
-                      <label htmlFor="City">Price</label>
+                      {/* <label htmlFor="City">Price</label> */}
                       <div className="admin-login-input">
                         <input
                           type="text"
@@ -161,40 +198,42 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
                     </div>
                   </div>
 
-                  <div className="tw-mt-3 tw-space-y-3">
-                    <h6 className=" tw-text-left">
-                      Discount Acording Subscription Period
-                    </h6>
-                    {variation?.map((data, i) => {
-                      return (
-                        <TimeVariationRow
-                          data={data}
-                          onChange={handleVariationChange(data.id)}
-                          showDeleteButton={variation.length > 1}
-                          onDelete={() => {
-                            const newVariation = variation.filter(
-                              (v) => v.id != data?.id
-                            );
-                            setVariation(newVariation);
-                          }}
-                          key={data.id}
-                          id={data.id}
-                        />
-                      );
-                    })}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setVariation([
-                          ...variation,
-                          { id: highestVariationId + 1 },
-                        ]);
-                      }}
-                      className="tw-bg-green-300  tw-text-black hover:tw-bg-green-600 tw-rounded-2xl tw-px-4 tw-text-center tw-py-1"
-                    >
-                      Add New Subscription Period
-                    </button>
-                  </div>
+                  {formType == "add" ? (
+                    <div className="tw-mt-3 tw-space-y-3">
+                      <h6 className=" tw-text-left">
+                        Discount Acording Subscription Period
+                      </h6>
+                      {variation?.map((data, i) => {
+                        return (
+                          <TimeVariationRow
+                            data={data}
+                            onChange={handleVariationChange(data.id)}
+                            showDeleteButton={variation.length > 1}
+                            onDelete={() => {
+                              const newVariation = variation.filter(
+                                (v) => v.id != data?.id
+                              );
+                              setVariation(newVariation);
+                            }}
+                            key={data.id}
+                            id={data.id}
+                          />
+                        );
+                      })}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVariation([
+                            ...variation,
+                            { id: highestVariationId + 1 },
+                          ]);
+                        }}
+                        className="tw-bg-green-300  tw-text-black hover:tw-bg-green-600 tw-rounded-2xl tw-px-4 tw-text-center tw-py-1"
+                      >
+                        Add New Subscription Period
+                      </button>
+                    </div>
+                  ) : null}
 
                   <div className="admin-login-fild mt-3">
                     <label htmlFor="City">Price</label>
@@ -213,7 +252,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
                 </div>
 
                 <button type="submit" className="add-work-area-btn">
-                  Add Plan
+                  {formType == "add" ? "Add Plan" : "Update Plan"}
                 </button>
 
                 <div

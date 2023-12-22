@@ -11,8 +11,8 @@ import { userResendOtp } from "../apis/auth";
 
 const Otp = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((s) => s.auth);
-  const { errors: errorsInAuth } = useSelector((s) => s.auth);
+  const { user, errors: errorsInAuth } = useSelector((s) => s.auth);
+  const { userInfo } = useSelector((s) => s.user);
   const initialTime = 60;
   const [remainingTime, setRemainingTime] = useState(initialTime);
   const [isResendActive, setIsResendActive] = useState(false);
@@ -42,10 +42,10 @@ const Otp = () => {
   }, [remainingTime]);
   return (
     <>
-      <VerifyToSignup
-        path={user?.loginType == "kabadCollector" ? "/auth/collector" : "/"}
-      />
-      <Redirect />
+      <VerifyToSignup path={"/auth/collector"} />
+      {userInfo?.role == "kabadCollector" ? (
+        <Redirect path="/wastecolectdashboard" />
+      ) : null}
       <section className="reset-passwrd-comp">
         <div className="reset-passwrd-grid">
           <div className="left-reset-passwrd-grid-bx">

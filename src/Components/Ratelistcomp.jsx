@@ -26,6 +26,7 @@ const Ratelistcomp = () => {
     appointmentTimeSlot: "",
     appointmentDate: null,
     pincode: "",
+    serviceType: "",
   };
   const hideFunc = () => {
     setListBox(true);
@@ -349,6 +350,7 @@ const Ratelistcomp = () => {
                               </div>
                             ) : null}
                           </div>
+
                           <div className="pickup-inpt-bx">
                             <div className="sched-inpt bor-inpt">
                               <input
@@ -364,6 +366,30 @@ const Ratelistcomp = () => {
                             {touched.pincode && errors.pincode ? (
                               <div style={{ color: "red" }}>
                                 {errors.pincode}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt sel-bx bor-inpt">
+                              <i className="fa-solid fa-angle-down arrow-dwn"></i>
+                              <select
+                                name="serviceType"
+                                id="serviceType"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.serviceType}
+                              >
+                                <option disabled value="" hidden>
+                                  Choose Service
+                                </option>
+                                <option value="kabadi">Kabadi Wala</option>
+                                <option value="cleaner">Cleaner</option>
+                              </select>
+                            </div>
+                            {touched.serviceType && errors.serviceType ? (
+                              <div style={{ color: "red" }}>
+                                {errors.serviceType}
                               </div>
                             ) : null}
                           </div>

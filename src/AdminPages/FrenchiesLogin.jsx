@@ -134,12 +134,6 @@ const FrenchiesLogin = () => {
   }, [login, signup, verifySignup, user]);
 
   useEffect(() => {
-    console.log(
-      "running this, ",
-      franchise,
-      franchise?.role == "franchiseAdmin",
-      franchise?.franchiseStatus == "1"
-    );
     if (franchise?.role == "franchiseAdmin") {
       if (franchise?.franchiseStatus == "1") {
         payFunc();

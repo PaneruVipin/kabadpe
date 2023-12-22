@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { adminSubsAdd } from "../apis/admins/subscription";
 
 const TimeVariationRow = ({
   onDelete,
@@ -10,19 +11,24 @@ const TimeVariationRow = ({
 }) => {
   return (
     <>
-      <div className="tw-flex tw-gap-x-4">
+      <div className="tw-flex tw-gap-x-4 tw-items-center">
         <select
-          className="tw-rounded-md tw-py-2 tw-px-4 tw-bg-gray-100"
-          name="Area"
-          id="Area"
+          onChange={onChange}
+          value={data?.subscriptionType}
+          className="tw-rounded-md tw-py-1 tw-px-4 tw-bg-gray-100"
+          name="subscriptionType"
+          defaultValue={data?.subscriptionType || ""}
         >
-          <option value="50">Monthly</option>
-          <option value="70">Quaterly</option>
+          <option value="" disabled hidden>
+            choose
+          </option>
+          <option value="monthly">Monthly</option>
+          <option value="quaterly">Quaterly</option>
         </select>
         <input
           onChange={onChange}
           value={data?.planeName}
-          className="tw-mt-1 tw-p-2 tw-w-36 border tw-rounded-xl focus:tw-outline-none  "
+          className="tw-mt-1 tw-py-1 tw-w-full tw-px-4 border tw-rounded-xl focus:tw-outline-none  "
           type="text"
           name="planName"
           id="planname"
@@ -31,10 +37,10 @@ const TimeVariationRow = ({
         />
         <input
           onChange={onChange}
-          value={data?.disounctCollectorAmount}
-          className="tw-mt-1 tw-p-2 tw-w-full border  tw-rounded-xl "
+          value={data?.collectorsPriceDiscount}
+          className="tw-mt-1 tw-py-1  tw-px-4 tw-w-full border  tw-rounded-xl "
           type="text"
-          name="disounctCollectorAmount"
+          name="collectorsPriceDiscount"
           id="planname"
           placeholder="Discount Collector Amount %"
           autoComplete="off"
@@ -42,10 +48,10 @@ const TimeVariationRow = ({
 
         <input
           onChange={onChange}
-          value={data?.disounctAriaAmount}
-          className="tw-mt-1 tw-p-2 tw-w-full border  tw-rounded-xl "
+          value={data?.ariasPriceDiscount}
+          className="tw-mt-1 tw-py-1 tw-px-4 tw-w-full border  tw-rounded-xl "
           type="text"
-          name="disounctAriaAmount"
+          name="ariasPriceDiscount"
           id="disounctAriaAmount"
           placeholder="Discount Area Amount %"
           autoComplete="off"
@@ -62,7 +68,12 @@ const TimeVariationRow = ({
   );
 };
 
-const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
+const AddSubsEdit = ({
+  onclickCloseSubsPlanBx,
+  refetch,
+  formType = "add",
+  initialUpdateValues,
+}) => {
   const [cityAmount, setCityAmount] = useState(null);
   const [wasteColectAmount, setWasteColectAmount] = useState(null);
   const [variation, setVariation] = useState([{ id: 1 }]);
@@ -91,10 +102,22 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
     });
     setVariation(newVariation);
   };
-  const initialValues = {};
-  const handleSubmit = (data) => {
-    
+  const initialValues =
+    formType == "add"
+      ? {}
+      : {
+          collectorsPrice: initialUpdateValues?.collectorsPrice,
+          collectrorsCount: initialUpdateValues?.collectrorsCount,
+        };
+  const handleSubmit = async (data) => {
+    if (formType == "add") {
+      const newData = { ...data, variations: variation };
+      const res = await adminSubsAdd(newData);
+    } else if (formType == "update") {
+    }
+    refetch();
   };
+  useEffect(() => {}, []);
   return (
     <>
       <section className="add-work-area-edit-comp ">
@@ -107,70 +130,110 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
             return (
               <Form className="add-work-area-edit-main-bx add-subs-plan tw-h-screen tw-overflow-scroll">
                 <h6 className="banktext">
-                  Add Subscription Plan (Add or Edit)
+                  {formType == "add"
+                    ? "Add Subscription Plan"
+                    : "Update Subscription Plan"}
                 </h6>
 
-                <div>
+                <div className="tw-mt-6 tw-space-y-6">
+                  {formType == "update"
+                    ? variation?.map((data, i) => {
+                        return (
+                          <TimeVariationRow
+                            data={data}
+                            onChange={handleVariationChange(data.id)}
+                            showDeleteButton={variation.length > 1}
+                            onDelete={() => {
+                              const newVariation = variation.filter(
+                                (v) => v.id != data?.id
+                              );
+                              setVariation(newVariation);
+                            }}
+                            key={data.id}
+                            id={data.id}
+                          />
+                        );
+                      })
+                    : null}
                   <div className="addwrkarea-form-bx">
                     <div className="admin-login-fild">
-                      <label htmlFor="City">No. of Waste Collector</label>
+                      {/* <label htmlFor="City">No. of Waste Collector</label> */}
                       <div className="admin-login-input">
                         <input
                           type="text"
-                          name="City"
+                          name="collectrorsCount"
                           id="City"
                           placeholder="No. of waste collector"
                           autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.collectrorsCount}
                         />
                       </div>
+                      {touched?.collectrorsCount && errors?.collectrorsCount ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.collectrorsCount}
+                        </div>
+                      ) : null}
                     </div>
                     <div className="admin-login-fild">
-                      <label htmlFor="City">Price</label>
+                      {/* <label htmlFor="City">Price</label> */}
                       <div className="admin-login-input">
                         <input
                           type="text"
-                          name="City"
+                          name="collectorsPrice"
                           id="City"
                           placeholder="Waste Collectors Price"
                           autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.collectorsPrice}
                         />
                       </div>
+                      {touched?.collectorsPrice && errors?.collectorsPrice ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.collectorsPrice}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
-                  <div className="tw-mt-3 tw-space-y-3">
-                    <h6 className=" tw-text-left">
-                      Discount Acording Subscription Period
-                    </h6>
-                    {variation?.map((data, i) => {
-                      return (
-                        <TimeVariationRow
-                          data={data}
-                          onChange={handleVariationChange(data.id)}
-                          showDeleteButton={variation.length > 1}
-                          onDelete={() => {
-                            const newVariation = variation.filter(
-                              (v) => v.id != data?.id
-                            );
-                            setVariation(newVariation);
-                          }}
-                          key={data.id}
-                          id={data.id}
-                        />
-                      );
-                    })}
-                    <button
-                      onClick={() => {
-                        setVariation([
-                          ...variation,
-                          { id: highestVariationId + 1 },
-                        ]);
-                      }}
-                      className="tw-bg-green-300  tw-text-black hover:tw-bg-green-600 tw-rounded-2xl tw-px-4 tw-text-center tw-py-1"
-                    >
-                      Add New Subscription Period
-                    </button>
-                  </div>
+                  {formType == "add" ? (
+                    <div className="tw-mt-3 tw-space-y-3">
+                      <h6 className=" tw-text-left">
+                        Discount Acording Subscription Period
+                      </h6>
+                      {variation?.map((data, i) => {
+                        return (
+                          <TimeVariationRow
+                            data={data}
+                            onChange={handleVariationChange(data.id)}
+                            showDeleteButton={variation.length > 1}
+                            onDelete={() => {
+                              const newVariation = variation.filter(
+                                (v) => v.id != data?.id
+                              );
+                              setVariation(newVariation);
+                            }}
+                            key={data.id}
+                            id={data.id}
+                          />
+                        );
+                      })}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVariation([
+                            ...variation,
+                            { id: highestVariationId + 1 },
+                          ]);
+                        }}
+                        className="tw-bg-green-300  tw-text-black hover:tw-bg-green-600 tw-rounded-2xl tw-px-4 tw-text-center tw-py-1"
+                      >
+                        Add New Subscription Period
+                      </button>
+                    </div>
+                  ) : null}
 
                   <div className="admin-login-fild mt-3">
                     <label htmlFor="City">Price</label>
@@ -189,7 +252,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx }) => {
                 </div>
 
                 <button type="submit" className="add-work-area-btn">
-                  Add Plan
+                  {formType == "add" ? "Add Plan" : "Update Plan"}
                 </button>
 
                 <div

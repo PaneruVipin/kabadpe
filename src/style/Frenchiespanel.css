@@ -280,10 +280,10 @@ button:before{
 }
 
 .choose-your-plan-main-bx{
-    position: absolute;
-    top: 50%;
+    /* position: absolute;
+    top: 45%;
     left: 50%;
-    transform: translate(-50% , -50%);
+    transform: translate(-50% , -50%); */
     padding: 2rem 2rem;
     /* background-color: #eff7ff; */
     background-color: #fff;
@@ -293,7 +293,7 @@ button:before{
     align-items: center;
     justify-content: center;
     text-align: center;
-    display: none;
+    /* display: none; */
 }
 
 .choose-your-plan-main-bx.choseplanactive{
@@ -698,7 +698,7 @@ button:before{
 
 .add-work-area-edit-main-bx{
     position: relative;
-    width: 60rem;
+    width: 70rem;
     background-color: #fff;
     border-radius: .55rem;
     padding: 2rem 2rem;

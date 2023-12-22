@@ -134,12 +134,6 @@ const FrenchiesLogin = () => {
   }, [login, signup, verifySignup, user]);
 
   useEffect(() => {
-    console.log(
-      "running this, ",
-      franchise,
-      franchise?.role == "franchiseAdmin",
-      franchise?.franchiseStatus == "1"
-    );
     if (franchise?.role == "franchiseAdmin") {
       if (franchise?.franchiseStatus == "1") {
         payFunc();
@@ -554,7 +548,7 @@ const FrenchiesLogin = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             className={
               chosePlan
                 ? "choose-your-plan-main-bx choseplanactive"
@@ -661,7 +655,7 @@ const FrenchiesLogin = () => {
             <button onClick={() => payFunc()} className="pay-nw-btn submit-btn">
               Pay Now
             </button>
-          </div>
+          </div> */}
 
           <div className="thank-u-box">
             <div className="thank-u-gif">

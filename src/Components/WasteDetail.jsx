@@ -3,6 +3,9 @@ import WasteDetailsPasswd from "./WasteDetailsPasswd";
 import WasteDetBank from "./WasteDetBank";
 import DatePicker from "react-datepicker";
 import CompltProfPopup from "./CompltProfPopup";
+import { useDispatch } from "react-redux";
+import { collectorProfileImageAdd } from "../apis/admins/user";
+import { userFetch } from "../features/user/userActions";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -16,9 +19,12 @@ const WasteDetail = () => {
     "./images/customImg/aadhar-img.png"
   );
   const [profChange, setProfChange] = useState(false);
+  const [profileImage, setProfileImage] = useState();
+  const dispatch = useDispatch();
   // const [startDate, setStartDate] = useState(new Date());
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    setProfileImage(file);
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -49,6 +55,14 @@ const WasteDetail = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleUpadateProfileImage = () => {
+    if (profileImage)
+      collectorProfileImageAdd(profileImage).then(() => {
+        dispatch(userFetch());
+      });
+    setProfChange(false);
+  };
   return (
     <>
       <div
@@ -72,7 +86,12 @@ const WasteDetail = () => {
               id="prof_input"
             />
           </div>
-
+          <button
+            onClick={handleUpadateProfileImage}
+            className="prof-input-file-bx"
+          >
+            Save
+          </button>
           <div
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
@@ -283,27 +302,21 @@ const WasteDetail = () => {
                         required
                       />
                     </div>
-
-                    
                   </div>
 
                   <div className="det-input-bx">
-                      <label htmlFor="address">Address</label>
-                      <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      autoComplete="off"
+                      required
+                    />
+                  </div>
 
                   <div className="add-grid-box">
-
-
-                        
-                  <div className="det-input-bx">
+                    <div className="det-input-bx">
                       <label htmlFor="address">Area</label>
                       <input
                         type="text"
@@ -314,8 +327,7 @@ const WasteDetail = () => {
                       />
                     </div>
 
-                        
-                  <div className="det-input-bx">
+                    <div className="det-input-bx">
                       <label htmlFor="address">Pin Code</label>
                       <input
                         type="text"
@@ -336,24 +348,20 @@ const WasteDetail = () => {
                         required
                       />
                     </div>
-                    
                   </div>
-                  
 
                   <div className="det-grid det-grid5">
-                    
-
                     <div className="det-input-bx det-input-bx3">
                       <label htmlFor="document">Aadhar (Front) </label>
                       <div className="att-inpt-box">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChangeOne}
-                        id="document"
-                        autoComplete="off"
-                        required
-                      />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChangeOne}
+                          id="document"
+                          autoComplete="off"
+                          required
+                        />
                       </div>
                     </div>
 
@@ -363,18 +371,17 @@ const WasteDetail = () => {
                       )}
                     </div>
 
-
                     <div className="det-input-bx det-input-bx3 ">
                       <label htmlFor="documentTwo">Aadhar (Back) </label>
                       <div className="att-inpt-box">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChangeTwo}
-                        id="documentTwo"
-                        autoComplete="off"
-                        required
-                      />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChangeTwo}
+                          id="documentTwo"
+                          autoComplete="off"
+                          required
+                        />
                       </div>
                       <button className="att-inpt-box"></button>
                     </div>
@@ -420,8 +427,6 @@ const WasteDetail = () => {
       <WasteDetBank />
 
       <WasteDetailsPasswd />
-
-   
     </>
   );
 };

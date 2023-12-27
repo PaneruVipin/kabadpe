@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WasteDetailsPasswd from "./WasteDetailsPasswd";
 import WasteDetBank from "./WasteDetBank";
 import DatePicker from "react-datepicker";
 import CompltProfPopup from "./CompltProfPopup";
-import { useDispatch } from "react-redux";
-import { collectorProfileImageAdd } from "../apis/admins/user";
+import { useDispatch, useSelector } from "react-redux";
+import { collectorProfileImageAdd } from "../apis/worker/user";
 import { userFetch } from "../features/user/userActions";
+import { Form, Formik } from "formik";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -20,8 +21,9 @@ const WasteDetail = () => {
   );
   const [profChange, setProfChange] = useState(false);
   const [profileImage, setProfileImage] = useState();
+  const { userInfo } = useSelector((s) => s?.user);
   const dispatch = useDispatch();
-  // const [startDate, setStartDate] = useState(new Date());
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setProfileImage(file);
@@ -62,6 +64,26 @@ const WasteDetail = () => {
         dispatch(userFetch());
       });
     setProfChange(false);
+  };
+
+  const handleSubmit = (data) => {
+    console.log("data is submitting ", data);
+  };
+  const initialValues = {
+    fullname: userInfo?.fullname,
+    dob: userInfo?.dob,
+    gender: userInfo?.gender,
+    cast: userInfo?.cast,
+    religion: userInfo?.religion,
+    saftyTrainingDate: userInfo?.saftyTrainingDate,
+    address: userInfo?.address,
+    insurance: userInfo?.insurance,
+    heathCheckupDate: userInfo?.heathCheckupDate,
+    emergencyPersonName: userInfo?.emergencyPersonName,
+    emergencyPhone: userInfo?.emergencyPhone,
+    aadharFront: userInfo?.aadharFront,
+    aadharBack: userInfo?.aadharBack,
+    policeVerification: userInfo?.policeVerification,
   };
   return (
     <>
@@ -137,74 +159,82 @@ const WasteDetail = () => {
             <div className="det-grid-bx">
               <div className="det-user-bx">
                 <h6>Name :</h6>
-                <span>Andrew Garfield</span>
+                <span>{userInfo?.fullname}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Date of Birth :</h6>
-                <span>05-07-1990 (33 Years)</span>
+                <span>{userInfo?.dob}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Gender :</h6>
-                <span>Male</span>
+                <span>{userInfo?.gender}</span>
               </div>
 
               <div className="det-user-bx">
-                <h6>Social Secuity :</h6>
-                <span>1234567890</span>
+                <h6>Pincode :</h6>
+                <span>{userInfo?.pincode}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Mobile Number :</h6>
-                <span>2034551212</span>
+                <span>{userInfo?.phoneNumber}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Address :</h6>
-                <span>398 H/9 Ashok Colony steet No. 2 Delhi-110009</span>
+                <span>{userInfo?.address}</span>
               </div>
 
               <div className="det-user-bx">
-                <h6>Aadhar :</h6>
-                <img
-                  src="./images/customImg/aadhar-img.png"
-                  className="documt-img"
-                  alt=""
-                />
+                <h6>Aadhar Front:</h6>
+                {userInfo?.aadharFront ? (
+                  <img
+                    src={userInfo?.aadharFront}
+                    className="documt-img"
+                    alt=""
+                  />
+                ) : null}
               </div>
 
               <div className="det-user-bx">
-                <h6>Aadhar :</h6>
-                <img
-                  src="./images/customImg/aadhar-img.png"
-                  className="documt-img"
-                  alt=""
-                />
+                <h6>Aadhar Back:</h6>
+                {userInfo?.aadharBack ? (
+                  <img
+                    src={userInfo?.aadharBack}
+                    className="documt-img"
+                    alt=""
+                  />
+                ) : null}
               </div>
 
               <div className="det-user-bx">
                 <h6>Insurance :</h6>
-                <span>1234567890</span>
+                <span>{userInfo?.insurance}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Police Verification :</h6>
-                <span>Verified ✅</span>
+                <span>{userInfo?.policeVerification ? "Verified ✅" : ""}</span>
               </div>
               <div className="det-user-bx">
                 <h6>Last Health Checkup Date :</h6>
-                <span> 15-08-2023 📅</span>
+                <span>
+                  {userInfo?.heathCheckupDate
+                    ? userInfo?.heathCheckupDate + " 📅"
+                    : ""}
+                </span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Emergency Contact Person :</h6>
-                <span> Rahul Jain </span>
+                <span>{userInfo?.emergencyPersonName}</span>
               </div>
 
               <div className="det-user-bx">
                 <h6>Emergency Contact Number :</h6>
-                <span> 9876450123 </span>
+                <span>{userInfo?.emergencyPhone}</span>
               </div>
             </div>
 
@@ -231,194 +261,294 @@ const WasteDetail = () => {
                   distinctio ut recusandae.
                 </p>
               </div>
-
               <div className="add-det-info-form">
-                <form action="#">
-                  <div className="det-grid det-grid3">
-                    <div className="det-input-bx">
-                      <label htmlFor="name">Full Name</label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                <Formik
+                  initialValues={initialValues}
+                  onSubmit={handleSubmit}
+                  // validationSchema={validationLoginAdmin}
+                >
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form>
+                        <div className="det-grid det-grid3">
+                          <div className="det-input-bx">
+                            <label htmlFor="name">Full Name</label>
+                            <input
+                              type="text"
+                              name="fullname"
+                              id="name"
+                              autoComplete="off"
+                              //required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.fullname}
+                            />
+                            {touched?.fullname && errors?.fullname ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.fullname}
+                              </div>
+                            ) : null}
+                          </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="age">Date of Birth</label>
-                      {/* <DatePicker style={{width: '100%'}} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                      <input
-                        type="date"
-                        name="name"
-                        id="name"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="age">Date of Birth</label>
+                            <input
+                              type="date"
+                              name="dob"
+                              id="name"
+                              autoComplete="off"
+                              //required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.dob}
+                            />
+                            {touched?.dob && errors?.dob ? (
+                              <div style={{ color: "red" }}>{errors?.dob}</div>
+                            ) : null}
+                          </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="gender">Gender</label>
-                      <select name="gender" id="gender">
-                        <option value="gender">Male</option>
-                        <option value="gender">Female</option>
-                        <option value="gender">Other</option>
-                      </select>
-                    </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="gender">Gender</label>
+                            <select
+                              name="gender"
+                              id="gender"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.gender}
+                            >
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="custom">Other</option>
+                            </select>
+                            {touched?.gender && errors?.gender ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.gender}
+                              </div>
+                            ) : null}
+                          </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="age">Social Society</label>
-                      {/* <DatePicker style={{width: '100%'}} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                      <input
-                        type="text"
-                        name="insurance"
-                        id="insurance"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="age">Insurance</label>
+                            <input
+                              type="text"
+                              name="insurance"
+                              id="insurance"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.insurance}
+                              autoComplete="off"
+                              //required
+                            />
+                            {touched?.insurance && errors?.insurance ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.insurance}
+                              </div>
+                            ) : null}
+                          </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="age">Pincode</label>
+                            <input
+                              type="text"
+                              name="pincode"
+                              id="insurance"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.pincode}
+                              autoComplete="off"
+                              //required
+                            />
+                            {touched?.pincode && errors?.pincode ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.pincode}
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="age">Mobile Number</label>
-                      {/* <DatePicker style={{width: '100%'}} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                      <input
-                        type="text"
-                        name="mobile"
-                        id="mobile"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                        <div className="det-input-bx">
+                          <label htmlFor="address">Address</label>
+                          <input
+                            type="text"
+                            name="address"
+                            id="address"
+                            autoComplete="off"
+                            //required
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.address}
+                          />
+                          {touched?.fullname && errors?.address ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.address}
+                            </div>
+                          ) : null}
+                        </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="age">Insurance</label>
-                      {/* <DatePicker style={{width: '100%'}} selected={startDate} onChange={(date) => setStartDate(date)} /> */}
-                      <input
-                        type="text"
-                        name="insurance"
-                        id="insurance"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
+                        <div className="det-grid det-grid5">
+                          <div className="det-input-bx det-input-bx3">
+                            <label htmlFor="aadharFront">Aadhar (Front) </label>
+                            <div className="att-inpt-box">
+                              <input
+                                type="file"
+                                name="aadharFront"
+                                accept="image/*"
+                                id="aadharFront"
+                                autoComplete="off"
+                                //required
+                                onChange={(e) => {
+                                  const file = e.target.files[0];
+                                  values.aadharFront = file;
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                      setSelectedImageOne(event.target.result);
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                onBlur={handleBlur}
+                              />
+                              {touched?.aadharFront && errors?.aadharFront ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.aadharFront}
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
 
-                  <div className="det-input-bx">
-                    <label htmlFor="address">Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
+                          <div className="select-File">
+                            {selectedImageoOne && (
+                              <img
+                                src={values?.aadharFront || selectedImageoOne}
+                                alt=""
+                              />
+                            )}
+                          </div>
 
-                  <div className="add-grid-box">
-                    <div className="det-input-bx">
-                      <label htmlFor="address">Area</label>
-                      <input
-                        type="text"
-                        name="Area"
-                        id="Area"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                          <div className="det-input-bx det-input-bx3 ">
+                            <label htmlFor="aadharBack">Aadhar (Back) </label>
+                            <div className="att-inpt-box">
+                              <input
+                                type="file"
+                                name="aadharBack"
+                                accept="image/*"
+                                id="aadharBack"
+                                autoComplete="off"
+                                //required
+                                onChange={(e) => {
+                                  const file = e.target.files[0];
+                                  values.aadharBack = file;
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                      setSelectedImageTwo(event.target.result);
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                                onBlur={handleBlur}
+                              />
+                              {touched?.aadharBack && errors?.aadharBack ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.aadharBack}
+                                </div>
+                              ) : null}
+                            </div>
+                            <button className="att-inpt-box"></button>
+                          </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="address">Pin Code</label>
-                      <input
-                        type="text"
-                        name="Pin_Code"
-                        id="Pin_Code"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
+                          <div className="select-File">
+                            {selectedImageTwo && (
+                              <img
+                                src={values?.aadharBack || selectedImageTwo}
+                                alt=""
+                              />
+                            )}
+                          </div>
+                        </div>
 
-                    <div className="det-input-bx">
-                      <label htmlFor="address">State</label>
-                      <input
-                        type="text"
-                        name="Area"
-                        id="Area"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
+                        <div className="det-grid det-grid3">
+                          <div className="det-input-bx">
+                            <label htmlFor="chosedate">
+                              Last Health Check-up
+                            </label>
+                            <input
+                              type="date"
+                              name="heathCheckupDate"
+                              id="chosedate"
+                              autoComplete="off"
+                              //required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.heathCheckupDate}
+                            />
+                            {touched?.heathCheckupDate &&
+                            errors?.heathCheckupDate ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.heathCheckupDate}
+                              </div>
+                            ) : null}
+                          </div>
 
-                  <div className="det-grid det-grid5">
-                    <div className="det-input-bx det-input-bx3">
-                      <label htmlFor="document">Aadhar (Front) </label>
-                      <div className="att-inpt-box">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChangeOne}
-                          id="document"
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                    </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="bankdet">
+                              Emergency Contact Person
+                            </label>
+                            <input
+                              type="text"
+                              name="emergencyPersonName"
+                              id="Number"
+                              autoComplete="off"
+                              //required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.emergencyPersonName}
+                            />
+                            {touched?.emergencyPersonName &&
+                            errors?.emergencyPersonName ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.emergencyPersonName}
+                              </div>
+                            ) : null}
+                          </div>
 
-                    <div className="select-File">
-                      {selectedImageoOne && (
-                        <img src={selectedImageoOne} alt="" />
-                      )}
-                    </div>
+                          <div className="det-input-bx">
+                            <label htmlFor="bankdet">
+                              Emergency Contact Number
+                            </label>
+                            <input
+                              type="text"
+                              name="emergencyPhone"
+                              id="Number"
+                              autoComplete="off"
+                              //required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.emergencyPhone}
+                            />
+                            {touched?.emergencyPhone &&
+                            errors?.emergencyPhone ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.emergencyPhone}
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
 
-                    <div className="det-input-bx det-input-bx3 ">
-                      <label htmlFor="documentTwo">Aadhar (Back) </label>
-                      <div className="att-inpt-box">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChangeTwo}
-                          id="documentTwo"
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                      <button className="att-inpt-box"></button>
-                    </div>
-
-                    <div className="select-File">
-                      {selectedImageTwo && (
-                        <img src={selectedImageTwo} alt="" />
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="det-grid det-grid3">
-                    <div className="det-input-bx">
-                      <label htmlFor="chosedate">Last Health Check-up</label>
-                      <input
-                        type="date"
-                        name="chosedate"
-                        id="chosedate"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-
-                    <div className="det-input-bx">
-                      <label htmlFor="bankdet">Phone Number</label>
-                      <input
-                        type="text"
-                        name="Number"
-                        id="Number"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <button className="det-save-btn">Save</button>
-                </form>
+                        <button type="submit" className="det-save-btn">
+                          Save
+                        </button>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </div>
             </div>
           </div>

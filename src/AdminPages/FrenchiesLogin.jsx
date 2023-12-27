@@ -460,7 +460,7 @@ const FrenchiesLogin = () => {
 
                           <p> {frenHead} </p>
                           <div className="admin-login-fild">
-                            <label htmlFor="email">Email / Mobile No.</label>
+                            <label htmlFor="email">Email.</label>
                             <div className="admin-login-input">
                               <input
                                 type="email"
@@ -554,7 +554,7 @@ const FrenchiesLogin = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             className={
               chosePlan
                 ? "choose-your-plan-main-bx choseplanactive"
@@ -661,7 +661,7 @@ const FrenchiesLogin = () => {
             <button onClick={() => payFunc()} className="pay-nw-btn submit-btn">
               Pay Now
             </button>
-          </div>
+          </div> */}
 
           <div className="thank-u-box">
             <div className="thank-u-gif">

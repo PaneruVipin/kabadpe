@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
-import addSubsPlan from '../AddSubsData';
-import AddSubsEdit from './AddSubsEdit';
+import React, { useState } from "react";
+import addSubsPlan from "../AddSubsData";
+import AddSubsEdit from "./AddSubsEdit";
+import { useQuery } from "@tanstack/react-query";
+import { adminSubsFetch } from "../apis/admins/subscription";
 
 const Addsubscription = () => {
-    const [subsPlanBx , setSubsPlanBx] =  useState(false);
-   
-    
-    
+  const [subsPlanBx, setSubsPlanBx] = useState(false);
+  const { data: subscription, refetch } = useQuery({
+    queryKey: ["kabadpeSubscription"],
+    queryFn: () => adminSubsFetch(),
+  });
+
   return (
     <>
-        <section className="add-work-comn-comp">
+      <section className="add-work-comn-comp">
         <div className="add-work-btn-flex-bx">
           <h6 className="banktext mb-0">Add Work Area</h6>
 
-          <button onClick={() => setSubsPlanBx(true)} className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn">
-            Add New Subscription Plan 
+          <button
+            onClick={() => setSubsPlanBx(true)}
+            className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn"
+          >
+            Add New Subscription Plan
           </button>
         </div>
 
@@ -36,11 +43,11 @@ const Addsubscription = () => {
                 return (
                   <>
                     <tr key={id} id={elem.id}>
-                    <td>
-                        <span> {elem.id}  </span>
+                      <td>
+                        <span> {elem.id} </span>
                       </td>
                       <td>
-                        <span> {elem.planName}  </span>
+                        <span> {elem.planName} </span>
                       </td>
                       <td>
                         <span> {elem.WasteColect} </span>
@@ -52,24 +59,21 @@ const Addsubscription = () => {
                       <td>
                         <span> ₹{elem.quaterlyprice} </span>
                       </td>
-                     
 
                       <td>
-
                         <div className="edit-remv-btns">
-
-                            <button onClick={() => setSubsPlanBx(true)} className="add-wrok-actn-btn">
+                          <button
+                            onClick={() => setSubsPlanBx(true)}
+                            className="add-wrok-actn-btn"
+                          >
                             <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+                          </button>
 
-                            <button  className="add-wrok-actn-btn">
+                          <button className="add-wrok-actn-btn">
                             <i class="fa-solid fa-trash"></i>
-                            </button>
-                            
+                          </button>
                         </div>
-                        
                       </td>
-                      
                     </tr>
                   </>
                 );
@@ -79,12 +83,18 @@ const Addsubscription = () => {
         </div>
       </section>
 
+<<<<<<< HEAD
               
 
     { subsPlanBx ?  <AddSubsEdit subsTrue={subsPlanBx} onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} /> : null }
     
+=======
+      {subsPlanBx ? (
+        <AddSubsEdit onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} />
+      ) : null}
+>>>>>>> 1e1cb71612c31ac67d7b5292a169c2fbe188ef37
     </>
-  )
-}
+  );
+};
 
-export default Addsubscription
+export default Addsubscription;

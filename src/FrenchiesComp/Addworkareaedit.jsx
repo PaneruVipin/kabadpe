@@ -17,6 +17,7 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
     }
     resetForm();
   };
+<<<<<<< HEAD
 
   const workAreaRef =  useRef(null)
 
@@ -47,6 +48,8 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
 
   
   const validationSchema = {};
+=======
+>>>>>>> 1e1cb71612c31ac67d7b5292a169c2fbe188ef37
 
   return (
     <>
@@ -164,14 +167,24 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                       ) : null}
                     </div>
                     <div className="admin-login-fild">
-              <label htmlFor="subarea">Price</label>
-              <div className="admin-login-input">
-                <input type="text" name='cityprice' id='cityprice' placeholder='Enter your City Price'   autoComplete='off' />
-              </div>
-            </div>
+                      <label htmlFor="subarea">Price</label>
+                      <div className="admin-login-input">
+                        <input
+                          type="number"
+                          name="price"
+                          id="price"
+                          placeholder="Enter your City Price"
+                          autoComplete="off"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.price}
+                        />
+                      </div>
+                      {touched.price && errors.price ? (
+                        <div style={{ color: "red" }}>{errors.price}</div>
+                      ) : null}
+                    </div>
                   </div>
-
-                 
 
                   <button type="submit" className="add-work-area-btn">
                     Save

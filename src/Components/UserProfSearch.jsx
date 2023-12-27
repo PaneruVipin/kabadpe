@@ -4,13 +4,55 @@ import UserProfCounter from "./UserProfCounter";
 import UserProfCards from "./UserProfCards";
 import UserProfUpdates from "./UserProfUpdates";
 import "../style/Support.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  validationUpdateProfileRequest,
+  validationUpdateProfilecallback,
+} from "../validators/user/profile";
+import { Form, Formik } from "formik";
+import {
+  userUpdateProfileCallback,
+  userUpdateProfileRequset,
+} from "../apis/user";
+import { userFetch } from "../features/user/userActions";
 
 const UserProfSearch = () => {
   const user = useSelector((s) => s.user.userInfo);
+  const dispatch = useDispatch();
   const [prfEditForm, setPrfEditForm] = useState(false);
   const [confirmOtp, setConfirmOtp] = useState(false);
-  const [notBox , setNotBox] = useState(false);
+  const [notBox, setNotBox] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [code, setCode] = useState("");
+  const initialRequsetValues = {
+    email: user?.email || "",
+    fullname: user?.fullname || "",
+    phoneNumber: user?.phoneNumber || "",
+  };
+  const handleUpdateProfileSubmit = async (data) => {
+    setApiError("");
+    const code = await userUpdateProfileRequset(data);
+    if (code?.error) {
+      setApiError(code?.message);
+      return;
+    }
+    setConfirmOtp(true);
+    setCode(code);
+  };
+  const handleOTPSubmit = async (data) => {
+    setApiError("");
+    const message = await userUpdateProfileCallback({
+      ...data,
+      code,
+    });
+    if (message?.error) {
+      setApiError(message?.message);
+      return;
+    }
+    dispatch(userFetch());
+    setPrfEditForm(false);
+    setConfirmOtp(false);
+  };
   return (
     <>
       <section className="use-prf-left-main-bx">
@@ -39,12 +81,15 @@ const UserProfSearch = () => {
                 Edit Profile
               </button>
 
-              <div  className="notif-main-box">
-                <div onClick={() => setNotBox(!notBox)} className="bell-icon bell-icon2">
+              <div className="notif-main-box">
+                <div
+                  onClick={() => setNotBox(!notBox)}
+                  className="bell-icon bell-icon2"
+                >
                   <i class="fa-regular fa-bell"></i>
                 </div>
 
-                <div className={ notBox ? "notif-box notactive" : "notif-box"}>
+                <div className={notBox ? "notif-box notactive" : "notif-box"}>
                   <div className="not-user-box">
                     <div className="left-not-box">
                       <img src="./images/customImg/team-2.jpg" alt="" />
@@ -91,7 +136,7 @@ const UserProfSearch = () => {
 
                   <div className="not-user-box">
                     <div className="left-not-box left-not-box2 left-not-box3">
-                    <i class="fa-solid fa-house"></i>
+                      <i class="fa-solid fa-house"></i>
                     </div>
 
                     <div className="right-not-box">
@@ -103,7 +148,6 @@ const UserProfSearch = () => {
                   <button className="sell-all-not-btn">
                     See all notifications
                   </button>
-                  
                 </div>
               </div>
             </div>
@@ -119,51 +163,77 @@ const UserProfSearch = () => {
         >
           <div className="u-prf-edit-popup-bx">
             <h5>User Profile Change</h5>
-
-            <form action="#">
-              <div className="u-prf-edt-inpt-bx">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="First Name"
-                />
-              </div>
-
-              <div className="u-prf-edt-inpt-bx">
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Last Name"
-                />
-              </div>
-
-              <div className="u-prf-edt-inpt-bx">
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  placeholder="Email"
-                />
-              </div>
-
-              <div className="u-prf-edt-inpt-bx">
-                <input
-                  type="text"
-                  name="mobile"
-                  id="mobile"
-                  placeholder="Mobile"
-                />
-              </div>
-
-              <button
-                onClick={() => setConfirmOtp(true)}
-                className="prof-chagen-btn"
+            {user ? (
+              <Formik
+                initialValues={initialRequsetValues}
+                onSubmit={handleUpdateProfileSubmit}
+                validationSchema={validationUpdateProfileRequest}
               >
-                Update
-              </button>
-            </form>
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form>
+                      <div className="u-prf-edt-inpt-bx">
+                        <input
+                          type="text"
+                          name="fullname"
+                          id="name"
+                          placeholder="Full Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.fullname}
+                        />
+                        {touched.fullname && errors.fullname ? (
+                          <div style={{ color: "red" }}>{errors.fullname}</div>
+                        ) : null}
+                      </div>
+
+                      <div className="u-prf-edt-inpt-bx">
+                        <input
+                          type="text"
+                          name="email"
+                          id="email"
+                          placeholder="Email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        {touched.email && errors.email ? (
+                          <div style={{ color: "red" }}>{errors.email}</div>
+                        ) : null}
+                      </div>
+
+                      <div className="u-prf-edt-inpt-bx">
+                        <input
+                          type="text"
+                          name="phoneNumber"
+                          id="mobile"
+                          placeholder="Mobile"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.phoneNumber}
+                        />
+                        {touched.phoneNumber && errors.phoneNumber ? (
+                          <div style={{ color: "red" }}>
+                            {errors.phoneNumber}
+                          </div>
+                        ) : null}
+                      </div>
+
+                      <button type="submit" className="prof-chagen-btn">
+                        Update
+                      </button>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            ) : null}
 
             <div
               className={
@@ -173,17 +243,44 @@ const UserProfSearch = () => {
               }
             >
               <h6>Confirm OTP</h6>
+              <Formik
+                initialValues={{ otp: "" }}
+                onSubmit={handleOTPSubmit}
+                validationSchema={validationUpdateProfilecallback}
+              >
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form>
+                      <div className="otp-field">
+                        <input
+                          type="text"
+                          name="otp"
+                          id="otp"
+                          placeholder="Enter OTP"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.otp}
+                        />
+                        {touched.otp && errors.otp ? (
+                          <div style={{ color: "red" }}>{errors.otp}</div>
+                        ) : null}
+                      </div>
 
-              <div className="otp-field">
-                <input
-                  type="text"
-                  name="otp"
-                  id="otp"
-                  placeholder="Enter OTP"
-                />
-              </div>
-
-              <button className="otp-btn">Submit</button>
+                      <button type="submit" className="otp-btn">
+                        Submit
+                      </button>
+                    </Form>
+                  );
+                }}
+              </Formik>
+              {apiError ? <p style={{ color: "red" }}>{apiError}</p> : null}
             </div>
 
             <div

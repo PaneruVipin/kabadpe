@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const WasteColectEdit = ({onClickCloseEditForm}) => {
+const WasteColectEdit = ({onClickCloseEditForm , WasteDataTrue}) => {
   const [selectedImage, setSelectedImage] = useState({
     image1: "./images/customImg/aadhar-img.png",
     image2: "./images/customImg/aadhar-img.png",
@@ -20,10 +20,37 @@ const WasteColectEdit = ({onClickCloseEditForm}) => {
     }
   };
 
+  const wasteEditRef = useRef(null)
+
+  useEffect(() => {
+
+    const handleClickOutside = (event) => {
+
+      if(wasteEditRef.current && !wasteEditRef.current.contains(event.target)){
+        onClickCloseEditForm();
+      }
+      
+    }
+    
+
+    if(WasteDataTrue){
+      document.addEventListener("mousedown", handleClickOutside)
+    }else{
+      document.removeEventListener("mousedown", handleClickOutside)
+
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+
+  },[WasteDataTrue])
+
   return (
     <>
+
       <section className="french-edit-comp">
-        <div className="french-edit-main-box">
+        <div className="french-edit-main-box" ref={wasteEditRef}>
           <h5>Waste Collector (Edit) </h5>
 
           <div className="french-det-grid">

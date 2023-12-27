@@ -35,7 +35,8 @@ const Addsubscription = () => {
                 <th>SNo.</th>
                 <th>Plan Name</th>
                 <th>No. of Waste Collector</th>
-                <th>Amount</th>
+                <th>Monthly Price</th>
+                <th>Quaterly Price</th>
                 <th>Action</th>
               </tr>
             </thead>

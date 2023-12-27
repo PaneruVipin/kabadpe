@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
@@ -60,12 +60,15 @@ const AllUser = ({ updatedFilterData }) => {
   //   const updatedData =  userData.filter((curData) => {
 
   //     return index  === curData.categoryStatus ;
-
+      
   //   })
 
   // setUserData(updatedData);
-
+    
   // }
+
+
+  
 
   return (
     <>

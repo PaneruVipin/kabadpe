@@ -1,11 +1,38 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
-const FrenchWasteEdit = ({onClickCloseWasteColectData}) => {
+const FrenchWasteEdit = ({onClickCloseWasteColectData , WasteViewTrue}) => {
+
+
+  const wasteViewRef = useRef(null)
+
+  useEffect(() => {
+
+    const handleClickOutside = (event) => {
+
+      if(wasteViewRef.current && !wasteViewRef.current.contains(event.target)){
+        onClickCloseWasteColectData();
+      }
+      
+    }
+    
+
+    if(WasteViewTrue){
+      document.addEventListener("mousedown", handleClickOutside)
+    }else{
+      document.removeEventListener("mousedown", handleClickOutside)
+
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+
+  },[WasteViewTrue])
     
   return (
     <>
         <section className="french-edit-comp">
-        <div className="french-edit-main-box">
+        <div className="french-edit-main-box" ref={wasteViewRef}>
           <h5>Waste Collector Details </h5>
 
           <div className="french-det-grid">

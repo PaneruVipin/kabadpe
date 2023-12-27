@@ -27,6 +27,7 @@ import Addsubscription from "../FrenchiesComp/Addsubscription";
 import AddWorkArea from "../FrenchiesComp/AddWorkArea";
 import DiscountCoupon from "../AdminComponents.jsx/DiscountCoupon";
 import WasteProduct from "../AdminComponents.jsx/WasteProduct";
+import Createplan from "../AdminComponents.jsx/Createplan";
 
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
@@ -514,7 +515,18 @@ const AdminPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#"> Subscriptions Plans </NavLink>{" "}
+                <NavLink to="#"> Subscribed </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("createplan")}
+                className={
+                  component === "createplan"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Create Plan </NavLink>{" "}
               </li>
             </div>
           </div>
@@ -841,6 +853,7 @@ const AdminPanel = () => {
         {component === "addsubscription" ? <Addsubscription /> : null}
         {component === "discount" ? <DiscountCoupon /> : null}
         {component === "wasteproduct" ? <WasteProduct /> : null}
+        {component === "createplan" ? <Createplan /> : null}
 
       </section>
     </>

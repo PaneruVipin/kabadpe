@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const WasteProdEdit = ({onclickEditClose}) => {
+const WasteProdEdit = ({onclickEditClose , prodEditTrue}) => {
     const [selectImg , setSelectImg] = useState('./images/customImg/plastic.png')
 
     const handleImageChange = (event) => {
@@ -21,11 +21,40 @@ const WasteProdEdit = ({onclickEditClose}) => {
             }
         
     }
+
+    const prodRef =  useRef(null);
+
+    useEffect(() => {
+
+      const handleClickOutside = (event) => {
+
+        if(prodRef.current && !prodRef.current.contains(event.target)) {
+
+          onclickEditClose();
+          
+        }
+        
+      }
+      
+
+      if(prodEditTrue){
+        document.addEventListener("mousedown", handleClickOutside);
+      }else{
+        document.removeEventListener("mousedown", handleClickOutside);
+
+      }
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+
+      }
+
+    }, [prodEditTrue])
     
   return (
     <>
       <section className="waste-prod-edit-comp">
-        <div className="waste-prod-edit-main-bx">
+        <div className="waste-prod-edit-main-bx" ref={prodRef}>
           <h5>Waste Product (Add or Edit) </h5>
 
           <form action="#">

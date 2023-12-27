@@ -17,44 +17,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
     }
     resetForm();
   };
-<<<<<<< HEAD
-
-  const workAreaRef =  useRef(null)
-
-  useEffect(() => {
-
-    const handleClickOutside = (event) => {
-
-      if(workAreaRef.current && !workAreaRef.current.contains(event.target)){
-
-        onclickCloseAddWorkEdit();
-        
-      }
-      
-    }
-
-    if(workAreaTrue){
-      document.addEventListener("mousedown", handleClickOutside)
-    }else{
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-
-    }
-    
-  }, [workAreaTrue])
-
-  
-  const validationSchema = {};
-=======
->>>>>>> 1e1cb71612c31ac67d7b5292a169c2fbe188ef37
 
   return (
     <>
       <section className="add-work-area-edit-comp">
-        <div className="add-work-area-edit-main-bx" ref={workAreaRef}>
+        <div className="add-work-area-edit-main-bx" >
           <h6 className="banktext">{formTitle}</h6>
           <Formik
             initialValues={initialValues}

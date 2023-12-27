@@ -83,16 +83,9 @@ const Addsubscription = () => {
         </div>
       </section>
 
-{/* <<<<<<< HEAD 
-              
-
-    { subsPlanBx ?  <AddSubsEdit subsTrue={subsPlanBx} onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} /> : null }
-    
-=======
       {subsPlanBx ? (
         <AddSubsEdit onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} />
       ) : null}
->>>>>>> 1e1cb71612c31ac67d7b5292a169c2fbe188ef37 */}
     </>
   );
 };

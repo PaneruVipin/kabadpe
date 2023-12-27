@@ -1,9 +1,9 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { adminAriaAdd, adminAriaUpdate } from "../apis/admins/arias";
 import { validationAddAria } from "../validators/admin/addAriaValidator";
 
-const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
+const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, values }) => {
   const formTitle = values ? "Update Work Area" : "Add Work Area";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
@@ -17,12 +17,41 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
     }
     resetForm();
   };
+
+  const workAreaRef =  useRef(null)
+
+  useEffect(() => {
+
+    const handleClickOutside = (event) => {
+
+      if(workAreaRef.current && !workAreaRef.current.contains(event.target)){
+
+        onclickCloseAddWorkEdit();
+        
+      }
+      
+    }
+
+    if(workAreaTrue){
+      document.addEventListener("mousedown", handleClickOutside)
+    }else{
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+
+    }
+    
+  }, [workAreaTrue])
+
+  
   const validationSchema = {};
 
   return (
     <>
       <section className="add-work-area-edit-comp">
-        <div className="add-work-area-edit-main-bx">
+        <div className="add-work-area-edit-main-bx" ref={workAreaRef}>
           <h6 className="banktext">{formTitle}</h6>
           <Formik
             initialValues={initialValues}

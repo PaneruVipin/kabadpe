@@ -38,6 +38,8 @@ import BuyWasteComp from "../FrenchiesComp/BuyWasteComp";
 import ViewHistory from "../FrenchiesComp/ViewHistory";
 import WasteProduct from "../AdminComponents.jsx/WasteProduct";
 import Bidcomp from "../FrenchiesComp/Bidcomp";
+import FrenchiesSubsPlan from "../FrenchiesComp/FrenchiesSubsPlan";
+import FrenchSubscriptionPlanTwo from "../FrenchiesComp/FrenchSubscriptionPlanTwo";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -292,7 +294,6 @@ const FrenchiesPanel = () => {
                   </div>
                 </div>
               </div>
-
 
               <div className="pyment-info-main">
                 <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
@@ -605,6 +606,24 @@ const FrenchiesPanel = () => {
             </div>
           </div>
 
+          {/* <div className="admin-nv-li admin-nv-li-dashbrd">
+            <div
+              onClick={() => {
+                handleButtonClick(1), handleViewComp("subsplan");
+              }}
+              className={
+                component === "subsplan"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="a-nv-i">
+                <RiTableFill />
+              </div>
+              <span>Subscription Plan</span>
+            </div>
+          </div> */}
+
                 <div className="admin-nv-li admin-nv-li-dashbrd">
           <div
               onClick={() => {
@@ -662,10 +681,23 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#"> Subscriptions Plans </NavLink>{" "}
+                <NavLink to="#">  Subscribed </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("subsplan")}
+                className={
+                  component === "subsplan"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Plans  </NavLink>{" "}
               </li>
             </div>
           </div>
+
+          
 
           <div className="admin-nv-li">
             <div
@@ -880,7 +912,7 @@ const FrenchiesPanel = () => {
 
         {component === "frenchies" ? <Frienchies /> : null}
         {component === "wastecolectr" ? <Wastecolect /> : null}
-        {component === "subscriptionplan" ? <SubscriptionPlan /> : null}
+        {component === "subscriptionplan" ? <FrenchSubscriptionPlanTwo onclickRedirect={() => handleViewComp("subsplan")}  /> : null}
 
         {component === "frenchiesprofile" ? <FrenchiesProfile /> : null}
 
@@ -891,12 +923,17 @@ const FrenchiesPanel = () => {
 
         {component === "viewhistory" ? <ViewHistory /> : null}
         {component === "wasteproduct" ? <WasteProduct /> : null}
+        {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
+
         {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}
 
       </section>
 
       {buyWasteBx ? (
         <BuyWastePOpup
+
+        buyWaste={buyWasteBx}
+        
           onclickBtn={() => setBuyWasteBx(false)}
           onclickBuyWasteBtn={() => {
             handleViewComp("buywaste"), setBuyWasteBx(false);

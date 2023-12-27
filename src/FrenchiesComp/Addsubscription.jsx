@@ -25,7 +25,8 @@ const Addsubscription = () => {
                 <th>SNo.</th>
                 <th>Plan Name</th>
                 <th>No. of Waste Collector</th>
-                <th>Amount</th>
+                <th>Monthly Price</th>
+                <th>Quaterly Price</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -45,7 +46,11 @@ const Addsubscription = () => {
                         <span> {elem.WasteColect} </span>
                       </td>
                       <td>
-                        <span> ₹{elem.Amount} </span>
+                        <span> ₹{elem.monthlyprice} </span>
+                      </td>
+
+                      <td>
+                        <span> ₹{elem.quaterlyprice} </span>
                       </td>
                      
 
@@ -76,7 +81,7 @@ const Addsubscription = () => {
 
               
 
-    { subsPlanBx ?  <AddSubsEdit onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} /> : null }
+    { subsPlanBx ?  <AddSubsEdit subsTrue={subsPlanBx} onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} /> : null }
     
     </>
   )

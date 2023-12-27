@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const AddSubsEdit = ({onclickCloseSubsPlanBx}) => {
+const AddSubsEdit = ({onclickCloseSubsPlanBx , subsTrue}) => {
 
     const [cityAmount , setCityAmount] = useState(null)
     const [wasteColectAmount , setWasteColectAmount] = useState(null)
@@ -17,17 +17,37 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx}) => {
         
     }
 
-    const calculatePrice = () => {
+    const subsEditRef =  useRef(null)
 
-        const sumPrice =  Number(cityAmount) + Number(wasteColectAmount)
-        return isNaN(sumPrice) ? 0 : sumPrice ;
+    useEffect(() => {
+  
+      const handleClickOutside = (event) => {
+  
+        if(subsEditRef.current && !subsEditRef.current.contains(event.target)){
+  
+          onclickCloseSubsPlanBx();
+          
+        }
         
-    }
+      }
+  
+      if(subsTrue){
+        document.addEventListener("mousedown", handleClickOutside)
+      }else{
+        document.removeEventListener("mousedown", handleClickOutside)
+      }
+  
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside)
+  
+      }
+      
+    }, [subsTrue])
     
   return (
     <>
       <section className="add-work-area-edit-comp">
-        <div className="add-work-area-edit-main-bx add-subs-plan">
+        <div className="add-work-area-edit-main-bx add-subs-plan" ref={subsEditRef}>
           <h6 className="banktext">Add Subscription Plan (Add or Edit)</h6>
 
           <form action="#">
@@ -96,22 +116,44 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx}) => {
                 />
               </div>
             </div>
+
           </div>
 
+          <div className="addwrkarea-form-bx mt-3">
+
           <div className="admin-login-fild mt-3">
-              <label htmlFor="City">Price</label>
+              <label htmlFor="City"> Monthly Price</label>
               <div className="admin-login-input">
                 <input
                   type="text"
-                  name="City"
-                  id="City"
-                  placeholder="Total Price"
+                  name="monthlyprice"
+                  id="monthlyprice"
+                  placeholder="Monthly Price"
                   autoComplete="off"
-                  readOnly
-                  value={calculatePrice()}
+                  // readOnly
+                  // value={calculatePrice()}
                 />
               </div>
             </div>
+
+            <div className="admin-login-fild mt-3">
+              <label htmlFor="City"> Quaterly Price</label>
+              <div className="admin-login-input">
+                <input
+                  type="text"
+                  name="quaterlyprice"
+                  id="quaterlyprice"
+                  placeholder="Quaterly Price"
+                  autoComplete="off"
+                  // readOnly
+                  // value={calculatePrice()}
+                />
+              </div>
+            </div>
+
+          </div>
+
+          
 
        
             </form>

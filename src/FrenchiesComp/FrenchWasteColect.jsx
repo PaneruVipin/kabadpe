@@ -182,9 +182,9 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
         </div>
       </section>
 
-     {wasteDataBox ? <WasteColectEdit onClickCloseEditForm={subsDataClose} /> : null}
+     {wasteDataBox ? <WasteColectEdit WasteDataTrue={wasteDataBox} onClickCloseEditForm={subsDataClose} /> : null}
                 
-     {wasteViewData ? <FrenchWasteEdit onClickCloseWasteColectData={closewasteDataVw}/> : null}
+     {wasteViewData ? <FrenchWasteEdit WasteViewTrue={wasteViewData} onClickCloseWasteColectData={closewasteDataVw}/> : null}
 
      { transctn ?  <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
     

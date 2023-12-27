@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-const Upgradepopupbx = ({onclickCloseUpgradeBx}) => {
+const Upgradepopupbx = ({onclickCloseUpgradeBx , upgradeTrue}) => {
 
     const [price , setPrice] = useState(0);
     const [areaSelct , setAreaSelct] = useState([]);
@@ -22,13 +22,7 @@ const Upgradepopupbx = ({onclickCloseUpgradeBx}) => {
         }
       };
 
-    // const handleAreaChange = (area) => {
-
-    //     setAreaSelct(area === areaSelct ? 0 : area );
-    //     setTotalPrice(0);
-
-        
-    // }
+    
 
     const handleTotalPrice = () => {
 
@@ -41,13 +35,41 @@ const Upgradepopupbx = ({onclickCloseUpgradeBx}) => {
     }
 
 
+    const upgradeRef =  useRef(null);
+
+    useEffect(() => {
+
+        const handleClickOutside = (event) => {
+      
+          if(upgradeRef.current && !upgradeRef.current.contains(event.target)){
+      
+            onclickCloseUpgradeBx();
+            
+          }
+          
+        }
+      
+        if(upgradeTrue){
+          document.addEventListener("mousedown", handleClickOutside);
+        }else{
+          document.removeEventListener("mousedown", handleClickOutside);
+      
+        }
+      
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+      
+        }
+        
+       }, [upgradeTrue])
+
     
   return (
     <>
 
     <section className="upgrade-popup-comp">
 
-        <div className="upgrade-popup-bx">
+        <div className="upgrade-popup-bx" ref={upgradeRef}>
 
             <h6 className=''>No. of waste collector</h6>
 

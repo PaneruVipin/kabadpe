@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "../style/Frenchiespanel.css";
@@ -24,23 +24,38 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
     
   }
 
-  // const reschedulePopupfunc = () => {
+  const custRef = useRef(null);
 
-  //   setPopUp(true)
-  //   setConfirmPopup(false)
-  //   setReshedPopup(true)
-  //   setCancelPopupPopup(false)
+  useEffect(() => {
+
+    const handleClickOutside = (event) => {
+
+        if(custRef.current && !custRef.current.contains(event.target)) {
+
+          setAddressPopup(false);
+          
+        }
+      
+    }
+
+
+    if(addressPopup){
+      document.addEventListener("mousedown", handleClickOutside);
+    }else{
+      document.removeEventListener("mousedown", handleClickOutside);
+
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+
+    }
     
-  // }
 
-  // const cancelPopupFunc = () => {
+  
+  }, [addressPopup])
 
-  //   setPopUp(true)
-  //   setConfirmPopup(false)
-  //   setReshedPopup(false)
-  //   setCancelPopupPopup(true)
-    
-  // }
+
 
   return (
     <>
@@ -190,7 +205,7 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
             : "cust-add-comp cust-add-comp2"
         }
       >
-        <div className="cust-add-bx cust-add-bx3">
+        <div className="cust-add-bx cust-add-bx3" ref={custRef}>
           <h3>Customer Address</h3>
 
           <p>
@@ -353,7 +368,7 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
         </div>
       </section>
 
-     { apntSlot ?  <AppointSlot onClickOpenPopup={() => {confirmPopupfunc() , setApntSlot(false)}} onclickCloseApntSlot={() => setApntSlot(false)} /> : null}
+     { apntSlot ?  <AppointSlot ApntSlotTrue={apntSlot} onClickOpenPopup={() => {confirmPopupfunc() , setApntSlot(false)}} onclickCloseApntSlot={() => setApntSlot(false)} /> : null}
     </>
   );
 };

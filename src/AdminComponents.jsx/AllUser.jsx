@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
@@ -61,17 +61,33 @@ const AllUser = ({updatedFilterData}) => {
     }
   };
 
-  // const handleFiltFunction = (index) => {
+ const editableRef = useRef(null);
 
-  //   const updatedData =  userData.filter((curData) => {
+ useEffect(() => {
 
-  //     return index  === curData.categoryStatus ;
+  const handleClickOutside = (event) => {
+
+    if(editableRef.current && !editableRef.current.contains(event.target)){
+
+      setEditableForm(false);
       
-  //   })
-
-  // setUserData(updatedData);
+    }
     
-  // }
+  }
+
+  if(editableForm){
+    document.addEventListener("mousedown", handleClickOutside);
+  }else{
+    document.removeEventListener("mousedown", handleClickOutside);
+
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+
+  }
+  
+ }, [editableForm])
 
 
   
@@ -214,7 +230,7 @@ const AllUser = ({updatedFilterData}) => {
       </section>
 
       <section className={ editableForm ? "all-user-editable-form-main-box editformactive"  : "all-user-editable-form-main-box"}>
-        <div className="all-user-edit-form-box">
+        <div className="all-user-edit-form-box" ref={editableRef}>
 
             <div className="user-prof-editable-box">
 

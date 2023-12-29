@@ -113,7 +113,7 @@ const AddWorkArea = () => {
       </section>
 
       {addWorkArea ? (
-        <Addworkareaedit
+        <Addworkareaedit workAreaTrue={addWorkArea}
           onclickCloseAddWorkEdit={() => setAddWorkArea(false)}
           values={editFormVal}
           refetch={refetch}

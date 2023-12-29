@@ -3171,4 +3171,46 @@ side nav icon Btn on hover show list box
   background-color: #1bae5a !important;
 }
 
+.btn-ban-del-flex{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 
+}
+
+.del-btn{
+  position: relative;
+  padding-inline: .87rem;
+  font-size: .8rem;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: .45px;
+  color: #fff;
+  background-color: #ff3c3c;
+  border-radius: .45rem;
+}
+
+.subs-plan-table5{
+  padding-inline: 0 !important;
+  background-color: transparent !important;
+}
+
+.subs-plan-table table tbody tr td{
+  padding-inline: .65rem !important;
+}
+
+.banbtn{
+  position: relative;
+  padding-inline: .87rem;
+  font-size: .8rem;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: .45px;
+  color: #fff;
+  background-color: #1add6f;
+  border-radius: .45rem;
+}
+
+.banbtn.activebanbtn{
+  background-color: #1362fc;
+}

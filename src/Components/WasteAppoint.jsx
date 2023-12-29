@@ -10,14 +10,14 @@ const WasteAppoint = () => {
   const [addressPopup, setAddressPopup] = useState(false);
   return (
     <>
-      <section
+      <section onClick={() => setPopUp(false)}
         className={
           popUp === true
             ? "appoint-popup-main appoint-popup-main2  popupactive"
             : "appoint-popup-main appoint-popup-main2"
         }
       >
-        <div className="appoint-popup-bx appoint-popup-bx2">
+        <div className="appoint-popup-bx appoint-popup-bx2" onClick={(e) => e.stopPropagation()}>
           <div className="appoint-popup-info">
             <h3>Changes Appointments</h3>
           </div>
@@ -137,14 +137,14 @@ const WasteAppoint = () => {
         </div>
       </section>
 
-      <section
+      <section onClick={() => setAddressPopup(false)}
         className={
           addressPopup === true
             ? "cust-add-comp cust-add-comp2 addrssactive"
             : "cust-add-comp cust-add-comp2"
         }
       >
-        <div className="cust-add-bx">
+        <div className="cust-add-bx" onClick={(e) => e.stopPropagation()}>
           <h3>Customer Address</h3>
 
          <div className="cust-add">

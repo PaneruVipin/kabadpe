@@ -120,9 +120,9 @@ const WasteProduct = () => {
 
           </section>
 
-   { prodEdit ? <WasteProdEdit onclickEditClose={() => setProdEdit(false)} />  : null  }       
+   { prodEdit ? <WasteProdEdit prodEditTrue={prodEdit} onclickEditClose={() => setProdEdit(false)} />  : null  }       
 
-   
+    
       
     </>
   )

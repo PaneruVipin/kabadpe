@@ -24,20 +24,26 @@ const SubscriptionPlan = () => {
 
     <section className="subscrip-plan-comp">
 
-        <h6>Subscription Plans</h6>
+        <h6>Subscribed</h6>
 
-        <div className="all-user-table subs-plan-table">
+        <div className="all-user-table subs-plan-table subs-plan-table5">
 
             <table>
                 <thead>
                     <tr>
                         <th>SNo.</th>
-                        <th>Plan Title</th>
-                        <th>Period</th>
-                        <th>City</th>
-                        <th>Zip</th>
-                        <th>Changes</th>
+                        <th>Plan </th>
+                        <th>Frenchies Name</th>
+                        <th>Subscription Period</th>
+                        <th>Area</th>
+                        <th>Sub Area</th>
+                        <th>Amount</th>
+                        <th>Invoice</th>
+                        <th>Status</th>
                         <th>Action</th>
+
+
+
                     </tr>
                 </thead>
                 <tbody>
@@ -46,21 +52,35 @@ const SubscriptionPlan = () => {
 
                         return (
                             <>
-<tr key={id}>
-                        <td> {elem.id} </td>
-                        <td> <span> {elem.plantitle} </span> </td>
-                        <td> <span> {elem.period} </span> </td>
-                        <td> <span> {elem.city} </span> </td>
-                        <td> <span> {elem.zip} </span> </td>
-                        <td> <span> {elem.charges} </span> </td>
-                        <td>
-                          <div  className="edit-user-btn " style={{color : "green"}} >
-                          <i class="fa-solid fa-square-check"></i>
-                          </div>
-                        </td>
 
+                            <tr key={id}>
+                                <td> <span> {elem.id} </span> </td>
+                                <td> <span> {elem.plantitle} </span> </td>
+                                <td> <span> {elem.frenchName} </span> </td>
+                                <td> <span> {elem.period} </span> </td>
+                                <td> <span> {elem.area} </span> </td>
+                                <td> <span > {elem.subarea} </span> </td>
+                                <td> <span> {elem.amount} </span> </td>
+                                <td> <span> {elem.invoice} </span> </td>
+                                <td> <span style={{ color : elem.banbtn === "Unban" ? "red" : "#54be73" }}> {elem.status} </span> </td>
+                                <td>
 
-                    </tr>
+                                    <div className="btn-ban-del-flex">
+
+                                        <button className={ elem.banbtn === 'Ban' ? 'banbtn activebanbtn' : 'banbtn' }>
+                                            {elem.banbtn}
+                                        </button>
+
+                                        <button className='del-btn'>
+                                            {elem.delbtn}
+                                        </button>
+                                        
+                                    </div>
+                                    
+                                </td>
+
+                            </tr>
+                    
                             </>
                         )
                         
@@ -76,9 +96,9 @@ const SubscriptionPlan = () => {
 
      
 
-        <button onClick={() => setUpgradeBx(true)} className="upgrade-btn">
+        {/* <button onClick={() => setUpgradeBx(true)} className="upgrade-btn">
             Upgrade
-        </button>
+        </button> */}
 
 
         
@@ -87,7 +107,7 @@ const SubscriptionPlan = () => {
 
     
 
-   {upgradeBx ? <Upgradepopupbx onclickCloseUpgradeBx={() => setUpgradeBx(false)} /> : null}
+   {upgradeBx ? <Upgradepopupbx upgradeTrue={upgradeBx} onclickCloseUpgradeBx={() => setUpgradeBx(false)} /> : null}
     {subsDataBox ?  <SubsDetEdit onclickCloseSubsDat={subsDataClose} /> : null}
     </>
   )

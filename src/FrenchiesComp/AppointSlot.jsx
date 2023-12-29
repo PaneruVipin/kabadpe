@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-const AppointSlot = ({onclickCloseApntSlot , onClickOpenPopup}) => {
+const AppointSlot = ({onclickCloseApntSlot , ApntSlotTrue , onClickOpenPopup}) => {
     const [currentDate , setcurrentdate] = useState(new Date());
     
     const handleChangeDate =(event) => {
@@ -29,6 +29,37 @@ const AppointSlot = ({onclickCloseApntSlot , onClickOpenPopup}) => {
 
 
     }
+
+    const apntSlotRef =  useRef(null);
+
+    useEffect(() => {
+
+        const handleClickOutside = (event) => {
+    
+            if(apntSlotRef.current && !apntSlotRef.current.contains(event.target)) {
+    
+                onclickCloseApntSlot();
+              
+            }
+          
+        }
+    
+    
+        if(ApntSlotTrue){
+          document.addEventListener("mousedown", handleClickOutside);
+        }else{
+          document.removeEventListener("mousedown", handleClickOutside);
+    
+        }
+    
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+    
+        }
+        
+    
+      
+      }, [ApntSlotTrue])
     
   return (
 
@@ -38,7 +69,7 @@ const AppointSlot = ({onclickCloseApntSlot , onClickOpenPopup}) => {
 
     <section className="appoint-slots-comp">
 
-        <div className="appoint-slots-main-bx">
+        <div className="appoint-slots-main-bx" ref={apntSlotRef}>
 
             <h6>Appointments Slots</h6>
 

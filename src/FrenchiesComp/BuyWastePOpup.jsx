@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const BuyWastePOpup = ({onclickBtn , onclickBuyWasteBtn , onclickViewHistBtn}) => {
+const BuyWastePOpup = ({onclickBtn , buyWaste , onclickBuyWasteBtn , onclickViewHistBtn}) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [userInfo, setUserInfo] = useState(null);
   
@@ -35,12 +35,45 @@ const BuyWastePOpup = ({onclickBtn , onclickBuyWasteBtn , onclickViewHistBtn}) =
   
       return userData;
     };
+
+    const wasteRef = useRef(null)
+
+  
+    
+
+    useEffect(() => {
+
+      const handleClickOutside = (event) => {
+
+        if(wasteRef.current && !wasteRef.current.contains(event.target)){
+          onclickBtn();
+        }
+        
+      }
+
+      if(buyWaste){
+        document.addEventListener("mousedown", handleClickOutside);
+        
+      }else{
+        document.removeEventListener("mousedown", handleClickOutside);
+
+      }
+
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      }
+
+
+    }, [buyWaste])
+
+
+    
     
   return (
     <>
       <section className="buy-waste-popup-comp">
 
-        <div className="buy-waste-bx">
+        <div className="buy-waste-bx" ref={wasteRef}>
           <h6>Buy Waste</h6>
 
           <div className="admin-login-field waste-inpt-field">

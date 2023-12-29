@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GuestPopup from "./GuestPopup";
 
 const BuyWaste = ({
@@ -6,7 +6,8 @@ const BuyWaste = ({
   onclickBuyWasteBtn,
   onclickCloseBuyWaste,
   onclickRedirectBuywaste,
-  onclickVisible
+  onclickVisible,
+  ByWsteTrue
 }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userInfo, setUserInfo] = useState(null);
@@ -44,10 +45,14 @@ const BuyWaste = ({
     return userData;
   };
 
+
+
+
+
   return (
     <>
-      <section className="buy-waste-popup-comp">
-        <div className="buy-waste-bx">
+      <section className="buy-waste-popup-comp" onClick={onclickCloseBuyWaste}>
+        <div className="buy-waste-bx" onClick={(e)=>e.stopPropagation()}>
           <h6>Buy Waste</h6>
 
           <div className="buy-waste-grid-input">

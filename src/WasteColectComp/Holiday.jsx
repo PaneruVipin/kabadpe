@@ -4,9 +4,9 @@ const Holiday = ({onclickCloseHoliday}) => {
   return (
     <>
 
-<section className="comn-popup-comp">
+<section className="comn-popup-comp" onClick={onclickCloseHoliday}>
 
-<div className="comn-popup-bx">
+<div className="comn-popup-bx" onClick={(e)=> e.stopPropagation()}>
 
     <h6>Leave Request </h6>
 

@@ -55,7 +55,7 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx , subsTrue}) => {
             </div>
           </div>
 
-          <div className="addwrkarea-form-bx mt-3">
+          {/* <div className="addwrkarea-form-bx mt-3">
             <div className="admin-login-fild">
               <label htmlFor="City">Area</label>
               <div className="admin-login-input admin-login-select">
@@ -92,7 +92,7 @@ const AddSubsEdit = ({onclickCloseSubsPlanBx , subsTrue}) => {
               </div>
             </div>
 
-          </div>
+          </div> */}
 
           <div className="addwrkarea-form-bx mt-3">
 

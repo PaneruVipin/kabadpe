@@ -6,6 +6,7 @@ import WasteColectEdit from '../AdminComponents.jsx/WasteColectEdit';
 import WasteColectVew from '../AdminComponents.jsx/WasteColectVew';
 import FrenchWasteEdit from './FrenchWasteEdit';
 import LedgerComp from './LedgerComp';
+import WorkCapacity from './WorkCapacity';
 const FrenchWasteColect = ({updatedWasteColectData}) => {
     const [startDate, setStartDate] = useState(new Date("2014/02/08"));
     const [endDate, setEndDate] = useState(new Date("2014/02/10"));
@@ -13,6 +14,8 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
     const [wasteDataBox , setWasteDataBox] = useState(false);
     const [wasteViewData , setWasteViewData]  = useState(false);
     const [transctn , setTransctn] = useState(false);
+    const [wrkcpcity , setWrkcpcity] = useState(true);
+
     const subsDataClose = () => {
 
         setWasteDataBox(false);
@@ -30,7 +33,13 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
 <section className="all-user-data-comp">
         <div className="all-user-data-main-box">
           <div className="user-det-top-flex-box user-det-top-flex-box4">
-            <h6>Waste Collector </h6>
+            <div className="work-capacity-flex-bx">
+            <h6>Workers </h6>
+
+            <button onClick={() => setWrkcpcity(true)} className="work-capacity-btn">
+              Work Capacity
+            </button>
+            </div>
 
             <div className="right-user-filter-data-flex-box">
 
@@ -187,6 +196,8 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
      {wasteViewData ? <FrenchWasteEdit WasteViewTrue={wasteViewData} onClickCloseWasteColectData={closewasteDataVw}/> : null}
 
      { transctn ?  <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
+
+     {  wrkcpcity ? <WorkCapacity onclickClose= {() => setWrkcpcity(false)} /> : null }
     
     </>
       

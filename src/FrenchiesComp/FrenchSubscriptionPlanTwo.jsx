@@ -8,7 +8,7 @@ const FrenchSubscriptionPlanTwo = ({onclickRedirect}) => {
     const [subscrbdData , setSubscrbdData] = useState(SubscribedPlanData);
     const [subsDataBox , setSubsDataBox] = useState(false);
     const [upgradeBx , setUpgradeBx] =  useState(false);
-    const [vwArea , setVwArea] = useState(true);
+    const [vwArea , setVwArea] = useState(false);
 
     const subsDataClose = () => {
 

@@ -13,9 +13,10 @@ import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
 import { userValidateKabadPeRefrral } from "../apis/auth";
 
-const  Wastecolloginregist = () => {
+const Wastecolloginregist = () => {
   const dispatch = useDispatch();
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
+  const { userInfo } = useSelector((s) => s.user);
   const [formBox, setFormBox] = useState(false);
   const [changeText, setChangeText] = useState("Sign Up");
   const [formText, setFormText] = useState("Log In");
@@ -69,6 +70,7 @@ const  Wastecolloginregist = () => {
           pincode: "",
           phoneNumber: "",
           companyRef: "",
+          workerRole: "",
         }
       : {
           phoneNumber: "",
@@ -101,7 +103,9 @@ const  Wastecolloginregist = () => {
 
   return (
     <>
-      <Redirect path="/wastecolectdashboard" />
+      {userInfo?.role == "kabadCollector" ? (
+        <Redirect path="/wastecolectdashboard" />
+      ) : null}
       <SignUpToVerify />
       <section
         className={
@@ -217,23 +221,26 @@ const  Wastecolloginregist = () => {
                             </div>
 
                             <div className="log-inpt-bx reg-inpt-bx">
-                              <select name="workertype" id="workertype">
-                                <option value="workertype">Choose</option>
-                                <option value="workertype">KabadiWala</option>
-                                <option value="Toilet_Cleaner">
+                              <select
+                                name="workerRole"
+                                id="workertype"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workerRole}
+                                defaultValue={values?.workerRole}
+                              >
+                                <option value="" hidden>
+                                  Choose
+                                </option>
+                                <option value="kabadi">KabadiWala</option>
+                                <option value="toilet_cleaner">
                                   Toilet Cleaner
                                 </option>
-                                <option value="workertype">
-                                  Septic Tank safai krne wala
-                                </option>
-                                <option value="workertype">
-                                  Naali saaf krne wala
-                                </option>
-                                <option value="workertype">Cleaner</option>
+                                <option value="cleaner">Cleaner</option>
                               </select>
-                              {touched?.pincode && errors?.pincode ? (
+                              {touched?.workerRole && errors?.workerRole ? (
                                 <div style={{ color: "red" }}>
-                                  {errors?.pincode}
+                                  {errors?.workerRole}
                                 </div>
                               ) : null}
                             </div>

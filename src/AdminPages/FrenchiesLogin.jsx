@@ -15,8 +15,19 @@ import { useEffect } from "react";
 import { number, object, string } from "yup";
 
 const FrenchiesLogin = () => {
+  const [apiTouched, setApiTouched] = useState({});
   const dispatch = useDispatch();
   const {
+    errors: {
+      login: loginError,
+      signup: signupError,
+      verifySignup: verifySignupError,
+    },
+    loading: {
+      login: loginLoading,
+      signup: signupLoading,
+      verifySignup: verifySignupLoading,
+    },
     user,
     success: { login, signup, verifySignup },
   } = useSelector((s) => s.auth);
@@ -25,6 +36,7 @@ const FrenchiesLogin = () => {
     success: userSuccess,
     loading,
   } = useSelector((s) => s.user);
+
   const [showPassword, setShowPassword] = useState(false);
   const [frenchiesSignup, setFrenchiesSignup] = useState(false);
   // const [signupText , setSignupText] = useState('Sign Me In');
@@ -109,8 +121,10 @@ const FrenchiesLogin = () => {
   const handleSignupSubmiSubmit = (data) => {
     if (frenchiesSignup) {
       dispatch(userSignup({ ...data, loginType: "franchise" }));
+      setApiTouched({ ...apiTouched, signup: true });
     } else {
       dispatch(userLogin({ ...data, loginType: "franchise" }));
+      setApiTouched({ ...apiTouched, login: true });
     }
   };
   const handleOTPSubmit = (data) => {
@@ -134,12 +148,6 @@ const FrenchiesLogin = () => {
   }, [login, signup, verifySignup, user]);
 
   useEffect(() => {
-    console.log(
-      "running this, ",
-      franchise,
-      franchise?.role == "franchiseAdmin",
-      franchise?.franchiseStatus == "1"
-    );
     if (franchise?.role == "franchiseAdmin") {
       if (franchise?.franchiseStatus == "1") {
         payFunc();
@@ -147,6 +155,13 @@ const FrenchiesLogin = () => {
       }
     }
   }, [franchise, userSuccess, loading]);
+  console.log(
+    "condition ><>, ",
+    apiTouched?.login && loginError && !loginLoading,
+    apiTouched,
+    loginError,
+    loginLoading
+  );
   return (
     <>
       <main
@@ -435,7 +450,11 @@ const FrenchiesLogin = () => {
                                 ) : null}
                               </div>
                             </div>
-
+                            {apiTouched?.signup &&
+                            signupError &&
+                            !signupLoading ? (
+                              <div style={{ color: "red" }}>{signupError}</div>
+                            ) : null}
                             <button
                               type="submit"
                               className="admin-form-btn admin-form-btn2 admin-form-btn4 "
@@ -531,7 +550,9 @@ const FrenchiesLogin = () => {
                               Forgot Password ?
                             </button>
                           </NavLink>
-
+                          {apiTouched?.login && loginError && !loginLoading ? (
+                            <div style={{ color: "red" }}>{loginError}</div>
+                          ) : null}
                           <button
                             type="submit"
                             className="admin-form-btn admin-form-btn2 admin-form-btn3"

@@ -17,10 +17,9 @@ const WasteAppointment = () => {
   const [selectedAppoinment, setSelectedAppoinment] = useState({});
 
   const { data: appoinments, refetch } = useQuery({
-    queryKey: ["workerAppoinment"],
-    queryFn: () => workerAppoinmentsFetch(),
+    queryKey: ["workerAppoinments"],
+    queryFn: () => workerAppoinmentsFetch({}),
   });
-  console.log("appoinments appoinments  , ", appoinments);
   return (
     <>
       <ScheduleActionPopup setPopUp={setPopUp} popUp={popUp} />
@@ -82,12 +81,14 @@ const WasteAppointment = () => {
               </div>
 
               <div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx">
-                <WasteAppoinmentTable
-                  appoinments={appoinments}
-                  setAddressPopup={setAddressPopup}
-                  setPopUp={setPopUp}
-                  setSelectedAppoinment={setSelectedAppoinment}
-                />
+                {!appoinments?.error ? (
+                  <WasteAppoinmentTable
+                    appoinments={appoinments}
+                    setAddressPopup={setAddressPopup}
+                    setPopUp={setPopUp}
+                    setSelectedAppoinment={setSelectedAppoinment}
+                  />
+                ) : null}
               </div>
             </div>
           </div>

@@ -5,6 +5,8 @@ import WasteAppoinmentTable, {
   AddressPopup,
   ScheduleActionPopup,
 } from "./WasteAppoinmentTable";
+import { useQuery } from "@tanstack/react-query";
+import { workerAppoinmentsFetch } from "../apis/worker/appoinments";
 
 const WasteAppoint = () => {
   const [popUp, setPopUp] = useState(false);
@@ -12,6 +14,15 @@ const WasteAppoint = () => {
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
   const [addressPopup, setAddressPopup] = useState(false);
+  const [selectedAppoinment, setSelectedAppoinment] = useState({});
+  const from = new Date();
+  from.setHours(0, 0, 0, 0);
+  const to = new Date(from);
+  to.setDate(to.getDate() + 1);
+  const { data: appoinments, refetch } = useQuery({
+    queryKey: ["todayWorkerAppoinments"],
+    queryFn: () => workerAppoinmentsFetch({ from, to }),
+  });
   return (
     <>
       <ScheduleActionPopup setPopUp={setPopUp} popUp={popUp} />
@@ -19,6 +30,7 @@ const WasteAppoint = () => {
       <AddressPopup
         addressPopup={addressPopup}
         setAddressPopup={setAddressPopup}
+        selectedAppoinment={selectedAppoinment}
       />
 
       <section className="waste-appoint-ment-comp waste-appoint-ment-comp3">
@@ -28,10 +40,14 @@ const WasteAppoint = () => {
               <p className="tex-line tex-line2 tex-line5">Today Appointments</p>
 
               <div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx wasteappoint-prof-table-main-bx5">
-                <WasteAppoinmentTable
-                  setAddressPopup={setAddressPopup}
-                  setPopUp={setPopUp}
-                />
+                {!appoinments?.error ? (
+                  <WasteAppoinmentTable
+                    setAddressPopup={setAddressPopup}
+                    setPopUp={setPopUp}
+                    setSelectedAppoinment={setSelectedAppoinment}
+                    appoinments={appoinments}
+                  />
+                ) : null}
               </div>
             </div>
           </div>

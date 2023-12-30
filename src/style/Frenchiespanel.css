@@ -2939,3 +2939,119 @@ input[type="number"]::-webkit-inner-spin-button{
 
 /* f9f7fb */
 
+.work-capacity-flex-bx{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.work-capacity-flex-bx h6{
+    margin-bottom: 0;
+}
+
+.work-capacity-btn{
+    position: relative;
+    padding: .35rem 1.5rem;
+    background-color: transparent;
+    border-radius: .5rem;
+    color: #ff0000;
+    font-weight: 500;
+    font-size: 1rem;
+    border: .1rem solid #ff0000;
+    transition: 400ms ease;
+}
+
+.work-capacity-btn:hover{
+    color: #fff;
+    background-color: #ff0000;
+}
+
+.wrk-cpacity-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrk-cpacity-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: -1;
+    opacity: 0.65;
+}
+
+.wrk-cap-bx {
+    position: relative;
+    width: 40rem;
+    background-color: #fff;
+    padding: 2.5rem 1.5rem;
+    border-radius: .55rem;
+
+}
+
+.wrk-table table thead tr th{
+    padding-inline: .67rem;
+}
+
+.wrk-table table tbody tr td{
+    padding-inline: .67rem;
+}
+
+.wrk-sel-bx{
+    position: relative;
+    width: max-content;
+    background-color: #fff;
+    padding: .35rem .76rem;
+    border: .05rem solid #ddd;
+    border-radius: .45rem;
+    cursor: pointer;
+}
+
+.wrk-sel-bx select{
+    width: 100%;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #090a12;
+    font-weight: 500;
+}
+
+.action-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem 1rem;
+    background-color: #ff0000;
+    color: #fff;
+    font-size: .87rem;
+    font-weight: 500;
+    border-radius: .5rem;
+    transition: 300ms ease;
+}
+
+.close-btn2{
+    top: .5rem;
+}
+
+.area-flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add-area-icon2 i{
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    color: #1362fc !important;
+    margin-right: 1rem;
+}

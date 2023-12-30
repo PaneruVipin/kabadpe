@@ -457,7 +457,7 @@ const FrenchiesPanel = () => {
               <div className="a-nv-i">
                 <HiMiniUsers />
               </div>
-              <span>Waste Collector</span>
+              <span>Workers</span>
             </div>
 
             <div className={getButonClasnameTwo(3)}>
@@ -473,7 +473,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">All Kabadiwala</NavLink>{" "}
+                <NavLink to="#">All Workers</NavLink>{" "}
               </li>
               <li
                 onClick={() => handleFilter("active")}
@@ -484,7 +484,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Active Kabadiwala</NavLink>{" "}
+                <NavLink to="#">Active Workers</NavLink>{" "}
               </li>
               <li
                 onClick={() => handleFilter("banned")}
@@ -495,7 +495,7 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Banned Kabadiwala </NavLink>{" "}
+                <NavLink to="#">Banned Workers </NavLink>{" "}
               </li>
               {/* <li
                 onClick={() => handleFilter("unverified")}

@@ -133,7 +133,7 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                         <div style={{ color: "red" }}>{errors.subAriaName}</div>
                       ) : null}
                     </div>
-                    <div className="admin-login-fild">
+                    {/* <div className="admin-login-fild">
                       <label htmlFor="subarea">Price</label>
                       <div className="admin-login-input">
                         <input
@@ -150,7 +150,42 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                       {touched.price && errors.price ? (
                         <div style={{ color: "red" }}>{errors.price}</div>
                       ) : null}
-                    </div>
+                    </div> */}
+
+
+<div className="addwrkarea-form-bx ">
+
+<div className="admin-login-fild ">
+    <label htmlFor="City"> Monthly Price</label>
+    <div className="admin-login-input">
+      <input
+        type="text"
+        name="monthlyprice"
+        id="monthlyprice"
+        placeholder="Monthly Price"
+        autoComplete="off"
+        // readOnly
+        // value={calculatePrice()}
+      />
+    </div>
+  </div>
+
+  <div className="admin-login-fild ">
+    <label htmlFor="City"> Quaterly Price</label>
+    <div className="admin-login-input">
+      <input
+        type="text"
+        name="quaterlyprice"
+        id="quaterlyprice"
+        placeholder="Quaterly Price"
+        autoComplete="off"
+        // readOnly
+        // value={calculatePrice()}
+      />
+    </div>
+  </div>
+
+</div>
                   </div>
 
                   <button type="submit" className="add-work-area-btn">

@@ -150,7 +150,7 @@ const Wastecollectdashboard = () => {
             className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-money-bill-trend-up"></i>
+              <i class="fa-solid fa-money-bill-trend-up"></i>
             </div>
             Clear Stock
           </button>
@@ -203,7 +203,11 @@ const Wastecollectdashboard = () => {
       </div>
 
       {profBtn === 1 ? (
-        <WasteDashboard onclickRedirectGuestBuyWaste={() => filterTab(11)} onclickShowDetailComp={() => filterTab(3)} onclickRedirectBuyWasteTable={() => filterTab(10)}  />
+        <WasteDashboard
+          onclickRedirectGuestBuyWaste={() => filterTab(11)}
+          onclickShowDetailComp={() => filterTab(3)}
+          onclickRedirectBuyWasteTable={() => filterTab(10)}
+        />
       ) : null}
       {profBtn === 2 ? <WasteAppointment /> : null}
       {profBtn === 3 ? <WasteDetail /> : null}
@@ -216,9 +220,6 @@ const Wastecollectdashboard = () => {
       {profBtn === 10 ? <BuyWasteTable /> : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
-
-
-
     </>
   );
 };

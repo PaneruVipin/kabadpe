@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
-const AllUser = ({updatedFilterData}) => {
- 
-
+const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("./images/customImg/c-1.jpg");
   const [editableForm, setEditableForm] = useState(false);
@@ -16,26 +14,22 @@ const AllUser = ({updatedFilterData}) => {
   const [profChange, setProfChange] = useState(false);
   const [editForm, setEditForm] = useState(false);
   // const [userStatAct, setUserStatAct] = useState('Active');
-  const [userPrfData , setUserPrfData] = useState({
-
-    userId : 'ACU435GRh',
-    Name : 'Richard Parker',
-    Mobile : '908654576',
-    email : 'nawaz001@gmail.com',
-    userType : 'Staff (Support Team)',
-    address : 'B/10 Azad Nagar street No.-2 Delhi-110008',
-    city : 'Bihar',
-    Pin  : '110031',
-    State : 'Patna',
+  const [userPrfData, setUserPrfData] = useState({
+    userId: "ACU435GRh",
+    Name: "Richard Parker",
+    Mobile: "908654576",
+    email: "nawaz001@gmail.com",
+    userType: "Staff (Support Team)",
+    address: "B/10 Azad Nagar street No.-2 Delhi-110008",
+    city: "Bihar",
+    Pin: "110031",
+    State: "Patna",
   });
- 
 
   const handleInputChangeData = (e) => {
-
-  const {name , value} = e.target;
-    setUserPrfData( {...userPrfData , [name] : value  })
-     
-  }
+    const { name, value } = e.target;
+    setUserPrfData({ ...userPrfData, [name]: value });
+  };
 
   const hamdleImageUpdate = (e) => {
     const file = e.target.files[0];
@@ -61,33 +55,17 @@ const AllUser = ({updatedFilterData}) => {
     }
   };
 
- const editableRef = useRef(null);
+  // const handleFiltFunction = (index) => {
 
- useEffect(() => {
+  //   const updatedData =  userData.filter((curData) => {
 
-  const handleClickOutside = (event) => {
-
-    if(editableRef.current && !editableRef.current.contains(event.target)){
-
-      setEditableForm(false);
+  //     return index  === curData.categoryStatus ;
       
-    }
+  //   })
+
+  // setUserData(updatedData);
     
-  }
-
-  if(editableForm){
-    document.addEventListener("mousedown", handleClickOutside);
-  }else{
-    document.removeEventListener("mousedown", handleClickOutside);
-
-  }
-
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-
-  }
-  
- }, [editableForm])
+  // }
 
 
   
@@ -100,61 +78,63 @@ const AllUser = ({updatedFilterData}) => {
             <h6>All User Details</h6>
 
             <div className="right-user-filter-data-flex-box">
+              <div className="user-data-search-box">
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="Search..."
+                  autoComplete="off"
+                />
+              </div>
 
-                <div className="user-data-search-box">
-                    <input type="text" name="search" id="search" placeholder="Search..." autoComplete="off" />
+              <div className="user-type-sel-box user-data-search-box">
+                <select name="user-type-data" id="user-type-data">
+                  <option value="1">User</option>
+                  <option value="1">Vendor</option>
+                  <option value="1">Staff (Manager)</option>
+                  <option value="1">Staff (Sales Team)</option>
+                  <option value="1">Staff (Support Team)</option>
+                </select>
+              </div>
+
+              <div className="user-type-sel-box  user-data-search-box user-type-sel-box3">
+                <select name="user-type-data" id="user-type-data">
+                  <option value="1">Today</option>
+                  <option value="1">Last Week</option>
+                  <option value="1">Last Monthly </option>
+                </select>
+              </div>
+
+              <div className="sel-user-date-flex">
+                <div className="sel-date sel-date-user">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                  />
                 </div>
 
-                <div className="user-type-sel-box user-data-search-box">
-                    <select name="user-type-data" id="user-type-data">
-                        <option value="1">User</option>
-                        <option value="1">Vendor</option>
-                        <option value="1">Staff (Manager)</option>
-                        <option value="1">Staff (Sales Team)</option>
-                        <option value="1">Staff (Support Team)</option>
+                <span>to</span>
 
-                    </select>
+                <div className="sel-date ">
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                  />
                 </div>
+              </div>
 
-                <div className="user-type-sel-box  user-data-search-box user-type-sel-box3">
-                    <select name="user-type-data" id="user-type-data">
-                        <option value="1">Today</option>
-                        <option value="1">Last Week</option>
-                        <option value="1">Last Monthly </option>
-                    </select>
-                </div>
-
-            <div className="sel-user-date-flex">
-                    <div className="sel-date sel-date-user">
-                      <DatePicker
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        selectsStart
-                        startDate={startDate}
-                        endDate={endDate}
-                      />
-                    </div>
-
-                    <span>to</span>
-
-                    <div className="sel-date ">
-                      <DatePicker
-                        selected={endDate}
-                        onChange={(date) => setEndDate(date)}
-                        selectsEnd
-                        startDate={startDate}
-                        endDate={endDate}
-                        minDate={startDate}
-                      />
-                    </div>
-                  </div>
-                
-                <div className="user-data-search-btn">
+              <div className="user-data-search-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                
+              </div>
             </div>
-            
           </div>
 
           <div className="all-user-table">
@@ -181,7 +161,7 @@ const AllUser = ({updatedFilterData}) => {
                     <>
                       <tr key={id}>
                         <td>
-                            <span> {curElem.id} </span>
+                          <span> {curElem.id} </span>
                         </td>
                         <td>
                           <div className="user-prof-img">
@@ -205,7 +185,22 @@ const AllUser = ({updatedFilterData}) => {
                           <span> {curElem.userType} </span>
                         </td>
                         <td>
-                          <span style={{ color : curElem.categoryStatus === "Active"  ? "Green" : "orange"  }}  className={ curElem.categoryStatus === "Banned" ? "status-t statColor" : "status-t"} > {curElem.userStatus} </span>
+                          <span
+                            style={{
+                              color:
+                                curElem.categoryStatus === "Active"
+                                  ? "Green"
+                                  : "orange",
+                            }}
+                            className={
+                              curElem.categoryStatus === "Banned"
+                                ? "status-t statColor"
+                                : "status-t"
+                            }
+                          >
+                            {" "}
+                            {curElem.userStatus}{" "}
+                          </span>
                         </td>
                         <td>
                           <span> {curElem.City} </span>
@@ -215,7 +210,10 @@ const AllUser = ({updatedFilterData}) => {
                         </td>
 
                         <td>
-                          <div onClick={() => setEditableForm(true)} className="edit-user-btn">
+                          <div
+                            onClick={() => setEditableForm(true)}
+                            className="edit-user-btn"
+                          >
                             <i class="fa-regular fa-pen-to-square"></i>
                           </div>
                         </td>
@@ -229,26 +227,32 @@ const AllUser = ({updatedFilterData}) => {
         </div>
       </section>
 
-      <section className={ editableForm ? "all-user-editable-form-main-box editformactive"  : "all-user-editable-form-main-box"}>
-        <div className="all-user-edit-form-box" ref={editableRef}>
-
-            <div className="user-prof-editable-box">
-
-                <h5>Profile</h5>
+      <section
+        className={
+          editableForm
+            ? "all-user-editable-form-main-box editformactive"
+            : "all-user-editable-form-main-box"
+        }
+      >
+        <div className="all-user-edit-form-box">
+          <div className="user-prof-editable-box">
+            <h5>Profile</h5>
 
             <div className="update-prof-img-flex-box">
-            <div className="update-prof-img">
-              <img src={selectImg} alt="" />
+              <div className="update-prof-img">
+                <img src={selectImg} alt="" />
 
-              <div onClick={() => {setProfChange(true)}}  className="prof-user-data-edit-btn">
-                Edit
+                <div
+                  onClick={() => {
+                    setProfChange(true);
+                  }}
+                  className="prof-user-data-edit-btn"
+                >
+                  Edit
+                </div>
               </div>
-              
-            </div>
 
-           
-
-            {/* <label htmlFor="Updte_Prof_img">
+              {/* <label htmlFor="Updte_Prof_img">
                 Upload Image
             </label>
 
@@ -258,117 +262,116 @@ const AllUser = ({updatedFilterData}) => {
               name="Updte_Prof_img"
               id="Updte_Prof_img"
             /> */}
-          </div>
+            </div>
 
-          <div className="user-prof-data-box">
-
-            <div className="user-prof-info-box">
+            <div className="user-prof-data-box">
+              <div className="user-prof-info-box">
                 <label htmlFor="#">User Id</label>
                 <span>ACU435GRh</span>
-            </div>
+              </div>
 
-            <div className="user-prof-info-box">
+              <div className="user-prof-info-box">
                 <label htmlFor="#"> Name</label>
                 <span>Richard Parker</span>
-            </div>
+              </div>
 
-            <div className="user-prof-info-box">
+              <div className="user-prof-info-box">
                 <label htmlFor="#"> Mobile</label>
                 <span>908654576</span>
-            </div>
+              </div>
 
-            <div className="user-prof-info-box">
+              <div className="user-prof-info-box">
                 <label htmlFor="#"> Email</label>
                 <span>nawaz001@gmail.com</span>
-            </div>
+              </div>
 
-            <div className="user-prof-info-box">
+              <div className="user-prof-info-box">
                 <label htmlFor="#"> User Type</label>
                 <span>Staff (Support Team) </span>
+              </div>
             </div>
-            
-          </div>
 
-          <div className="user-prof-table-data-box">
-            <table>
+            <div className="user-prof-table-data-box">
+              <table>
                 <thead>
-                    <tr>
-                        <th>S-No.</th>
-                        <th>Address</th>
-                        <th>Add. Type</th>
-                        <th>City</th>
-                        <th>Pin</th>
-                        <th>State</th>
-                        <th>Action</th>
-
-
-                    </tr>
+                  <tr>
+                    <th>S-No.</th>
+                    <th>Address</th>
+                    <th>Add. Type</th>
+                    <th>City</th>
+                    <th>Pin</th>
+                    <th>State</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <span>1</span>
-                        </td>
-                        <td>
-                            <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                        </td>
-                        <td>
-                            <span>Home </span>
-                        </td>
-                        <td>
-                            <span> Bihar </span>
-                        </td>
-                        <td>
-                            <span> 110031 </span>
-                        </td>
-                        <td>
-                            <span> Patna </span>
-                        </td>
-                        <td>
-                            <button className="actin-btn"> primary </button>
-                        </td>
-                    </tr>
+                  <tr>
+                    <td>
+                      <span>1</span>
+                    </td>
+                    <td>
+                      <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
+                    </td>
+                    <td>
+                      <span>Home </span>
+                    </td>
+                    <td>
+                      <span> Bihar </span>
+                    </td>
+                    <td>
+                      <span> 110031 </span>
+                    </td>
+                    <td>
+                      <span> Patna </span>
+                    </td>
+                    <td>
+                      <button className="actin-btn"> primary </button>
+                    </td>
+                  </tr>
 
-                    <tr>
-                        <td>
-                            <span>2</span>
-                        </td>
-                        <td>
-                            <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                        </td>
+                  <tr>
+                    <td>
+                      <span>2</span>
+                    </td>
+                    <td>
+                      <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
+                    </td>
 
-                        <td>
-                        <span>Work </span>
+                    <td>
+                      <span>Work </span>
+                    </td>
 
-                        </td>
-                      
-                        <td>
-                            <span> Bihar </span>
-                        </td>
-                        <td>
-                            <span> 110031 </span>
-                        </td>
-                        <td>
-                            <span> Patna </span>
-                        </td>
-                        <td>
-                            <button className="actin-btn actin-btn2"> Delivery </button>
-                        </td>
-                    </tr>
+                    <td>
+                      <span> Bihar </span>
+                    </td>
+                    <td>
+                      <span> 110031 </span>
+                    </td>
+                    <td>
+                      <span> Patna </span>
+                    </td>
+                    <td>
+                      <button className="actin-btn actin-btn2">
+                        {" "}
+                        Delivery{" "}
+                      </button>
+                    </td>
+                  </tr>
                 </tbody>
-            </table>
+              </table>
+            </div>
           </div>
 
-            </div>
-            
-          
-
-          <form action="#" className={ editForm ? "user-edit-main-form editformactive" : "user-edit-main-form"}>
-
+          <form
+            action="#"
+            className={
+              editForm
+                ? "user-edit-main-form editformactive"
+                : "user-edit-main-form"
+            }
+          >
             <div className="user-data-form-edit">
-
               <div className="userdata-form-grid">
-
                 <div className="user-edit-inpt-box">
                   <label htmlFor="User Id">User Id</label>
                   <div className="user-edit-inpt">
@@ -378,7 +381,7 @@ const AllUser = ({updatedFilterData}) => {
                       value={userPrfData.userId}
                       onChange={handleInputChangeData}
                       id="userId"
-                      autoComplete="off" 
+                      autoComplete="off"
                       disabled
                     />
                   </div>
@@ -425,25 +428,27 @@ const AllUser = ({updatedFilterData}) => {
                     />
                   </div>
                 </div>
-
-               
-                
               </div>
 
-
               <div className="userdata-form-grid">
-
-              <div className="user-edit-inpt-box">
+                <div className="user-edit-inpt-box">
                   <label htmlFor="UserType ">User Type</label>
                   <div className="user-edit-inpt user-edit-inpt2">
-                    <select name="userType" id="userType"   value={userPrfData.userType}
-                      onChange={handleInputChangeData}>
-                        <option value="User">User</option>
-                        <option value="Vendor">Vendor</option>
-                        <option value="Staff (Manager)">Staff (Manager)</option>
-                        <option value="Staff  (Sales Team)">Staff  (Sales Team)</option>
-                        <option value="Staff  (Support Team)">Staff  (Support Team)</option>
-
+                    <select
+                      name="userType"
+                      id="userType"
+                      value={userPrfData.userType}
+                      onChange={handleInputChangeData}
+                    >
+                      <option value="User">User</option>
+                      <option value="Vendor">Vendor</option>
+                      <option value="Staff (Manager)">Staff (Manager)</option>
+                      <option value="Staff  (Sales Team)">
+                        Staff (Sales Team)
+                      </option>
+                      <option value="Staff  (Support Team)">
+                        Staff (Support Team)
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -461,7 +466,6 @@ const AllUser = ({updatedFilterData}) => {
                     />
                   </div>
                 </div>
-
 
                 <div className="user-edit-inpt-box">
                   <label htmlFor="Zip_Code ">Zip Code</label>
@@ -490,29 +494,24 @@ const AllUser = ({updatedFilterData}) => {
                     />
                   </div>
                 </div>
-
-
-               
-                
               </div>
-
-              
-              
             </div>
 
-            <button className="sqave-chang-btn">
-              Save Changes
-            </button>
-            
+            <button className="sqave-chang-btn">Save Changes</button>
           </form>
 
-
-          <div onClick={() => setEditableForm(false)} className="edit-form-close-btn">
-          <i class="fa-solid fa-xmark"></i>
+          <div
+            onClick={() => setEditableForm(false)}
+            className="edit-form-close-btn"
+          >
+            <i class="fa-solid fa-xmark"></i>
           </div>
 
-          <div onClick={() => setEditForm(!editForm)} className="edit-form-close-btn edit-user-btn2">
-          <i class="fa-solid fa-user-pen"></i>
+          <div
+            onClick={() => setEditForm(!editForm)}
+            className="edit-form-close-btn edit-user-btn2"
+          >
+            <i class="fa-solid fa-user-pen"></i>
           </div>
         </div>
       </section>
@@ -537,14 +536,9 @@ const AllUser = ({updatedFilterData}) => {
               onChange={handleImageChange}
               id="prof_input"
             />
-
-         
-            
           </div>
 
-          <button className="confirm-prof-btn">
-                Confirm
-            </button>
+          <button className="confirm-prof-btn">Confirm</button>
 
           <div
             onClick={() => setProfChange(false)}
@@ -552,12 +546,8 @@ const AllUser = ({updatedFilterData}) => {
           >
             <i class="fa-solid fa-xmark"></i>
           </div>
-          
         </div>
       </div>
-
-
-      
     </>
   );
 };

@@ -6,6 +6,8 @@ import { adminSubsFetch } from "../apis/admins/subscription";
 
 const Addsubscription = () => {
   const [subsPlanBx, setSubsPlanBx] = useState(false);
+  const [initialUpdateValues, setInitialUpdateValues] = useState({});
+  const [formType, setFormType] = useState("add");
   const { data: subscription, refetch } = useQuery({
     queryKey: ["kabadpeSubscription"],
     queryFn: () => adminSubsFetch(),
@@ -16,15 +18,16 @@ const Addsubscription = () => {
       <section className="add-work-comn-comp">
         <div className="add-work-btn-flex-bx">
           <h6 className="banktext mb-0">Add Work Area</h6>
-
           <button
-            onClick={() => setSubsPlanBx(true)}
+            onClick={() => {
+              setFormType("add");
+              setSubsPlanBx(true);
+            }}
             className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn"
           >
             Add New Subscription Plan
           </button>
         </div>
-
         <div className="all-user-table add-wrk-table">
           <table>
             <thead>
@@ -37,54 +40,79 @@ const Addsubscription = () => {
                 <th>Action</th>
               </tr>
             </thead>
-
             <tbody>
-              {addSubsPlan.map((elem, id) => {
-                return (
-                  <>
-                    <tr key={id} id={elem.id}>
-                      <td>
-                        <span> {elem.id} </span>
-                      </td>
-                      <td>
-                        <span> {elem.planName} </span>
-                      </td>
-                      <td>
-                        <span> {elem.WasteColect} </span>
-                      </td>
-                      <td>
-                        <span> ₹{elem.monthlyprice} </span>
-                      </td>
+              {subscription?.map(
+                (
+                  {
+                    collectrorsCount,
+                    collectorsPrice,
+                    planName,
+                    ariasPriceDiscount,
+                    collectorsPriceDiscount,
+                    subscriptionType,
+                    id,
+                  },
+                  i
+                ) => {
+                  return (
+                    <>
+                      <tr key={i}>
+                        <td>
+                          <span> {i + 1} </span>
+                        </td>
+                        <td>
+                          <span> {planName} </span>
+                        </td>
+                        <td>
+                          <span> {collectrorsCount} </span>
+                        </td>
+                        <td>
+                          <span> ₹{collectorsPrice} </span>
+                        </td>
 
-                      <td>
-                        <span> ₹{elem.quaterlyprice} </span>
-                      </td>
+                        <td>
+                          <div className="edit-remv-btns">
+                            <button
+                              onClick={() => {
+                                setInitialUpdateValues({
+                                  collectrorsCount,
+                                  collectorsPrice,
+                                  planName,
+                                  ariasPriceDiscount,
+                                  collectorsPriceDiscount,
+                                  subscriptionType,
+                                  id,
+                                });
+                                setFormType("update");
+                                setSubsPlanBx(true);
+                              }}
+                              className="add-wrok-actn-btn"
+                            >
+                              <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
 
-                      <td>
-                        <div className="edit-remv-btns">
-                          <button
-                            onClick={() => setSubsPlanBx(true)}
-                            className="add-wrok-actn-btn"
-                          >
-                            <i class="fa-solid fa-pen-to-square"></i>
-                          </button>
-
-                          <button className="add-wrok-actn-btn">
-                            <i class="fa-solid fa-trash"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
+                            <button className="add-wrok-actn-btn">
+                              <i class="fa-solid fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                }
+              )}
             </tbody>
           </table>
         </div>
       </section>
 
       {subsPlanBx ? (
-        <AddSubsEdit onclickCloseSubsPlanBx={() => setSubsPlanBx(false)} />
+        <AddSubsEdit
+          initialUpdateValues={initialUpdateValues}
+          refetch={refetch}
+          formType={formType}
+          onclickCloseSubsPlanBx={() => setSubsPlanBx(false)}
+        />
       ) : null}
     </>
   );

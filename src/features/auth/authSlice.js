@@ -64,11 +64,7 @@ const authSlice = createSlice({
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = {
         ...state.loading,
-        login: true,
-      };
-      state.loading = {
-        ...state.loading,
-        login: true,
+        login: false,
       };
       state.success = {
         ...state.success,
@@ -103,7 +99,7 @@ const authSlice = createSlice({
       }
     );
     builder.addCase(userSignup.rejected, (state, { payload }) => {
-      state.loading.signup = false;
+      state.loading = { ...state.loading, signup: false };
       state.errors = {
         ...state.errors,
         signup: payload,
@@ -146,11 +142,7 @@ const authSlice = createSlice({
     builder.addCase(userVerifySignup.rejected, (state, { payload }) => {
       state.loading = {
         ...state.loading,
-        verifySignup: true,
-      };
-      state.loading = {
-        ...state.loading,
-        verifySignup: true,
+        verifySignup: false,
       };
       state.success = {
         ...state.success,

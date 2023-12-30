@@ -14,6 +14,7 @@ export const signup = async ({
   franchiseAddress,
   companyName,
   confirmPassword,
+  workerRole,
   loginType = "user",
 }) => {
   const setting = {
@@ -27,6 +28,7 @@ export const signup = async ({
         pincode,
         emergencyPhone,
         workCity,
+        workerRole,
         companyRef,
       },
     },

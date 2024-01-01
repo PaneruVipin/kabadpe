@@ -3,6 +3,7 @@ import Appointment from "../HomeComponent/Appointment";
 import Ecosystem from "../HomeComponent/Ecosystem";
 import HomeSlider from "../HomeComponent/HomeSlider";
 import Impact from "../HomeComponent/Impact";
+import ImpactComp from "../HomeComponent/ImpactComp";
 import KabadJugad from "../HomeComponent/KabadJugad";
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
   <Appointment />
   <Ecosystem />
   <KabadJugad />
-  <Impact />
+  <ImpactComp />
   </>;
 };
 

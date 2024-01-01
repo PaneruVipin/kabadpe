@@ -57,7 +57,7 @@ const Ecosystem = () => {
               </div>
 
               <div onClick={() => handleFilter('locat')} className={tab === "locat" ? "tab-swtch-bx tabactive" : "tab-swtch-bx"}>
-                <div className="left-tab-icon left-tab-icon2">
+                <div className="left-tab-icon left-tab-icon3">
                   <img src="./images/customImg/home.gif" alt="" />
                 </div>
 

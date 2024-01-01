@@ -3,7 +3,12 @@ import React, { useEffect, useRef } from "react";
 import { adminAriaAdd, adminAriaUpdate } from "../apis/admins/arias";
 import { validationAddAria } from "../validators/admin/addAriaValidator";
 
-const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, values }) => {
+const Addworkareaedit = ({
+  onclickCloseAddWorkEdit,
+  workAreaTrue,
+  refetch,
+  values,
+}) => {
   const formTitle = values ? "Update Work Area" : "Add Work Area";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
@@ -21,7 +26,7 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
   return (
     <>
       <section className="add-work-area-edit-comp">
-        <div className="add-work-area-edit-main-bx" >
+        <div className="add-work-area-edit-main-bx">
           <h6 className="banktext">{formTitle}</h6>
           <Formik
             initialValues={initialValues}
@@ -50,11 +55,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.state}
+                          value={values?.state}
                         />
                       </div>
-                      {touched.state && errors.state ? (
-                        <div style={{ color: "red" }}>{errors.state}</div>
+                      {touched?.state && errors?.state ? (
+                        <div style={{ color: "red" }}>{errors?.state}</div>
                       ) : null}
                     </div>
 
@@ -69,11 +74,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.city}
+                          value={values?.city}
                         />
                       </div>
-                      {touched.city && errors.city ? (
-                        <div style={{ color: "red" }}>{errors.city}</div>
+                      {touched?.city && errors?.city ? (
+                        <div style={{ color: "red" }}>{errors?.city}</div>
                       ) : null}
                     </div>
 
@@ -88,11 +93,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.pincode}
+                          value={values?.pincode}
                         />
                       </div>
-                      {touched.pincode && errors.pincode ? (
-                        <div style={{ color: "red" }}>{errors.pincode}</div>
+                      {touched?.pincode && errors?.pincode ? (
+                        <div style={{ color: "red" }}>{errors?.pincode}</div>
                       ) : null}
                     </div>
 
@@ -107,11 +112,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.ariaName}
+                          value={values?.ariaName}
                         />
                       </div>
-                      {touched.ariaName && errors.ariaName ? (
-                        <div style={{ color: "red" }}>{errors.ariaName}</div>
+                      {touched?.ariaName && errors?.ariaName ? (
+                        <div style={{ color: "red" }}>{errors?.ariaName}</div>
                       ) : null}
                     </div>
 
@@ -126,11 +131,11 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.subAriaName}
+                          value={values?.subAriaName}
                         />
                       </div>
-                      {touched.subAriaName && errors.subAriaName ? (
-                        <div style={{ color: "red" }}>{errors.subAriaName}</div>
+                      {touched?.subAriaName && errors?.subAriaName ? (
+                        <div style={{ color: "red" }}>{errors?.subAriaName}</div>
                       ) : null}
                     </div>
                     {/* <div className="admin-login-fild">
@@ -144,48 +149,57 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit,  workAreaTrue , refetch, val
                           autoComplete="off"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.price}
+                          value={values?.price}
                         />
                       </div>
-                      {touched.price && errors.price ? (
-                        <div style={{ color: "red" }}>{errors.price}</div>
+                      {touched?.price && errors?.price ? (
+                        <div style={{ color: "red" }}>{errors?.price}</div>
                       ) : null}
                     </div> */}
 
+                    <div className="addwrkarea-form-bx ">
+                      <div className="admin-login-fild ">
+                        <label htmlFor="City"> Monthly Price</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="monthlyPrice"
+                            id="monthlyprice"
+                            placeholder="Monthly Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.monthlyPrice}
+                          />
+                        </div>
+                        {touched?.monthlyPrice && errors?.monthlyPrice ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.monthlyPrice}
+                          </div>
+                        ) : null}
+                      </div>
 
-<div className="addwrkarea-form-bx ">
-
-<div className="admin-login-fild ">
-    <label htmlFor="City"> Monthly Price</label>
-    <div className="admin-login-input">
-      <input
-        type="text"
-        name="monthlyprice"
-        id="monthlyprice"
-        placeholder="Monthly Price"
-        autoComplete="off"
-        // readOnly
-        // value={calculatePrice()}
-      />
-    </div>
-  </div>
-
-  <div className="admin-login-fild ">
-    <label htmlFor="City"> Quaterly Price</label>
-    <div className="admin-login-input">
-      <input
-        type="text"
-        name="quaterlyprice"
-        id="quaterlyprice"
-        placeholder="Quaterly Price"
-        autoComplete="off"
-        // readOnly
-        // value={calculatePrice()}
-      />
-    </div>
-  </div>
-
-</div>
+                      <div className="admin-login-fild ">
+                        <label htmlFor="City"> Quaterly Price</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="quaterlyPrice"
+                            id="quaterlyprice"
+                            placeholder="Quaterly Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.quaterlyPrice}
+                          />
+                        </div>
+                        {touched?.quaterlyPrice && errors?.quaterlyPrice ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.quaterlyPrice}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
 
                   <button type="submit" className="add-work-area-btn">

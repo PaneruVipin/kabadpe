@@ -8,10 +8,8 @@ const Header = () => {
   const [menu , setMenu] = useState(false);
 
   const linkActive = (getlinkvalue) => {
-
-      setNavLink(getlinkvalue)
-    
-  }
+    setNavLink(getlinkvalue);
+  };
 
   const popUpUserForm = () => {
     setUserForm(!userForm);
@@ -290,11 +288,11 @@ const Header = () => {
         </div>
       </header>
 
-{/* <!-- Main header--> */}
+      {/* <!-- Main header--> */}
 
         
 
-       {userForm ? <UserForm closepopUpUserForm={popUpUserForm} /> : null}
+      {userForm ? <UserForm closepopUpUserForm={popUpUserForm} /> : null}
     </>
   );
 };

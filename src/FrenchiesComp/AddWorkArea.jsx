@@ -51,13 +51,22 @@ const AddWorkArea = () => {
               {!arias?.error
                 ? arias?.map(
                     (
-                      { id, subAriaName, pincode, city, state, ariaName },
+                      {
+                        id,
+                        subAriaName,
+                        pincode,
+                        city,
+                        state,
+                        ariaName,
+                        monthlyPrice,
+                        quaterlyPrice,
+                      },
                       i
                     ) => (
                       <>
                         <tr key={i}>
                           <td>
-                            <span> {i+1} </span>
+                            <span> {i + 1} </span>
                           </td>
                           <td>
                             <span> {state} </span>
@@ -86,6 +95,8 @@ const AddWorkArea = () => {
                                     pincode,
                                     city,
                                     ariaName,
+                                    monthlyPrice,
+                                    quaterlyPrice,
                                   }),
                                     setAddWorkArea(true);
                                 }}
@@ -113,7 +124,8 @@ const AddWorkArea = () => {
       </section>
 
       {addWorkArea ? (
-        <Addworkareaedit workAreaTrue={addWorkArea}
+        <Addworkareaedit
+          workAreaTrue={addWorkArea}
           onclickCloseAddWorkEdit={() => setAddWorkArea(false)}
           values={editFormVal}
           refetch={refetch}

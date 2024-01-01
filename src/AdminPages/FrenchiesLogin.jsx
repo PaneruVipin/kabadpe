@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   userLogin,
   userSignup,
@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { number, object, string } from "yup";
 
 const FrenchiesLogin = () => {
+  const navigate = useNavigate();
   const [apiTouched, setApiTouched] = useState({});
   const dispatch = useDispatch();
   const {
@@ -151,7 +152,8 @@ const FrenchiesLogin = () => {
     if (franchise?.role == "franchiseAdmin") {
       if (franchise?.franchiseStatus == "1") {
         payFunc();
-      } else if (franchise?.franchiseStatus == "1") {
+      } else if (franchise?.franchiseStatus == "2") {
+        navigate("/frenchiespanel")
       }
     }
   }, [franchise, userSuccess, loading]);

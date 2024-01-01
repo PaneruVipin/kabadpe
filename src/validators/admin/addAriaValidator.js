@@ -6,5 +6,6 @@ export const validationAddAria = object().shape({
   pincode: string().required(),
   state: string().required(),
   city: string().required(),
-  price:number().required()
+  monthlyPrice: number().required(),
+  quaterlyPrice: number().required(),
 });

@@ -60,7 +60,23 @@ const Appointment = () => {
                     />
                   </div>
 
-                  <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                  <div className="apnt-inpt-bx">
+                    <input
+                      type="number"
+                      name="phone"
+                      id="phone"
+                      placeholder="Mobile No."
+                      autoComplete="off"
+                      required
+                    />
+                  </div>
+
+               
+                </div>
+
+                <div className="form-grid">
+
+                <div className="apnt-inpt-bx apnt-inpt-bx-s">
                     <select name="service" id="service">
                       <option value="service">Select Your Service</option>
                       <option value="service">Waste Collector</option>
@@ -69,19 +85,8 @@ const Appointment = () => {
                       <option value="service">Swiper</option>
                     </select>
                   </div>
-                </div>
-
-                <div className="form-grid">
-                  <div className="apnt-inpt-bx">
-                    <input
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      placeholder="Cell Phone"
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
+                  
+                
 
 
                   <div className="apnt-inpt-bx apnt-inpt-bx2" onClick={() => setShowCalendar(true)}>
@@ -89,7 +94,7 @@ const Appointment = () => {
                   </div>
                 </div>
 
-            <div className="apnt-inpt-bx apnt-inpt-bx-a">
+                <div className="apnt-inpt-bx apnt-inpt-bx-a mt">
             <input
                       type="text"
                       name="address"
@@ -99,16 +104,36 @@ const Appointment = () => {
                       required
                     />
             </div>
+
+                <div className="form-grid mt-4">
+                <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                    <select name="service" id="service">
+                      <option value="service">Select Service Type</option>
+                      <option value="service">Once</option>
+                      <option value="service">Weekly</option>
+                    </select>
+                  </div>
+
+                  <button className="apnt-form-submit-btn">
+                  Submit Request
+                  </button>
+                </div>
+
+         
                 
               </div>
             </div>
 
+            <div className="main-video-bx">
             <div className="right-shdule-img-bx">
-                <img src="./images/customImg/apnt-img.jpg" alt="" />
 
-                    <div className="play-btn">
-                    <ion-icon name="play-sharp"></ion-icon>
-                    </div>
+
+              <video controls autoplay  preload="auto" type="video/mp4">
+                <source src="./images/customImg/video-file.mp4" />
+              </video>
+              </div>
+
+                   
                 
             </div>
             
@@ -124,7 +149,11 @@ const Appointment = () => {
        
         <div className="calendar-popup">
           <Calendar  onChange={handleDateChange} value={selectedDate} />
-          {selectedDate && (
+   
+        </div>
+      
+          
+        {selectedDate && (
             <div className="time-slot-list">
               <h3>Available Appointments on {selectedDate.toDateString()}</h3>
               <ul>
@@ -143,12 +172,12 @@ const Appointment = () => {
                 </ul>
 
             </div>
-          )}
-          
-         
-        </div>
+          )}  
  
       </div>
+
+      
+
       </div>
         )}
     </>

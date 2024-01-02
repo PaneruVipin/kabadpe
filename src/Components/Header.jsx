@@ -1,76 +1,73 @@
-import React from "react";
-import "../style/HeaderStyle.css";
-import "../style/BannerSection.css";
+import React, { useState } from "react";
+import UserForm from "../Components/UserForm";
 import { NavLink } from "react-router-dom";
-
+import Protect from "../Components/Auth/ProtectComp";
 const Header = () => {
+  const [userForm, setUserForm] = useState(false);
+  const [navlink , setNavLink] = useState('');
+  const [menu , setMenu] = useState(false);
+
+  const linkActive = (getlinkvalue) => {
+    setNavLink(getlinkvalue);
+  };
+
+  const popUpUserForm = () => {
+    setUserForm(!userForm);
+  };
   return (
     <>
-      {/* <!-- Main header--> */}
       <header className="main-header header-style-one">
-        {/* <!--Start Header Top--> */}
-        <div class="header-top">
-                <div class="auto-container">
-                    <div class="outer-box outer-box2">
-                        <div class="t-headr-left-links-bx">
-
-                            <a href="#">  Climstripe Shift </a>
-                            <a href="#" class="linkactive"> Kabadpe</a>
-                            <a href="#"> Green Saman Shop </a>
-                            <a href="#">  Climconnect </a>
-
-
-                        </div>
-
-                        <div class="header-top__left header-top_right">
-                            <div class="header-contact-info-style1">
-                                <ul>
-
-                                    <li>
-                                        <div class="icon">
-                                            <img src="./images/customImg/game.png"/>
-                                            <img src="./images/customImg/app-store.png"/>
-                                        </div>
-                                        <div class="text">
-                                            <p>Download App</p>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        {/* <!--End Header Top--> */}
-
-        {/* <!--Start Header--> */}
-        <div className="header">
+        <div className="header-top">
           <div className="auto-container">
-            <div className="outer-box">
-              <div className="header-left-nav-bx">
-                {/* <!--Start Header Left--> */}
-                <div className="header-left">
-                  <div className="main-logo-box">
-                    <a href="index.html">
-                      {/* <img src="assets/images/resources/logo.png" alt="Awesome Logo" title=""> */}
-                      <img src="./images/resources/logo.png" alt="" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* <!--Start Header Middle--> */}
-                {/* <!--Mobile Navigation Toggler--> */}
-
-                {/* <!--End Header Middle--> */}
+            <div className="outer-box outer-box2">
+              <div className="t-headr-left-links-bx">
+                <a href="#">
+                  {" "}
+                  <i className="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
+                </a>
+                <a href="#" className="linkactive">
+                  <i className="fa-solid fa-angles-right"></i> Kabadpe
+                </a>
+                <a href="#">
+                  <i className="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
+                </a>
+                <a href="#">
+                  {" "}
+                  <i className="fa-solid fa-angles-right"></i> Climconnect{" "}
+                </a>
               </div>
 
-              {/* <!--End Header Left--> */}
-
-              {/* <!--Start Header Right--> */}
-              <div className="header-right rateList">
-                {/* <!-- Main Menu --> */}
+              <div className="header-top__left header-top_right">
+                <div className="header-contact-info-style1">
+                  <ul>
+                    <li>
+                      <div className="icon">
+                        <img src="./images/customImg/game.png" />
+                        <img src="./images/customImg/app-store.png" />
+                      </div>
+                      <div className="text">
+                        <p>Download App</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="header">
+          <div className="header-container">
+            <div className="outer-box">
+              <div className="header-left-nav-bx">
+                <div className="header-left">
+                  <div className="main-logo-box">
+                    <NavLink to="/">
+                      <img src="./images/resources/logo.png" alt="" />
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
+              <div className={menu ? "header-right menuactive rateList" : "header-right rateList"}>
                 <nav className="main-menu style1 navbar-expand-md navbar-light">
                   <div
                     className="collapse navbar-collapse show clearfix"
@@ -82,8 +79,8 @@ const Header = () => {
                           <span>Home</span>
                         </NavLink>
                       </li>
-                      <li className="dropdown servicemenu">
-                        <NavLink to="/service">
+                      <li className="dropdown servicemenu ">
+                        <NavLink to="./service">
                           <span>Services</span>
                         </NavLink>
 
@@ -93,19 +90,19 @@ const Header = () => {
                               <h6>For Individuals</h6>
                               <div className="s-drpdwn-lists">
                                 <p>
-                                  <a href="#" target="_blank">
+                                  <NavLink to="#" target="_blank">
                                     Scrap Collection
-                                  </a>
+                                  </NavLink>
                                 </p>
                                 <p>
-                                  <a href="#" target="_blank">
+                                  <NavLink to="#" target="_blank">
                                     Zero Waste Society
-                                  </a>
+                                  </NavLink>
                                 </p>
                                 <p>
-                                  <a href="#" target="_blank">
+                                  <NavLink to="#" target="_blank">
                                     Vehicle Scrapping
-                                  </a>
+                                  </NavLink>
                                 </p>
                               </div>
                             </div>
@@ -115,32 +112,32 @@ const Header = () => {
                               <div className="s-drpdwn-submenu-grid">
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
-                                    <a href="#">Scrap Collection</a>
+                                    <NavLink to="#">Scrap Collection</NavLink>
                                   </p>
                                   <p>
-                                    <a href="#">EPR services</a>
+                                    <NavLink to="#">EPR services</NavLink>
                                   </p>
                                   <p>
-                                    <a href="#">Dismantling</a>
-                                  </p>
-                                </div>
-                                <div className="s-dpdwn-sb-menu-bx">
-                                  <p>
-                                    <a href="#">Circular Economy</a>
-                                  </p>
-                                  <p>
-                                    <a href="#">Zero Waste</a>
-                                  </p>
-                                  <p>
-                                    <a href="#">Paper Shredding</a>
+                                    <NavLink to="#">Dismantling</NavLink>
                                   </p>
                                 </div>
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
-                                    <a href="#">CSR Services</a>
+                                    <NavLink to="#">Circular Economy</NavLink>
                                   </p>
                                   <p>
-                                    <a href="#">Zero Waste Event</a>
+                                    <NavLink to="#">Zero Waste</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">Paper Shredding</NavLink>
+                                  </p>
+                                </div>
+                                <div className="s-dpdwn-sb-menu-bx">
+                                  <p>
+                                    <NavLink to="#">CSR Services</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">Zero Waste Event</NavLink>
                                   </p>
                                 </div>
                               </div>
@@ -150,119 +147,102 @@ const Header = () => {
                               <h6>For Governments</h6>
                               <div className="s-drpdwn-lists">
                                 <p>
-                                  <a href="#" target="_blank">
+                                  <NavLink to="#" target="_blank">
                                     Material Recovery Facility
-                                  </a>
+                                  </NavLink>
                                 </p>
                                 <p>
-                                  <a href="#" target="_blank">
+                                  <NavLink to="#" target="_blank">
                                     IEC
-                                  </a>
+                                  </NavLink>
                                 </p>
                               </div>
                             </div>
                           </div>
                         </div>
                       </li>
-
-                      <li>
-                        <NavLink to="/schedulepickup">
-                          <span>Schedule Pickup</span>
-                        </NavLink>
-                      </li>
-  
-                      <li>
-                        <NavLink to="/ratelist">
-                          <span>Rate list</span>
-                        </NavLink>
-                      </li>
-
-                      <li className="aboutdrpdwn">
+                      <li className="aboutdrpdwn ">
                         <NavLink to="/about">
                           <span>About Us</span>
                         </NavLink>
                         <div className="about-drpdwn-bx">
                           <p>
-                            <a href="#"> About us</a>
+                            <NavLink to=""> About us</NavLink>
                           </p>
                           <p>
-                            <a href="#">Franchise</a>
+                            <NavLink to="#">Franchise</NavLink>
                           </p>
                           <p>
-                            <a href="#">Contact now</a>
+                            <NavLink to="#">Contact now</NavLink>
                           </p>
                         </div>
                       </li>
-
-                    
                       <li>
-                        <NavLink to="/account">
-                          <span>My Account</span>
+                        <NavLink to="/wastegept">
+                          <span>Wastegpt</span>
                         </NavLink>
                       </li>
-
                       <li>
-                        <NavLink
-                          to=""
-                          data-toggle="modal"
-                          data-target="#exampleModal"
-                        >
-                          <span>Login</span>
+                        <NavLink to="/rate">
+                          <span>Rate list</span>
                         </NavLink>
                       </li>
+                      <li>
+                        <NavLink to="/kabadshop">
+                          <span>Kabad Shop</span>
+                        </NavLink>
+                      </li>
+                      <Protect>
+                        <li>
+                          <NavLink to="/account">
+                            <span>My Account</span>
+                          </NavLink>
+                        </li>
+                      </Protect>
+                      <Protect reverse>
+                        <li>
+                          <button
+                            className="UserLoginBtn55"
+                            onClick={popUpUserForm}
+                          >
+                            <span>Login</span>
+                          </button>
+                        </li>
+                      </Protect>
+                      <Protect>
+                        <li>
+                          <div className="wallet-icon">
+                            <img src="./images/customImg/wallet.png" alt="" />
+                          </div>
+                        </li>
+                      </Protect>
                     </ul>
-                    <div className="menuBtn-togg">
+                   
+                  </div>
+                </nav>
+                <div onClick={() => setMenu(!menu)} className="menuBtn-togg">
                       <div className="spanline"></div>
                       <div className="spanline"></div>
                       <div className="spanline"></div>
                     </div>
-                  </div>
-                </nav>
-
-                {/* <!-- Main Menu End--> */}
-
-                {/* <!-- <div className="phone-number-box1">
-                                <button>Rate list</button>
-                            </div>
-
-                            <div className="phone-number-box1">
-                                <button>Kabad Shop</button>
-                            </div>
-                            <div className="serach-button-style1">
-                                <button>Login</button>
-                                
-                            </div> --> */}
               </div>
-              {/* <!--End Header Right--> */}
             </div>
           </div>
         </div>
-        {/* <!--End header--> */}
-
-        {/* <!--Sticky Header--> */}
         <div className="sticky-header">
           <div className="container">
             <div className="clearfix">
-              {/* <!--Logo--> */}
               <div className="logo float-left">
-                <a href="index.html" className="img-responsive">
-                  {/* <img src="assets/images/resources/sticky-logo.png" alt="" title=""> */}
-                  <img src="images/resources/sticky-logo.png" alt="" />
-                </a>
+                <NavLink to="index.html" className="img-responsive">
+                  <img src="/images/resources/sticky-logo.png" alt="" />
+                </NavLink>
               </div>
-              {/* <!--Right Col--> */}
               <div className="right-col float-right">
-                {/* <!-- Main Menu --> */}
-                <nav className="main-menu clearfix">
-                  {/* <!--Keep This Empty / Menu will come through Javascript--> */}
-                </nav>
+                <nav className="main-menu clearfix"></nav>
               </div>
             </div>
           </div>
         </div>
-        {/* <!--End Sticky Header--> */}
-
-        {/* <!-- Mobile Menu  --> */}
         <div className="mobile-menu">
           <div className="menu-backdrop"></div>
           <div className="close-btn">
@@ -270,47 +250,49 @@ const Header = () => {
           </div>
           <nav className="menu-box">
             <div className="nav-logo">
-              <a href="index.html">
-                <img src="images/resources/mobilemenu.png" alt="" />
-              </a>
+              <NavLink to="index.html">
+                <img src="/images/resources/mobilemenu.png" alt="" />
+              </NavLink>
             </div>
-            <div className="menu-outer">
-              {/* <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--> */}
-            </div>
-            {/* <!--Social Links--> */}
+            <div className="menu-outer"></div>
             <div className="social-links">
               <ul className="clearfix">
                 <li>
-                  <a href="#">
+                  <NavLink to="#">
                     <span className="fab fa fa-facebook-square"></span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="#">
+                  <NavLink to="#">
                     <span className="fab fa fa-twitter-square"></span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="#">
+                  <NavLink to="#">
                     <span className="fab fa fa-pinterest-square"></span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="#">
+                  <NavLink to="#">
                     <span className="fab fa fa-google-plus-square"></span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="#">
+                  <NavLink to="#">
                     <span className="fab fa fa-youtube-square"></span>
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
             </div>
           </nav>
         </div>
-        {/* <!-- End Mobile Menu --> */}
       </header>
+
+      {/* <!-- Main header--> */}
+
+        
+
+      {userForm ? <UserForm closepopUpUserForm={popUpUserForm} /> : null}
     </>
   );
 };

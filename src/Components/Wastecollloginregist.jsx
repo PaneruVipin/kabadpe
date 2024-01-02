@@ -11,10 +11,12 @@ import Redirect from "./Auth/RedirectIfLogin";
 import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
+import { userValidateKabadPeRefrral } from "../apis/auth";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
-  const { errors: errorsInAuth } = useSelector((s) => s.auth);
+  const { errors: errorsInAuth } = useSelector((s) => s?.auth);
+  const { userInfo } = useSelector((s) => s.user);
   const [formBox, setFormBox] = useState(false);
   const [changeText, setChangeText] = useState("Sign Up");
   const [formText, setFormText] = useState("Log In");
@@ -22,6 +24,9 @@ const Wastecolloginregist = () => {
   const [forgotPara, setForgotPara] = useState(false);
   const [formComp, setFormComp] = useState(false);
   const [termsChecked, setTermsChecked] = useState(false);
+  const [checkBxValue, setCheckBxValue] = useState(false);
+  const [checkBxValueNo, setCheckBxValueNo] = useState(false);
+  const [refrralValidation, setRefrralValidation] = useState(null);
 
   const sendReuqestfuct = () => {
     setForgotPara(true);
@@ -64,9 +69,11 @@ const Wastecolloginregist = () => {
           password: "",
           pincode: "",
           phoneNumber: "",
+          companyRef: "",
+          workerRole: "",
         }
       : {
-          email: "",
+          phoneNumber: "",
           password: "",
         };
   const validationSchema =
@@ -77,14 +84,28 @@ const Wastecolloginregist = () => {
           if (!termsChecked) {
             return;
           }
+          console.log("data running", data);
           dispatch(userSignup({ ...data, loginType: "collector" }));
         }
       : (data) => {
           dispatch(userLogin({ ...data, loginType: "collector" }));
         };
+
+  const checboxyes = () => {
+    setCheckBxValue(true);
+    setCheckBxValueNo(false);
+  };
+
+  const checboxno = () => {
+    setCheckBxValue(false);
+    setCheckBxValueNo(true);
+  };
+
   return (
     <>
-      <Redirect />
+      {userInfo?.role == "kabadCollector" ? (
+        <Redirect path="/wastecolectdashboard" />
+      ) : null}
       <SignUpToVerify />
       <section
         className={
@@ -112,6 +133,7 @@ const Wastecolloginregist = () => {
                   touched,
                   ...rest
                 }) => {
+                  console.log("errors  1", errors);
                   return (
                     <Form
                       className={
@@ -120,96 +142,205 @@ const Wastecolloginregist = () => {
                           : "log-regst-form"
                       }
                     >
-                      {formBox === true ? (
-                        <>
-                          <div className="log-inpt-bx reg-inpt-bx">
-                            <input
-                              type="text"
-                              name="fullname"
-                              id="name"
-                              placeholder="Full Name"
-                              autoComplete="off"
-                              required
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.fullname}
-                            />
-                            {touched.fullname && errors.fullname ? (
-                              <div style={{ color: "red" }}>
-                                {errors.fullname}
-                              </div>
-                            ) : null}
-                          </div>
-                          <div className="log-inpt-bx reg-inpt-bx">
-                            <input
-                              type="text"
-                              name="phoneNumber"
-                              id="mobile"
-                              placeholder="Phone No."
-                              autoComplete="off"
-                              required
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.phoneNumber}
-                            />
-                            {touched.phoneNumber && errors.phoneNumber ? (
-                              <div style={{ color: "red" }}>
-                                {errors.phoneNumber}
-                              </div>
-                            ) : null}
-                          </div>
-                          <div className="log-inpt-bx reg-inpt-bx">
-                            <input
-                              type="text"
-                              name="pincode"
-                              id="pincode"
-                              placeholder="Work Area Pincode"
-                              autoComplete="off"
-                              required
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.pincode}
-                            />
-                            {touched.pincode && errors.pincode ? (
-                              <div style={{ color: "red" }}>
-                                {errors.pincode}
-                              </div>
-                            ) : null}
-                          </div>
-                        </>
-                      ) : null}
+                      <div className="register-form-height-box">
+                        {formBox === true ? (
+                          <>
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="fullname"
+                                id="name"
+                                placeholder="Full Name"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.fullname}
+                              />
+                              {touched?.fullname && errors?.fullname ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.fullname}
+                                </div>
+                              ) : null}
+                            </div>
 
-                      <div className="log-inpt-bx log-inpt-bx-login">
-                        <input
-                          type="email"
-                          name="email"
-                          id="email"
-                          placeholder="Email or Username"
-                          autoComplete="off"
-                          required
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.email}
-                        />
-                        {touched.email && errors.email ? (
-                          <div style={{ color: "red" }}>{errors.email}</div>
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="workCity"
+                                id="workcity"
+                                placeholder="Area of work within city"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workCity}
+                              />
+                              {touched?.workCity && errors?.workCity ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.workCity}
+                                </div>
+                              ) : null}
+                            </div>
+                          </>
                         ) : null}
-                      </div>
+                        <div className="log-inpt-bx log-inpt-bx-login">
+                          <input
+                            type="text"
+                            name="phoneNumber"
+                            id="phone"
+                            placeholder="Phone No."
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.phoneNumber}
+                          />
+                          {touched?.phoneNumber && errors?.phoneNumber ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.phoneNumber}
+                            </div>
+                          ) : null}
+                        </div>
 
-                      <div className="log-inpt-bx log-inpt-bx-login">
-                        <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          placeholder="Password"
-                          autoComplete="off"
-                          required
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.password}
-                        />
-                        {touched.password && errors.password ? (
-                          <div style={{ color: "red" }}>{errors.password}</div>
+                        {formBox === true ? (
+                          <>
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="pincode"
+                                id="pincode"
+                                placeholder="Work Area Pincode"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.pincode}
+                              />
+                              {touched?.pincode && errors?.pincode ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.pincode}
+                                </div>
+                              ) : null}
+                            </div>
+
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <select
+                                name="workerRole"
+                                id="workertype"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workerRole}
+                                defaultValue={values?.workerRole}
+                              >
+                                <option value="" hidden>
+                                  Choose
+                                </option>
+                                <option value="kabadi">KabadiWala</option>
+                                <option value="toilet_cleaner">
+                                  Toilet Cleaner
+                                </option>
+                                <option value="cleaner">Cleaner</option>
+                              </select>
+                              {touched?.workerRole && errors?.workerRole ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.workerRole}
+                                </div>
+                              ) : null}
+                            </div>
+
+                            <span className="soc-sec-text">
+                              Company Referral Number
+                            </span>
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="companyRef"
+                                id="companyRef"
+                                placeholder="Company Referral Number"
+                                autoComplete="off"
+                                onChange={async (e) => {
+                                  values.companyRef = e.target.value;
+                                  const result =
+                                    await userValidateKabadPeRefrral(
+                                      values.companyRef
+                                    );
+                                  document.getElementById("email").focus();
+                                  document.getElementById("companyRef").focus();
+                                  setRefrralValidation(result);
+                                }}
+                                onBlur={handleBlur}
+                                value={values?.companyRef}
+                              />
+                              {touched.companyRef && errors?.companyRef ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.companyRef}
+                                </div>
+                              ) : null}
+                              {refrralValidation?.error ? (
+                                <div style={{ color: "red" }}>
+                                  {refrralValidation?.message}
+                                </div>
+                              ) : (
+                                <div style={{ color: "green" }}>
+                                  {refrralValidation?.name}
+                                </div>
+                              )}
+                            </div>
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Email or Username"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.email}
+                              />
+                              {touched?.email && errors?.email ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.email}
+                                </div>
+                              ) : null}
+                            </div>
+                          </>
+                        ) : null}
+                        <div className="log-inpt-bx log-inpt-bx-login">
+                          <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Password"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.password}
+                          />
+                          {touched?.password && errors?.password ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.password}
+                            </div>
+                          ) : null}
+                        </div>
+
+                        {formBox === true ? (
+                          <>
+                            <div className="log-inpt-bx log-inpt-bx-login">
+                              <input
+                                type="text"
+                                name="emergencyPhone"
+                                id="emergencynumber"
+                                placeholder="Emergency Number"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.emergencyPhone}
+                              />
+                              {touched?.emergencyPhone &&
+                              errors?.emergencyPhone ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.emergencyPhone}
+                                </div>
+                              ) : null}
+                            </div>
+                          </>
                         ) : null}
                       </div>
 
@@ -298,7 +429,6 @@ const Wastecolloginregist = () => {
                     id="mobemail"
                     placeholder="Mobile No./Email Id"
                     autoComplete="off"
-                    required
                   />
                 </div>
 

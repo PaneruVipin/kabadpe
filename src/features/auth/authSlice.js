@@ -36,31 +36,35 @@ const authSlice = createSlice({
         ...state.errors,
         login: "",
       };
-    });
-    builder.addCase(userLogin.fulfilled, (state, { payload: { data } }) => {
-      setInLocalStorage("token", data?.token);
       state.success = {
         ...state.success,
-        login: true,
-      };
-      state.loading = {
-        ...state.loading,
         login: false,
       };
-      state.token = data?.token;
-      state.errors = {
-        ...state.errors,
-        login: "",
-      };
     });
+    builder.addCase(
+      userLogin.fulfilled,
+      (state, { payload: { data, payload } }) => {
+        setInLocalStorage("token", data?.token);
+        state.success = {
+          ...state.success,
+          login: true,
+        };
+        state.loading = {
+          ...state.loading,
+          login: false,
+        };
+        state.token = data?.token;
+        state.user = { ...payload, ...data };
+        state.errors = {
+          ...state.errors,
+          login: "",
+        };
+      }
+    );
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = {
         ...state.loading,
-        login: true,
-      };
-      state.loading = {
-        ...state.loading,
-        login: true,
+        login: false,
       };
       state.success = {
         ...state.success,
@@ -77,21 +81,25 @@ const authSlice = createSlice({
         ...state.errors,
         signup: "",
       };
+      state.success = { ...state.loading, signup: false };
     });
-    builder.addCase(userSignup.fulfilled, (state, { payload: { payload } }) => {
-      state.loading = { ...state.loading, signup: false };
-      state.success = { ...state.loading, signup: true };
-      state.errors = {
-        ...state.errors,
-        signup: "",
-      };
-      state.user = payload;
-      state = {
-        ...state,
-      };
-    });
+    builder.addCase(
+      userSignup.fulfilled,
+      (state, { payload: { payload, data } }) => {
+        state.loading = { ...state.loading, signup: false };
+        state.success = { ...state.loading, signup: true };
+        state.errors = {
+          ...state.errors,
+          signup: "",
+        };
+        state.user = { ...payload, ...data };
+        state = {
+          ...state,
+        };
+      }
+    );
     builder.addCase(userSignup.rejected, (state, { payload }) => {
-      state.loading.signup = false;
+      state.loading = { ...state.loading, signup: false };
       state.errors = {
         ...state.errors,
         signup: payload,
@@ -106,10 +114,14 @@ const authSlice = createSlice({
         ...state.errors,
         verifySignup: "",
       };
+      state.success = {
+        ...state.success,
+        verifySignup: false,
+      };
     });
     builder.addCase(
       userVerifySignup.fulfilled,
-      (state, { payload: { data } }) => {
+      (state, { payload: { data, payload } }) => {
         setInLocalStorage("token", data?.token);
         state.success = {
           ...state.success,
@@ -120,6 +132,7 @@ const authSlice = createSlice({
           verifySignup: false,
         };
         state.token = data?.token;
+        state.user = { ...payload, ...data };
         state.errors = {
           ...state.errors,
           verifySignup: "",
@@ -129,11 +142,7 @@ const authSlice = createSlice({
     builder.addCase(userVerifySignup.rejected, (state, { payload }) => {
       state.loading = {
         ...state.loading,
-        verifySignup: true,
-      };
-      state.loading = {
-        ...state.loading,
-        verifySignup: true,
+        verifySignup: false,
       };
       state.success = {
         ...state.success,

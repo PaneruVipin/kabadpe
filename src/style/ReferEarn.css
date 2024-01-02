@@ -1,0 +1,904 @@
+
+/* __________________________
+ Our refer earn css code
+ -------------- */
+
+ .referearn-comp{
+    position: relative;
+    width: 100%;
+    padding-top: 8rem;
+    padding-inline-end: 1.5rem;
+ }
+
+ .wallet-comp5{
+  padding-top: 2rem;
+ }
+
+ .refrearn-grd-bx{
+    display: grid;
+    position: relative;
+    width: 100%;
+    grid-template-columns: 2fr .7fr;
+    column-gap: 3rem;
+    row-gap: 3rem;
+ }
+
+ .left-refer-earn-bx{
+    position: relative;
+    width: 100%;
+ }
+
+ .referearn-comp h4{
+    font-size: 1.87rem;
+    color: #000248;
+    letter-spacing: 1px;
+    margin-bottom: 1.87rem;
+ }
+
+
+
+ .refr-link{
+    margin-top: 2rem;
+    padding: 1rem 1rem;
+    background-color: #dad8ff;
+    margin-bottom: 2.56rem;
+ }
+
+ .referral-link-box h6{
+    font-size: 1.25rem;
+    letter-spacing: .65px;
+    color: #000248;
+    font-weight: 700;
+    padding-bottom: .45rem;
+    border-bottom: .1rem solid #c3c1fc;
+ }
+
+ .ref-link-flex-box{
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: .76rem .65rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c3c1fc;
+    border-radius: .45rem;
+ }
+
+ .refernearn-table table thead tr th{
+    background-color: #1983d9;
+ }
+
+ .refernearn-table table tbody tr{
+    background-color: #e2f1ff;
+ }
+
+ .refernearn-table table tbody tr:nth-child(2n + 2){
+    background-color: #d1e8fd;
+
+ }
+
+ .refer-table{
+    position: relative;
+    width: 100%;
+    background-color: #edf6ff;
+    padding: 1.5rem 1rem;
+ }
+ 
+ .ref-link-flex-box p{
+    margin-bottom: 0;
+    font-size: .87rem;
+    letter-spacing: .56px;
+    font-weight: 500;
+ }
+
+ .copy-btn{
+    position: relative;
+    font-size: 1rem;
+    color: #070a4a;
+    cursor: pointer;
+    
+ }
+
+.refernearn-table{
+    margin-top: 2rem;
+    
+}
+
+.right-qr-code-img{
+    position: relative;
+    border: .2rem solid #edf0e9;
+    background-color: #fff;
+    width: 100%;
+    height: max-content;
+    padding: .35rem;
+}
+
+.right-qr-code-img img{
+    width: 100%;
+    height: auto;
+}
+
+.right-qr-code-img p{
+    text-align: center;
+    font-size: .87rem;
+    font-weight: 500;
+    letter-spacing: .65px;
+    color: #070a4a;
+}
+
+/* _______________________________________
+ Our wallet css code
+ -------------------- */
+
+ .top-wallet-box{
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    padding: .78rem .87rem;
+    border-bottom: .1rem solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+
+ .top-wallet-box h6{
+    font-size: 2rem;
+    color: #000248;
+    font-weight: 700;
+    letter-spacing: .76px;
+ }
+
+ .right-wallet-box{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+ }
+
+ .tranfer-btn{
+    position: relative;
+    width: max-content;
+    padding: .15rem .87rem;
+    text-align: center;
+    background-color: #000248;
+    border: .1rem solid #000248;
+    color: #fff;
+    letter-spacing: .65px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: .45rem;
+ }
+
+ .right-wallet-box h6{
+    font-size: 1rem;
+    color: #7f7e7e;
+ }
+
+ .right-wallet-box h6 span{
+    color: #000248;
+ }
+
+ .walet-tabs-filter-flex-box{
+   position: relative;
+   width: 100%;
+   margin-top: 2rem;
+   background-color: #fdfdfd;
+   border-block: .1rem solid #eee;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+ }
+
+ .wallet-tabs-btns-flex-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  
+ }
+
+ .walt-tab{
+    position: relative;
+    padding: .56rem .3rem;
+    font-size: 1rem;
+    color: #000248;
+    font-weight: 500;
+    letter-spacing: .34px;
+    transition: 300ms ease;
+
+ }
+
+ .walt-tab:before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: .15rem;
+    background-color: #feb836;
+    transform: translateY(50%);
+    transition: 300ms ease;
+    opacity: 0;
+ }
+
+ .walt-tab.wallactive{
+    color: orange;
+ }
+
+ .walt-tab.wallactive:before{
+    opacity: 1;
+ }
+
+ .wallet-table-box{
+    margin-top: 2.5rem;
+ }
+
+ .wallet-table-box table thead tr th{
+    background-color: #f3f3f3;
+    color: #000248;
+    letter-spacing: .5px;
+    font-size: 1.1rem;
+    text-align: left;
+ }
+
+ .wallet-table-box table thead tr th:nth-child(1){
+    border-top-left-radius: .45rem;
+ }
+
+ .wallet-table-box table thead tr th:last-of-type{
+    border-top-right-radius: .45rem;
+ }
+
+ .wallet-table-box table tbody tr{
+    background-color: #fff;
+    border-bottom: .1rem solid #eee;
+ }
+
+ .wallet-table-box table tbody tr:nth-child(2n + 2){
+    background-color: #fff;
+ }
+
+ .wallet-table-box table tbody tr td{
+    padding: .87rem .45rem;
+ }
+
+ .bussin-flex-box{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    justify-content: flex-start;
+    text-align: left;
+ }
+
+ .b-img {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+ }
+
+ .b-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+ }
+
+ .b-info{
+    transform: translateY(4px);
+ }
+
+ .b-info p{
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: 700;
+    color: #000248;
+    letter-spacing: .5px;
+    line-height: 1;
+ }
+
+ .b-info span{
+    font-size: .87rem;
+    font-weight: 500;
+ }
+
+ .b-date{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+ }
+
+ .b-date p{
+    font-size: 1rem;
+    margin-bottom: 0;
+    line-height: 1.3;
+    color: #000248;
+    font-weight: 600;
+ }
+
+ .b-date span{
+    font-size: .87rem;
+
+ }
+
+ .id-dwld-btn{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .56rem;
+    cursor: pointer;
+ }
+
+ .b-span{
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    color: #7f7e7e;
+    font-weight: 600;
+ }
+
+ .b-span2{
+    display: block;
+    text-align: left;
+    font-size: 1rem;
+    color: #000248;
+    font-weight: 600;
+ }
+
+ .status-g{
+    position: relative;
+    text-align: left;
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: green;
+ }
+
+ .det-btn{
+    position: relative;
+    display: block;
+    width: max-content;
+    padding: .15rem 1rem;
+    background-color: #fff;
+    border: .1rem solid #eee;
+    border-radius: .4rem;
+    font-size: .95rem;
+    color: #000248;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: .45px;
+ }
+
+ .status-g.active{
+    color: orange !important;
+ }
+
+ .right-fitler-part-box{
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: .56rem;
+ }
+
+ .search-wallet-transactions{
+   position: relative;
+   width: 12rem;
+   height: 100%;
+   background-color: #fff;
+   border: .1rem solid #eee;
+  
+
+ }
+
+ .search-wallet-transactions input{
+   width: 100%;
+   height: 100%;
+   background-color: transparent;
+   border: none;
+   font-size: .9rem;
+   font-weight: 500;
+   color: #000248;
+   padding-inline: .87rem;
+   letter-spacing: .67px;
+ }
+
+ 
+ .search-wallet-transactions input::placeholder{
+   font-weight: 400;
+ }
+
+ .past-days-selec-box{
+   position: relative;
+   width: max-content;
+   padding-inline-start: .87rem;
+   padding-inline-end: 1.65rem;
+   height: 100%;
+   background-color: #fff;
+   border: .1rem solid #eee;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: .65rem;
+ }
+
+ .past-days-selec-box:before{
+   content: '\f0d7';
+   position: absolute;
+   top: 46%;
+   transform: translateY(-50%);
+   right: .35rem;
+   font-size: .87rem;
+   color: #afadad;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+ }
+
+ .past-days-selec-box i{
+   font-size: .95rem;
+   color: #afadad;
+ }
+
+ .past-days-selec-box select{
+   font-size: .87rem;
+   font-weight: 500;
+   color: #868484;
+   appearance: none;
+   -webkit-appearance: none;
+ }
+
+
+ .dates-flex-box{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   gap: .5rem;
+ }
+
+ .sel-date{
+   position: relative;
+   width: max-content;
+   height: 100%;
+   padding-inline-start: 1rem;
+   background-color: #fff;
+   border: .1rem solid #eee;
+   font-size: .95rem;
+   font-weight: 500;
+   letter-spacing: .56px;
+ }
+
+ /* __________________________________________
+ Our confirm otp css code
+ -------------------- */
+
+ .confirm-otp{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   z-index: 1000;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .confirm-otp:before{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #000;
+   opacity: 0.67;
+   z-index: -1;
+ }
+
+ .otp-main-box{
+   position: relative;
+   width: 30rem;
+   background-color: #fff;
+   border-radius: .45rem;
+   padding: 2rem 2rem;
+ }
+
+ .otp-main-box h6{
+   text-align: center;
+   font-size: 1.5rem;
+   font-weight: 700;
+   color: #000248;
+   margin-bottom: 2rem;
+ }
+
+ .otp-fild{
+   position: relative;
+   width: 100%;
+   height: 2.67rem;
+   background-color: #fff;
+   border: .1rem solid #ddd;
+   border-radius: .4rem;
+ }
+
+ .otp-fild input{
+   width: 100%;
+   height: 100%;
+   background-color: transparent;
+   border: none;
+   font-size: 1rem;
+   padding-inline: 1rem;
+   font-weight: 500;
+   color: #000;
+   letter-spacing: .67px;
+ }
+
+ .submit-otp{
+   width: 10rem;
+   margin: 2.5rem auto 0 auto;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 2.67rem;
+   background-color: #000248;
+   color: #fff;
+   border-radius: .45rem;
+   font-weight: 500;
+   letter-spacing: .67px;
+ }
+
+ .close-otp-btn{
+   position: absolute;
+   top: .65rem;
+   right: 1rem;
+   font-size: 1.2rem;
+   color: #000248;
+   cursor: pointer;
+ }
+
+ .otp-main-box span{
+   font-size: .78rem;
+   color: #000248;
+   font-weight: 600;
+   letter-spacing: .5px;
+
+ }
+
+ .walet-balance{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   z-index: 1000;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+
+ .walet-balance:before{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #000;
+   opacity: 0.7;
+   z-index: -1;
+ }
+
+ .walet-bal-box{
+   position: relative;
+   width: 30rem;
+   border-radius: .45rem;
+   padding: 1.45rem 2rem 2.5rem 2rem;
+   background-color: #fff;
+ }
+
+ .walet-bal-box h5{
+   text-align: center;
+   font-size: 1.5rem;
+   color: #000248;
+   font-weight: 700;
+   letter-spacing: .67px;
+   margin-bottom: 2rem;
+ }
+
+ .bank-info{
+   position: relative;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   text-align: left;
+   gap: .65rem;
+ }
+
+ .bank-info h6{
+   font-size: 1.1rem;
+   font-weight: 500;
+   letter-spacing: .67px;
+   color: #000;
+ }
+
+ .bank-info h6 span{
+   font-weight: 700;
+
+ }
+
+ .tranfer-btn5{
+   margin: 1.5rem auto 1.5rem auto;
+   background-color: #4e49b8;
+   border-color: #4e49b8;
+ }
+
+ .walet-bal-box .note-text{
+   position: absolute;
+   bottom: .2rem;
+   left: .56rem;
+   display: block;
+   font-size: .8rem;
+   color: #000248;
+   font-weight: 600;
+
+ }
+
+ .note-text span{
+   color: red;
+   font-weight: 700;
+   font-size: .9rem;
+ }
+
+ .walt-bal-close{
+   position: absolute;
+   top: .55rem;
+   right: .76rem;
+   font-size: 1.2rem;
+   color: #000248;
+   cursor: pointer;
+ }
+
+ .referall-code-box{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   margin-top: .76rem;
+ }
+
+ .referall-code-box h6{
+   font-size: 1.3rem;
+   color: #000248;
+   letter-spacing: .65px;
+   margin-bottom: 0;
+ }
+
+ .referall-code-box p{
+   margin-bottom: 0;
+   line-height: 1.5  ;
+   font-size: .87rem;
+   max-width: 95%;
+   margin-bottom: 1.5rem;
+ }
+
+ .share-dwnload-link{
+   position: relative;
+   width: 14rem;
+   margin: 0 auto 1rem auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   gap: .45rem;
+   height: 2.65rem;
+   background-color: #1983d9;
+   border-color: #1983d9;
+   color: #fff;
+   letter-spacing: .65px;
+   font-weight: 500;
+   font-size: 1rem;
+   border-radius: .45rem;
+ }
+
+ .right-qr-box{
+   position: relative;
+   width: 100%;
+   height: max-content;
+   width: 100%;
+ }
+
+ .share-referral-friend-box{
+   position: relative;
+   width: 100%;
+   margin-top: 2rem;
+   background-color: #e0ebe7;
+   padding: 1rem 1rem;
+   border-radius: .45rem;
+ }
+
+ .share-referral-friend-text-box{
+   position: relative;
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   gap: 2.5rem;
+   padding-inline-start: 1rem;
+
+ }
+
+ .share-referral-friend-text-box p{
+   position: relative;
+   margin-bottom: 0;
+   font-size: .87rem;
+   font-weight: 600;
+   color: #000248;
+   line-height: 1.4;
+   letter-spacing: .5px;
+   margin-block-start: 0;
+   margin-block-end: 0;
+ }
+
+
+
+
+ .progress-bar-box{
+   position: absolute;
+   top: .5rem;
+   left: 0;
+   width: .25rem;
+   height: 75%;
+   background-color: #0aa30a;
+   border-radius: 5rem;
+ }
+
+ .progress-bar-box:before{
+   content: "";
+   position: absolute;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: .65rem;
+   height: .65rem;
+   background-color: #0aa30a;
+   border-radius: 50%;
+ }
+
+ .progress-bar-box:after{
+   content: "";
+   position: absolute;
+   bottom: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: .65rem;
+   height: .65rem;
+   background-color: #0aa30a;
+   border-radius: 50%;
+ }
+
+ .refrl-title-bx{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+ }
+
+ .refrl-balance-box{
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: 2rem;
+
+ }
+
+ .balance-box{
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: .5rem;
+ }
+
+ .refrl-balance-box p{
+   font-size: 1rem;
+   margin-bottom: 0;
+   font-weight: 700;
+   color: #000248;
+   letter-spacing: .56px;
+ }
+
+ .balance-box{
+   position: relative;
+   width: max-content;
+   height: 2rem;
+   background-color: rgb(255, 248, 236);
+   border-radius: 5rem;
+   padding-inline: 1.5rem;
+ }
+
+ .balance-box span{
+   font-size: 1rem;
+   font-weight: 600;
+   color: #000248;
+ }
+
+ .rupes-icon{
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%) translateX(-50%);
+   left: 0;
+   width: 1.78em;
+   height: 85%;
+   display: grid;
+   place-items: center;
+   border-radius: 50%;
+   color: #fff;
+   font-size: 1rem;
+   background: linear-gradient(90deg, #0b68b4 , #1983d9);
+ }
+
+ .refrl-title-bx h4{
+   font-size: 1.3rem;
+   letter-spacing: .5px;
+   margin-bottom: 0;
+ }
+
+ .admin-login-field{
+  margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .45rem;
+ }
+
+ .admin-login-field label{
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: .5px;
+  color: #000248;
+ }
+
+ .amount-inpt-bx{
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  height: 2.76rem;
+  border: .1rem solid #ddd;
+  border-radius: .55rem;
+  z-index: 2;
+ }
+
+ .amount-inpt-bx input{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-inline: 1.65rem;
+  border-radius: .55rem;
+  letter-spacing: .4px;
+  font-weight: 500;
+  background-color: transparent;
+
+  
+ }
+
+ .amount-inpt-bx:before{
+  content: "\e1bc";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: .5rem;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  z-index: -1;
+  color: #939393;
+  font-size: .9rem;
+ }
+
+ .amount-inpt-bx input:focus-within{
+  border-color: #ddd;
+ }
+

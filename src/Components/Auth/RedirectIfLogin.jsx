@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "../../features/user/userActions";
 import { useNavigate } from "react-router-dom";
 
-const Redirect = () => {
+const Redirect = ({ path = "/" }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -15,7 +15,7 @@ const Redirect = () => {
   }, [verifySignup, login]);
   useEffect(() => {
     if (userInfo || success) {
-      navigate("/");
+      navigate(path);
     }
   }, [userInfo, success]);
   return <></>;

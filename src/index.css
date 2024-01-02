@@ -4651,7 +4651,7 @@ Our contributon sec Css
   top: 4rem;
   /* left: -460% ; */
   left: -27rem;
-  background-color: #1266e3;
+  background-color: #2BC2C6;
   padding: 3rem 3rem;
   border: .1rem solid #eeeeee;
   width: inherit;
@@ -4726,7 +4726,7 @@ Our contributon sec Css
   position: absolute;
   top: 4rem;
   left: 0;
-  background-color: #1266e3;
+  background-color: #2BC2C6;
   border-radius: .5rem;
   border: .1rem solid #ffffffc4;
   width: 14rem;
@@ -5121,7 +5121,7 @@ css code */
 }
 
 .navigation li:hover , .nav-link.navlinkactive{
-  background-color: #0b59d9 !important;
+  background-color: #2BC2C6 !important;
 }
 
 .navigation li:hover a , .nav-link.navlinkactive{
@@ -5734,7 +5734,7 @@ _______________________ */
   /* box-shadow: 5px 5px 10px #0000002d ,
   -5px -5px 10px #ffffff3a  
   ; */
-  border: .05rem solid #0b59d9;
+  border: .05rem solid #2BC2C6;
  
 }
 
@@ -7201,6 +7201,10 @@ __________ */
  .owl-nav .owl-prev:hover{
   background-color: #050a34 !important;
   color: #fff !important;
+ }
+
+ .UserLoginBtn55:hover{
+  background-color: #2BC2C6 !important;
  }
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Question = () => {
+const Discover = () => {
   return (
     <>
       <section className="question-comp">
@@ -35,4 +35,4 @@ const Question = () => {
   );
 };
 
-export default Question;
+export default Discover;

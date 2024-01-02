@@ -6706,12 +6706,12 @@ __________ */
  }
 
  .right-mail-bx:before{
-  content: "\f2c6";
+  content: "\f0e0";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #fff;
-  font-size: 1rem;
+  color: #019095;
+  font-size: 1.34rem;
   right: 1rem;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;

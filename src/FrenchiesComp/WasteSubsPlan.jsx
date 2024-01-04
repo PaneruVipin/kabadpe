@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import SelectArea from "./SelectArea";
 
-const FrenchiesSubsPlan = () => {
+const WasteSubsPlan = () => {
   const [plan, setPlan] = useState("monthly");
   const [locat, setLocat] = useState(false);
 
@@ -42,6 +42,8 @@ const FrenchiesSubsPlan = () => {
 
   return (
     <>
+    
+    
       <section className="fren-subscrip-plan-comp">
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
@@ -95,7 +97,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Starter</h6>
+                        <h6>Starter (Solo)</h6>
 
                         <p>
                           {" "}
@@ -107,7 +109,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Basic</h6>
+                        <h6>Basic (Solo)</h6>
 
                         <p>
                           {" "}
@@ -119,7 +121,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Custom</h6>
+                        <h6>Custom (Solo)</h6>
 
                         <p>
                           {" "}
@@ -312,7 +314,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Starter  </h6>
+                        <h6>Starter (Solo) </h6>
 
                         <p>
                           {" "}
@@ -324,7 +326,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Basic</h6>
+                        <h6>Basic (Solo)</h6>
 
                         <p>
                           {" "}
@@ -336,7 +338,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Custom</h6>
+                        <h6>Custom (Solo)</h6>
 
                         <p>
                           {" "}
@@ -521,7 +523,7 @@ const FrenchiesSubsPlan = () => {
   );
 };
 
-export default FrenchiesSubsPlan;
+export default WasteSubsPlan;
 
 // <td><span>KabadiWala Manager</span></td>
 {

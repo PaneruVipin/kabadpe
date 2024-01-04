@@ -672,6 +672,18 @@ const FrenchiesPanel = () => {
             </div>
 
             <div className={getButonClasnameTwo(9)}>
+            <li
+                onClick={() => handleViewComp("subsplan")}
+                className={
+                  component === "subsplan"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#">My Plans  </NavLink>{" "}
+              </li>
+              
               <li
                 onClick={() => handleViewComp("subscriptionplan")}
                 className={
@@ -681,19 +693,10 @@ const FrenchiesPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">  Subscribed </NavLink>{" "}
+                <NavLink to="#">  Subscriptions </NavLink>{" "}
               </li>
-              <li
-                onClick={() => handleViewComp("subsplan")}
-                className={
-                  component === "subsplan"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> Plans  </NavLink>{" "}
-              </li>
+
+             
             </div>
           </div>
 

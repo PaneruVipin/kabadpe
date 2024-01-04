@@ -74,6 +74,17 @@ const Appointment = () => {
                
                 </div>
 
+                <div className="apnt-inpt-bx apnt-inpt-bx-a mb-4">
+            <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      placeholder="Address"
+                      autoComplete="off"
+                      required
+                    />
+            </div>
+
                 <div className="form-grid">
 
                 <div className="apnt-inpt-bx apnt-inpt-bx-s">
@@ -94,18 +105,9 @@ const Appointment = () => {
                   </div>
                 </div>
 
-                <div className="apnt-inpt-bx apnt-inpt-bx-a mt">
-            <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      placeholder="Address"
-                      autoComplete="off"
-                      required
-                    />
-            </div>
+               
 
-                <div className="form-grid mt-4">
+                <div className="form-grid mt-2">
                 <div className="apnt-inpt-bx apnt-inpt-bx-s">
                     <select name="service" id="service">
                       <option value="service">Select Service Type</option>

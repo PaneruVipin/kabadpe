@@ -86,9 +86,10 @@ const MainFooter = () => {
               <h6>Contact</h6>
 
              <div className="fot-lists fot-lists2">
-                <li> <i class="fa-solid fa-phone-volume"></i> <NavLink to="#">Grocery Store</NavLink> </li>
-                <li> <i class="fa-regular fa-envelope"></i> <NavLink to="#">Hotel & Restaurant</NavLink> </li>
-                <li> <i class="fa-solid fa-location-dot"></i> <NavLink to="#">Medical & Hospital</NavLink> </li>
+                <li> <i class="fa-solid fa-phone-volume"></i> <NavLink to="#">+91 98218 61897</NavLink> </li>
+                <li> <i class="fa-regular fa-envelope"></i> <NavLink to="#">support@thekabadshop.com</NavLink> </li>
+                <li> <i class="fa-solid fa-location-dot"></i> <NavLink to="#">88, Kundan Nagar, Laxmi Nagar
+New Delhi, India</NavLink> </li>
 
              </div>
 

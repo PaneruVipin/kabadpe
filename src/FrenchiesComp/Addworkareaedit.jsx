@@ -5,7 +5,6 @@ import { validationAddAria } from "../validators/admin/addAriaValidator";
 
 const Addworkareaedit = ({
   onclickCloseAddWorkEdit,
-  workAreaTrue,
   refetch,
   values,
 }) => {
@@ -138,24 +137,6 @@ const Addworkareaedit = ({
                         <div style={{ color: "red" }}>{errors?.subAriaName}</div>
                       ) : null}
                     </div>
-                    {/* <div className="admin-login-fild">
-                      <label htmlFor="subarea">Price</label>
-                      <div className="admin-login-input">
-                        <input
-                          type="number"
-                          name="price"
-                          id="price"
-                          placeholder="Enter your City Price"
-                          autoComplete="off"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.price}
-                        />
-                      </div>
-                      {touched?.price && errors?.price ? (
-                        <div style={{ color: "red" }}>{errors?.price}</div>
-                      ) : null}
-                    </div> */}
 
                     <div className="addwrkarea-form-bx ">
                       <div className="admin-login-fild ">

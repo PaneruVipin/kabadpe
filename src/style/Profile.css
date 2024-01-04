@@ -102,15 +102,15 @@
  }
 
  .profile-log-out-btn{
-    position: absolute;
-    top: 135%;
+    position: static;
+    bottom: 0;
     left: 0;
-    margin-inline: 2rem;
+    margin-inline: 1rem;
     display: flex;
     align-items: center;
     gap: .87rem;
-    padding-block: .65rem;
-    padding-inline: .87rem;
+    padding-block-start: 1.65rem;
+    /* padding-inline: .87rem; */
     cursor: pointer;
     transition: 500ms ease;
  }
@@ -2508,7 +2508,7 @@
          }
 
          .profile-log-out-btn{
-            top: 127%;
+            top: 0%;
          }
 
          .user-profile-side-nav-main{
@@ -2788,6 +2788,20 @@
          font-weight: 500;
          border-radius: .5rem;
 
+        }
+
+        .right-side-admin-all-comp5{
+         padding-inline-start: 20rem !important ;
+        }
+
+        .top-user-prof-search-bx2{
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: #fff;
+         z-index: 10000;
+         
         }
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 
 const Discover = () => {
+
   return (
     <>
       <section className="question-comp">
@@ -12,7 +13,7 @@ const Discover = () => {
               </div>
 
               <div className="quest-text apnt-heading">
-                <p>Have any questions?</p>
+                <p >Have any questions?</p>
                 <h6>+91 98218 61897</h6>
               </div>
             </div>

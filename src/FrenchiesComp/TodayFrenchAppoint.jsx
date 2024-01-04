@@ -20,9 +20,9 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
           popUp === true
             ? "appoint-popup-main popupactive"
             : "appoint-popup-main"
-        }
+        } onClick={()=> setPopUp(false)}
       >
-        <div className="appoint-popup-bx appoint-popup-bx2">
+        <div className="appoint-popup-bx appoint-popup-bx2" onClick={(e)=> e.stopPropagation()}>
           <div className="appoint-popup-info appoint-popup-info2">
             <h3>Assign</h3>
             <h6>Assign Appointment to your waste collector</h6>
@@ -164,9 +164,9 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
           addressPopup === true
             ? "cust-add-comp cust-add-comp2 addrssactive"
             : "cust-add-comp cust-add-comp2"
-        }
+        } onClick={() => setAddressPopup(false)}
       >
-        <div className="cust-add-bx cust-add-bx3">
+        <div className="cust-add-bx cust-add-bx3" onClick={(e)=>e.stopPropagation()}>
           <h3>Customer Address</h3>
 
           <p>
@@ -193,8 +193,8 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
         </div>
       </section>
 
-      <div className="today-appoint-data">
-        <div className=" wasteappoint-prof-table-main-bx french-appoint-table-box today-french-appnt-data">
+      <div className="today-appoint-data" >
+        <div className=" wasteappoint-prof-table-main-bx french-appoint-table-box today-french-appnt-data" >
           <table>
             <thead>
               <tr>

@@ -67,9 +67,9 @@ const AppointSlot = ({onclickCloseApntSlot , ApntSlotTrue , onClickOpenPopup}) =
     
     <>
 
-    <section className="appoint-slots-comp">
+    <section className="appoint-slots-comp" onClick={()=> onclickCloseApntSlot()}>
 
-        <div className="appoint-slots-main-bx" ref={apntSlotRef}>
+        <div className="appoint-slots-main-bx" ref={apntSlotRef} onClick={(e)=>e.stopPropagation()}>
 
             <h6>Appointments Slots</h6>
 

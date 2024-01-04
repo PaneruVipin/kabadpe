@@ -1,10 +1,56 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const ImpactComp = () => {
+
+    const numberObserver = useRef(null);
+
+    useEffect(() => {
+      const observerCallback = (entries, observer) => {
+        const [entry] = entries;
+        if (!entry.isIntersecting) return;
+  
+        const animNumElements = document.querySelectorAll('.count');
+        const speed = 20;
+  
+        animNumElements.forEach((myCount) => {
+          const targetCount = myCount.dataset.count;
+          let currCount = +myCount.innerText;
+          const newSpeed = Math.floor(targetCount / speed);
+  
+          const updateNumber = () => {
+            currCount += newSpeed;
+            myCount.innerText = currCount;
+  
+            if (currCount < targetCount) {
+              setTimeout(updateNumber, 90);
+            }
+          };
+  
+          updateNumber();
+        });
+  
+        observer.unobserve(entry.target);
+      };
+  
+      numberObserver.current = new IntersectionObserver(observerCallback, {
+        root: null,
+        threshold: 0,
+      });
+  
+      const animatedNumCount = document.querySelector('.animated-num-count-comp');
+      numberObserver.current.observe(animatedNumCount);
+  
+      return () => {
+        if (numberObserver.current) {
+          numberObserver.current.disconnect();
+        }
+      };
+    }, []);
+    
   return (
     <>
 
-    <section className="impact-comp">
+    <section className="impact-comp animated-num-count-comp">
         <div className="comon-container-2">
 
             <div className="apnt-heading">
@@ -23,7 +69,7 @@ const ImpactComp = () => {
                 </div>
 
                 <div className="imp-info">
-                    <h5>200</h5>
+                    <h5 className='count' data-count="200">0</h5>
                     <p>KGS. OF PLASTIC WE SAVED</p>
                 </div>
                 
@@ -37,7 +83,7 @@ const ImpactComp = () => {
                 </div>
 
                 <div className="imp-info">
-                    <h5>10</h5>
+                    <h5 className='count' data-count="40">0</h5>
                     <p>NO. OF TREE PLANTED </p>
                 </div>
                 
@@ -51,7 +97,7 @@ const ImpactComp = () => {
                 </div>
 
                 <div className="imp-info">
-                    <h5>1200</h5>
+                    <h5 className='count' data-count="1200">0</h5>
                     <p>KGS. OF CO2 OFFSET </p>
                 </div>
                 
@@ -65,7 +111,7 @@ const ImpactComp = () => {
                 </div>
 
                 <div className="imp-info">
-                    <h5>450</h5>
+                    <h5 className='count' data-count="450">0</h5>
                     <p>KGS. OF PLASTIC RECYCLED </p>
                 </div>
                 
@@ -79,13 +125,18 @@ const ImpactComp = () => {
                 </div>
 
                 <div className="imp-info">
-                    <h5>318</h5>
+                    <h5 className='count' data-count="318">0</h5>
                     <p>PEOPLE MADE AWARE ON CLIMATE CHANGE </p>
                 </div>
                 
                 </div>
                 
             </div>
+            
+            {/* <div className="animated-num-count-comp">
+      <div className="count" data-count="100">0</div>
+      <div className="count" data-count="250">0</div>
+    </div> */}
             
         </div>
     </section>

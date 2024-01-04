@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import UserForm from "../Components/UserForm";
 import { NavLink } from "react-router-dom";
 import Protect from "../Components/Auth/ProtectComp";
+import "../style/HeaderStyle.css";
 const Header = () => {
   const [userForm, setUserForm] = useState(false);
   const [navlink , setNavLink] = useState('');
   const [menu , setMenu] = useState(false);
+  const [nav , setNav] = useState(false);
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -14,26 +16,38 @@ const Header = () => {
   const popUpUserForm = () => {
     setUserForm(!userForm);
   };
+
+  const scrollShow = () => {
+    const scrollValue =  document?.documentElement?.scrollTop ;
+    console.log("====doc",document)
+    console.log("=====", scrollValue)
+    scrollValue > 150 ? setNav(true) : setNav(false) ;
+    
+}
+
+
+  window.addEventListener("scroll", scrollShow , true)
+  
   return (
     <>
-      <header className="main-header header-style-one">
+      <header className= "main-header header-style-one">
         <div className="header-top">
           <div className="auto-container">
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
                 <a href="#">
                   {" "}
-                  <i className="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
+                   Climstripe Shift{" "}
                 </a>
                 <a href="#" className="linkactive">
-                  <i className="fa-solid fa-angles-right"></i> Kabadpe
+                <span>|</span> Kabadpe
                 </a>
                 <a href="#">
-                  <i className="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
+                <span>|</span> Green Saman Shop{" "}
                 </a>
                 <a href="#">
                   {" "}
-                  <i className="fa-solid fa-angles-right"></i> Climconnect{" "}
+                  <span>|</span> Climconnect{" "}
                 </a>
               </div>
 
@@ -55,14 +69,14 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="header">
+        <div className={ nav === true ? "header sticky" : "header"}>
           <div className="header-container">
             <div className="outer-box">
               <div className="header-left-nav-bx">
                 <div className="header-left">
                   <div className="main-logo-box">
                     <NavLink to="/">
-                      <img src="./images/resources/logo.png" alt="" />
+                      <img src="./images/customImg/logo.png" alt="" />
                     </NavLink>
                   </div>
                 </div>
@@ -229,7 +243,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="sticky-header">
+
+        {/* <div className="sticky-header">
           <div className="container">
             <div className="clearfix">
               <div className="logo float-left">
@@ -285,7 +300,7 @@ const Header = () => {
               </ul>
             </div>
           </nav>
-        </div>
+        </div> */}
       </header>
 
       {/* <!-- Main header--> */}

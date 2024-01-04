@@ -5,8 +5,10 @@ import HomeSlider from "../HomeComponent/HomeSlider";
 import ImpactComp from "../HomeComponent/ImpactComp";
 import KabadJugad from "../HomeComponent/KabadJugad";
 import MainFooter from "../HomeComponent/MainFooter";
-import Review from "../HomeComponent/Review";
 import Discover from "../HomeComponent/Discover";
+import Contribution from "../HomeComponent/Contribution";
+import Review from "../HomeComponent/Review";
+import InstaFeed from "../HomeComponent/InstaFeed";
 
 const Home = () => {
   return <>
@@ -16,7 +18,9 @@ const Home = () => {
   <Ecosystem />
   <KabadJugad />
   <ImpactComp />
-  <Review />
+  <Contribution />
+  <Review/>
+  <InstaFeed />
   <Discover />
   <MainFooter />
   </>;

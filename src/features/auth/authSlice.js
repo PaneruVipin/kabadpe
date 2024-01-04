@@ -122,6 +122,7 @@ const authSlice = createSlice({
     builder.addCase(
       userVerifySignup.fulfilled,
       (state, { payload: { data, payload } }) => {
+        console.log("token", data?.token);
         setInLocalStorage("token", data?.token);
         state.success = {
           ...state.success,

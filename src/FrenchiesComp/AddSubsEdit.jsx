@@ -1,17 +1,25 @@
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { validationAddSubs } from "../validators/admin/addSubscriptionValidator";
+import { adminAriaUpdate } from "../apis/admins/arias";
+import { adminSubsAdd, adminSubsUpdate } from "../apis/admins/subscription";
 
-const AddSubsEdit = ({ onclickCloseSubsPlanBx, subsTrue }) => {
-  const [cityAmount, setCityAmount] = useState(null);
-  const [wasteColectAmount, setWasteColectAmount] = useState(null);
-
-  const handleCityChangeAmount = (e) => {
-    setCityAmount(e.target.value);
+const AddSubsEdit = ({ onclickCloseSubsPlanBx, refetch, values }) => {
+  const formTitle = values
+    ? "Update Subscription Plan"
+    : "Add Subscription Plan";
+  const initialValues = values || {};
+  const handleSubmit = async (data, { resetForm }) => {
+    onclickCloseSubsPlanBx();
+    if (values) {
+      await adminSubsUpdate(data);
+      refetch();
+    } else {
+      await adminSubsAdd(data);
+      refetch();
+    }
+    resetForm();
   };
-
-  const handlewastecolectChangeAmount = (e) => {
-    setWasteColectAmount(e.target.value);
-  };
-
   return (
     <>
       <section
@@ -22,110 +30,121 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx, subsTrue }) => {
           className="add-work-area-edit-main-bx add-subs-plan"
           onClick={(e) => e.stopPropagation()}
         >
-          <h6 className="banktext">Add Subscription Plan (Add or Edit)</h6>
+          <h6 className="banktext">{formTitle}</h6>
 
-          <form action="#">
-            <div className="addwrkarea-form-bx">
-              <div className="admin-login-fild">
-                <label htmlFor="planname">Plan Name</label>
-                <div className="admin-login-input">
-                  <input
-                    type="text"
-                    name="planname"
-                    id="planname"
-                    placeholder="Enter your Plan Name"
-                    autoComplete="off"
-                  />
-                </div>
-              </div>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={validationAddSubs}
+          >
+            {({
+              handleBlur,
+              handleChange,
+              values,
+              errors,
+              touched,
+              ...rest
+            }) => {
+              return (
+                console.log("errors ion form", errors),
+                (
+                  <Form>
+                    <div className="addwrkarea-form-bx">
+                      <div className="admin-login-fild">
+                        <label htmlFor="planname">Plan Name</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="planeName"
+                            id="planname"
+                            placeholder="Enter your Plan Name"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.planeName}
+                          />
+                        </div>
+                        {touched?.planeName && errors?.planeName ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.planeName}
+                          </div>
+                        ) : null}
+                      </div>
 
-              <div className="admin-login-fild">
-                <label htmlFor="City">No. of Waste Collector</label>
-                <div className="admin-login-input">
-                  <input
-                    type="text"
-                    name="City"
-                    id="City"
-                    placeholder="No. of waste collector"
-                    autoComplete="off"
-                  />
-                </div>
-              </div>
-            </div>
+                      <div className="admin-login-fild">
+                        <label htmlFor="City">No. of Waste Collector</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="collectorCount"
+                            id="City"
+                            placeholder="No. of waste collector"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.collectorCount}
+                          />
+                        </div>
+                        {touched?.collectorCount && errors?.collectorCount ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.collectorCount}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
 
-            {/* <div className="addwrkarea-form-bx mt-3">
-            <div className="admin-login-fild">
-              <label htmlFor="City">Area</label>
-              <div className="admin-login-input admin-login-select">
-                <select
-                  name="Area"
-                  id="Area"
-                  value={cityAmount}
-                  onChange={handleCityChangeAmount}
-                >
-                  <option value="">Choose</option>
-                  <option value="50">Laxmi Nagar</option>
-                  <option value="70">Kundan Nagar</option>
-                  <option value="100">Azad Nagar</option>
-                  <option value="150">Gandhi Nagar</option>
+                    <div className="addwrkarea-form-bx mt-3">
+                      <div className="admin-login-fild mt-3">
+                        <label htmlFor="City"> Monthly Price</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="monthlyPrice"
+                            id="monthlyprice"
+                            placeholder="Monthly Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.monthlyPrice}
+                          />
+                        </div>
+                        {touched?.monthlyPrice && errors?.monthlyPrice ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.monthlyPrice}
+                          </div>
+                        ) : null}
+                      </div>
 
-                  </select>
-              </div>
-            </div>
+                      <div className="admin-login-fild mt-3">
+                        <label htmlFor="City"> Quaterly Price</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="quaterlyPrice"
+                            id="quaterlyprice"
+                            placeholder="Quaterly Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.quaterlyPrice}
+                          />
+                        </div>
+                        {touched?.quaterlyPrice && errors?.quaterlyPrice ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.quaterlyPrice}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
 
-            <span className="add-amount"><i class="fa-solid fa-plus"></i></span>
-
-            <div className="admin-login-fild">
-              <label htmlFor="wastecolect">Waste Collector</label>
-              <div className="admin-login-input">
-                <input
-                  type="number"
-                  name="wastecolect"
-                  id="wastecolect"
-                  value={wasteColectAmount}
-                  onChange={handlewastecolectChangeAmount}
-                  placeholder="Enter waste-collector amount"
-                  autoComplete="off"
-                />
-              </div>
-            </div>
-
-          </div> */}
-
-            <div className="addwrkarea-form-bx mt-3">
-              <div className="admin-login-fild mt-3">
-                <label htmlFor="City"> Monthly Price</label>
-                <div className="admin-login-input">
-                  <input
-                    type="text"
-                    name="monthlyprice"
-                    id="monthlyprice"
-                    placeholder="Monthly Price"
-                    autoComplete="off"
-                    // readOnly
-                    // value={calculatePrice()}
-                  />
-                </div>
-              </div>
-
-              <div className="admin-login-fild mt-3">
-                <label htmlFor="City"> Quaterly Price</label>
-                <div className="admin-login-input">
-                  <input
-                    type="text"
-                    name="quaterlyprice"
-                    id="quaterlyprice"
-                    placeholder="Quaterly Price"
-                    autoComplete="off"
-                    // readOnly
-                    // value={calculatePrice()}
-                  />
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <button className="add-work-area-btn">Add Plan</button>
+                    <button type="submit" className="add-work-area-btn">
+                      Add Plan
+                    </button>
+                  </Form>
+                )
+              );
+            }}
+          </Formik>
 
           <div
             onClick={onclickCloseSubsPlanBx}

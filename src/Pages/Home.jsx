@@ -21,14 +21,12 @@ const Home = () => {
 
 
 
-    return () => {
       Preloadergsap()
     
-    }
 
 
     
-})
+},[])
   
   return <>
 

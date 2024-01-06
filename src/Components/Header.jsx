@@ -19,8 +19,6 @@ const Header = () => {
 
   const scrollShow = () => {
     const scrollValue =  document?.documentElement?.scrollTop ;
-    console.log("====doc",document)
-    console.log("=====", scrollValue)
     scrollValue > 150 ? setNav(true) : setNav(false) ;
     
 }

@@ -38,7 +38,9 @@ const Contribution = () => {
           
 
             <div className="cont-logo-bx cont-logo-bx6" > 
-
+            <div className="company-name-text">
+                <span>Sustainable Cities and Communities</span>
+            </div>
           
                 <div className="cont-img cont-img2 cont-img6" >
                     <img src="./images/contribution/contri-img-06.png"   />
@@ -49,6 +51,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx7">
+            <div className="company-name-text">
+                <span>Responsible Consumption and Production</span>
+            </div>
                 <div className="cont-img cont-img2 cont-img7">
                     <img src="./images/contribution/contri-img-07.png" alt="" />
                 </div>
@@ -58,6 +63,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx8">
+            <div className="company-name-text">
+                <span>Climate Action</span>
+            </div>
                 <div className="cont-img cont-img2 cont-img8">
                     <img src="./images/contribution/contri-img-08.png" alt="" />
                 </div>
@@ -67,6 +75,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx9">
+            <div className="company-name-text">
+                <span>Life Below Water</span>
+            </div>
                 <div className="cont-img cont-img2 cont-img9">
                     <img src="./images/contribution/contri-img-09.png" alt="" />
                 </div>
@@ -76,6 +87,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx10">
+            <div className="company-name-text">
+                <span>Life On Land</span>
+            </div>
                 <div className="cont-img cont-img2 cont-img10">
                     <img src="./images/contribution/contri-img-10.png" alt="" />
                 </div>
@@ -87,7 +101,7 @@ const Contribution = () => {
             <div className="rounded-flex-bx" >
 
             <div className="cont-logo-bx cont-logo-bx1">
-            <div className="company-name">
+            <div className="company-name-text">
                 <span>Swachh Bharat</span>
             </div>
                 <div className="cont-img">
@@ -99,6 +113,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx2" >
+            <div className="company-name-text">
+                <span>Meri Life</span>
+            </div>
                 <div className="cont-img cont-img2">
                     <img src="./images/contribution/contri-img-02.png" alt="" />
                 </div>
@@ -110,6 +127,9 @@ const Contribution = () => {
             
 
             <div className="cont-logo-bx cont-logo-bx3">
+            <div className="company-name-text">
+                <span>Gender Equality</span>
+            </div>
                 <div className="cont-img cont-img2  cont-img3">
                     <img src="./images/contribution/contri-img-03.png" alt="" />
                 </div>
@@ -119,6 +139,9 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx4">
+            <div className="company-name-text">
+                <span>Clean Water And Sanitation</span>
+            </div>
                 <div className="cont-img cont-img2  cont-img4">
                     <img src="./images/contribution/contri-img-04.png" alt="" />
                 </div>
@@ -129,7 +152,7 @@ const Contribution = () => {
             </div>
 
             <div className="cont-logo-bx cont-logo-bx5">
-            <div className="company-name2">
+            <div className="company-name-text">
                 <span>Decent Work And Economic Growth</span>
             </div>
                 <div className="cont-img cont-img2 cont-img5">

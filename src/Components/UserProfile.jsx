@@ -13,6 +13,7 @@ import ReferEarn from "./ReferEarn";
 import MyWallet from "./MyWallet";
 import { userProfileImageAdd } from "../apis/user";
 import { userFetch } from "../features/user/userActions";
+import MyOffer from "./MyOffer";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -138,6 +139,16 @@ const UserProfile = () => {
           </button>
 
           <button
+            onClick={() => filterTab(8)}
+            className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}
+          >
+            <div className="u-prf-tab-icon">
+            <i class="fa-solid fa-piggy-bank"></i>
+            </div>
+            My Offers
+          </button>
+
+          <button
             onClick={() => filterTab(5)}
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -235,6 +246,8 @@ const UserProfile = () => {
       {profBtn === 9 ? <UserOrders /> : null};
       {profBtn === 5 ? <ReferEarn /> : null};
       {profBtn === 7 ? <MyWallet /> : null};
+      {profBtn === 8 ? <MyOffer /> : null};
+
     </>
   );
 };

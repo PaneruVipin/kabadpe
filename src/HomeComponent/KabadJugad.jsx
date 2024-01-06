@@ -6,7 +6,7 @@ const KabadJugad = () => {
       <section className="kabad-jugad-comp">
         <div className="comon-container-2">
           <div className="apnt-heading">
-            <p>Sale Your Waste</p>
+            <p>Ecosystem</p>
             <h3>Kabad Ka Jugad</h3>
           </div>
 

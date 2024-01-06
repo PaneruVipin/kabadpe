@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import Header from "../Components/Header";
 import Appointment from "../HomeComponent/Appointment";
 import Ecosystem from "../HomeComponent/Ecosystem";
@@ -9,20 +10,46 @@ import Discover from "../HomeComponent/Discover";
 import Contribution from "../HomeComponent/Contribution";
 import Review from "../HomeComponent/Review";
 import InstaFeed from "../HomeComponent/InstaFeed";
+import ScrollBtn from "../HomeComponent/ScrollBtn";
+import Preloader from "../HomeComponent/Preloader";
+import { Preloadergsap } from "../HomeComponent/PreloaderGsap";
+
 
 const Home = () => {
+
+  useEffect(() => {
+
+
+
+    return () => {
+      Preloadergsap()
+    
+    }
+
+
+    
+})
+  
   return <>
+
+  <Preloader />
+
+
+  <div  className="mainwrap">
   
   <HomeSlider />
   <Appointment />
   <Ecosystem />
   <KabadJugad />
-  <ImpactComp />
   <Contribution />
+  <ImpactComp />
   <Review/>
   <InstaFeed />
   <Discover />
   <MainFooter />
+  </div>
+
+  <ScrollBtn />
   </>;
 };
 

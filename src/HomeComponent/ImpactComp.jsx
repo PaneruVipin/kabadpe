@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import ImpactTwo from './ImpactTwo';
 
 const ImpactComp = () => {
 
@@ -137,6 +138,8 @@ const ImpactComp = () => {
       <div className="count" data-count="100">0</div>
       <div className="count" data-count="250">0</div>
     </div> */}
+
+        <ImpactTwo />
             
         </div>
     </section>

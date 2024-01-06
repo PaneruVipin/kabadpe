@@ -63,7 +63,7 @@ const UserProfForm = () => {
   return (
     <>
       <section className="user-prof-grid-comp">
-        <section className="User-prof-Form-Main-bx">
+        <section className="User-prof-Form-Main-bx User-prof-Form-Main-bx-rem-spce">
           <div className="u-p-f-cont">
             <div className="usr-prof-form-bx">
               <div className="user-prof-form-grid">

@@ -2804,7 +2804,38 @@
          
         }
 
+        .offer-grid-bx{
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         column-gap: 1rem;
+         row-gap: 1rem;
+        }
 
+        .my-offer-comp{
+         padding-inline-start: 20.5rem;
+         padding-inline-end: 1.87rem;
+        }
+
+.top-user-prof-search-bx-acnt 
+{
+   margin-top: 0 !important;
+}
+
+.user-prof-counter-comp-rem-spce{
+   margin-top: 3.5rem !important;
+}
+
+.wallet-comp-rem-spce , .referearn-comp-rem-spce{
+   padding-top: 0 !important;
+}
+
+.User-prof-Form-Main-bx-rem-spce , .sales-hist-comp-rem-spce{
+   margin-top: 0 !important;
+}
+
+.user-prf-update-comp-rem-spce , .sup-tickt-search-main-rem-spce{
+   margin-top: 0 !important;
+}
 
 
 

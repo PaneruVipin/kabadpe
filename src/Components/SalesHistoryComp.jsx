@@ -8,7 +8,7 @@ const SalesHistoryComp = () => {
   return (
     <>
       <section className="user-prof-grid-comp">
-      <section className="sales-hist-comp">
+      <section className="sales-hist-comp sales-hist-comp-rem-spce">
       <h5>Sales History</h5>
 
 

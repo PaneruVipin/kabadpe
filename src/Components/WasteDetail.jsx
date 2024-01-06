@@ -10,6 +10,8 @@ import {
 } from "../apis/worker/user";
 import { userFetch } from "../features/user/userActions";
 import { Form, Formik } from "formik";
+import { DateTime } from "luxon";
+import { date } from "yup";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -42,6 +44,11 @@ const WasteDetail = () => {
       });
     setProfChange(false);
   };
+
+  function isTimestampString(str) {
+    // Check if the string can be converted to a valid date
+    return !isNaN(Date.parse(str));
+  }
 
   const handleSubmit = async (data) => {
     const newData = { ...data };
@@ -155,7 +162,11 @@ const WasteDetail = () => {
 
               <div className="det-user-bx">
                 <h6>Date of Birth :</h6>
-                <span>{userInfo?.dob}</span>
+                {userInfo?.dob ? (
+                  <span>
+                    {DateTime.fromISO(userInfo?.dob).toFormat("dd LLL yyyy")}
+                  </span>
+                ) : null}
               </div>
 
               <div className="det-user-bx">
@@ -213,7 +224,9 @@ const WasteDetail = () => {
                 <h6>Last Health Checkup Date :</h6>
                 <span>
                   {userInfo?.heathCheckupDate
-                    ? userInfo?.heathCheckupDate + " 📅"
+                    ? DateTime.fromISO(userInfo?.heathCheckupDate).toFormat(
+                        "dd LLL yyyy"
+                      ) + " 📅"
                     : ""}
                 </span>
               </div>
@@ -296,10 +309,15 @@ const WasteDetail = () => {
                                 name="dob"
                                 id="name"
                                 autoComplete="off"
-                                //required
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values?.dob}
+                                value={
+                                  initialValues.dob
+                                    ? DateTime.fromISO(values?.dob).toFormat(
+                                        "yyyy-LL-dd"
+                                      )
+                                    : values?.dob
+                                }
                               />
                               {touched?.dob && errors?.dob ? (
                                 <div style={{ color: "red" }}>
@@ -487,7 +505,13 @@ const WasteDetail = () => {
                                 //required
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values?.heathCheckupDate}
+                                value={
+                                  initialValues.dob
+                                    ? DateTime.fromISO(values?.dob).toFormat(
+                                        "yyyy-LL-dd"
+                                      )
+                                    : values?.dob
+                                }
                               />
                               {touched?.heathCheckupDate &&
                               errors?.heathCheckupDate ? (

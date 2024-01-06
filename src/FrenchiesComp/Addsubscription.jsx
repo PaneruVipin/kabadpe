@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import addSubsPlan from "../AddSubsData";
 import AddSubsEdit from "./AddSubsEdit";
 import { useQuery } from "@tanstack/react-query";
-import { adminSubsFetch } from "../apis/admins/subscription";
+import { adminSubsDelete, adminSubsFetch } from "../apis/admins/subscription";
 
 const Addsubscription = () => {
   const [subsPlanBx, setSubsPlanBx] = useState(false);
   const [initialUpdateValues, setInitialUpdateValues] = useState({});
-  const [formType, setFormType] = useState("add");
   const { data: subscription, refetch } = useQuery({
     queryKey: ["kabadpeSubscription"],
     queryFn: () => adminSubsFetch(),
@@ -20,7 +19,7 @@ const Addsubscription = () => {
           <h6 className="banktext mb-0">Add Work Area</h6>
           <button
             onClick={() => {
-              setFormType("add");
+              setInitialUpdateValues({});
               setSubsPlanBx(true);
             }}
             className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn"
@@ -44,12 +43,10 @@ const Addsubscription = () => {
               {subscription?.map(
                 (
                   {
-                    collectrorsCount,
-                    collectorsPrice,
-                    planName,
-                    ariasPriceDiscount,
-                    collectorsPriceDiscount,
-                    subscriptionType,
+                    planeName,
+                    collectorCount,
+                    monthlyPrice,
+                    quaterlyPrice,
                     id,
                   },
                   i
@@ -61,29 +58,28 @@ const Addsubscription = () => {
                           <span> {i + 1} </span>
                         </td>
                         <td>
-                          <span> {planName} </span>
+                          <span> {planeName} </span>
                         </td>
                         <td>
-                          <span> {collectrorsCount} </span>
+                          <span> {collectorCount} </span>
                         </td>
                         <td>
-                          <span> ₹{collectorsPrice} </span>
+                          <span> ₹{monthlyPrice} </span>
                         </td>
-
+                        <td>
+                          <span> ₹{quaterlyPrice} </span>
+                        </td>
                         <td>
                           <div className="edit-remv-btns">
                             <button
                               onClick={() => {
                                 setInitialUpdateValues({
-                                  collectrorsCount,
-                                  collectorsPrice,
-                                  planName,
-                                  ariasPriceDiscount,
-                                  collectorsPriceDiscount,
-                                  subscriptionType,
+                                  planeName,
+                                  collectorCount,
+                                  monthlyPrice,
+                                  quaterlyPrice,
                                   id,
                                 });
-                                setFormType("update");
                                 setSubsPlanBx(true);
                               }}
                               className="add-wrok-actn-btn"
@@ -91,7 +87,13 @@ const Addsubscription = () => {
                               <i class="fa-solid fa-pen-to-square"></i>
                             </button>
 
-                            <button className="add-wrok-actn-btn">
+                            <button
+                              onClick={async () => {
+                                await adminSubsDelete(id);
+                                refetch();
+                              }}
+                              className="add-wrok-actn-btn"
+                            >
                               <i class="fa-solid fa-trash"></i>
                             </button>
                           </div>
@@ -108,9 +110,8 @@ const Addsubscription = () => {
 
       {subsPlanBx ? (
         <AddSubsEdit
-          initialUpdateValues={initialUpdateValues}
+          values={initialUpdateValues}
           refetch={refetch}
-          formType={formType}
           onclickCloseSubsPlanBx={() => setSubsPlanBx(false)}
         />
       ) : null}

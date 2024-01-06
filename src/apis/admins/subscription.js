@@ -3,27 +3,16 @@ import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
 export const adminSubsAdd = resolvePromise(
-  async ({ variations, collectorsPrice, collectrorsCount }) => {
+  async ({ planeName, collectorCount, monthlyPrice, quaterlyPrice }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/subscription`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
       {
-        variations: variations?.map(
-          ({
-            ariasPriceDiscount,
-            collectorsPriceDiscount,
-            planName,
-            subscriptionType,
-          }) => ({
-            ariasPriceDiscount: ariasPriceDiscount || 0,
-            collectorsPriceDiscount: collectorsPriceDiscount || 0,
-            planName,
-            subscriptionType,
-          })
-        ),
-        collectorsPrice,
-        collectrorsCount,
+        planeName,
+        collectorCount,
+        monthlyPrice,
+        quaterlyPrice,
       },
       {
         headers: {
@@ -36,26 +25,16 @@ export const adminSubsAdd = resolvePromise(
 );
 
 export const adminSubsUpdate = resolvePromise(
-  async ({
-    collectrorsCount,
-    collectorsPrice,
-    planName,
-    ariasPriceDiscount,
-    collectorsPriceDiscount,
-    subscriptionType,
-    id,
-  }) => {
+  async ({ planeName, collectorCount, monthlyPrice, quaterlyPrice, id }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/subscription/${id}`;
     const token = getFromLocalStorage("token");
-    const { data: res } = await axios.post(
+    const { data: res } = await axios.put(
       apiUrl,
       {
-        collectrorsCount,
-        collectorsPrice,
-        subscriptionType,
-        planName,
-        ariasPriceDiscount: ariasPriceDiscount || 0,
-        collectorsPriceDiscount: collectorsPriceDiscount || 0,
+        planeName,
+        collectorCount,
+        monthlyPrice,
+        quaterlyPrice,
       },
       {
         headers: {

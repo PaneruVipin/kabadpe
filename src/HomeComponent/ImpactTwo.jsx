@@ -1,53 +1,58 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const ImpactTwo = () => {
+
+    // const numberObserver = useRef(null);
+
+    // useEffect(() => {
+    //   const observerCallback = (entries, observer) => {
+    //     const [entry] = entries;
+    //     if (!entry.isIntersecting) return;
+  
+    //     const animNumElements = document.querySelectorAll('.count');
+    //     const speed = 2;
+  
+    //     animNumElements.forEach((myCount) => {
+    //       const targetCount = myCount.dataset.count;
+    //       let currCount = +myCount.innerText;
+    //       const newSpeed = Math.floor(targetCount / speed);
+  
+    //       const updateNumber = () => {
+    //         currCount += newSpeed;
+    //         myCount.innerText = currCount;
+  
+    //         if (currCount < targetCount) {
+    //           setTimeout(updateNumber, 90);
+    //         }
+    //       };
+  
+    //       updateNumber();
+    //     });
+  
+    //     observer.unobserve(entry.target);
+    //   };
+  
+    //   numberObserver.current = new IntersectionObserver(observerCallback, {
+    //     root: null,
+    //     threshold: 0,
+    //   });
+  
+    //   const animatedNumCount = document.querySelector('.our-imp-two');
+    //   numberObserver.current.observe(animatedNumCount);
+  
+    //   return () => {
+    //     if (numberObserver.current) {
+    //       numberObserver.current.disconnect();
+    //     }
+    //   };
+    // }, []);
+    
   return (
     <>
 
-        <div className="our-imp-two">
-
-            <div className="imp-box-tw">
-                <div className="left-imp-i">
-                <i class="fa-solid fa-droplet"></i>
-                </div>
-                <div className="right-imp-bx-det">
-                    <h6>13.8 crores</h6>
-                    <span>Litres of Water</span>
-                </div>
-            </div>
-
-            <div className="imp-box-tw imp-box-tw2">
-                <div className="left-imp-i left-imp-i2">
-                <i class="fa-solid fa-bolt-lightning"></i>
-                </div>
-                <div className="right-imp-bx-det">
-                    <h6>5,56,345</h6>
-                    <span>KWH Of Electricity</span>
-                </div>
-            </div>
 
 
-            <div className="imp-box-tw imp-box-tw3">
-                <div className="left-imp-i left-imp-i3">
-                <i class="fa-solid fa-oil-can"></i>
-                </div>
-                <div className="right-imp-bx-det">
-                    <h6>2.5 Lakhs</h6>
-                    <span>Litres of Oil</span>
-                </div>
-            </div>
-
-            <div className="imp-box-tw imp-box-tw4">
-                <div className="left-imp-i left-imp-i4">
-                <i class="fa-brands fa-pagelines"></i>
-                </div>
-                <div className="right-imp-bx-det">
-                    <h6>2.5 Lakhs</h6>
-                    <span>number of tree</span>
-                </div>
-            </div>
-            
-        </div>
+     
       
     </>
   )

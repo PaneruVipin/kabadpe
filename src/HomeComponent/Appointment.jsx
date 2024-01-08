@@ -133,9 +133,11 @@ const Appointment = () => {
 
                   <div className="apnt-inpt-bx apnt-inpt-bx-s">
                     <select name="service" id="service">
-                      <option value="service">Select Service Type</option>
+                      <option value="service">Select Frequency</option>
                       <option value="service">Once</option>
                       <option value="service">Weekly</option>
+                      <option value="service">Monthly</option>
+
                     </select>
                   </div>
                 </div>

@@ -26,6 +26,11 @@ const KabadJugad = () => {
                     An easy way to manage your home waste, with safe, reliable
                     and traceable system.
                   </p>
+
+                  <button className="read-mre-btn">
+                    Read More
+                  </button>
+                  
                 </div>
               </div>
 
@@ -39,6 +44,9 @@ const KabadJugad = () => {
                     Green living made simple, enjoy eco-friendly products for
                     daily needs.
                   </p>
+                  <button className="read-mre-btn">
+                    Read More
+                  </button>
                 </div>
               </div>
 
@@ -52,6 +60,9 @@ const KabadJugad = () => {
                     Become a climate Warrier, raise your voice and let people
                     know your climate contribution
                   </p>
+                  <button className="read-mre-btn">
+                    Read More
+                  </button>
                 </div>
               </div>
               
@@ -64,6 +75,9 @@ const KabadJugad = () => {
                   <p>
                   Need waste related solutions, find best solution to combat waste problems.
                   </p>
+                  <button className="read-mre-btn">
+                    Read More
+                  </button>
                 </div>
               </div>
               

@@ -50,9 +50,7 @@ const WasteSubsPlan = () => {
             <h5>Subscription Plan</h5>
 
             <div className="right-filter-btns-flex-bx">
-              <div onClick={() => setLocat(true)} className="sel-area-btn">
-                Select Location
-              </div>
+             
 
               <div className="month-qua-filt-btn-flex">
                 <button
@@ -63,7 +61,7 @@ const WasteSubsPlan = () => {
                   }
                   onClick={() => handleFiltFunc("monthly")}
                 >
-                  Monthly
+                  Fixed
                 </button>
                 <button
                   className={
@@ -73,7 +71,7 @@ const WasteSubsPlan = () => {
                   }
                   onClick={() => handleFiltFunc("quaterly")}
                 >
-                  Quaterly
+                  Comission
                 </button>
               </div>
             </div>
@@ -97,11 +95,11 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Starter (Solo)</h6>
+                        <h6>Per Lead</h6>
 
                         <p>
                           {" "}
-                          ₹80 <span>/Month</span>{" "}
+                          ₹10 <span>/Per lead</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -109,11 +107,11 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Basic (Solo)</h6>
+                        <h6>Per Week</h6>
 
                         <p>
                           {" "}
-                          ₹90 <span>/Month</span>{" "}
+                          ₹100 <span>/Per week</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -121,11 +119,11 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Custom (Solo)</h6>
+                        <h6> Per Month </h6>
 
                         <p>
                           {" "}
-                          ₹100 <span>/Month</span>{" "}
+                          ₹500 <span>/Per month</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -135,7 +133,7 @@ const WasteSubsPlan = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <p>Bid</p>
+                      <p>Leads</p>
                     </td>
                     <td>
                       <div className="mark-check">
@@ -156,7 +154,7 @@ const WasteSubsPlan = () => {
 
                   <tr>
                     <td>
-                      <p>Kabadiwala Manager</p>
+                      <p>Wallet</p>
                     </td>
                     <td>
                       <div className="mark-check">
@@ -177,91 +175,70 @@ const WasteSubsPlan = () => {
 
                   <tr>
                     <td>
-                      <p>Number of worker</p>
+                      <p>Waste Stock Management</p>
                     </td>
                     <td>
-                      <span className="round-bx"> 5 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 10 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 20 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                      </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                    <p>Training</p>
+                     
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                   </tr>
 
                   <tr>
                     <td>
-                      {" "}
-                      <div className="area-flex">
-                        {" "}
-                        <p>Select Area</p>{" "}
-                        <div onClick={() => setLocat(true)} className="add-area-icon2">
-                          <i class="fa-solid fa-plus"></i>
-                        </div>{" "}
-                      </div>{" "}
+                    <p>Support in government Schemes</p>
+                     
                     </td>
                     <td>
-                      <span className="round-bx"> 1 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 2 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 3 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                   </tr>
 
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Gandhi Nagar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹100 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹110 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹100 </span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Anand Vihar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Krishna Nagar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                  </tr>
+                
 
                   <tr>
                     <td>
@@ -304,7 +281,7 @@ const WasteSubsPlan = () => {
             </div>
 
             <div className="subs-plan-table subs-plan-table3 subs-plan-table-month4">
-              <table>
+            <table>
                 <thead>
                   <tr>
                     <th>
@@ -314,11 +291,11 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Starter (Solo) </h6>
+                        <h6>Starter (c)</h6>
 
                         <p>
                           {" "}
-                          ₹80 <span>/Quaterly</span>{" "}
+                          ₹5 + 2.5% <span>/Lead</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -326,11 +303,12 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Basic (Solo)</h6>
+                        <h6>Basic (c)</h6>
 
+                       
                         <p>
                           {" "}
-                          ₹90 <span>/Quaterly</span>{" "}
+                          ₹50 + 2.5% <span>/Week</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -338,11 +316,12 @@ const WasteSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Custom (Solo)</h6>
+                        <h6>pro (c)</h6>
 
+                       
                         <p>
                           {" "}
-                          ₹100 <span>/Quaterly</span>{" "}
+                          ₹150 + 2.5% <span>/Month</span>{" "}
                         </p>
                       </div>{" "}
                     </th>
@@ -352,7 +331,7 @@ const WasteSubsPlan = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <p>Bid</p>
+                      <p>Leads</p>
                     </td>
                     <td>
                       <div className="mark-check">
@@ -373,7 +352,7 @@ const WasteSubsPlan = () => {
 
                   <tr>
                     <td>
-                      <p>Kabadiwala Manager</p>
+                      <p>Wallet</p>
                     </td>
                     <td>
                       <div className="mark-check">
@@ -394,84 +373,70 @@ const WasteSubsPlan = () => {
 
                   <tr>
                     <td>
-                      <p>Number of worker</p>
+                      <p>Waste Stock Management</p>
                     </td>
                     <td>
-                      <span className="round-bx"> 5 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 10 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 20 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                      </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                    <p>Training</p>
+                     
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
+                    </td>
+                    <td>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                   </tr>
 
                   <tr>
                     <td>
-                      <p>Select Area</p>
+                    <p>Support in government Schemes</p>
+                     
                     </td>
                     <td>
-                      <span className="round-bx"> 1 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 2 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                     <td>
-                      <span className="round-bx"> 3 </span>
+                    <div className="mark-check">
+                        <i class="fa-solid fa-circle-check"></i>{" "}
+                      </div>
                     </td>
                   </tr>
 
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Gandhi Nagar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹100 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹110 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹100 </span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Anand Vihar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹150 </span>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Krishna Nagar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                    <td>
-                      <span className="area-text2"> ₹90 </span>
-                    </td>
-                  </tr>
+                
 
                   <tr>
                     <td>

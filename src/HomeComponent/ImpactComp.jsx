@@ -55,8 +55,8 @@ const ImpactComp = () => {
         <div className="comon-container-2">
 
             <div className="apnt-heading">
-                <p>Sale Your Waste</p>
-                <h3>Our Impact</h3>
+                <p>Small Step</p>
+                <h3>Big Impact</h3>
             </div>
 
 

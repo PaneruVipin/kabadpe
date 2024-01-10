@@ -40,8 +40,8 @@ const Header = () => {
                 <a href="#" className="linkactive">
                 <span>|</span> Kabadpe
                 </a>
-                <a href="#">
-                <span>|</span> Green Saman Shop{" "}
+                <a href="https://thegreensamanshop.com/" target="_blank">
+                <span>|</span>The Green Saman Shop{" "}
                 </a>
                 <a href="#">
                   {" "}
@@ -103,12 +103,32 @@ const Header = () => {
                               <div className="s-drpdwn-lists">
                                 <p>
                                   <NavLink to="#" target="_blank">
-                                    Scrap Collection
+                                    Zero Waste Societies
                                   </NavLink>
                                 </p>
                                 <p>
                                   <NavLink to="#" target="_blank">
-                                    Zero Waste Society
+                                    Waste SIP
+                                  </NavLink>
+                                </p>
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Green Life
+                                  </NavLink>
+                                </p>
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Clim Connect
+                                  </NavLink>
+                                </p>
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Blog
+                                  </NavLink>
+                                </p>
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Household Scrap Collection
                                   </NavLink>
                                 </p>
                                 <p>
@@ -116,6 +136,7 @@ const Header = () => {
                                     Vehicle Scrapping
                                   </NavLink>
                                 </p>
+                                
                               </div>
                             </div>
 
@@ -124,13 +145,13 @@ const Header = () => {
                               <div className="s-drpdwn-submenu-grid">
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
-                                    <NavLink to="#">Scrap Collection</NavLink>
+                                    <NavLink to="#">Corporate Waste Management</NavLink>
                                   </p>
                                   <p>
                                     <NavLink to="#">EPR services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Dismantling</NavLink>
+                                    <NavLink to="#">Dismantling Services</NavLink>
                                   </p>
                                 </div>
                                 <div className="s-dpdwn-sb-menu-bx">
@@ -138,10 +159,10 @@ const Header = () => {
                                     <NavLink to="#">Circular Economy</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Zero Waste</NavLink>
+                                    <NavLink to="#">Zero Waste Services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Paper Shredding</NavLink>
+                                    <NavLink to="#">Paper Shredding Services</NavLink>
                                   </p>
                                 </div>
                                 <div className="s-dpdwn-sb-menu-bx">
@@ -149,13 +170,16 @@ const Header = () => {
                                     <NavLink to="#">CSR Services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Zero Waste Event</NavLink>
+                                    <NavLink to="#">Zero Waste Drives</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">IEC Development and Consulting</NavLink>
                                   </p>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="s-drpdwn-bx">
+                            {/* <div className="s-drpdwn-bx">
                               <h6>For Governments</h6>
                               <div className="s-drpdwn-lists">
                                 <p>
@@ -169,7 +193,7 @@ const Header = () => {
                                   </NavLink>
                                 </p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </li>
@@ -179,13 +203,13 @@ const Header = () => {
                         </NavLink>
                         <div className="about-drpdwn-bx">
                           <p>
-                            <NavLink to=""> About us</NavLink>
+                            <NavLink to="/about"> About us</NavLink>
                           </p>
                           <p>
                             <NavLink to="#">Franchise</NavLink>
                           </p>
                           <p>
-                            <NavLink to="#">Contact now</NavLink>
+                            <NavLink to="/contact">Contact now</NavLink>
                           </p>
                         </div>
                       </li>

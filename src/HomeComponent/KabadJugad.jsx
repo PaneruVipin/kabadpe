@@ -7,7 +7,7 @@ const KabadJugad = () => {
         <div className="comon-container-2">
           <div className="apnt-heading">
             <p>Ecosystem</p>
-            <h3>Kabad Ka Jugad</h3>
+            <h3>Circular life</h3>
           </div>
 
           <div className="kabad-jugad-grid-bx">

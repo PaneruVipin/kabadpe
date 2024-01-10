@@ -1,15 +1,20 @@
 import React from "react";
-import AboutDet from "../Components/AboutDet";
-import Aboutoffer from "../Components/Aboutoffer";
 import "../style/HeaderStyle.css";
 import "../style/BannerSection.css";
-import { NavLink } from "react-router-dom";
+import AboutBanner from "../AboutComp/AboutBanner";
+import AboutGrid from "../AboutComp/AboutGrid";
+import AboutPointsComp from "../AboutComp/AboutPointsComp";
+import AboutFrenchies from "../AboutComp/AboutFrenchies";
+import FrenchBen from "../AboutComp/FrenchBen";
 
 const About = () => {
   return (
     <>
-      <AboutDet />
-      <Aboutoffer />
+     <AboutBanner />
+     <AboutGrid />
+     <AboutPointsComp />
+     <AboutFrenchies />
+     <FrenchBen />
     </>
   );
 };

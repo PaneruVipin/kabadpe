@@ -1,113 +1,102 @@
 import React, { useState } from "react";
-import {AutoComplete} from 'antd'
+import { AutoComplete } from "antd";
 
 const AddAddressList = ({ onclickClose }) => {
   const [addrsForm, setAddrsForm] = useState(false);
-  const [mark , setMark] = useState(false)
+  const [mark, setMark] = useState(false);
 
-  const options  = [
+  const options = [
+    {
+      label: "Gandhi Nagar",
+      value: "Gandhi Nagar",
+    },
+    {
+      label: "Laxmi Nagar",
+      value: "Laxmi Nagar",
+    },
 
-    { 
-      label : "Gandhi Nagar",
-      value : "Gandhi Nagar",
-     },
-     { 
-      label : "Laxmi Nagar",
-      value : "Laxmi Nagar",
-     },
+    {
+      label: "Azad Nagar",
+      value: "Azad Nagar",
+    },
 
-     { 
-      label : "Azad Nagar",
-      value : "Azad Nagar",
-     },
+    {
+      label: "Kundan Nagar",
+      value: "Kundan Nagar",
+    },
 
-     { 
-      label : "Kundan Nagar",
-      value : "Kundan Nagar",
-     },
+    {
+      label: "Anand Vihar ",
+      value: "Anand Vihar",
+    },
 
-     { 
-      label : "Anand Vihar ",
-      value : "Anand Vihar",
-     },
+    {
+      label: "Seelumpur",
+      value: "Seelumpur",
+    },
+  ];
 
-     { 
-      label : "Seelumpur",
-      value : "Seelumpur",
-     },
-     
-    
-  ]
+  const pins = [
+    {
+      label: "110031",
+      value: "110031",
+    },
+    {
+      label: "110091",
+      value: "110091",
+    },
 
+    {
+      label: "110008",
+      value: "110008",
+    },
 
-  const pins  = [
+    {
+      label: "110005",
+      value: "110005",
+    },
 
-    { 
-      label : "110031",
-      value : "110031",
-     },
-     { 
-      label : "110091",
-      value : "110091",
-     },
+    {
+      label: "110045 ",
+      value: "110045",
+    },
 
-     { 
-      label : "110008",
-      value : "110008",
-     },
+    {
+      label: "110004",
+      value: "110004",
+    },
+  ];
 
-     { 
-      label : "110005",
-      value : "110005",
-     },
+  const city = [
+    {
+      label: "Delhi",
+      value: "Delhi",
+    },
+    {
+      label: "Bihar",
+      value: "Bihar",
+    },
 
-     { 
-      label : "110045 ",
-      value : "110045",
-     },
+    {
+      label: "Lucknow",
+      value: "Lucknow",
+    },
 
-     { 
-      label : "110004",
-      value : "110004",
-     },
-     
-    
-  ]
+    {
+      label: "Chattisgarh",
+      value: "Chattisgarh",
+    },
 
-  const city  = [
+    {
+      label: "Mumbai ",
+      value: "Mumbai",
+    },
 
-    { 
-      label : "Delhi",
-      value : "Delhi",
-     },
-     { 
-      label : "Bihar",
-      value : "Bihar",
-     },
-
-     { 
-      label : "Lucknow",
-      value : "Lucknow",
-     },
-
-     { 
-      label : "Chattisgarh",
-      value : "Chattisgarh",
-     },
-
-     { 
-      label : "Mumbai ",
-      value : "Mumbai",
-     },
-
-     { 
-      label : "Banglore",
-      value : "Banglore",
-     },
-     
-    
-  ]
-  
+    {
+      label: "Banglore",
+      value: "Banglore",
+    },
+  ];
 
   return (
     <>
@@ -128,21 +117,31 @@ const AddAddressList = ({ onclickClose }) => {
             <table>
               <thead>
                 <tr>
-                  <th>SN.</th>
+                  <th>Def.</th>
                   <th>Add. Type</th>
                   <th>Address</th>
-                  <th>State</th>
                   <th>City</th>
                   <th>Pin</th>
                   <th>Area</th>
                   <th>SubArea</th>
+                  <th>Near by</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                 
+                  <td>
+                  <div class="form-check-bx">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                  </div>
+                  </td>
+
+
                   <td>
                     {" "}
                     <span>Home</span>{" "}
@@ -150,23 +149,19 @@ const AddAddressList = ({ onclickClose }) => {
 
                   <td>
                     {" "}
-                    <span>
-                      {" "}
-                      2145 b/09  Street No.-1 {" "}
-                    </span>{" "}
+                    <span> 2145 b/09 Street No.-1 </span>{" "}
                   </td>
 
-                  <td>
+                  {/* <td>
                     {" "}
                     <span>Delhi</span>{" "}
-                  </td>
-
+                  </td> */}
 
                   <td>
                     {" "}
                     <span>New Delhi</span>{" "}
                   </td>
-                  
+
                   <td>
                     <span>110031</span>
                   </td>
@@ -175,6 +170,9 @@ const AddAddressList = ({ onclickClose }) => {
                   </td>
                   <td>
                     <span>Lalquater</span>
+                  </td>
+                  <td>
+                    <span>Landmark1</span>
                   </td>
                   <td>
                     {" "}
@@ -187,17 +185,23 @@ const AddAddressList = ({ onclickClose }) => {
                         <i class="fa-regular fa-trash-can"></i>
                       </button>
 
-                      <div className="chose-ths-btn ">
-                        Choose this
-                      </div>
-                      
+                      <div className="chose-ths-btn ">Choose this</div>
                     </div>{" "}
                   </td>
                 </tr>
 
                 <tr>
-                  <td>2</td>
-                 
+                  <td>
+                  <div class="form-check-bx">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                  </div>
+                  </td>
+
                   <td>
                     {" "}
                     <span>Shop</span>{" "}
@@ -205,23 +209,19 @@ const AddAddressList = ({ onclickClose }) => {
 
                   <td>
                     {" "}
-                    <span>
-                      {" "}
-                      2145 b/09  Street No.-1 {" "}
-                    </span>{" "}
+                    <span> 2145 b/09 Street No.-1 </span>{" "}
                   </td>
 
-                  <td>
+                  {/* <td>
                     {" "}
                     <span>Delhi</span>{" "}
-                  </td>
-
+                  </td> */}
 
                   <td>
                     {" "}
                     <span>New Delhi</span>{" "}
                   </td>
-                  
+
                   <td>
                     <span>110031</span>
                   </td>
@@ -230,6 +230,9 @@ const AddAddressList = ({ onclickClose }) => {
                   </td>
                   <td>
                     <span>Lalquater</span>
+                  </td>
+                  <td>
+                    <span>Landmark2</span>
                   </td>
                   <td>
                     {" "}
@@ -245,15 +248,22 @@ const AddAddressList = ({ onclickClose }) => {
                       <div className="chose-ths-btn unavalble ">
                         Choose this
                       </div>
-                      
                     </div>{" "}
                   </td>
                 </tr>
 
-
                 <tr>
-                  <td>3</td>
-                 
+                  <td>
+                  <div class="form-check-bx">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckChecked" checked
+                    />
+                  </div>
+                  </td>
+
                   <td>
                     {" "}
                     <span>Office</span>{" "}
@@ -261,23 +271,19 @@ const AddAddressList = ({ onclickClose }) => {
 
                   <td>
                     {" "}
-                    <span>
-                      {" "}
-                      2145 b/09  Street No.-1 {" "}
-                    </span>{" "}
+                    <span> 2145 b/09 Street No.-1 </span>{" "}
                   </td>
 
-                  <td>
+                  {/* <td>
                     {" "}
                     <span>Delhi</span>{" "}
-                  </td>
-
+                  </td> */}
 
                   <td>
                     {" "}
                     <span>New Delhi</span>{" "}
                   </td>
-                  
+
                   <td>
                     <span>110031</span>
                   </td>
@@ -286,6 +292,9 @@ const AddAddressList = ({ onclickClose }) => {
                   </td>
                   <td>
                     <span>Lalquater</span>
+                  </td>
+                  <td>
+                    <span>Landmark3</span>
                   </td>
                   <td>
                     {" "}
@@ -298,14 +307,10 @@ const AddAddressList = ({ onclickClose }) => {
                         <i class="fa-regular fa-trash-can"></i>
                       </button>
 
-                      <div className="chose-ths-btn">
-                        Choose this
-                      </div>
-                      
+                      <div className="chose-ths-btn">Choose this</div>
                     </div>{" "}
                   </td>
                 </tr>
-              
               </tbody>
             </table>
           </div>
@@ -323,26 +328,22 @@ const AddAddressList = ({ onclickClose }) => {
           >
             <form action="#">
               <div className="address-add-type-grid-bx">
-
-                
-              <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
+                <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
                   <select name="addresstype" id="addresstype">
                     <option value="#"> Address Type</option>
                     <option value="#">Home</option>
                     <option value="#">Office</option>
                     <option value="#">Shop</option>
                     <option value="#">Mall/Outlet</option>
-
                   </select>
                 </div>
-
 
                 <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a ">
                   <input
                     type="text"
                     name="address"
                     id="address"
-                    placeholder="Address"
+                    placeholder="Wing/Flat No./Building Name/Street No./House No./Colony Name "
                     autoComplete="off"
                     required
                   />
@@ -355,32 +356,54 @@ const AddAddressList = ({ onclickClose }) => {
                     <option value="#">State2</option>
                     <option value="#">State3</option>
                     <option value="#">State4</option>
-
                   </select>
                 </div>
-
-               
               </div>
 
               <div className="addrs-form-grid">
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={city}
+                  filterOption={true}
+                  placeholder="Enter City here"
+                />
 
-                  <AutoComplete optionSelectedColor={"#050505"} className="apnt-inpt-bx-autotype"  options={city} filterOption={true} placeholder="Enter City here" />
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={pins}
+                  filterOption={true}
+                  placeholder="Enter Pin here"
+                />
 
-                  <AutoComplete optionSelectedColor={"#050505"} className="apnt-inpt-bx-autotype"  options={pins} filterOption={true} placeholder="Enter Pin here" />
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={options}
+                  filterOption={true}
+                  placeholder="Enter Area"
+                />
 
-                  <AutoComplete optionSelectedColor={"#050505"} className="apnt-inpt-bx-autotype"  options={options} filterOption={true} placeholder="Enter Area" />
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={options}
+                  filterOption={true}
+                  placeholder="Enter Sub Area"
+                />
 
-                  <AutoComplete optionSelectedColor={"#050505"} className="apnt-inpt-bx-autotype"  options={options} filterOption={true} placeholder="Enter Sub Area" />
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  filterOption={true}
+                  placeholder="Near Landmark"
+                />
 
-                
-               
-              </div>
-
-              
-
-              <button className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres center-form-btn">
-                  Submit
+                <button className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres ">
+                  Add Address
                 </button>
+              </div>
             </form>
           </div>
         </div>

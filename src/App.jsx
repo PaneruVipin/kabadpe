@@ -26,6 +26,8 @@ import FrenchiesForgotPasswrd from "./AdminPages/FrenchiesForgotPasswrd";
 import FrenchiesDashboard from "./AdminPages/FrenchiesDashboard";
 import FrenchiesPanel from "./FrenchiesPage/FrenchiesPanel";
 import MainOutLet from "./Components/Outlets/MainOuTlet";
+import Contact from "./Pages/Contact";
+import ContentEdit from "./Pages/ContentEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ function App() {
       <Route path="/" element={<MainOutLet />}>
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/account" element={<WastecollectorPage />} />
         <Route path="/service" element={<Service />} />
         <Route path="/rate" element={<RateList />} />
@@ -65,6 +68,8 @@ function App() {
       <Route path="/forgotpassword" element={<FrenchiesForgotPasswrd />} />
       <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
       <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
+      <Route path="/contentedit" element={<ContentEdit />} />
+
     </Routes>
   );
 }

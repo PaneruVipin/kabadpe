@@ -13,10 +13,9 @@ const Ecosystem = () => {
         <div className="comon-container-2 home-container">
           <div className="apnt-heading">
             <p>
-              We are transforming the conventional cleaning system through a
-              revolutionizing approach{" "}
+            revolutionising 
             </p>
-            <h3>Your KabadPe</h3>
+            <h3>Waste Management</h3>
           </div>
 
           <div className="tab-sect">

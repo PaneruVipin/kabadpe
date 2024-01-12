@@ -14,7 +14,7 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
     const [wasteDataBox , setWasteDataBox] = useState(false);
     const [wasteViewData , setWasteViewData]  = useState(false);
     const [transctn , setTransctn] = useState(false);
-    const [wrkcpcity , setWrkcpcity] = useState(true);
+    
 
     const subsDataClose = () => {
 
@@ -36,9 +36,7 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
             <div className="work-capacity-flex-bx">
             <h6>Workers </h6>
 
-            <button onClick={() => setWrkcpcity(true)} className="work-capacity-btn">
-              Work Capacity
-            </button>
+         
             </div>
 
             <div className="right-user-filter-data-flex-box">
@@ -197,7 +195,6 @@ const FrenchWasteColect = ({updatedWasteColectData}) => {
 
      { transctn ?  <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
 
-     {  wrkcpcity ? <WorkCapacity onclickClose= {() => setWrkcpcity(false)} /> : null }
     
     </>
       

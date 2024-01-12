@@ -28,7 +28,9 @@ import AddWorkArea from "../FrenchiesComp/AddWorkArea";
 import DiscountCoupon from "../AdminComponents.jsx/DiscountCoupon";
 import WasteProduct from "../AdminComponents.jsx/WasteProduct";
 import Createplan from "../AdminComponents.jsx/Createplan";
-
+import { RiPageSeparator } from "react-icons/ri";
+import KabadPePagesLink from "../AdminComponents.jsx/KabadPePagesLink";
+import ContentEditComp from "../AdminComponents.jsx/ContentEditComp";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -42,6 +44,9 @@ const AdminPanel = () => {
   const [changeProfile, setChangeProfile] = useState(false);
   const [profileImg, setProfileImg] = useState("./images/customImg/c-3.jpg");
   const [notifActive, setNotifActive] = useState(false);
+  const [contentPageBtn, setContentPageBtn] = useState(null);
+  const [contentPageBtnTwo, setContentPageBtnTwo] = useState(null);
+
 
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
@@ -100,6 +105,39 @@ const AdminPanel = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const getContentPageClassName = (butonNum) => {
+ 
+    return butonNum === contentPageBtn ? "content-pages-main-dropdwn contentactive" : "content-pages-main-dropdwn" ;
+    
+  }
+
+  const handleContentPageBtn = (contentBtnName) => {
+
+    return setContentPageBtn(contentBtnName === contentPageBtn ? null : contentBtnName) ;
+    
+  }
+
+  const getContentPageClassNameTwo = (butonNumtwo) => {
+ 
+    return butonNumtwo === contentPageBtnTwo ? "inner-pages-main-drp-dwn-bx innerpageactive" : "inner-pages-main-drp-dwn-bx" ;
+    
+  }
+
+  const handleChangePageBtnTwo = (innerpageBtn) => {
+ 
+    return setContentPageBtnTwo(innerpageBtn === contentPageBtnTwo ? null : innerpageBtn) ;
+    
+  }
+
+  const DropdownButton  = (btnClass) => {
+    return btnClass === contentPageBtn ? "content-page-drop-ttle-btn drpbtnactive" : "content-page-drop-ttle-btn" ;
+  }
+
+  const DropdownButtonTwo  = (btnClassTwo) => {
+    return btnClassTwo === contentPageBtnTwo ? "inner-page-drop-dwn-btn innerbtnactive" : "inner-page-drop-dwn-btn" ;
+
+  }
 
   return (
     <>
@@ -708,6 +746,112 @@ const AdminPanel = () => {
               </li>
             </div>
           </div>
+
+          <div className="admin-nv-li">
+            <div
+              onClick={() => handleButtonClick(10)}
+              className={getButtonClassName(10)}
+            >
+              <div className="a-nv-i">
+              <RiPageSeparator />
+              </div>
+              <span>Content Section</span>
+            </div>
+ 
+            <div className={getButonClasnameTwo(10)}>
+
+
+            <div  className={getContentPageClassName(12)}>
+
+              <div onClick={() => handleContentPageBtn(12)} className={DropdownButton(12)}>
+                <span> KabadPe</span>
+                </div>
+
+                <div   className={getContentPageClassNameTwo(14)}  >
+                <div onClick={() => handleChangePageBtnTwo(14)} className={DropdownButtonTwo(14)}>
+                 <span> Content Pages</span>
+                </div>
+
+                <div className="inner-page-list ">
+
+                  <li className="page-link-btn"> <NavLink to="#"> Home </NavLink></li>
+                  <li className="page-link-btn"> <NavLink to="#"> Frenchies </NavLink></li>
+                  <li className="page-link-btn"> <NavLink to="#"> About Us </NavLink></li>
+                  <li className="page-link-btn"> <NavLink to="#"> Contact Us </NavLink></li>
+
+                 
+
+                  
+                </div>
+
+                </div> 
+
+
+                <div   className={getContentPageClassNameTwo(15)}  >
+                <div onClick={() => handleChangePageBtnTwo(15)} className={DropdownButtonTwo(15)}>
+                 <span> Services Pages</span>
+                </div>
+
+            
+
+                <div className="inner-page-list ">
+
+            <li onClick={() => handleViewComp("ContentEditComp")} className={
+                  component === "ContentEditComp"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }> <NavLink to="#"> Zero Waste Societies </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Waste SIP </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Green Life </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> ClimConnect </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Blog </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Household Scrap Collection </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Vehicle Scrapping </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Corporate Waste Management </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> EPR Services </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Dismantling Services </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Circular Economy Services </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Zero Waste Service for Businesses </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Paper Shredding Services </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> CSR Services </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> Zero Waste Drives </NavLink></li>
+            <li className="page-link-btn"> <NavLink to="#"> IEC Development  and Consulting </NavLink></li>
+
+
+
+
+                </div>
+
+                </div> 
+              
+            </div>
+                
+            
+              
+            {/* <li 
+                onClick={() => handleViewComp("kabadpepages")}
+                className={
+                  component === "kabadpepages"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#">KabadPe</NavLink>{" "}
+              </li>
+              <li>
+                {" "}
+                <NavLink to="#">TGSS</NavLink>{" "}
+              </li>
+              <li>
+                {" "}
+                <NavLink to="#">ClimStripe </NavLink>{" "}
+              </li> */}
+             
+            </div>
+          </div>
+
+          
         </div>
         {/* 
         <div className="side-admin-nav-icons-box">
@@ -854,7 +998,10 @@ const AdminPanel = () => {
         {component === "discount" ? <DiscountCoupon /> : null}
         {component === "wasteproduct" ? <WasteProduct /> : null}
         {component === "createplan" ? <Createplan /> : null}
+        {component === "kabadpepages" ? <KabadPePagesLink /> : null}
+        {component === "ContentEditComp" ? <ContentEditComp /> : null}
 
+        
       </section>
     </>
   );

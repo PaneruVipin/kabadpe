@@ -164,7 +164,7 @@ const Contribution = () => {
             </div>
                     
                 <div className="center-text-cont-bx apnt-heading" >
-                    <p>Sale Your Waste</p>
+                    <h3>Our</h3>
                     <h3>Contribution</h3>
                 </div>
                 

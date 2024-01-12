@@ -5,15 +5,15 @@ import Ecosystem from "../HomeComponent/Ecosystem";
 import HomeSlider from "../HomeComponent/HomeSlider";
 import ImpactComp from "../HomeComponent/ImpactComp";
 import KabadJugad from "../HomeComponent/KabadJugad";
-import MainFooter from "../HomeComponent/MainFooter";
-import Discover from "../HomeComponent/Discover";
+// import Discover from "../HomeComponent/Discover";
 import Contribution from "../HomeComponent/Contribution";
 import Review from "../HomeComponent/Review";
 import InstaFeed from "../HomeComponent/InstaFeed";
 import ScrollBtn from "../HomeComponent/ScrollBtn";
 import Preloader from "../HomeComponent/Preloader";
 import { Preloadergsap } from "../HomeComponent/PreloaderGsap";
-
+import MainFooter from "../HomeComponent/MainFooter";
+import Discover from "../HomeComponent/Discover";
 
 const Home = () => {
 
@@ -44,7 +44,8 @@ const Home = () => {
   <Review/>
   <InstaFeed />
   <Discover />
-  <MainFooter />
+      <MainFooter />
+ 
   </div>
 
   <ScrollBtn />

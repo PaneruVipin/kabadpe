@@ -101,14 +101,15 @@ const AdminSecondComp = () => {
               </div>
             </div> */}
 
-            <div className="left-ad-progress-bar-main mb-4">
+<div className="left-ad-progress-bar-main mb-4">
               <h6>Today's Appointments</h6>
 
               <div className="ad-prog-bar-box">
-                <div className="inner-prog-bar"></div>
+                <div className="inner-prog-bar inner-prog-bar1"></div>
               </div>
-
-           
+              <div className="ad-prog-bar-box">
+                <div className="inner-prog-bar inner-prog-bar4"></div>
+              </div>
 
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar inner-prog-bar2"></div>
@@ -122,18 +123,28 @@ const AdminSecondComp = () => {
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
                     <div className="prog-dot-det-box"></div>
-                    <span>Pending</span>
+                    <span>Total</span>
                   </div>
                   <h6>234</h6>
                 </div>
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
-                    <div className="prog-dot-det-box prog-dot-det-box2"></div>
-                    <span>Done</span>
+                    <div className="prog-dot-det-box prog-dot-det-box2 prog-dot-det-box4"></div>
+                    <span>Unassigned</span>
                   </div>
                   <h6>65</h6>
                 </div>
+
+                <div className="prog-info-box">
+                  <div className="prog-dot-box-flex">
+                    <div className="prog-dot-det-box prog-dot-det-box2"></div>
+                    <span>Pending</span>
+                  </div>
+                  <h6>85</h6>
+                </div>
+
+                
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">

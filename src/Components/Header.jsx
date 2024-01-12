@@ -100,44 +100,59 @@ const Header = () => {
                           <div className="serv-drpdwn-grid">
                             <div className="s-drpdwn-bx">
                               <h6>For Individuals</h6>
-                              <div className="s-drpdwn-lists">
+                              <div className="s-drpdwn-lists s-drpdwn-submenu-grid2">
+                                <div className="s-dpdwn-sb-menu-bx">
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Zero Waste Societies
                                   </NavLink>
                                 </p>
+                              
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Waste SIP
                                   </NavLink>
                                 </p>
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Green Life
                                   </NavLink>
                                 </p>
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Clim Connect
                                   </NavLink>
                                 </p>
+                                </div>
+
+
+                                <div className="s-dpdwn-sb-menu-bx">
+                               
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Blog
                                   </NavLink>
                                 </p>
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Household Scrap Collection
                                   </NavLink>
                                 </p>
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Vehicle Scrapping
                                   </NavLink>
                                 </p>
+                                </div>
+
+                                </div>
+
                                 
-                              </div>
                             </div>
 
                             <div className="s-drpdwn-bx">
@@ -153,18 +168,14 @@ const Header = () => {
                                   <p>
                                     <NavLink to="#">Dismantling Services</NavLink>
                                   </p>
-                                </div>
-                                <div className="s-dpdwn-sb-menu-bx">
                                   <p>
                                     <NavLink to="#">Circular Economy</NavLink>
                                   </p>
                                   <p>
                                     <NavLink to="#">Zero Waste Services</NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">Paper Shredding Services</NavLink>
-                                  </p>
                                 </div>
+                               
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
                                     <NavLink to="#">CSR Services</NavLink>
@@ -174,6 +185,9 @@ const Header = () => {
                                   </p>
                                   <p>
                                     <NavLink to="#">IEC Development and Consulting</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">Paper Shredding Services</NavLink>
                                   </p>
                                 </div>
                               </div>

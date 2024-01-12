@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "../style/Frenchiespanel.css";
 import FrenchAppointData from "../FrenchAppointData";
 import AppointSlot from "./AppointSlot";
+import WorkCapacity from "./WorkCapacity";
 
 const FrenchAppointments = ({updatedFrenchAppointData }) => {
   const [popUp, setPopUp] = useState(false);
@@ -14,14 +15,13 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [apntSlot , setApntSlot] =  useState(false);
-  
+  const [wrkcpcity , setWrkcpcity] = useState(false);
 
   const confirmPopupfunc = () => {
 
     setPopUp(true)
   
 
-    
   }
 
   const custRef = useRef(null);
@@ -234,8 +234,14 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
 
       <section className="french-appoint-comp">
         <div className="tab-main-bx tab-main-bx3 ">
-          <h3 className="title">Appointments</h3>
+          {/* <h3 className="title">Appointments</h3> */}
+          <div className="work-capacity-flex-bx">
+            <h3 className="title">Appointments </h3>
 
+            <button onClick={() => setWrkcpcity(true)} className="work-capacity-btn">
+              Work Capacity
+            </button>
+            </div>
           <div className="waste-appoint-main-bx french-appoint-box">
             <div className="appointment-flex-box">
               <div className="left-appont-bx">
@@ -369,6 +375,8 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
       </section>
 
      { apntSlot ?  <AppointSlot ApntSlotTrue={apntSlot} onClickOpenPopup={() => {confirmPopupfunc() , setApntSlot(false)}} onclickCloseApntSlot={() => setApntSlot(false)} /> : null}
+     {  wrkcpcity ? <WorkCapacity onclickClose= {() => setWrkcpcity(false)} /> : null }
+
     </>
   );
 };

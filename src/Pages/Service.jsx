@@ -8,6 +8,8 @@ import ServBanner from "../ServComps/ServBanner";
 import ServCompOne from "../ServComps/ServCompOne";
 import ServCompTwo from "../ServComps/ServCompTwo";
 import ServCompThree from "../ServComps/ServCompThree";
+import Discover from "../HomeComponent/Discover";
+import MainFooter from "../HomeComponent/MainFooter";
 
 const Service = () => {
   return (
@@ -16,6 +18,8 @@ const Service = () => {
     <ServCompOne />
     <ServCompTwo />
     <ServCompThree />
+    <Discover />
+    <MainFooter />
     </>
   );
 };

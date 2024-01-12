@@ -12,7 +12,8 @@ import InstaFeed from "../HomeComponent/InstaFeed";
 import ScrollBtn from "../HomeComponent/ScrollBtn";
 import Preloader from "../HomeComponent/Preloader";
 import { Preloadergsap } from "../HomeComponent/PreloaderGsap";
-
+import MainFooter from "../HomeComponent/MainFooter";
+import Discover from "../HomeComponent/Discover";
 
 const Home = () => {
 
@@ -42,6 +43,8 @@ const Home = () => {
   <ImpactComp />
   <Review/>
   <InstaFeed />
+  <Discover />
+      <MainFooter />
  
   </div>
 

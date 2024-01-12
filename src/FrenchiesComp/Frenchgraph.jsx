@@ -108,7 +108,7 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
               <h6>Today's Appointments</h6>
 
               <div className="ad-prog-bar-box">
-                <div className="inner-prog-bar"></div>
+                <div className="inner-prog-bar inner-prog-bar1"></div>
               </div>
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar inner-prog-bar4"></div>
@@ -167,21 +167,8 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
             </div>
           </div>
 
-          <div className="right-graph-main-box">
-            <div className="edit-main-box2">
-              <div onClick={() => setEditBx(!editBx)} className="edit-btn2">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-              </div>
-
-              <div
-                className={
-                  editBx ? "editable-box editableactive" : "editable-box"
-                }
-              >
-                <span>Delete</span>
-                <span>Edit</span>
-              </div>
-            </div>
+          <div className="right-graph-main-box" onClick={() => setEditBx(false)}>
+           
 
             <div className="graph-top-flex-box">
               <div className="left-graph-title">

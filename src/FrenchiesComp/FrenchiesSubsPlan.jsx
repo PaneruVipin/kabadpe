@@ -312,7 +312,7 @@ const FrenchiesSubsPlan = () => {
                     <th>
                       {" "}
                       <div className="plan-flex-bx">
-                        <h6>Starter</h6>
+                        <h6>Starter  </h6>
 
                         <p>
                           {" "}

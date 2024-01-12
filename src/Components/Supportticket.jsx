@@ -32,7 +32,7 @@ const Supportticket = () => {
   return (
     <>
       <section className="user-prof-grid-comp">
-        <section className="sup-tickt-search-main">
+        <section className="sup-tickt-search-main sup-tickt-search-main-rem-spce">
           <section className="top-user-prof-search-bx top-user-prof-search-bx2">
             <div className="u-p-cont u-p-cont3 top-user-prof-search-bx-flex">
               <div className="left-user-prof-name-bx">

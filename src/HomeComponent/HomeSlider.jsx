@@ -44,21 +44,26 @@ const HomeSlider = () => {
                 return (
                   <>
                     <div key={elem.id} className={ slideIndex === index + 1 ? "home-slider-main-bx homeactive" : "home-slider-main-bx"}>
+                      <div className="left-home-main">
                       <div className="left-home-info-bx">
                         <h1>
-                          {elem.heading}
+                          {elem.headingone}
                         </h1>
-
+                        <h2>{elem.headingtwo}</h2>
+                    
                         <p>
                             {elem.para}
                         </p>
 
                         <div className="home-btn-flex-bx">
                           <button className="home-btn">
-                            Contact Us
-                            <i class="fa-solid fa-arrow-right"></i>
+                            {elem.buttonone}
                           </button>
+                         { elem.buttontype === "two" ? <button className="home-btn home-btn2">
+                            {elem.buttontwo}
+                          </button> : null}
                         </div>
+                      </div>
                       </div>
 
                       <div className="right-home-slide-img-bx">

@@ -7,7 +7,7 @@ const UserProfCounter = () => {
 
 
 
-    <section className="user-prof-counter-comp">
+    <section className="user-prof-counter-comp user-prof-counter-comp-rem-spce">
     <div className="u-p-cont">
         <div className="user-prof-count-grid-bx">
 

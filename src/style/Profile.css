@@ -102,15 +102,15 @@
  }
 
  .profile-log-out-btn{
-    position: absolute;
-    top: 135%;
+    position: static;
+    bottom: 0;
     left: 0;
-    margin-inline: 2rem;
+    margin-inline: 1rem;
     display: flex;
     align-items: center;
     gap: .87rem;
-    padding-block: .65rem;
-    padding-inline: .87rem;
+    padding-block-start: 1.65rem;
+    /* padding-inline: .87rem; */
     cursor: pointer;
     transition: 500ms ease;
  }
@@ -2508,7 +2508,7 @@
          }
 
          .profile-log-out-btn{
-            top: 127%;
+            top: 0%;
          }
 
          .user-profile-side-nav-main{
@@ -2790,7 +2790,52 @@
 
         }
 
+        .right-side-admin-all-comp5{
+         padding-inline-start: 20rem !important ;
+        }
 
+        .top-user-prof-search-bx2{
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         background-color: #fff;
+         z-index: 10000;
+         
+        }
+
+        .offer-grid-bx{
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         column-gap: 1rem;
+         row-gap: 1rem;
+        }
+
+        .my-offer-comp{
+         padding-inline-start: 20.5rem;
+         padding-inline-end: 1.87rem;
+        }
+
+.top-user-prof-search-bx-acnt 
+{
+   margin-top: 0 !important;
+}
+
+.user-prof-counter-comp-rem-spce{
+   margin-top: 3.5rem !important;
+}
+
+.wallet-comp-rem-spce , .referearn-comp-rem-spce{
+   padding-top: 0 !important;
+}
+
+.User-prof-Form-Main-bx-rem-spce , .sales-hist-comp-rem-spce{
+   margin-top: 0 !important;
+}
+
+.user-prf-update-comp-rem-spce , .sup-tickt-search-main-rem-spce{
+   margin-top: 0 !important;
+}
 
 
 

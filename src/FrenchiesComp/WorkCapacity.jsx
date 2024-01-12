@@ -11,16 +11,14 @@ const WorkCapacity = ({onclickClose}) => {
                 <table>
                     <thead>
                         <tr>
-                            <th>SNO.</th>
-                            <th>Worker's Name</th>
+                            <th>Slots</th>
                             <th>Capacity / Slot</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>Waqqar Alam</td>
+                            <td>Slot1</td>
                             <td> <div className="wrk-sel-bx">
                                 <select name="workcapacity" id="workcapacity">
                                     <option value="Choose your capacity">Choose your capacity</option>
@@ -40,8 +38,7 @@ const WorkCapacity = ({onclickClose}) => {
                         </tr>
 
                         <tr>
-                            <td>1</td>
-                            <td>Sheru</td>
+                            <td>Slot2</td>
                             <td> <div className="wrk-sel-bx">
                                 <select name="workcapacity" id="workcapacity">
                                     <option value="Choose your capacity">Choose your capacity</option>
@@ -61,8 +58,7 @@ const WorkCapacity = ({onclickClose}) => {
                         </tr>
 
                         <tr>
-                            <td>1</td>
-                            <td>Raju </td>
+                            <td>Slot3 </td>
                             <td> <div className="wrk-sel-bx">
                                 <select name="workcapacity" id="workcapacity">
                                     <option value="Choose your capacity">Choose your capacity</option>

@@ -23,7 +23,7 @@ const ReferEarn = () => {
   return (
     <>
 
-    <section className="user-prof-grid-comp referearn-comp">
+    <section className="user-prof-grid-comp referearn-comp referearn-comp-rem-spce">
 
         <div className="refrearn-grd-bx">
 

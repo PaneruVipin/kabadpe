@@ -9,8 +9,8 @@ const FrenchCard = () => {
 
 <div className="card-box card-box3 french-card-box">
         <div className="left-card-info">
-            <h6>350</h6>
-            <p>Today Appointment</p>
+            <h6>25</h6>
+            <p>Today's Appointments</p>
         </div>
 
         <div className="right-card-icon">
@@ -21,8 +21,8 @@ const FrenchCard = () => {
 
     <div className="card-box french-card-box">
         <div className="left-card-info">
-            <h6>200</h6>
-            <p>Appointment</p>
+            <h6>12</h6>
+            <p>Pending Appointments</p>
         </div>
 
         <div className="right-card-icon">
@@ -33,8 +33,8 @@ const FrenchCard = () => {
 
     <div className="card-box card-box2 french-card-box">
         <div className="left-card-info">
-            <h6>100</h6>
-            <p>Staff</p>
+            <h6>8</h6>
+            <p>Active Workers</p>
         </div>
 
         <div className="right-card-icon">
@@ -45,8 +45,8 @@ const FrenchCard = () => {
 
     <div className="card-box card-box3 french-card-box">
         <div className="left-card-info">
-            <h6>550</h6>
-            <p>Total sales</p>
+            <h6>2500</h6>
+            <p>Wallet Balance</p>
         </div>
 
         <div className="right-card-icon">
@@ -57,8 +57,8 @@ const FrenchCard = () => {
 
     <div className="card-box card-box4 french-card-box">
         <div className="left-card-info">
-            <h6>205</h6>
-            <p>Total Waste Colledcted</p>
+            <h6>200</h6>
+            <p>Total Waste Collected</p>
         </div>
 
         <div className="right-card-icon">

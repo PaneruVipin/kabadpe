@@ -56,7 +56,7 @@ const UserProfSearch = () => {
   return (
     <>
       <section className="use-prf-left-main-bx">
-        <section className="top-user-prof-search-bx">
+        <section className="top-user-prof-search-bx top-user-prof-search-bx-acnt">
           <div className="u-p-cont top-user-prof-search-bx-flex">
             <div className="left-user-prof-name-bx">
               <h5>

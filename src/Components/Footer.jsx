@@ -66,10 +66,10 @@ const Footer = () => {
                         <h6>Links</h6>
                         <div className="fot-list">
                             <li><a href="#">Request Pickup</a></li>
-                            <li><a href="#">About Us</a></li>
+                            <li><a href="/about">About Us</a></li>
                             <li><a href="#">Management</a></li>
                             <li><a href="#">Start Service</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="/contact">Contact</a></li>
 
                         </div>
                     </div>

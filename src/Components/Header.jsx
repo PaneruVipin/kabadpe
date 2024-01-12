@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import UserForm from "../Components/UserForm";
 import { NavLink } from "react-router-dom";
 import Protect from "../Components/Auth/ProtectComp";
+import "../style/HeaderStyle.css";
 const Header = () => {
   const [userForm, setUserForm] = useState(false);
   const [navlink , setNavLink] = useState('');
   const [menu , setMenu] = useState(false);
+  const [nav , setNav] = useState(false);
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -14,26 +16,36 @@ const Header = () => {
   const popUpUserForm = () => {
     setUserForm(!userForm);
   };
+
+  const scrollShow = () => {
+    const scrollValue =  document?.documentElement?.scrollTop ;
+    scrollValue > 150 ? setNav(true) : setNav(false) ;
+    
+}
+
+
+  window.addEventListener("scroll", scrollShow , true)
+  
   return (
     <>
-      <header className="main-header header-style-one">
+      <header className= "main-header header-style-one">
         <div className="header-top">
           <div className="auto-container">
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
                 <a href="#">
                   {" "}
-                  <i className="fa-solid fa-angles-right"></i> Climstripe Shift{" "}
+                   Climstripe Shift{" "}
                 </a>
                 <a href="#" className="linkactive">
-                  <i className="fa-solid fa-angles-right"></i> Kabadpe
+                <span>|</span> Kabadpe
                 </a>
-                <a href="#">
-                  <i className="fa-solid fa-angles-right"></i> Green Saman Shop{" "}
+                <a href="https://thegreensamanshop.com/" target="_blank">
+                <span>|</span>The Green Saman Shop{" "}
                 </a>
                 <a href="#">
                   {" "}
-                  <i className="fa-solid fa-angles-right"></i> Climconnect{" "}
+                  <span>|</span> Climconnect{" "}
                 </a>
               </div>
 
@@ -55,14 +67,14 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="header">
+        <div className={ nav === true ? "header sticky" : "header"}>
           <div className="header-container">
             <div className="outer-box">
               <div className="header-left-nav-bx">
                 <div className="header-left">
                   <div className="main-logo-box">
                     <NavLink to="/">
-                      <img src="./images/resources/logo.png" alt="" />
+                      <img src="./images/customImg/logo.png" alt="" />
                     </NavLink>
                   </div>
                 </div>
@@ -88,23 +100,59 @@ const Header = () => {
                           <div className="serv-drpdwn-grid">
                             <div className="s-drpdwn-bx">
                               <h6>For Individuals</h6>
-                              <div className="s-drpdwn-lists">
+                              <div className="s-drpdwn-lists s-drpdwn-submenu-grid2">
+                                <div className="s-dpdwn-sb-menu-bx">
                                 <p>
                                   <NavLink to="#" target="_blank">
-                                    Scrap Collection
+                                    Zero Waste Societies
                                   </NavLink>
                                 </p>
+                              
                                 <p>
                                   <NavLink to="#" target="_blank">
-                                    Zero Waste Society
+                                    Waste SIP
                                   </NavLink>
                                 </p>
+
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Green Life
+                                  </NavLink>
+                                </p>
+
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Clim Connect
+                                  </NavLink>
+                                </p>
+                                </div>
+
+
+                                <div className="s-dpdwn-sb-menu-bx">
+                               
+
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Blog
+                                  </NavLink>
+                                </p>
+
+                                <p>
+                                  <NavLink to="#" target="_blank">
+                                    Household Scrap Collection
+                                  </NavLink>
+                                </p>
+
                                 <p>
                                   <NavLink to="#" target="_blank">
                                     Vehicle Scrapping
                                   </NavLink>
                                 </p>
-                              </div>
+                                </div>
+
+                                </div>
+
+                                
                             </div>
 
                             <div className="s-drpdwn-bx">
@@ -112,38 +160,40 @@ const Header = () => {
                               <div className="s-drpdwn-submenu-grid">
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
-                                    <NavLink to="#">Scrap Collection</NavLink>
+                                    <NavLink to="#">Corporate Waste Management</NavLink>
                                   </p>
                                   <p>
                                     <NavLink to="#">EPR services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Dismantling</NavLink>
+                                    <NavLink to="#">Dismantling Services</NavLink>
                                   </p>
-                                </div>
-                                <div className="s-dpdwn-sb-menu-bx">
                                   <p>
                                     <NavLink to="#">Circular Economy</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Zero Waste</NavLink>
-                                  </p>
-                                  <p>
-                                    <NavLink to="#">Paper Shredding</NavLink>
+                                    <NavLink to="#">Zero Waste Services</NavLink>
                                   </p>
                                 </div>
+                               
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
                                     <NavLink to="#">CSR Services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Zero Waste Event</NavLink>
+                                    <NavLink to="#">Zero Waste Drives</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">IEC Development and Consulting</NavLink>
+                                  </p>
+                                  <p>
+                                    <NavLink to="#">Paper Shredding Services</NavLink>
                                   </p>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="s-drpdwn-bx">
+                            {/* <div className="s-drpdwn-bx">
                               <h6>For Governments</h6>
                               <div className="s-drpdwn-lists">
                                 <p>
@@ -157,7 +207,7 @@ const Header = () => {
                                   </NavLink>
                                 </p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </li>
@@ -167,13 +217,13 @@ const Header = () => {
                         </NavLink>
                         <div className="about-drpdwn-bx">
                           <p>
-                            <NavLink to=""> About us</NavLink>
+                            <NavLink to="/about"> About us</NavLink>
                           </p>
                           <p>
                             <NavLink to="#">Franchise</NavLink>
                           </p>
                           <p>
-                            <NavLink to="#">Contact now</NavLink>
+                            <NavLink to="/contact">Contact now</NavLink>
                           </p>
                         </div>
                       </li>
@@ -229,7 +279,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="sticky-header">
+
+        {/* <div className="sticky-header">
           <div className="container">
             <div className="clearfix">
               <div className="logo float-left">
@@ -285,7 +336,7 @@ const Header = () => {
               </ul>
             </div>
           </nav>
-        </div>
+        </div> */}
       </header>
 
       {/* <!-- Main header--> */}

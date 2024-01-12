@@ -689,6 +689,10 @@ side nav icon Btn on hover show list box
     border-radius: 1.5rem;
   }
 
+  .inner-prog-bar1{
+    width: 100%;
+  }
+
   .inner-prog-bar2{
     width: 75%;
     background: linear-gradient(90deg , #8a16e9 , #c074ff);

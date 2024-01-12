@@ -62,7 +62,7 @@ const MyWallet = () => {
   return (
     <>
 
-    <section className="user-prof-grid-comp  referearn-comp wallet-comp wallet-comp7">
+    <section className="user-prof-grid-comp  referearn-comp wallet-comp wallet-comp-rem-spce wallet-comp7">
 
         <div className="top-wallet-box">
 

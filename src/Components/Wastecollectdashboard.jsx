@@ -19,6 +19,10 @@ import { useSelector } from "react-redux";
 import BuyWasteTable from "../WasteColectComp/BuyWasteTable";
 import GuestBuyWaste from "../WasteColectComp/GuestBuyWaste";
 import ClearStock from "./ClearStock";
+import FrenchiesSubsPlan from "../FrenchiesComp/FrenchiesSubsPlan";
+import FrenchSubscriptionPlanTwo from "../FrenchiesComp/FrenchSubscriptionPlanTwo";
+import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
+import TopFixMenu from "../FrenchiesComp/TopFixMenu";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -43,6 +47,9 @@ const Wastecollectdashboard = () => {
 
   return (
     <>
+
+<TopFixMenu />
+    
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -122,7 +129,30 @@ const Wastecollectdashboard = () => {
             <div className="u-prf-tab-icon">
               <i class="fa-solid fa-file-pen"></i>
             </div>
-            My Appintments
+            My Appointments
+          </button>
+
+
+          
+          <button
+            onClick={() => filterTab(14)}
+            className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
+          >
+            <div className="u-prf-tab-icon">
+            <i class="fa-solid fa-seedling"></i>
+            </div>
+            My Plans
+          </button>
+
+
+          <button
+            onClick={() => filterTab(13)}
+            className={profBtn === 13 ? "u-prf-bx profactive" : "u-prf-bx"}
+          >
+            <div className="u-prf-tab-icon">
+            <i class="fa-solid fa-layer-group"></i>
+            </div>
+            Subscriptions
           </button>
 
           <button
@@ -135,15 +165,7 @@ const Wastecollectdashboard = () => {
             My Details
           </button>
 
-          <button
-            onClick={() => filterTab(9)}
-            className={profBtn === 9 ? "u-prf-bx profactive" : "u-prf-bx"}
-          >
-            <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-building"></i>
-            </div>
-            Vendor
-          </button>
+        
 
           <button
             onClick={() => filterTab(12)}
@@ -174,6 +196,10 @@ const Wastecollectdashboard = () => {
             </div>
             My Work Location
           </button>
+
+
+
+       
 
           {/* <button
             onClick={() => filterTab(5)}
@@ -220,6 +246,14 @@ const Wastecollectdashboard = () => {
       {profBtn === 10 ? <BuyWasteTable /> : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
+
+     <section className="right-side-admin-all-comp right-side-admin-all-comp5">
+     {profBtn === 13 ? <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)}  /> : null}
+      {profBtn === 14 ? <WasteSubsPlan /> : null}
+     </section>
+      
+      
+
     </>
   );
 };

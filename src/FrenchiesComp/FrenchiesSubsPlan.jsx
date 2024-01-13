@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import SelectArea from "./SelectArea";
 import { useQuery } from "@tanstack/react-query";
-import { franchiseSubscriptionsFetch } from "../apis/franchise/plans";
+import {
+  franchisePlanRequest,
+  franchiseSubscriptionsFetch,
+} from "../apis/franchise/plans";
 
 const FrenchiesSubsPlan = () => {
   const [plan, setPlan] = useState("monthly");
   const [locat, setLocat] = useState(false);
+  const [selectedArias, setSelectedArias] = useState([]);
+  const [errors, setErrors] = useState("");
   const handleFiltFunc = (getplan) => {
     setPlan(getplan);
   };
@@ -13,14 +18,40 @@ const FrenchiesSubsPlan = () => {
     queryKey: ["subsPlans"],
     queryFn: () => franchiseSubscriptionsFetch(),
   });
-  console.log("subsPlans", subsPlans);
+  const handleRemoveAriaClick = (id) => () => {
+    const newArias = selectedArias.filter((s) => s.id != id);
+    setSelectedArias(newArias);
+  };
+  const ariasMonthlyTotal = selectedArias.reduce((a, b) => {
+    return a + parseFloat(b?.monthlyPrice);
+  }, 0);
+  const ariasQuaterlyTotal = selectedArias.reduce((a, b) => {
+    return a + parseFloat(b?.quaterlyPrice);
+  }, 0);
+  const handelSubscribeClick = (subscriptionId) => async () => {
+    setErrors("");
+    if (!selectedArias?.length) {
+      alert("Please, Choose Atleast 1 Area")
+      setErrors("Please, Choose Atleast 1 Area");
+    }
+    const ariaIds = selectedArias.map(({ id }) => id);
+    const planeType = plan;
+    const res = await franchisePlanRequest({
+      subscriptionId,
+      ariaIds,
+      planeType,
+    });
+    if (res?.error) {
+      alert(res?.message)
+      setErrors(res?.message);
+    }
+  };
   return (
     <>
       <section className="fren-subscrip-plan-comp">
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
             <h5>Subscription Plan</h5>
-
             <div className="right-filter-btns-flex-bx">
               <div onClick={() => setLocat(true)} className="sel-area-btn">
                 Select Location
@@ -53,9 +84,9 @@ const FrenchiesSubsPlan = () => {
 
           <div
             className={
-              plan === "quaterly"
-                ? "subs-plan-table-month-qua-main-bx planactive"
-                : "subs-plan-table-month-qua-main-bx"
+              // plan === "quaterly" ?
+              // "subs-plan-table-month-qua-main-bx planactive":
+              "subs-plan-table-month-qua-main-bx"
             }
           >
             <div className="subs-plan-table subs-plan-table-month4 subs-plan-table-month">
@@ -85,7 +116,12 @@ const FrenchiesSubsPlan = () => {
 
                             <p>
                               {" "}
-                              {monthlyPrice} <span>/Month</span>{" "}
+                              {plan == "monthly"
+                                ? monthlyPrice
+                                : quaterlyPrice}{" "}
+                              <span>
+                                {plan == "monthly" ? "/Monthly" : "/Quaterly"}
+                              </span>{" "}
                             </p>
                           </div>{" "}
                         </th>
@@ -189,46 +225,71 @@ const FrenchiesSubsPlan = () => {
                     )}
                   </tr>
 
-                  <tr>
-                    <td>
-                      <p className="area-text">
-                        Gandhi Nagar <i class="fa-solid fa-circle-xmark"></i>
-                      </p>
-                    </td>
-                    {subsPlans?.map(
-                      ({
-                        id,
-                        planeName,
-                        collectorCount,
-                        monthlyPrice,
-                        quaterlyPrice,
-                      }) => (
+                  {selectedArias?.map(
+                    ({
+                      ariaName,
+                      ariaStatus,
+                      city,
+                      id,
+                      monthlyPrice,
+                      pincode,
+                      quaterlyPrice,
+                      state,
+                      subAriaName,
+                    }) => (
+                      <tr>
                         <td>
-                          <span className="area-text2"> ₹100 </span>
+                          <p className="area-text">
+                            {subAriaName}{" "}
+                            <i
+                              onClick={handleRemoveAriaClick(id)}
+                              class="fa-solid fa-circle-xmark"
+                            ></i>
+                          </p>
                         </td>
-                      )
-                    )}
-                  </tr>
+                        {subsPlans?.map(({ id, planeName, collectorCount }) => (
+                          <td>
+                            <span className="area-text2">
+                              {" "}
+                              ₹
+                              {plan == "monthly"
+                                ? monthlyPrice
+                                : quaterlyPrice}{" "}
+                            </span>
+                          </td>
+                        ))}
+                      </tr>
+                    )
+                  )}
 
-                  <tr>
-                    <td>
-                      <p>Total </p>
-                    </td>
+                  {selectedArias?.length ? (
+                    <tr>
+                      <td>
+                        <p>Total </p>
+                      </td>
 
-                    {subsPlans?.map(
-                      ({
-                        id,
-                        planeName,
-                        collectorCount,
-                        monthlyPrice,
-                        quaterlyPrice,
-                      }) => (
-                        <td>
-                          <span className="totaltext"> ₹47 </span>
-                        </td>
-                      )
-                    )}
-                  </tr>
+                      {subsPlans?.map(
+                        ({
+                          id,
+                          planeName,
+                          collectorCount,
+                          monthlyPrice,
+                          quaterlyPrice,
+                        }) => (
+                          <td>
+                            <span className="totaltext">
+                              {" "}
+                              ₹
+                              {plan == "monthly"
+                                ? ariasMonthlyTotal + parseFloat(monthlyPrice)
+                                : ariasQuaterlyTotal +
+                                  parseFloat(quaterlyPrice)}{" "}
+                            </span>
+                          </td>
+                        )
+                      )}
+                    </tr>
+                  ) : null}
 
                   <tr>
                     <td aria-disabled></td>
@@ -243,7 +304,10 @@ const FrenchiesSubsPlan = () => {
                       }) => (
                         <td>
                           {" "}
-                          <button className="subs-now-btn">
+                          <button
+                            onClick={handelSubscribeClick(id)}
+                            className="subs-now-btn"
+                          >
                             Subscribe Now
                           </button>{" "}
                         </td>
@@ -252,13 +316,18 @@ const FrenchiesSubsPlan = () => {
                   </tr>
                 </tbody>
               </table>
+
+              {/* {errors ? <p style={{ color: "red" ,textAlign:"center"}}>{errors}</p> : null} */}
             </div>
           </div>
         </div>
       </section>
-
       {locat ? (
-        <SelectArea locat={locat} onclickClose={() => setLocat(false)} />
+        <SelectArea
+          selectedArias={selectedArias}
+          setSelectedArias={setSelectedArias}
+          onclickClose={() => setLocat(false)}
+        />
       ) : null}
     </>
   );

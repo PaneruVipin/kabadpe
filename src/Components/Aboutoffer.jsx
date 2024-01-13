@@ -9,10 +9,7 @@ const Aboutoffer = () => {
           <div className="about-offer-grid">
             <div className="left-about-main-img">
               <div className="about-offer-img">
-                <img
-                  src="./images/customImg/about-style3-img.jpg"
-                  alt=""
-                />
+                <img src="/images/customImg/about-style3-img.jpg" alt="" />
               </div>
 
               <div className="img-right-text-bx">
@@ -58,7 +55,7 @@ const Aboutoffer = () => {
               {/* 
               <div className="about-user-main-bx">
                 <div className="about-user-img">
-                    <img src="images/customImg/about-user.png" alt="" />
+                    <img src="/images/customImg/about-user.png" alt="" />
                 </div>
 
                 <div className="about-user-info">
@@ -84,7 +81,6 @@ const Aboutoffer = () => {
         </div>
 
         <div className="abou-round-bx"></div>
-        
       </section>
     </>
   );

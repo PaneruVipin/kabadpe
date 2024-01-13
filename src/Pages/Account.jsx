@@ -258,7 +258,7 @@ const Account = () => {
               <div className="logo float-left">
                 <NavLink to="index.html" className="img-responsive">
                   {/* <img src="assets/images/resources/sticky-logo.png" alt="" title=""> */}
-                  <img src="images/resources/sticky-logo.png" alt="" />
+                  <img src="/images/resources/sticky-logo.png" alt="" />
                 </NavLink>
               </div>
               {/* <!--Right Col--> */}
@@ -282,7 +282,7 @@ const Account = () => {
           <nav className="menu-box">
             <div className="nav-logo">
               <NavLink to="index.html">
-                <img src="images/resources/mobilemenu.png" alt="" />
+                <img src="/images/resources/mobilemenu.png" alt="" />
               </NavLink>
             </div>
             <div className="menu-outer">

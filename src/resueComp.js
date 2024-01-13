@@ -47,7 +47,7 @@
                 <div className="header-left">
                     <div className="main-logo-box">
                         <NavLink to="/">
-                            <img src="images/resources/logo.png" alt="" />
+                            <img src="/images/resources/logo.png" alt="" />
                         </NavLink>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
     <div className="menu-backdrop"></div>
     <div className="close-btn"><span className="icon fa fa-times-circle"></span></div>
     <nav className="menu-box">
-        <div className="nav-logo"><NavLink to="index.html"><img src="images/resources/mobilemenu.png" alt="" /></NavLink></div>
+        <div className="nav-logo"><NavLink to="index.html"><img src="/images/resources/mobilemenu.png" alt="" /></NavLink></div>
         <div className="menu-outer">
         </div>
         <div className="social-links">

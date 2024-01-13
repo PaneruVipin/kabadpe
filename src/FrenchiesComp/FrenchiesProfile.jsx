@@ -1,33 +1,30 @@
-import React, { useState } from 'react'
-import '../style/Frenchiespanel.css';
-import FrenchEdit from '../AdminComponents.jsx/FrenchEdit';
+import React, { useState } from "react";
+import "../style/Frenchiespanel.css";
+import FrenchEdit from "../AdminComponents.jsx/FrenchEdit";
 
 const FrenchiesProfile = () => {
-    const [editForm , setEditForm] =  useState(false);
+  const [editForm, setEditForm] = useState(false);
 
-    
-    const frencDetClose = () => {
+  const frencDetClose = () => {
+    setEditForm(false);
+  };
 
-        setEditForm(false)
-        
-    }
-    
   return (
     <>
+      <section className="frenchies-prof-view-comp">
+        <h6 className="title">Frenchies Profile </h6>
 
-    <section className="frenchies-prof-view-comp">
-
-        <h6 className='title'>Frenchies Profile </h6>
-
-        <button onClick={() => setEditForm(true)} className="french-prof-edit-btn">
-        <i class="fa-solid fa-user-pen"></i>
+        <button
+          onClick={() => setEditForm(true)}
+          className="french-prof-edit-btn"
+        >
+          <i class="fa-solid fa-user-pen"></i>
         </button>
 
         <div className="frenchies-prof-main-box">
-
-        <div className="french-det-logo-box">
+          <div className="french-det-logo-box">
             <div className="f-logo">
-              <img src="./images/customImg/c-3.jpg" alt="" />
+              <img src="/images/customImg/c-3.jpg" alt="" />
             </div>
           </div>
 
@@ -98,18 +95,12 @@ const FrenchiesProfile = () => {
               <span>110008</span>
             </div>
           </div>
-
-          
-            
         </div>
 
-        { editForm ? <FrenchEdit onClickCloseEditForm={frencDetClose} /> : null}
-        
-        
-    </section>
-    
+        {editForm ? <FrenchEdit onClickCloseEditForm={frencDetClose} /> : null}
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default FrenchiesProfile
+export default FrenchiesProfile;

@@ -1,15 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const WasteColectVew = ({onClickCloseWasteColectData}) => {
-    
+const WasteColectVew = ({ onClickCloseWasteColectData }) => {
   return (
     <>
-        <section className="french-edit-comp">
+      <section className="french-edit-comp">
         <div className="french-edit-main-box">
           <h5>Waste Collector Details </h5>
 
           <div className="french-det-grid">
-
             <div className="french-det-box">
               <h6>Name </h6>
               <span>Rahul Sharma</span>
@@ -35,7 +33,6 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
               <span> Judaism </span>
             </div>
 
-            
             <div className="french-det-box">
               <h6>Mobile </h6>
               <span> +91 9971464759 </span>
@@ -45,27 +42,23 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
               <h6>Address </h6>
               <span> 398 H/9 Ashok Colony steet No. 2 Delhi-110009 </span>
             </div>
+          </div>
 
+          <h6 className="banktext">Social Security</h6>
 
-            </div>  
-
-            <h6 className="banktext">Social Security</h6>
-
-
-            <div className='french-det-grid'>
+          <div className="french-det-grid">
             <div className="french-det-box">
               <h6>Aadhar (Front) </h6>
-              <img src="./images/customImg/aadhar-img.png" alt="" />
+              <img src="/images/customImg/aadhar-img.png" alt="" />
             </div>
 
             <div className="french-det-box">
               <h6>Aadhar (Back) </h6>
-              <img src="./images/customImg/aadhar-img.png" alt="" />
+              <img src="/images/customImg/aadhar-img.png" alt="" />
             </div>
-            </div>
+          </div>
 
-            <div className="french-det-grid">
-
+          <div className="french-det-grid">
             <div className="french-det-box">
               <h6>PAN Number </h6>
               <span>1234567890</span>
@@ -81,54 +74,49 @@ const WasteColectVew = ({onClickCloseWasteColectData}) => {
               <span>Verified</span>
             </div>
 
-            
             <div className="french-det-box">
-              <h6>Last Health Checkup Date  </h6>
+              <h6>Last Health Checkup Date </h6>
               <span>15-08-2023 📅</span>
             </div>
 
             <div className="french-det-box">
-              <h6>Training on Security  </h6>
+              <h6>Training on Security </h6>
               <span>Yes </span>
             </div>
 
             <div className="french-det-box">
-              <h6>Emergency Contact Person  </h6>
+              <h6>Emergency Contact Person </h6>
               <span>Rahul Jain </span>
             </div>
 
             <div className="french-det-box">
-              <h6>Emergency Contact Number   </h6>
+              <h6>Emergency Contact Number </h6>
               <span>9876450123 </span>
             </div>
-    
-            </div>
+          </div>
 
-            <div className="verif-flex-box">
-
-            <button className="confirm-verif-btn">
-              Approve  
-            </button>
+          <div className="verif-flex-box">
+            <button className="confirm-verif-btn">Approve</button>
 
             <button className="confirm-verif-btn confirm-verif-btn2">
-                Disapprove
+              Disapprove
             </button>
-            
+
             <button className="confirm-verif-btn confirm-verif-btn2 ban-btn">
-                Ban
+              Ban
             </button>
+          </div>
 
-            </div>
-            
-
-          <button onClick={onClickCloseWasteColectData} className="close-popup-btn">
-        <i class="fa-solid fa-xmark"></i>
-        </button>
-
+          <button
+            onClick={onClickCloseWasteColectData}
+            className="close-popup-btn"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default WasteColectVew
+export default WasteColectVew;

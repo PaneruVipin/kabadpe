@@ -92,7 +92,7 @@ const UserProfSearch = () => {
                 <div className={notBox ? "notif-box notactive" : "notif-box"}>
                   <div className="not-user-box">
                     <div className="left-not-box">
-                      <img src="./images/customImg/team-2.jpg" alt="" />
+                      <img src="/images/customImg/team-2.jpg" alt="" />
                     </div>
 
                     <div className="right-not-box">
@@ -103,7 +103,7 @@ const UserProfSearch = () => {
 
                   <div className="not-user-box">
                     <div className="left-not-box">
-                      <img src="./images/customImg/team-2.jpg" alt="" />
+                      <img src="/images/customImg/team-2.jpg" alt="" />
                     </div>
 
                     <div className="right-not-box">
@@ -125,7 +125,7 @@ const UserProfSearch = () => {
 
                   <div className="not-user-box">
                     <div className="left-not-box">
-                      <img src="./images/customImg/team-3.jpg" alt="" />
+                      <img src="/images/customImg/team-3.jpg" alt="" />
                     </div>
 
                     <div className="right-not-box">

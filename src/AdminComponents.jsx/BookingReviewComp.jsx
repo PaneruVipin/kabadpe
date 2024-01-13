@@ -115,10 +115,8 @@ const BookingReviewComp = () => {
   const [custoRevwIndex, setCustoRevwIndex] = useState(5);
 
   const handleMoreBox = () => {
-
     setCustoRevwIndex(custoRevwIndex + 5);
-    
-  }
+  };
 
   return (
     <>
@@ -134,7 +132,7 @@ const BookingReviewComp = () => {
             <div className="book-card-grid-box">
               <div className="booking-card-box">
                 <div className="left-book-img">
-                  <img src="./images/customImg/team-3.jpg" alt="" />
+                  <img src="/images/customImg/team-3.jpg" alt="" />
                   <div className="b-dot"></div>
                 </div>
                 <div className="right-book-info">
@@ -150,7 +148,7 @@ const BookingReviewComp = () => {
 
               <div className="booking-card-box">
                 <div className="left-book-img">
-                  <img src="./images/customImg/team-2.jpg" alt="" />
+                  <img src="/images/customImg/team-2.jpg" alt="" />
                   <div className="b-dot"></div>
                 </div>
                 <div className="right-book-info">
@@ -166,7 +164,7 @@ const BookingReviewComp = () => {
 
               <div className="booking-card-box">
                 <div className="left-book-img">
-                  <img src="./images/customImg/team-4.jpg" alt="" />
+                  <img src="/images/customImg/team-4.jpg" alt="" />
                   <div className="b-dot"></div>
                 </div>
                 <div className="right-book-info">
@@ -182,7 +180,7 @@ const BookingReviewComp = () => {
 
               <div className="booking-card-box">
                 <div className="left-book-img">
-                  <img src="./images/customImg/about-user.png" alt="" />
+                  <img src="/images/customImg/about-user.png" alt="" />
                   <div className="b-dot"></div>
                 </div>
                 <div className="right-book-info">
@@ -277,10 +275,10 @@ const BookingReviewComp = () => {
                 })}
               </div>
 
-{       custoRevwIndex < custRev.length && (
-              <div onClick={handleMoreBox} className="more-rev-arrow-btn">
-              <i class="fa-regular fa-circle-down"></i>
-              </div>
+              {custoRevwIndex < custRev.length && (
+                <div onClick={handleMoreBox} className="more-rev-arrow-btn">
+                  <i class="fa-regular fa-circle-down"></i>
+                </div>
               )}
             </div>
           </div>

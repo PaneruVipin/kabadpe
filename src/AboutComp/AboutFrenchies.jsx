@@ -1,37 +1,29 @@
 import React, { useEffect } from "react";
 
 const AboutFrenchies = () => {
-
   useEffect(() => {
-
-    const revealElems =  document.querySelectorAll('[data-reveal]');
+    const revealElems = document.querySelectorAll("[data-reveal]");
 
     const scrollReveal = () => {
+      for (let i = 0; i < revealElems.length; i++) {
+        const revealElemOnScreen =
+          revealElems[i].getBoundingClientRect().top < window.innerHeight;
 
-      for(let i = 0; i < revealElems.length ; i++){
-
-        const revealElemOnScreen =  revealElems[i].getBoundingClientRect().top < window.innerHeight ;
-
-        if(revealElemOnScreen){
-          revealElems[i].classList.add('revealed');
-        }else{
-          revealElems[i].classList.remove('revealed');
+        if (revealElemOnScreen) {
+          revealElems[i].classList.add("revealed");
+        } else {
+          revealElems[i].classList.remove("revealed");
         }
-        
       }
-      
-    }
-    
+    };
 
-    window.addEventListener("scroll", scrollReveal,true);
+    window.addEventListener("scroll", scrollReveal, true);
 
     return () => {
-    window.removeEventListener("scroll", scrollReveal,true);
-
-    }
-    
+      window.removeEventListener("scroll", scrollReveal, true);
+    };
   }, []);
-  
+
   return (
     <>
       <section className="about-frenchies-comp">
@@ -55,7 +47,7 @@ const AboutFrenchies = () => {
           </div>
 
           <div className="full-wifth-img-a-f">
-            <img src="./images/customImg/about-img-3.png" alt="" />
+            <img src="/images/customImg/about-img-3.png" alt="" />
           </div>
 
           <h5 className="sing-text">Why Become a KabadPe Franchisee?</h5>

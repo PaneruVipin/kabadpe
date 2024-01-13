@@ -37,35 +37,34 @@ const ContForm = () => {
                   <div className="cont-inpt-bx">
                     <label htmlFor="#">Choose Type</label>
                     <div className="cont-field">
-                     <select name="contChoose" id="contChoose">
-                     <option value="option">Choose</option>
+                      <select name="contChoose" id="contChoose">
+                        <option value="option">Choose</option>
                         <option value="option">Option1</option>
                         <option value="option">Option2</option>
                         <option value="option">Option3</option>
                         <option value="option">Option4</option>
-
-                     </select>
+                      </select>
                     </div>
                   </div>
-
                 </div>
 
                 <div className="cont-inpt-bx">
-                <label htmlFor="#">Write your message here</label>
-                    <textarea name="message" id="message" cols="30" rows="5"></textarea>
+                  <label htmlFor="#">Write your message here</label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    cols="30"
+                    rows="5"
+                  ></textarea>
                 </div>
 
-                <button className="cont-form-sub-btn">
-                  Submit
-                </button>
-                
+                <button className="cont-form-sub-btn">Submit</button>
               </form>
             </div>
 
             <div className="right-cont-img">
-                <img src="./images/customImg/contact-thumb.png" alt="" />
+              <img src="/images/customImg/contact-thumb.png" alt="" />
             </div>
-            
           </div>
         </div>
       </section>

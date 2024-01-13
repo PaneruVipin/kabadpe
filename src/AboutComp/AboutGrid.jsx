@@ -7,7 +7,7 @@ const AboutGrid = () => {
         <div className="comon-container-2">
           <div className="about-grid-bx">
             <div className="left-about-grid-img">
-              <img src="./images/customImg/about-img-2.jpg" alt="" />
+              <img src="/images/customImg/about-img-2.jpg" alt="" />
               <div className="about-shape-bx"></div>
             </div>
 

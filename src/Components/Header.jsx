@@ -5,9 +5,9 @@ import Protect from "../Components/Auth/ProtectComp";
 import "../style/HeaderStyle.css";
 const Header = () => {
   const [userForm, setUserForm] = useState(false);
-  const [navlink , setNavLink] = useState('');
-  const [menu , setMenu] = useState(false);
-  const [nav , setNav] = useState(false);
+  const [navlink, setNavLink] = useState("");
+  const [menu, setMenu] = useState(false);
+  const [nav, setNav] = useState(false);
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -18,30 +18,25 @@ const Header = () => {
   };
 
   const scrollShow = () => {
-    const scrollValue =  document?.documentElement?.scrollTop ;
-    scrollValue > 150 ? setNav(true) : setNav(false) ;
-    
-}
+    const scrollValue = document?.documentElement?.scrollTop;
+    scrollValue > 150 ? setNav(true) : setNav(false);
+  };
 
+  window.addEventListener("scroll", scrollShow, true);
 
-  window.addEventListener("scroll", scrollShow , true)
-  
   return (
     <>
-      <header className= "main-header header-style-one">
+      <header className="main-header header-style-one">
         <div className="header-top">
           <div className="auto-container">
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
-                <a href="#">
-                  {" "}
-                   Climstripe Shift{" "}
-                </a>
+                <a href="#"> Climstripe Shift </a>
                 <a href="#" className="linkactive">
-                <span>|</span> Kabadpe
+                  <span>|</span> Kabadpe
                 </a>
                 <a href="https://thegreensamanshop.com/" target="_blank">
-                <span>|</span>The Green Saman Shop{" "}
+                  <span>|</span>The Green Saman Shop{" "}
                 </a>
                 <a href="#">
                   {" "}
@@ -54,8 +49,8 @@ const Header = () => {
                   <ul>
                     <li>
                       <div className="icon">
-                        <img src="./images/customImg/game.png" />
-                        <img src="./images/customImg/app-store.png" />
+                        <img src="/images/customImg/game.png" />
+                        <img src="/images/customImg/app-store.png" />
                       </div>
                       <div className="text">
                         <p>Download App</p>
@@ -67,19 +62,25 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className={ nav === true ? "header sticky" : "header"}>
+        <div className={nav === true ? "header sticky" : "header"}>
           <div className="header-container">
             <div className="outer-box">
               <div className="header-left-nav-bx">
                 <div className="header-left">
                   <div className="main-logo-box">
                     <NavLink to="/">
-                      <img src="./images/customImg/logo.png" alt="" />
+                      <img src="/images/customImg/logo.png" alt="" />
                     </NavLink>
                   </div>
                 </div>
               </div>
-              <div className={menu ? "header-right menuactive rateList" : "header-right rateList"}>
+              <div
+                className={
+                  menu
+                    ? "header-right menuactive rateList"
+                    : "header-right rateList"
+                }
+              >
                 <nav className="main-menu style1 navbar-expand-md navbar-light">
                   <div
                     className="collapse navbar-collapse show clearfix"
@@ -102,57 +103,51 @@ const Header = () => {
                               <h6>For Individuals</h6>
                               <div className="s-drpdwn-lists s-drpdwn-submenu-grid2">
                                 <div className="s-dpdwn-sb-menu-bx">
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Zero Waste Societies
-                                  </NavLink>
-                                </p>
-                              
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Waste SIP
-                                  </NavLink>
-                                </p>
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Zero Waste Societies
+                                    </NavLink>
+                                  </p>
 
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Green Life
-                                  </NavLink>
-                                </p>
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Waste SIP
+                                    </NavLink>
+                                  </p>
 
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Clim Connect
-                                  </NavLink>
-                                </p>
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Green Life
+                                    </NavLink>
+                                  </p>
+
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Clim Connect
+                                    </NavLink>
+                                  </p>
                                 </div>
-
 
                                 <div className="s-dpdwn-sb-menu-bx">
-                               
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Blog
+                                    </NavLink>
+                                  </p>
 
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Blog
-                                  </NavLink>
-                                </p>
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Household Scrap Collection
+                                    </NavLink>
+                                  </p>
 
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Household Scrap Collection
-                                  </NavLink>
-                                </p>
-
-                                <p>
-                                  <NavLink to="#" target="_blank">
-                                    Vehicle Scrapping
-                                  </NavLink>
-                                </p>
+                                  <p>
+                                    <NavLink to="#" target="_blank">
+                                      Vehicle Scrapping
+                                    </NavLink>
+                                  </p>
                                 </div>
-
-                                </div>
-
-                                
+                              </div>
                             </div>
 
                             <div className="s-drpdwn-bx">
@@ -160,22 +155,28 @@ const Header = () => {
                               <div className="s-drpdwn-submenu-grid">
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
-                                    <NavLink to="#">Corporate Waste Management</NavLink>
+                                    <NavLink to="#">
+                                      Corporate Waste Management
+                                    </NavLink>
                                   </p>
                                   <p>
                                     <NavLink to="#">EPR services</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Dismantling Services</NavLink>
+                                    <NavLink to="#">
+                                      Dismantling Services
+                                    </NavLink>
                                   </p>
                                   <p>
                                     <NavLink to="#">Circular Economy</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Zero Waste Services</NavLink>
+                                    <NavLink to="#">
+                                      Zero Waste Services
+                                    </NavLink>
                                   </p>
                                 </div>
-                               
+
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p>
                                     <NavLink to="#">CSR Services</NavLink>
@@ -184,10 +185,14 @@ const Header = () => {
                                     <NavLink to="#">Zero Waste Drives</NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">IEC Development and Consulting</NavLink>
+                                    <NavLink to="#">
+                                      IEC Development and Consulting
+                                    </NavLink>
                                   </p>
                                   <p>
-                                    <NavLink to="#">Paper Shredding Services</NavLink>
+                                    <NavLink to="#">
+                                      Paper Shredding Services
+                                    </NavLink>
                                   </p>
                                 </div>
                               </div>
@@ -262,19 +267,18 @@ const Header = () => {
                       <Protect>
                         <li>
                           <div className="wallet-icon">
-                            <img src="./images/customImg/wallet.png" alt="" />
+                            <img src="/images/customImg/wallet.png" alt="" />
                           </div>
                         </li>
                       </Protect>
                     </ul>
-                   
                   </div>
                 </nav>
                 <div onClick={() => setMenu(!menu)} className="menuBtn-togg">
-                      <div className="spanline"></div>
-                      <div className="spanline"></div>
-                      <div className="spanline"></div>
-                    </div>
+                  <div className="spanline"></div>
+                  <div className="spanline"></div>
+                  <div className="spanline"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -340,8 +344,6 @@ const Header = () => {
       </header>
 
       {/* <!-- Main header--> */}
-
-        
 
       {userForm ? <UserForm closepopUpUserForm={popUpUserForm} /> : null}
     </>

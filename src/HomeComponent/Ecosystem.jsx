@@ -12,9 +12,7 @@ const Ecosystem = () => {
       <section className="ecosystem-comp">
         <div className="comon-container-2 home-container">
           <div className="apnt-heading">
-            <p>
-            revolutionising 
-            </p>
+            <p>revolutionising</p>
             <h3>Waste Management</h3>
           </div>
 
@@ -29,7 +27,7 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon left-tab-icon1">
-                  <img src="./images/customImg/green-planet.gif" alt="" />
+                  <img src="/images/customImg/green-planet.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
@@ -45,7 +43,7 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon left-tab-icon2">
-                  <img src="./images/customImg/ewallet.gif" alt="" />
+                  <img src="/images/customImg/ewallet.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
@@ -61,7 +59,7 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon">
-                  <img src="./images/customImg/recycling-truck.gif" alt="" />
+                  <img src="/images/customImg/recycling-truck.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
@@ -77,7 +75,7 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon left-tab-icon3">
-                  <img src="./images/customImg/home.gif" alt="" />
+                  <img src="/images/customImg/home.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
@@ -97,7 +95,7 @@ const Ecosystem = () => {
               >
                 <div className="main-img-bx-tab">
                   <div className="left-tab-view-img">
-                    <img src="./images/customImg/waste-img.jpg" alt="" />
+                    <img src="/images/customImg/waste-img.jpg" alt="" />
                   </div>
 
                   <div className="buble-one"></div>
@@ -130,7 +128,7 @@ const Ecosystem = () => {
               >
                 <div className="main-img-bx-tab">
                   <div className="left-tab-view-img">
-                    <img src="./images/customImg/waste-img-4.jpg" alt="" />
+                    <img src="/images/customImg/waste-img-4.jpg" alt="" />
                   </div>
 
                   <div className="buble-one"></div>
@@ -162,7 +160,7 @@ const Ecosystem = () => {
               >
                 <div className="main-img-bx-tab">
                   <div className="left-tab-view-img">
-                    <img src="./images/customImg/waste-img-3.webp" alt="" />
+                    <img src="/images/customImg/waste-img-3.webp" alt="" />
                   </div>
 
                   <div className="buble-one"></div>
@@ -192,7 +190,7 @@ const Ecosystem = () => {
               >
                 <div className="main-img-bx-tab">
                   <div className="left-tab-view-img">
-                    <img src="./images/customImg/waste-img-2.jpg" alt="" />
+                    <img src="/images/customImg/waste-img-2.jpg" alt="" />
                   </div>
 
                   <div className="buble-one"></div>

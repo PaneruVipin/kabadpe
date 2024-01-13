@@ -165,7 +165,7 @@ const UserForm = ({ closepopUpUserForm }) => {
         >
           <div className="thank-u-box">
             <div className="thank-u-gif">
-              <img src="./images/customImg/happy.gif" alt="" />
+              <img src="/images/customImg/happy.gif" alt="" />
             </div>
 
             <p>

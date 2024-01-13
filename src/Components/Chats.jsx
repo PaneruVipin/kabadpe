@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import chatData from "../chatData";
-import '../style/ChatSoclPost.css';
+import "../style/ChatSoclPost.css";
 
 const Chats = () => {
-    const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState(false);
 
-    // () => setMessage(true)
+  // () => setMessage(true)
 
-    const passalert = () => {
-       
-        setMessage(true)
-        
-    }
+  const passalert = () => {
+    setMessage(true);
+  };
   return (
     <>
       <div className="max-height-chat-bx">
@@ -19,7 +17,7 @@ const Chats = () => {
           {chatData.map((curElem, index) => {
             return (
               <>
-                <div  onClick={passalert} className="chat-li-bx" key={index}>
+                <div onClick={passalert} className="chat-li-bx" key={index}>
                   <div className="chat-img">
                     <img src={curElem.img} alt="" />
                   </div>
@@ -34,10 +32,16 @@ const Chats = () => {
         </div>
       </div>
 
-      <div className={message ?  "chat-message-main-bx chatmessgeactive" : "chat-message-main-bx"}>
+      <div
+        className={
+          message
+            ? "chat-message-main-bx chatmessgeactive"
+            : "chat-message-main-bx"
+        }
+      >
         <div className="chat-message-user-bx">
           <div className="left-user-messge-img">
-            <img src="./images/chats/chat-5.jpg" alt="" />
+            <img src="/images/chats/chat-5.jpg" alt="" />
           </div>
           <div className="right-user-messge-info">
             <h6>Nazmin Perween</h6>
@@ -105,9 +109,9 @@ const Chats = () => {
             <p className="right-chat">
               {" "}
               Hello{" "}
-             <div className="messge-tick">
-             <i className="fa-solid fa-check"></i>
-             </div>
+              <div className="messge-tick">
+                <i className="fa-solid fa-check"></i>
+              </div>
             </p>
           </div>
 
@@ -115,8 +119,8 @@ const Chats = () => {
             <p className="right-chat">
               I am fine{" "}
               <div className="messge-tick">
-             <i className="fa-solid fa-check"></i>
-             </div>
+                <i className="fa-solid fa-check"></i>
+              </div>
             </p>
           </div>
 
@@ -124,8 +128,8 @@ const Chats = () => {
             <p className="right-chat">
               and you{" "}
               <div className="messge-tick tickactive">
-             <i className="fa-solid fa-check"></i>
-             </div>
+                <i className="fa-solid fa-check"></i>
+              </div>
             </p>
           </div>
 
@@ -133,33 +137,34 @@ const Chats = () => {
             <p className="right-chat">
               No{" "}
               <div className="messge-tick tickactive">
-             <i className="fa-solid fa-check"></i>
-             </div>
+                <i className="fa-solid fa-check"></i>
+              </div>
             </p>
           </div>
         </div>
 
         <div className="user-type-message-main-bx">
-
-            <div className="left-type-message-bx">
+          <div className="left-type-message-bx">
             <i className="fa-regular fa-image"></i>
-            </div>
+          </div>
 
-            <div className="type-message-inpt-bx">
-                <input type="text" name="message" id="message" placeholder="Type message here ..." />
+          <div className="type-message-inpt-bx">
+            <input
+              type="text"
+              name="message"
+              id="message"
+              placeholder="Type message here ..."
+            />
 
-                <div className="send-message-btn">
-                <i className="fa-solid fa-caret-right"></i>
-                </div>
-                
+            <div className="send-message-btn">
+              <i className="fa-solid fa-caret-right"></i>
             </div>
-            
+          </div>
         </div>
 
         <div onClick={() => setMessage(false)} className="close-chat-bx">
-        <i className="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark"></i>
         </div>
-        
       </div>
     </>
   );

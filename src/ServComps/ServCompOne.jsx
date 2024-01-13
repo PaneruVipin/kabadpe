@@ -24,10 +24,8 @@ const ServCompOne = () => {
           </div>
 
           <div className="full-width-img">
-            <img src="./images/customImg/serv-img-5.jpg" alt="" />
+            <img src="/images/customImg/serv-img-5.jpg" alt="" />
           </div>
-
-        
         </div>
       </section>
     </>

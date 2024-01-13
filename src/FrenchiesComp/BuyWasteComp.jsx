@@ -4,13 +4,13 @@ import { TbPlaceholder } from "react-icons/tb";
 
 const BuyWasteComp = () => {
   const [pay, setPay] = useState(false);
-  const [waltTranfer , setWaltTranfer] = useState(false);
+  const [waltTranfer, setWaltTranfer] = useState(false);
 
   const initialData = [
     {
       id: 1,
       selectedOption: "",
-      imageUrl: "./images/customImg/book.png",
+      imageUrl: "/images/customImg/book.png",
       email: "",
       price: "",
       weight: "",
@@ -41,7 +41,7 @@ const BuyWasteComp = () => {
     const newRow = {
       id: tableData.length + 1,
       selectedOption: "",
-      imageUrl: "./images/customImg/book.png",
+      imageUrl: "/images/customImg/book.png",
       email: "",
       price: "",
       weight: "",
@@ -71,29 +71,29 @@ const BuyWasteComp = () => {
     // Example logic:
     switch (selectedOption) {
       case "book":
-        return "./images/customImg/book.png";
+        return "/images/customImg/book.png";
       case "paper":
-        return "./images/customImg/cash.png";
+        return "/images/customImg/cash.png";
       case "iron":
-        return "./images/customImg/beam.png";
+        return "/images/customImg/beam.png";
       case "plastic":
-        return "./images/customImg/plastic.png";
+        return "/images/customImg/plastic.png";
       case "cardboard":
-        return "./images/customImg/cardboard.png";
+        return "/images/customImg/cardboard.png";
       case "wheel":
-        return "./images/customImg/wheel.png";
+        return "/images/customImg/wheel.png";
       case "aluminium":
-        return "./images/customImg/aluminium-paper.png";
+        return "/images/customImg/aluminium-paper.png";
       case "wood":
-        return "./images/customImg/furniture.png";
+        return "/images/customImg/furniture.png";
       case "magazine":
-        return "./images/customImg/magazine.png";
+        return "/images/customImg/magazine.png";
       case "ewaste":
-        return "./images/customImg/broken.png";
+        return "/images/customImg/broken.png";
       case "copper":
-        return "./images/customImg/coil.png";
+        return "/images/customImg/coil.png";
       case "steel":
-        return "./images/customImg/iron-bar.png";
+        return "/images/customImg/iron-bar.png";
       // Add more cases as needed
       default:
         return "";
@@ -242,7 +242,14 @@ const BuyWasteComp = () => {
         <div className="paynow-btn-flex">
           <button className="pay-btn">Cash Paid</button>
 
-          <button onClick={() => {setWaltTranfer(true) , setPay(false)}} className="pay-btn">Wallet Tranfer</button>
+          <button
+            onClick={() => {
+              setWaltTranfer(true), setPay(false);
+            }}
+            className="pay-btn"
+          >
+            Wallet Tranfer
+          </button>
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i class="fa-solid fa-xmark"></i>
@@ -250,29 +257,36 @@ const BuyWasteComp = () => {
         </div>
       </div>
 
-      <div className={ waltTranfer ? "wallet-payment-sec walletpaymtactive" : "wallet-payment-sec"}>
-
+      <div
+        className={
+          waltTranfer
+            ? "wallet-payment-sec walletpaymtactive"
+            : "wallet-payment-sec"
+        }
+      >
         <div className="wallet-pay-bx">
-
           <h6>Wallet Tranfer</h6>
 
+          <p>
+            {" "}
+            Wallet Balance : <span>₹5000.00</span>{" "}
+          </p>
+          <p>
+            {" "}
+            Payment Value : <span>₹2000.00</span>{" "}
+          </p>
+          <p>
+            {" "}
+            Balance Pay : <span>₹3000.00</span>{" "}
+          </p>
 
-          <p> Wallet Balance : <span>₹5000.00</span> </p>
-          <p> Payment Value : <span>₹2000.00</span> </p>
-          <p> Balance Pay : <span>₹3000.00</span> </p>
+          <button className="confirm-btn">Confirm</button>
 
-          <button className="confirm-btn">
-            Confirm
-          </button>
-          
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
-          <i class="fa-solid fa-xmark"></i>
+            <i class="fa-solid fa-xmark"></i>
           </div>
-          
         </div>
-        
       </div>
-      
     </>
   );
 };

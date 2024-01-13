@@ -57,7 +57,7 @@ const Chats = () => {
             <p className="left-chat">
               {" "}
               <img
-                src="./images/chats/chat-1.jpg"
+                src="/images/chats/chat-1.jpg"
                 className="message-chat-icon"
                 alt=""
               />{" "}
@@ -69,7 +69,7 @@ const Chats = () => {
             <p className="left-chat">
               {" "}
               <img
-                src="./images/chats/chat-1.jpg"
+                src="/images/chats/chat-1.jpg"
                 className="message-chat-icon"
                 alt=""
               />{" "}
@@ -84,7 +84,7 @@ const Chats = () => {
             <p className="left-chat">
               {" "}
               <img
-                src="./images/chats/chat-1.jpg"
+                src="/images/chats/chat-1.jpg"
                 className="message-chat-icon"
                 alt=""
               />{" "}
@@ -96,7 +96,7 @@ const Chats = () => {
             <p className="left-chat">
               {" "}
               <img
-                src="./images/chats/chat-1.jpg"
+                src="/images/chats/chat-1.jpg"
                 className="message-chat-icon"
                 alt=""
               />{" "}

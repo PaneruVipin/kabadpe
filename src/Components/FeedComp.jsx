@@ -4,13 +4,13 @@ import SocFeedHeader from "./SocFeedHeader";
 
 const FeedComp = () => {
   const items = [
-    { name: "Public", imageUrl: "./images/chats/globe.png" },
-    { name: "Friends", imageUrl: "./images/chats/friends.png" },
+    { name: "Public", imageUrl: "/images/chats/globe.png" },
+    { name: "Friends", imageUrl: "/images/chats/friends.png" },
   ];
 
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedItemImage, setSelectedItemImage] = useState(
-    "./images/chats/globe.png"
+    "/images/chats/globe.png"
   );
   const [fileImage, setFileImage] = useState(null);
   const [createPost, setCreatePost] = useState(false);
@@ -19,7 +19,7 @@ const FeedComp = () => {
   const SocFeed = [
     {
       id: 1,
-      socProfImg: "./images/customImg/team-2.jpg",
+      socProfImg: "/images/customImg/team-2.jpg",
       socProfname: "Pan Feng Shul",
       postDate: "12 April at 09:20 PM",
       postIcon: "public",
@@ -27,9 +27,9 @@ const FeedComp = () => {
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem nesciunt Lorem ipsum dolor sit amet consectetur amet consectetur, adipisicing elit .",
 
       postImg: [
-        "./images/customImg/news-1.jpg",
-        "./images/customImg/news-2.jpg",
-        "./images/customImg/news-3.jpg",
+        "/images/customImg/news-1.jpg",
+        "/images/customImg/news-2.jpg",
+        "/images/customImg/news-3.jpg",
       ],
 
       comment: 25,
@@ -40,7 +40,7 @@ const FeedComp = () => {
 
     {
       id: 2,
-      socProfImg: "./images/customImg/team-4.jpg",
+      socProfImg: "/images/customImg/team-4.jpg",
       socProfname: "Pan Feng Shul",
       postDate: "12 April at 09:20 PM",
       postIcon: "Friends",
@@ -48,10 +48,7 @@ const FeedComp = () => {
       postPara:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem nesciunt Lorem ipsum dolor sit amet consectetur amet consectetur, adipisicing elit  .",
 
-      postImg: [
-        "./images/customImg/news-3.jpg",
-        "./images/customImg/news-1.jpg",
-      ],
+      postImg: ["/images/customImg/news-3.jpg", "/images/customImg/news-1.jpg"],
 
       comment: 45,
       likes: 120,

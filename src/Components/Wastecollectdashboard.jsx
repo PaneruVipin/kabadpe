@@ -47,16 +47,15 @@ const Wastecollectdashboard = () => {
 
   return (
     <>
+      <TopFixMenu />
 
-<TopFixMenu />
-    
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
             <img
               src={
                 !loading
-                  ? userInfo?.profileImage || "./images/customImg/836.jpg"
+                  ? userInfo?.profileImage || "/images/customImg/836.jpg"
                   : ""
               }
               alt=""
@@ -132,25 +131,22 @@ const Wastecollectdashboard = () => {
             My Appointments
           </button>
 
-
-          
           <button
             onClick={() => filterTab(14)}
             className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-seedling"></i>
+              <i class="fa-solid fa-seedling"></i>
             </div>
             My Plans
           </button>
-
 
           <button
             onClick={() => filterTab(13)}
             className={profBtn === 13 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-layer-group"></i>
+              <i class="fa-solid fa-layer-group"></i>
             </div>
             Subscriptions
           </button>
@@ -164,8 +160,6 @@ const Wastecollectdashboard = () => {
             </div>
             My Details
           </button>
-
-        
 
           <button
             onClick={() => filterTab(12)}
@@ -196,10 +190,6 @@ const Wastecollectdashboard = () => {
             </div>
             My Work Location
           </button>
-
-
-
-       
 
           {/* <button
             onClick={() => filterTab(5)}
@@ -247,13 +237,12 @@ const Wastecollectdashboard = () => {
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
 
-     <section className="right-side-admin-all-comp right-side-admin-all-comp5">
-     {profBtn === 13 ? <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)}  /> : null}
-      {profBtn === 14 ? <WasteSubsPlan /> : null}
-     </section>
-      
-      
-
+      <section className="right-side-admin-all-comp right-side-admin-all-comp5">
+        {profBtn === 13 ? (
+          <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />
+        ) : null}
+        {profBtn === 14 ? <WasteSubsPlan /> : null}
+      </section>
     </>
   );
 };

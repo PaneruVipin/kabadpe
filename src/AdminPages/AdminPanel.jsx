@@ -42,7 +42,7 @@ const AdminPanel = () => {
   const [orderActive, setOrderActive] = useState(Orders);
   const [orderTab, setOrderTab] = useState(null);
   const [changeProfile, setChangeProfile] = useState(false);
-  const [profileImg, setProfileImg] = useState("./images/customImg/c-3.jpg");
+  const [profileImg, setProfileImg] = useState("/images/customImg/c-3.jpg");
   const [notifActive, setNotifActive] = useState(false);
   const [contentPageBtn, setContentPageBtn] = useState(null);
   const [contentPageBtnTwo, setContentPageBtnTwo] = useState(null);

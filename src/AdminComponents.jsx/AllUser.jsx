@@ -4,12 +4,12 @@ import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
-  const [selectImg, setSelectImg] = useState("./images/customImg/c-1.jpg");
+  const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
   const [editableForm, setEditableForm] = useState(false);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [selectedImage, setSelectedImage] = useState(
-    "./images/customImg/836.jpg"
+    "/images/customImg/836.jpg"
   );
   const [profChange, setProfChange] = useState(false);
   const [editForm, setEditForm] = useState(false);
@@ -60,15 +60,12 @@ const AllUser = ({ updatedFilterData }) => {
   //   const updatedData =  userData.filter((curData) => {
 
   //     return index  === curData.categoryStatus ;
-      
+
   //   })
 
   // setUserData(updatedData);
-    
+
   // }
-
-
-  
 
   return (
     <>

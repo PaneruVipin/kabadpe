@@ -12,18 +12,18 @@ const Pricelist = () => {
 
   const productImages = {
     Choose: "",
-    book: "./images/customImg/book.png",
-    paper: "./images/customImg/cash.png",
-    iron: "./images/customImg/beam.png",
-    plastic: "./images/customImg/plastic.png",
-    cardboard: "./images/customImg/cardboard.png",
-    wheel: "./images/customImg/wheel.png",
-    aluminium: "./images/customImg/aluminium-paper.png",
-    wood: "./images/customImg/furniture.png",
-    magazine: "./images/customImg/magazine.png",
-    Ewaste: "./images/customImg/broken.png",
-    Copper: "./images/customImg/coil.png",
-    Steel: "./images/customImg/iron-bar.png",
+    book: "/images/customImg/book.png",
+    paper: "/images/customImg/cash.png",
+    iron: "/images/customImg/beam.png",
+    plastic: "/images/customImg/plastic.png",
+    cardboard: "/images/customImg/cardboard.png",
+    wheel: "/images/customImg/wheel.png",
+    aluminium: "/images/customImg/aluminium-paper.png",
+    wood: "/images/customImg/furniture.png",
+    magazine: "/images/customImg/magazine.png",
+    Ewaste: "/images/customImg/broken.png",
+    Copper: "/images/customImg/coil.png",
+    Steel: "/images/customImg/iron-bar.png",
 
     // Add more options and image sources as needed
   };

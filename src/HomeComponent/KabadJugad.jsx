@@ -12,13 +12,13 @@ const KabadJugad = () => {
 
           <div className="kabad-jugad-grid-bx">
             <div className="left-kabad-img-bx">
-              <img src="./images/customImg/eco-sys-img.png" alt="" />
+              <img src="/images/customImg/eco-sys-img.png" alt="" />
             </div>
 
             <div className="right-kabad-grid-bx">
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="./images/customImg/eco-icon.png" alt="" />
+                  <img src="/images/customImg/eco-icon.png" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Kabadpe</h6>
@@ -27,16 +27,13 @@ const KabadJugad = () => {
                     and traceable system.
                   </p>
 
-                  <button className="read-mre-btn">
-                    Read More
-                  </button>
-                  
+                  <button className="read-mre-btn">Read More</button>
                 </div>
               </div>
 
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="./images/customImg/eco-icon2.png" alt="" />
+                  <img src="/images/customImg/eco-icon2.png" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>The green saman shop</h6>
@@ -44,15 +41,13 @@ const KabadJugad = () => {
                     Green living made simple, enjoy eco-friendly products for
                     daily needs.
                   </p>
-                  <button className="read-mre-btn">
-                    Read More
-                  </button>
+                  <button className="read-mre-btn">Read More</button>
                 </div>
               </div>
 
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="./images/customImg/eco-icon3.png" alt="" />
+                  <img src="/images/customImg/eco-icon3.png" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Climconnect</h6>
@@ -60,28 +55,23 @@ const KabadJugad = () => {
                     Become a climate Warrier, raise your voice and let people
                     know your climate contribution
                   </p>
-                  <button className="read-mre-btn">
-                    Read More
-                  </button>
+                  <button className="read-mre-btn">Read More</button>
                 </div>
               </div>
-              
+
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="./images/customImg/eco-icon4.png" alt="" />
+                  <img src="/images/customImg/eco-icon4.png" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Waste resource hub</h6>
                   <p>
-                  Need waste related solutions, find best solution to combat waste problems.
+                    Need waste related solutions, find best solution to combat
+                    waste problems.
                   </p>
-                  <button className="read-mre-btn">
-                    Read More
-                  </button>
+                  <button className="read-mre-btn">Read More</button>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         </div>

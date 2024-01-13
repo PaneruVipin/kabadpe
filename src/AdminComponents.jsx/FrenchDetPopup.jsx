@@ -1,6 +1,6 @@
 import React from "react";
 
-const FrenchDetPopup = ({onclickCloseDetFrench}) => {
+const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
   return (
     <>
       <section className="french-edit-comp">
@@ -9,7 +9,7 @@ const FrenchDetPopup = ({onclickCloseDetFrench}) => {
 
           <div className="french-det-logo-box">
             <div className="f-logo">
-              <img src="./images/customImg/c-3.jpg" alt="" />
+              <img src="/images/customImg/c-3.jpg" alt="" />
             </div>
           </div>
 
@@ -84,7 +84,6 @@ const FrenchDetPopup = ({onclickCloseDetFrench}) => {
           <h6 className="banktext">Transactions</h6>
 
           <div className="all-user-table french-det-table">
-
             <table>
               <thead>
                 <tr>
@@ -96,50 +95,76 @@ const FrenchDetPopup = ({onclickCloseDetFrench}) => {
               </thead>
               <tbody>
                 <tr>
-                  <td> <span>1</span> </td>
-                  <td> <span> Monthly </span></td>
+                  <td>
+                    {" "}
+                    <span>1</span>{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <span> Monthly </span>
+                  </td>
                   <td>₹200</td>
                   <td>
                     <div className="invoice-downlod">
-                     <span>2114504750</span>  <i class="fa-regular fa-circle-down"></i> 
-                     </div>
-                     </td>
+                      <span>2114504750</span>{" "}
+                      <i class="fa-regular fa-circle-down"></i>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td> <span>1</span> </td>
-                  <td> <span> Monthly </span></td>
+                  <td>
+                    {" "}
+                    <span>1</span>{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <span> Monthly </span>
+                  </td>
                   <td>₹300</td>
                   <td>
                     <div className="invoice-downlod">
-                     <span>2114504750</span>  <i class="fa-regular fa-circle-down"></i> 
-                     </div>
-                     </td>
+                      <span>2114504750</span>{" "}
+                      <i class="fa-regular fa-circle-down"></i>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td> <span>1</span> </td>
-                  <td> <span> Quaterly </span></td>
+                  <td>
+                    {" "}
+                    <span>1</span>{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <span> Quaterly </span>
+                  </td>
                   <td>₹400</td>
                   <td>
                     <div className="invoice-downlod">
-                     <span>2114504750</span>  <i class="fa-regular fa-circle-down"></i> 
-                     </div>
-                     </td>
+                      <span>2114504750</span>{" "}
+                      <i class="fa-regular fa-circle-down"></i>
+                    </div>
+                  </td>
                 </tr>
                 <tr>
-                  <td> <span>1</span> </td>
-                  <td> <span> Monthly </span></td>
+                  <td>
+                    {" "}
+                    <span>1</span>{" "}
+                  </td>
+                  <td>
+                    {" "}
+                    <span> Monthly </span>
+                  </td>
                   <td>₹500</td>
                   <td>
                     <div className="invoice-downlod">
-                     <span>2114504750</span>  <i class="fa-regular fa-circle-down"></i> 
-                     </div>
-                     </td>
+                      <span>2114504750</span>{" "}
+                      <i class="fa-regular fa-circle-down"></i>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
-            
           </div>
-
 
           <button onClick={onclickCloseDetFrench} className="close-popup-btn">
             <i class="fa-solid fa-xmark"></i>

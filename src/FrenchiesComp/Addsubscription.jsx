@@ -19,7 +19,7 @@ const Addsubscription = () => {
           <h6 className="banktext mb-0">Add Work Area</h6>
           <button
             onClick={() => {
-              setInitialUpdateValues({});
+              setInitialUpdateValues();
               setSubsPlanBx(true);
             }}
             className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn"

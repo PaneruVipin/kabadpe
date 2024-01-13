@@ -41,8 +41,8 @@ const Account = () => {
                   <ul>
                     <li>
                       <div className="icon">
-                        <img src="./images/customImg/game.png" />
-                        <img src="./images/customImg/app-store.png" />
+                        <img src="/images/customImg/game.png" />
+                        <img src="/images/customImg/app-store.png" />
                       </div>
                       <div className="text">
                         <p>Download App</p>
@@ -66,7 +66,7 @@ const Account = () => {
                   <div className="main-logo-box">
                     <NavLink to="/">
                       {/* <img src="assets/images/resources/logo.png" alt="Awesome Logo" title=""> */}
-                      <img src="./images/resources/logo.png" alt="" />
+                      <img src="/images/resources/logo.png" alt="" />
                     </NavLink>
                   </div>
                 </div>

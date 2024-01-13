@@ -24,72 +24,74 @@ const Myaccount = () => {
         <span className="u-pf-four"></span>
       </section>
 
-    <section className="prof-record-main-sect">
-      <div className="prof-record-grid main-container">
-      <section className="user-prof-main-bx">
-        <div className="user-prof-contanier">
-          <div className="user-prf-main">
-            <div className="user-img">
-              <img src="./images/customImg/user-prf-img.webp" alt="" />
-            </div>
-            <div className="user-prf-info">
-              <h4>Tom Holland</h4>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Debitis deleniti excepturi nisi, expedita a tempora commodi
-                quasi quo illo nesciunt quibusdam tenetur corporis neque
-                voluptatum asperiores dignissimos totam reprehenderit laudantium
-                .
-              </p>
-            </div>
-          </div>
+      <section className="prof-record-main-sect">
+        <div className="prof-record-grid main-container">
+          <section className="user-prof-main-bx">
+            <div className="user-prof-contanier">
+              <div className="user-prf-main">
+                <div className="user-img">
+                  <img src="/images/customImg/user-prf-img.webp" alt="" />
+                </div>
+                <div className="user-prf-info">
+                  <h4>Tom Holland</h4>
+                  <p>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Debitis deleniti excepturi nisi, expedita a tempora commodi
+                    quasi quo illo nesciunt quibusdam tenetur corporis neque
+                    voluptatum asperiores dignissimos totam reprehenderit
+                    laudantium .
+                  </p>
+                </div>
+              </div>
 
-          <div className="user-prf-switch-btns-flex">
-            <button className="user-prf-btn userbtnactive">Following</button>
+              <div className="user-prf-switch-btns-flex">
+                <button className="user-prf-btn userbtnactive">
+                  Following
+                </button>
 
-            <button className="user-prf-btn">Message</button>
-          </div>
+                <button className="user-prf-btn">Message</button>
+              </div>
+            </div>
+          </section>
+
+          <section className="records-comp">
+            <div className="user-prof-contanier">
+              <div className="record-grid">
+                <div className="record-bx">
+                  <h5 className="r-numb">236</h5>
+                  <p className="r-ttl">Wallet Banalce</p>
+                  <h6 className="r-text">
+                    In <span>Rupees</span>
+                  </h6>
+                </div>
+
+                <div className="record-bx">
+                  <h5 className="r-numb">15.6k</h5>
+                  <p className="r-ttl">Total Waste Sold</p>
+                  <h6 className="r-text">
+                    In <span>Rupees</span>
+                  </h6>
+                </div>
+
+                <div className="record-bx">
+                  <h5 className="r-numb">5.7k</h5>
+                  <p className="r-ttl">Waste Sold</p>
+                  <h6 className="r-text">
+                    In <span>KG</span>{" "}
+                  </h6>
+                </div>
+
+                <div className="record-bx">
+                  <h5 className="r-numb">3.5k</h5>
+                  <p className="r-ttl">Followers</p>
+                  <h6 className="r-text">
+                    Lorem <span>Ipsum</span> .
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-      
-      <section className="records-comp">
-        <div className="user-prof-contanier">
-          <div className="record-grid">
-            <div className="record-bx">
-              <h5 className="r-numb">236</h5>
-              <p className="r-ttl">Wallet Banalce</p>
-              <h6 className="r-text">
-                In <span>Rupees</span>
-              </h6>
-            </div>
-
-            <div className="record-bx">
-              <h5 className="r-numb">15.6k</h5>
-              <p className="r-ttl">Total Waste Sold</p>
-              <h6 className="r-text">
-                In <span>Rupees</span>
-              </h6>
-            </div>
-
-            <div className="record-bx">
-              <h5 className="r-numb">5.7k</h5>
-              <p className="r-ttl">Waste Sold</p>
-              <h6 className="r-text">
-                In <span>KG</span>{" "}
-              </h6>
-            </div>
-
-            <div className="record-bx">
-              <h5 className="r-numb">3.5k</h5>
-              <p className="r-ttl">Followers</p>
-              <h6 className="r-text">
-                Lorem <span>Ipsum</span> .
-              </h6>
-            </div>
-          </div>
-        </div>
-      </section>
-      </div>
       </section>
       {/*  */}
       <section className="my-profile-comp">
@@ -774,10 +776,7 @@ const Myaccount = () => {
                 <div className="offer-card-grid">
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-1.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-1.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">
@@ -804,10 +803,7 @@ const Myaccount = () => {
 
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-2.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-2.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">
@@ -834,10 +830,7 @@ const Myaccount = () => {
 
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-3.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-3.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">
@@ -864,10 +857,7 @@ const Myaccount = () => {
 
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-2.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-2.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">
@@ -894,10 +884,7 @@ const Myaccount = () => {
 
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-3.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-3.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">
@@ -924,10 +911,7 @@ const Myaccount = () => {
 
                   <div className="offer-main-bx">
                     <div className="offer-img">
-                      <img
-                        src="./images/customImg//offer-1.jpg"
-                        alt=""
-                      />
+                      <img src="./images/customImg//offer-1.jpg" alt="" />
                     </div>
                     <div className="offer-bx">
                       <div className="offer-info">

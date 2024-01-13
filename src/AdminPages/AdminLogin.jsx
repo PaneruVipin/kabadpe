@@ -28,7 +28,7 @@ const AdminLogin = () => {
       <section className="admin-login-comp">
         <div className="admin-login-main admin-login-main-loginonly ">
           <div className="admin-login-img">
-            <img src="./images/customImg/nav-logo.png" alt="" />
+            <img src="/images/customImg/nav-logo.png" alt="" />
           </div>
 
           <p>Sign in your account</p>

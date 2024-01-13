@@ -9,7 +9,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
           {collectorInfo?.KabadCollector ? (
             <div className="waste-coll-logo-user-det-flex-bx">
               <div className="left-waste-col-logo">
-                <img src="./images/customImg/user-prf-img.webp" alt="" />
+                <img src="/images/customImg/user-prf-img.webp" alt="" />
                 <div className="stars-flex-bx">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
@@ -47,7 +47,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
           {collectorInfo?.Franchise ? (
             <div className="org-logo-info-flex-bx">
               <div className="left-org-logo">
-                <img src="./images/customImg/blog-1.jpg" alt="" />
+                <img src="/images/customImg/blog-1.jpg" alt="" />
                 <div className="tick-check">
                   <i class="fa-solid fa-circle-check"></i>
                 </div>

@@ -47,7 +47,6 @@ const AdminPanel = () => {
   const [contentPageBtn, setContentPageBtn] = useState(null);
   const [contentPageBtnTwo, setContentPageBtnTwo] = useState(null);
 
-
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
   };
@@ -107,37 +106,40 @@ const AdminPanel = () => {
   };
 
   const getContentPageClassName = (butonNum) => {
- 
-    return butonNum === contentPageBtn ? "content-pages-main-dropdwn contentactive" : "content-pages-main-dropdwn" ;
-    
-  }
+    return butonNum === contentPageBtn
+      ? "content-pages-main-dropdwn contentactive"
+      : "content-pages-main-dropdwn";
+  };
 
   const handleContentPageBtn = (contentBtnName) => {
-
-    return setContentPageBtn(contentBtnName === contentPageBtn ? null : contentBtnName) ;
-    
-  }
+    return setContentPageBtn(
+      contentBtnName === contentPageBtn ? null : contentBtnName
+    );
+  };
 
   const getContentPageClassNameTwo = (butonNumtwo) => {
- 
-    return butonNumtwo === contentPageBtnTwo ? "inner-pages-main-drp-dwn-bx innerpageactive" : "inner-pages-main-drp-dwn-bx" ;
-    
-  }
+    return butonNumtwo === contentPageBtnTwo
+      ? "inner-pages-main-drp-dwn-bx innerpageactive"
+      : "inner-pages-main-drp-dwn-bx";
+  };
 
   const handleChangePageBtnTwo = (innerpageBtn) => {
- 
-    return setContentPageBtnTwo(innerpageBtn === contentPageBtnTwo ? null : innerpageBtn) ;
-    
-  }
+    return setContentPageBtnTwo(
+      innerpageBtn === contentPageBtnTwo ? null : innerpageBtn
+    );
+  };
 
-  const DropdownButton  = (btnClass) => {
-    return btnClass === contentPageBtn ? "content-page-drop-ttle-btn drpbtnactive" : "content-page-drop-ttle-btn" ;
-  }
+  const DropdownButton = (btnClass) => {
+    return btnClass === contentPageBtn
+      ? "content-page-drop-ttle-btn drpbtnactive"
+      : "content-page-drop-ttle-btn";
+  };
 
-  const DropdownButtonTwo  = (btnClassTwo) => {
-    return btnClassTwo === contentPageBtnTwo ? "inner-page-drop-dwn-btn innerbtnactive" : "inner-page-drop-dwn-btn" ;
-
-  }
+  const DropdownButtonTwo = (btnClassTwo) => {
+    return btnClassTwo === contentPageBtnTwo
+      ? "inner-page-drop-dwn-btn innerbtnactive"
+      : "inner-page-drop-dwn-btn";
+  };
 
   return (
     <>
@@ -145,7 +147,7 @@ const AdminPanel = () => {
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
             <div className="admin-logo">
-              <img src="./images/customImg/nav-logo.png" alt="" />
+              <img src="/images/customImg/nav-logo.png" alt="" />
             </div>
 
             <button
@@ -220,7 +222,7 @@ const AdminPanel = () => {
               >
                 <div className="noti-li-box">
                   <div className="not-img">
-                    <img src="./images/customImg/c-3.jpg" alt="" />
+                    <img src="/images/customImg/c-3.jpg" alt="" />
                   </div>
                   <div className="not-info">
                     <h6>New Order Request</h6>
@@ -230,7 +232,7 @@ const AdminPanel = () => {
 
                 <div className="noti-li-box">
                   <div className="not-img">
-                    <img src="./images/customImg/c-2.jpg" alt="" />
+                    <img src="/images/customImg/c-2.jpg" alt="" />
                   </div>
                   <div className="not-info">
                     <h6>New User Assign</h6>
@@ -240,7 +242,7 @@ const AdminPanel = () => {
 
                 <div className="noti-li-box">
                   <div className="not-img">
-                    <img src="./images/customImg/c-1.jpg" alt="" />
+                    <img src="/images/customImg/c-1.jpg" alt="" />
                   </div>
                   <div className="not-info">
                     <h6>New Appointment Scheduled</h6>
@@ -250,7 +252,7 @@ const AdminPanel = () => {
 
                 <div className="noti-li-box">
                   <div className="not-img">
-                    <img src="./images/customImg/c-2.jpg" alt="" />
+                    <img src="/images/customImg/c-2.jpg" alt="" />
                   </div>
                   <div className="not-info">
                     <h6>New User Assign</h6>
@@ -260,7 +262,7 @@ const AdminPanel = () => {
 
                 <div className="noti-li-box">
                   <div className="not-img">
-                    <img src="./images/customImg/c-4.jpg" alt="" />
+                    <img src="/images/customImg/c-4.jpg" alt="" />
                   </div>
                   <div className="not-info">
                     <h6>New Order Dispatched</h6>
@@ -280,7 +282,7 @@ const AdminPanel = () => {
                 className="admin-top-prof-box"
               >
                 <div className="left-admin-prof-img">
-                  <img src="./images/customImg/team-3.jpg" alt="" />
+                  <img src="/images/customImg/team-3.jpg" alt="" />
                 </div>
 
                 <div className="right-prof-info-admin">
@@ -512,9 +514,8 @@ const AdminPanel = () => {
             </div>
           </div>
 
-
           <div className="admin-nv-li admin-nv-li-dashbrd">
-          <div
+            <div
               onClick={() => {
                 handleButtonClick(12), handleViewComp("wasteproduct");
               }}
@@ -525,12 +526,11 @@ const AdminPanel = () => {
               }
             >
               <div className="a-nv-i">
-              <CiShop />
+                <CiShop />
               </div>
               <span>Waste Products</span>
             </div>
-            </div>
-
+          </div>
 
           <div className="admin-nv-li">
             <div
@@ -753,82 +753,136 @@ const AdminPanel = () => {
               className={getButtonClassName(10)}
             >
               <div className="a-nv-i">
-              <RiPageSeparator />
+                <RiPageSeparator />
               </div>
               <span>Content Section</span>
             </div>
- 
+
             <div className={getButonClasnameTwo(10)}>
-
-
-            <div  className={getContentPageClassName(12)}>
-
-              <div onClick={() => handleContentPageBtn(12)} className={DropdownButton(12)}>
-                <span> KabadPe</span>
+              <div className={getContentPageClassName(12)}>
+                <div
+                  onClick={() => handleContentPageBtn(12)}
+                  className={DropdownButton(12)}
+                >
+                  <span> KabadPe</span>
                 </div>
 
-                <div   className={getContentPageClassNameTwo(14)}  >
-                <div onClick={() => handleChangePageBtnTwo(14)} className={DropdownButtonTwo(14)}>
-                 <span> Content Pages</span>
+                <div className={getContentPageClassNameTwo(14)}>
+                  <div
+                    onClick={() => handleChangePageBtnTwo(14)}
+                    className={DropdownButtonTwo(14)}
+                  >
+                    <span> Content Pages</span>
+                  </div>
+
+                  <div className="inner-page-list ">
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Home </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Frenchies </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> About Us </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Contact Us </NavLink>
+                    </li>
+                  </div>
                 </div>
 
-                <div className="inner-page-list ">
+                <div className={getContentPageClassNameTwo(15)}>
+                  <div
+                    onClick={() => handleChangePageBtnTwo(15)}
+                    className={DropdownButtonTwo(15)}
+                  >
+                    <span> Services Pages</span>
+                  </div>
 
-                  <li className="page-link-btn"> <NavLink to="#"> Home </NavLink></li>
-                  <li className="page-link-btn"> <NavLink to="#"> Frenchies </NavLink></li>
-                  <li className="page-link-btn"> <NavLink to="#"> About Us </NavLink></li>
-                  <li className="page-link-btn"> <NavLink to="#"> Contact Us </NavLink></li>
-
-                 
-
-                  
+                  <div className="inner-page-list ">
+                    <li
+                      onClick={() => handleViewComp("ContentEditComp")}
+                      className={
+                        component === "ContentEditComp"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
+                      {" "}
+                      <NavLink to="#"> Zero Waste Societies </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Waste SIP </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Green Life </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> ClimConnect </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Blog </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Household Scrap Collection </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Vehicle Scrapping </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Corporate Waste Management </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> EPR Services </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Dismantling Services </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Circular Economy Services </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#">
+                        {" "}
+                        Zero Waste Service for Businesses{" "}
+                      </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Paper Shredding Services </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> CSR Services </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> Zero Waste Drives </NavLink>
+                    </li>
+                    <li className="page-link-btn">
+                      {" "}
+                      <NavLink to="#"> IEC Development and Consulting </NavLink>
+                    </li>
+                  </div>
                 </div>
+              </div>
 
-                </div> 
-
-
-                <div   className={getContentPageClassNameTwo(15)}  >
-                <div onClick={() => handleChangePageBtnTwo(15)} className={DropdownButtonTwo(15)}>
-                 <span> Services Pages</span>
-                </div>
-
-            
-
-                <div className="inner-page-list ">
-
-            <li onClick={() => handleViewComp("ContentEditComp")} className={
-                  component === "ContentEditComp"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }> <NavLink to="#"> Zero Waste Societies </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Waste SIP </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Green Life </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> ClimConnect </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Blog </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Household Scrap Collection </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Vehicle Scrapping </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Corporate Waste Management </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> EPR Services </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Dismantling Services </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Circular Economy Services </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Zero Waste Service for Businesses </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Paper Shredding Services </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> CSR Services </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> Zero Waste Drives </NavLink></li>
-            <li className="page-link-btn"> <NavLink to="#"> IEC Development  and Consulting </NavLink></li>
-
-
-
-
-                </div>
-
-                </div> 
-              
-            </div>
-                
-            
-              
-            {/* <li 
+              {/* <li 
                 onClick={() => handleViewComp("kabadpepages")}
                 className={
                   component === "kabadpepages"
@@ -847,11 +901,8 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#">ClimStripe </NavLink>{" "}
               </li> */}
-             
             </div>
           </div>
-
-          
         </div>
         {/* 
         <div className="side-admin-nav-icons-box">
@@ -1000,8 +1051,6 @@ const AdminPanel = () => {
         {component === "createplan" ? <Createplan /> : null}
         {component === "kabadpepages" ? <KabadPePagesLink /> : null}
         {component === "ContentEditComp" ? <ContentEditComp /> : null}
-
-        
       </section>
     </>
   );

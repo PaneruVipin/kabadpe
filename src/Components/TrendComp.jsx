@@ -3,29 +3,26 @@ import "../style/SocialFeed.css";
 import SocFeedHeader from "./SocFeedHeader";
 
 const TrendComp = () => {
-    const items = [
+  const items = [
+    { name: "Public", imageUrl: "./images/chats/globe.png" },
+    { name: "Friends", imageUrl: "./images/chats/friends.png" },
+  ];
 
-        {name : "Public" , imageUrl : './images/chats/globe.png'},
-        {name : "Friends" , imageUrl : './images/chats/friends.png'},
+  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItemImage, setSelectedItemImage] = useState(
+    "./images/chats/globe.png"
+  );
+  const [fileImage, setFileImage] = useState(null);
+  const [createPost, setCreatePost] = useState(false);
+  const [editPost, setEditPost] = useState(false);
 
-        
-    ]
-    
-    const [selectedItem , setSelectedItem] = useState('');
-    const [selectedItemImage , setSelectedItemImage] = useState('./images/chats/globe.png');
-    const [ fileImage, setFileImage] =  useState(null);
-    const [createPost , setCreatePost] = useState(false);
-    const [editPost , setEditPost] = useState(false);
-
-
-    
   const SocFeed = [
     {
       id: 1,
       socProfImg: "./images/customImg/team-2.jpg",
       socProfname: "Pan Feng Shul",
       postDate: "12 April at 09:20 PM",
-      postIcon : 'public',
+      postIcon: "public",
       postPara:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem nesciunt Lorem ipsum dolor sit amet consectetur amet consectetur, adipisicing elit .",
 
@@ -39,10 +36,10 @@ const TrendComp = () => {
       likes: 135,
       share: 95,
       saved: 15,
-      trend : '#trends',
-      trendtwo : '#trending',
-      trendthree : '#environment',
-      trendfour : "#climate",
+      trend: "#trends",
+      trendtwo: "#trending",
+      trendthree: "#environment",
+      trendfour: "#climate",
     },
 
     {
@@ -50,7 +47,7 @@ const TrendComp = () => {
       socProfImg: "./images/customImg/team-4.jpg",
       socProfname: "Pan Feng Shul",
       postDate: "12 April at 09:20 PM",
-      postIcon : 'Friends',
+      postIcon: "Friends",
 
       postPara:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem nesciunt Lorem ipsum dolor sit amet consectetur amet consectetur, adipisicing elit  .",
@@ -64,26 +61,22 @@ const TrendComp = () => {
       likes: 120,
       share: 34,
       saved: 12,
-      trend : '#trends',
-      trendtwo : '#trending',
-      trendthree : '#environment',
-      trendfour : "#climate",
+      trend: "#trends",
+      trendtwo: "#trending",
+      trendthree: "#environment",
+      trendfour: "#climate",
     },
   ];
 
   const handleItemChange = (e) => {
-
     const value = e.target.value;
     setSelectedItem(value);
 
     const selectedImage = items.find((curitem) => curitem.name === value);
 
     setSelectedItemImage(selectedImage ? selectedImage.imageUrl : null);
+  };
 
-    
-  }
-
- 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
@@ -99,64 +92,68 @@ const TrendComp = () => {
     }
   };
 
-
   return (
     <>
-     
-
-      <div className={ createPost ? "soc-feed-create-post-comp postactive" : "soc-feed-create-post-comp"}>
+      <div
+        className={
+          createPost
+            ? "soc-feed-create-post-comp postactive"
+            : "soc-feed-create-post-comp"
+        }
+      >
         <div className="soc-feed-cret-post-main-box">
-            <h6>Create Post</h6>
+          <h6>Create Post</h6>
 
-            <div onClick={() => setCreatePost(false)} className="post-close-btn">
+          <div onClick={() => setCreatePost(false)} className="post-close-btn">
             <i class="fa-solid fa-xmark"></i>
-            </div>
+          </div>
 
-        <div className="create-post-type-box">
+          <div className="create-post-type-box">
             <div className="left-user-type-box">
-                <div className="user-imag">
-                    <img src="./images/customImg/team-3.jpg" alt="" />
-                </div>
-                <div className="right-user-infoo">
-                    <h5>Ahmad Noor Falid</h5>
+              <div className="user-imag">
+                <img src="/images/customImg/team-3.jpg" alt="" />
+              </div>
+              <div className="right-user-infoo">
+                <h5>Ahmad Noor Falid</h5>
 
-                    <div className="select-prof-box">
-
-                    {selectedItemImage && (
-                        <div className="selected-img">
-                            <img src={selectedItemImage} alt={selectedItemImage} />
-                        </div>
-                    )}
-                        
-
-                        <select name="chosebox" id="chosebox" value={selectedItem} onChange={handleItemChange}>
-                            {items.map((elem,index) => {
-
-                                return(
-
-                                    <option key={index} value={elem.name}> {elem.name} </option>
-                                    
-                                )
-                                
-                            })}
-                        </select>
-                        
+                <div className="select-prof-box">
+                  {selectedItemImage && (
+                    <div className="selected-img">
+                      <img src={selectedItemImage} alt={selectedItemImage} />
                     </div>
+                  )}
 
-                   
-    
+                  <select
+                    name="chosebox"
+                    id="chosebox"
+                    value={selectedItem}
+                    onChange={handleItemChange}
+                  >
+                    {items.map((elem, index) => {
+                      return (
+                        <option key={index} value={elem.name}>
+                          {" "}
+                          {elem.name}{" "}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
-
-             
+              </div>
             </div>
-        </div>
+          </div>
 
-        <div className="post-textarea">
-                        <textarea name="message" id="message" cols="30" rows="3" placeholder="What's on your mind ?"></textarea>
-                    </div>
+          <div className="post-textarea">
+            <textarea
+              name="message"
+              id="message"
+              cols="30"
+              rows="3"
+              placeholder="What's on your mind ?"
+            ></textarea>
+          </div>
 
-
-                    <div className="selec-user-show-reltd-img">
+          <div className="selec-user-show-reltd-img">
             {fileImage && (
               <div>
                 <img src={fileImage} alt="Selected" />
@@ -164,24 +161,25 @@ const TrendComp = () => {
             )}
           </div>
 
-
-        <div className="add-post-flx-box">
-
+          <div className="add-post-flx-box">
             <p>Add Your Post</p>
 
             <div className="right-post-label-box">
-
-                <label htmlFor="file"> <i class="fa-regular fa-image"></i> </label>
-                <input type="file" accept="image/*"  onChange={handleFileChange} name="file" id="file" />
-                
+              <label htmlFor="file">
+                {" "}
+                <i class="fa-regular fa-image"></i>{" "}
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                name="file"
+                id="file"
+              />
             </div>
-            
-            </div>            
-            
-            <button className="post-submit-btn">
-                Post Submit
-            </button>
-            
+          </div>
+
+          <button className="post-submit-btn">Post Submit</button>
         </div>
       </div>
 
@@ -190,10 +188,13 @@ const TrendComp = () => {
           <div className="soc-feed-search-bx mt-4">
             <h6>Post Something</h6>
 
-            <div  className="post-something">
-              <div onClick={() => setCreatePost(true)} className="postsmoe-flex-left-bx">
+            <div className="post-something">
+              <div
+                onClick={() => setCreatePost(true)}
+                className="postsmoe-flex-left-bx"
+              >
                 <div className="prof-img-p">
-                  <img src="./images/customImg/team-3.jpg" alt="" />
+                  <img src="/images/customImg/team-3.jpg" alt="" />
                 </div>
 
                 <p className="paraa">What's on your mind ?</p>
@@ -215,30 +216,39 @@ const TrendComp = () => {
                       <div className="soc-post-det">
                         <h6> {elem.socProfname} </h6>
                         <div className="post-type-icon-flex">
-                        <p> {elem.postDate} </p>   
+                          <p> {elem.postDate} </p>
 
-                        <div className="icon-img">
-                            {elem.postIcon === 'public' ?   <img src="./images/chats/globe.png" alt="" /> : <img src="./images/chats/friends.png" alt="" /> }
-
-                          
-                        </div>
-                        
+                          <div className="icon-img">
+                            {elem.postIcon === "public" ? (
+                              <img src="/images/chats/globe.png" alt="" />
+                            ) : (
+                              <img src="/images/chats/friends.png" alt="" />
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
 
                     <div className="edit-popup-box-main">
-                    <div onClick={() => setEditPost(!editPost)} className="three-dot-btn" title="edit">
-                      <i class="fa-solid fa-ellipsis"></i>
-                    </div>
+                      <div
+                        onClick={() => setEditPost(!editPost)}
+                        className="three-dot-btn"
+                        title="edit"
+                      >
+                        <i class="fa-solid fa-ellipsis"></i>
+                      </div>
 
-                    <div className={editPost ? "edit-popup-box editactive" : "edit-popup-box"}>
+                      <div
+                        className={
+                          editPost
+                            ? "edit-popup-box editactive"
+                            : "edit-popup-box"
+                        }
+                      >
                         <button className="e-p c-p">Edit Post</button>
                         <button className="h-p c-p">Hide Post</button>
                         <button className="r-p c-p">Report Post</button>
-
-                    </div>
-                    
+                      </div>
                     </div>
                   </div>
 
@@ -264,7 +274,6 @@ const TrendComp = () => {
                     <span> {elem.trendtwo} </span>
                     <span> {elem.trendthree} </span>
                     <span> {elem.trendfour} </span>
- 
                   </div>
 
                   <div className="soc-post-comnt-share-likes-flex-bx">
@@ -278,7 +287,7 @@ const TrendComp = () => {
 
                     <div className="soc-post-feed-btn">
                       <div className="feed-icon">
-                      <i class="fa-solid fa-share-from-square"></i>
+                        <i class="fa-solid fa-share-from-square"></i>
                       </div>
 
                       <h6> {elem.share} Shares </h6>
@@ -286,7 +295,7 @@ const TrendComp = () => {
 
                     <div className="soc-post-feed-btn">
                       <div className="feed-icon">
-                      <i class="fa-regular fa-heart"></i>
+                        <i class="fa-regular fa-heart"></i>
                       </div>
 
                       <h6> {elem.likes} Likes </h6>
@@ -294,21 +303,23 @@ const TrendComp = () => {
                   </div>
 
                   <div className="write-comment-flex-bx">
-
                     <div className="commnt-prof-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
+                      <img src="/images/customImg/team-3.jpg" alt="" />
                     </div>
 
                     <div className="comment-box">
-                        <input type="text" name="comment" id="comment" placeholder="Write Comment..." />
+                      <input
+                        type="text"
+                        name="comment"
+                        id="comment"
+                        placeholder="Write Comment..."
+                      />
 
-                        <button className="comnt-send">
+                      <button className="comnt-send">
                         <i class="fa-regular fa-paper-plane"></i>
-                        </button>
+                      </button>
                     </div>
-                    
                   </div>
-                  
                 </div>
               );
             })}

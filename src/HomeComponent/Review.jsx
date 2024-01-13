@@ -12,8 +12,8 @@ const Review = () => {
     margin: 30,
     nav: true,
     dots: false,
-    autoplay:true,
-  autoplayTimeout:2000,
+    autoplay: true,
+    autoplayTimeout: 2000,
     navText: [left_Arr, right_Arr],
     responsive: {
       0: {
@@ -49,15 +49,14 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
 
@@ -70,18 +69,16 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
-
 
             <div class="item">
               <div className="review-box">
@@ -92,18 +89,16 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
-
 
             <div class="item">
               <div className="review-box">
@@ -114,18 +109,16 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
-
 
             <div class="item">
               <div className="review-box">
@@ -136,18 +129,16 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
-
 
             <div class="item">
               <div className="review-box">
@@ -158,20 +149,17 @@ const Review = () => {
                 </p>
 
                 <div className="cust-flex-bx">
-                    <div className="cut-img">
-                        <img src="./images/customImg/team-3.jpg" alt="" />
-                    </div>
-                    <div className="cust-info">
-                            <h6>Adam Vathan</h6>
-                            <span>Customer</span>
-                    </div>
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
                 </div>
-                
               </div>
             </div>
-            
           </OwlCarousel>
-          
         </div>
       </section>
     </>

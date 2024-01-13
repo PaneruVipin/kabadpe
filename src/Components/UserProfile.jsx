@@ -20,7 +20,7 @@ const UserProfile = () => {
   const { userInfo: user, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
   const [selectedImage, setSelectedImage] = useState(
-    "./images/customImg/836.jpg"
+    "/images/customImg/836.jpg"
   );
   const [profileImage, setProfileImage] = useState(null);
   const [profChange, setProfChange] = useState(false);

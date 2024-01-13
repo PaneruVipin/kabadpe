@@ -6,28 +6,28 @@ const Followers = () => {
   const folowers = [
     {
       id: 1,
-      folowImg: "./images/customImg/client-01.png",
+      folowImg: "/images/customImg/client-01.png",
       folowrName: "Queen Parker",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 2,
-      folowImg: "./images/customImg/client-02.png",
+      folowImg: "/images/customImg/client-02.png",
       folowrName: "Andrew Garfield",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 3,
-      folowImg: "./images/customImg/client-03.png",
+      folowImg: "/images/customImg/client-03.png",
       folowrName: "Lawince ham",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 4,
-      folowImg: "./images/customImg/client-04.png",
+      folowImg: "/images/customImg/client-04.png",
       folowrName: "Gulafshan Perween",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
@@ -35,35 +35,33 @@ const Followers = () => {
 
     {
       id: 5,
-      folowImg: "./images/customImg/client-01.png",
+      folowImg: "/images/customImg/client-01.png",
       folowrName: "Queen Parker",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 6,
-      folowImg: "./images/customImg/client-02.png",
+      folowImg: "/images/customImg/client-02.png",
       folowrName: "Andrew Garfield",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 7,
-      folowImg: "./images/customImg/client-03.png",
+      folowImg: "/images/customImg/client-03.png",
       folowrName: "Lawince ham",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
     {
       id: 8,
-      folowImg: "./images/customImg/client-04.png",
+      folowImg: "/images/customImg/client-04.png",
       folowrName: "Gulafshan Perween",
       folowerInfo2: "@mashooque123",
       folowerInfo: "Delhi",
     },
   ];
-
- 
 
   return (
     <>
@@ -87,11 +85,8 @@ const Followers = () => {
                   </div>
                   <div className="right-folw-remv-btn">
                     <button
-                    
                       className={
-                        folow 
-                          ? "folow-btn folowbtnactive"
-                          : "folow-btn"
+                        folow ? "folow-btn folowbtnactive" : "folow-btn"
                       }
                     >
                       {" "}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import ImpactTwo from "./ImpactTwo";
+import ImpactTwo from "/impactTwo";
 
 const ImpactComp = () => {
   const numberObserver = useRef(null);

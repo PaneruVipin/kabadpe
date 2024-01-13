@@ -16,7 +16,7 @@ import { date } from "yup";
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
   const [selectedImage, setSelectedImage] = useState(
-    "./images/customImg/836.jpg"
+    "/images/customImg/836.jpg"
   );
   const [selectedImageoOne, setSelectedImageOne] = useState("");
   const [selectedImageTwo, setSelectedImageTwo] = useState("");
@@ -125,7 +125,7 @@ const WasteDetail = () => {
           <div className="photo-info-main-box">
             <div className="left-photo-info-box">
               <img
-                src={"./images/customImg/waste-profile-refrence.png"}
+                src={"/images/customImg/waste-profile-refrence.png"}
                 alt=""
               />
             </div>

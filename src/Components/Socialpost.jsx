@@ -16,13 +16,13 @@ import CenterSocialPost from "./CenterSocialPost";
 
 const Socialpost = ({ onclickShowSocPost }) => {
   const items = [
-    { name: "Public", imageUrl: "./images/chats/globe.png" },
-    { name: "Friends", imageUrl: "./images/chats/friends.png" },
+    { name: "Public", imageUrl: "/images/chats/globe.png" },
+    { name: "Friends", imageUrl: "/images/chats/friends.png" },
   ];
 
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedItemImage, setSelectedItemImage] = useState(
-    "./images/chats/globe.png"
+    "/images/chats/globe.png"
   );
   const [fileImage, setFileImage] = useState(null);
   const [cretPost, setCretPost] = useState(false);
@@ -65,15 +65,15 @@ const Socialpost = ({ onclickShowSocPost }) => {
   const galleryData = [
     {
       id: 1,
-      profileImage: "images/customImg/client-01.png",
+      profileImage: "/images/customImg/client-01.png",
       name: "Nazmin perween 1",
       folw: "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
       descImages: [
-        "images/customImg/blog-1.jpg",
-        "images/customImg/blog-2.jpg",
+        "/images/customImg/blog-1.jpg",
+        "/images/customImg/blog-2.jpg",
       ],
       date: "25-10-23",
       visibility: "public",
@@ -81,16 +81,16 @@ nesciunt nulla natus ex, qui
 
     {
       id: 2,
-      profileImage: "images/customImg/client-01.png",
+      profileImage: "/images/customImg/client-01.png",
       name: "Khushi Shrivastav",
       folw: "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
       descImages: [
-        "images/customImg/blog-3.jpg",
-        "images/customImg/blog-4.jpg",
-        "images/customImg/blog-5.jpg",
+        "/images/customImg/blog-3.jpg",
+        "/images/customImg/blog-4.jpg",
+        "/images/customImg/blog-5.jpg",
       ],
       date: "25-10-23",
       visibility: "friends",
@@ -98,20 +98,20 @@ nesciunt nulla natus ex, qui
 
     {
       id: 3,
-      profileImage: "images/customImg/client-01.png",
+      profileImage: "/images/customImg/client-01.png",
       name: "Muskan Sharma",
       folw: "Follow",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
 nesciunt nulla natus ex, qui 
 .`,
-      descImages: ["images/customImg/blog-2.jpg"],
+      descImages: ["/images/customImg/blog-2.jpg"],
       date: "25-10-23",
       visibility: "public",
     },
 
     {
       id: 4,
-      profileImage: "images/customImg/client-01.png",
+      profileImage: "/images/customImg/client-01.png",
       name: "Muskan Sharma",
       folw: "Following",
       desc: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab dolorem
@@ -191,13 +191,13 @@ nesciunt nulla natus ex, qui
                         />
                       </a>
                     ))}
-                    {/* <a href="./images/customImg/blog-2.jpg" className="soc-post-img">
+                    {/* <a href="/images/customImg/blog-2.jpg" className="soc-post-img">
         <img src="/images/customImg/blog-2.jpg" alt="" />
       </a>
-      <a href="./images/customImg/blog-3.jpg" className="soc-post-img">
+      <a href="/images/customImg/blog-3.jpg" className="soc-post-img">
         <img src="/images/customImg/blog-3.jpg" alt="" />
       </a>
-      <a href="./images/customImg/blog-4.jpg" className="soc-post-img">
+      <a href="/images/customImg/blog-4.jpg" className="soc-post-img">
         <img src="/images/customImg/blog-4.jpg" alt="" />
       </a> */}
                   </LightGallery>
@@ -266,25 +266,25 @@ nesciunt nulla natus ex, qui
             <div className="soc-post-img-grid">
               <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
                 <a
-                  href="./images/customImg/blog-1.jpg"
+                  href="/images/customImg/blog-1.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-1.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-2.jpg"
+                  href="/images/customImg/blog-2.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-2.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-4.jpg"
+                  href="/images/customImg/blog-4.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-4.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-5.jpg"
+                  href="/images/customImg/blog-5.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-5.jpg" alt="" />
@@ -315,25 +315,25 @@ nesciunt nulla natus ex, qui
             <div className="soc-post-img-grid">
               <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
                 <a
-                  href="./images/customImg/blog-4.jpg"
+                  href="/images/customImg/blog-4.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-4.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-2.jpg"
+                  href="/images/customImg/blog-2.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-2.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-5.jpg"
+                  href="/images/customImg/blog-5.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-5.jpg" alt="" />
                 </a>
                 <a
-                  href="./images/customImg/blog-3.jpg"
+                  href="/images/customImg/blog-3.jpg"
                   className="soc-post-img"
                 >
                   <img src="/images/customImg/blog-3.jpg" alt="" />

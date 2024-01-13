@@ -270,7 +270,7 @@ const FrenchiesLogin = () => {
                           <div className="french-signup-form-bx">
                             <div className="admin-login-img">
                               <img
-                                src="./images/customImg/nav-logo.png"
+                                src="/images/customImg/nav-logo.png"
                                 alt=""
                               />
                             </div>

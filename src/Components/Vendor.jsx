@@ -5,7 +5,7 @@ import WasteDetBank from "./WasteDetBank";
 const Vendor = () => {
   const [addInfo, setAddInfo] = useState(false);
   const [selectedImage, setSelectedImage] = useState(
-    "./images/customImg/aadhar-img.png"
+    "/images/customImg/aadhar-img.png"
   );
 
   const handleImageChange = (e) => {

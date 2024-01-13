@@ -20,7 +20,7 @@ const ResetPasswrdComp = () => {
           <div className="left-reset-passwrd-grid-bx">
             <div className="login-form-bx">
               <div className="login-logo">
-                <img src="./images/resources/logo.png" alt="" />
+                <img src="/images/resources/logo.png" alt="" />
               </div>
 
               <form action="#">

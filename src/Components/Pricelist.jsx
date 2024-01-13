@@ -133,8 +133,8 @@ const Pricelist = () => {
                     <li>
                       <div className="icon">
                         {/* <img src="assets/images/customImg/game.png"> */}
-                        <img src="./images/customImg/game.png" alt="" />
-                        <img src="./images/customImg/app-store.png" alt="" />
+                        <img src="/images/customImg/game.png" alt="" />
+                        <img src="/images/customImg/app-store.png" alt="" />
                         {/* <img src="assets/images/customImg/app-store.png"> */}
                       </div>
                       <div className="text">
@@ -159,7 +159,7 @@ const Pricelist = () => {
                   <div className="main-logo-box">
                     <a href="index.html">
                       {/* <img src="assets/images/resources/logo.png" alt="Awesome Logo" title=""> */}
-                      <img src="./images/resources/logo.png" alt="" />
+                      <img src="/images/resources/logo.png" alt="" />
                     </a>
                   </div>
                 </div>

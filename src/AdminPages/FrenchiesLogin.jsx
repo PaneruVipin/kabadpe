@@ -153,7 +153,7 @@ const FrenchiesLogin = () => {
       if (franchise?.franchiseStatus == "1") {
         payFunc();
       } else if (franchise?.franchiseStatus == "2") {
-        navigate("/frenchiespanel")
+        navigate("/frenchiespanel");
       }
     }
   }, [franchise, userSuccess, loading]);
@@ -196,7 +196,7 @@ const FrenchiesLogin = () => {
             >
               <div className="verify-otp-box">
                 <div className="admin-login-img">
-                  <img src="./images/customImg/nav-logo.png" alt="" />
+                  <img src="/images/customImg/nav-logo.png" alt="" />
                 </div>
 
                 <p> {frenHead} </p>
@@ -475,7 +475,7 @@ const FrenchiesLogin = () => {
                       ) : (
                         <div className="admin-login-form">
                           <div className="admin-login-img">
-                            <img src="./images/customImg/nav-logo.png" alt="" />
+                            <img src="/images/customImg/nav-logo.png" alt="" />
                           </div>
                           <div className="admin-login-form-mini-bx"></div>
 
@@ -585,7 +585,7 @@ const FrenchiesLogin = () => {
             }
           >
             <div className="admin-login-img">
-              <img src="./images/customImg/nav-logo.png" alt="" />
+              <img src="/images/customImg/nav-logo.png" alt="" />
             </div>
             <h6>Choose Your Plan</h6>
 
@@ -688,7 +688,7 @@ const FrenchiesLogin = () => {
 
           <div className="thank-u-box">
             <div className="thank-u-gif">
-              <img src="./images/customImg/happy.gif" alt="" />
+              <img src="/images/customImg/happy.gif" alt="" />
             </div>
 
             <p>

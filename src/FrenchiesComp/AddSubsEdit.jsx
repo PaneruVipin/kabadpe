@@ -8,6 +8,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx, refetch, values }) => {
   const formTitle = values
     ? "Update Subscription Plan"
     : "Add Subscription Plan";
+  const buttunText = values ? "Update Plan" : "Add Plan";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
     onclickCloseSubsPlanBx();
@@ -138,7 +139,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx, refetch, values }) => {
                     </div>
 
                     <button type="submit" className="add-work-area-btn">
-                      Add Plan
+                      {buttunText}
                     </button>
                   </Form>
                 )

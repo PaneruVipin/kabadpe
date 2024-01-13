@@ -10,8 +10,8 @@ const WasteCollector = () => {
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
   const [addressPopup, setAddressPopup] = useState(false);
-  const [addressBox , setAddressBox] =  useState(false);
-  const [pinText, setPinText] =  useState(false);
+  const [addressBox, setAddressBox] = useState(false);
+  const [pinText, setPinText] = useState(false);
 
   const toggleTab = (index) => {
     setToggleState(index);
@@ -181,7 +181,7 @@ const WasteCollector = () => {
           <section className="user-prof-main-bx">
             <div className="user-prf-main">
               <div className="user-img">
-                <img src="./images/customImg/user-prf-img.webp" alt="" />
+                <img src="/images/customImg/user-prf-img.webp" alt="" />
               </div>
               <div className="user-prf-info">
                 <h4>Tom Holland</h4>
@@ -732,22 +732,33 @@ const WasteCollector = () => {
                   <div className="location-id-fled-bx">
                     <p className="tex-line tex-line4">Location</p>
 
-                <div className={ pinText ===  true ? "id-field-main idfldactive" : "id-field-main"}>
-                    <div className="id-feld-bx">
-                      <div className="pin-code-inpt">
-                        <input
-                          type="text"
-                          id="pin"
-                          name="pin"
-                          placeholder="Pin code"
-                        />
+                    <div
+                      className={
+                        pinText === true
+                          ? "id-field-main idfldactive"
+                          : "id-field-main"
+                      }
+                    >
+                      <div className="id-feld-bx">
+                        <div className="pin-code-inpt">
+                          <input
+                            type="text"
+                            id="pin"
+                            name="pin"
+                            placeholder="Pin code"
+                          />
+                        </div>
+                        <button
+                          onClick={() => setPinText(!pinText)}
+                          className="pin-submit-btn"
+                        >
+                          Send request for approval
+                        </button>
                       </div>
-                      <button onClick={() => setPinText(!pinText)} className="pin-submit-btn">
-                        Send request for approval
-                      </button>
+                      <p>
+                        Your Request Has Been Sent, Status Will be Updated Soon
+                      </p>
                     </div>
-                    <p>Your Request Has Been Sent, Status Will be Updated Soon</p>
-                  </div>
                   </div>
 
                   <div className="table-parent-bx">
@@ -790,48 +801,52 @@ const WasteCollector = () => {
                   <div className="location-id-fled-bx">
                     <p className="tex-line mt-4 tex-line4">Current address</p>
 
-                    <button onClick={() => setAddressBox(!addressBox)} className="edit-btn">Edit</button>
+                    <button
+                      onClick={() => setAddressBox(!addressBox)}
+                      className="edit-btn"
+                    >
+                      Edit
+                    </button>
                   </div>
 
-                  <div className={ addressBox ===  true  ? "address-showhide-bx addrssbxactive" : "address-showhide-bx"}>
-                    
-                  <div className="address-info-bx">
+                  <div
+                    className={
+                      addressBox === true
+                        ? "address-showhide-bx addrssbxactive"
+                        : "address-showhide-bx"
+                    }
+                  >
+                    <div className="address-info-bx">
+                      <h6>
+                        Add:{" "}
+                        <span>65A, Street No 4, Kundan Nagar, Laxmi Nagar</span>
+                      </h6>
 
-                    <h6>Add: <span>65A, Street No 4, Kundan Nagar, Laxmi Nagar</span></h6>
-                    
-                    <h6>City : <span>Delhi</span></h6>
-                   
-                   <h6>State : <span>New Delhi</span></h6>
-                   <h6>Pin code : <span>110092</span></h6>
-                   <h6>Landmark : <span>Near Lovely Public School</span></h6>
+                      <h6>
+                        City : <span>Delhi</span>
+                      </h6>
 
-                  </div>
+                      <h6>
+                        State : <span>New Delhi</span>
+                      </h6>
+                      <h6>
+                        Pin code : <span>110092</span>
+                      </h6>
+                      <h6>
+                        Landmark : <span>Near Lovely Public School</span>
+                      </h6>
+                    </div>
 
-                  <div className="my-det-form-grid my-det-form-grid-showhide my-add-form-grid">
-                    <form className="prof-form" action="#">
-                      <div className="prof-form-grid prof-form-grid2">
-                        <div className="prof-intp-bx">
-                          <label htmlFor="address">Address</label>
-                          <div className="prof-inpt-fild">
-                            <input
-                              type="text"
-                              name="address"
-                              id="address"
-                              placeholder=""
-                              autoComplete="off"
-                              required
-                            />
-                          </div>
-                        </div>
-
-                        <div className="mini-inpt-three-grid-bx">
+                    <div className="my-det-form-grid my-det-form-grid-showhide my-add-form-grid">
+                      <form className="prof-form" action="#">
+                        <div className="prof-form-grid prof-form-grid2">
                           <div className="prof-intp-bx">
-                            <label htmlFor="city">City</label>
+                            <label htmlFor="address">Address</label>
                             <div className="prof-inpt-fild">
                               <input
                                 type="text"
-                                name="city"
-                                id="city"
+                                name="address"
+                                id="address"
                                 placeholder=""
                                 autoComplete="off"
                                 required
@@ -839,51 +854,66 @@ const WasteCollector = () => {
                             </div>
                           </div>
 
-                          <div className="prof-intp-bx">
-                            <label htmlFor="state">state</label>
-                            <div className="prof-inpt-fild">
-                              <input
-                                type="text"
-                                name="state"
-                                id="state"
-                                placeholder=""
-                                autoComplete="off"
-                                required
-                              />
+                          <div className="mini-inpt-three-grid-bx">
+                            <div className="prof-intp-bx">
+                              <label htmlFor="city">City</label>
+                              <div className="prof-inpt-fild">
+                                <input
+                                  type="text"
+                                  name="city"
+                                  id="city"
+                                  placeholder=""
+                                  autoComplete="off"
+                                  required
+                                />
+                              </div>
+                            </div>
+
+                            <div className="prof-intp-bx">
+                              <label htmlFor="state">state</label>
+                              <div className="prof-inpt-fild">
+                                <input
+                                  type="text"
+                                  name="state"
+                                  id="state"
+                                  placeholder=""
+                                  autoComplete="off"
+                                  required
+                                />
+                              </div>
+                            </div>
+
+                            <div className="prof-intp-bx">
+                              <label htmlFor="Pin">Pin</label>
+                              <div className="prof-inpt-fild">
+                                <input
+                                  type="text"
+                                  name="Pin"
+                                  id="Pin"
+                                  placeholder=""
+                                  autoComplete="off"
+                                  required
+                                />
+                              </div>
                             </div>
                           </div>
 
-                          <div className="prof-intp-bx">
-                            <label htmlFor="Pin">Pin</label>
-                            <div className="prof-inpt-fild">
-                              <input
-                                type="text"
-                                name="Pin"
-                                id="Pin"
-                                placeholder=""
-                                autoComplete="off"
-                                required
-                              />
+                          <div className="land-loca-fild-grid-bx">
+                            <div className="prof-intp-bx">
+                              <label htmlFor="landmark">Landmark</label>
+                              <div className="prof-inpt-fild">
+                                <input
+                                  type="text"
+                                  name="landmark"
+                                  id="landmark"
+                                  placeholder=""
+                                  autoComplete="off"
+                                  required
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </div>
 
-                        <div className="land-loca-fild-grid-bx">
-                          <div className="prof-intp-bx">
-                            <label htmlFor="landmark">Landmark</label>
-                            <div className="prof-inpt-fild">
-                              <input
-                                type="text"
-                                name="landmark"
-                                id="landmark"
-                                placeholder=""
-                                autoComplete="off"
-                                required
-                              />
-                            </div>
-                          </div>
-
-                          {/* <div className="prof-intp-bx prof-selct-bx">
+                            {/* <div className="prof-intp-bx prof-selct-bx">
                             <label htmlFor="landmark">Location Type</label>
                             <select name="location" id="location">
                               <option value="location">Choose</option>
@@ -891,20 +921,18 @@ const WasteCollector = () => {
                               <option value="location">Office</option>
                             </select>
                           </div> */}
+                          </div>
+
+                          <button
+                            type="submit"
+                            className="submit-btn address-btn"
+                          >
+                            Save
+                          </button>
                         </div>
-
-                        <button
-                          type="submit"
-                          className="submit-btn address-btn"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
                   </div>
-
-                  </div>
-
                 </div>
               </div>
 
@@ -936,10 +964,10 @@ const WasteCollector = () => {
                         <td>Wallet</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -952,10 +980,10 @@ const WasteCollector = () => {
                         <td>Cash</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -968,10 +996,10 @@ const WasteCollector = () => {
                         <td>Wallet</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -1006,10 +1034,10 @@ const WasteCollector = () => {
                         <td>8700/-</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -1021,10 +1049,10 @@ const WasteCollector = () => {
                         <td>659/-</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -1036,10 +1064,10 @@ const WasteCollector = () => {
                         <td>762/-</td>
                         <td>
                           <div className="td-flex">
-                          CSS08931{" "}
-                          <div className="inv-icon">
-                            <i className="fa-regular fa-circle-down"></i>
-                          </div>
+                            CSS08931{" "}
+                            <div className="inv-icon">
+                              <i className="fa-regular fa-circle-down"></i>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -1053,9 +1081,9 @@ const WasteCollector = () => {
                   toggleSate === 4
                     ? "offer-comp tab-bx table-parent-bx5 tabbxactive"
                     : "offer-comp tab-bx table-parent-bx5"
-                }>
-
-<div className="prof-table-main-bx prof-table-main-bx2 prof-table-main-bx7">
+                }
+              >
+                <div className="prof-table-main-bx prof-table-main-bx2 prof-table-main-bx7">
                   <table>
                     <thead>
                       <tr>
@@ -1066,7 +1094,6 @@ const WasteCollector = () => {
                         <th>Payment Mode</th>
                         <th>Status</th>
                         <th>Amount</th>
-
                       </tr>
                     </thead>
                     <tbody>
@@ -1098,17 +1125,14 @@ const WasteCollector = () => {
                         <td>Completed</td>
                         <td>1000</td>
                       </tr>
-                    
                     </tbody>
                   </table>
                 </div>
-               
               </div>
             </div>
           </div>
         </div>
       </section>
-      
     </>
   );
 };

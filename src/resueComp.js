@@ -1,4 +1,5 @@
-{/* <header className="main-header header-style-one">
+{
+  /* <header className="main-header header-style-one">
 
 
 <div className="header-top">
@@ -20,8 +21,8 @@
 
                                     <li>
                                         <div className="icon">
-                                            <img src="./images/customImg/game.png"/>
-                                            <img src="./images/customImg/app-store.png"/>
+                                            <img src="/images/customImg/game.png"/>
+                                            <img src="/images/customImg/app-store.png"/>
                                         </div>
                                         <div className="text">
                                             <p>Download App</p>
@@ -154,7 +155,7 @@
         <div className="clearfix">
             <div className="logo float-left">
                 <NavLink to="index.html" className="img-responsive">
-                    <img src="./images/resources/sticky-logo.png" alt="" />
+                    <img src="/images/resources/sticky-logo.png" alt="" />
                 </NavLink>
             </div>
             <div className="right-col float-right">
@@ -184,4 +185,5 @@
     </nav>
 </div>
 
-</header> */}
+</header> */
+}

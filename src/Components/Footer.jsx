@@ -14,7 +14,7 @@ const Footer = () => {
             <div className="left-mail-text-bx">
               <div className="mail-icon">
                 {/* <img src="/images/email.png" alt=""> */}
-                <img src="images/customImg/email.png" alt="" />
+                <img src="/images/customImg/email.png" alt="" />
               </div>
               <div className="mail-text">
                 <h6>Subscribe Now to Get Latest Updates</h6>
@@ -30,8 +30,8 @@ const Footer = () => {
                 placeholder="Email address"
               />
               <div className="tg-icon">
-                {/* <img src="images/customImg/telegram.png" alt=""> */}
-                <img src="images/customImg/telegram.png" alt="" />
+                {/* <img src="/images/customImg/telegram.png" alt=""> */}
+                <img src="/images/customImg/telegram.png" alt="" />
               </div>
             </div>
           </div>

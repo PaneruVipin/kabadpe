@@ -5,7 +5,7 @@ import {
 } from "../apis/franchise/plans";
 import { useQuery } from "@tanstack/react-query";
 
-const SelectArea = ({ onclickClose }) => {
+const SelectArea = ({ selectedArias, setSelectedArias, onclickClose }) => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [pincodes, setPincodes] = useState([]);
@@ -17,12 +17,10 @@ const SelectArea = ({ onclickClose }) => {
     pincode: "",
     aria: "",
   });
-  const [selectAria, setSelectedAria] = useState([]);
   const { data: ariasSubs, refetch } = useQuery({
     queryKey: ["subscripionArias"],
     queryFn: () => franchiseAriasFetch(),
   });
-  console.log("ariasubs", ariasSubs);
   const getStates = (res) =>
     [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
       id: i,
@@ -66,8 +64,112 @@ const SelectArea = ({ onclickClose }) => {
   };
   const handeleSelection = (key, name) => {
     return (e) => {
-        
+      switch (key) {
+        case "state": {
+          const cities = getCities(name, ariasSubs);
+          setCities(cities);
+          const pincodes = getPincodes(name, cities?.[0]?.name, ariasSubs);
+          setPincodes(pincodes);
+          const arias = getArias(
+            name,
+            cities?.[0]?.name,
+            pincodes?.[0]?.name,
+            ariasSubs
+          );
+          setArias(arias);
+          const subArias = getSubArias(
+            name,
+            cities?.[0]?.name,
+            pincodes?.[0]?.name,
+            arias?.[0]?.name,
+            ariasSubs
+          );
+          setSubArias(subArias);
+          setSelection({
+            state: name,
+            city: cities?.[0]?.name,
+            pincode: pincodes?.[0]?.name,
+            aria: arias?.[0]?.name,
+          });
+          break;
+        }
+        case "city": {
+          const pincodes = getPincodes(selection.state, name, ariasSubs);
+          setPincodes(pincodes);
+          const arias = getArias(
+            selection.state,
+            name,
+            pincodes?.[0]?.name,
+            ariasSubs
+          );
+          setArias(arias);
+          const subArias = getSubArias(
+            selection.state,
+            name,
+            pincodes?.[0]?.name,
+            arias?.[0].name,
+            ariasSubs
+          );
+          setSubArias(subArias);
+          setSelection((prev) => ({
+            ...prev,
+            city: name,
+            pincode: pincodes?.[0]?.name,
+            aria: arias?.[0].name,
+          }));
+          break;
+        }
+        case "pincode": {
+          const arias = getArias(
+            selection.state,
+            selection.city,
+            name,
+            ariasSubs
+          );
+          setArias(arias);
+          const subArias = getSubArias(
+            selection.state,
+            selection.city,
+            name,
+            arias?.[0].name,
+            ariasSubs
+          );
+          setSubArias(subArias);
+          setSelection((prev) => ({
+            ...prev,
+            pincode: name,
+            aria: arias?.[0].name,
+          }));
+          break;
+        }
+        case "aria": {
+          const subArias = getSubArias(
+            selection.state,
+            selection.city,
+            selection.pincode,
+            name,
+            ariasSubs
+          );
+          setSubArias(subArias);
+          setSelection((prev) => ({
+            ...prev,
+            aria: name,
+          }));
+          break;
+        }
+      }
     };
+  };
+
+  const handleAddThisAria = (aria) => {
+    return () => {
+      setSelectedArias([...selectedArias, aria]);
+    };
+  };
+
+  const handleRemoveAria = (id) => () => {
+    const newArias = selectedArias.filter((s) => s?.id !== id);
+    setSelectedArias(newArias);
   };
 
   useEffect(() => {
@@ -134,7 +236,7 @@ const SelectArea = ({ onclickClose }) => {
               <div className="area-list">
                 {states.map(({ name, id }) => (
                   <li
-                    onClick={handeleSelection}
+                    onClick={handeleSelection("state", name)}
                     className={`${name == selection.state ? "areaactive" : ""}`}
                   >
                     <span>{name} </span>
@@ -149,6 +251,7 @@ const SelectArea = ({ onclickClose }) => {
               <div className="area-list">
                 {cities?.map(({ name, id }) => (
                   <li
+                    onClick={handeleSelection("city", name)}
                     className={`${name == selection.city ? "areaactive" : ""}`}
                   >
                     {" "}
@@ -164,6 +267,7 @@ const SelectArea = ({ onclickClose }) => {
               <div className="area-list">
                 {pincodes?.map(({ name, id }) => (
                   <li
+                    onClick={handeleSelection("pincode", name)}
                     className={`${
                       name == selection.pincode ? "areaactive" : ""
                     }`}
@@ -181,6 +285,7 @@ const SelectArea = ({ onclickClose }) => {
               <div className="area-list">
                 {arias.map(({ name, id }) => (
                   <li
+                    onClick={handeleSelection("aria", name)}
                     className={`${name == selection.aria ? "areaactive" : ""}`}
                   >
                     {" "}
@@ -219,7 +324,26 @@ const SelectArea = ({ onclickClose }) => {
                             Quaterly Price : <span>₹{quaterlyPrice}</span>{" "}
                           </p>
                         </div>
-                        <button className="add-area-btn">Add this area</button>
+                        {!selectedArias.some((s) => s?.id == id) ? (
+                          <button
+                            onClick={handleAddThisAria({
+                              ariaName,
+                              ariaStatus,
+                              city,
+                              id,
+                              monthlyPrice,
+                              pincode,
+                              quaterlyPrice,
+                              state,
+                              subAriaName,
+                            })}
+                            className="add-area-btn "
+                          >
+                            Add this area
+                          </button>
+                        ) : (
+                          <p>Added</p>
+                        )}
                       </div>
                     </li>
                   )
@@ -229,11 +353,29 @@ const SelectArea = ({ onclickClose }) => {
           </div>
 
           <div className="sub-area-show-list-flex-bx">
-            <div className="area-show-bx">
-              <span>
-                Raj Nagar <i class="fa-solid fa-circle-xmark"></i>
-              </span>
-            </div>
+            {selectedArias?.map(
+              ({
+                ariaName,
+                ariaStatus,
+                city,
+                id,
+                monthlyPrice,
+                pincode,
+                quaterlyPrice,
+                state,
+                subAriaName,
+              }) => (
+                <div className="area-show-bx">
+                  <span>
+                    {subAriaName}{" "}
+                    <i
+                      onClick={handleRemoveAria(id)}
+                      class="fa-solid fa-circle-xmark"
+                    ></i>
+                  </span>
+                </div>
+              )
+            )}
           </div>
 
           <div onClick={onclickClose} className="close-btn">

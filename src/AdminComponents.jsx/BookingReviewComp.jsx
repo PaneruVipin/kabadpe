@@ -4,7 +4,7 @@ const BookingReviewComp = () => {
   const custRev = [
     {
       id: 1,
-      img: "./images/customImg/c-1.jpg",
+      img: "/images/customImg/c-1.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -13,7 +13,7 @@ const BookingReviewComp = () => {
 
     {
       id: 2,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -22,7 +22,7 @@ const BookingReviewComp = () => {
 
     {
       id: 3,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -31,7 +31,7 @@ const BookingReviewComp = () => {
 
     {
       id: 4,
-      img: "./images/customImg/c-3.jpg",
+      img: "/images/customImg/c-3.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -40,7 +40,7 @@ const BookingReviewComp = () => {
 
     {
       id: 1,
-      img: "./images/customImg/c-1.jpg",
+      img: "/images/customImg/c-1.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -49,7 +49,7 @@ const BookingReviewComp = () => {
 
     {
       id: 2,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -58,7 +58,7 @@ const BookingReviewComp = () => {
 
     {
       id: 3,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -67,7 +67,7 @@ const BookingReviewComp = () => {
 
     {
       id: 4,
-      img: "./images/customImg/c-3.jpg",
+      img: "/images/customImg/c-3.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -76,7 +76,7 @@ const BookingReviewComp = () => {
 
     {
       id: 2,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -85,7 +85,7 @@ const BookingReviewComp = () => {
 
     {
       id: 3,
-      img: "./images/customImg/c-2.jpg",
+      img: "/images/customImg/c-2.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -94,7 +94,7 @@ const BookingReviewComp = () => {
 
     {
       id: 4,
-      img: "./images/customImg/c-3.jpg",
+      img: "/images/customImg/c-3.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",
@@ -103,7 +103,7 @@ const BookingReviewComp = () => {
 
     {
       id: 1,
-      img: "./images/customImg/c-1.jpg",
+      img: "/images/customImg/c-1.jpg",
       name: "Ali Muzair",
       postDate: "Posted on 26/04/2020, 12:42 AM",
       para: "I have been there many times.Rooms ,Food and Service are excellent.we did lots of Excursions and all the places are from the Hotel reachable. we visited Long Waterfall and was very helpful and excellent",

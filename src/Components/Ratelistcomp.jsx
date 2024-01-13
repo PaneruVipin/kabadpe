@@ -185,7 +185,7 @@ const Ratelistcomp = () => {
                                   <div key={id} className="p-bx">
                                     <div className="left-prod-i">
                                       <img
-                                        src="./images/customImg/magazine.png"
+                                        src="/images/customImg/magazine.png"
                                         alt=""
                                       />
                                       <h5>{categoryName}</h5>

@@ -40,69 +40,71 @@ const Addsubscription = () => {
               </tr>
             </thead>
             <tbody>
-              {subscription?.map(
-                (
-                  {
-                    planeName,
-                    collectorCount,
-                    monthlyPrice,
-                    quaterlyPrice,
-                    id,
-                  },
-                  i
-                ) => {
-                  return (
-                    <>
-                      <tr key={i}>
-                        <td>
-                          <span> {i + 1} </span>
-                        </td>
-                        <td>
-                          <span> {planeName} </span>
-                        </td>
-                        <td>
-                          <span> {collectorCount} </span>
-                        </td>
-                        <td>
-                          <span> ₹{monthlyPrice} </span>
-                        </td>
-                        <td>
-                          <span> ₹{quaterlyPrice} </span>
-                        </td>
-                        <td>
-                          <div className="edit-remv-btns">
-                            <button
-                              onClick={() => {
-                                setInitialUpdateValues({
-                                  planeName,
-                                  collectorCount,
-                                  monthlyPrice,
-                                  quaterlyPrice,
-                                  id,
-                                });
-                                setSubsPlanBx(true);
-                              }}
-                              className="add-wrok-actn-btn"
-                            >
-                              <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+              {!subscription?.error && subscription
+                ? subscription?.map(
+                    (
+                      {
+                        planeName,
+                        collectorCount,
+                        monthlyPrice,
+                        quaterlyPrice,
+                        id,
+                      },
+                      i
+                    ) => {
+                      return (
+                        <>
+                          <tr key={i}>
+                            <td>
+                              <span> {i + 1} </span>
+                            </td>
+                            <td>
+                              <span> {planeName} </span>
+                            </td>
+                            <td>
+                              <span> {collectorCount} </span>
+                            </td>
+                            <td>
+                              <span> ₹{monthlyPrice} </span>
+                            </td>
+                            <td>
+                              <span> ₹{quaterlyPrice} </span>
+                            </td>
+                            <td>
+                              <div className="edit-remv-btns">
+                                <button
+                                  onClick={() => {
+                                    setInitialUpdateValues({
+                                      planeName,
+                                      collectorCount,
+                                      monthlyPrice,
+                                      quaterlyPrice,
+                                      id,
+                                    });
+                                    setSubsPlanBx(true);
+                                  }}
+                                  className="add-wrok-actn-btn"
+                                >
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
 
-                            <button
-                              onClick={async () => {
-                                await adminSubsDelete(id);
-                                refetch();
-                              }}
-                              className="add-wrok-actn-btn"
-                            >
-                              <i class="fa-solid fa-trash"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                }
-              )}
+                                <button
+                                  onClick={async () => {
+                                    await adminSubsDelete(id);
+                                    refetch();
+                                  }}
+                                  className="add-wrok-actn-btn"
+                                >
+                                  <i class="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>

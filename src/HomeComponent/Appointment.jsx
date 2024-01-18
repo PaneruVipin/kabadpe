@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import timeslotdata from "./timeslotData";
 import AddAddressList from "./AddAddressList";
 import ServApntData from "./ServApnt";
+import { Form, Formik } from "formik";
+import { validationSchedulePickup } from "../validators/kabadPeUser/schedule";
+import { useSelector } from "react-redux";
 
 const Appointment = () => {
-  // '8:00 am - 10:00 am',
-  //  '10:00 am - 12:00 pm' ,
-  //  '12:00 pm - 2:00 pm' , '2:00 pm - 4:00 pm' , '4:00 pm - 6:00 pm' , '6:00 pm - 8:00 pm' ,
-
+  const { success, userInfo, loading } = useSelector((s) => s.user);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [timeSlots, setTimeSlots] = useState(timeslotdata); // Empty array by default, to be filled when date is selected
+  const [timeSlots, setTimeSlots] = useState(timeslotdata);
   const [addAddress, setAddAddress] = useState(false);
   const [itemPrice, setItemPrice] = useState(null);
   const [apntData, setApntData] = useState(ServApntData);
   const [bookApnt, setBookApnt] = useState(false);
   const [compName, setCompName] = useState(null);
+  const [selectedAddress, setSelectedAddress] = useState({});
+  const [initialFormValues, setInitialFormValues] = useState(null);
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setShowCalendar(true); // Show time slots only when a date is selected
-    // Fetch or set time slots based on the selected date
-    // setTimeSlots(fetchTimeSlots(date)); // Fetch time slots based on the selected date
-    // Placeholder for time slots
+    setShowCalendar(true);
   };
 
   const handleTimeSelection = (time) => {
@@ -32,9 +31,7 @@ const Appointment = () => {
   };
 
   const handleBookNow = () => {
-    // Perform actions when "Book Now" is clicked using selectedDate and selectedTime
     setShowCalendar(false);
-    // Additional logic using selectedDate and selectedTime
   };
 
   const handlebutton = (getvalue) => {
@@ -45,6 +42,19 @@ const Appointment = () => {
     setCompName(valueName);
   };
 
+  const handleSubmit = (data) => {
+    console.log("data is the,, ", data);
+  };
+  useEffect(() => {
+    setInitialFormValues({});
+    if (userInfo) {
+      setInitialFormValues((prev) => ({
+        ...prev,
+        appointmentContactNumber: userInfo?.phoneNumber,
+        appointmentPersonName: userInfo?.fullname,
+      }));
+    }
+  }, [userInfo]);
   return (
     <>
       <section className="schedule-apnt-comp">
@@ -56,113 +66,192 @@ const Appointment = () => {
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
-              <div className="apnt-slot-form-bx">
-                <div className="form-grid">
-                  <div className="apnt-inpt-bx">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      placeholder="Your Name"
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
+              {initialFormValues ? (
+                <Formik
+                  initialValues={initialFormValues}
+                  onSubmit={handleSubmit}
+                  validationSchema={validationSchedulePickup}
+                >
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form className="apnt-slot-form-bx">
+                        <div className="form-grid">
+                          <div className="apnt-inpt-bx">
+                            <input
+                              type="text"
+                              name="appointmentPersonName"
+                              id="name"
+                              placeholder="Your Name"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.appointmentPersonName}
+                            />
+                            {errors?.appointmentPersonName &&
+                            touched?.appointmentPersonName ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.appointmentPersonName}
+                              </div>
+                            ) : null}
+                          </div>
 
-                  <div className="apnt-inpt-bx">
-                    <input
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      placeholder="Mobile No."
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* <div className="apnt-inpt-bx apnt-inpt-bx-a mb-4">
-            <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      placeholder="Address"
-                      autoComplete="off"
-                      required
-                    />
-            </div> */}
-
-                <div className="add-address-main-bx">
-                  <button
-                    onClick={() => setAddAddress(true)}
-                    className="apnt-form-submit-btn add-adres-btn"
-                  >
-                    Add Address
-                    <i class="fa-solid fa-location-dot"></i>
-                  </button>
-
-                  <div className="default-add-bx apnt-inpt-bx apnt-inpt-bx-text">
-                    <p>4929 c/10 kanti nagar old seelumpur delhi-110031 </p>
-                  </div>
-                </div>
-
-                <div className="form-grid form-grid3">
-                  <div className="apnt-inpt-bx apnt-inpt-bx-s">
-                    <select name="service" id="service">
-                      <option value="service">Select Your Service</option>
-                      <option value="service">Waste Collector</option>
-                      <option value="service">Cleaner</option>
-                      <option value="service">Gardner</option>
-                      <option value="service">Swiper</option>
-                    </select>
-                  </div>
-
-                  <div className="apnt-inpt-bx apnt-inpt-bx-s">
-                    <select name="service" id="service">
-                      <option value="service">Choose Weight</option>
-                      <option value="service">Don't Know</option>
-                      <option value="service">Less than 200 Kg</option>
-                      <option value="service">More than 200 Kg</option>
-                    </select>
-                  </div>
-
-                  <div className="apnt-inpt-bx apnt-inpt-bx-s">
-                    <select name="service" id="service">
-                      <option value="service">Select Frequency</option>
-                      <option value="service">Once</option>
-                      <option value="service">Weekly</option>
-                      <option value="service">Monthly</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-grid ">
-                  <div
-                    className="apnt-inpt-bx apnt-inpt-bx2"
-                    onClick={() => setShowCalendar(true)}
-                  >
-                    <div>
-                      {" "}
-                      {selectedDate && selectedTime ? (
-                        <div>
-                          {" "}
-                          <span>{compName}</span>{" "}
-                          <span>
-                            {" "}
-                            {selectedDate.toDateString()} , {selectedTime}{" "}
-                          </span>{" "}
+                          <div className="apnt-inpt-bx">
+                            <input
+                              type="number"
+                              name="appointmentContactNumber"
+                              id="phone"
+                              placeholder="Mobile No."
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.appointmentContactNumber}
+                            />
+                            {errors?.appointmentContactNumber &&
+                            touched?.appointmentContactNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.appointmentContactNumber}
+                              </div>
+                            ) : null}
+                          </div>
                         </div>
-                      ) : (
-                        <span> Select Your Date and Time </span>
-                      )}{" "}
-                    </div>
-                  </div>
 
-                  <button className="apnt-form-submit-btn">
-                    Submit Request
-                  </button>
-                </div>
-              </div>
+                        <div className="add-address-main-bx">
+                          <button
+                            type="button"
+                            onClick={() => setAddAddress(true)}
+                            className="apnt-form-submit-btn add-adres-btn"
+                          >
+                            Add Address
+                            <i class="fa-solid fa-location-dot"></i>
+                          </button>
+
+                          <div className="default-add-bx apnt-inpt-bx apnt-inpt-bx-text">
+                            {selectedAddress?.street ? (
+                              <p>{`${selectedAddress?.street} ${selectedAddress?.subAria} ${selectedAddress?.aria} ${selectedAddress?.city} ${selectedAddress?.zipCode}`}</p>
+                            ) : (
+                              <p></p>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="form-grid form-grid3">
+                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                            <select
+                              name="serviceType"
+                              id="service"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.serviceType}
+                            >
+                              <option value="" hidden>
+                                Select Your Service
+                              </option>
+                              <option value="kabadi">Waste Collector</option>
+                              <option value="cleaner">Cleaner</option>
+                              <option value="gardner">Gardner</option>
+                              <option value="swiper">Swiper</option>
+                            </select>
+                            {errors?.serviceType && touched?.serviceType ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.serviceType}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                            <select
+                              name="estimateWeight"
+                              id="service"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.estimateWeight}
+                            >
+                              <option value="" hidden>
+                                Choose Weight
+                              </option>
+                              <option value="unweighed">Don't Know</option>
+                              <option value="lightweight">
+                                Less than 200 Kg
+                              </option>
+                              <option value="heavyweight">
+                                More than 200 Kg
+                              </option>
+                            </select>
+                            {errors?.estimateWeight &&
+                            touched?.estimateWeight ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.estimateWeight}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                            <select
+                              name="frequency"
+                              id="service"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.frequency}
+                            >
+                              <option value="" hidden>
+                                Select Frequency
+                              </option>
+                              <option value="once">Once</option>
+                              <option value="weekly">Weekly</option>
+                              <option value="monthly">Monthly</option>
+                            </select>
+                            {errors?.frequency && touched?.frequency ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.frequency}
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+
+                        <div className="form-grid ">
+                          <div
+                            className="apnt-inpt-bx apnt-inpt-bx2"
+                            onClick={() => setShowCalendar(true)}
+                          >
+                            <div>
+                              {" "}
+                              {selectedDate && selectedTime ? (
+                                <div>
+                                  {" "}
+                                  <span>{compName}</span>{" "}
+                                  <span>
+                                    {" "}
+                                    {selectedDate.toDateString()} ,{" "}
+                                    {selectedTime}{" "}
+                                  </span>{" "}
+                                </div>
+                              ) : (
+                                <span> Select Your Date and Time </span>
+                              )}{" "}
+                            </div>
+                          </div>
+
+                          <button
+                            type="submit"
+                            className="apnt-form-submit-btn"
+                          >
+                            Submit Request
+                          </button>
+                        </div>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+              ) : null}
             </div>
 
             <div className="main-video-bx">
@@ -177,7 +266,11 @@ const Appointment = () => {
       </section>
 
       {addAddress ? (
-        <AddAddressList onclickClose={() => setAddAddress(false)} />
+        <AddAddressList
+          selectedAddress={selectedAddress}
+          setSelectedAddress={setSelectedAddress}
+          onclickClose={() => setAddAddress(false)}
+        />
       ) : null}
 
       {showCalendar && (

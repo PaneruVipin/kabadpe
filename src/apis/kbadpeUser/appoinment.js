@@ -50,3 +50,14 @@ export const userAddReview = resolvePromise(
     return res?.message;
   }
 );
+
+export const userServicableAriasFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/user/kabadPe/servicablearias`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.arias;
+});

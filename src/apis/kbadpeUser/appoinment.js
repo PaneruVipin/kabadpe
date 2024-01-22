@@ -61,3 +61,20 @@ export const userServicableAriasFetch = resolvePromise(async () => {
   });
   return res?.arias;
 });
+
+export const validateServicability = resolvePromise(
+  async ({ state, pincode, ariaName, subAriaName }) => {
+    const apiUrl = ENV_API_BASE_URL + `/user/kabadPe/servicablearias`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.post(
+      apiUrl,
+      { state, pincode, ariaName, subAriaName },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.arias;
+  }
+);

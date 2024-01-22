@@ -20,6 +20,7 @@ const Appointment = () => {
   const [bookApnt, setBookApnt] = useState(false);
   const [compName, setCompName] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState({});
+  const [selectAddesQuery, setSelectAddesQuery] = useState("");
   const [initialFormValues, setInitialFormValues] = useState(null);
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -55,6 +56,12 @@ const Appointment = () => {
       }));
     }
   }, [userInfo]);
+  useEffect(() => {
+    const addres = selectedAddress?.street
+      ? `${selectedAddress?.street} ${selectedAddress?.subAria} ${selectedAddress?.aria} ${selectedAddress?.city} ${selectedAddress?.zipCode}`
+      : null;
+    setSelectAddesQuery(addres);
+  }, [selectedAddress]);
   return (
     <>
       <section className="schedule-apnt-comp">
@@ -135,11 +142,7 @@ const Appointment = () => {
                           </button>
 
                           <div className="default-add-bx apnt-inpt-bx apnt-inpt-bx-text">
-                            {selectedAddress?.street ? (
-                              <p>{`${selectedAddress?.street} ${selectedAddress?.subAria} ${selectedAddress?.aria} ${selectedAddress?.city} ${selectedAddress?.zipCode}`}</p>
-                            ) : (
-                              <p></p>
-                            )}
+                            <p>{selectAddesQuery}</p>
                           </div>
                         </div>
 

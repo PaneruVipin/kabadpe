@@ -62,9 +62,9 @@ export const userServicableAriasFetch = resolvePromise(async () => {
   return res?.arias;
 });
 
-export const validateServicability = resolvePromise(
+export const userValidateServicability = resolvePromise(
   async ({ state, pincode, ariaName, subAriaName }) => {
-    const apiUrl = ENV_API_BASE_URL + `/user/kabadPe/servicablearias`;
+    const apiUrl = ENV_API_BASE_URL + `/user/service/validation`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
@@ -75,6 +75,36 @@ export const validateServicability = resolvePromise(
         },
       }
     );
-    return res?.arias;
+    return res?.servicableAria;
+  }
+);
+
+export const userFetchAvailableCompanies = resolvePromise(
+  async ({ ariaId, date }) => {
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/user/service/availablecompanies/${ariaId}?date=${date}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.availableCompanies;
+  }
+);
+
+export const userFetchAvailableSlots = resolvePromise(
+  async ({ franchiseId, date }) => {
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/user/service/slotavailable/${franchiseId}?date=${date}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.availableSlots;
   }
 );

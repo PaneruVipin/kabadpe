@@ -7,21 +7,29 @@ import ServApntData from "./ServApnt";
 import { Form, Formik } from "formik";
 import { validationSchedulePickup } from "../validators/kabadPeUser/schedule";
 import { useSelector } from "react-redux";
+import {
+  userFetchAvailableCompanies,
+  userFetchAvailableSlots,
+  userValidateServicability,
+} from "../apis/kbadpeUser/appoinment";
+import { useQuery } from "@tanstack/react-query";
 
 const Appointment = () => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [timeSlots, setTimeSlots] = useState(timeslotdata);
   const [addAddress, setAddAddress] = useState(false);
   const [itemPrice, setItemPrice] = useState(null);
-  const [apntData, setApntData] = useState(ServApntData);
   const [bookApnt, setBookApnt] = useState(false);
   const [compName, setCompName] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [selectAddesQuery, setSelectAddesQuery] = useState("");
   const [initialFormValues, setInitialFormValues] = useState(null);
+  const [addressError, setAddressError] = useState("");
+  const [servicableAriaId, setServicableAriaId] = useState();
+  const [selectedCompany, setSelectedCompany] = useState();
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowCalendar(true);
@@ -46,6 +54,35 @@ const Appointment = () => {
   const handleSubmit = (data) => {
     console.log("data is the,, ", data);
   };
+  const slotLabels = {
+    slot1: "8:00 am - 10:00 am",
+    slot2: "10:00 am - 12:00 pm",
+    slot3: "12:00 pm - 2:00 pm",
+    slot4: "2:00 pm - 4:00 pm",
+    slot5: "4:00 pm - 6:00 pm",
+    slot6: "6:00 pm - 8:00 pm",
+  };
+  const { data: availableCompanies, refetch } = useQuery({
+    queryKey: ["userAvailableCompanies"],
+    queryFn: () =>
+      userFetchAvailableCompanies({
+        ariaId: servicableAriaId,
+        date: selectedDate
+          ? selectedDate.toISOString()
+          : new Date().toISOString(),
+      }),
+  });
+  const { data: timeSlots, refetch: refetchSlot } = useQuery({
+    queryKey: ["userAvailableSlot"],
+    queryFn: () =>
+      userFetchAvailableSlots({
+        franchiseId: selectedCompany?.id,
+        date: selectedDate
+          ? selectedDate.toISOString()
+          : new Date().toISOString(),
+      }),
+  });
+
   useEffect(() => {
     setInitialFormValues({});
     if (userInfo) {
@@ -61,7 +98,32 @@ const Appointment = () => {
       ? `${selectedAddress?.street} ${selectedAddress?.subAria} ${selectedAddress?.aria} ${selectedAddress?.city} ${selectedAddress?.zipCode}`
       : null;
     setSelectAddesQuery(addres);
+    if (selectedAddress?.street) {
+      (async () => {
+        const servicableAria = await userValidateServicability({
+          ...selectedAddress,
+          pincode: selectedAddress?.zipCode,
+          ariaName: selectedAddress?.aria,
+          subAriaName: selectedAddress?.subAria,
+        });
+        if (servicableAria?.error) {
+          setServicableAriaId("");
+          setAddressError(servicableAria?.message);
+        } else {
+          setServicableAriaId(servicableAria?.id);
+          setAddressError("");
+        }
+      })();
+    }
   }, [selectedAddress]);
+
+  useEffect(() => {
+    refetch();
+  }, [servicableAriaId, selectedDate]);
+
+  useEffect(() => {
+    refetchSlot();
+  }, [selectedCompany]);
   return (
     <>
       <section className="schedule-apnt-comp">
@@ -145,6 +207,9 @@ const Appointment = () => {
                             <p>{selectAddesQuery}</p>
                           </div>
                         </div>
+                        {addressError ? (
+                          <div style={{ color: "red" }}>{addressError}</div>
+                        ) : null}
 
                         <div className="form-grid form-grid3">
                           <div className="apnt-inpt-bx apnt-inpt-bx-s">
@@ -221,27 +286,31 @@ const Appointment = () => {
                         </div>
 
                         <div className="form-grid ">
-                          <div
-                            className="apnt-inpt-bx apnt-inpt-bx2"
-                            onClick={() => setShowCalendar(true)}
-                          >
-                            <div>
-                              {" "}
-                              {selectedDate && selectedTime ? (
-                                <div>
-                                  {" "}
-                                  <span>{compName}</span>{" "}
-                                  <span>
+                          {selectAddesQuery && !addressError ? (
+                            <div
+                              className="apnt-inpt-bx apnt-inpt-bx2"
+                              onClick={() => setShowCalendar(true)}
+                            >
+                              <div>
+                                {" "}
+                                {selectedDate && selectedTime ? (
+                                  <div>
                                     {" "}
-                                    {selectedDate.toDateString()} ,{" "}
-                                    {selectedTime}{" "}
-                                  </span>{" "}
-                                </div>
-                              ) : (
-                                <span> Select Your Date and Time </span>
-                              )}{" "}
+                                    <span>{compName}</span>{" "}
+                                    <span>
+                                      {" "}
+                                      {selectedDate.toDateString()} ,{" "}
+                                      {selectedTime}{" "}
+                                    </span>{" "}
+                                  </div>
+                                ) : (
+                                  <span> Select Your Date and Time </span>
+                                )}{" "}
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            <p></p>
+                          )}
 
                           <button
                             type="submit"
@@ -296,162 +365,328 @@ const Appointment = () => {
                   <span> {selectedDate.toDateString()} </span>
                 </h3>
                 <div className="avalbe-cmpnies-main-bx">
-                  {ServApntData.map((curelem, id) => {
-                    return (
-                      <>
-                        <div key={id} className="avalbe-cmpnies-bx">
-                          <div className="avalbe-cmpnies-flex">
-                            <div className="left-cmpnies-bx">
-                              <div className="cmpnies-logo">
-                                <img src={curelem.img} alt="" />
-                              </div>
-
-                              <div className="cmpnies-info">
-                                <h6> {curelem.name} </h6>
-
-                                <div className="waste-prodts-flex">
-                                  <div className="w-prodts-bx">
-                                    <h6> {curelem.wasteProdtext} </h6>
-                                    <span>{curelem.wasteProd}</span>
-                                  </div>
-
-                                  <div className="w-prodts-bx">
-                                    <h6>{curelem.wasteProdtexttwo}</h6>
-                                    <span>{curelem.wasteProdtwo}</span>
-                                  </div>
-
-                                  <div className="w-prodts-bx">
-                                    <h6>{curelem.wasteProdtextthree}</h6>
-                                    <span> {curelem.wasteProdthree} </span>
-                                  </div>
-                                </div>
-
-                                <div className="rating-flex-bx">
-                                  <div className="stars">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                  </div>
-
-                                  <span> More products</span>
-
-                                  <div
-                                    onClick={() => handlebutton(curelem.id)}
-                                    className={
-                                      itemPrice
-                                        ? "round-arrow : arrowactive"
-                                        : "round-arrow"
-                                    }
-                                  >
-                                    <i class="fa-solid fa-angle-down"></i>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            <button
-                              onClick={() => {
-                                setBookApnt(true), handleCompName(curelem.name);
-                              }}
-                              className="Select-apnt"
-                            >
-                              Select
-                            </button>
-                          </div>
-
-                          {itemPrice === curelem.id && (
-                            <div className="item-price-grid-main-bx">
-                              <div className="all-user-table item-price-box">
-                                <table>
-                                  <thead>
-                                    <tr>
-                                      <th>Item</th>
-                                      <th>Price</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>Iron</td>
-                                      <td>₹60.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Plastic</td>
-                                      <td>₹60.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Aluminium</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Copper</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Magazine</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Wheel</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-
-                              <div className="all-user-table item-price-box">
-                                <table>
-                                  <thead>
-                                    <tr>
-                                      <th>Item</th>
-                                      <th>Price</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>Iron</td>
-                                      <td>₹60.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Plastic</td>
-                                      <td>₹60.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Aluminium</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Copper</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Magazine</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-
-                                    <tr>
-                                      <td>Wheel</td>
-                                      <td>₹70.00</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          )}
+                  <div className="avalbe-cmpnies-bx">
+                    <div className="avalbe-cmpnies-flex">
+                      <div className="left-cmpnies-bx">
+                        <div className="cmpnies-logo">
+                          <img src={""} alt="" />
                         </div>
-                      </>
-                    );
-                  })}
+
+                        <div className="cmpnies-info">
+                          <h6> KabadPe </h6>
+
+                          {/* <div className="waste-prodts-flex">
+                                    <div className="w-prodts-bx">
+                                      <h6> {curelem.wasteProdtext} </h6>
+                                      <span>{curelem.wasteProd}</span>
+                                    </div>
+
+                                    <div className="w-prodts-bx">
+                                      <h6>{curelem.wasteProdtexttwo}</h6>
+                                      <span>{curelem.wasteProdtwo}</span>
+                                    </div>
+
+                                    <div className="w-prodts-bx">
+                                      <h6>{curelem.wasteProdtextthree}</h6>
+                                      <span> {curelem.wasteProdthree} </span>
+                                    </div>
+                                  </div>
+
+                                  <div className="rating-flex-bx">
+                                    <div className="stars">
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-regular fa-star"></i>
+                                    </div>
+
+                                    <span> More products</span>
+
+                                    <div
+                                      onClick={() => handlebutton(curelem.id)}
+                                      className={
+                                        itemPrice
+                                          ? "round-arrow : arrowactive"
+                                          : "round-arrow"
+                                      }
+                                    >
+                                      <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                  </div> */}
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          setBookApnt(true);
+                          setSelectedCompany({
+                            companyName: "kabadPe",
+                          });
+                        }}
+                        className="Select-apnt"
+                      >
+                        Select
+                      </button>
+                    </div>
+
+                    {/* {itemPrice === curelem.id && (
+                              <div className="item-price-grid-main-bx">
+                                <div className="all-user-table item-price-box">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Iron</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Plastic</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Aluminium</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Copper</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Magazine</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Wheel</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                                <div className="all-user-table item-price-box">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Iron</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Plastic</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Aluminium</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Copper</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Magazine</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Wheel</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            )} */}
+                  </div>
+                  {!availableCompanies?.error
+                    ? availableCompanies.map(
+                        (
+                          { Franchise: { companyName, franchiseAddress, id } },
+                          i
+                        ) => {
+                          return (
+                            <>
+                              <div key={i} className="avalbe-cmpnies-bx">
+                                <div className="avalbe-cmpnies-flex">
+                                  <div className="left-cmpnies-bx">
+                                    <div className="cmpnies-logo">
+                                      <img src={""} alt="" />
+                                    </div>
+
+                                    <div className="cmpnies-info">
+                                      <h6> {companyName} </h6>
+
+                                      {/* <div className="waste-prodts-flex">
+                                    <div className="w-prodts-bx">
+                                      <h6> {curelem.wasteProdtext} </h6>
+                                      <span>{curelem.wasteProd}</span>
+                                    </div>
+
+                                    <div className="w-prodts-bx">
+                                      <h6>{curelem.wasteProdtexttwo}</h6>
+                                      <span>{curelem.wasteProdtwo}</span>
+                                    </div>
+
+                                    <div className="w-prodts-bx">
+                                      <h6>{curelem.wasteProdtextthree}</h6>
+                                      <span> {curelem.wasteProdthree} </span>
+                                    </div>
+                                  </div>
+
+                                  <div className="rating-flex-bx">
+                                    <div className="stars">
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-solid fa-star"></i>
+                                      <i class="fa-regular fa-star"></i>
+                                    </div>
+
+                                    <span> More products</span>
+
+                                    <div
+                                      onClick={() => handlebutton(curelem.id)}
+                                      className={
+                                        itemPrice
+                                          ? "round-arrow : arrowactive"
+                                          : "round-arrow"
+                                      }
+                                    >
+                                      <i class="fa-solid fa-angle-down"></i>
+                                    </div>
+                                  </div> */}
+                                    </div>
+                                  </div>
+
+                                  <button
+                                    onClick={() => {
+                                      setBookApnt(true);
+                                      setSelectedCompany({
+                                        companyName,
+                                        franchiseAddress,
+                                        id,
+                                      });
+                                      //   handleCompName(curelem.name);
+                                    }}
+                                    className="Select-apnt"
+                                  >
+                                    Select
+                                  </button>
+                                </div>
+
+                                {/* {itemPrice === curelem.id && (
+                              <div className="item-price-grid-main-bx">
+                                <div className="all-user-table item-price-box">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Iron</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Plastic</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Aluminium</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Copper</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Magazine</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Wheel</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                                <div className="all-user-table item-price-box">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>Iron</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Plastic</td>
+                                        <td>₹60.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Aluminium</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Copper</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Magazine</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td>Wheel</td>
+                                        <td>₹70.00</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            )} */}
+                              </div>
+                            </>
+                          );
+                        }
+                      )
+                    : null}
                 </div>
               </div>
             )}
@@ -460,28 +695,45 @@ const Appointment = () => {
           {bookApnt && (
             <div className="book-apnt-bx" onClick={(e) => e.stopPropagation()}>
               <h6>Book Appointment</h6>
+              {selectedCompany?.companyName == "kabadPe"
+                ? Object.keys(slotLabels).map((key) => (
+                    <li key={key}>
+                      <div className="left-time-date-bx">
+                        <p> {slotLabels?.[key]} </p>
+                        {/* <span>{reminingSlot} slot available</span> */}
+                      </div>
 
-              {timeSlots.map((time, index) => (
-                <li key={index}>
-                  <div className="left-time-date-bx">
-                    <p> {time.timeslot} </p>
-                    <span>3 slot available</span>
-                  </div>
+                      <button
+                        onClick={() => {
+                          // handleBookNow(), handleTimeSelection(time.timeslot);
+                        }}
+                        className={"book-apnt"} //`` ? "book-apnt book-org-btn" :
+                      >
+                        Book Appoinment
+                      </button>
+                    </li>
+                  ))
+                : !timeSlots?.error
+                ? timeSlots?.map(({ slotName, reminingSlot }, index) => (
+                    <li key={index}>
+                      <div className="left-time-date-bx">
+                        <p> {slotLabels?.[slotName]} </p>
+                        <span>{reminingSlot} slot available</span>
+                      </div>
 
-                  <button
-                    onClick={() => {
-                      handleBookNow(), handleTimeSelection(time.timeslot);
-                    }}
-                    className={
-                      time.btn === "Unavailable"
-                        ? "book-apnt book-org-btn"
-                        : "book-apnt"
-                    }
-                  >
-                    {time.btn}
-                  </button>
-                </li>
-              ))}
+                      {reminingSlot ? (
+                        <button
+                          onClick={() => {
+                            // handleBookNow(), handleTimeSelection(time.timeslot);
+                          }}
+                          className={"book-apnt"} //`` ? "book-apnt book-org-btn" :
+                        >
+                          Book Appoinment
+                        </button>
+                      ) : null}
+                    </li>
+                  ))
+                : null}
 
               <div onClick={() => setBookApnt(false)} className="close-btn">
                 <i class="fa-solid fa-xmark"></i>

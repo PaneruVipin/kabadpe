@@ -25,12 +25,21 @@ export const userAddressesFetch = resolvePromise(async () => {
 });
 
 export const userAddressesAdd = resolvePromise(
-  async ({ street, city, state, zipCode, locationType, landmark }) => {
+  async ({
+    street,
+    city,
+    state,
+    zipCode,
+    locationType,
+    landmark,
+    aria,
+    subAria,
+  }) => {
     const apiUrl = ENV_API_BASE_URL + `/user/address`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
-      { street, city, state, zipCode, locationType, landmark },
+      { street, city, state, zipCode, locationType, landmark, aria, subAria },
       {
         headers: {
           Authorization: token,
@@ -42,12 +51,22 @@ export const userAddressesAdd = resolvePromise(
 );
 
 export const userAddressesUpdate = resolvePromise(
-  async ({ street, city, state, zipCode, locationType, landmark, id }) => {
+  async ({
+    street,
+    city,
+    state,
+    zipCode,
+    locationType,
+    landmark,
+    id,
+    aria,
+    subAria,
+  }) => {
     const apiUrl = ENV_API_BASE_URL + `/user/address/${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
-      { street, city, state, zipCode, locationType, landmark },
+      { street, city, state, zipCode, locationType, landmark, aria, subAria },
       {
         headers: {
           Authorization: token,

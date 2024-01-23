@@ -1,112 +1,121 @@
-import React, { useState } from "react";
-import { AutoComplete } from "antd";
+import React, { useEffect, useState } from "react";
+import { AutoComplete, Input } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import {
+  userAddressesAdd,
+  userAddressesFetch,
+  userAddressesUpdate,
+} from "../apis/user";
+import { userServicableAriasFetch } from "../apis/kbadpeUser/appoinment";
+import { Form, Formik } from "formik";
+import { validationAddressForm } from "../validators/user/addressFormValidator";
 
-const AddAddressList = ({ onclickClose }) => {
+const AddAddressList = ({
+  onclickClose,
+  setSelectedAddress,
+  selectedAddress,
+}) => {
   const [addrsForm, setAddrsForm] = useState(false);
   const [mark, setMark] = useState(false);
+  const [states, setStates] = useState([]);
+  const [isEditForm, setIsEditForm] = useState(false);
+  const [initialFormValues, setInitialFormValues] = useState({});
+  const [city, setCity] = useState([]);
+  const [pincodes, setPincodes] = useState([]);
+  const [arias, setArias] = useState([]);
+  const [subArias, setSubArias] = useState([]);
+  const [selection, setSelection] = useState({
+    state: "",
+    city: "",
+    pincode: "",
+    aria: "",
+    subAria: "",
+  });
+  const { data: addresses, refetch } = useQuery({
+    queryKey: ["userAddress:appoinment"],
+    queryFn: () => userAddressesFetch(),
+  });
 
-  const options = [
-    {
-      label: "Gandhi Nagar",
-      value: "Gandhi Nagar",
-    },
-    {
-      label: "Laxmi Nagar",
-      value: "Laxmi Nagar",
-    },
+  const { data: servicableAddresses } = useQuery({
+    queryKey: ["servicableAddresses:appoinment"],
+    queryFn: () => userServicableAriasFetch(),
+  });
 
-    {
-      label: "Azad Nagar",
-      value: "Azad Nagar",
-    },
+  const getStates = (res) =>
+    [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
+      id: i,
+      name,
+    }));
 
-    {
-      label: "Kundan Nagar",
-      value: "Kundan Nagar",
-    },
+  const getCities = (state, res) => {
+    return [
+      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
+    ].map((name, i) => ({ id: i, name }));
+  };
 
-    {
-      label: "Anand Vihar ",
-      value: "Anand Vihar",
-    },
+  const getPincodes = (state, city, res) => {
+    return [
+      ...new Set(
+        res
+          .filter((e) => e.state == state && e.city == city)
+          .map((e, i) => e?.pincode)
+      ),
+    ].map((name, i) => ({ id: i, name }));
+  };
+  const getArias = (state, city, pincode, res) => {
+    return [
+      ...new Set(
+        res
+          .filter(
+            (e) => e.state == state && e.city == city && e?.pincode == pincode
+          )
+          .map((e, i) => e?.ariaName)
+      ),
+    ].map((name, i) => ({ id: i, name }));
+  };
 
-    {
-      label: "Seelumpur",
-      value: "Seelumpur",
-    },
-  ];
+  const getSubArias = (state, city, pincode, aria, res) => {
+    return res.filter(
+      (e) =>
+        e.state == state &&
+        e.city == city &&
+        e?.pincode == pincode &&
+        e?.ariaName == aria
+    );
+  };
 
-  const pins = [
-    {
-      label: "110031",
-      value: "110031",
-    },
-    {
-      label: "110091",
-      value: "110091",
-    },
-
-    {
-      label: "110008",
-      value: "110008",
-    },
-
-    {
-      label: "110005",
-      value: "110005",
-    },
-
-    {
-      label: "110045 ",
-      value: "110045",
-    },
-
-    {
-      label: "110004",
-      value: "110004",
-    },
-  ];
-
-  const city = [
-    {
-      label: "Delhi",
-      value: "Delhi",
-    },
-    {
-      label: "Bihar",
-      value: "Bihar",
-    },
-
-    {
-      label: "Lucknow",
-      value: "Lucknow",
-    },
-
-    {
-      label: "Chattisgarh",
-      value: "Chattisgarh",
-    },
-
-    {
-      label: "Mumbai ",
-      value: "Mumbai",
-    },
-
-    {
-      label: "Banglore",
-      value: "Banglore",
-    },
-  ];
-
+  const handleAddressSubmit = async (data) => {
+    if (isEditForm) {
+      await userAddressesUpdate(data);
+    } else {
+      await userAddressesAdd(data);
+    }
+    setAddrsForm(false);
+    refetch();
+  };
+  useEffect(() => {
+    if (
+      servicableAddresses?.error ||
+      !servicableAddresses ||
+      !servicableAddresses?.length
+    ) {
+      return;
+    }
+    const state = getStates(servicableAddresses);
+    setStates(state);
+  }, [servicableAddresses]);
   return (
     <>
       <section className="add-address-table-comp" onClick={onclickClose}>
         <div className="addrs-popup-bx" onClick={(e) => e.stopPropagation()}>
           <div className="addp--flex-bx">
             <h6>Address List</h6>
-
             <button
-              onClick={() => setAddrsForm(!addrsForm)}
+              onClick={() => {
+                setIsEditForm(false);
+                setAddrsForm(!addrsForm);
+                setInitialFormValues({});
+              }}
               className="add-new-addres-btn"
             >
               Add New Address
@@ -129,188 +138,124 @@ const AddAddressList = ({ onclickClose }) => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                  <div class="form-check-bx">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                  </div>
-                  </td>
+                {!addresses?.error && addresses
+                  ? addresses?.map(
+                      ({
+                        id,
+                        street,
+                        city,
+                        state,
+                        zipCode,
+                        landmark,
+                        locationType,
+                        aria,
+                        subAria,
+                      }) => (
+                        <tr key={id}>
+                          <td>
+                            {/* {selectedAddress?.id == id ? (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                &#9989;
+                              </div>
+                            ) : null} */}
+                          </td>
 
+                          <td>
+                            {" "}
+                            <span>{locationType}</span>{" "}
+                          </td>
 
-                  <td>
-                    {" "}
-                    <span>Home</span>{" "}
-                  </td>
+                          <td>
+                            {" "}
+                            <span> {street}</span>{" "}
+                          </td>
 
-                  <td>
-                    {" "}
-                    <span> 2145 b/09 Street No.-1 </span>{" "}
-                  </td>
+                          <td>
+                            {" "}
+                            <span>{city}</span>{" "}
+                          </td>
 
-                  {/* <td>
-                    {" "}
-                    <span>Delhi</span>{" "}
-                  </td> */}
+                          <td>
+                            <span>{zipCode}</span>
+                          </td>
+                          <td>
+                            <span>{aria}</span>
+                          </td>
+                          <td>
+                            <span>{subAria}</span>
+                          </td>
+                          <td>
+                            <span>{landmark}</span>
+                          </td>
+                          <td>
+                            {" "}
+                            <div className="act-btn-flex-bx">
+                              <button
+                                onClick={() => {
+                                  setInitialFormValues({
+                                    id,
+                                    street,
+                                    city,
+                                    state,
+                                    zipCode,
+                                    landmark,
+                                    locationType,
+                                    aria,
+                                    subAria,
+                                  });
+                                  setAddrsForm(!addrsForm);
+                                  setIsEditForm(true);
+                                }}
+                              >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                              </button>
 
-                  <td>
-                    {" "}
-                    <span>New Delhi</span>{" "}
-                  </td>
+                              <button>
+                                <i class="fa-regular fa-trash-can"></i>
+                              </button>
 
-                  <td>
-                    <span>110031</span>
-                  </td>
-                  <td>
-                    <span>Krishna Nagar</span>
-                  </td>
-                  <td>
-                    <span>Lalquater</span>
-                  </td>
-                  <td>
-                    <span>Landmark1</span>
-                  </td>
-                  <td>
-                    {" "}
-                    <div className="act-btn-flex-bx">
-                      <button onClick={() => setAddrsForm(!addrsForm)}>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </button>
-
-                      <button>
-                        <i class="fa-regular fa-trash-can"></i>
-                      </button>
-
-                      <div className="chose-ths-btn ">Choose this</div>
-                    </div>{" "}
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                  <div class="form-check-bx">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckDefault"
-                    />
-                  </div>
-                  </td>
-
-                  <td>
-                    {" "}
-                    <span>Shop</span>{" "}
-                  </td>
-
-                  <td>
-                    {" "}
-                    <span> 2145 b/09 Street No.-1 </span>{" "}
-                  </td>
-
-                  {/* <td>
-                    {" "}
-                    <span>Delhi</span>{" "}
-                  </td> */}
-
-                  <td>
-                    {" "}
-                    <span>New Delhi</span>{" "}
-                  </td>
-
-                  <td>
-                    <span>110031</span>
-                  </td>
-                  <td>
-                    <span>Krishna Nagar</span>
-                  </td>
-                  <td>
-                    <span>Lalquater</span>
-                  </td>
-                  <td>
-                    <span>Landmark2</span>
-                  </td>
-                  <td>
-                    {" "}
-                    <div className="act-btn-flex-bx">
-                      <button onClick={() => setAddrsForm(!addrsForm)}>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </button>
-
-                      <button>
-                        <i class="fa-regular fa-trash-can"></i>
-                      </button>
-
-                      <div className="chose-ths-btn unavalble ">
-                        Choose this
-                      </div>
-                    </div>{" "}
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                  <div class="form-check-bx">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="flexCheckChecked" checked
-                    />
-                  </div>
-                  </td>
-
-                  <td>
-                    {" "}
-                    <span>Office</span>{" "}
-                  </td>
-
-                  <td>
-                    {" "}
-                    <span> 2145 b/09 Street No.-1 </span>{" "}
-                  </td>
-
-                  {/* <td>
-                    {" "}
-                    <span>Delhi</span>{" "}
-                  </td> */}
-
-                  <td>
-                    {" "}
-                    <span>New Delhi</span>{" "}
-                  </td>
-
-                  <td>
-                    <span>110031</span>
-                  </td>
-                  <td>
-                    <span>Krishna Nagar</span>
-                  </td>
-                  <td>
-                    <span>Lalquater</span>
-                  </td>
-                  <td>
-                    <span>Landmark3</span>
-                  </td>
-                  <td>
-                    {" "}
-                    <div className="act-btn-flex-bx">
-                      <button onClick={() => setAddrsForm(!addrsForm)}>
-                        <i class="fa-regular fa-pen-to-square"></i>
-                      </button>
-
-                      <button>
-                        <i class="fa-regular fa-trash-can"></i>
-                      </button>
-
-                      <div className="chose-ths-btn">Choose this</div>
-                    </div>{" "}
-                  </td>
-                </tr>
+                              {selectedAddress?.id != id ? (
+                                <div
+                                  onClick={() =>
+                                    setSelectedAddress({
+                                      id,
+                                      street,
+                                      city,
+                                      state,
+                                      zipCode,
+                                      landmark,
+                                      locationType,
+                                      aria,
+                                      subAria,
+                                    })
+                                  }
+                                  className="chose-ths-btn "
+                                >
+                                  Choose this
+                                </div>
+                              ) : (
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  &#9989;
+                                </div>
+                              )}
+                            </div>{" "}
+                          </td>
+                        </tr>
+                      )
+                    )
+                  : null}
               </tbody>
             </table>
           </div>
@@ -319,93 +264,270 @@ const AddAddressList = ({ onclickClose }) => {
             <i class="fa-solid fa-xmark"></i>
           </div>
 
-          <div
-            className={
-              addrsForm
-                ? "add-addres-form-bx addresactive"
-                : "add-addres-form-bx"
-            }
-          >
-            <form action="#">
-              <div className="address-add-type-grid-bx">
-                <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
-                  <select name="addresstype" id="addresstype">
-                    <option value="#"> Address Type</option>
-                    <option value="#">Home</option>
-                    <option value="#">Office</option>
-                    <option value="#">Shop</option>
-                    <option value="#">Mall/Outlet</option>
-                  </select>
-                </div>
+          {addrsForm ? (
+            <div
+              className={
+                addrsForm
+                  ? "add-addres-form-bx addresactive"
+                  : "add-addres-form-bx"
+              }
+            >
+              <Formik
+                initialValues={initialFormValues}
+                onSubmit={handleAddressSubmit}
+                validationSchema={validationAddressForm}
+              >
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form>
+                      <div className="address-add-type-grid-bx">
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
+                          <select
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.locationType}
+                            name="locationType"
+                            id="addresstype"
+                          >
+                            <option value="" hidden>
+                              {" "}
+                              Address Type
+                            </option>
+                            <option value="home">Home</option>
+                            <option value="office">Office</option>
+                            <option value="shop">Shop</option>
+                            <option value="mall">Mall/Outlet</option>
+                          </select>
+                          {touched?.locationType && errors?.locationType ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.locationType}
+                            </div>
+                          ) : null}
+                        </div>
 
-                <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a ">
-                  <input
-                    type="text"
-                    name="address"
-                    id="address"
-                    placeholder="Wing/Flat No./Building Name/Street No./House No./Colony Name "
-                    autoComplete="off"
-                    required
-                  />
-                </div>
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a ">
+                          <input
+                            type="text"
+                            name="street"
+                            id="address"
+                            placeholder="Wing/Flat No./Building Name/Street No./House No./Colony Name "
+                            autoComplete="off"
+                            required
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.street}
+                          />
+                          {touched?.street && errors?.street ? (
+                            <div style={{ color: "red" }}>{errors?.street}</div>
+                          ) : null}
+                        </div>
 
-                <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
-                  <select name="addresstype" id="addresstype">
-                    <option value="#"> State</option>
-                    <option value="#">State1</option>
-                    <option value="#">State2</option>
-                    <option value="#">State3</option>
-                    <option value="#">State4</option>
-                  </select>
-                </div>
-              </div>
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
+                          <select
+                            onChange={(e) => {
+                              setSelection((prev) => ({
+                                ...prev,
+                                state: e.target.value,
+                              }));
+                              const cities = getCities(
+                                e.target.value,
+                                servicableAddresses
+                              );
+                              setCity(
+                                cities?.map(({ name, id }) => ({
+                                  value: name,
+                                  lable: name,
+                                }))
+                              );
+                              handleChange(e);
+                            }}
+                            onBlur={handleBlur}
+                            value={values?.state}
+                            name="state"
+                            id="addresstype"
+                          >
+                            <option value="" hidden>
+                              {" "}
+                              State
+                            </option>
+                            {states?.map(({ name, id }) => (
+                              <option key={id} value={name}>
+                                {name?.slice(0, 1)?.toUpperCase() +
+                                  name?.slice(1)}
+                              </option>
+                            ))}
+                          </select>
+                          {touched?.state && errors?.state ? (
+                            <div style={{ color: "red" }}>{errors?.state}</div>
+                          ) : null}
+                        </div>
+                      </div>
 
-              <div className="addrs-form-grid">
-                <AutoComplete
-                  optionSelectedColor={"#050505"}
-                  className="apnt-inpt-bx-autotype"
-                  options={city}
-                  filterOption={true}
-                  placeholder="Enter City here"
-                />
-
-                <AutoComplete
-                  optionSelectedColor={"#050505"}
-                  className="apnt-inpt-bx-autotype"
-                  options={pins}
-                  filterOption={true}
-                  placeholder="Enter Pin here"
-                />
-
-                <AutoComplete
-                  optionSelectedColor={"#050505"}
-                  className="apnt-inpt-bx-autotype"
-                  options={options}
-                  filterOption={true}
-                  placeholder="Enter Area"
-                />
-
-                <AutoComplete
-                  optionSelectedColor={"#050505"}
-                  className="apnt-inpt-bx-autotype"
-                  options={options}
-                  filterOption={true}
-                  placeholder="Enter Sub Area"
-                />
-
-                <AutoComplete
-                  optionSelectedColor={"#050505"}
-                  className="apnt-inpt-bx-autotype"
-                  filterOption={true}
-                  placeholder="Near Landmark"
-                />
-
-                <button className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres ">
-                  Add Address
-                </button>
-              </div>
-            </form>
-          </div>
+                      <div className="addrs-form-grid">
+                        <div>
+                          <AutoComplete
+                            optionSelectedColor={"#050505"}
+                            className="apnt-inpt-bx-autotype"
+                            options={city}
+                            filterOption={true}
+                            placeholder="Enter City here"
+                            onChange={(v) => {
+                              values.city = v;
+                              setSelection((prev) => ({ ...prev, city: v }));
+                              const pins = getPincodes(
+                                selection?.state,
+                                v,
+                                servicableAddresses
+                              );
+                              setPincodes(
+                                pins.map(({ name }) => ({
+                                  value: name,
+                                  lable: name,
+                                }))
+                              );
+                              handleBlur({ target: { name: "city" } });
+                            }}
+                            onBlur={(e) => (
+                              (e.target.name = "city"), handleBlur(e)
+                            )}
+                            defaultValue={values?.city}
+                          />
+                          {touched?.city && errors?.city ? (
+                            <div style={{ color: "red" }}>{errors?.city}</div>
+                          ) : null}
+                        </div>
+                        <div>
+                          <AutoComplete
+                            optionSelectedColor={"#050505"}
+                            className="apnt-inpt-bx-autotype"
+                            options={pincodes}
+                            filterOption={true}
+                            placeholder="Enter Pin here"
+                            onChange={(v) => {
+                              values.zipCode = v;
+                              setSelection((prev) => ({ ...prev, pincode: v }));
+                              const arias = getArias(
+                                selection?.state,
+                                selection?.city,
+                                v,
+                                servicableAddresses
+                              );
+                              setArias(
+                                arias?.map(({ name }) => ({
+                                  value: name,
+                                  lable: name,
+                                }))
+                              );
+                              handleBlur({ target: { name: "zipCode" } });
+                            }}
+                            onBlur={(e) => (
+                              (e.target.name = "zipCode"), handleBlur(e)
+                            )}
+                            defaultValue={values?.zipCode}
+                          />
+                          {touched?.zipCode && errors?.zipCode ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.zipCode}
+                            </div>
+                          ) : null}
+                        </div>
+                        <div>
+                          <AutoComplete
+                            optionSelectedColor={"#050505"}
+                            className="apnt-inpt-bx-autotype"
+                            options={arias}
+                            filterOption={true}
+                            placeholder="Enter Area"
+                            onChange={(v) => {
+                              values.aria = v;
+                              setSelection((prev) => ({ ...prev, aria: v }));
+                              const subArias = getSubArias(
+                                selection?.state,
+                                selection?.city,
+                                selection?.pincode,
+                                v,
+                                servicableAddresses
+                              );
+                              setSubArias(
+                                subArias?.map(({ subAriaName }) => ({
+                                  value: subAriaName,
+                                  lable: subAriaName,
+                                }))
+                              );
+                              handleBlur({ target: { name: "aria" } });
+                            }}
+                            onBlur={(e) => (
+                              (e.target.name = "aria"), handleBlur(e)
+                            )}
+                            defaultValue={values?.aria}
+                          />
+                          {touched?.aria && errors?.aria ? (
+                            <div style={{ color: "red" }}>{errors?.aria}</div>
+                          ) : null}
+                        </div>
+                        <div>
+                          <AutoComplete
+                            optionSelectedColor={"#050505"}
+                            className="apnt-inpt-bx-autotype"
+                            options={subArias}
+                            filterOption={true}
+                            placeholder="Enter Sub Area"
+                            onChange={(v) => (
+                              (values.subAria = v),
+                              handleBlur({ target: { name: "subAria" } })
+                            )}
+                            onBlur={(e) => (
+                              (e.target.name = "subAria"), handleBlur(e)
+                            )}
+                            defaultValue={values?.subAria}
+                          />
+                          {touched?.subAria && errors?.subAria ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.subAria}
+                            </div>
+                          ) : null}
+                        </div>
+                        <div>
+                          <AutoComplete
+                            optionSelectedColor={"#050505"}
+                            className="apnt-inpt-bx-autotype"
+                            filterOption={true}
+                            placeholder="Near Landmark"
+                            onChange={(v) => (
+                              (values.landmark = v),
+                              handleBlur({ target: { name: "landmark" } })
+                            )}
+                            onBlur={(e) => (
+                              (e.target.name = "landmark"), handleBlur(e)
+                            )}
+                            defaultValue={values?.landmark}
+                          />
+                          {touched?.landmark && errors?.landmark ? (
+                            <div style={{ color: "red" }}>
+                              {errors?.landmark}
+                            </div>
+                          ) : null}
+                        </div>
+                        <button
+                          type="submit"
+                          className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres "
+                        >
+                          {isEditForm ? "Update Address" : "Add Address"}
+                        </button>
+                      </div>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            </div>
+          ) : null}
         </div>
       </section>
     </>

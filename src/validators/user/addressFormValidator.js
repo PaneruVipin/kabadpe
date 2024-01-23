@@ -4,6 +4,8 @@ export const validationAddressForm = object().shape({
   city: string().required(),
   state: string().required(),
   zipCode: number().required(),
-  landmark: string().required(),
+  landmark: string(),
   locationType: string().required(),
+  aria: string().required(),
+  subAria: string().required(),
 });

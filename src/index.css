@@ -10290,3 +10290,34 @@ __________ */
   background-color: #0b918d;
   color: #fff;
 }
+
+.reg-inpt-bx5{
+  border: none !important;
+  /* margin-top: 2rem !important; */
+
+}
+
+.reg-inpt{
+  border: none !important;
+  border-color: #fff !important;
+  outline: none !important;
+
+}
+
+:where(.css-dev-only-do-not-override-dkbvqv).ant-select:not(.ant-select-customize-input) .ant-select-selector{
+  border: none !important;
+  border-bottom: .1rem solid #e3e1e1 !important;
+  font-size: 1rem !important;
+  background-color: #fff !important;
+
+}
+
+
+:where(.css-dev-only-do-not-override-dkbvqv).ant-select:not(.ant-select-customize-input) .ant-select-selector:focus-within{
+  /* border: none !important; */
+  box-shadow: none !important;
+}
+
+.appnt-text5{
+  font-size: .9rem !important;
+}

@@ -31,6 +31,9 @@ import Createplan from "../AdminComponents.jsx/Createplan";
 import { RiPageSeparator } from "react-icons/ri";
 import KabadPePagesLink from "../AdminComponents.jsx/KabadPePagesLink";
 import ContentEditComp from "../AdminComponents.jsx/ContentEditComp";
+import FrenchAppointData from "../FrenchAppointData";
+import FrenchAppointments from "../FrenchiesComp/FrenchAppointments";
+import FrenchAppointTwo from "../FrenchiesComp/FrenchAppointTwo";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -46,6 +49,11 @@ const AdminPanel = () => {
   const [notifActive, setNotifActive] = useState(false);
   const [contentPageBtn, setContentPageBtn] = useState(null);
   const [contentPageBtnTwo, setContentPageBtnTwo] = useState(null);
+  const [apntData, setApntData] = useState(FrenchAppointData);
+  const [apntDataTwo, setApntDataTwo] = useState(FrenchAppointData);
+  const [apntTab, setApntTab] = useState(null);
+  const [apntTabTwo, setApntTabTwo] = useState(null);
+
 
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
@@ -139,6 +147,25 @@ const AdminPanel = () => {
     return btnClassTwo === contentPageBtnTwo
       ? "inner-page-drop-dwn-btn innerbtnactive"
       : "inner-page-drop-dwn-btn";
+  };
+
+
+  const handleFilterAppoint = (getvalue) => {
+    const updatedappointData = FrenchAppointData.filter((curelem) => {
+      return getvalue === curelem.statustype;
+    });
+
+    setApntData(updatedappointData);
+    setApntTab(getvalue);
+  };
+
+  const handleFilterAppointTwo = (getvalue) => {
+    const updatedappointData = FrenchAppointData.filter((curelem) => {
+      return getvalue === curelem.statustype;
+    });
+
+    setApntDataTwo(updatedappointData);
+    setApntTabTwo(getvalue);
   };
 
   return (
@@ -456,7 +483,7 @@ const AdminPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">Waste Collector</NavLink>{" "}
+                <NavLink to="#">Workers</NavLink>{" "}
               </li>
               <li
                 onClick={() => handleViewComp("vendor")}
@@ -511,6 +538,148 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#">Discount Coupons</NavLink>{" "}
               </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
+              onClick={() => handleButtonClick(18)}
+              className={getButtonClassName(18)}
+            >
+              <div className="a-nv-i">
+                <RiPageSeparator />
+              </div>
+              <span>Appointments</span>
+            </div>
+
+            <div className={getButonClasnameTwo(18)}>
+              <div className={getContentPageClassName(19)}>
+                <div
+                  onClick={() => handleContentPageBtn(19)}
+                  className={DropdownButton(19)}
+                >
+                  <span> All Appointments</span>
+                </div>
+
+                <div className={getContentPageClassNameTwo(16)}>
+                  <div
+                    onClick={() => handleChangePageBtnTwo(16)}
+                    className={DropdownButtonTwo(16)}
+                  >
+                    <span className="appnt-text5"> Kabadpe Appointments</span>
+                  </div>
+
+                  <div className="inner-page-list ">
+                    <li  onClick={() => {handleViewComp("AllAppointment") , setApntData(FrenchAppointData)}}
+                      className={
+                        component === "AllAppointment"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }>
+                      {" "}
+                      <NavLink to="#"> All Appointments </NavLink>
+                    </li>
+                    <li   onClick={() => handleFilterAppoint("complete")}
+                className={
+                  apntTab === "complete"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Complete Appointments </NavLink>
+                    </li>
+                    <li   onClick={() => handleFilterAppoint("schdule")}
+                className={
+                  apntTab === "schdule"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Assign Appointment </NavLink>
+                    </li>
+                    <li onClick={() => handleFilterAppoint("underprocess")}
+                className={
+                  apntTab === "underprocess"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Unassigned Appointment </NavLink>
+                    </li>
+                    <li onClick={() => handleFilterAppoint("reschedule")}
+                className={
+                  apntTab === "reschedule"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+                >
+                      {" "}
+                      <NavLink to="#"> Reschedule Appointment </NavLink>
+                    </li>
+                  </div>
+                </div>
+
+                <div className={getContentPageClassNameTwo(17)}>
+                  <div
+                    onClick={() => handleChangePageBtnTwo(17)}
+                    className={DropdownButtonTwo(17)}
+                  >
+                    <span className="appnt-text5"> Other Appointments</span>
+                  </div>
+
+                  
+                  <div className="inner-page-list ">
+                    <li  onClick={() => {handleViewComp("otherAppoint") , setApntDataTwo(FrenchAppointData)}}
+                      className={
+                        component === "otherAppoint"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }>
+                      {" "}
+                      <NavLink to="#"> All Appointments </NavLink>
+                    </li>
+                    <li   onClick={() => handleFilterAppointTwo("complete")}
+                className={
+                  apntTabTwo === "complete"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Complete Appointments </NavLink>
+                    </li>
+                    <li   onClick={() => handleFilterAppointTwo("schdule")}
+                className={
+                  apntTabTwo === "schdule"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Assign Appointment </NavLink>
+                    </li>
+                    <li onClick={() => handleFilterAppointTwo("underprocess")}
+                className={
+                  apntTabTwo === "underprocess"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }>
+                      {" "}
+                      <NavLink to="#"> Unassigned Appointment </NavLink>
+                    </li>
+                    <li onClick={() => handleFilterAppointTwo("reschedule")}
+                className={
+                  apntTabTwo === "reschedule"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+                >
+                      {" "}
+                      <NavLink to="#"> Reschedule Appointment </NavLink>
+                    </li>
+                  </div>
+                </div>
+              </div>
+
+              
             </div>
           </div>
 
@@ -1051,6 +1220,9 @@ const AdminPanel = () => {
         {component === "createplan" ? <Createplan /> : null}
         {component === "kabadpepages" ? <KabadPePagesLink /> : null}
         {component === "ContentEditComp" ? <ContentEditComp /> : null}
+        {component === "AllAppointment" ? <FrenchAppointments updatedFrenchAppointData={apntData} /> : null }
+        {component === "otherAppoint" ? <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} /> : null }
+
       </section>
     </>
   );

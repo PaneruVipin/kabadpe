@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import Protect from "./Auth/ProtectComp";
 import { userValidateKabadPeRefrral } from "../apis/auth";
+import { AutoComplete } from "antd";
+
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
@@ -61,6 +63,41 @@ const Wastecolloginregist = () => {
       setChangeText("Sign Up");
     }
   };
+
+  const Area = [
+
+    {
+      label : "Area1",
+      value : "Area1",
+    },
+
+    
+    {
+      label : "Area2",
+      value : "Area2",
+    },
+
+    
+    {
+      label : "Area3",
+      value : "Area3",
+    },
+
+    
+    {
+      label : "Area4",
+      value : "Area4",
+    },
+
+    {
+      label : "Area5",
+      value : "Area5",
+    },
+
+
+    
+  ]
+  
   const initialValues =
     formBox === true
       ? {
@@ -163,23 +200,6 @@ const Wastecolloginregist = () => {
                               ) : null}
                             </div>
 
-                            <div className="log-inpt-bx reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="workCity"
-                                id="workcity"
-                                placeholder="Area of work within city"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.workCity}
-                              />
-                              {touched?.workCity && errors?.workCity ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.workCity}
-                                </div>
-                              ) : null}
-                            </div>
                           </>
                         ) : null}
                         <div className="log-inpt-bx log-inpt-bx-login">
@@ -219,6 +239,63 @@ const Wastecolloginregist = () => {
                                 </div>
                               ) : null}
                             </div>
+                              
+                              <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                                <AutoComplete
+                                //  optionSelectedColor={"#050505"}
+                                 className="apnt-inpt-bx-autotype reg-inpt"
+                                 options={Area}
+                                 filterOption={true}
+                                 placeholder="Enter Area"
+                                 />
+                              </div>
+
+                              <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                                <AutoComplete
+                                //  optionSelectedColor={"#050505"}
+                                 className="apnt-inpt-bx-autotype reg-inpt"
+                                 options={Area}
+                                 filterOption={true}
+                                 placeholder="Enter SubArea"
+                                 />
+                              </div>
+{/*                             
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="workCity"
+                                id="workcity"
+                                placeholder="Area"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workCity}
+                              />
+                              {touched?.workCity && errors?.workCity ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.workCity}
+                                </div>
+                              ) : null}
+                            </div> */}
+
+{/*                             
+                            <div className="log-inpt-bx reg-inpt-bx">
+                              <input
+                                type="text"
+                                name="subarea"
+                                id="subarea"
+                                placeholder="Sub Area"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.workCity}
+                              />
+                              {touched?.workCity && errors?.workCity ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.workCity}
+                                </div>
+                              ) : null}
+                            </div> */}
 
                             <div className="log-inpt-bx reg-inpt-bx">
                               <select
@@ -344,7 +421,7 @@ const Wastecolloginregist = () => {
                         ) : null}
                       </div>
 
-                      <div className="forgt-passwrd-check-bx-flex">
+                      <div className="forgt-passwrd-check-bx-flex mt-3">
                         <div className="form-check">
                           <input
                             checked={termsChecked}

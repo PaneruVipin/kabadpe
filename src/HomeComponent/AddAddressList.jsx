@@ -16,7 +16,6 @@ const AddAddressList = ({
   selectedAddress,
 }) => {
   const [addrsForm, setAddrsForm] = useState(false);
-  const [mark, setMark] = useState(false);
   const [states, setStates] = useState([]);
   const [isEditForm, setIsEditForm] = useState(false);
   const [initialFormValues, setInitialFormValues] = useState({});
@@ -152,18 +151,7 @@ const AddAddressList = ({
                         subAria,
                       }) => (
                         <tr key={id}>
-                          <td>
-                            {/* {selectedAddress?.id == id ? (
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                }}
-                              >
-                                &#9989;
-                              </div>
-                            ) : null} */}
-                          </td>
+                          <td></td>
 
                           <td>
                             {" "}
@@ -221,7 +209,7 @@ const AddAddressList = ({
 
                               {selectedAddress?.id != id ? (
                                 <div
-                                  onClick={() =>
+                                  onClick={() => {
                                     setSelectedAddress({
                                       id,
                                       street,
@@ -232,8 +220,9 @@ const AddAddressList = ({
                                       locationType,
                                       aria,
                                       subAria,
-                                    })
-                                  }
+                                    });
+                                    onclickClose();
+                                  }}
                                   className="chose-ths-btn "
                                 >
                                   Choose this

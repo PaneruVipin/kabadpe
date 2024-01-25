@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import timeslotdata from "./timeslotData";
 import AddAddressList from "./AddAddressList";
-import ServApntData from "./ServApnt";
 import { Form, Formik } from "formik";
 import { validationSchedulePickup } from "../validators/kabadPeUser/schedule";
 import { useSelector } from "react-redux";
 import {
   userFetchAvailableCompanies,
   userFetchAvailableSlots,
+  userScheduleAppoinment,
   userValidateServicability,
 } from "../apis/kbadpeUser/appoinment";
 import { useQuery } from "@tanstack/react-query";
@@ -18,41 +17,53 @@ const Appointment = () => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState("");
   const [addAddress, setAddAddress] = useState(false);
-  const [itemPrice, setItemPrice] = useState(null);
   const [bookApnt, setBookApnt] = useState(false);
-  const [compName, setCompName] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [selectAddesQuery, setSelectAddesQuery] = useState("");
-  const [initialFormValues, setInitialFormValues] = useState(null);
+  const [initialFormValues, setInitialFormValues] = useState({
+    appointmentContactNumber: "",
+    appointmentPersonName: "",
+    frequency: "",
+    estimateWeight: "",
+    serviceType: "",
+  });
   const [addressError, setAddressError] = useState("");
   const [servicableAriaId, setServicableAriaId] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
-
+  const [selectedSlotData, setSelectedSlotData] = useState();
+  const [selectedServiceType, setSelectedServiceType] = useState();
+  const [otherErrors, setOtherErrors] = useState({});
+  console.log("this is env", ENV);
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowCalendar(true);
-  };
-
-  const handleTimeSelection = (time) => {
-    setSelectedTime(time);
   };
 
   const handleBookNow = () => {
     setShowCalendar(false);
   };
 
-  const handlebutton = (getvalue) => {
-    setItemPrice(getvalue === itemPrice ? null : getvalue);
-  };
-
-  const handleCompName = (valueName) => {
-    setCompName(valueName);
-  };
-
   const handleSubmit = (data) => {
-    console.log("data is the,, ", data);
+    setOtherErrors({});
+    if (addressError) {
+      return;
+    } else if (!selectAddesQuery) {
+      setOtherErrors({ address: "Please choose address" });
+      return;
+    } else if (!selectedSlotData) {
+      setOtherErrors({ timeSlot: "Please Choose date and slots" });
+      return;
+    }
+    const newData = {
+      ...data,
+      appointmentDate: selectedSlotData?.selectedDate?.toISOString(),
+      appoinmentAddress: selectAddesQuery,
+      companyId: selectedSlotData?.selectedCompany?.id,
+      appointmentTimeSlot: selectedSlotData?.slotName,
+    };
+    userScheduleAppoinment(newData);
+    console.log("filtered data,, ,, ,, ,, ", newData);
   };
   const slotLabels = {
     slot1: "8:00 am - 10:00 am",
@@ -70,6 +81,7 @@ const Appointment = () => {
         date: selectedDate
           ? selectedDate.toISOString()
           : new Date().toISOString(),
+        service: selectedServiceType || "kabadi",
       }),
   });
   const { data: timeSlots, refetch: refetchSlot } = useQuery({
@@ -94,6 +106,10 @@ const Appointment = () => {
     }
   }, [userInfo]);
   useEffect(() => {
+    setOtherErrors((prev) => ({
+      ...prev,
+      address: "",
+    }));
     const addres = selectedAddress?.street
       ? `${selectedAddress?.street} ${selectedAddress?.subAria} ${selectedAddress?.aria} ${selectedAddress?.city} ${selectedAddress?.zipCode}`
       : null;
@@ -119,11 +135,14 @@ const Appointment = () => {
 
   useEffect(() => {
     refetch();
-  }, [servicableAriaId, selectedDate]);
+  }, [servicableAriaId, selectedDate, selectedServiceType, selectedAddress]);
 
   useEffect(() => {
     refetchSlot();
-  }, [selectedCompany]);
+  }, [selectedCompany, selectedDate, selectedServiceType, selectedAddress]);
+  useEffect(() => {
+    setSelectedSlotData(null);
+  }, [selectedAddress, selectedServiceType]);
   return (
     <>
       <section className="schedule-apnt-comp">
@@ -174,7 +193,7 @@ const Appointment = () => {
 
                           <div className="apnt-inpt-bx">
                             <input
-                              type="number"
+                              type="string"
                               name="appointmentContactNumber"
                               id="phone"
                               placeholder="Mobile No."
@@ -209,14 +228,21 @@ const Appointment = () => {
                         </div>
                         {addressError ? (
                           <div style={{ color: "red" }}>{addressError}</div>
-                        ) : null}
+                        ) : (
+                          <div style={{ color: "red" }}>
+                            {otherErrors?.address}
+                          </div>
+                        )}
 
                         <div className="form-grid form-grid3">
                           <div className="apnt-inpt-bx apnt-inpt-bx-s">
                             <select
                               name="serviceType"
                               id="service"
-                              onChange={handleChange}
+                              onChange={(e) => {
+                                setSelectedServiceType(e?.target?.value);
+                                handleChange(e);
+                              }}
                               onBlur={handleBlur}
                               value={values?.serviceType}
                             >
@@ -286,31 +312,37 @@ const Appointment = () => {
                         </div>
 
                         <div className="form-grid ">
-                          {selectAddesQuery && !addressError ? (
+                          <div>
                             <div
                               className="apnt-inpt-bx apnt-inpt-bx2"
                               onClick={() => setShowCalendar(true)}
                             >
                               <div>
-                                {" "}
-                                {selectedDate && selectedTime ? (
-                                  <div>
-                                    {" "}
-                                    <span>{compName}</span>{" "}
+                                {selectedSlotData ? (
+                                  <>
                                     <span>
-                                      {" "}
-                                      {selectedDate.toDateString()} ,{" "}
-                                      {selectedTime}{" "}
-                                    </span>{" "}
-                                  </div>
+                                      {
+                                        selectedSlotData?.selectedCompany
+                                          ?.companyName
+                                      }
+                                    </span>
+                                    <span>
+                                      {`${selectedSlotData?.selectedDate?.toDateString()} ${
+                                        slotLabels?.[selectedSlotData?.slotName]
+                                      }`}
+                                    </span>
+                                  </>
                                 ) : (
                                   <span> Select Your Date and Time </span>
-                                )}{" "}
+                                )}
                               </div>
                             </div>
-                          ) : (
-                            <p></p>
-                          )}
+                            {otherErrors?.timeSlot ? (
+                              <div style={{ color: "red" }}>
+                                {otherErrors?.timeSlot}
+                              </div>
+                            ) : null}
+                          </div>
 
                           <button
                             type="submit"
@@ -350,32 +382,42 @@ const Appointment = () => {
           className="date-time-popup-bx"
           onClick={() => setShowCalendar(false)}
         >
-          <div
-            className="date-time-main-bx"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="calendar-popup">
-              <Calendar onChange={handleDateChange} value={selectedDate} />
-            </div>
+          {selectAddesQuery && !addressError && selectedServiceType ? (
+            <div
+              className="date-time-main-bx"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="calendar-popup">
+                <Calendar onChange={handleDateChange} value={selectedDate} />
+              </div>
 
-            {selectedDate && (
-              <div className="time-slot-list">
-                <h3>
-                  Available Companies{" "}
-                  <span> {selectedDate.toDateString()} </span>
-                </h3>
-                <div className="avalbe-cmpnies-main-bx">
-                  <div className="avalbe-cmpnies-bx">
-                    <div className="avalbe-cmpnies-flex">
-                      <div className="left-cmpnies-bx">
-                        <div className="cmpnies-logo">
-                          <img src={""} alt="" />
-                        </div>
+              {selectedDate && (
+                <div className="time-slot-list">
+                  <h3>
+                    Available Companies{" "}
+                    <span> {selectedDate?.toDateString()} </span>
+                  </h3>
+                  <div className="avalbe-cmpnies-main-bx">
+                    {!availableCompanies?.error
+                      ? availableCompanies.map(
+                          (
+                            {
+                              Franchise: { companyName, franchiseAddress, id },
+                            },
+                            i
+                          ) => {
+                            return (
+                              <>
+                                <div key={i} className="avalbe-cmpnies-bx">
+                                  <div className="avalbe-cmpnies-flex">
+                                    <div className="left-cmpnies-bx">
+                                      <div className="cmpnies-logo">
+                                        <img src={""} alt="" />
+                                      </div>
+                                      <div className="cmpnies-info">
+                                        <h6> {companyName} </h6>
 
-                        <div className="cmpnies-info">
-                          <h6> KabadPe </h6>
-
-                          {/* <div className="waste-prodts-flex">
+                                        {/* <div className="waste-prodts-flex">
                                     <div className="w-prodts-bx">
                                       <h6> {curelem.wasteProdtext} </h6>
                                       <span>{curelem.wasteProd}</span>
@@ -414,23 +456,26 @@ const Appointment = () => {
                                       <i class="fa-solid fa-angle-down"></i>
                                     </div>
                                   </div> */}
-                        </div>
-                      </div>
+                                      </div>
+                                    </div>
 
-                      <button
-                        onClick={() => {
-                          setBookApnt(true);
-                          setSelectedCompany({
-                            companyName: "kabadPe",
-                          });
-                        }}
-                        className="Select-apnt"
-                      >
-                        Select
-                      </button>
-                    </div>
+                                    <button
+                                      onClick={() => {
+                                        setBookApnt(true);
+                                        setSelectedCompany({
+                                          companyName,
+                                          franchiseAddress,
+                                          id,
+                                        });
+                                        //   handleCompName(curelem.name);
+                                      }}
+                                      className="Select-apnt"
+                                    >
+                                      Select
+                                    </button>
+                                  </div>
 
-                    {/* {itemPrice === curelem.id && (
+                                  {/* {itemPrice === curelem.id && (
                               <div className="item-price-grid-main-bx">
                                 <div className="all-user-table item-price-box">
                                   <table>
@@ -517,226 +562,80 @@ const Appointment = () => {
                                 </div>
                               </div>
                             )} */}
+                                </div>
+                              </>
+                            );
+                          }
+                        )
+                      : null}
                   </div>
-                  {!availableCompanies?.error
-                    ? availableCompanies.map(
-                        (
-                          { Franchise: { companyName, franchiseAddress, id } },
-                          i
-                        ) => {
-                          return (
-                            <>
-                              <div key={i} className="avalbe-cmpnies-bx">
-                                <div className="avalbe-cmpnies-flex">
-                                  <div className="left-cmpnies-bx">
-                                    <div className="cmpnies-logo">
-                                      <img src={""} alt="" />
-                                    </div>
-
-                                    <div className="cmpnies-info">
-                                      <h6> {companyName} </h6>
-
-                                      {/* <div className="waste-prodts-flex">
-                                    <div className="w-prodts-bx">
-                                      <h6> {curelem.wasteProdtext} </h6>
-                                      <span>{curelem.wasteProd}</span>
-                                    </div>
-
-                                    <div className="w-prodts-bx">
-                                      <h6>{curelem.wasteProdtexttwo}</h6>
-                                      <span>{curelem.wasteProdtwo}</span>
-                                    </div>
-
-                                    <div className="w-prodts-bx">
-                                      <h6>{curelem.wasteProdtextthree}</h6>
-                                      <span> {curelem.wasteProdthree} </span>
-                                    </div>
-                                  </div>
-
-                                  <div className="rating-flex-bx">
-                                    <div className="stars">
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-regular fa-star"></i>
-                                    </div>
-
-                                    <span> More products</span>
-
-                                    <div
-                                      onClick={() => handlebutton(curelem.id)}
-                                      className={
-                                        itemPrice
-                                          ? "round-arrow : arrowactive"
-                                          : "round-arrow"
-                                      }
-                                    >
-                                      <i class="fa-solid fa-angle-down"></i>
-                                    </div>
-                                  </div> */}
-                                    </div>
-                                  </div>
-
-                                  <button
-                                    onClick={() => {
-                                      setBookApnt(true);
-                                      setSelectedCompany({
-                                        companyName,
-                                        franchiseAddress,
-                                        id,
-                                      });
-                                      //   handleCompName(curelem.name);
-                                    }}
-                                    className="Select-apnt"
-                                  >
-                                    Select
-                                  </button>
-                                </div>
-
-                                {/* {itemPrice === curelem.id && (
-                              <div className="item-price-grid-main-bx">
-                                <div className="all-user-table item-price-box">
-                                  <table>
-                                    <thead>
-                                      <tr>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>Iron</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Plastic</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Aluminium</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Copper</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Magazine</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Wheel</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-
-                                <div className="all-user-table item-price-box">
-                                  <table>
-                                    <thead>
-                                      <tr>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>Iron</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Plastic</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Aluminium</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Copper</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Magazine</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Wheel</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            )} */}
-                              </div>
-                            </>
-                          );
-                        }
-                      )
-                    : null}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="time-slot-list">
+              <div className="calendar-popup">
+                <div className="date-time-main-bx">
+                  <h3>
+                    <span style={{ color: "red" }}>
+                      {" "}
+                      Select Address And Service Type First
+                    </span>
+                  </h3>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {bookApnt && (
-            <div className="book-apnt-bx" onClick={(e) => e.stopPropagation()}>
-              <h6>Book Appointment</h6>
-              {selectedCompany?.companyName == "kabadPe"
-                ? Object.keys(slotLabels).map((key) => (
-                    <li key={key}>
-                      <div className="left-time-date-bx">
-                        <p> {slotLabels?.[key]} </p>
-                        {/* <span>{reminingSlot} slot available</span> */}
-                      </div>
+            <div
+              className="date-time-popup-bx"
+              onClick={(e) => {
+                e.stopPropagation();
+                setBookApnt(false);
+              }}
+            >
+              <div
+                className="book-apnt-bx"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <h6>Book Appointment</h6>
+                {!timeSlots?.error
+                  ? timeSlots?.map(({ slotName, reminingSlot }, index) => (
+                      <li key={index}>
+                        <div className="left-time-date-bx">
+                          <p> {slotLabels?.[slotName]} </p>
+                          <span>{reminingSlot} slot available</span>
+                        </div>
 
-                      <button
-                        onClick={() => {
-                          // handleBookNow(), handleTimeSelection(time.timeslot);
-                        }}
-                        className={"book-apnt"} //`` ? "book-apnt book-org-btn" :
-                      >
-                        Book Appoinment
-                      </button>
-                    </li>
-                  ))
-                : !timeSlots?.error
-                ? timeSlots?.map(({ slotName, reminingSlot }, index) => (
-                    <li key={index}>
-                      <div className="left-time-date-bx">
-                        <p> {slotLabels?.[slotName]} </p>
-                        <span>{reminingSlot} slot available</span>
-                      </div>
+                        {reminingSlot ? (
+                          <button
+                            onClick={() => {
+                              handleBookNow();
+                              setSelectedSlotData({
+                                slotName,
+                                selectedCompany,
+                                selectedDate,
+                              });
+                              setOtherErrors((prev) => ({
+                                ...prev,
+                                timeSlot: "",
+                              }));
+                            }}
+                            className={"book-apnt"}
+                          >
+                            Book Appoinment
+                          </button>
+                        ) : null}
+                      </li>
+                    ))
+                  : null}
 
-                      {reminingSlot ? (
-                        <button
-                          onClick={() => {
-                            // handleBookNow(), handleTimeSelection(time.timeslot);
-                          }}
-                          className={"book-apnt"} //`` ? "book-apnt book-org-btn" :
-                        >
-                          Book Appoinment
-                        </button>
-                      ) : null}
-                    </li>
-                  ))
-                : null}
-
-              <div onClick={() => setBookApnt(false)} className="close-btn">
-                <i class="fa-solid fa-xmark"></i>
+                <div onClick={() => setBookApnt(false)} className="close-btn">
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
               </div>
             </div>
           )}

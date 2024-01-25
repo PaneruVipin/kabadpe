@@ -8,12 +8,12 @@ import {
 import { userLogin, userSignup } from "../features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import Redirect from "./Auth/RedirectIfLogin";
-import { useNavigate } from "react-router-dom";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
-import Protect from "./Auth/ProtectComp";
 import { userValidateKabadPeRefrral } from "../apis/auth";
 import { AutoComplete } from "antd";
-
+import { useQuery } from "@tanstack/react-query";
+import { userServicableAriasFetch } from "../apis/kbadpeUser/appoinment";
+import { workers } from "../lib/worker";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
@@ -22,28 +22,19 @@ const Wastecolloginregist = () => {
   const [formBox, setFormBox] = useState(false);
   const [changeText, setChangeText] = useState("Sign Up");
   const [formText, setFormText] = useState("Log In");
-  const [thanksText, setThanksText] = useState(false);
   const [forgotPara, setForgotPara] = useState(false);
   const [formComp, setFormComp] = useState(false);
   const [termsChecked, setTermsChecked] = useState(false);
-  const [checkBxValue, setCheckBxValue] = useState(false);
-  const [checkBxValueNo, setCheckBxValueNo] = useState(false);
   const [refrralValidation, setRefrralValidation] = useState(null);
-
+  const [pincode, setPincode] = useState("");
+  const [arias, setArias] = useState([]);
+  const [subArias, setSubArias] = useState([]);
+  const [selectedRole, setSelectedRole] = useState("");
   const sendReuqestfuct = () => {
     setForgotPara(true);
-
     setTimeout(() => {
       setForgotPara(false);
     }, 5000);
-  };
-
-  const thanksBtn = () => {
-    setThanksText(true);
-
-    setTimeout(() => {
-      setThanksText(false);
-    }, 6000);
   };
 
   const toggleForm = () => {
@@ -64,40 +55,29 @@ const Wastecolloginregist = () => {
     }
   };
 
-  const Area = [
+  const { data: servicableAddresses } = useQuery({
+    queryKey: ["servicableAddresses:workerLogin"],
+    queryFn: () => userServicableAriasFetch(),
+  });
 
-    {
-      label : "Area1",
-      value : "Area1",
-    },
+  const getArias = (pincode, res) => {
+    return [
+      ...new Set(
+        res.filter((e) => e?.pincode == pincode)?.map((e, i) => e?.ariaName)
+      ),
+    ]?.map((name, i) => ({ id: i, name }));
+  };
 
-    
-    {
-      label : "Area2",
-      value : "Area2",
-    },
+  const getSubArias = (pincode, aria, res) => {
+    return [
+      ...new Set(
+        res
+          .filter((e) => e?.pincode == pincode && e?.ariaName == aria)
+          ?.map((e, i) => e?.subAriaName)
+      ),
+    ]?.map((name, i) => ({ id: i, name }));
+  };
 
-    
-    {
-      label : "Area3",
-      value : "Area3",
-    },
-
-    
-    {
-      label : "Area4",
-      value : "Area4",
-    },
-
-    {
-      label : "Area5",
-      value : "Area5",
-    },
-
-
-    
-  ]
-  
   const initialValues =
     formBox === true
       ? {
@@ -108,6 +88,8 @@ const Wastecolloginregist = () => {
           phoneNumber: "",
           companyRef: "",
           workerRole: "",
+          ariaName: "",
+          subAriaName: "",
         }
       : {
           phoneNumber: "",
@@ -121,22 +103,11 @@ const Wastecolloginregist = () => {
           if (!termsChecked) {
             return;
           }
-          console.log("data running", data);
           dispatch(userSignup({ ...data, loginType: "collector" }));
         }
       : (data) => {
           dispatch(userLogin({ ...data, loginType: "collector" }));
         };
-
-  const checboxyes = () => {
-    setCheckBxValue(true);
-    setCheckBxValueNo(false);
-  };
-
-  const checboxno = () => {
-    setCheckBxValue(false);
-    setCheckBxValueNo(true);
-  };
 
   return (
     <>
@@ -170,7 +141,6 @@ const Wastecolloginregist = () => {
                   touched,
                   ...rest
                 }) => {
-                  console.log("errors  1", errors);
                   return (
                     <Form
                       className={
@@ -199,7 +169,6 @@ const Wastecolloginregist = () => {
                                 </div>
                               ) : null}
                             </div>
-
                           </>
                         ) : null}
                         <div className="log-inpt-bx log-inpt-bx-login">
@@ -214,7 +183,7 @@ const Wastecolloginregist = () => {
                             value={values?.phoneNumber}
                           />
                           {touched?.phoneNumber && errors?.phoneNumber ? (
-                            <div style={{ color: "red" }}>
+                            <div style={{ color: "red", }}>
                               {errors?.phoneNumber}
                             </div>
                           ) : null}
@@ -229,7 +198,20 @@ const Wastecolloginregist = () => {
                                 id="pincode"
                                 placeholder="Work Area Pincode"
                                 autoComplete="off"
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                  setPincode(e?.target?.value);
+                                  const arias = getArias(
+                                    e?.target?.value,
+                                    servicableAddresses
+                                  );
+                                  setArias(
+                                    arias?.map(({ name }) => ({
+                                      value: name,
+                                      lable: name,
+                                    }))
+                                  );
+                                  handleChange(e);
+                                }}
                                 onBlur={handleBlur}
                                 value={values?.pincode}
                               />
@@ -239,69 +221,67 @@ const Wastecolloginregist = () => {
                                 </div>
                               ) : null}
                             </div>
-                              
-                              <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
-                                <AutoComplete
+
+                            <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                              <AutoComplete
                                 //  optionSelectedColor={"#050505"}
-                                 className="apnt-inpt-bx-autotype reg-inpt"
-                                 options={Area}
-                                 filterOption={true}
-                                 placeholder="Enter Area"
-                                 />
-                              </div>
+                                className="apnt-inpt-bx-autotype reg-inpt"
+                                onChange={(v) => {
+                                  values.ariaName = v;
+                                  const subArias = getSubArias(
+                                    pincode,
+                                    v,
+                                    servicableAddresses
+                                  );
+                                  setSubArias(
+                                    subArias?.map(({ name }) => ({
+                                      value: name,
+                                      lable: name,
+                                    }))
+                                  );
+                                  handleChange({
+                                    target: { name: "ariaName" },
+                                  });
+                                }}
+                                onBlur={(v) => {
+                                  handleBlur({
+                                    target: { name: "ariaName" },
+                                  });
+                                }}
+                                options={arias}
+                                filterOption={true}
+                                placeholder="Enter Area"
+                              />
+                            </div>
 
-                              <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
-                                <AutoComplete
+                            <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                              <AutoComplete
                                 //  optionSelectedColor={"#050505"}
-                                 className="apnt-inpt-bx-autotype reg-inpt"
-                                 options={Area}
-                                 filterOption={true}
-                                 placeholder="Enter SubArea"
-                                 />
-                              </div>
-{/*                             
-                            <div className="log-inpt-bx reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="workCity"
-                                id="workcity"
-                                placeholder="Area"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.workCity}
+                                className="apnt-inpt-bx-autotype reg-inpt"
+                                options={subArias}
+                                filterOption={true}
+                                onChange={(v) => {
+                                  values.subAriaName = v;
+                                  handleChange({
+                                    target: { name: "subAriaName" },
+                                  });
+                                }}
+                                onBlur={(v) => {
+                                  handleBlur({
+                                    target: { name: "subAriaName" },
+                                  });
+                                }}
+                                placeholder="Enter SubArea"
                               />
-                              {touched?.workCity && errors?.workCity ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.workCity}
-                                </div>
-                              ) : null}
-                            </div> */}
-
-{/*                             
-                            <div className="log-inpt-bx reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="subarea"
-                                id="subarea"
-                                placeholder="Sub Area"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.workCity}
-                              />
-                              {touched?.workCity && errors?.workCity ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.workCity}
-                                </div>
-                              ) : null}
-                            </div> */}
-
+                            </div>
                             <div className="log-inpt-bx reg-inpt-bx">
                               <select
                                 name="workerRole"
                                 id="workertype"
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                  setSelectedRole(e?.target.value);
+                                  handleChange(e);
+                                }}
                                 onBlur={handleBlur}
                                 value={values?.workerRole}
                                 defaultValue={values?.workerRole}
@@ -309,11 +289,11 @@ const Wastecolloginregist = () => {
                                 <option value="" hidden>
                                   Choose
                                 </option>
-                                <option value="kabadi">KabadiWala</option>
-                                <option value="toilet_cleaner">
-                                  Toilet Cleaner
-                                </option>
-                                <option value="cleaner">Cleaner</option>
+                                {workers.map(({ label, value, id }) => (
+                                  <option key={id} value={value}>
+                                    {label}
+                                  </option>
+                                ))}
                               </select>
                               {touched?.workerRole && errors?.workerRole ? (
                                 <div style={{ color: "red" }}>
@@ -322,44 +302,51 @@ const Wastecolloginregist = () => {
                               ) : null}
                             </div>
 
-                            <span className="soc-sec-text">
-                              Company Referral Number
-                            </span>
-                            <div className="log-inpt-bx reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="companyRef"
-                                id="companyRef"
-                                placeholder="Company Referral Number"
-                                autoComplete="off"
-                                onChange={async (e) => {
-                                  values.companyRef = e.target.value;
-                                  const result =
-                                    await userValidateKabadPeRefrral(
-                                      values.companyRef
-                                    );
-                                  document.getElementById("email").focus();
-                                  document.getElementById("companyRef").focus();
-                                  setRefrralValidation(result);
-                                }}
-                                onBlur={handleBlur}
-                                value={values?.companyRef}
-                              />
-                              {touched.companyRef && errors?.companyRef ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.companyRef}
+                            {selectedRole == "kabadi" ? (
+                              <>
+                                {" "}
+                                <span className="soc-sec-text">
+                                  Company Referral Number Optional
+                                </span>
+                                <div className="log-inpt-bx reg-inpt-bx">
+                                  <input
+                                    type="text"
+                                    name="companyRef"
+                                    id="companyRef"
+                                    placeholder="Company Referral Number"
+                                    autoComplete="off"
+                                    onChange={async (e) => {
+                                      values.companyRef = e.target.value;
+                                      const result =
+                                        await userValidateKabadPeRefrral(
+                                          values.companyRef
+                                        );
+                                      document.getElementById("email").focus();
+                                      document
+                                        .getElementById("companyRef")
+                                        .focus();
+                                      setRefrralValidation(result);
+                                    }}
+                                    onBlur={handleBlur}
+                                    value={values?.companyRef}
+                                  />
+                                  {touched.companyRef && errors?.companyRef ? (
+                                    <div style={{ color: "red" }}>
+                                      {errors?.companyRef}
+                                    </div>
+                                  ) : null}
+                                  {refrralValidation?.error ? (
+                                    <div style={{ color: "red" }}>
+                                      {refrralValidation?.message}
+                                    </div>
+                                  ) : (
+                                    <div style={{ color: "green" }}>
+                                      {refrralValidation?.name}
+                                    </div>
+                                  )}
                                 </div>
-                              ) : null}
-                              {refrralValidation?.error ? (
-                                <div style={{ color: "red" }}>
-                                  {refrralValidation?.message}
-                                </div>
-                              ) : (
-                                <div style={{ color: "green" }}>
-                                  {refrralValidation?.name}
-                                </div>
-                              )}
-                            </div>
+                              </>
+                            ) : null}
                             <div className="log-inpt-bx reg-inpt-bx">
                               <input
                                 type="email"

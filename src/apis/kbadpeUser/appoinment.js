@@ -2,6 +2,43 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
+export const userScheduleAppoinment = resolvePromise(
+  async ({
+    appoinmentAddress,
+    appointmentContactNumber,
+    appointmentPersonName,
+    appointmentTimeSlot,
+    estimateWeight,
+    companyId,
+    frequency,
+    serviceType,
+    appointmentDate
+  }) => {
+    const apiUrl = ENV_API_BASE_URL + "/user/kabadPe/schedualPickup";
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.post(
+      apiUrl,
+      {
+        appoinmentAddress,
+        appointmentContactNumber,
+        appointmentPersonName,
+        appointmentTimeSlot,
+        estimateWeight,
+        companyId,
+        frequency,
+        serviceType,
+        appointmentDate
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  }
+);
+
 export const userAppoinmentsFetch = resolvePromise(
   async ({ from, to } = {}) => {
     const apiUrl = ENV_API_BASE_URL + `/user/kabadPe/appointments`;
@@ -80,10 +117,10 @@ export const userValidateServicability = resolvePromise(
 );
 
 export const userFetchAvailableCompanies = resolvePromise(
-  async ({ ariaId, date }) => {
+  async ({ ariaId, date, service }) => {
     const apiUrl =
       ENV_API_BASE_URL +
-      `/user/service/availablecompanies/${ariaId}?date=${date}`;
+      `/user/${service}/availablecompanies/${ariaId}?date=${date}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

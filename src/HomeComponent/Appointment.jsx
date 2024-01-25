@@ -34,7 +34,7 @@ const Appointment = () => {
   const [selectedSlotData, setSelectedSlotData] = useState();
   const [selectedServiceType, setSelectedServiceType] = useState();
   const [otherErrors, setOtherErrors] = useState({});
-
+  console.log("this is env", ENV);
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowCalendar(true);

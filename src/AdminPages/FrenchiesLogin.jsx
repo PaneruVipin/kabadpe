@@ -150,20 +150,12 @@ const FrenchiesLogin = () => {
 
   useEffect(() => {
     if (franchise?.role == "franchiseAdmin") {
-      if (franchise?.franchiseStatus == "1") {
-        payFunc();
-      } else if (franchise?.franchiseStatus == "2") {
+      if (franchise?.franchiseStatus == "active") {
         navigate("/frenchiespanel");
       }
     }
   }, [franchise, userSuccess, loading]);
-  console.log(
-    "condition ><>, ",
-    apiTouched?.login && loginError && !loginLoading,
-    apiTouched,
-    loginError,
-    loginLoading
-  );
+
   return (
     <>
       <main

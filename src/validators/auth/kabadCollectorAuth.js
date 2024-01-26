@@ -4,21 +4,7 @@ export const validationSignupCollector = object().shape({
   emergencyPhone: string()
     .required()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
-  // panNo: string().required(),
-  // ifsc: string().required(),
-  // bankAccountNumber: number().required(),
-  // bankName: string().required(),
-  // saftyTrainingDate: string().required(),
-  // heathCheckupDate: string().required(),
-  // policeVerification: string().required(),
   companyRef: string(),
-  // insurance: string(),
-  // aadharBack: string().required(),
-  // aadharFront: string().required(),
-  workCity: string().required(),
-  // religion: string().required(),
-  // caste: string().required(),
-  // dob: string().required(),
   email: string().email(),
   password: string().required(),
   pincode: number().required(),
@@ -26,6 +12,8 @@ export const validationSignupCollector = object().shape({
   phoneNumber: string()
     .required()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+  ariaName: string().required(),
+  subAriaName: string().required(),
 });
 
 export const validationLoginCollector = object().shape({

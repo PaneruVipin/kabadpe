@@ -12,6 +12,7 @@ import {
   userValidateServicability,
 } from "../apis/kbadpeUser/appoinment";
 import { useQuery } from "@tanstack/react-query";
+import { workers } from "../lib/worker";
 
 const Appointment = () => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
@@ -249,10 +250,11 @@ const Appointment = () => {
                               <option value="" hidden>
                                 Select Your Service
                               </option>
-                              <option value="kabadi">Waste Collector</option>
-                              <option value="cleaner">Cleaner</option>
-                              <option value="gardner">Gardner</option>
-                              <option value="swiper">Swiper</option>
+                              {workers.map(({ label, value, id }) => (
+                                <option key={id} value={value}>
+                                  {label}
+                                </option>
+                              ))}
                             </select>
                             {errors?.serviceType && touched?.serviceType ? (
                               <div style={{ color: "red" }}>

@@ -47,7 +47,7 @@ const WasteSubsPlan = () => {
       <section className="fren-subscrip-plan-comp">
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
-            <h5>Subscription Plan</h5>
+            <h5>Subscription Plan </h5>
 
             <div className="right-filter-btns-flex-bx">
              

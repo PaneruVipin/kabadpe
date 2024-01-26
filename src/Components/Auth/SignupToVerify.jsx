@@ -9,7 +9,7 @@ export const SignUpToVerify = ({ path = "/otpverify" }) => {
   } = useSelector((s) => s.auth);
   const { userInfo } = useSelector((s) => s.user);
   useEffect(() => {
-    if (signup && !userInfo) {
+    if (signup && userInfo?.role != "kabadCollector") {
       navigate(path);
     }
   }, [signup]);

@@ -21,7 +21,7 @@ const Otp = () => {
     otp: "",
   };
   const handleSubmit = (data) => {
-    const newData = { ...data, code: user?.code, loginType: user?.loginType };
+    const newData = { ...data, phoneNumber: user?.phoneNumber, loginType: user?.loginType };
     dispatch(userVerifySignup(newData));
   };
 

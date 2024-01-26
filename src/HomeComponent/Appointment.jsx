@@ -35,7 +35,6 @@ const Appointment = () => {
   const [selectedSlotData, setSelectedSlotData] = useState();
   const [selectedServiceType, setSelectedServiceType] = useState();
   const [otherErrors, setOtherErrors] = useState({});
-  console.log("this is env", ENV);
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowCalendar(true);
@@ -64,7 +63,6 @@ const Appointment = () => {
       appointmentTimeSlot: selectedSlotData?.slotName,
     };
     userScheduleAppoinment(newData);
-    console.log("filtered data,, ,, ,, ,, ", newData);
   };
   const slotLabels = {
     slot1: "8:00 am - 10:00 am",

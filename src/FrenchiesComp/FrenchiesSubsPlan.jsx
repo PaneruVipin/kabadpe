@@ -31,8 +31,9 @@ const FrenchiesSubsPlan = () => {
   const handelSubscribeClick = (subscriptionId) => async () => {
     setErrors("");
     if (!selectedArias?.length) {
-      alert("Please, Choose Atleast 1 Area")
+      alert("Please, Choose Atleast 1 Area");
       setErrors("Please, Choose Atleast 1 Area");
+      return;
     }
     const ariaIds = selectedArias.map(({ id }) => id);
     const planeType = plan;
@@ -42,7 +43,7 @@ const FrenchiesSubsPlan = () => {
       planeType,
     });
     if (res?.error) {
-      alert(res?.message)
+      alert(res?.message);
       setErrors(res?.message);
     }
   };
@@ -51,7 +52,7 @@ const FrenchiesSubsPlan = () => {
       <section className="fren-subscrip-plan-comp">
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
-            <h5>Subscription Plan</h5>
+            <h5>Subscription Plan </h5>
             <div className="right-filter-btns-flex-bx">
               <div onClick={() => setLocat(true)} className="sel-area-btn">
                 Select Location
@@ -98,35 +99,39 @@ const FrenchiesSubsPlan = () => {
                       <h4>Feature</h4>{" "}
                     </th>
 
-                    {subsPlans?.map(
-                      ({
-                        id,
-                        planeName,
-                        collectorCount,
-                        monthlyPrice,
-                        quaterlyPrice,
-                      }) => (
-                        <th>
-                          {" "}
-                          <div className="plan-flex-bx">
-                            <h6>
-                              {planeName?.slice(0, 1)?.toUpperCase() +
-                                planeName?.slice(1)}
-                            </h6>
-
-                            <p>
+                    {!subsPlans?.error
+                      ? subsPlans?.map(
+                          ({
+                            id,
+                            planeName,
+                            collectorCount,
+                            monthlyPrice,
+                            quaterlyPrice,
+                          }) => (
+                            <th>
                               {" "}
-                              {plan == "monthly"
-                                ? monthlyPrice
-                                : quaterlyPrice}{" "}
-                              <span>
-                                {plan == "monthly" ? "/Monthly" : "/Quaterly"}
-                              </span>{" "}
-                            </p>
-                          </div>{" "}
-                        </th>
-                      )
-                    )}
+                              <div className="plan-flex-bx">
+                                <h6>
+                                  {planeName?.slice(0, 1)?.toUpperCase() +
+                                    planeName?.slice(1)}
+                                </h6>
+
+                                <p>
+                                  {" "}
+                                  {plan == "monthly"
+                                    ? monthlyPrice
+                                    : quaterlyPrice}{" "}
+                                  <span>
+                                    {plan == "monthly"
+                                      ? "/Monthly"
+                                      : "/Quaterly"}
+                                  </span>{" "}
+                                </p>
+                              </div>{" "}
+                            </th>
+                          )
+                        )
+                      : null}
                   </tr>
                 </thead>
 

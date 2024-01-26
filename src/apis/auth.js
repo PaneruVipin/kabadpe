@@ -15,6 +15,8 @@ export const signup = async ({
   companyName,
   confirmPassword,
   workerRole,
+  ariaName,
+  subAriaName,
   loginType = "user",
 }) => {
   const setting = {
@@ -30,6 +32,8 @@ export const signup = async ({
         workCity,
         workerRole,
         companyRef,
+        ariaName,
+        subAriaName,
       },
     },
     user: {
@@ -85,14 +89,14 @@ export const login = async ({
 export const verifysignup = async ({
   email,
   otp,
-  code,
+  phoneNumber,
   loginType = "user",
 }) => {
   const setting = {
     user: { path: "/auth/verifySignup", payload: { email, otp } },
     collector: {
       path: "/_auth/kabadCollector/verifySignup",
-      payload: { code, otp },
+      payload: { phoneNumber, otp },
     },
     franchise: {
       path: "/_auth/franchise/verifysignup",

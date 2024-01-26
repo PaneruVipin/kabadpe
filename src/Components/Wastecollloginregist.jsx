@@ -103,6 +103,7 @@ const Wastecolloginregist = () => {
           if (!termsChecked) {
             return;
           }
+          console.log("this is data", data);
           dispatch(userSignup({ ...data, loginType: "collector" }));
         }
       : (data) => {
@@ -141,6 +142,7 @@ const Wastecolloginregist = () => {
                   touched,
                   ...rest
                 }) => {
+                  console.log("errors in form ,, ", errors);
                   return (
                     <Form
                       className={
@@ -183,7 +185,7 @@ const Wastecolloginregist = () => {
                             value={values?.phoneNumber}
                           />
                           {touched?.phoneNumber && errors?.phoneNumber ? (
-                            <div style={{ color: "red", }}>
+                            <div style={{ color: "red" }}>
                               {errors?.phoneNumber}
                             </div>
                           ) : null}
@@ -228,6 +230,11 @@ const Wastecolloginregist = () => {
                                 className="apnt-inpt-bx-autotype reg-inpt"
                                 onChange={(v) => {
                                   values.ariaName = v;
+                                  console.log(
+                                    "values.ariaName values.ariaName",
+                                    values.ariaName,
+                                    v
+                                  );
                                   const subArias = getSubArias(
                                     pincode,
                                     v,
@@ -239,15 +246,13 @@ const Wastecolloginregist = () => {
                                       lable: name,
                                     }))
                                   );
-                                  handleChange({
-                                    target: { name: "ariaName" },
-                                  });
-                                }}
-                                onBlur={(v) => {
                                   handleBlur({
                                     target: { name: "ariaName" },
                                   });
                                 }}
+                                onBlur={(e) => (
+                                  (e.target.name = "ariaName"), handleBlur(e)
+                                )}
                                 options={arias}
                                 filterOption={true}
                                 placeholder="Enter Area"
@@ -262,15 +267,18 @@ const Wastecolloginregist = () => {
                                 filterOption={true}
                                 onChange={(v) => {
                                   values.subAriaName = v;
-                                  handleChange({
-                                    target: { name: "subAriaName" },
-                                  });
-                                }}
-                                onBlur={(v) => {
+                                  console.log(
+                                    "values.subAriaName values.subAriaName",
+                                    values.subAriaName,
+                                    v
+                                  );
                                   handleBlur({
                                     target: { name: "subAriaName" },
                                   });
                                 }}
+                                onBlur={(e) => (
+                                  (e.target.name = "subAriaName"), handleBlur(e)
+                                )}
                                 placeholder="Enter SubArea"
                               />
                             </div>
@@ -306,21 +314,22 @@ const Wastecolloginregist = () => {
                               <>
                                 {" "}
                                 <span className="soc-sec-text">
-                                  Company Referral Number Optional
+                                  Company Referral Code Optional
                                 </span>
                                 <div className="log-inpt-bx reg-inpt-bx">
                                   <input
                                     type="text"
                                     name="companyRef"
                                     id="companyRef"
-                                    placeholder="Company Referral Number"
+                                    placeholder="Company Referral Code"
                                     autoComplete="off"
                                     onChange={async (e) => {
                                       values.companyRef = e.target.value;
-                                      const result =
-                                        await userValidateKabadPeRefrral(
-                                          values.companyRef
-                                        );
+                                      const result = values?.companyRef?.trim()
+                                        ? await userValidateKabadPeRefrral(
+                                            values?.companyRef?.trim()
+                                          )
+                                        : "";
                                       document.getElementById("email").focus();
                                       document
                                         .getElementById("companyRef")

@@ -2,14 +2,13 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
-export const adminGetAllUsers = resolvePromise(async (status) => {
+export const adminGetAllUsers = resolvePromise(async () => {
   const apiUrl = ENV_API_BASE_URL + `/admin/allUsers`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.get(apiUrl, {
     headers: {
       Authorization: token,
     },
-    params: { status },
   });
   return res?.users;
 });

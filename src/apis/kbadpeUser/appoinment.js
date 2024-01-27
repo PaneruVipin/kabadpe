@@ -12,7 +12,8 @@ export const userScheduleAppoinment = resolvePromise(
     companyId,
     frequency,
     serviceType,
-    appointmentDate
+    appointmentDate,
+    appoinmentAria,
   }) => {
     const apiUrl = ENV_API_BASE_URL + "/user/kabadPe/schedualPickup";
     const token = getFromLocalStorage("token");
@@ -27,7 +28,8 @@ export const userScheduleAppoinment = resolvePromise(
         companyId,
         frequency,
         serviceType,
-        appointmentDate
+        appointmentDate,
+        appoinmentAria,
       },
       {
         headers: {

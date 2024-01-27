@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
+import { adminGetAllUsers } from "../apis/admins/users";
+import { useQuery } from "@tanstack/react-query";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
@@ -55,17 +57,10 @@ const AllUser = ({ updatedFilterData }) => {
     }
   };
 
-  // const handleFiltFunction = (index) => {
-
-  //   const updatedData =  userData.filter((curData) => {
-
-  //     return index  === curData.categoryStatus ;
-
-  //   })
-
-  // setUserData(updatedData);
-
-  // }
+  const { data: allUsers, refetch } = useQuery({
+    queryKey: ["adminfetcUsers"],
+    queryFn: () => adminGetAllUsers(),
+  });
 
   return (
     <>
@@ -153,71 +148,73 @@ const AllUser = ({ updatedFilterData }) => {
               </thead>
 
               <tbody>
-                {updatedFilterData.map((curElem, id) => {
-                  return (
-                    <>
-                      <tr key={id}>
-                        <td>
-                          <span> {curElem.id} </span>
-                        </td>
-                        <td>
-                          <div className="user-prof-img">
-                            <img src={curElem.profImg} alt="" />
-                          </div>
-                        </td>
+                {!allUsers?.error
+                  ? allUsers?.map((curElem, id) => {
+                      return (
+                        <>
+                          <tr key={id}>
+                            <td>
+                              <span> {curElem.id} </span>
+                            </td>
+                            <td>
+                              <div className="user-prof-img">
+                                <img src={curElem.profImg} alt="" />
+                              </div>
+                            </td>
 
-                        <td>
-                          <span> {curElem.userId} </span>
-                        </td>
-                        <td>
-                          <span> {curElem.userName} </span>
-                        </td>
-                        <td>
-                          <span> {curElem.Mobile} </span>
-                        </td>
-                        <td>
-                          <span> {curElem.email} </span>
-                        </td>
-                        <td>
-                          <span> {curElem.userType} </span>
-                        </td>
-                        <td>
-                          <span
-                            style={{
-                              color:
-                                curElem.categoryStatus === "Active"
-                                  ? "Green"
-                                  : "orange",
-                            }}
-                            className={
-                              curElem.categoryStatus === "Banned"
-                                ? "status-t statColor"
-                                : "status-t"
-                            }
-                          >
-                            {" "}
-                            {curElem.userStatus}{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <span> {curElem.City} </span>
-                        </td>
-                        <td>
-                          <span> {curElem.Zip} </span>
-                        </td>
+                            <td>
+                              <span> {curElem.userId} </span>
+                            </td>
+                            <td>
+                              <span> {curElem.userName} </span>
+                            </td>
+                            <td>
+                              <span> {curElem.Mobile} </span>
+                            </td>
+                            <td>
+                              <span> {curElem.email} </span>
+                            </td>
+                            <td>
+                              <span> {curElem.userType} </span>
+                            </td>
+                            <td>
+                              <span
+                                style={{
+                                  color:
+                                    curElem.categoryStatus === "Active"
+                                      ? "Green"
+                                      : "orange",
+                                }}
+                                className={
+                                  curElem.categoryStatus === "Banned"
+                                    ? "status-t statColor"
+                                    : "status-t"
+                                }
+                              >
+                                {" "}
+                                {curElem.userStatus}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span> {curElem.City} </span>
+                            </td>
+                            <td>
+                              <span> {curElem.Zip} </span>
+                            </td>
 
-                        <td>
-                          <div
-                            onClick={() => setEditableForm(true)}
-                            className="edit-user-btn"
-                          >
-                            <i class="fa-regular fa-pen-to-square"></i>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
+                            <td>
+                              <div
+                                onClick={() => setEditableForm(true)}
+                                className="edit-user-btn"
+                              >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })
+                  : null}
               </tbody>
             </table>
           </div>

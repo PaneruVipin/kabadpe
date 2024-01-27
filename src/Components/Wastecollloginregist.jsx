@@ -142,7 +142,6 @@ const Wastecolloginregist = () => {
                   touched,
                   ...rest
                 }) => {
-                  console.log("errors in form ,, ", errors);
                   return (
                     <Form
                       className={

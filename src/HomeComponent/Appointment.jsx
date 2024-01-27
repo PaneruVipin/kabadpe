@@ -13,6 +13,7 @@ import {
 } from "../apis/kbadpeUser/appoinment";
 import { useQuery } from "@tanstack/react-query";
 import { workers } from "../lib/worker";
+import { slotLabels } from "../lib/slots";
 
 const Appointment = () => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
@@ -61,16 +62,9 @@ const Appointment = () => {
       appoinmentAddress: selectAddesQuery,
       companyId: selectedSlotData?.selectedCompany?.id,
       appointmentTimeSlot: selectedSlotData?.slotName,
+      appoinmentAria: selectedAddress?.id,
     };
     userScheduleAppoinment(newData);
-  };
-  const slotLabels = {
-    slot1: "8:00 am - 10:00 am",
-    slot2: "10:00 am - 12:00 pm",
-    slot3: "12:00 pm - 2:00 pm",
-    slot4: "2:00 pm - 4:00 pm",
-    slot5: "4:00 pm - 6:00 pm",
-    slot6: "6:00 pm - 8:00 pm",
   };
   const { data: availableCompanies, refetch } = useQuery({
     queryKey: ["userAvailableCompanies"],

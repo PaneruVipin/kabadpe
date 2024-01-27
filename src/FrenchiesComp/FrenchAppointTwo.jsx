@@ -245,7 +245,7 @@ const FrenchAppointTwo = ({updatedFrenchAppointData }) => {
           <div className="waste-appoint-main-bx french-appoint-box">
             <div className="appointment-flex-box">
               <div className="left-appont-bx">
-              <p className="tex-line tex-line2"> Appointments</p>
+              <p className="tex-line tex-line2"> Appointments </p>
 
               <div className="A-search-box sel-opt-bx">
                 <select name="select" id="select">

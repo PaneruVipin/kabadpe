@@ -40,6 +40,12 @@ import WasteProduct from "../AdminComponents.jsx/WasteProduct";
 import Bidcomp from "../FrenchiesComp/Bidcomp";
 import FrenchiesSubsPlan from "../FrenchiesComp/FrenchiesSubsPlan";
 import FrenchSubscriptionPlanTwo from "../FrenchiesComp/FrenchSubscriptionPlanTwo";
+import { useQuery } from "@tanstack/react-query";
+import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
+import {
+  franchiseCapacityFetch,
+  franchiseCapacityInsert,
+} from "../apis/franchise/workCapacity";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -128,6 +134,26 @@ const FrenchiesPanel = () => {
     }
   };
 
+  const { data: appoinments, refetch } = useQuery({
+    queryKey: ["franchiseAppoinments"],
+    queryFn: () => franchiseAppoinmentFetch(),
+  });
+
+  const {
+    data: slotCapacity,
+    refetch: refetchcapacity,
+    isSuccess: slotCapacitySuccess,
+  } = useQuery({
+    queryKey: ["franchiseCapacity"],
+    queryFn: () => franchiseCapacityFetch(),
+  });
+  const handleSubmitClick = (name, capacity) => async () => {
+    await franchiseCapacityInsert({
+      slotName: name,
+      capacity: capacity?.[name],
+    });
+    refetchcapacity();
+  };
   return (
     <>
       <section className="top-admin-header-comp">
@@ -953,7 +979,13 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments updatedFrenchAppointData={apntData} />
+          <FrenchAppointments
+            handleSubmitClick={handleSubmitClick}
+            slotCapacity={slotCapacity}
+            appoinments={appoinments}
+            slotCapacitySuccess={slotCapacitySuccess}
+            refetchcapacity={refetchcapacity}
+          />
         ) : null}
 
         {component === "orders" ? (

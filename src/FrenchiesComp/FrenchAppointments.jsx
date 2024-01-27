@@ -5,8 +5,17 @@ import "../style/Frenchiespanel.css";
 import FrenchAppointData from "../FrenchAppointData";
 import AppointSlot from "./AppointSlot";
 import WorkCapacity from "./WorkCapacity";
+import { useQuery } from "@tanstack/react-query";
+import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
+import { slotLabels } from "../lib/slots";
 
-const FrenchAppointments = ({updatedFrenchAppointData }) => {
+const FrenchAppointments = ({
+  appoinments,
+  slotCapacity,
+  handleSubmitClick,
+  slotCapacitySuccess,
+  refetchcapacity,
+}) => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
@@ -14,48 +23,13 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
   const [addressPopup, setAddressPopup] = useState(false);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-  const [apntSlot , setApntSlot] =  useState(false);
-  const [wrkcpcity , setWrkcpcity] = useState(false);
+  const [apntSlot, setApntSlot] = useState(false);
+  const [wrkcpcity, setWrkcpcity] = useState(false);
+  const [addressdetails, setAddressdetails] = useState({});
 
   const confirmPopupfunc = () => {
-
-    setPopUp(true)
-  
-
-  }
-
-  const custRef = useRef(null);
-
-  useEffect(() => {
-
-    const handleClickOutside = (event) => {
-
-        if(custRef.current && !custRef.current.contains(event.target)) {
-
-          setAddressPopup(false);
-          
-        }
-      
-    }
-
-
-    if(addressPopup){
-      document.addEventListener("mousedown", handleClickOutside);
-    }else{
-      document.removeEventListener("mousedown", handleClickOutside);
-
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-
-    }
-    
-
-  
-  }, [addressPopup])
-
-
+    setPopUp(true);
+  };
 
   return (
     <>
@@ -72,16 +46,21 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
             <h6>Assign Appointment to your waste collector</h6>
           </div>
 
-        <div className="appoint-det">
-          <p>Name : <span>Faiz Alam</span> </p>
-          <p>Time Slot : <span>1PM - 3PM</span> </p>
-          <p>Area : <span>Kanti Nagar</span> </p>
+          <div className="appoint-det">
+            <p>
+              Name : <span>Faiz Alam</span>{" "}
+            </p>
+            <p>
+              Time Slot : <span>1PM - 3PM</span>{" "}
+            </p>
+            <p>
+              Area : <span>Kanti Nagar</span>{" "}
+            </p>
+          </div>
 
-        </div>
-
-
-        <p className="note-text">Note : The KabadiWala is already have a job in same area .  </p>
-
+          <p className="note-text">
+            Note : The KabadiWala is already have a job in same area .{" "}
+          </p>
 
           <div className="appoint-change-btns-flex">
             <button
@@ -204,23 +183,27 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
             ? "cust-add-comp cust-add-comp2 addrssactive"
             : "cust-add-comp cust-add-comp2"
         }
+        onClick={() => setAddressPopup(false)}
       >
-        <div className="cust-add-bx cust-add-bx3" ref={custRef}>
+        <div
+          className="cust-add-bx cust-add-bx3"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h3>Customer Address</h3>
 
           <p>
             {" "}
             <span>Address :</span>
-            3019 B/9 kanti nagar old seelumpur near zia medical delhi-110031 .
+            {addressdetails?.appoinmentAddress} .
           </p>
 
           <p>
             {" "}
-            <span>City :</span> Delhi{" "}
+            <span>City :</span> {addressdetails?.city}{" "}
           </p>
           <p>
             {" "}
-            <span>Pin Code :</span> 110031
+            <span>Pin Code :</span> {addressdetails?.zipCode}
           </p>
 
           <button
@@ -238,26 +221,26 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
           <div className="work-capacity-flex-bx">
             <h3 className="title">Appointments </h3>
 
-            <button onClick={() => setWrkcpcity(true)} className="work-capacity-btn">
+            <button
+              onClick={() => setWrkcpcity(true)}
+              className="work-capacity-btn"
+            >
               Work Capacity
             </button>
-            </div>
+          </div>
           <div className="waste-appoint-main-bx french-appoint-box">
             <div className="appointment-flex-box">
               <div className="left-appont-bx">
-              <p className="tex-line tex-line2"> Appointments</p>
+                <p className="tex-line tex-line2"> Appointments</p>
 
-              <div className="A-search-box sel-opt-bx">
-                <select name="select" id="select">
-                  <option value="Today">Today</option>
-                  <option value="LastWeek">LastWeek</option>
-                  <option value="LastMonth">LastMonth</option>
-
-                </select>
+                <div className="A-search-box sel-opt-bx">
+                  <select name="select" id="select">
+                    <option value="Today">Today</option>
+                    <option value="LastWeek">LastWeek</option>
+                    <option value="LastMonth">LastMonth</option>
+                  </select>
+                </div>
               </div>
-
-              </div>
-              
 
               <div className="right-search-date-filter-box">
                 <div className="A-search-box">
@@ -317,32 +300,104 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
                   </tr>
                 </thead>
                 <tbody>
-
-                    {updatedFrenchAppointData.map((elem,id) => {
-
-                        return (
+                  {!appoinments?.error
+                    ? appoinments?.map(
+                        (
+                          {
+                            appoinmentAddress,
+                            appointmentContactNumber,
+                            appointmentDate,
+                            appointmentPersonName,
+                            appointmentTimeSlot,
+                            estimateWeight,
+                            franchiseId,
+                            frequency,
+                            id,
+                            orderDetail,
+                            orderStatus,
+                            userId,
+                            workerId,
+                            UserAddress: {
+                              id: addressId,
+                              locationType,
+                              landmark,
+                              subAria,
+                              aria,
+                              zipCode,
+                              state,
+                              city,
+                              street,
+                            },
+                          },
+                          i
+                        ) => {
+                          return (
                             <>
+                              <tr key={id}>
+                                <td> {i + 1} </td>
+                                <td> {appointmentDate} </td>
+                                <td> {slotLabels?.[appointmentTimeSlot]} </td>
+                                <td> {subAria} </td>
+                                <td>
+                                  {" "}
+                                  <span
+                                  // style={{
+                                  //   color:
+                                  //     elem.locationtype === "Home"
+                                  //       ? "#1362fc"
+                                  //       : "#43cf7f",
+                                  // }}
+                                  // className={
+                                  //   elem.locationtype === "Shop"
+                                  //     ? "locntext locntextdark"
+                                  //     : "locntext"
+                                  // }
+                                  >
+                                    {" "}
+                                    {locationType}{" "}
+                                  </span>{" "}
+                                </td>
 
-                  <tr key={id}>
-                    <td> {elem.id} </td>
-                    <td> {elem.date} </td>
-                    <td> {elem.timeslot} </td>
-                    <td> {elem.subarea} </td>
-                    <td> <span style={{ color : elem.locationtype === 'Home' ? "#1362fc" : "#43cf7f" }} className={ elem.locationtype === 'Shop' ? "locntext locntextdark" : "locntext"}> {elem.locationtype} </span>  </td>
-
-                    <td> {elem.custname} </td>
-                    <td>
-                      <button
-                        onClick={() => setAddressPopup(true)}
-                        className="status-btn status-btn-changed status-btn-changed3"
-                      >
-                        Details
-                      </button>
-                    </td>
-                    <td> <span className={ elem.statustype === "reschedule" || elem.statustype === "schdule"  ? "appnt-stats  appntstatactive" : "appnt-stats" } style={{color : elem.statustype === "cancelled" || elem.statustype === "underprocess" ? "#1362fc" : "#43cf7f"  }} > {elem.status} </span> </td>
-                    <td>
-                      <div className="appoint-flex-btns">
-                        {/* <button onClick={() => confirmPopupfunc()}>
+                                <td> {appointmentPersonName} </td>
+                                <td>
+                                  <button
+                                    onClick={() => {
+                                      setAddressdetails({
+                                        appoinmentAddress,
+                                        city,
+                                        zipCode,
+                                      });
+                                      setAddressPopup(true);
+                                    }}
+                                    className="status-btn status-btn-changed status-btn-changed3"
+                                  >
+                                    Details
+                                  </button>
+                                </td>
+                                <td>
+                                  {" "}
+                                  <span
+                                  // className={
+                                  //   elem.statustype === "reschedule" ||
+                                  //   elem.statustype === "schdule"
+                                  //     ? "appnt-stats  appntstatactive"
+                                  //     : "appnt-stats"
+                                  // }
+                                  // style={{
+                                  //   color:
+                                  //     elem.statustype === "cancelled" ||
+                                  //     elem.statustype === "underprocess"
+                                  //       ? "#1362fc"
+                                  //       : "#43cf7f",
+                                  // }}
+                                  >
+                                    {" "}
+                                    {orderStatus}{" "}
+                                  </span>{" "}
+                                </td>
+                                <td>
+                                  <div className="appoint-flex-btns">
+                                    {/* <button onClick={() => confirmPopupfunc()}>
                           <i class="fa-regular fa-circle-check"></i>
                         </button>
                         <button onClick={() => reschedulePopupfunc()}>
@@ -355,18 +410,20 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
                          onClick={() => confirmPopupfunc()}
                         */}
 
-                       <button onClick={() => setApntSlot(true)} className="assign-btn">
-                        Assign
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                                    <button
+                                      onClick={() => setApntSlot(true)}
+                                      className="assign-btn"
+                                    >
+                                      Assign
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
                             </>
-                        )
-                        
-                    })}
-                    
-                
+                          );
+                        }
+                      )
+                    : null}
                 </tbody>
               </table>
             </div>
@@ -374,9 +431,24 @@ const FrenchAppointments = ({updatedFrenchAppointData }) => {
         </div>
       </section>
 
-     { apntSlot ?  <AppointSlot ApntSlotTrue={apntSlot} onClickOpenPopup={() => {confirmPopupfunc() , setApntSlot(false)}} onclickCloseApntSlot={() => setApntSlot(false)} /> : null}
-     {  wrkcpcity ? <WorkCapacity onclickClose= {() => setWrkcpcity(false)} /> : null }
-
+      {apntSlot ? (
+        <AppointSlot
+          ApntSlotTrue={apntSlot}
+          onClickOpenPopup={() => {
+            confirmPopupfunc(), setApntSlot(false);
+          }}
+          onclickCloseApntSlot={() => setApntSlot(false)}
+        />
+      ) : null}
+      {wrkcpcity ? (
+        <WorkCapacity
+          data={slotCapacity}
+          handleSubmitClick={handleSubmitClick}
+          onclickClose={() => setWrkcpcity(false)}
+          slotCapacitySuccess={slotCapacitySuccess}
+          refetchcapacity={refetchcapacity}
+        />
+      ) : null}
     </>
   );
 };

@@ -13,7 +13,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import RateList from "./Pages/RateList";
 import PricelistPage from "./Pages/PricelistPage";
 import OtpVerify from "./Pages/OtpVerify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "./features/user/userActions";
 import { userLocationByQuery } from "./apis/location";
@@ -38,10 +38,14 @@ function App() {
   useEffect(() => {
     dispatch(userFetch());
   }, [login, verifySignup, loginLoading, verifyLoading]);
+  const [userForm, setUserForm] = useState(false);
   return (
     <Routes>
-      <Route path="/" element={<MainOutLet />}>
-        <Route index element={<Home />} />
+      <Route
+        path="/"
+        element={<MainOutLet userForm={userForm} setUserForm={setUserForm} />}
+      >
+        <Route index element={<Home setUserForm={setUserForm} />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/account" element={<WastecollectorPage />} />
@@ -69,7 +73,6 @@ function App() {
       <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
       <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
       <Route path="/contentedit" element={<ContentEdit />} />
-
     </Routes>
   );
 }

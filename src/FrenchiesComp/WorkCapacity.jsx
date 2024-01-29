@@ -4,14 +4,12 @@ import {
   franchiseCapacityFetch,
   franchiseCapacityInsert,
 } from "../apis/franchise/workCapacity";
+import {
+  adminCapacityFetch,
+  adminCapacityInsert,
+} from "../apis/admins/workCapacity";
 
-const WorkCapacity = ({
-  onclickClose,
-  data,
-  handleSubmitClick,
-  slotCapacitySuccess,
-  refetchcapacity
-}) => {
+const WorkCapacity = ({ onclickClose, component = "franchise" }) => {
   const [capacity, setCapacity] = useState({});
   const slots = [
     { name: "slot1", lable: "Slot 1", id: 1 },
@@ -24,6 +22,28 @@ const WorkCapacity = ({
 
   const handleCapacityChange = (name) => (e) => {
     setCapacity((prev) => ({ ...prev, [name]: e.target.value }));
+  };
+  const capacityFetch =
+    component == "franchise" ? franchiseCapacityFetch : adminCapacityFetch;
+  const capInsert =
+    component == "franchise" ? franchiseCapacityInsert : adminCapacityInsert;
+  const query =
+    component == "franchise" ? "franchiseCapacity" : "adminCapacity";
+  console.log("component component component component", component);
+  const {
+    data,
+    refetchcapacity,
+    isSuccess: slotCapacitySuccess,
+  } = useQuery({
+    queryKey: [query],
+    queryFn: () => capacityFetch(),
+  });
+  const handleSubmitClick = (name, capacity) => async () => {
+    await capInsert({
+      slotName: name,
+      capacity: capacity?.[name],
+    });
+    refetchcapacity();
   };
 
   return (
@@ -68,7 +88,7 @@ const WorkCapacity = ({
                         <td>
                           {" "}
                           <button
-                            onClick={handleSubmitClick(name,capacity)}
+                            onClick={handleSubmitClick(name, capacity)}
                             className="action-btn"
                           >
                             Submit

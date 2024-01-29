@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import AddAddressList from "./AddAddressList";
@@ -15,8 +15,9 @@ import { useQuery } from "@tanstack/react-query";
 import { workers } from "../lib/worker";
 import { slotLabels } from "../lib/slots";
 
-const Appointment = () => {
+const Appointment = ({ login, setUserForm }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
+  const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [addAddress, setAddAddress] = useState(false);
@@ -45,7 +46,7 @@ const Appointment = () => {
     setShowCalendar(false);
   };
 
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     setOtherErrors({});
     if (addressError) {
       return;
@@ -64,7 +65,11 @@ const Appointment = () => {
       appointmentTimeSlot: selectedSlotData?.slotName,
       appoinmentAria: selectedAddress?.id,
     };
-    userScheduleAppoinment(newData);
+    const res = await userScheduleAppoinment(newData);
+    if (res?.error) {
+      alert(res?.message);
+      return;
+    }
   };
   const { data: availableCompanies, refetch } = useQuery({
     queryKey: ["userAvailableCompanies"],
@@ -89,7 +94,6 @@ const Appointment = () => {
   });
 
   useEffect(() => {
-    setInitialFormValues({});
     if (userInfo) {
       setInitialFormValues((prev) => ({
         ...prev,
@@ -97,6 +101,7 @@ const Appointment = () => {
         appointmentPersonName: userInfo?.fullname,
       }));
     }
+    setFormLoading(false);
   }, [userInfo]);
   useEffect(() => {
     setOtherErrors((prev) => ({
@@ -147,7 +152,7 @@ const Appointment = () => {
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
-              {initialFormValues ? (
+              {!formLoading ? (
                 <Formik
                   initialValues={initialFormValues}
                   onSubmit={handleSubmit}
@@ -208,7 +213,13 @@ const Appointment = () => {
                         <div className="add-address-main-bx">
                           <button
                             type="button"
-                            onClick={() => setAddAddress(true)}
+                            onClick={() => {
+                              if (userInfo?.role == "user") {
+                                setAddAddress(true);
+                                return;
+                              }
+                              setUserForm(true);
+                            }}
                             className="apnt-form-submit-btn add-adres-btn"
                           >
                             Add Address

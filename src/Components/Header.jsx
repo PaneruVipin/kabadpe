@@ -3,8 +3,7 @@ import UserForm from "../Components/UserForm";
 import { NavLink } from "react-router-dom";
 import Protect from "../Components/Auth/ProtectComp";
 import "../style/HeaderStyle.css";
-const Header = () => {
-  const [userForm, setUserForm] = useState(false);
+const Header = ({userForm,setUserForm}) => {
   const [navlink, setNavLink] = useState("");
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);

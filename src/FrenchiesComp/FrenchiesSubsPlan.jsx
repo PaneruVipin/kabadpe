@@ -45,6 +45,7 @@ const FrenchiesSubsPlan = () => {
     if (res?.error) {
       alert(res?.message);
       setErrors(res?.message);
+      return
     }
   };
   return (

@@ -34,6 +34,9 @@ import ContentEditComp from "../AdminComponents.jsx/ContentEditComp";
 import FrenchAppointData from "../FrenchAppointData";
 import FrenchAppointments from "../FrenchiesComp/FrenchAppointments";
 import FrenchAppointTwo from "../FrenchiesComp/FrenchAppointTwo";
+import { adminAppoinmentsFetch } from "../apis/admins/appoinments";
+import { useQuery } from "@tanstack/react-query";
+import Redirect from "../Components/Auth/RedirectIfLogout";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -53,7 +56,6 @@ const AdminPanel = () => {
   const [apntDataTwo, setApntDataTwo] = useState(FrenchAppointData);
   const [apntTab, setApntTab] = useState(null);
   const [apntTabTwo, setApntTabTwo] = useState(null);
-
 
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
@@ -149,7 +151,6 @@ const AdminPanel = () => {
       : "inner-page-drop-dwn-btn";
   };
 
-
   const handleFilterAppoint = (getvalue) => {
     const updatedappointData = FrenchAppointData.filter((curelem) => {
       return getvalue === curelem.statustype;
@@ -168,8 +169,14 @@ const AdminPanel = () => {
     setApntTabTwo(getvalue);
   };
 
+  const { data: appoinments, refetch } = useQuery({
+    queryKey: ["adminAppoinments"],
+    queryFn: () => adminAppoinmentsFetch(),
+  });
+
   return (
     <>
+      <Redirect role="superAdmin" path="/adminlogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -570,49 +577,61 @@ const AdminPanel = () => {
                   </div>
 
                   <div className="inner-page-list ">
-                    <li  onClick={() => {handleViewComp("AllAppointment") , setApntData(FrenchAppointData)}}
+                    <li
+                      onClick={() => {
+                        handleViewComp("AllAppointment"),
+                          setApntData(FrenchAppointData);
+                      }}
                       className={
                         component === "AllAppointment"
                           ? "page-link-btn pagelinkactive"
                           : "page-link-btn"
-                      }>
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> All Appointments </NavLink>
                     </li>
-                    <li   onClick={() => handleFilterAppoint("complete")}
-                className={
-                  apntTab === "complete"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppoint("complete")}
+                      className={
+                        apntTab === "complete"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Complete Appointments </NavLink>
                     </li>
-                    <li   onClick={() => handleFilterAppoint("schdule")}
-                className={
-                  apntTab === "schdule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppoint("schdule")}
+                      className={
+                        apntTab === "schdule"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Assign Appointment </NavLink>
                     </li>
-                    <li onClick={() => handleFilterAppoint("underprocess")}
-                className={
-                  apntTab === "underprocess"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppoint("underprocess")}
+                      className={
+                        apntTab === "underprocess"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Unassigned Appointment </NavLink>
                     </li>
-                    <li onClick={() => handleFilterAppoint("reschedule")}
-                className={
-                  apntTab === "reschedule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-                >
+                    <li
+                      onClick={() => handleFilterAppoint("reschedule")}
+                      className={
+                        apntTab === "reschedule"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
@@ -627,59 +646,68 @@ const AdminPanel = () => {
                     <span className="appnt-text5"> Other Appointments</span>
                   </div>
 
-                  
                   <div className="inner-page-list ">
-                    <li  onClick={() => {handleViewComp("otherAppoint") , setApntDataTwo(FrenchAppointData)}}
+                    <li
+                      onClick={() => {
+                        handleViewComp("otherAppoint"),
+                          setApntDataTwo(FrenchAppointData);
+                      }}
                       className={
                         component === "otherAppoint"
                           ? "page-link-btn pagelinkactive"
                           : "page-link-btn"
-                      }>
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> All Appointments </NavLink>
                     </li>
-                    <li   onClick={() => handleFilterAppointTwo("complete")}
-                className={
-                  apntTabTwo === "complete"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppointTwo("complete")}
+                      className={
+                        apntTabTwo === "complete"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Complete Appointments </NavLink>
                     </li>
-                    <li   onClick={() => handleFilterAppointTwo("schdule")}
-                className={
-                  apntTabTwo === "schdule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppointTwo("schdule")}
+                      className={
+                        apntTabTwo === "schdule"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Assign Appointment </NavLink>
                     </li>
-                    <li onClick={() => handleFilterAppointTwo("underprocess")}
-                className={
-                  apntTabTwo === "underprocess"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }>
+                    <li
+                      onClick={() => handleFilterAppointTwo("underprocess")}
+                      className={
+                        apntTabTwo === "underprocess"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Unassigned Appointment </NavLink>
                     </li>
-                    <li onClick={() => handleFilterAppointTwo("reschedule")}
-                className={
-                  apntTabTwo === "reschedule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-                >
+                    <li
+                      onClick={() => handleFilterAppointTwo("reschedule")}
+                      className={
+                        apntTabTwo === "reschedule"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
                   </div>
                 </div>
               </div>
-
-              
             </div>
           </div>
 
@@ -1220,9 +1248,16 @@ const AdminPanel = () => {
         {component === "createplan" ? <Createplan /> : null}
         {component === "kabadpepages" ? <KabadPePagesLink /> : null}
         {component === "ContentEditComp" ? <ContentEditComp /> : null}
-        {component === "AllAppointment" ? <FrenchAppointments updatedFrenchAppointData={apntData} /> : null }
-        {component === "otherAppoint" ? <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} /> : null }
-
+        {component === "AllAppointment" ? (
+          <FrenchAppointments
+            component="admin"
+            appoinments={appoinments}
+            updatedFrenchAppointData={apntData}
+          />
+        ) : null}
+        {component === "otherAppoint" ? (
+          <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} />
+        ) : null}
       </section>
     </>
   );

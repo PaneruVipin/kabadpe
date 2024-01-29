@@ -136,7 +136,7 @@ const UserForm = ({ closepopUpUserForm }) => {
   useEffect(() => {
     if (login) {
       closepopUpUserForm();
-      navigate("/account");
+      // navigate("/account");
     }
     if (signup) {
       setUserParent(true);

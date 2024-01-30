@@ -127,7 +127,7 @@ const Wastecolloginregist = () => {
           <div className="left-log-reg-form-grid-bx">
             <div className="login-form-bx">
               <div className="login-logo">
-                <img src="/images/resources/logo.png" alt="" />
+                <img src="/images/customImg/logo.png" alt="" />
               </div>
               <Formik
                 initialValues={initialValues}
@@ -153,7 +153,7 @@ const Wastecolloginregist = () => {
                       <div className="register-form-height-box">
                         {formBox === true ? (
                           <>
-                            <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
                               <input
                                 type="text"
                                 name="fullname"
@@ -172,7 +172,7 @@ const Wastecolloginregist = () => {
                             </div>
                           </>
                         ) : null}
-                        <div className="log-inpt-bx log-inpt-bx-login">
+                        <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
                           <input
                             type="text"
                             name="phoneNumber"
@@ -192,7 +192,7 @@ const Wastecolloginregist = () => {
 
                         {formBox === true ? (
                           <>
-                            <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
                               <input
                                 type="text"
                                 name="pincode"
@@ -223,7 +223,7 @@ const Wastecolloginregist = () => {
                               ) : null}
                             </div>
 
-                            <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <div className="log-inpt-bx  reg-inpt-bx reg-inpt-bx5">
                               <AutoComplete
                                 //  optionSelectedColor={"#050505"}
                                 className="apnt-inpt-bx-autotype reg-inpt"
@@ -258,7 +258,7 @@ const Wastecolloginregist = () => {
                               />
                             </div>
 
-                            <div className="log-inpt-bx reg-inpt-bx reg-inpt-bx5">
+                            <div className="log-inpt-bx   reg-inpt-bx reg-inpt-bx5">
                               <AutoComplete
                                 //  optionSelectedColor={"#050505"}
                                 className="apnt-inpt-bx-autotype reg-inpt"
@@ -281,7 +281,7 @@ const Wastecolloginregist = () => {
                                 placeholder="Enter SubArea"
                               />
                             </div>
-                            <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
                               <select
                                 name="workerRole"
                                 id="workertype"
@@ -315,7 +315,7 @@ const Wastecolloginregist = () => {
                                 <span className="soc-sec-text">
                                   Company Referral Code Optional
                                 </span>
-                                <div className="log-inpt-bx reg-inpt-bx">
+                                <div className="log-inpt-bx  reg-inpt-bx">
                                   <input
                                     type="text"
                                     name="companyRef"
@@ -355,7 +355,7 @@ const Wastecolloginregist = () => {
                                 </div>
                               </>
                             ) : null}
-                            <div className="log-inpt-bx reg-inpt-bx">
+                            <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
                               <input
                                 type="email"
                                 name="email"
@@ -374,7 +374,7 @@ const Wastecolloginregist = () => {
                             </div>
                           </>
                         ) : null}
-                        <div className="log-inpt-bx log-inpt-bx-login">
+                        <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
                           <input
                             type="password"
                             name="password"
@@ -394,7 +394,7 @@ const Wastecolloginregist = () => {
 
                         {formBox === true ? (
                           <>
-                            <div className="log-inpt-bx log-inpt-bx-login">
+                            <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
                               <input
                                 type="text"
                                 name="emergencyPhone"
@@ -416,8 +416,8 @@ const Wastecolloginregist = () => {
                         ) : null}
                       </div>
 
-                      <div className="forgt-passwrd-check-bx-flex mt-3">
-                        <div className="form-check">
+                      <div className="forgt-passwrd-check-bx-flex  mt-3">
+                        <div className="form-check ">
                           <input
                             checked={termsChecked}
                             onChange={(e) => setTermsChecked(e.target.checked)}
@@ -494,7 +494,7 @@ const Wastecolloginregist = () => {
                 <img src="/images/resources/logo.png" alt="" />
               </div>
               <form action="#">
-                <div className="log-inpt-bx log-forgot-passwrd-inpt-bx">
+                <div className="log-inpt-bx  log-forgot-passwrd-inpt-bx">
                   <input
                     type="text"
                     name="mobemail"

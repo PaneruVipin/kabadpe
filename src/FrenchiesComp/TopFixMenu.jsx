@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-
+import ActiveToday from "../WasteColectComp/ActiveToday";
+import Holiday from "../WasteColectComp/Holiday";
+import GuestPopup from "../WasteColectComp/GuestPopup";
+import BuyWastePOpup from "./BuyWastePOpup";
 const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
@@ -148,6 +151,18 @@ const TopFixMenu = ({
             </div>
           </div>
         </div>
+        {actToday ? (
+          <ActiveToday onclickClose={() => setActToday(false)} />
+        ) : null}
+        {buyWaste ? (
+          <BuyWastePOpup onclickBtn={() => setBuyWaste(false)} />
+        ) : null}
+        {holiday ? (
+          <Holiday onclickCloseHoliday={() => setHoliday(false)} />
+        ) : null}
+        {guest ? (
+          <GuestPopup onclickCloseGuest={() => setGuest(false)} />
+        ) : null}
       </section>
     </>
   );

@@ -1,10 +1,11 @@
 import React from 'react'
 import Addsubscription from '../FrenchiesComp/Addsubscription'
 
-const Createplan = () => {
+const Createplan = ({onSwitchPrev , onactive , onSwitch }) => {
+
   return (
     <>
-      <Addsubscription />
+      <Addsubscription onSwitchPrev={onSwitchPrev} onactive={onactive} onSwitch={onSwitch} />
     </>
   )
 }

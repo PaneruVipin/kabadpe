@@ -127,7 +127,7 @@ const Wastecolloginregist = () => {
           <div className="left-log-reg-form-grid-bx">
             <div className="login-form-bx">
               <div className="login-logo">
-                <img src="/images/resources/logo.png" alt="" />
+                <img src="/images/customImg/logo.png" alt="" />
               </div>
               <Formik
                 initialValues={initialValues}

@@ -150,6 +150,7 @@ const UserForm = ({ closepopUpUserForm }) => {
     <>
       {/* <SignUpToVerify /> */}
       <section
+        onClick={closepopUpUserForm}
         className={
           userFormSec === true
             ? "user-form-comp userformactive"
@@ -157,6 +158,7 @@ const UserForm = ({ closepopUpUserForm }) => {
         }
       >
         <div
+          onClick={(e) => e.stopPropagation()}
           className={
             mainparent
               ? "user-main-parent-sec mainparentactive"

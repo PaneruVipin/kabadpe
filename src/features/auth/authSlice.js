@@ -59,6 +59,7 @@ const authSlice = createSlice({
           ...state.errors,
           login: "",
         };
+        window.location.reload();
       }
     );
     builder.addCase(userLogin.rejected, (state, { payload }) => {
@@ -122,7 +123,6 @@ const authSlice = createSlice({
     builder.addCase(
       userVerifySignup.fulfilled,
       (state, { payload: { data, payload } }) => {
-        console.log("token", data?.token);
         setInLocalStorage("token", data?.token);
         state.success = {
           ...state.success,
@@ -138,6 +138,7 @@ const authSlice = createSlice({
           ...state.errors,
           verifySignup: "",
         };
+        window.location.reload();
       }
     );
     builder.addCase(userVerifySignup.rejected, (state, { payload }) => {

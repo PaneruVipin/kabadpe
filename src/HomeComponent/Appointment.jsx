@@ -14,8 +14,10 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { workers } from "../lib/worker";
 import { slotLabels } from "../lib/slots";
+import { userAddressesFetch } from "../apis/user";
+import Response from "../Components/Popups/Response";
 
-const Appointment = ({ login, setUserForm }) => {
+const Appointment = ({ setUserForm }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -37,6 +39,7 @@ const Appointment = ({ login, setUserForm }) => {
   const [selectedSlotData, setSelectedSlotData] = useState();
   const [selectedServiceType, setSelectedServiceType] = useState();
   const [otherErrors, setOtherErrors] = useState({});
+  const [showResponse, setShowResponse] = useState(false);
   const handleDateChange = (date) => {
     setSelectedDate(date);
     setShowCalendar(true);
@@ -66,11 +69,18 @@ const Appointment = ({ login, setUserForm }) => {
       appoinmentAria: selectedAddress?.id,
     };
     const res = await userScheduleAppoinment(newData);
+    setShowResponse(true);
     if (res?.error) {
-      alert(res?.message);
+      setOtherErrors({ schedule: res?.message });
       return;
     }
+    setOtherErrors({ scheduleSuccess: "Successfuly scheduled appoinment " });
   };
+  const { data: addresses, refetchAddress } = useQuery({
+    queryKey: ["userAddress:appoinment:default"],
+    queryFn: () => userAddressesFetch(),
+  });
+
   const { data: availableCompanies, refetch } = useQuery({
     queryKey: ["userAvailableCompanies"],
     queryFn: () =>
@@ -92,17 +102,38 @@ const Appointment = ({ login, setUserForm }) => {
           : new Date().toISOString(),
       }),
   });
-
+  const checkAndOpenLoginPage = (fn) => {
+    return (e) => {
+      if (userInfo?.role == "user") {
+        fn(e);
+        return;
+      }
+      setUserForm(true);
+    };
+  };
+  useEffect(() => {
+    if (!addresses?.error && addresses?.length) {
+      setSelectedAddress(addresses?.[0]);
+    }
+  }, [addresses]);
+  useEffect(() => {
+    if (loading) {
+      setFormLoading(true);
+    }
+    if (loading === false) {
+      setFormLoading(false);
+    }
+  }, [loading]);
   useEffect(() => {
     if (userInfo) {
-      setInitialFormValues((prev) => ({
-        ...prev,
+      setInitialFormValues({
+        ...initialFormValues,
         appointmentContactNumber: userInfo?.phoneNumber,
         appointmentPersonName: userInfo?.fullname,
-      }));
+      });
     }
-    setFormLoading(false);
   }, [userInfo]);
+
   useEffect(() => {
     setOtherErrors((prev) => ({
       ...prev,
@@ -141,8 +172,17 @@ const Appointment = ({ login, setUserForm }) => {
   useEffect(() => {
     setSelectedSlotData(null);
   }, [selectedAddress, selectedServiceType]);
+
   return (
     <>
+      <Response
+        show={showResponse}
+        setShow={setShowResponse}
+        navTitle="Go To Account"
+        error={otherErrors?.schedule}
+        text={otherErrors?.scheduleSuccess}
+        path="/account"
+      />
       <section className="schedule-apnt-comp">
         <div className="comon-container-2 apnt-container">
           <div className="apnt-heading">
@@ -152,7 +192,7 @@ const Appointment = ({ login, setUserForm }) => {
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
-              {!formLoading ? (
+              {!formLoading && !loading ? (
                 <Formik
                   initialValues={initialFormValues}
                   onSubmit={handleSubmit}
@@ -166,6 +206,7 @@ const Appointment = ({ login, setUserForm }) => {
                     touched,
                     ...rest
                   }) => {
+                    const handleClick = checkAndOpenLoginPage(() => {});
                     return (
                       <Form className="apnt-slot-form-bx">
                         <div className="form-grid">
@@ -177,6 +218,7 @@ const Appointment = ({ login, setUserForm }) => {
                               placeholder="Your Name"
                               autoComplete="off"
                               required
+                              onClick={handleClick}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.appointmentPersonName}
@@ -197,6 +239,7 @@ const Appointment = ({ login, setUserForm }) => {
                               placeholder="Mobile No."
                               autoComplete="off"
                               required
+                              onClick={handleClick}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.appointmentContactNumber}
@@ -213,13 +256,9 @@ const Appointment = ({ login, setUserForm }) => {
                         <div className="add-address-main-bx">
                           <button
                             type="button"
-                            onClick={() => {
-                              if (userInfo?.role == "user") {
-                                setAddAddress(true);
-                                return;
-                              }
-                              setUserForm(true);
-                            }}
+                            onClick={checkAndOpenLoginPage(() =>
+                              setAddAddress(true)
+                            )}
                             className="apnt-form-submit-btn add-adres-btn"
                           >
                             Add Address
@@ -243,6 +282,7 @@ const Appointment = ({ login, setUserForm }) => {
                             <select
                               name="serviceType"
                               id="service"
+                              onClick={handleClick}
                               onChange={(e) => {
                                 setSelectedServiceType(e?.target?.value);
                                 handleChange(e);
@@ -270,6 +310,7 @@ const Appointment = ({ login, setUserForm }) => {
                             <select
                               name="estimateWeight"
                               id="service"
+                              onClick={handleClick}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.estimateWeight}
@@ -297,6 +338,7 @@ const Appointment = ({ login, setUserForm }) => {
                             <select
                               name="frequency"
                               id="service"
+                              onClick={handleClick}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.frequency}
@@ -320,7 +362,9 @@ const Appointment = ({ login, setUserForm }) => {
                           <div>
                             <div
                               className="apnt-inpt-bx apnt-inpt-bx2"
-                              onClick={() => setShowCalendar(true)}
+                              onClick={checkAndOpenLoginPage(() =>
+                                setShowCalendar(true)
+                              )}
                             >
                               <div>
                                 {selectedSlotData ? (
@@ -402,27 +446,32 @@ const Appointment = ({ login, setUserForm }) => {
                     Available Companies{" "}
                     <span> {selectedDate?.toDateString()} </span>
                   </h3>
-                  <div className="avalbe-cmpnies-main-bx">
-                    {!availableCompanies?.error
-                      ? availableCompanies.map(
-                          (
-                            {
-                              Franchise: { companyName, franchiseAddress, id },
-                            },
-                            i
-                          ) => {
-                            return (
-                              <>
-                                <div key={i} className="avalbe-cmpnies-bx">
-                                  <div className="avalbe-cmpnies-flex">
-                                    <div className="left-cmpnies-bx">
-                                      <div className="cmpnies-logo">
-                                        <img src={""} alt="" />
-                                      </div>
-                                      <div className="cmpnies-info">
-                                        <h6> {companyName} </h6>
+                  {selectedDate > new Date() ? (
+                    <div className="avalbe-cmpnies-main-bx">
+                      {!availableCompanies?.error
+                        ? availableCompanies.map(
+                            (
+                              {
+                                Franchise: {
+                                  companyName,
+                                  franchiseAddress,
+                                  id,
+                                },
+                              },
+                              i
+                            ) => {
+                              return (
+                                <>
+                                  <div key={i} className="avalbe-cmpnies-bx">
+                                    <div className="avalbe-cmpnies-flex">
+                                      <div className="left-cmpnies-bx">
+                                        <div className="cmpnies-logo">
+                                          <img src={""} alt="" />
+                                        </div>
+                                        <div className="cmpnies-info">
+                                          <h6> {companyName} </h6>
 
-                                        {/* <div className="waste-prodts-flex">
+                                          {/* <div className="waste-prodts-flex">
                                     <div className="w-prodts-bx">
                                       <h6> {curelem.wasteProdtext} </h6>
                                       <span>{curelem.wasteProd}</span>
@@ -461,26 +510,26 @@ const Appointment = ({ login, setUserForm }) => {
                                       <i class="fa-solid fa-angle-down"></i>
                                     </div>
                                   </div> */}
+                                        </div>
                                       </div>
+
+                                      <button
+                                        onClick={() => {
+                                          setBookApnt(true);
+                                          setSelectedCompany({
+                                            companyName,
+                                            franchiseAddress,
+                                            id,
+                                          });
+                                          //   handleCompName(curelem.name);
+                                        }}
+                                        className="Select-apnt"
+                                      >
+                                        Select
+                                      </button>
                                     </div>
 
-                                    <button
-                                      onClick={() => {
-                                        setBookApnt(true);
-                                        setSelectedCompany({
-                                          companyName,
-                                          franchiseAddress,
-                                          id,
-                                        });
-                                        //   handleCompName(curelem.name);
-                                      }}
-                                      className="Select-apnt"
-                                    >
-                                      Select
-                                    </button>
-                                  </div>
-
-                                  {/* {itemPrice === curelem.id && (
+                                    {/* {itemPrice === curelem.id && (
                               <div className="item-price-grid-main-bx">
                                 <div className="all-user-table item-price-box">
                                   <table>
@@ -567,13 +616,18 @@ const Appointment = ({ login, setUserForm }) => {
                                 </div>
                               </div>
                             )} */}
-                                </div>
-                              </>
-                            );
-                          }
-                        )
-                      : null}
-                  </div>
+                                  </div>
+                                </>
+                              );
+                            }
+                          )
+                        : null}
+                    </div>
+                  ) : (
+                    <div style={{ textAlign: "center" }}>
+                      Choose a future Date Please
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -591,7 +645,6 @@ const Appointment = ({ login, setUserForm }) => {
               </div>
             </div>
           )}
-
           {bookApnt && (
             <div
               className="date-time-popup-bx"

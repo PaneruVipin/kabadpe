@@ -174,7 +174,11 @@ const WasteAppoinmentTable = ({
             <td>
               Under Review <br /> (Reschedule)
             </td>
-            <td></td>
+            <td>
+                  <NavLink to="/pricelist">
+                    <button className="pricelist-btn">Buy Waste</button>
+                  </NavLink>
+                </td>
           </tr>
         </tbody>
       </table>

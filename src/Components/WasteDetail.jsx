@@ -64,7 +64,7 @@ const WasteDetail = () => {
   const initialValues = {
     fullname: userInfo?.fullname,
     dob: userInfo?.dob,
-    gender: userInfo?.gender,
+    gender: userInfo?.gender || "male",
     cast: userInfo?.cast,
     religion: userInfo?.religion,
     saftyTrainingDate: userInfo?.saftyTrainingDate,

@@ -28,6 +28,7 @@ import FrenchiesPanel from "./FrenchiesPage/FrenchiesPanel";
 import MainOutLet from "./Components/Outlets/MainOuTlet";
 import Contact from "./Pages/Contact";
 import ContentEdit from "./Pages/ContentEdit";
+import TermPolicy from "./HomeComponent/TermPolicy";
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,8 @@ function App() {
       <Route path="/frenchiesDashboard" element={<FrenchiesDashboard />} />
       <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
       <Route path="/contentedit" element={<ContentEdit />} />
+      <Route path="/termpolicy" element={<TermPolicy />} />
+
     </Routes>
   );
 }

@@ -9,13 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
 import { slotLabels } from "../lib/slots";
 
-const FrenchAppointments = ({
-  appoinments,
-  slotCapacity,
-  handleSubmitClick,
-  slotCapacitySuccess,
-  refetchcapacity,
-}) => {
+const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
@@ -442,11 +436,8 @@ const FrenchAppointments = ({
       ) : null}
       {wrkcpcity ? (
         <WorkCapacity
-          data={slotCapacity}
-          handleSubmitClick={handleSubmitClick}
+          component={component}
           onclickClose={() => setWrkcpcity(false)}
-          slotCapacitySuccess={slotCapacitySuccess}
-          refetchcapacity={refetchcapacity}
         />
       ) : null}
     </>

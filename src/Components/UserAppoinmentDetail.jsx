@@ -47,7 +47,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
           {collectorInfo?.Franchise ? (
             <div className="org-logo-info-flex-bx">
               <div className="left-org-logo">
-                <img src="/images/customImg/blog-1.jpg" alt="" />
+                <img src={collectorInfo?.Franchise?.franchiseLogo} alt="" />
                 <div className="tick-check">
                   <i class="fa-solid fa-circle-check"></i>
                 </div>
@@ -55,15 +55,19 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
 
               <div className="org-info">
                 <h6>
-                  Company : <span>{collectorInfo?.Franchise?.name}</span>
+                  Company : <span>{collectorInfo?.Franchise?.companyName}</span>
                 </h6>
-                <h6>
-                  Manager : <span>Sonu Nigam</span>
-                </h6>
+                {collectorInfo?.Franchise?.fullname ? (
+                  <h6>
+                    Manager : <span>{collectorInfo?.Franchise?.fullname}</span>
+                  </h6>
+                ) : null}
 
-                <h6 className="gst-text">
-                  GST : <span>1100022233344</span>
-                </h6>
+                {collectorInfo?.Franchise?.gst ? (
+                  <h6 className="gst-text">
+                    GST : <span>{collectorInfo?.Franchise?.gst}</span>
+                  </h6>
+                ) : null}
 
                 <h6></h6>
               </div>

@@ -23,6 +23,7 @@ import FrenchiesSubsPlan from "../FrenchiesComp/FrenchiesSubsPlan";
 import FrenchSubscriptionPlanTwo from "../FrenchiesComp/FrenchSubscriptionPlanTwo";
 import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
 import TopFixMenu from "../FrenchiesComp/TopFixMenu";
+import Redirect from "./Auth/RedirectIfLogout";
 
 const Wastecollectdashboard = () => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -48,7 +49,7 @@ const Wastecollectdashboard = () => {
   return (
     <>
       <TopFixMenu />
-
+      <Redirect role="kabadCollector" path="/auth/collector" />
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">

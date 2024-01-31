@@ -210,7 +210,7 @@ const Appointment = ({ setUserForm }) => {
                     return (
                       <Form className="apnt-slot-form-bx">
                         <div className="form-grid">
-                          <div className="apnt-inpt-bx">
+                          <div className="apnt-inpt-bx spe-apnt-inpt-bx">
                             <input
                               type="text"
                               name="appointmentPersonName"
@@ -225,13 +225,13 @@ const Appointment = ({ setUserForm }) => {
                             />
                             {errors?.appointmentPersonName &&
                             touched?.appointmentPersonName ? (
-                              <div style={{ color: "red" }}>
+                              <div className="field-text" style={{ color: "red" }}>
                                 {errors?.appointmentPersonName}
                               </div>
                             ) : null}
                           </div>
 
-                          <div className="apnt-inpt-bx">
+                          <div className="apnt-inpt-bx spe-apnt-inpt-bx">
                             <input
                               type="string"
                               name="appointmentContactNumber"
@@ -246,7 +246,7 @@ const Appointment = ({ setUserForm }) => {
                             />
                             {errors?.appointmentContactNumber &&
                             touched?.appointmentContactNumber ? (
-                              <div style={{ color: "red" }}>
+                              <div className="field-text" style={{ color: "red" }}>
                                 {errors?.appointmentContactNumber}
                               </div>
                             ) : null}
@@ -270,15 +270,16 @@ const Appointment = ({ setUserForm }) => {
                           </div>
                         </div>
                         {addressError ? (
-                          <div style={{ color: "red" }}>{addressError}</div>
+                          <div className="field-text" style={{ color: "red" }}>{addressError}</div>
                         ) : (
-                          <div style={{ color: "red" }}>
+                          <div className="field-text" style={{ color: "red" }}>
                             {otherErrors?.address}
                           </div>
                         )}
 
                         <div className="form-grid form-grid3">
-                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                          <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
+                            <div className="apnt-inpt-bx-s">
                             <select
                               name="serviceType"
                               id="service"
@@ -299,14 +300,16 @@ const Appointment = ({ setUserForm }) => {
                                 </option>
                               ))}
                             </select>
+                            </div>
                             {errors?.serviceType && touched?.serviceType ? (
-                              <div style={{ color: "red" }}>
+                              <div className="field-text" style={{ color: "red" }}>
                                 {errors?.serviceType}
                               </div>
                             ) : null}
                           </div>
 
-                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                          <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
+                          <div className="apnt-inpt-bx-s">
                             <select
                               name="estimateWeight"
                               id="service"
@@ -326,15 +329,17 @@ const Appointment = ({ setUserForm }) => {
                                 More than 200 Kg
                               </option>
                             </select>
+                            </div>
                             {errors?.estimateWeight &&
                             touched?.estimateWeight ? (
-                              <div style={{ color: "red" }}>
+                              <div className="field-text" style={{ color: "red" }}>
                                 {errors?.estimateWeight}
                               </div>
                             ) : null}
                           </div>
 
-                          <div className="apnt-inpt-bx apnt-inpt-bx-s">
+                          <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
+                            <div className="apnt-inpt-bx-s">
                             <select
                               name="frequency"
                               id="service"
@@ -350,8 +355,9 @@ const Appointment = ({ setUserForm }) => {
                               <option value="weekly">Weekly</option>
                               <option value="monthly">Monthly</option>
                             </select>
+                            </div>
                             {errors?.frequency && touched?.frequency ? (
-                              <div style={{ color: "red" }}>
+                              <div className="field-text" style={{ color: "red" }}>
                                 {errors?.frequency}
                               </div>
                             ) : null}

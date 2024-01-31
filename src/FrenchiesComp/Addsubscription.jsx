@@ -4,8 +4,9 @@ import AddSubsEdit from "./AddSubsEdit";
 import { useQuery } from "@tanstack/react-query";
 import { adminSubsDelete, adminSubsFetch } from "../apis/admins/subscription";
 
-const Addsubscription = () => {
+const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
   const [subsPlanBx, setSubsPlanBx] = useState(false);
+  const [btnActive, setBtnActive] = useState('');
   const [initialUpdateValues, setInitialUpdateValues] = useState({});
   const { data: subscription, refetch } = useQuery({
     queryKey: ["kabadpeSubscription"],
@@ -16,7 +17,32 @@ const Addsubscription = () => {
     <>
       <section className="add-work-comn-comp">
         <div className="add-work-btn-flex-bx">
-          <h6 className="banktext mb-0">Add Work Area</h6>
+          <h6 className="banktext mb-0">Subscriptions Plans</h6>
+
+          <div className="for-french-indi-flex-btn">
+            <button
+              className={
+                onactive === "addsubscription" ||      onactive === "createplan"
+                  ? "switch-btn switchactive"
+                  : "switch-btn "
+              } onClick={onSwitchPrev}
+            
+            >
+              For Frenchies
+            </button>
+
+            <button
+              className={
+                onactive === "individuals"
+                  ? "switch-btn switchactive"
+                  : "switch-btn "
+              }
+              onClick={onSwitch}
+            >
+              For Individuals
+            </button>
+          </div>
+
           <button
             onClick={() => {
               setInitialUpdateValues();

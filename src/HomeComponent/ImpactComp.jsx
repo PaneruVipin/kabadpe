@@ -50,7 +50,7 @@ const ImpactComp = () => {
   return (
     <>
       <section className="impact-comp animated-num-count-comp">
-        <div className="comon-container-2">
+        <div className="comon-container-2 imp-container">
           <div className="apnt-heading">
             <p>Small Step</p>
             <h3>Big Impact</h3>
@@ -131,6 +131,59 @@ const ImpactComp = () => {
                 <p>PEOPLE MADE AWARE ON CLIMATE CHANGE </p>
               </div>
             </div>
+
+              <div className="imp-main imp-main4">
+              <div className="imp-bx">
+                <div className="imp-icon imp-icon-i-font imp-icon5">
+                  <i class="fa-solid fa-droplet"></i>
+                </div>
+              </div>
+
+              <div className="imp-info">
+                <h5> 13.8 </h5>
+                <p> Cr. Litres of Water Saved </p>
+              </div>
+            </div>
+
+            <div className="imp-main imp-main4">
+              <div className="imp-bx">
+                <div className="imp-icon imp-icon-i-font2 imp-icon5">
+                  <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+              </div>
+
+              <div className="imp-info">
+                <h5>5.65</h5>
+                <p> KWH Of Electricity Saved </p>
+              </div>
+            </div>
+
+            <div className="imp-main imp-main4">
+              <div className="imp-bx">
+                <div className="imp-icon imp-icon-i-font2 imp-icon-i-font3 imp-icon5">
+                  <i class="fa-solid fa-bottle-droplet"></i>
+                </div>
+              </div>
+
+              <div className="imp-info">
+                <h5>2.5</h5>
+                <p> Lakhs Litres of Oil Saved</p>
+              </div>
+            </div>
+
+            <div className="imp-main imp-main4">
+              <div className="imp-bx">
+                <div className="imp-icon imp-icon-i-font2 imp-icon-i-font4 imp-icon-i-font3 imp-icon5">
+                  <i class="fa-brands fa-pagelines"></i>
+                </div>
+              </div>
+
+              <div className="imp-info">
+                <h5>10.24</h5>
+                <p>Th. Number Of Tree Saved</p>
+              </div>
+            </div>
+
           </div>
 
           {/* <div className="imp-grid-bx-2">

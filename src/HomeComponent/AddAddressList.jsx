@@ -277,7 +277,8 @@ const AddAddressList = ({
                   return (
                     <Form>
                       <div className="address-add-type-grid-bx">
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address  spe-apnt-inpt-bx">
+                        <div className="apnt-inpt-bx-s">
                           <select
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -294,14 +295,15 @@ const AddAddressList = ({
                             <option value="shop">Shop</option>
                             <option value="mall">Mall/Outlet</option>
                           </select>
+                          </div>
                           {touched?.locationType && errors?.locationType ? (
-                            <div style={{ color: "red" }}>
+                            <div className="field-text" style={{ color: "red" }}>
                               {errors?.locationType}
                             </div>
                           ) : null}
                         </div>
 
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a ">
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a spe-apnt-inpt-bx">
                           <input
                             type="text"
                             name="street"
@@ -314,11 +316,12 @@ const AddAddressList = ({
                             value={values?.street}
                           />
                           {touched?.street && errors?.street ? (
-                            <div style={{ color: "red" }}>{errors?.street}</div>
+                            <div className="field-text" style={{ color: "red" }}>{errors?.street}</div>
                           ) : null}
                         </div>
 
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-s ">
+                        <div className="apnt-inpt-bx apnt-inpt-bx-address spe-apnt-inpt-bx">
+                        <div className="apnt-inpt-bx-s">
                           <select
                             onChange={(e) => {
                               setSelection((prev) => ({
@@ -353,8 +356,9 @@ const AddAddressList = ({
                               </option>
                             ))}
                           </select>
+                          </div>
                           {touched?.state && errors?.state ? (
-                            <div style={{ color: "red" }}>{errors?.state}</div>
+                            <div className="field-text" style={{ color: "red" }}>{errors?.state}</div>
                           ) : null}
                         </div>
                       </div>
@@ -389,7 +393,7 @@ const AddAddressList = ({
                             defaultValue={values?.city}
                           />
                           {touched?.city && errors?.city ? (
-                            <div style={{ color: "red" }}>{errors?.city}</div>
+                            <div className="field-text" style={{ color: "red" }}>{errors?.city}</div>
                           ) : null}
                         </div>
                         <div>
@@ -422,7 +426,7 @@ const AddAddressList = ({
                             defaultValue={values?.zipCode}
                           />
                           {touched?.zipCode && errors?.zipCode ? (
-                            <div style={{ color: "red" }}>
+                            <div className="field-text" style={{ color: "red" }}>
                               {errors?.zipCode}
                             </div>
                           ) : null}
@@ -458,7 +462,7 @@ const AddAddressList = ({
                             defaultValue={values?.aria}
                           />
                           {touched?.aria && errors?.aria ? (
-                            <div style={{ color: "red" }}>{errors?.aria}</div>
+                            <div className="field-text" style={{ color: "red" }}>{errors?.aria}</div>
                           ) : null}
                         </div>
                         <div>
@@ -478,7 +482,7 @@ const AddAddressList = ({
                             defaultValue={values?.subAria}
                           />
                           {touched?.subAria && errors?.subAria ? (
-                            <div style={{ color: "red" }}>
+                            <div className="field-text" style={{ color: "red" }}>
                               {errors?.subAria}
                             </div>
                           ) : null}
@@ -499,7 +503,7 @@ const AddAddressList = ({
                             defaultValue={values?.landmark}
                           />
                           {touched?.landmark && errors?.landmark ? (
-                            <div style={{ color: "red" }}>
+                            <div className="field-text" style={{ color: "red" }}>
                               {errors?.landmark}
                             </div>
                           ) : null}

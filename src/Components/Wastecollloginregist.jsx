@@ -303,7 +303,7 @@ const Wastecolloginregist = () => {
                                 defaultValue={values?.workerRole}
                               >
                                 <option value="" hidden>
-                                  Choose
+                                  Choose Worker Type
                                 </option>
                                 {workers.map(({ label, value, id }) => (
                                   <option key={id} value={value}>

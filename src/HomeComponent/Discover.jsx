@@ -14,7 +14,7 @@ const Discover = () => {
 
               <div className="quest-text apnt-heading">
                 <p >Have any questions?</p>
-                <h6>+91 98218 61897</h6>
+                <h6>+91 88002 09988</h6>
               </div>
             </div>
 

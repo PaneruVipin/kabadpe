@@ -150,6 +150,16 @@ const Wastecolloginregist = () => {
                           : "log-regst-form"
                       }
                     >
+                      <input
+                        style={{ height: 0, width: 0 }}
+                        type="text"
+                        name="fakeusernameremembered"
+                      />
+                      <input
+                        style={{ height: 0, width: 0 }}
+                        type="password"
+                        name="fakepasswordremembered"
+                      />
                       <div className="register-form-height-box">
                         {formBox === true ? (
                           <>
@@ -178,7 +188,6 @@ const Wastecolloginregist = () => {
                             name="phoneNumber"
                             id="phone"
                             placeholder="Phone No."
-                            autoComplete="off"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values?.phoneNumber}
@@ -229,11 +238,6 @@ const Wastecolloginregist = () => {
                                 className="apnt-inpt-bx-autotype reg-inpt"
                                 onChange={(v) => {
                                   values.ariaName = v;
-                                  console.log(
-                                    "values.ariaName values.ariaName",
-                                    values.ariaName,
-                                    v
-                                  );
                                   const subArias = getSubArias(
                                     pincode,
                                     v,
@@ -256,6 +260,11 @@ const Wastecolloginregist = () => {
                                 filterOption={true}
                                 placeholder="Enter Area"
                               />
+                              {touched?.ariaName && errors?.ariaName ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.ariaName}
+                                </div>
+                              ) : null}
                             </div>
 
                             <div className="log-inpt-bx   reg-inpt-bx reg-inpt-bx5">
@@ -266,11 +275,6 @@ const Wastecolloginregist = () => {
                                 filterOption={true}
                                 onChange={(v) => {
                                   values.subAriaName = v;
-                                  console.log(
-                                    "values.subAriaName values.subAriaName",
-                                    values.subAriaName,
-                                    v
-                                  );
                                   handleBlur({
                                     target: { name: "subAriaName" },
                                   });
@@ -280,6 +284,11 @@ const Wastecolloginregist = () => {
                                 )}
                                 placeholder="Enter SubArea"
                               />
+                              {touched?.subAriaName && errors?.subAriaName ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.subAriaName}
+                                </div>
+                              ) : null}
                             </div>
                             <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
                               <select
@@ -294,7 +303,7 @@ const Wastecolloginregist = () => {
                                 defaultValue={values?.workerRole}
                               >
                                 <option value="" hidden>
-                                  Choose
+                                  Choose Worker Type
                                 </option>
                                 {workers.map(({ label, value, id }) => (
                                   <option key={id} value={value}>
@@ -360,7 +369,7 @@ const Wastecolloginregist = () => {
                                 type="email"
                                 name="email"
                                 id="email"
-                                placeholder="Email or Username"
+                                placeholder="Email. "
                                 autoComplete="off"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -380,7 +389,6 @@ const Wastecolloginregist = () => {
                             name="password"
                             id="password"
                             placeholder="Password"
-                            autoComplete="off"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values?.password}

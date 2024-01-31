@@ -46,6 +46,7 @@ import {
   franchiseCapacityFetch,
   franchiseCapacityInsert,
 } from "../apis/franchise/workCapacity";
+import Redirect from "../Components/Auth/RedirectIfLogout";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -139,23 +140,9 @@ const FrenchiesPanel = () => {
     queryFn: () => franchiseAppoinmentFetch(),
   });
 
-  const {
-    data: slotCapacity,
-    refetch: refetchcapacity,
-    isSuccess: slotCapacitySuccess,
-  } = useQuery({
-    queryKey: ["franchiseCapacity"],
-    queryFn: () => franchiseCapacityFetch(),
-  });
-  const handleSubmitClick = (name, capacity) => async () => {
-    await franchiseCapacityInsert({
-      slotName: name,
-      capacity: capacity?.[name],
-    });
-    refetchcapacity();
-  };
   return (
     <>
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -979,13 +966,7 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments
-            handleSubmitClick={handleSubmitClick}
-            slotCapacity={slotCapacity}
-            appoinments={appoinments}
-            slotCapacitySuccess={slotCapacitySuccess}
-            refetchcapacity={refetchcapacity}
-          />
+          <FrenchAppointments appoinments={appoinments} />
         ) : null}
 
         {component === "orders" ? (

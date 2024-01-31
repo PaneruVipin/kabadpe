@@ -3,7 +3,7 @@ import { userFetch } from "./userActions";
 import { removeFromLocalStorage } from "../../lib/localStorage";
 
 const initialState = {
-  loading: false,
+  loading: undefined,
   userInfo: null,
   error: "",
   success: false,

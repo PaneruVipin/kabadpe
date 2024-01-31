@@ -82,11 +82,11 @@ const AllUser = ({ updatedFilterData }) => {
 
               <div className="user-type-sel-box user-data-search-box">
                 <select name="user-type-data" id="user-type-data">
-                  <option value="1">User</option>
+                  {/* <option value="1">User</option>
                   <option value="1">Vendor</option>
                   <option value="1">Staff (Manager)</option>
                   <option value="1">Staff (Sales Team)</option>
-                  <option value="1">Staff (Support Team)</option>
+                  <option value="1">Staff (Support Team)</option> */}
                 </select>
               </div>
 
@@ -149,71 +149,86 @@ const AllUser = ({ updatedFilterData }) => {
 
               <tbody>
                 {!allUsers?.error
-                  ? allUsers?.map((curElem, id) => {
-                      return (
-                        <>
-                          <tr key={id}>
-                            <td>
-                              <span> {curElem.id} </span>
-                            </td>
-                            <td>
-                              <div className="user-prof-img">
-                                <img src={curElem.profImg} alt="" />
-                              </div>
-                            </td>
+                  ? allUsers?.map(
+                      (
+                        {
+                          id,
+                          profileImage,
+                          username,
+                          phoneNumber,
+                          email,
+                          role,
+                          accountStatus,
+                          fullname,
+                          franchiseStatus
+                        },
+                        i
+                      ) => {
+                        return (
+                          <>
+                            <tr key={id}>
+                              <td>
+                                <span> {i + 1} </span>
+                              </td>
+                              <td>
+                                <div className="user-prof-img">
+                                  <img src={profileImage} alt="" />
+                                </div>
+                              </td>
 
-                            <td>
-                              <span> {curElem.userId} </span>
-                            </td>
-                            <td>
-                              <span> {curElem.userName} </span>
-                            </td>
-                            <td>
-                              <span> {curElem.Mobile} </span>
-                            </td>
-                            <td>
-                              <span> {curElem.email} </span>
-                            </td>
-                            <td>
-                              <span> {curElem.userType} </span>
-                            </td>
-                            <td>
-                              <span
-                                style={{
-                                  color:
-                                    curElem.categoryStatus === "Active"
-                                      ? "Green"
-                                      : "orange",
-                                }}
-                                className={
-                                  curElem.categoryStatus === "Banned"
-                                    ? "status-t statColor"
-                                    : "status-t"
-                                }
-                              >
-                                {" "}
-                                {curElem.userStatus}{" "}
-                              </span>
-                            </td>
-                            <td>
-                              <span> {curElem.City} </span>
-                            </td>
-                            <td>
-                              <span> {curElem.Zip} </span>
-                            </td>
+                              <td>
+                                <span> {id} </span>
+                              </td>
+                              <td>
+                                <span> {fullname} </span>
+                              </td>
+                              <td>
+                                <span> {phoneNumber} </span>
+                              </td>
+                              <td>
+                                <span> {email} </span>
+                              </td>
+                              <td>
+                                <span> {role} </span>
+                              </td>
+                              <td>
+                                <span
+                                  // style={{
+                                  //   color:
+                                  //     curElem.categoryStatus === "Active"
+                                  //       ? "Green"
+                                  //       : "orange",
+                                  // }}
+                                  // className={
+                                  //   curElem.categoryStatus === "Banned"
+                                  //     ? "status-t statColor"
+                                  //     : "status-t"
+                                  // }
+                                >
+                                  {" "}
+                                  {accountStatus || franchiseStatus}{" "}
+                                </span>
+                              </td>
+                              <td>
+                                {/* <span> {curElem.City} </span> */}
+                              </td>
+                              <td>
+                                {/* <span> {curElem.Zip} </span> */}
+                              </td>
 
-                            <td>
-                              <div
-                                onClick={() => setEditableForm(true)}
-                                className="edit-user-btn"
-                              >
-                                <i class="fa-regular fa-pen-to-square"></i>
-                              </div>
-                            </td>
-                          </tr>
-                        </>
-                      );
-                    })
+                              <td>
+                                <div
+                                  onClick={() => setEditableForm(true)}
+                                  className="edit-user-btn"
+                                >
+                                  <i class="fa-regular fa-pen-to-square"></i>
+                                </div>
+                              </td>
+                            </tr>
+                          </>
+                        );
+                      }
+                    )
                   : null}
               </tbody>
             </table>

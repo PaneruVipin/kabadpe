@@ -46,7 +46,6 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                               {KabadCollector
                                 ? KabadCollector?.fullname
                                 : "Unassigned"}{" "}
-                              / {Arium?.pincode}{" "}
                               <NavLink
                                 to="#"
                                 onClick={() => {
@@ -71,7 +70,11 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                             }).toFormat("ccc dd LLL yyyy")}{" "}
                           </h6>
                           <span>
-                            Ap.No.- <NavLink to="#"> 8447532101 </NavLink>
+                            Ap.No.-{" "}
+                            <NavLink to="#">
+                              {" "}
+                              {String(id).padStart(6, "0")}{" "}
+                            </NavLink>
                           </span>
                         </div>
                       </td>
@@ -83,18 +86,35 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                           Reschedule
                         </div>
                       </td>
-                      <td>
-                        <div className=" tb-call-btn tb-call-btn5">Call </div>
-                      </td>
+                      {KabadCollector?.phoneNumber ? (
+                        <td>
+                          <div className=" tb-call-btn tb-call-btn5">Call </div>
+                        </td>
+                      ) : null}
+
                       <td>
                         <div className=" tb-call-btn tb-report-btn">Report</div>
                       </td>
-                      <td>
-                        <div className="complet-bx upcoming-bx">Upcoming</div>
-                      </td>{" "}
-                      <td>
-                        <div className="complet-bx complet-bx3">Completed</div>
-                      </td>
+
+                      {orderStatus == "active" ? (
+                        <td>
+                          <div className="complet-bx upcoming-bx">Upcoming</div>
+                        </td>
+                      ) : null}
+                      {orderStatus == "completed" ? (
+                        <td>
+                          <div className="complet-bx complet-bx3">
+                            Completed
+                          </div>
+                        </td>
+                      ) : null}
+                      {orderStatus == "cancelled" ? (
+                        <td>
+                          <div className="complet-bx complet-bx3 conceld-bx">
+                            Cancelled
+                          </div>
+                        </td>
+                      ) : null}
                       <td>
                         <button
                           onClick={onSupportClick}
@@ -103,11 +123,6 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                           <i class="fa-solid fa-hands-holding-child"></i>
                           Support
                         </button>
-                      </td>
-                      <td>
-                        <div className="complet-bx complet-bx3 conceld-bx">
-                          Cancelled
-                        </div>
                       </td>
                     </tr>
                   )

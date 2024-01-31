@@ -15,41 +15,31 @@ import { Preloadergsap } from "../HomeComponent/PreloaderGsap";
 import MainFooter from "../HomeComponent/MainFooter";
 import Discover from "../HomeComponent/Discover";
 
-const Home = () => {
-
+const Home = ({ setUserForm }) => {
   useEffect(() => {
+    Preloadergsap();
+  }, []);
 
+  return (
+    <>
+      <Preloader />
 
+      <div className="mainwrap">
+        <HomeSlider />
+        <Appointment setUserForm={setUserForm} />
+        <Ecosystem />
+        <KabadJugad />
+        <Contribution />
+        <ImpactComp />
+        <Review />
+        <InstaFeed />
+        <Discover />
+        <MainFooter />
+      </div>
 
-      Preloadergsap()
-    
-
-
-    
-},[])
-  
-  return <>
-
-  <Preloader />
-
-
-  <div  className="mainwrap">
-  
-  <HomeSlider />
-  <Appointment />
-  <Ecosystem />
-  <KabadJugad />
-  <Contribution />
-  <ImpactComp />
-  <Review/>
-  <InstaFeed />
-  <Discover />
-      <MainFooter />
- 
-  </div>
-
-  <ScrollBtn />
-  </>;
+      <ScrollBtn />
+    </>
+  );
 };
 
 export default Home;

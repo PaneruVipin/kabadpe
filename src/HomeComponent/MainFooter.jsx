@@ -83,7 +83,7 @@ const MainFooter = () => {
              <div className="fot-lists">
                 <li> <NavLink to="#">+91 88002 09988</NavLink> </li>
                 <li> <NavLink to="#">Info@Kabadpe.com</NavLink> </li>
-                <li> <NavLink to="#">Bengaluru, Karnataka</NavLink> </li>
+                <li> <NavLink to="#">Jaipur, Rajasthan</NavLink> </li>
 
              </div>
 
@@ -94,8 +94,8 @@ const MainFooter = () => {
               <h6>Sign Up</h6>
 
              <div className="fot-lists fot-lists2">
-                <li> <i class="fa-solid fa-phone-volume"></i> <NavLink to="#">As eco-store Vendor</NavLink> </li>
-                <li> <i class="fa-regular fa-envelope"></i> <NavLink to="#">A pickup executive</NavLink> </li>
+                <li>  <NavLink to="#">As eco-store Vendor</NavLink> </li>
+                <li>  <NavLink to="/auth/collector">As pickup executive</NavLink> </li>
                
 
              </div>
@@ -119,9 +119,9 @@ const MainFooter = () => {
 
           <div className="foter-copyright-flex-bx">
 
-            <p>Copyright <span>Kabadpe.com</span> @ 2024 . All rights reserved.  </p>
+            <p>Copyright <span>Climstrip Shift Pvt. Ltd. </span> @ 2024 . All rights reserved.  </p>
 
-            <p>Designed and developed by <span>Digital Dezire Web Solutions</span> </p>
+            <p>Designed and developed by <NavLink to="https://digitaldezire.com/" target="_blank">Digital Dezire </NavLink> </p>
             
           </div>
           

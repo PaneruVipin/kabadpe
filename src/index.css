@@ -11303,3 +11303,7 @@ __________ */
   letter-spacing: .55px;
   background-color: #00224f;
 }
+
+.foter-copyright-flex-bx p a{
+  color: #fff;
+}

@@ -8,6 +8,8 @@ import WorkCapacity from "./WorkCapacity";
 import { useQuery } from "@tanstack/react-query";
 import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
 import { slotLabels } from "../lib/slots";
+import { DateTime } from "luxon";
+import { workers } from "../lib/worker";
 
 const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
   const [popUp, setPopUp] = useState(false);
@@ -213,7 +215,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
         <div className="tab-main-bx tab-main-bx3 ">
           {/* <h3 className="title">Appointments</h3> */}
           <div className="work-capacity-flex-bx">
-            <h3 className="title">Appointments </h3>
+            <h3 className="title">Appointments</h3>
 
             <button
               onClick={() => setWrkcpcity(true)}
@@ -287,7 +289,11 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                     <th>Time Slots</th>
                     <th>Sub Area</th>
                     <th>Location Type</th>
+                    <th>User Id</th>
                     <th>Customer Name</th>
+                    <th>Service Type</th>
+                    <th>Frequency</th>
+                    <th>Esimated Weight</th>
                     <th>Customer Address</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -311,6 +317,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                             orderStatus,
                             userId,
                             workerId,
+                            serviceType,
                             UserAddress: {
                               id: addressId,
                               locationType,
@@ -329,7 +336,12 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                             <>
                               <tr key={id}>
                                 <td> {i + 1} </td>
-                                <td> {appointmentDate} </td>
+                                <td>
+                                  {" "}
+                                  {DateTime.fromISO(appointmentDate, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy")}
+                                </td>
                                 <td> {slotLabels?.[appointmentTimeSlot]} </td>
                                 <td> {subAria} </td>
                                 <td>
@@ -351,8 +363,18 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                     {locationType}{" "}
                                   </span>{" "}
                                 </td>
-
+                                <td> {String(userId).padStart(6, "0")} </td>
                                 <td> {appointmentPersonName} </td>
+                                <td>
+                                  {" "}
+                                  {
+                                    workers.find(
+                                      ({ value }) => value == serviceType
+                                    ).label
+                                  }{" "}
+                                </td>
+                                <td> {frequency} </td>
+                                <td> {estimateWeight} </td>
                                 <td>
                                   <button
                                     onClick={() => {

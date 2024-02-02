@@ -15,6 +15,7 @@ import { DateTime } from "luxon";
 import { date } from "yup";
 import { workers } from "../lib/worker";
 import { downloadFile } from "../lib/file";
+import { FaFileImage } from "react-icons/fa";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -225,44 +226,41 @@ const WasteDetail = () => {
               <div className="det-user-bx">
                 <h6>Aadhar Front:</h6>
                 {userInfo?.aadharFront ? (
-                  <img
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      downloadFile(userInfo?.aadharFront, "aadharFront");
-                    }}
-                    src={userInfo?.aadharFront}
-                    className="documt-img"
-                    alt=""
-                  />
+                 <span
+                 style={{ cursor: "pointer" }}
+                 onClick={() => {
+                   downloadFile(userInfo?.aadharFront, "aadharFront");
+                 }}
+               >
+                 View
+               </span>
                 ) : null}
               </div>
 
               <div className="det-user-bx">
                 <h6>Aadhar Back:</h6>
                 {userInfo?.aadharBack ? (
-                  <img
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      downloadFile(userInfo?.aadharBack, "aadharFront");
-                    }}
-                    src={userInfo?.aadharBack}
-                    className="documt-img"
-                    alt=""
-                  />
+                 <span
+                 style={{ cursor: "pointer" }}
+                 onClick={() => {
+                   downloadFile(userInfo?.aadharBack, "aadharBack");
+                 }}
+               >
+                 View
+               </span>
                 ) : null}
               </div>
               <div className="det-user-bx">
                 <h6>Safty Training:</h6>
                 {userInfo?.saftyTraining ? (
-                  <img
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      downloadFile(userInfo?.saftyTraining, "aadharFront");
-                    }}
-                    src={userInfo?.saftyTraining}
-                    className="documt-img"
-                    alt=""
-                  />
+                 <span
+                 style={{ cursor: "pointer" }}
+                 onClick={() => {
+                   downloadFile(userInfo?.saftyTraining, "saftyTraining");
+                 }}
+               >
+                 View
+               </span>
                 ) : null}
               </div>
 
@@ -491,7 +489,6 @@ const WasteDetail = () => {
                                 name="emergencyPhone"
                                 id="Number"
                                 autoComplete="off"
-                                //required
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values?.emergencyPhone}
@@ -533,7 +530,7 @@ const WasteDetail = () => {
                                 <input
                                   type="file"
                                   name="aadharFront"
-                                  accept="image/*"
+                                  accept="image/*,.pdf"
                                   id="aadharFront"
                                   autoComplete="off"
                                   //required
@@ -561,10 +558,13 @@ const WasteDetail = () => {
                             </div>
 
                             <div className="select-File">
-                              {(selectedImageoOne || values?.aadharFront) && (
-                                <img
-                                  src={selectedImageoOne || values?.aadharFront}
-                                  alt=""
+                              {selectedImageoOne && (
+                                <FaFileImage
+                                  style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    marginBottom: "-80px",
+                                  }}
                                 />
                               )}
                             </div>
@@ -575,7 +575,7 @@ const WasteDetail = () => {
                                 <input
                                   type="file"
                                   name="aadharBack"
-                                  accept="image/*"
+                                  accept="image/*,.pdf"
                                   id="aadharBack"
                                   autoComplete="off"
                                   //required
@@ -604,10 +604,13 @@ const WasteDetail = () => {
                             </div>
 
                             <div className="select-File">
-                              {(selectedImageTwo || values?.aadharBack) && (
-                                <img
-                                  src={selectedImageTwo || values?.aadharBack}
-                                  alt=""
+                              {selectedImageTwo && (
+                                <FaFileImage
+                                  style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    marginBottom: "-80px",
+                                  }}
                                 />
                               )}
                             </div>
@@ -622,7 +625,7 @@ const WasteDetail = () => {
                                 <input
                                   type="file"
                                   name="saftyTraining"
-                                  accept="image/*"
+                                  accept="image/*,.pdf"
                                   id="saftyTraining"
                                   autoComplete="off"
                                   //required
@@ -649,10 +652,13 @@ const WasteDetail = () => {
                             </div>
 
                             <div className="select-File">
-                              {(saftyTraining || values?.saftyTraining) && (
-                                <img
-                                  src={saftyTraining || values?.saftyTraining}
-                                  alt=""
+                              {saftyTraining && (
+                                <FaFileImage
+                                  style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    marginBottom: "-80px",
+                                  }}
                                 />
                               )}
                             </div>
@@ -665,7 +671,7 @@ const WasteDetail = () => {
                                 <input
                                   type="file"
                                   name="policeVerification"
-                                  accept="image/*"
+                                  accept="image/*,.pdf"
                                   id="policeVerification"
                                   autoComplete="off"
                                   //required
@@ -695,14 +701,13 @@ const WasteDetail = () => {
                             </div>
 
                             <div className="select-File">
-                              {(policeVerification ||
-                                values?.policeVerification) && (
-                                <img
-                                  src={
-                                    policeVerification ||
-                                    values?.policeVerification
-                                  }
-                                  alt=""
+                              {policeVerification && (
+                                <FaFileImage
+                                  style={{
+                                    width: "40px",
+                                    height: "40px",
+                                    marginBottom: "-80px",
+                                  }}
                                 />
                               )}
                             </div>

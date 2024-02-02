@@ -336,7 +336,7 @@ const WasteDetail = () => {
               }
             >
               <div className="add-det-info-bx">
-                <h6>Personal information 2</h6>
+                <h6>Personal information </h6>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Quidem sequi iste reiciendis nemo beatae fugiat, totam eaque

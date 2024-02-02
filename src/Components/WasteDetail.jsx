@@ -3,6 +3,7 @@ import WasteDetailsPasswd from "./WasteDetailsPasswd";
 import WasteDetBank from "./WasteDetBank";
 import DatePicker from "react-datepicker";
 import CompltProfPopup from "./CompltProfPopup";
+import { calculateAge } from "../lib/date";
 import { useDispatch, useSelector } from "react-redux";
 import {
   collectorProfileImageAdd,
@@ -12,6 +13,8 @@ import { userFetch } from "../features/user/userActions";
 import { Form, Formik } from "formik";
 import { DateTime } from "luxon";
 import { date } from "yup";
+import { workers } from "../lib/worker";
+import { downloadFile } from "../lib/file";
 
 const WasteDetail = () => {
   const [addInfo, setAddInfo] = useState(false);
@@ -20,8 +23,11 @@ const WasteDetail = () => {
   );
   const [selectedImageoOne, setSelectedImageOne] = useState("");
   const [selectedImageTwo, setSelectedImageTwo] = useState("");
+  const [policeVerification, setPoliceVerification] = useState("");
+  const [saftyTraining, setSaftyTraining] = useState("");
   const [profChange, setProfChange] = useState(false);
   const [profileImage, setProfileImage] = useState();
+  const [otherErrors, setOtherErrors] = useState({});
   const { userInfo } = useSelector((s) => s?.user);
   const dispatch = useDispatch();
 
@@ -49,8 +55,14 @@ const WasteDetail = () => {
     // Check if the string can be converted to a valid date
     return !isNaN(Date.parse(str));
   }
-
+  const clearImageState = () => {
+    setSelectedImageTwo("");
+    setSelectedImageOne("");
+    setSaftyTraining("");
+    setPoliceVerification("");
+  };
   const handleSubmit = async (data) => {
+    setOtherErrors({});
     const newData = { ...data };
     if (!(newData?.aadharFront instanceof File)) {
       delete newData?.aadharFront;
@@ -58,8 +70,20 @@ const WasteDetail = () => {
     if (!(newData?.aadharBack instanceof File)) {
       delete newData?.aadharBack;
     }
-    await updateWorkerProfile(newData);
-    dispatch(userFetch());
+    if (!(newData?.saftyTraining instanceof File)) {
+      delete newData?.saftyTraining;
+    }
+    if (!(newData?.policeVerification instanceof File)) {
+      delete newData?.policeVerification;
+    }
+    const res = await updateWorkerProfile(newData);
+    if (!res?.error) {
+      dispatch(userFetch());
+      setAddInfo(!addInfo);
+      clearImageState();
+      return;
+    }
+    setOtherErrors({ edit: res?.message });
   };
   const initialValues = {
     fullname: userInfo?.fullname,
@@ -76,6 +100,7 @@ const WasteDetail = () => {
     aadharFront: userInfo?.aadharFront,
     aadharBack: userInfo?.aadharBack,
     policeVerification: userInfo?.policeVerification,
+    saftyTraining: userInfo?.saftyTraining,
   };
   useEffect(() => {
     if (userInfo?.profileImage) setSelectedImage(userInfo?.profileImage);
@@ -159,40 +184,52 @@ const WasteDetail = () => {
                 <h6>Name :</h6>
                 <span>{userInfo?.fullname}</span>
               </div>
-
+              <div className="det-user-bx">
+                <h6>Mobile Number :</h6>
+                <span>{userInfo?.phoneNumber}</span>
+              </div>
               <div className="det-user-bx">
                 <h6>Date of Birth :</h6>
                 {userInfo?.dob ? (
-                  <span>
-                    {DateTime.fromISO(userInfo?.dob).toFormat("dd LLL yyyy")}
-                  </span>
+                  <>
+                    <span>
+                      {DateTime.fromISO(userInfo?.dob).toFormat("dd LLL yyyy")}
+                    </span>
+                    <p>Age: {calculateAge(userInfo?.dob)}</p>
+                  </>
                 ) : null}
               </div>
-
               <div className="det-user-bx">
                 <h6>Gender :</h6>
                 <span>{userInfo?.gender}</span>
               </div>
-
+              <div className="det-user-bx">
+                <h6>Worker:</h6>
+                <span>
+                  {workers.find((w) => w.value == userInfo?.workerRole)?.label}
+                </span>
+              </div>
+              <div className="det-user-bx">
+                <h6>Area :</h6>
+                <span>{userInfo?.ariaName}</span>
+              </div>
+              <div className="det-user-bx">
+                <h6>Subarea :</h6>
+                <span>{userInfo?.subAriaName}</span>
+              </div>
               <div className="det-user-bx">
                 <h6>Pincode :</h6>
                 <span>{userInfo?.pincode}</span>
               </div>
 
               <div className="det-user-bx">
-                <h6>Mobile Number :</h6>
-                <span>{userInfo?.phoneNumber}</span>
-              </div>
-
-              <div className="det-user-bx">
-                <h6>Address :</h6>
-                <span>{userInfo?.address}</span>
-              </div>
-
-              <div className="det-user-bx">
                 <h6>Aadhar Front:</h6>
                 {userInfo?.aadharFront ? (
                   <img
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.aadharFront, "aadharFront");
+                    }}
                     src={userInfo?.aadharFront}
                     className="documt-img"
                     alt=""
@@ -204,7 +241,25 @@ const WasteDetail = () => {
                 <h6>Aadhar Back:</h6>
                 {userInfo?.aadharBack ? (
                   <img
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.aadharBack, "aadharFront");
+                    }}
                     src={userInfo?.aadharBack}
+                    className="documt-img"
+                    alt=""
+                  />
+                ) : null}
+              </div>
+              <div className="det-user-bx">
+                <h6>Safty Training:</h6>
+                {userInfo?.saftyTraining ? (
+                  <img
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.saftyTraining, "aadharFront");
+                    }}
+                    src={userInfo?.saftyTraining}
                     className="documt-img"
                     alt=""
                   />
@@ -212,13 +267,28 @@ const WasteDetail = () => {
               </div>
 
               <div className="det-user-bx">
-                <h6>Insurance :</h6>
-                <span>{userInfo?.insurance}</span>
-              </div>
-
-              <div className="det-user-bx">
                 <h6>Police Verification :</h6>
                 <span>{userInfo?.policeVerification ? "Verified ✅" : ""}</span>
+                {userInfo?.policeVerification ? (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.policeVerification, "aadharFront");
+                    }}
+                  >
+                    View
+                  </span>
+                ) : null}
+              </div>
+              <div className="det-user-bx">
+                <h6>Safty Training Date :</h6>
+                <span>
+                  {userInfo?.saftyTrainingDate
+                    ? DateTime.fromISO(userInfo?.saftyTrainingDate).toFormat(
+                        "dd LLL yyyy"
+                      ) + " 📅"
+                    : ""}
+                </span>
               </div>
               <div className="det-user-bx">
                 <h6>Last Health Checkup Date :</h6>
@@ -240,10 +310,18 @@ const WasteDetail = () => {
                 <h6>Emergency Contact Number :</h6>
                 <span>{userInfo?.emergencyPhone}</span>
               </div>
+
+              <div className="det-user-bx">
+                <h6>Insurance :</h6>
+                <span>{userInfo?.insurance}</span>
+              </div>
             </div>
 
             <button
-              onClick={() => setAddInfo(!addInfo)}
+              onClick={() => {
+                setAddInfo(!addInfo);
+                clearImageState();
+              }}
               className="add-det-btn"
             >
               {/* <i class="fa-solid fa-plus"></i> */}
@@ -258,7 +336,7 @@ const WasteDetail = () => {
               }
             >
               <div className="add-det-info-bx">
-                <h6>Personal information</h6>
+                <h6>Personal information </h6>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Quidem sequi iste reiciendis nemo beatae fugiat, totam eaque
@@ -347,7 +425,7 @@ const WasteDetail = () => {
                             </div>
 
                             <div className="det-input-bx">
-                              <label htmlFor="age">Insurance</label>
+                              <label htmlFor="insurance">Insurance</label>
                               <input
                                 type="text"
                                 name="insurance"
@@ -364,12 +442,12 @@ const WasteDetail = () => {
                                 </div>
                               ) : null}
                             </div>
-                            <div className="det-input-bx">
-                              <label htmlFor="age">Pincode</label>
+                            {/* <div className="det-input-bx">
+                              <label htmlFor="pincode">Pincode</label>
                               <input
                                 type="text"
                                 name="pincode"
-                                id="insurance"
+                                id="pincode"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values?.pincode}
@@ -381,10 +459,53 @@ const WasteDetail = () => {
                                   {errors?.pincode}
                                 </div>
                               ) : null}
+                            </div> */}
+                            <div className="det-input-bx">
+                              <label htmlFor="bankdet">
+                                Emergency Contact Person
+                              </label>
+                              <input
+                                type="text"
+                                name="emergencyPersonName"
+                                id="Number"
+                                autoComplete="off"
+                                //required
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.emergencyPersonName}
+                              />
+                              {touched?.emergencyPersonName &&
+                              errors?.emergencyPersonName ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.emergencyPersonName}
+                                </div>
+                              ) : null}
+                            </div>
+
+                            <div className="det-input-bx">
+                              <label htmlFor="bankdet">
+                                Emergency Contact Number
+                              </label>
+                              <input
+                                type="text"
+                                name="emergencyPhone"
+                                id="Number"
+                                autoComplete="off"
+                                //required
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.emergencyPhone}
+                              />
+                              {touched?.emergencyPhone &&
+                              errors?.emergencyPhone ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.emergencyPhone}
+                                </div>
+                              ) : null}
                             </div>
                           </div>
 
-                          <div className="det-input-bx">
+                          {/* <div className="det-input-bx">
                             <label htmlFor="address">Address</label>
                             <input
                               type="text"
@@ -401,7 +522,7 @@ const WasteDetail = () => {
                                 {errors?.address}
                               </div>
                             ) : null}
-                          </div>
+                          </div> */}
 
                           <div className="det-grid det-grid5">
                             <div className="det-input-bx det-input-bx3">
@@ -492,6 +613,101 @@ const WasteDetail = () => {
                             </div>
                           </div>
 
+                          <div className="det-grid det-grid5">
+                            <div className="det-input-bx det-input-bx3">
+                              <label htmlFor="saftyTraining">
+                                Safety and skill training{" "}
+                              </label>
+                              <div className="att-inpt-box">
+                                <input
+                                  type="file"
+                                  name="saftyTraining"
+                                  accept="image/*"
+                                  id="saftyTraining"
+                                  autoComplete="off"
+                                  //required
+                                  onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    values.saftyTraining = file;
+                                    if (file) {
+                                      const reader = new FileReader();
+                                      reader.onload = (event) => {
+                                        setSaftyTraining(event.target.result);
+                                      };
+                                      reader.readAsDataURL(file);
+                                    }
+                                  }}
+                                  onBlur={handleBlur}
+                                />
+                                {touched?.saftyTraining &&
+                                errors?.saftyTraining ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.saftyTraining}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+
+                            <div className="select-File">
+                              {(saftyTraining || values?.saftyTraining) && (
+                                <img
+                                  src={saftyTraining || values?.saftyTraining}
+                                  alt=""
+                                />
+                              )}
+                            </div>
+
+                            <div className="det-input-bx det-input-bx3 ">
+                              <label htmlFor="policeVerification">
+                                Police verification{" "}
+                              </label>
+                              <div className="att-inpt-box">
+                                <input
+                                  type="file"
+                                  name="policeVerification"
+                                  accept="image/*"
+                                  id="policeVerification"
+                                  autoComplete="off"
+                                  //required
+                                  onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    values.policeVerification = file;
+                                    if (file) {
+                                      const reader = new FileReader();
+                                      reader.onload = (event) => {
+                                        setPoliceVerification(
+                                          event.target.result
+                                        );
+                                      };
+                                      reader.readAsDataURL(file);
+                                    }
+                                  }}
+                                  onBlur={handleBlur}
+                                />
+                                {touched?.policeVerification &&
+                                errors?.policeVerification ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.policeVerification}
+                                  </div>
+                                ) : null}
+                              </div>
+                              <button className="att-inpt-box"></button>
+                            </div>
+
+                            <div className="select-File">
+                              {(policeVerification ||
+                                values?.policeVerification) && (
+                                <img
+                                  src={
+                                    policeVerification ||
+                                    values?.policeVerification
+                                  }
+                                  alt=""
+                                />
+                              )}
+                            </div>
+                          </div>
+
                           <div className="det-grid det-grid3">
                             <div className="det-input-bx">
                               <label htmlFor="chosedate">
@@ -506,11 +722,11 @@ const WasteDetail = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={
-                                  initialValues.dob
-                                    ? DateTime.fromISO(values?.dob).toFormat(
-                                        "yyyy-LL-dd"
-                                      )
-                                    : values?.dob
+                                  initialValues.heathCheckupDate
+                                    ? DateTime.fromISO(
+                                        values?.heathCheckupDate
+                                      ).toFormat("yyyy-LL-dd")
+                                    : values?.heathCheckupDate
                                 }
                               />
                               {touched?.heathCheckupDate &&
@@ -520,47 +736,30 @@ const WasteDetail = () => {
                                 </div>
                               ) : null}
                             </div>
-
                             <div className="det-input-bx">
-                              <label htmlFor="bankdet">
-                                Emergency Contact Person
+                              <label htmlFor="chosedate">
+                                Safty Training Date
                               </label>
                               <input
-                                type="text"
-                                name="emergencyPersonName"
-                                id="Number"
+                                type="date"
+                                name="saftyTrainingDate"
+                                id="chosedate"
                                 autoComplete="off"
                                 //required
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values?.emergencyPersonName}
+                                value={
+                                  initialValues.saftyTrainingDate
+                                    ? DateTime.fromISO(
+                                        values?.saftyTrainingDate
+                                      ).toFormat("yyyy-LL-dd")
+                                    : values?.saftyTrainingDate
+                                }
                               />
-                              {touched?.emergencyPersonName &&
-                              errors?.emergencyPersonName ? (
+                              {touched?.saftyTrainingDate &&
+                              errors?.saftyTrainingDate ? (
                                 <div style={{ color: "red" }}>
-                                  {errors?.emergencyPersonName}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="det-input-bx">
-                              <label htmlFor="bankdet">
-                                Emergency Contact Number
-                              </label>
-                              <input
-                                type="text"
-                                name="emergencyPhone"
-                                id="Number"
-                                autoComplete="off"
-                                //required
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.emergencyPhone}
-                              />
-                              {touched?.emergencyPhone &&
-                              errors?.emergencyPhone ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.emergencyPhone}
+                                  {errors?.saftyTrainingDate}
                                 </div>
                               ) : null}
                             </div>
@@ -569,6 +768,11 @@ const WasteDetail = () => {
                           <button type="submit" className="det-save-btn">
                             Save
                           </button>
+                          {otherErrors?.edit ? (
+                            <div style={{ color: "red" }}>
+                              {otherErrors?.edit}
+                            </div>
+                          ) : null}
                         </Form>
                       );
                     }}

@@ -33,7 +33,8 @@ export const updateWorkerProfile = resolvePromise(
     aadharFront,
     aadharBack,
     policeVerification,
-    saftyTraining
+    saftyTraining,
+    address
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/collector/info`;
     const token = getFromLocalStorage("token");
@@ -53,7 +54,8 @@ export const updateWorkerProfile = resolvePromise(
         aadharFront,
         aadharBack,
         policeVerification,
-        saftyTraining
+        saftyTraining,
+        address
       },
       {
         headers: {

@@ -502,7 +502,7 @@ const WasteDetail = () => {
                             </div>
                           </div>
 
-                          {/* <div className="det-input-bx">
+                          <div className="det-input-bx">
                             <label htmlFor="address">Address</label>
                             <input
                               type="text"
@@ -519,7 +519,7 @@ const WasteDetail = () => {
                                 {errors?.address}
                               </div>
                             ) : null}
-                          </div> */}
+                          </div>
 
                           <div className="det-grid det-grid5">
                             <div className="det-input-bx det-input-bx3">

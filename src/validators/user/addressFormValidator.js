@@ -1,11 +1,12 @@
 import { object, string, date, number } from "yup";
+
 export const validationAddressForm = object().shape({
-  street: string().required(),
-  city: string().required(),
-  state: string().required(),
-  zipCode: number().required(),
+  street: string().required("Street is required"),
+  city: string().required("City is required"),
+  state: string().required("State is required"),
+  zipCode: number().required("Zip code is required"),
   landmark: string(),
-  locationType: string().required(),
-  aria: string().required(),
-  subAria: string().required(),
+  locationType: string().required("Location type is required"),
+  aria: string().required("Aria is required"),
+  subAria: string().required("Sub aria is required"),
 });

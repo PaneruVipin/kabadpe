@@ -7,6 +7,7 @@ import WasteColectVew from "./WasteColectVew";
 import AddWorkerComp from "./AddWorkerComp";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetWorkers } from "../apis/admins/users";
+import { workers as workerTypes } from "../lib/worker";
 
 const Wastecolect = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -148,6 +149,7 @@ const Wastecolect = () => {
                   <th> Name</th>
                   <th>Company Name</th>
                   <th>Work Area </th>
+                  <th>Sub Area </th>
                   <th>Mobile No.</th>
                   <th>Email</th>
                   <th>Work Type</th>
@@ -174,6 +176,7 @@ const Wastecolect = () => {
                           subAriaName,
                           pincode,
                           accountStatus,
+                          Franchise,
                         },
                         i
                       ) => {
@@ -190,17 +193,20 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                <span> {id} </span>
+                                <span> {String(id).padStart(6, "0")} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>
                               </td>
                               <td>
-                                <span> {"curElem.companyName"} </span>
+                                <span> {Franchise?.companyName} </span>
                               </td>
 
                               <td>
                                 <span> {ariaName} </span>
+                              </td>
+                              <td>
+                                <span> {subAriaName} </span>
                               </td>
                               <td>
                                 <span> {phoneNumber} </span>
@@ -211,7 +217,11 @@ const Wastecolect = () => {
                               <td>
                                 <span className="worktype-text">
                                   {" "}
-                                  {workerRole}{" "}
+                                  {
+                                    workerTypes.find(
+                                      ({ value }) => value == workerRole
+                                    ).label
+                                  }{" "}
                                 </span>
                               </td>
 

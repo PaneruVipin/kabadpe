@@ -29,6 +29,8 @@ import MainOutLet from "./Components/Outlets/MainOuTlet";
 import Contact from "./Pages/Contact";
 import ContentEdit from "./Pages/ContentEdit";
 import TermPolicy from "./HomeComponent/TermPolicy";
+import VendorLogin from "./VendorPages/VendorLogin";
+import VendorPanel from "./VendorPages/VendorPanel";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,8 +77,11 @@ function App() {
       <Route path="/frenchiespanel" element={<FrenchiesPanel />} />
       <Route path="/contentedit" element={<ContentEdit />} />
       <Route path="/termpolicy" element={<TermPolicy />} />
-
+      <Route path="/vendorlogin" element={<VendorLogin />} />
+      <Route path="/vendorpanel" element={<VendorPanel />} />
+      
     </Routes>
+    
   );
 }
 

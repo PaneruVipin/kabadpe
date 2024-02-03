@@ -392,7 +392,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                 </td>
                                 <td>
                                   {" "}
-                                  <span
+                                  {/* <span
                                   // className={
                                   //   elem.statustype === "reschedule" ||
                                   //   elem.statustype === "schdule"
@@ -409,7 +409,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                   >
                                     {" "}
                                     {orderStatus}{" "}
-                                  </span>{" "}
+                                  </span>{" "} */}
                                 </td>
                                 <td>
                                   <div className="appoint-flex-btns">
@@ -426,12 +426,12 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                          onClick={() => confirmPopupfunc()}
                         */}
 
-                                    <button
+                                    {/* <button
                                       onClick={() => setApntSlot(true)}
                                       className="assign-btn"
                                     >
                                       Assign
-                                    </button>
+                                    </button> */}
                                   </div>
                                 </td>
                               </tr>

@@ -1,18 +1,19 @@
 import { object, string, number } from "yup";
+
 export const validationSignupUser = object().shape({
-  fullname: string().required(),
-  email: string().required().email(),
-  password: string().required(),
+  fullname: string().required("Fullname is required"),
+  email: string().required("Email is required").email("Invalid email format"),
+  password: string().required("Password is required"),
   phoneNumber: string()
-    .required()
+    .required("Phone number is required")
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
 });
 
 export const validationLoginUser = object().shape({
-  email: string().required().email(),
-  password: string().required(),
+  email: string().required("Email is required").email("Invalid email format"),
+  password: string().required("Password is required"),
 });
 
 export const validationVerifyOtpUser = object().shape({
-  otp: number().required(),
+  otp: number().required("OTP is required"),
 });

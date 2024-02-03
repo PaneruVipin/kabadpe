@@ -516,7 +516,7 @@ const WasteCollector = () => {
                 <div className="tab-main-bx">
                   <h3>My details</h3>
 
-                  <p className="tex-line">Personal information</p>
+                  <p className="tex-line">Personal information </p>
 
                   <div className="my-det-form-grid my-det-form-grid33">
                     <div className="left-det-form-text">

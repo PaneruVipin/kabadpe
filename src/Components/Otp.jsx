@@ -51,7 +51,7 @@ const Otp = () => {
           <div className="left-reset-passwrd-grid-bx">
             <div className="login-form-bx">
               <div className="login-logo login-logo2">
-                <img src="/images/resources/logo.png" alt="" />
+                <img src="/images/customImg/logo.png" alt="" />
               </div>
               <div className=" tw-text-green-500">
                 Hey, just an FYI – we're currently testing some updates on DLT.

@@ -112,7 +112,7 @@ const Appointment = ({ setUserForm }) => {
     };
   };
   useEffect(() => {
-    if (!addresses?.error && addresses?.length) {
+    if (!addresses?.error && addresses?.length && userInfo?.role == "user") {
       setSelectedAddress(addresses?.[0]);
     }
   }, [addresses]);
@@ -125,7 +125,7 @@ const Appointment = ({ setUserForm }) => {
     }
   }, [loading]);
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo?.role == "user") {
       setInitialFormValues({
         ...initialFormValues,
         appointmentContactNumber: userInfo?.phoneNumber,
@@ -225,7 +225,10 @@ const Appointment = ({ setUserForm }) => {
                             />
                             {errors?.appointmentPersonName &&
                             touched?.appointmentPersonName ? (
-                              <div className="field-text" style={{ color: "red" }}>
+                              <div
+                                className="field-text"
+                                style={{ color: "red" }}
+                              >
                                 {errors?.appointmentPersonName}
                               </div>
                             ) : null}
@@ -246,7 +249,10 @@ const Appointment = ({ setUserForm }) => {
                             />
                             {errors?.appointmentContactNumber &&
                             touched?.appointmentContactNumber ? (
-                              <div className="field-text" style={{ color: "red" }}>
+                              <div
+                                className="field-text"
+                                style={{ color: "red" }}
+                              >
                                 {errors?.appointmentContactNumber}
                               </div>
                             ) : null}
@@ -270,7 +276,9 @@ const Appointment = ({ setUserForm }) => {
                           </div>
                         </div>
                         {addressError ? (
-                          <div className="field-text" style={{ color: "red" }}>{addressError}</div>
+                          <div className="field-text" style={{ color: "red" }}>
+                            {addressError}
+                          </div>
                         ) : (
                           <div className="field-text" style={{ color: "red" }}>
                             {otherErrors?.address}
@@ -280,59 +288,65 @@ const Appointment = ({ setUserForm }) => {
                         <div className="form-grid form-grid3">
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
                             <div className="apnt-inpt-bx-s">
-                            <select
-                              name="serviceType"
-                              id="service"
-                              onClick={handleClick}
-                              onChange={(e) => {
-                                setSelectedServiceType(e?.target?.value);
-                                handleChange(e);
-                              }}
-                              onBlur={handleBlur}
-                              value={values?.serviceType}
-                            >
-                              <option value="" hidden>
-                                Select Your Service
-                              </option>
-                              {workers.map(({ label, value, id }) => (
-                                <option key={id} value={value}>
-                                  {label}
+                              <select
+                                name="serviceType"
+                                id="service"
+                                onClick={handleClick}
+                                onChange={(e) => {
+                                  setSelectedServiceType(e?.target?.value);
+                                  handleChange(e);
+                                }}
+                                onBlur={handleBlur}
+                                value={values?.serviceType}
+                              >
+                                <option value="" hidden>
+                                  Select Your Service
                                 </option>
-                              ))}
-                            </select>
+                                {workers.map(({ label, value, id }) => (
+                                  <option key={id} value={value}>
+                                    {label}
+                                  </option>
+                                ))}
+                              </select>
                             </div>
                             {errors?.serviceType && touched?.serviceType ? (
-                              <div className="field-text" style={{ color: "red" }}>
+                              <div
+                                className="field-text"
+                                style={{ color: "red" }}
+                              >
                                 {errors?.serviceType}
                               </div>
                             ) : null}
                           </div>
 
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
-                          <div className="apnt-inpt-bx-s">
-                            <select
-                              name="estimateWeight"
-                              id="service"
-                              onClick={handleClick}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values?.estimateWeight}
-                            >
-                              <option value="" hidden>
-                                Choose Weight
-                              </option>
-                              <option value="unweighed">Don't Know</option>
-                              <option value="lightweight">
-                                Less than 200 Kg
-                              </option>
-                              <option value="heavyweight">
-                                More than 200 Kg
-                              </option>
-                            </select>
+                            <div className="apnt-inpt-bx-s">
+                              <select
+                                name="estimateWeight"
+                                id="service"
+                                onClick={handleClick}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.estimateWeight}
+                              >
+                                <option value="" hidden>
+                                  Choose Weight
+                                </option>
+                                <option value="unweighed">Don't Know</option>
+                                <option value="lightweight">
+                                  Less than 200 Kg
+                                </option>
+                                <option value="heavyweight">
+                                  More than 200 Kg
+                                </option>
+                              </select>
                             </div>
                             {errors?.estimateWeight &&
                             touched?.estimateWeight ? (
-                              <div className="field-text" style={{ color: "red" }}>
+                              <div
+                                className="field-text"
+                                style={{ color: "red" }}
+                              >
                                 {errors?.estimateWeight}
                               </div>
                             ) : null}
@@ -340,24 +354,27 @@ const Appointment = ({ setUserForm }) => {
 
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
                             <div className="apnt-inpt-bx-s">
-                            <select
-                              name="frequency"
-                              id="service"
-                              onClick={handleClick}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values?.frequency}
-                            >
-                              <option value="" hidden>
-                                Select Frequency
-                              </option>
-                              <option value="once">Once</option>
-                              <option value="weekly">Weekly</option>
-                              <option value="monthly">Monthly</option>
-                            </select>
+                              <select
+                                name="frequency"
+                                id="service"
+                                onClick={handleClick}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.frequency}
+                              >
+                                <option value="" hidden>
+                                  Select Frequency
+                                </option>
+                                <option value="once">Once</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                              </select>
                             </div>
                             {errors?.frequency && touched?.frequency ? (
-                              <div className="field-text" style={{ color: "red" }}>
+                              <div
+                                className="field-text"
+                                style={{ color: "red" }}
+                              >
                                 {errors?.frequency}
                               </div>
                             ) : null}

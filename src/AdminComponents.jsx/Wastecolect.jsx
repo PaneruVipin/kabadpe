@@ -155,8 +155,8 @@ const Wastecolect = () => {
                   <th>Work Type</th>
                   <th>User Status</th>
                   <th>Zip Code</th>
-                  <th>Edit</th>
-                  <th>View</th>
+                  {/* <th>Edit</th>
+                  <th>View</th> */}
                   {/* <th>Action</th> */}
                 </tr>
               </thead>
@@ -249,21 +249,21 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                <div
+                                {/* <div
                                   onClick={() => setWasteDataBox(true)}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
-                                </div>
+                                </div> */}
                               </td>
 
                               <td>
-                                <div
+                                {/* <div
                                   onClick={() => setWasteViewData(true)}
                                   className="edit-user-btn view-btn"
                                 >
                                   <i class="fa-regular fa-eye"></i>
-                                </div>
+                                </div> */}
                               </td>
 
                               {/* <td>

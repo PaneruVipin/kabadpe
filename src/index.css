@@ -11307,3 +11307,12 @@ __________ */
 .foter-copyright-flex-bx p a{
   color: #fff;
 }
+
+.prof-table-main-bx{
+  overflow-x: auto;
+}
+
+.home-slider-main-bx:nth-child(1) .right-home-slide-img-bx {
+  width: 80% !important;
+  margin-left: auto;
+}

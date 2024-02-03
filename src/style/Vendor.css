@@ -1,0 +1,1447 @@
+
+/* ____________________________________
+ Our Vendor css code
+ ------------------------ */
+
+ .vendor-login-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: url('../images/customImg/login-bg-01.jpg')no-repeat center center/cover;
+ }
+
+ 
+ .vendor-login-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #050404;
+    opacity: 0.76;
+    z-index: -1;
+
+ }
+
+ .vendor-login-main-bx{
+    position: relative;
+    width: 100%;
+   display: flex;
+   flex-direction: column;
+
+ }
+
+ .vendor-login-bx{
+   position: relative;
+   width: 35rem;
+   background-color: #fff;
+   height: 40rem;
+   border-radius: .55rem;
+   padding: 1.5rem 2rem 0 2rem;
+   overflow: hidden;
+   transition: 500ms ease;
+ }
+
+ .vendor-login-logo{
+    position: relative;
+    width: 10rem;
+    margin: 0 auto;
+ }
+
+ .vendor-login-logo img{
+    width: 100%;
+    height: auto;
+ }
+
+ .vendor-login-bx h6{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #464649;
+    margin-top: 2rem;
+ }
+
+ .ven-log-form{
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+ }
+
+ .vend-bx{
+    position: relative;
+    width: 100%;
+
+ }
+
+ .vend-bx span{
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .45px;
+    color: #767676;
+ }
+
+ .vend-inpt-bx{
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    background-color: #fff;
+    border: .1rem solid #f0eeee;
+    border-radius: .5rem;
+    padding-inline: 1.2rem;
+
+ }
+
+ .vend-inpt-bx input , .vend-inpt-bx select{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: #535355;
+ }
+
+ .vend-check-bx{
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap: .55rem;
+   margin-top: .5rem;
+ }
+
+ .cehck-bx-v input{
+   width: 1.2rem !important;
+   height: 1.2rem !important;
+   border-color: #ddd !important;
+  
+ }
+
+  .cehck-bx-v input:checked{
+   background-color: #2acaee !important;
+   border-color: #2acaee !important;
+  }
+
+ .cehck-bx-v input:focus{
+   box-shadow: none !important;
+
+ }
+
+ .vend-check-bx span{
+   font-size: .9rem;
+   font-weight: 400;
+   letter-spacing: .65px;
+ }
+
+ .vend-forgt-paswrd-btn{
+   position: relative;
+   width: max-content;
+   font-size: .95rem;
+   letter-spacing: .3px;
+   font-weight: 500;
+   color: #808080;
+   margin-bottom: 1rem;
+   cursor: pointer;
+ }
+
+ .vend-submt-btn{
+   position: relative;
+   width: 100%;
+   height: 3.3rem;
+   background-color: #1b72ec;
+   text-align: center;
+   font-size: 1.1rem;
+   font-weight: 500;
+   letter-spacing: .55px;
+   color: #fff;
+   border-radius: .5rem;
+   cursor: pointer;
+ }
+
+ .vend-text{
+   margin-top: 1rem;
+   font-size: .9rem;
+   font-weight: 500;
+   letter-spacing: .55px;
+
+ }
+
+ 
+ .vend-text span{
+   color: #1ce61c;
+   cursor: pointer;
+   display: inline-block;
+ }
+
+ .vend-inpt-bx2{
+   position: relative;
+ }
+
+ .passwrd-btn-bx{
+   position: absolute;
+   top: 60%;
+   right: 1rem;
+   transform: translateY(-50%);
+   z-index: 5;
+   
+ }
+
+ .view-btn ion-icon{
+   font-size: 1.4rem;
+   color: #737c76;
+ }
+
+ .view-btn2{
+   display: none;
+ }
+
+ .passwrd-btn-bx.hidepassword .view-btn1{
+      display: none;
+ }
+
+ .passwrd-btn-bx.hidepassword .view-btn2{
+   display: block ;
+}
+
+.vendor-login-main-bx.vendformactive .v-log-bx{
+      display: none ;
+}
+
+.vendor-login-main-bx.vendformactive .vendor-reg-bx{
+   display: block ;
+}
+
+.vendor-reg-bx{
+   display: none;
+   height: 100%;
+
+}
+
+.vend-reg-form-grid{
+   position: relative;
+   width: 100%;
+   margin-top: 1rem;
+   /* display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 1rem; */
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 1rem;
+   row-gap: 1rem;
+}
+
+.vend-bx-p  span:last-child{
+   display: inline-block;
+   margin-top: .45rem;
+   font-size: .9rem;
+   color: #7e7a7a;
+   letter-spacing: .4px;
+   line-height: 1.5;
+}
+
+.vend-bx-p input::placeholder{
+   font-size: .95rem;
+   color: gray;
+   letter-spacing: .5px;
+   font-weight: 400;
+}
+
+.vend-inpt-bx select{
+   width: 100%;
+   height: 100%;
+   font-size: .9rem;
+}
+
+.reg-btn-vend{
+   width: 14rem;
+   margin: 0 auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.vendor-form-messge-bx{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   gap: 1rem;
+   background-color: #fff;
+   padding: 1.5rem 1.5rem;
+   border-radius: .54rem;
+   justify-content: center;
+   /* display: none; */
+}
+
+/* .vend-form-parent.formmessageactive .vendor-login-main-bx{
+   display: none;
+} */
+
+/* .vend-form-parent.formmessageactive .vendor-form-messge-bx{
+   display: flex;
+} */
+
+.vend-smile-bx{
+   position: relative;
+   width: 10rem;
+}
+
+.vendor-form-messge-bx p{
+   font-size: 1rem;
+   letter-spacing: .65px;
+   max-width: 30rem;
+}
+
+.vend-smile-bx img{
+   width: 100%;
+   height: auto;
+}
+
+.vendor-form-messge-bx a{
+   font-size: 1rem;
+   letter-spacing: .55px;
+   color: #1b72ec;
+}
+
+.ven-log-form{
+   transition: 700ms ease;
+}
+
+.vendor-login-bx.forgotpasswrdactive .ven-log-form{
+   transform: translateX(-120%);
+}
+
+.forgot-password-vendor{
+   position: absolute;
+   top: 68%;
+   transform: translateY(-50%);
+   left: 0;
+   width: 100%;
+   padding-inline: 2rem;
+   transition: 700ms ease;
+   transform: translateY(-50%) translateX(100%);
+
+}
+
+.vendor-login-bx.forgotpasswrdactive .forgot-password-vendor{
+
+   transform: translateY(-50%) translateX(0%);
+}
+
+.vendor-login-bx.forgotpasswrdactive{
+   height: 25rem ;
+}
+
+.note-textx{
+   display: inline-block;
+   margin-top: 1rem;
+   font-size: .95rem;
+   line-height: 1.7;
+   align-items: flex-start;
+}
+
+.cont-btn-v{
+   background-color: #0a0b2d;
+}
+
+.verify-mobile-number-bx{
+   display: none;
+}
+
+.create-account-main-bx.createaccountactive .vendor-reg-bx{
+   display: none;
+}
+
+.create-account-main-bx.createaccountactive .verify-mobile-number-bx{
+   display: block;
+}
+
+.verify-mobile-number-bx p{
+   margin-top: 1.5rem;
+   font-size: .95rem;
+   letter-spacing: .55px;
+   line-height: 1.7;
+
+}
+
+.resend-otp-text{
+   display: inline-block;
+   margin-top: 1.5rem;
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #1b72ec;
+   font-weight: 600;
+   cursor: pointer;
+
+}
+
+.otp-btn{
+   font-size: .95rem;
+   width: 15rem;
+}
+
+.verify-mobile-number-bx{
+   height: 100%;
+   padding-bottom: 1rem;
+}
+
+.reg-start-selling-main-bx{
+   position: relative;
+   width: 100%;
+}
+
+.reg-start-sell-bx{
+   position: relative;
+   width: 30rem;
+   height: initial;
+   background-color: #fff;
+   padding: 2rem 2rem;
+   border-radius: .55rem;
+   display: none;
+}
+
+.reg-start-selling-main-bx.regselingactive .reg-start-sell-bx{
+   display: block;
+}
+
+.reg-start-selling-main-bx.regselingactive .verify-mobile-number-bx{
+   display: none;
+}
+
+.reg-start-sell-bx > h6{
+   color: #0a0b2d;
+   font-size: 1.5rem;
+   font-weight: 700;
+}
+
+.reg-start-sell-bx > h6 ~ p{
+   font-size: .9rem;
+   font-weight: 500;
+   color: #737c76;
+   margin-bottom: .65rem;
+}
+
+.seling-list{
+   margin-bottom: .55rem;
+}
+
+.seling-list li{
+   list-style: disc;
+   font-size: .87rem;
+   line-height: 1.7;
+   color: #737c76;
+}
+
+.comn-text{
+   font-size: .9rem;
+   font-weight: 500;
+   color: #737c76;
+
+}
+
+.reg-start-sell-bx  h5{
+   font-size: 1.3rem;
+   font-weight: 700;
+   margin-top: .76rem;
+}
+
+.busin-inpt-bx{
+   margin-top: .76rem;
+}
+
+.busin-inpt-bx{
+   width: 24rem;
+   margin-bottom: 1rem;
+
+}
+
+.vend-bx span{
+   font-size: .9rem;
+}
+
+.busin-inpt-bx  .vend-bx .vend-inpt-bx{
+   height: 2.76rem;
+}
+
+.seller-agrenmt-bx h6{
+   font-size: 1rem;
+   letter-spacing: .3px;
+   font-weight: 700;
+   margin-bottom: 1rem;
+}
+
+.vend-check-bx2{
+   align-items: flex-start;
+}
+
+.vend-check-bx2 > p{
+   font-size: .9rem;
+   line-height: 1.6;
+   letter-spacing: .4px;
+   font-weight: 400;
+}
+
+.about-your-business-bx{
+   position: relative;
+   width: 80rem;
+   height: 37rem;
+   overflow-y: auto;
+   background-color: #fff;
+   border-radius: .55rem;
+   padding: 2rem 2rem;
+
+}
+
+.about-your-business-bx::-webkit-scrollbar{
+   width: .235rem;
+   background-color: transparent;
+}
+
+.tax-det-bx{
+   position: relative;
+   display: none ;
+}
+
+.tax-det-form-bx{
+   position: relative;
+   width: 100%;
+   margin-top: 1rem;
+}
+
+.vend-check-bx3{
+   margin-bottom: 1rem;
+}
+
+.tax-det-form-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 1.5rem;
+   row-gap: 1.5rem;
+}
+
+
+
+
+.about-your-business-bx::-webkit-scrollbar-thumb{
+   background-color: #0a0b2d;
+}
+
+.shop-grid-bx{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: 1.2fr 1fr;
+   column-gap: 5.5rem;
+   row-gap: 5.5rem;
+
+
+}
+
+.shop-left-bx{
+   position: relative;
+   width: 100%;
+
+}
+
+.shop-left-bx h5{
+   font-size: 1.3rem;
+   font-weight: 600;
+   letter-spacing: .2px;
+   margin-bottom: .65rem;
+   color: #dc1616;
+}
+
+.shop-form-bx{
+   position: relative;
+   width: 100%;
+}
+
+.shop-name-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 1.5rem;
+   row-gap: 1.5rem;
+}
+
+.check-avail-bx .vend-inpt-bx{
+   width: 100%;
+}
+
+.check-btn{
+   position: relative;
+   font-size: .8rem;
+   font-weight: 500;
+   color: #0c990c;
+   letter-spacing: .3px;
+   width: max-content;
+}
+
+.check-avail-bx{
+   display: flex;
+   align-items: center;
+   width: 100%;
+}
+
+.top-inpt-text{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.shop-left-bx h6{
+   margin-top: 1rem;
+   font-size: 1.1rem;
+   font-weight: 600;
+   letter-spacing: .4px;
+   color: #535355;
+}
+
+.address-form-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 1.3rem;
+   row-gap: 1.3rem;
+}
+
+.about-your-business-bx{
+   display: none;
+}
+
+.about-your-busniess-main-bx.businessactive .reg-start-sell-bx{
+   display: none;
+}
+
+.about-your-busniess-main-bx.businessactive .about-your-business-bx{
+   display: block;
+}
+
+.btn-left{
+   margin: 0 0;
+}
+
+.used{
+   font-size: .9rem;
+   color: #ff0000;
+   letter-spacing: .4px;
+
+}
+
+.avail{
+   font-size: .9rem;
+   color: #0c990c;
+   letter-spacing: .4px;
+}
+
+.right-accordion-box h5{
+   color: #0a0b2d;
+}
+
+.accordion-main-bx{
+   position: relative;
+   width: 100%;
+   margin-top: 1.5rem;
+}
+
+.accordion-bx{
+   position: relative;
+   width: 100%;
+   background-color: #f5fef5;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin-bottom: 1rem;
+   
+}
+
+.accordion-title-bx{
+   position: relative;
+   width: 100%;
+   height: 3rem;
+   background-color: #f8fff8;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding-block: .87rem;
+   cursor: pointer;
+   padding-inline: 1rem;
+
+}
+
+.accordion-title-bx:before{
+   content: "\f107";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 1rem;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+   font-size: .9rem;
+   color: #49494b;
+}
+
+.accordion-title-bx h6{
+   margin-bottom: 0;
+   margin-top: 0;
+   font-size: 1rem;
+   font-weight: 600;
+   letter-spacing: .4px;
+   color: #0a0b2d;
+}
+
+.accordion-bx p{
+   padding-inline: .5rem;
+}
+
+.accordion-title-bx.accordionactive:before{
+   content: "\f106";
+}
+
+.tax-det-bx{
+   display: none !important;
+}
+
+.tax-det-main-bx.taxdetactive .about-your-business-bx
+ {
+   display: none !important;
+}
+
+.vendor-form-messge-bx{
+   display: none;
+}
+
+.tax-det-main-bx.taxdetactive .tax-det-bx 
+{
+   display: block !important;
+}
+
+.vend-mesage-bx.mesageactive .vendor-login-main-bx{
+   display: none !important;
+}
+
+.vend-mesage-bx.mesageactive .vendor-form-messge-bx{
+   display: flex !important;
+}
+
+/* ________________________________________________
+ Our Vendor Header css code
+ --------------------- */
+
+ .vendor-top-header-comp{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   background-color: #fff;
+   border-bottom: .1rem solid #eee;
+   z-index: 999;
+ }
+
+ .vendor-top-header-bx{
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding-inline: 1.87rem;
+   padding-block: .45rem;
+ }
+
+ .left-vendor-bx{
+   position: relative;
+   display: flex;
+   align-items: center;
+   gap: 10rem;
+ }
+
+ .left-vend-logo{
+   position: relative;
+   width: 9rem;
+ }
+
+ .left-vend-logo img{
+   width: 100%;
+   height: auto;
+ }
+
+ .right-vend-flex-bx{
+   display: flex;
+   align-items: center;
+   gap: 2.5rem;
+ }
+
+ .vend-prof-img{
+   position: relative;
+   width: 2.5rem;
+   height: 2.5rem;
+ }
+
+ .vend-prof-img img{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   border-radius: 50%;
+ }
+
+ .togle-menu-btn{
+   position: relative;
+   width: 3rem;
+   height: 3rem;
+   background-color: #fff;
+   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+   border-radius: .4rem;
+   display: grid;
+   place-items: center;
+   transition: 500ms ease;
+ }
+
+ .togle-menu-btn > .vend-icon{
+   font-size: 1.25rem;
+   color: #0c990c;
+   cursor: pointer;
+   transition: 500ms ease;
+
+ }
+
+ .not-bell-btn{
+   cursor: pointer;
+   transition: 500ms ease;
+
+ }
+
+ .not-bell-btn:hover , .togle-menu-btn:hover{
+   transform: scale(0.9);
+   box-shadow: rgba(43, 159, 4, 0.1) 0px 4px 12px;
+
+ }
+
+ .not-bell-btn i{
+   color: #0c990c;
+   transition: 500ms ease;
+
+ }
+
+ .vend-side-nav-main{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 18rem;
+   background-color: #fff;
+   height: 100vh;
+   border-right: .1rem solid #eee;
+   z-index: 99;
+   padding-block-start: 7rem;
+   padding-block-end: 5rem;
+   transition: 500ms ease;
+   transform: translateX(-100%);
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+ }
+
+
+ .vend-side-nav-main.sidenavactive{
+   transform: translateX(0%);
+   opacity: 1;
+   visibility: visible;
+   pointer-events: auto;
+ }
+
+ .v-side-nav-bx{
+   position: relative;
+   width: 100%;
+ }
+
+ .vend-tab-btn-main{
+   position: relative;
+   width: 100%;
+
+ }
+
+ .vend-tab-btn{
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   justify-content: flex-start;
+   padding-inline: 1.87rem;
+   padding-block: .65rem;
+   transition: 500ms ease;
+   cursor: pointer;
+ }
+
+ .v-tab-i .v-icon{
+   font-size: 1.2rem;
+   transition: 500ms ease;
+ }
+
+ .vend-tab-btn span{
+   display: inline-block;
+   position: relative;
+   width: max-content;
+   transition: 500ms ease;
+   font-size: 1rem;
+   letter-spacing: .3px;
+   font-weight: 600;
+   color: #737c76;
+ }
+
+ .vend-tab-btn.vendbtnactive span , 
+ .vend-tab-btn.vendbtnactive .v-icon{
+   color: #0c990c;
+ }
+
+ .vend-tab-btn.vendbtnactive:before{
+   content: "";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   left: 0;
+   width: .3rem;
+   height: 100%;
+   border-top-left-radius: 2rem;
+   border-top-right-radius: 2rem;
+   border-bottom-left-radius: 2rem;
+   border-bottom-right-radius: 2rem;
+   background-color: #0c990c;
+   transition: 500ms ease;
+
+ }
+
+ .vend-tab-btn2:before{
+   content: "\f105";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: 1rem;
+   font-family: "Font Awesome 6 Free";
+   font-weight: 900;
+   font-size: .9rem;
+   color: #737c76;
+   transition: 500ms ease;
+ }
+
+ .vend-tab-btn2.venddropdwnactive:before{
+   content: "\f107";
+ }
+
+ 
+ .vend-tab-btn2.venddropdwnactive .v-tab-i , 
+ .vend-tab-btn2.venddropdwnactive span {
+   color: #0c990c;
+ }
+
+ .vend-dropdwn-btn-list-bx{
+   position: relative;
+   width: 100%;
+   padding-inline: 1.87rem;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   display: none;
+ }
+
+ .vend-li-btn{
+   position: relative;
+   width: 100%;
+   display: inline-block;
+   font-size: .9rem;
+   font-weight: 500;
+   color: #737c76;
+   transition: 500ms ease;
+   margin-left: 1.2rem;
+   cursor: pointer;
+ }
+
+ 
+ .vend-li-btn:before{
+   content: "";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   left: -1.2rem;
+   width: .65rem;
+   height: .1rem;
+   background-color: #737272;
+   transition: 500ms ease;
+   
+ }
+
+ .vend-li-btn:hover{
+   color: #0c990c;
+   transform: translateX(5px);
+ }
+
+ .vend-li-btn:hover:before{
+   width: 1rem;
+   background-color: #0c990c;
+ }
+
+ .vend-dropdwn-btn-list-bx.vendlistactive{
+   display: flex;
+ }
+
+ .vend-li-btn.liactive{
+   color: #0c990c;
+ }
+
+ .vend-tab-dropdwn-btn{
+   position: relative;
+ }
+
+
+
+ .vend-tab-dropdwn-btn.tabdrpdwnactive:before{
+   content: "";
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   width: .3rem;
+   height: 100%;
+   border-top-left-radius: 2rem;
+   border-top-right-radius: 2rem;
+   border-bottom-left-radius: 2rem;
+   border-bottom-right-radius: 2rem;
+   background-color: #0c990c;
+ } 
+
+ .vend-right-allcomp-bx{
+   position: relative;
+   width: 100%;
+   min-height: 100vh;
+   background-color: #f9fafb;
+   padding-top: 5rem;
+   transition: 500ms ease;
+ }
+
+
+ .vend-right-allcomp-bx.rgithsidepadding{
+   padding-inline-start: 18.5rem;
+ }
+
+ .vend-dashboard-comp{
+   position: relative;
+   width: 100%;
+   padding: 1rem 1rem;
+ }
+
+ .vend-dashboard-comp h6{
+   font-size: 1.2rem;
+   font-weight: 600;
+   letter-spacing: .4px;
+   color: #353434;
+   margin-bottom: 1.4rem;
+ }
+
+ .vend-dashbord-card-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   column-gap: .78rem;
+   row-gap: .78rem;
+ }
+
+ .v-d-card-bx{
+   position: relative;
+   gap: .5rem;
+   width: 100%;
+   background-color: #e4fde6;
+   border-radius: .5rem;
+   padding: 1.5rem 1rem;
+   text-align: center;
+ }
+
+ .v-box-icon ion-icon{
+   font-size: 1.67rem;
+   color: #0a0b2d;
+ }
+
+ .v-d-card-info h6{
+   margin-top: 0;
+   line-height: .5;
+   font-size: 1.1rem;
+   font-weight: 600;
+   color: #242424;
+   margin-bottom: .76rem;
+ }
+
+ .v-d-card-info > h6 ~ p{
+   font-size: 1.3rem;
+   font-weight: 700;
+   color: #242424;
+   letter-spacing: .55px;
+   margin-bottom: 0;
+ }
+
+ .v-d-amount-flex{
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 2rem;
+ }
+
+ .v-d-amnt span{
+   display: inline-block;
+   font-size: .87rem;
+   font-weight: 600;
+   color: #3e3e3e;
+   letter-spacing: .65px;
+ }
+
+ .v-d-amnt p{
+   margin-bottom: 0;
+   line-height: .7;
+   font-size: .9rem;
+   color: #3e3e3e;
+   font-weight: 600;
+   letter-spacing: .4px;
+ }
+
+
+ .v-d-card-bx2{
+   background-color: #fae5d8;
+ }
+
+ .v-d-card-bx3{
+   background-color: #deeafb;
+ }
+
+ .v-d-card-bx4{
+   background-color: #cbecf5;
+ }
+ .v-d-card-bx5{
+   background-color: #cbf5d6;
+ }
+
+ .order-info-prog-comp{
+   position: relative;
+   width: 100%;
+   margin-top: 1rem;
+   padding-inline: 1rem;
+ }
+
+ .ord-info-prog-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   column-gap: 1rem;
+   row-gap: 1rem;
+ }
+
+ .ord-info-prog-bx{
+   position: relative;
+   width: 100%;
+   background-color: #fff;
+   border: .1rem solid #eee;
+   border-radius: .5rem;
+   padding: 1rem 1rem;
+   display: flex;
+   align-items: center;
+   gap: 1.2rem;
+   justify-content: flex-start;
+ }
+
+ .ord-icon-bx{
+   position: relative;
+   width: 3rem;
+   height: 3rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fcefd9;
+   border-radius: 50%;
+ }
+
+ .ord-icon-bx .ord-icon{
+   font-size: 1.3rem;
+   color: orange;
+ }
+
+ .ord-icon-bx2{
+   background-color:#e1edfc;
+ }
+
+ .ord-icon-bx2 .ord-icon{
+   color: #1b72ec;
+ }
+
+ 
+ .ord-icon-bx3{
+   background-color:#ccfbf1;
+ }
+
+ .ord-icon-bx3 .ord-icon{
+   color: #13987b;
+ }
+
+ .ord-icon-bx4{
+   background-color:#d1fae5;
+ }
+
+ .ord-icon-bx4 .ord-icon{
+   color: #109d54;
+ }
+
+
+ /* d1fae5 */
+ .ord-info span{
+   font-size: .95rem;
+   font-weight: 500;
+   color: #535355;
+   letter-spacing: .5px;
+   
+ }
+
+ .ord-info h6{
+   margin-bottom: 0;
+   line-height: .76;
+   font-size: 1.3rem;
+   color: #484848;
+   font-weight: 700;
+   letter-spacing: .5px;
+ }
+
+ .common-container-vend{
+   max-width: 90rem;
+   margin: 0 auto;
+ }
+
+ .sale-chart-comp{
+   position: relative;
+   width: 100%;
+   margin-top: 2rem;
+   padding: 1rem 1rem;
+ }
+
+ .sale-chart-grid{
+   position: relative;
+   width: 100%;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 1.5rem;
+   row-gap: 1.5rem;
+ }
+
+ .left-weekly-sale-main{
+   position: relative;
+   width: 100%;
+   background-color: #fff;
+   padding: 1.5rem 1.5rem;
+   border-radius: .55rem;
+
+ }
+
+ .left-weekly-sale-main h6{
+   font-size: 1.15rem;
+   margin-bottom: 1rem;
+   font-weight: 700;
+   letter-spacing: .5px;
+   color: #0a0b2d;
+ }
+
+ .sale-ord-btn-flex{
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 1.5rem;
+   border-bottom: .1rem solid #eee;
+
+ }
+
+ .sale-ord-btn-flex button{
+   font-size: 1rem;
+   font-weight: 500;
+   letter-spacing: .45px;
+   color: #4f4f4f;
+   padding-bottom: .1rem;
+   transition: 400ms ease;
+   border-bottom: .1rem solid transparent;
+ }
+
+ .sale-btn.btnactive{
+      color: #109d54;
+      border-color: #109d54;
+ }
+
+ .legent{
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+   gap: .55rem;
+   margin-top: 1rem;
+ }
+
+ .legend-stroke{
+   position: relative;
+   width: 1.3rem;
+   height: .55rem;
+   background-color: #109d54;
+ }
+
+ .legent span{
+   font-size: .76rem;
+   letter-spacing: .5px;
+   color: #787878;
+ }
+
+ .legent2 span{
+   color: #f45b24;
+
+ }
+
+ .legend-stroke2{
+   background-color: #f16c3b;
+ }
+
+
+ .ord-btn.ordbtnactive{
+   border-color: #f16c3b;
+   color: #f45b24;
+ }
+
+ .right-selling-product-bx{
+   /* height: max-content; */
+ }
+
+ .chart-flex-bx{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+   flex-direction: column;
+   margin-top: 2rem;
+ }
+
+ canvas{
+   width: 23rem !important;
+   height: 23rem !important;
+   margin: 0 auto !important;
+ }
+
+ /* __________________________________
+  Our recent ord comp css code
+  -------------------- */
+
+  .recent-ord-comp{
+   position: relative;
+   width: 100%;
+   padding-inline: 1rem;
+   margin-top: 1.5rem;
+   padding-block: 1rem;
+  }
+
+  .recent-ord-comp h6{
+   font-size: 1.3rem;
+   font-weight: 700;
+   color: #0a0b2d;
+   letter-spacing: .5px;
+   margin-bottom: 1.35rem;
+  }
+
+  
+  .recent-ord-table table thead tr{
+   border: .1rem solid #eee;
+  }
+
+  .recent-ord-table table thead tr th{
+   background-color: #f6f9fe !important;
+   padding-block: .3rem !important;
+   color: #616161 !important;
+   font-size: .8rem !important;
+   text-transform: uppercase !important;
+   font-weight: 700 !important;
+  }
+
+  .recent-ord-table table tbody tr {
+   border-bottom: .1rem solid #eee;
+  }
+
+  
+  .recent-ord-table table tbody tr td span{
+   color: #353434;
+   font-weight: 600;
+  }
+
+  .recent-ord-table table tbody tr:nth-child(odd){
+        background-color: #effff4;
+  }
+
+  .datacolr{
+   color:  #109d54 !important;
+   cursor: pointer;
+  }
+
+  .recent-ord-table table tbody tr td:nth-child(2) span , 
+  .recent-ord-table table tbody tr td:nth-child(3) span {
+   color: #484646 !important;
+   font-weight: 500 !important;
+  }
+
+  .recent-ord-table table tbody tr td a{
+   color: #ff0000 ;
+   font-weight: 600;
+   font-size: .95rem;
+   letter-spacing: .45px ;
+  }
+
+ 
+
+  .stat-btn.cancelClor{
+   color: #ff0000 !important;
+   background-color: #ffeaea ;
+
+
+  }
+
+
+  .recent-ord-table table tbody tr td:nth-child(6) span{
+   color: #2868bb ;
+
+  }
+
+  .stat-btn{
+   padding: .1rem .67rem  ;
+   background-color: #dbeafe  ;
+   width: max-content ;
+   border-radius: 1rem ;
+   font-size: .9rem  ;
+   font-weight: 500  ;
+
+  }
+
+  /* /fef9c3 */
+
+  .recent-ord-table table tbody tr td:nth-child(6) span{
+   font-size: .9rem ;
+   padding: .1rem .67rem ;
+
+  }

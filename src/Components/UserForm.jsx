@@ -237,7 +237,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                       }) => {
                         return (
                           <Form>
-                            <div className="user-form-inpt-bx user-form-inpt-bx1 user-form-inpt-bx3">
+                            <div className="user-form-inpt-bx  user-form-inpt-bx1 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
                               <input
                                 type="text"
                                 name="fullname"
@@ -248,13 +248,13 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.fullname}
                               />
                               {touched.fullname && errors.fullname ? (
-                                <div style={{ color: "red" }}>
+                                <div className="field-text" style={{ color: "red" }}>
                                   {errors.fullname}
                                 </div>
                               ) : null}
                             </div>
 
-                            <div className="user-form-inpt-bx user-form-inpt-bx2 user-form-inpt-bx3">
+                            <div className="user-form-inpt-bx  user-form-inpt-bx2 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
                               <input
                                 type="text"
                                 name="phoneNumber"
@@ -265,13 +265,13 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.phoneNumber}
                               />
                               {touched.phoneNumber && errors.phoneNumber ? (
-                                <div style={{ color: "red" }}>
+                                <div className="field-text" style={{ color: "red" }}>
                                   {errors.phoneNumber}
                                 </div>
                               ) : null}
                             </div>
 
-                            <div className="user-form-inpt-bx user-form-inpt-bx5  user-form-inpt-bx4">
+                            <div className="user-form-inpt-bx  user-form-inpt-bx5  user-form-inpt-bx4 user-inpt-bxx">
                               <input
                                 type="email"
                                 name="email"
@@ -282,13 +282,13 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.email}
                               />
                               {touched.email && errors.email ? (
-                                <div style={{ color: "red" }}>
+                                <div className="field-text" style={{ color: "red" }}>
                                   {errors.email}
                                 </div>
                               ) : null}
                             </div>
 
-                            <div className="user-form-inpt-bx user-form-inpt-bx6 user-form-inpt-bx4">
+                            <div className="user-form-inpt-bx  user-form-inpt-bx6 user-form-inpt-bx4 user-inpt-bxx">
                               <input
                                 type="text"
                                 name="password"
@@ -299,7 +299,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.password}
                               />
                               {touched.password && errors.password ? (
-                                <div style={{ color: "red" }}>
+                                <div className="field-text" style={{ color: "red" }}>
                                   {errors.password}
                                 </div>
                               ) : null}

@@ -4,7 +4,7 @@ const DataSlider = [
     headingone: "Faltu kharche",
     headingtwo: "Faltu saman se",
     para: "Sell Your Household Waste for OTT Subscriptions, Food, Gold, and More with Kabadpe.",
-    img: "/images/customImg/slider-03.png",
+    img: "/images/customImg/slider-3-2.png",
     buttonone: "Recycle",
     buttontwo: "Shop",
     buttontype: "two",

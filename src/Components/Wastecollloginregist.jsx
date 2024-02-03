@@ -499,7 +499,7 @@ const Wastecolloginregist = () => {
           <div className="right-forgot-password-form-bx ">
             <div className="login-form-bx">
               <div className="login-logo">
-                <img src="/images/resources/logo.png" alt="" />
+                <img src="/images/customImg/logo.png" alt="" />
               </div>
               <form action="#">
                 <div className="log-inpt-bx  log-forgot-passwrd-inpt-bx">

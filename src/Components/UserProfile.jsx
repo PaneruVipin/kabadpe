@@ -14,6 +14,8 @@ import MyWallet from "./MyWallet";
 import { userProfileImageAdd } from "../apis/user";
 import { userFetch } from "../features/user/userActions";
 import MyOffer from "./MyOffer";
+import { logout } from "../lib/logout";
+import Redirect from "./Auth/RedirectIfLogout";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ const UserProfile = () => {
   }, [user?.profileImage]);
   return (
     <>
+    <Redirect role="user" path="/" />
       <div className="user-profile-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -143,7 +146,7 @@ const UserProfile = () => {
             className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-piggy-bank"></i>
+              <i class="fa-solid fa-piggy-bank"></i>
             </div>
             My Offers
           </button>
@@ -189,7 +192,7 @@ const UserProfile = () => {
           </button>
         </div>
 
-        <div className="profile-log-out-btn">
+        <div className="profile-log-out-btn" onClick={logout}>
           <i className="fa-solid fa-right-from-bracket"></i>
           <span>Log Out</span>
         </div>
@@ -245,9 +248,8 @@ const UserProfile = () => {
       {profBtn === 6 ? <Supportticket /> : null};
       {profBtn === 9 ? <UserOrders /> : null};
       {profBtn === 5 ? <ReferEarn /> : null};
-      {profBtn === 7 ? <MyWallet /> : null};
-      {profBtn === 8 ? <MyOffer /> : null};
-
+      {profBtn === 7 ? <MyWallet /> : null};{profBtn === 8 ? <MyOffer /> : null}
+      ;
     </>
   );
 };

@@ -178,7 +178,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <Redirect role="superAdmin" path="/adminlogin" />
+      {/* <Redirect role="superAdmin" path="/adminlogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -406,7 +406,7 @@ const AdminPanel = () => {
                   ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
                   : "admin-nv-btn admin-nv-btn2"
               }
-            >
+            > 
               <div className="a-nv-i">
                 <RiTableFill />
               </div>
@@ -415,7 +415,7 @@ const AdminPanel = () => {
           </div>
 
           <div className="admin-nv-li">
-            <div
+            <div 
               onClick={() => handleButtonClick(3)}
               className={getButtonClassName(3)}
             >
@@ -445,9 +445,9 @@ const AdminPanel = () => {
                   activeTav === "Active"
                     ? "page-link-btn pagelinkactive"
                     : "page-link-btn"
-                }
+                }  
               >
-                {" "}
+                {""}
                 <NavLink to="#">Active Users</NavLink>{" "}
               </li>
               <li

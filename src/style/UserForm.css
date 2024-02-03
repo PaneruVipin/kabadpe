@@ -199,16 +199,20 @@
 
 .user-form-inpt-bx3 {
     transition: 500ms ease;
-    height: 0;
+    height: 0 !important;
     transform: scaleY(0);
     opacity: 0;
 }
 
-.user-form-bx.userformactive .user-form-inpt-bx3 {
+
+
+.user-form-bx.userformactive .user-form-inpt-bx3  {
     height: 2.87rem;
     transform: scaleY(1);
     opacity: 1;
 }
+
+
 
 .user-form-bx.userformactive .user-form-forgot-passwd-btn {
     display: none;
@@ -304,4 +308,41 @@
     width: 1.3rem;
     height: auto;
     filter: invert(100%);
+}
+
+.user-inpt-bxx{
+    height: 100% !important;
+    background-color: transparent;
+}
+
+.user-inpt-bxx input{
+    height: 2.87rem !important;
+    background-color: #f6f6fe;
+}
+
+.user-inpt-bxx3{
+    height: 0 !important;
+}
+
+.user-inpt-bxx3 input{
+    height: 0 !important;
+}
+
+.user-form-bx.userformactive 
+.user-inpt-bxx3{
+    height: 100% !important;
+}
+
+.user-form-bx.userformactive 
+.user-inpt-bxx3 input{
+    height: 2.87rem !important;
+}
+
+.user-form-main-bx{
+    height: 36rem;
+    overflow-y: auto;
+}
+
+.user-form-main-bx::-webkit-scrollbar{
+    width: .234rem;
 }

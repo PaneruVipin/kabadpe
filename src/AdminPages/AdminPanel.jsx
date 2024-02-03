@@ -581,6 +581,7 @@ const AdminPanel = () => {
                   <div className="inner-page-list ">
                     <li
                       onClick={() => {
+                        refetch();
                         handleViewComp("AllAppointment"),
                           setApntData(FrenchAppointData);
                       }}
@@ -1244,13 +1245,31 @@ const AdminPanel = () => {
         {component === "wastecolectr" ? <Wastecolect /> : null}
         {component === "subscriptionplan" ? <SubscriptionPlan /> : null}
         {component === "addworkarea" ? <AddWorkArea /> : null}
-        {component === "addsubscription"   ? <Addsubscription onSwitchPrev={() => handleViewComp('addsubscription')} onactive={component} onSwitch={() => handleViewComp('individuals')} /> : null}
+        {component === "addsubscription" ? (
+          <Addsubscription
+            onSwitchPrev={() => handleViewComp("addsubscription")}
+            onactive={component}
+            onSwitch={() => handleViewComp("individuals")}
+          />
+        ) : null}
         {component === "discount" ? <DiscountCoupon /> : null}
         {component === "wasteproduct" ? <WasteProduct /> : null}
-        {component === "createplan" ? <Createplan onSwitchPrev={() => handleViewComp('createplan')} onactive={component} onSwitch={() => handleViewComp('individuals')}  /> : null}
-        {component === "kabadpepages" ? <KabadPePagesLink /> : null} 
+        {component === "createplan" ? (
+          <Createplan
+            onSwitchPrev={() => handleViewComp("createplan")}
+            onactive={component}
+            onSwitch={() => handleViewComp("individuals")}
+          />
+        ) : null}
+        {component === "kabadpepages" ? <KabadPePagesLink /> : null}
         {component === "ContentEditComp" ? <ContentEditComp /> : null}
-{component === "individuals" ? <ForIndividuals onSwitchPrev={() => handleViewComp('addsubscription')} onactive={component} onSwitch={() => handleViewComp('individuals')}  /> : null}
+        {component === "individuals" ? (
+          <ForIndividuals
+            onSwitchPrev={() => handleViewComp("addsubscription")}
+            onactive={component}
+            onSwitch={() => handleViewComp("individuals")}
+          />
+        ) : null}
 
         {component === "AllAppointment" ? (
           <FrenchAppointments

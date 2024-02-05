@@ -333,9 +333,9 @@ const Wastecolloginregist = () => {
                                     autoComplete="off"
                                     onChange={async (e) => {
                                       values.companyRef = e.target.value;
-                                      const result = values?.companyRef?.trim()
+                                      const result = e.target.value.trim()
                                         ? await userValidateKabadPeRefrral(
-                                            values?.companyRef?.trim()
+                                          e.target.value?.trim()
                                           )
                                         : "";
                                       document.getElementById("email").focus();
@@ -347,7 +347,8 @@ const Wastecolloginregist = () => {
                                     onBlur={handleBlur}
                                     value={values?.companyRef}
                                   />
-                                  {touched.companyRef && errors?.companyRef ? (
+                                </div>
+                                {touched.companyRef && errors?.companyRef ? (
                                     <div style={{ color: "red" }}>
                                       {errors?.companyRef}
                                     </div>
@@ -361,7 +362,6 @@ const Wastecolloginregist = () => {
                                       {refrralValidation?.name}
                                     </div>
                                   )}
-                                </div>
                               </>
                             ) : null}
                             <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">

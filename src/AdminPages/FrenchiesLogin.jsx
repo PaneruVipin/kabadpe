@@ -230,7 +230,15 @@ const FrenchiesLogin = () => {
                         <button type="submit" className="admin-form-btn mt-5">
                           Verify OTP
                         </button>
-                        ;
+                        <button
+                        type="button"
+                        onClick={() => {
+                          window.location.reload();
+                        }}
+                        className="userform-register-btn"
+                      >
+                        Login / Signup
+                      </button>
                       </Form>
                     );
                   }}

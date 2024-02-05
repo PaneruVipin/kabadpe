@@ -14,7 +14,7 @@ import {
 } from "../features/auth/authActions";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
-import { verifysignup } from "../apis/auth";
+import { userResendOtp, verifysignup } from "../apis/auth";
 
 const UserForm = ({ closepopUpUserForm }) => {
   const navigate = useNavigate();
@@ -57,8 +57,7 @@ const UserForm = ({ closepopUpUserForm }) => {
   }, [timer]);
 
   const handleButtonClick = () => {
-    // Your action when the button is clicked (e.g., send OTP)
-    // For this example, let's reset the timer
+    userResendOtp(user?.email);
     setTimer(60);
     setButtonText("");
   };

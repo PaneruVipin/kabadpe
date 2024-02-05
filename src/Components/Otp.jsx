@@ -8,9 +8,11 @@ import { VerifyToSignup } from "./Auth/VerifyToSignup";
 import Redirect from "./Auth/RedirectIfLogin";
 import { getFromLocalStorage, setInLocalStorage } from "../lib/localStorage";
 import { userResendOtp } from "../apis/auth";
+import { useNavigate } from "react-router-dom";
 
 const Otp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, errors: errorsInAuth } = useSelector((s) => s.auth);
   const { userInfo } = useSelector((s) => s.user);
   const initialTime = 60;
@@ -21,7 +23,11 @@ const Otp = () => {
     otp: "",
   };
   const handleSubmit = (data) => {
-    const newData = { ...data, phoneNumber: user?.phoneNumber, loginType: user?.loginType };
+    const newData = {
+      ...data,
+      phoneNumber: user?.phoneNumber,
+      loginType: user?.loginType,
+    };
     dispatch(userVerifySignup(newData));
   };
 
@@ -112,6 +118,15 @@ const Otp = () => {
                           {errorsInAuth?.verifySignup}
                         </p>
                       ) : null}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          window.location.reload();
+                        }}
+                        className="userform-register-btn"
+                      >
+                        Login / Signup
+                      </button>
                     </Form>
                   );
                 }}

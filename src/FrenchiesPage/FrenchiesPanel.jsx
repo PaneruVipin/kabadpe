@@ -142,7 +142,7 @@ const FrenchiesPanel = () => {
 
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">

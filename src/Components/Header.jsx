@@ -3,7 +3,8 @@ import UserForm from "../Components/UserForm";
 import { NavLink } from "react-router-dom";
 import Protect from "../Components/Auth/ProtectComp";
 import "../style/HeaderStyle.css";
-const Header = ({userForm,setUserForm}) => {
+import { scrollToSection } from "../lib/scroll";
+const Header = ({ userForm, setUserForm }) => {
   const [navlink, setNavLink] = useState("");
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);
@@ -81,11 +82,10 @@ const Header = ({userForm,setUserForm}) => {
                 }
               >
                 <nav className="main-menu style1 navbar-expand-md navbar-light">
-
                   <div className="mob-logo">
                     <img src="./images/customImg/logo.png" alt="" />
                   </div>
-                  
+
                   <div
                     className="collapse navbar-collapse show clearfix"
                     id="navbarSupportedContent"
@@ -102,43 +102,101 @@ const Header = ({userForm,setUserForm}) => {
                         </NavLink>
 
                         <div className="dropdown-bx-serv dropdown-bx-serv-main">
+                          <li className="drodpwon-s hover-drop">
+                            {" "}
+                            <NavLink className="dropdown-s-lik" to="#">
+                              Individuals
+                            </NavLink>
+                            <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Zero Waste Societies
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Waste SIP</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Green Life</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Clim Connect</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Blog</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Household Scrap Collection
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Vehicle Scrapping</NavLink>{" "}
+                              </li>
+                            </div>
+                          </li>
 
-                          <li className="drodpwon-s hover-drop"> <NavLink className="dropdown-s-lik" to="#">Individuals</NavLink>
-
-                          <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
-                          <li> <NavLink tp="#">Zero Waste Societies</NavLink> </li>
-                          <li> <NavLink tp="#">Waste SIP</NavLink> </li>
-                          <li> <NavLink tp="#">Green Life</NavLink> </li>
-                          <li> <NavLink tp="#">Clim Connect</NavLink> </li>
-                          <li> <NavLink tp="#">Blog</NavLink> </li>
-                          <li> <NavLink tp="#">Household Scrap Collection</NavLink> </li>
-                          <li> <NavLink tp="#">Vehicle Scrapping</NavLink> </li>
-
-
-                            
-                          </div>
-                          
-                           </li>
-
-                           <li className="drodpwon-s hover-drop"> <NavLink className="dropdown-s-lik" to="#">Business</NavLink>
-
-<div className="dorpdown-bx-serv dorpdown-bx-serv-list">
-<li> <NavLink tp="#">Corporate Waste Management</NavLink> </li>
-<li> <NavLink tp="#">EPR Services</NavLink> </li>
-<li> <NavLink tp="#">CSR Services</NavLink> </li>
-<li> <NavLink tp="#">Zero Waste Drives</NavLink> </li>
-<li> <NavLink tp="#">Dismantling Services</NavLink> </li>
-<li> <NavLink tp="#">Circular Economy</NavLink> </li>
-<li> <NavLink tp="#">IEC Development and Consulting</NavLink> </li>
-<li> <NavLink tp="#">Paper Shredding Servicesd</NavLink> </li>
-<li> <NavLink tp="#">Zero Waste Services</NavLink> </li>
-
-
-  
-</div>
-
- </li>
-                          
+                          <li className="drodpwon-s hover-drop">
+                            {" "}
+                            <NavLink className="dropdown-s-lik" to="#">
+                              Business
+                            </NavLink>
+                            <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Corporate Waste Management
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">EPR Services</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">CSR Services</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Zero Waste Drives</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Dismantling Services
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">Circular Economy</NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  IEC Development and Consulting
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Paper Shredding Servicesd
+                                </NavLink>{" "}
+                              </li>
+                              <li>
+                                {" "}
+                                <NavLink tp="#">
+                                  Zero Waste Services
+                                </NavLink>{" "}
+                              </li>
+                            </div>
+                          </li>
                         </div>
 
                         <div className="service-dropdown-bx">
@@ -286,11 +344,23 @@ const Header = ({userForm,setUserForm}) => {
                           <span>Rate list</span>
                         </NavLink>
                       </li>
-                      <li>
-                        <NavLink to="/kabadshop">
-                          <span>Kabad Shop</span>
-                        </NavLink>
-                      </li>
+                      <Protect reverse>
+                        <li>
+                          <NavLink to="/kabadshop">
+                            <span>Kabad Shop</span>
+                          </NavLink>
+                        </li>
+                      </Protect>
+                      <Protect>
+                        <li>
+                          <NavLink
+                            to="/?s=schedule"
+                            onClick={() => scrollToSection("schedule")}
+                          >
+                            <span>Schedule</span>
+                          </NavLink>
+                        </li>
+                      </Protect>
                       <Protect>
                         <li>
                           <NavLink to="/account">
@@ -318,17 +388,13 @@ const Header = ({userForm,setUserForm}) => {
                     </ul>
 
                     <div className="mobile-tags-flex-bx">
-
                       <span>ClimStripe</span>
                       <span>KabadPe</span>
                       <span>Green Saman Shop</span>
                       <span>Climconnect</span>
-                      
-                      
                     </div>
 
                     <div className="bottom-download-app-box">
-
                       <div className="mob-dwnld-app-btn">
                         <img src="./images/customImg/app-store.png" alt="" />
                       </div>
@@ -338,9 +404,7 @@ const Header = ({userForm,setUserForm}) => {
                       </div>
 
                       <span> Download Now </span>
-                      
                     </div>
-                    
                   </div>
                 </nav>
                 <div onClick={() => setMenu(!menu)} className="menuBtn-togg">

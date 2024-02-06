@@ -33,6 +33,9 @@ const AppointmentComp = ({ onSupportClick }) => {
                     placeholder="Search..."
                   />
                 </div>
+                <NavLink to="/?s=schedule" className="supp-link-btn">
+                  Schedule Pickup
+                </NavLink>
 
                 <button onClick={onSupportClick} className="supp-link-btn">
                   <i class="fa-solid fa-hands-holding-child"></i>

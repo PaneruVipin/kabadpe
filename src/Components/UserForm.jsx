@@ -14,7 +14,7 @@ import {
 } from "../features/auth/authActions";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
-import { verifysignup } from "../apis/auth";
+import { userResendOtp, verifysignup } from "../apis/auth";
 
 const UserForm = ({ closepopUpUserForm }) => {
   const navigate = useNavigate();
@@ -57,8 +57,7 @@ const UserForm = ({ closepopUpUserForm }) => {
   }, [timer]);
 
   const handleButtonClick = () => {
-    // Your action when the button is clicked (e.g., send OTP)
-    // For this example, let's reset the timer
+    userResendOtp(user?.email);
     setTimer(60);
     setButtonText("");
   };
@@ -248,7 +247,10 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.fullname}
                               />
                               {touched.fullname && errors.fullname ? (
-                                <div className="field-text" style={{ color: "red" }}>
+                                <div
+                                  className="field-text"
+                                  style={{ color: "red" }}
+                                >
                                   {errors.fullname}
                                 </div>
                               ) : null}
@@ -265,7 +267,10 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.phoneNumber}
                               />
                               {touched.phoneNumber && errors.phoneNumber ? (
-                                <div className="field-text" style={{ color: "red" }}>
+                                <div
+                                  className="field-text"
+                                  style={{ color: "red" }}
+                                >
                                   {errors.phoneNumber}
                                 </div>
                               ) : null}
@@ -282,7 +287,10 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.email}
                               />
                               {touched.email && errors.email ? (
-                                <div className="field-text" style={{ color: "red" }}>
+                                <div
+                                  className="field-text"
+                                  style={{ color: "red" }}
+                                >
                                   {errors.email}
                                 </div>
                               ) : null}
@@ -299,7 +307,10 @@ const UserForm = ({ closepopUpUserForm }) => {
                                 value={values.password}
                               />
                               {touched.password && errors.password ? (
-                                <div className="field-text" style={{ color: "red" }}>
+                                <div
+                                  className="field-text"
+                                  style={{ color: "red" }}
+                                >
                                   {errors.password}
                                 </div>
                               ) : null}
@@ -462,7 +473,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                     <Form>
                       <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
                         <input
-                          type="text"
+                          type="number"
                           name="otp"
                           id="otp"
                           placeholder=" Enter here OTP..."
@@ -470,16 +481,23 @@ const UserForm = ({ closepopUpUserForm }) => {
                           onBlur={handleBlur}
                           value={values.otp}
                         />
-                        {touched.otp && errors.otp ? (
-                          <div style={{ color: "red" }}>{errors.otp}</div>
-                        ) : null}
-                        {errorVerify ? (
-                          <p style={{ color: "red" }}>{errorVerify}</p>
-                        ) : null}
                       </div>
+                      {touched?.otp && errors?.otp ? (
+                        <div style={{ color: "red" }}>{errors?.otp}</div>
+                      ) : null}
+                      {errorVerify ? (
+                        <p style={{ color: "red" }}>{errorVerify}</p>
+                      ) : null}
 
                       <button type="submit" className="user-otp-btn mt-3">
                         Confirm OTP
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setUserParent(false)}
+                        className="userform-register-btn"
+                      >
+                        Login / Signup
                       </button>
                     </Form>
                   );

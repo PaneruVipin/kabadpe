@@ -138,7 +138,9 @@ const authSlice = createSlice({
           ...state.errors,
           verifySignup: "",
         };
+        setTimeout(() => {
         window.location.reload();
+        }, 2000);
       }
     );
     builder.addCase(userVerifySignup.rejected, (state, { payload }) => {

@@ -14,8 +14,15 @@ import Preloader from "../HomeComponent/Preloader";
 import { Preloadergsap } from "../HomeComponent/PreloaderGsap";
 import MainFooter from "../HomeComponent/MainFooter";
 import Discover from "../HomeComponent/Discover";
+import { useLocation } from "react-router-dom";
+import { scrollToParam } from "../lib/scroll";
 
 const Home = ({ setUserForm }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    scrollToParam(location, "s");
+  }, [location.search]);
   useEffect(() => {
     Preloadergsap();
   }, []);
@@ -26,7 +33,9 @@ const Home = ({ setUserForm }) => {
 
       <div className="mainwrap">
         <HomeSlider />
-        <Appointment setUserForm={setUserForm} />
+        <div id="schedule">
+          <Appointment setUserForm={setUserForm} />
+        </div>
         <Ecosystem />
         <KabadJugad />
         <Contribution />

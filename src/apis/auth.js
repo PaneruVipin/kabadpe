@@ -121,3 +121,38 @@ export const userResendOtp = async (email) => {
   const { data: res } = await axios.post(apiUrl, { email });
   return res?.message;
 };
+
+// forget password
+export const userForgetPassRequestOTP = async (email) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/forgetpass/request/otp";
+  const { data: res } = await axios.put(apiUrl, { email });
+  return res?.code;
+};
+
+export const userForgetPassRequestReset = async ({ code, otp }) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/forgetpass/request/reset";
+  const { data: res } = await axios.put(
+    apiUrl,
+    { otp },
+    {
+      headers: { code },
+    }
+  );
+  return res?.code;
+};
+
+export const userForgetPassCallback = async ({ password, code }) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/forgetpass/callback";
+  const { data: res } = await axios.put(
+    apiUrl,
+    { password },
+    { headers: { code } }
+  );
+  return res?.message;
+};
+
+export const userForgetPassResendOTP = async (email) => {
+  const apiUrl = ENV_API_BASE_URL + "/auth/forgetpass/resendOTP";
+  const { data: res } = await axios.put(apiUrl, { email });
+  return res?.code;
+};

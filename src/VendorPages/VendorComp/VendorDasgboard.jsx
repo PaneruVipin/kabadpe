@@ -3,7 +3,7 @@ import OrderInfoProg from './OrderInfoProg'
 import SaleChart from './SaleChart'
 import RecentOrd from './RecentOrd'
 
-const VendorDasgboard = () => {
+const VendorDasgboard = ({compTrue , onRedirect , onOrdRed}) => {
   return (
     <>
 
@@ -88,8 +88,8 @@ const VendorDasgboard = () => {
                       <p>₹3580</p>  
                     </div>
                  
+                 
                 </div>
-
 
                 <div className="v-d-card-bx v-d-card-bx5">
                     <div className="v-box-icon">
@@ -108,7 +108,14 @@ const VendorDasgboard = () => {
     
     <OrderInfoProg />
     <SaleChart />
-    <RecentOrd />
+    
+    <RecentOrd compTrue={compTrue} onOrdComp={onOrdRed} />
+
+    <button onClick={onRedirect} className="all-ord-btn mb-3">
+            All Orders
+        </button>
+
+
     </>
   )
 }

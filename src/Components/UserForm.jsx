@@ -14,7 +14,14 @@ import {
 } from "../features/auth/authActions";
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
-import { userResendOtp, verifysignup } from "../apis/auth";
+import {
+  userForgetPassRequestOTP,
+  userForgetPassRequestReset,
+  userForgetPassResendOTP,
+  userResendOtp,
+  verifysignup,
+} from "../apis/auth";
+import { object, string } from "yup";
 
 const UserForm = ({ closepopUpUserForm }) => {
   const navigate = useNavigate();
@@ -40,7 +47,7 @@ const UserForm = ({ closepopUpUserForm }) => {
   const [buttonText, setButtonText] = useState("");
   const [userparent, setUserParent] = useState(false);
   const [mainparent, setMainParent] = useState(false);
-
+  const [codes, setCodes] = useState({});
   useEffect(() => {
     let intervalId;
 
@@ -56,11 +63,15 @@ const UserForm = ({ closepopUpUserForm }) => {
     return () => clearInterval(intervalId);
   }, [timer]);
 
-  const handleButtonClick = () => {
-    userResendOtp(user?.email);
-    setTimer(60);
-    setButtonText("");
-  };
+  const handleButtonClick = !userForgotPasswrd
+    ? () => {
+        userResendOtp(user?.email);
+        setTimer(60);
+        setButtonText("");
+      }
+    : async () => {
+        const res = await userForgetPassResendOTP(codes?.email);
+      };
 
   const UserFormToggle = () => {
     if (userFormCont == false) {
@@ -100,9 +111,8 @@ const UserForm = ({ closepopUpUserForm }) => {
     if (userFormheading === "Login to account") {
       setUserFormheading("Password Reset");
     }
-
     if (userFormText === "Login") {
-      setUserFormText("Send Reset Link");
+      setUserFormText("Request OTP");
     }
   };
   const initialValues = userFormCont
@@ -116,21 +126,46 @@ const UserForm = ({ closepopUpUserForm }) => {
         email: "",
         password: "",
       };
-  const validationSchema = userFormCont
-    ? validationSignupUser
-    : validationLoginUser;
-  const handleSubmit = userFormCont
-    ? (data) => {
-        dispatch(userSignup({ ...data, loginType: "user" }));
-      }
-    : (data) => {
-        dispatch(userLogin({ ...data, loginType: "user" }));
+  const validationSchema = !userForgotPasswrd
+    ? userFormCont
+      ? validationSignupUser
+      : validationLoginUser
+    : object().shape({
+        email: string()
+          .required("Email is required")
+          .email("Invalid email format"),
+      });
+  const handleSubmit = !userForgotPasswrd
+    ? userFormCont
+      ? (data) => {
+          dispatch(userSignup({ ...data, loginType: "user" }));
+        }
+      : (data) => {
+          dispatch(userLogin({ ...data, loginType: "user" }));
+        }
+    : async ({ email }) => {
+        const res = await userForgetPassRequestOTP(email);
+        if (!res?.error) {
+          setCodes((prev) => ({ ...prev, OTP: res, email }));
+          setUserParent(true);
+        }
       };
 
-  const handleOTPSubmit = (data) => {
-    const newData = { ...data, email: user?.email, loginType: user?.loginType };
-    dispatch(userVerifySignup(newData));
-  };
+  const handleOTPSubmit = !userForgotPasswrd
+    ? (data) => {
+        const newData = {
+          ...data,
+          email: user?.email,
+          loginType: user?.loginType,
+        };
+        dispatch(userVerifySignup(newData));
+      }
+    : async ({ otp }) => {
+        const res = await userForgetPassRequestReset({ code: codes?.OTP, otp });
+        if (!res.error) {
+          setCodes((prev) => ({ ...prev, reset: res }));
+        }
+      };
 
   useEffect(() => {
     if (login) {
@@ -147,7 +182,6 @@ const UserForm = ({ closepopUpUserForm }) => {
 
   return (
     <>
-      {/* <SignUpToVerify /> */}
       <section
         onClick={closepopUpUserForm}
         className={
@@ -325,6 +359,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                               </button>
 
                               <button
+                                type="button"
                                 onClick={forgotPasswrdFunc}
                                 className="user-form-forgot-passwd-btn"
                               >
@@ -446,9 +481,7 @@ const UserForm = ({ closepopUpUserForm }) => {
 
             <div className="user-form-otp-bx">
               <h6>Verify OTP</h6>
-              <p>
-                OTP has been sent to your registered mobile number and email Id.
-              </p>
+              <p>OTP has been sent to your registered email Id.</p>
 
               <div onClick={handleButtonClick} className="timer-text">
                 {timer > 0 ? `Resend OTP in ${timer} seconds` : ""}

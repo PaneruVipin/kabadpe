@@ -2,7 +2,12 @@ import React, { useState } from 'react'
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { MdCategory } from "react-icons/md";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import VendorDasgboard from './VendorComp/VendorDasgboard';
+import VendOrder from './VendorComp/VendOrder';
+import OrderDet from './VendorComp/OrderDet';
+import VendorProduct from './VendorComp/VendorProduct';
+import VendProdDetail from './VendorComp/VendProdDetail';
 const VendorPanel = () => {
     const [component , setComponent ] = useState('dashboard');
     const [vendBtn , setVendBtn] = useState(null);
@@ -94,7 +99,7 @@ const VendorPanel = () => {
                 <span>Dashboard</span>
             </div>
 
-            <div className={getDropDwnBtnClassnameThree('category')}>
+            <div className={getDropDwnBtnClassnameThree('vendProduct')}>
 
                 <div onClick={() => handleDropDwnBtnClick(1)}
                  className={ getDropDwnBtnClassname(1)}>
@@ -107,8 +112,8 @@ const VendorPanel = () => {
 
                 <div className={getDropDwnBtnClassnameTwo(1)}>
 
-                    <li onClick={() => handleViewComp('category')} 
-                    className={ component === 'category' ? "vend-li-btn liactive" : "vend-li-btn"}>
+                    <li onClick={() => handleViewComp('vendProduct')} 
+                    className={ component === 'vendProduct' ? "vend-li-btn liactive" : "vend-li-btn"}>
                         Products
                     </li>
 
@@ -127,6 +132,19 @@ const VendorPanel = () => {
                 </div>
                 
             </div>
+
+            <div className={ component === 'orders' ? "vend-tab-btn vendbtnactive" : " vend-tab-btn"}
+            onClick={() => handleViewComp('orders')}
+            >
+
+                <div className="v-tab-i">
+                <MdOutlineProductionQuantityLimits  className='v-icon' />
+                </div>
+                
+                <span>Orders</span>
+            </div>
+
+         
             
         </div>
             
@@ -138,8 +156,13 @@ const VendorPanel = () => {
     <div className={sideNav ? "vend-right-allcomp-bx rgithsidepadding" : "vend-right-allcomp-bx"}>
         <div className="common-container-vend">
 
-    { component === 'dashboard' ? <VendorDasgboard /> : null }
-        
+    { component === 'dashboard' ? <VendorDasgboard compTrue ={'orders'} onOrdRed={() => setComponent('orderDetail')} onRedirect={() => setComponent('orders')} /> : null}
+    { component === 'orders' ? <VendOrder onOrdRed={() => setComponent('orderDetail')}  /> : null }
+    { component === 'orderDetail' ? <OrderDet compOrderDet={'orderDetail'}    /> : null }
+    { component === 'vendProduct' ? <VendorProduct compOrderDet={'orderDetail'} compRedirectProdDet={() => setComponent('vendProdDet')}    /> : null }
+    { component === 'vendProdDet' ? <VendProdDetail    /> : null }
+    
+
     </div>
     </div>
 

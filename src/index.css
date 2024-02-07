@@ -10484,11 +10484,16 @@ __________ */
 
 .ind-plan-form-main{
   position: relative;
-  width: 70rem;
+  width: 30rem;
   background-color: #fff;
   padding: 1rem 1.5rem;
   border-radius: .23rem;
 
+}
+
+.mini-text{
+  font-size: .78rem !important;
+  color: gray !important;
 }
 
 

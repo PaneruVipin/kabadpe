@@ -15,6 +15,7 @@ import {
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
 import {
+  userForgetPassCallback,
   userForgetPassRequestOTP,
   userForgetPassRequestReset,
   userForgetPassResendOTP,
@@ -22,6 +23,7 @@ import {
   verifysignup,
 } from "../apis/auth";
 import { object, string } from "yup";
+import { resetpasswordValidation } from "../validators/user/resetPasswordValidator";
 
 const UserForm = ({ closepopUpUserForm }) => {
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const UserForm = ({ closepopUpUserForm }) => {
   const [mainparent, setMainParent] = useState(false);
   const [reset, setReset] = useState(false);
   const [codes, setCodes] = useState({});
+  const [otherErrors, setOtherErrors] = useState({});
   useEffect(() => {
     let intervalId;
 
@@ -72,6 +75,11 @@ const UserForm = ({ closepopUpUserForm }) => {
       }
     : async () => {
         const res = await userForgetPassResendOTP(codes?.email);
+        if (!res?.error) {
+          setCodes((prev) => ({ ...prev, OTP: res }));
+        }
+        setTimer(60);
+        setButtonText("");
       };
 
   const UserFormToggle = () => {
@@ -149,7 +157,9 @@ const UserForm = ({ closepopUpUserForm }) => {
         if (!res?.error) {
           setCodes((prev) => ({ ...prev, OTP: res, email }));
           setUserParent(true);
+          return;
         }
+        setOtherErrors({ resquestOTP: res?.message });
       };
 
   const handleOTPSubmit = !userForgotPasswrd
@@ -165,9 +175,23 @@ const UserForm = ({ closepopUpUserForm }) => {
         const res = await userForgetPassRequestReset({ code: codes?.OTP, otp });
         if (!res.error) {
           setCodes((prev) => ({ ...prev, reset: res }));
+          setReset(true);
+          return;
         }
+        setOtherErrors({ callbackOTP: res?.message });
       };
 
+  const handleResetSubmit = async ({ newPassword: password }) => {
+    const res = await userForgetPassCallback({ password, code: codes?.reset });
+    if (!res.error) {
+      setReset(false);
+      setUserParent(false);
+      setUserForgotPasswrd(false);
+      closepopUpUserForm();
+      return;
+    }
+    setOtherErrors({ callbackReset: res?.message });
+  };
   useEffect(() => {
     if (login) {
       closepopUpUserForm();
@@ -180,7 +204,6 @@ const UserForm = ({ closepopUpUserForm }) => {
       setMainParent(true);
     }
   }, [login, signup, verifySignup]);
-
   return (
     <>
       <section
@@ -360,7 +383,11 @@ const UserForm = ({ closepopUpUserForm }) => {
                                   </div>
                                 ) : null}
                               </div>
-
+                              {userForgotPasswrd && otherErrors?.resquestOTP ? (
+                                <div style={{ color: "red" }}>
+                                  {otherErrors?.resquestOTP}
+                                </div>
+                              ) : null}
                               <div className="form-btns-flex-bx">
                                 <button
                                   type="submit"
@@ -534,7 +561,11 @@ const UserForm = ({ closepopUpUserForm }) => {
                         {errorVerify ? (
                           <p style={{ color: "red" }}>{errorVerify}</p>
                         ) : null}
-
+                        {userForgotPasswrd && otherErrors?.callbackOTP ? (
+                          <div style={{ color: "red" }}>
+                            {otherErrors?.callbackOTP}
+                          </div>
+                        ) : null}
                         <button type="submit" className="user-otp-btn mt-3">
                           Confirm OTP
                         </button>
@@ -559,31 +590,73 @@ const UserForm = ({ closepopUpUserForm }) => {
                 </div>
               </div>
             </div>
+
             <div className="user-reset-bx">
               <h6>Reset Password</h6>
+              <Formik
+                initialValues={{
+                  newPassword: "",
+                  confirmNewPassword: "",
+                }}
+                validationSchema={resetpasswordValidation}
+                onSubmit={handleResetSubmit}
+              >
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form>
+                      <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                        <input
+                          type="text"
+                          name="newPassword"
+                          id="newpassword"
+                          placeholder=" New Password"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.newPassword}
+                        />
+                      </div>
+                      {touched?.newPassword && errors?.newPassword ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.newPassword}
+                        </div>
+                      ) : null}
 
-              <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
-                <input
-                  type="text"
-                  name="newpassword"
-                  id="newpassword"
-                  placeholder=" New Password"
-                />
-              </div>
-
-              <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
-                <input
-                  type="text"
-                  name="confirmpassword"
-                  id="confirmpassword"
-                  placeholder=" Confirm Password..."
-                />
-              </div>
-
-              <button type="submit" className="user-otp-btn mt-3">
-                Save Password
-              </button>
-
+                      <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                        <input
+                          type="text"
+                          name="confirmNewPassword"
+                          id="confirmpassword"
+                          placeholder=" Confirm Password..."
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.confirmNewPassword}
+                        />
+                      </div>
+                      {touched?.confirmNewPassword &&
+                      errors?.confirmNewPassword ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.confirmNewPassword}
+                        </div>
+                      ) : null}
+                      {otherErrors?.callbackReset ? (
+                        <div style={{ color: "red" }}>
+                          {otherErrors?.callbackReset}
+                        </div>
+                      ) : null}
+                      <button type="submit" className="user-otp-btn mt-3">
+                        Save Password
+                      </button>
+                    </Form>
+                  );
+                }}
+              </Formik>
               <div
                 onClick={() => {
                   setReset(false), closepopUpUserForm();

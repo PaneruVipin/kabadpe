@@ -11321,3 +11321,28 @@ __________ */
   width: 80% !important;
   margin-left: auto;
 }
+
+
+.user-reset-bx{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: #fff;
+  border-radius: .55rem;
+  padding: 1.5rem 1.5rem;
+  width: 30rem;
+  
+  display: none;
+}
+
+.user-reset-main-bx.resetmainactive .user-reset-bx{
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-reset-main-bx.resetmainactive .user-form-parent{
+  display: none;
+}

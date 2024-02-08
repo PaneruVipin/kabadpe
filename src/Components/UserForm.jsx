@@ -45,8 +45,9 @@ const UserForm = ({ closepopUpUserForm }) => {
   const [userForgotPasswrd, setUserForgotPasswrd] = useState(false);
   const [timer, setTimer] = useState(60);
   const [buttonText, setButtonText] = useState("");
-  const [userparent, setUserParent] = useState(false);
+  const [userparent, setUserParent] = useState(true);
   const [mainparent, setMainParent] = useState(false);
+  const [reset , setReset ] = useState(true);
   const [codes, setCodes] = useState({});
   useEffect(() => {
     let intervalId;
@@ -220,6 +221,7 @@ const UserForm = ({ closepopUpUserForm }) => {
             </NavLink>
           </div>
 
+          <div className={reset ? "user-reset-main-bx resetmainactive" : "user-reset-main-bx"}>
           <div
             className={
               userparent
@@ -546,6 +548,46 @@ const UserForm = ({ closepopUpUserForm }) => {
               </div>
             </div>
           </div>
+          <div className="user-reset-bx">
+
+            <h6>Reset Password</h6>
+
+            <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                        <input
+                          type="text"
+                          name="newpassword"
+                          id="newpassword"
+                          placeholder=" New Password"
+                        
+                        />
+                      </div>
+
+                      <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                        <input
+                          type="text"
+                          name="confirmpassword"
+                          id="confirmpassword"
+                          placeholder=" Confirm Password..."
+                        
+                        />
+                      </div>
+
+                      <button type="submit" className="user-otp-btn mt-3">
+                        Save Password
+                      </button>
+
+                      <div
+                onClick={() => {
+                  setReset(false), closepopUpUserForm();
+                }}
+                className="close-btn"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+              
+          </div>
+          </div>
+
         </div>
       </section>
     </>

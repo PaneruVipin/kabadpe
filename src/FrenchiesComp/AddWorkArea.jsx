@@ -60,6 +60,7 @@ const AddWorkArea = () => {
                         ariaName,
                         monthlyPrice,
                         quaterlyPrice,
+                        weeklyPrice
                       },
                       i
                     ) => (
@@ -97,6 +98,7 @@ const AddWorkArea = () => {
                                     ariaName,
                                     monthlyPrice,
                                     quaterlyPrice,
+                                    weeklyPrice
                                   }),
                                     setAddWorkArea(true);
                                 }}

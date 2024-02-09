@@ -2,9 +2,10 @@ import { object, string, number } from "yup";
 
 export const validationSignupCollector = object().shape({
   fullname: string().required("Full name is required"),
-  emergencyPhone: string()
-    .required("Emergency phone number is required")
-    .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+  emergencyPhone: string().matches(
+    /^\d{10}$/,
+    "Phone number must be exactly 10 digits"
+  ),
   companyRef: string(),
   email: string().email("Invalid email address"),
   password: string().required("Password is required"),

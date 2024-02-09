@@ -90,6 +90,7 @@ const Wastecolloginregist = () => {
           workerRole: "",
           ariaName: "",
           subAriaName: "",
+          emergencyPhone:""
         }
       : {
           phoneNumber: "",

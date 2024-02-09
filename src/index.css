@@ -11346,3 +11346,30 @@ __________ */
 .user-reset-main-bx.resetmainactive .user-form-parent{
   display: none;
 }
+
+.otp-forgot-bx{
+  display: none;
+}
+
+.forgot-OTP-main.forgototpactive .otp-forgot-bx{
+  display: block;
+
+}
+
+.forgot-OTP-main.forgototpactive .forgotpassword-inpt
+{ 
+  display: none;
+
+}
+
+.forgot-reset-passwrd-bx , .save-asswrd-btn{
+  display: none;
+}
+
+.forgot-reset-paswrd-main.forgotpasswordactive .forgot-reset-passwrd-bx{
+  display: block;
+} 
+.forgot-reset-paswrd-main.forgotpasswordactive .forgot-OTP-main 
+{
+  display: none;
+} 

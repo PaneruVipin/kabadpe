@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/LogReg.css";
 import { Form, Formik } from "formik";
 import {
@@ -14,6 +14,14 @@ import { AutoComplete } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { userServicableAriasFetch } from "../apis/kbadpeUser/appoinment";
 import { workers } from "../lib/worker";
+import {
+  workerForgetPassCallback,
+  workerForgetPassRequestOTP,
+  workerForgetPassRequestReset,
+  workerForgetPassResendOTP,
+} from "../apis/worker/auth";
+import { resetpasswordValidation } from "../validators/user/resetPasswordValidator";
+import { number, object, string } from "yup";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
@@ -30,32 +38,44 @@ const Wastecolloginregist = () => {
   const [arias, setArias] = useState([]);
   const [subArias, setSubArias] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
-  const [forgotOtp , setForgotOtp] = useState(false);
-  const [forgotResetPassword ,setForgotResetPassword] = useState(false);
-  // const [forgotText , setForgotText] = useState('Send Request');
+  const [forgotOtp, setForgotOtp] = useState(false);
+  const [forgotResetPassword, setForgotResetPassword] = useState(false);
+  const [codes, setCodes] = useState({});
+  const [otherErrors, setOtherErrors] = useState({});
+  const [timer, setTimer] = useState(60);
+  const [buttonText, setButtonText] = useState("");
+  useEffect(() => {
+    let intervalId;
+
+    if (timer > 0) {
+      intervalId = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else {
+      clearInterval(intervalId);
+      setButtonText("Resend OTP");
+    }
+
+    return () => clearInterval(intervalId);
+  }, [timer]);
   const sendReuqestfuct = () => {
     setForgotPara(false);
-   
-    setForgotOtp(true)
 
+    setForgotOtp(true);
   };
 
   const forgotOtpFunc = () => {
     setForgotPara(false);
     setForgotPara(false);
     setForgotResetPassword(true);
-
-    
-  }
+  };
 
   const ResetForgetPasswordFunc = () => {
-
     setForgotPara(true);
     setTimeout(() => {
       setForgotPara(false);
     }, 5000);
-
-  }
+  };
 
   const toggleForm = () => {
     setFormBox(!formBox);
@@ -110,7 +130,7 @@ const Wastecolloginregist = () => {
           workerRole: "",
           ariaName: "",
           subAriaName: "",
-          emergencyPhone:""
+          emergencyPhone: "",
         }
       : {
           phoneNumber: "",
@@ -124,13 +144,72 @@ const Wastecolloginregist = () => {
           if (!termsChecked) {
             return;
           }
-          console.log("this is data", data);
           dispatch(userSignup({ ...data, loginType: "collector" }));
         }
       : (data) => {
           dispatch(userLogin({ ...data, loginType: "collector" }));
         };
-
+  const handleForgetPassword = forgotResetPassword
+    ? async ({ newPassword }) => {
+        setOtherErrors({ forget: "" });
+        const res = await workerForgetPassCallback({
+          password: newPassword,
+          code: codes?.reset,
+        });
+        if (!res.error) {
+          setFormComp(false);
+          setForgotOtp(false);
+          setForgotResetPassword(false);
+          return;
+        }
+        setOtherErrors({ forget: res?.message });
+      }
+    : forgotOtp
+    ? async ({ otp }) => {
+        setOtherErrors({ forget: "" });
+        const res = await workerForgetPassRequestReset({
+          otp,
+          code: codes?.otp,
+        });
+        if (!res?.error) {
+          setCodes((prev) => ({ ...prev, reset: res }));
+          forgotOtpFunc();
+          return;
+        }
+        setOtherErrors({ forget: res?.message });
+      }
+    : async ({ phoneNumber }) => {
+        setOtherErrors({ forget: "" });
+        const res = await workerForgetPassRequestOTP(phoneNumber);
+        if (!res?.error) {
+          setCodes((prev) => ({
+            ...prev,
+            otp: res?.code,
+            tempOTP: res?.otp,
+            phoneNumber,
+          }));
+          sendReuqestfuct();
+          return;
+        }
+        setOtherErrors({ forget: res?.message });
+      };
+  const forgetPassValidation = forgotResetPassword
+    ? resetpasswordValidation
+    : forgotOtp
+    ? object().shape({ otp: number().required("OTP is required") })
+    : object().shape({
+        phoneNumber: string()
+          .required("Phone number is required")
+          .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+      });
+  const handleButtonClick = async () => {
+    const res = await workerForgetPassResendOTP(codes?.phoneNumber);
+    if (!res?.error) {
+      setCodes((prev) => ({ ...prev, otp: res?.code, tempOTP: res?.otp }));
+    }
+    setTimer(60);
+    setButtonText("");
+  };
   return (
     <>
       {userInfo?.role == "kabadCollector" ? (
@@ -356,7 +435,7 @@ const Wastecolloginregist = () => {
                                       values.companyRef = e.target.value;
                                       const result = e.target.value.trim()
                                         ? await userValidateKabadPeRefrral(
-                                          e.target.value?.trim()
+                                            e.target.value?.trim()
                                           )
                                         : "";
                                       document.getElementById("email").focus();
@@ -370,19 +449,19 @@ const Wastecolloginregist = () => {
                                   />
                                 </div>
                                 {touched.companyRef && errors?.companyRef ? (
-                                    <div style={{ color: "red" }}>
-                                      {errors?.companyRef}
-                                    </div>
-                                  ) : null}
-                                  {refrralValidation?.error ? (
-                                    <div style={{ color: "red" }}>
-                                      {refrralValidation?.message}
-                                    </div>
-                                  ) : (
-                                    <div style={{ color: "green" }}>
-                                      {refrralValidation?.name}
-                                    </div>
-                                  )}
+                                  <div style={{ color: "red" }}>
+                                    {errors?.companyRef}
+                                  </div>
+                                ) : null}
+                                {refrralValidation?.error ? (
+                                  <div style={{ color: "red" }}>
+                                    {refrralValidation?.message}
+                                  </div>
+                                ) : (
+                                  <div style={{ color: "green" }}>
+                                    {refrralValidation?.name}
+                                  </div>
+                                )}
                               </>
                             ) : null}
                             <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
@@ -445,8 +524,6 @@ const Wastecolloginregist = () => {
                         ) : null}
                       </div>
 
-
-
                       <div className="forgt-passwrd-check-bx-flex  mt-3">
                         <div className="form-check ">
                           <input
@@ -474,7 +551,6 @@ const Wastecolloginregist = () => {
                       </div>
 
                       <button
-                       
                         // onClick={() => thanksBtn()}
                         className="form-submit-btn"
                       >
@@ -524,93 +600,198 @@ const Wastecolloginregist = () => {
               <div className="login-logo">
                 <img src="/images/customImg/logo.png" alt="" />
               </div>
-              <form action="#">
-                <div className={forgotResetPassword ? "forgot-reset-paswrd-main forgotpasswordactive" : "forgot-reset-paswrd-main"}>
-                <div className={forgotOtp ? "forgot-OTP-main forgototpactive" : "forgot-OTP-main"}>
-                <div className="log-inpt-bx forgotpassword-inpt  log-forgot-passwrd-inpt-bx">
-                  <input
-                    type="text"
-                    name="mobemail"
-                    id="mobemail"
-                    placeholder="Mobile No./Email Id"
-                    autoComplete="off"
-                  />
-                </div>
-                <div className="otp-forgot-bx">
-                <div className="log-inpt-bx   log-forgot-passwrd-inpt-bx">
-                  <input
-                    type="text"
-                    name="Otp"
-                    id="Otp"
-                    placeholder="Enter here OTP"
-                    autoComplete="off"
-                  />
-                </div>
-                </div>
-               { forgotOtp ? <button onClick={() => forgotOtpFunc()}
-                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
+              {formComp ? (
+                <Formik
+                  initialValues={{
+                    otp: "",
+                    phoneNumber: "",
+                    newPassword: "",
+                    confirmNewPassword: "",
+                  }}
+                  onSubmit={handleForgetPassword}
+                  validationSchema={forgetPassValidation}
                 >
-                  Verify OTP
-                </button> : null }
-                </div>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form>
+                        <div
+                          className={
+                            forgotResetPassword
+                              ? "forgot-reset-paswrd-main forgotpasswordactive"
+                              : "forgot-reset-paswrd-main"
+                          }
+                        >
+                          <div
+                            className={
+                              forgotOtp
+                                ? "forgot-OTP-main forgototpactive"
+                                : "forgot-OTP-main"
+                            }
+                          >
+                            <div className="log-inpt-bx forgotpassword-inpt  log-forgot-passwrd-inpt-bx">
+                              <input
+                                type="text"
+                                name="phoneNumber"
+                                id="mobemail"
+                                placeholder="Mobile No."
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.phoneNumber}
+                              />
+                            </div>
+                            {touched?.phoneNumber && errors?.phoneNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.phoneNumber}
+                              </div>
+                            ) : null}
+                            <div className="otp-forgot-bx">
+                              <div className=" tw-text-green-500">
+                                Hey, just an FYI – we're currently testing some
+                                updates on DLT. For now, feel free to use this
+                                OTP:{" "}
+                                <span className="tw-text-yellow-900">
+                                  {codes?.tempOTP}
+                                </span>
+                                . Cheers!
+                              </div>
+                              <div className="timer-text">
+                                {timer > 0
+                                  ? `Resend OTP in ${timer} seconds`
+                                  : ""}
+                                {buttonText ? (
+                                  <button
+                                    type="button"
+                                    onClick={handleButtonClick}
+                                  >
+                                    {buttonText}{" "}
+                                  </button>
+                                ) : null}
+                              </div>
+                              <div className="log-inpt-bx   log-forgot-passwrd-inpt-bx">
+                                <input
+                                  type="text"
+                                  name="otp"
+                                  id="Otp"
+                                  placeholder="Enter here OTP"
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.otp}
+                                />
+                              </div>
+                            </div>
+                            {touched?.otp && errors?.otp ? (
+                              <div style={{ color: "red" }}>{errors?.otp}</div>
+                            ) : null}
+                            {otherErrors?.forget && otherErrors?.forget ? (
+                              <div style={{ color: "red" }}>
+                                {otherErrors?.forget}
+                              </div>
+                            ) : null}
+                            {forgotOtp ? (
+                              <button
+                                type="submit"
+                                className="form-submit-btn forgot-passwrd-btn-send-rquest "
+                              >
+                                Verify OTP
+                              </button>
+                            ) : null}
+                          </div>
 
-                <div className="forgot-reset-passwrd-bx">
-                <div className="log-inpt-bx f-new-paswrd   log-forgot-passwrd-inpt-bx">
-                  <input
-                    type="text"
-                    name="newPassword"
-                    id="newPassword"
-                    placeholder="Enter New Password"
-                    autoComplete="off"
-                  />
-                </div>
+                          <div className="forgot-reset-passwrd-bx">
+                            <div className="log-inpt-bx f-new-paswrd   log-forgot-passwrd-inpt-bx">
+                              <input
+                                type="text"
+                                name="newPassword"
+                                id="newPassword"
+                                placeholder="Enter New Password"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.newPassword}
+                              />
+                            </div>
+                            {touched?.newPassword && errors?.newPassword ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.newPassword}
+                              </div>
+                            ) : null}
 
-                <div className="log-inpt-bx f-confrm-paswrd   log-forgot-passwrd-inpt-bx">
-                  <input
-                    type="text"
-                    name="confrmPassword"
-                    id="confrmPassword"
-                    placeholder="Enter New Confirm Password"
-                    autoComplete="off"
-                  />
-                </div>
+                            <div className="log-inpt-bx f-confrm-paswrd   log-forgot-passwrd-inpt-bx">
+                              <input
+                                type="text"
+                                name="confirmNewPassword"
+                                id="confrmPassword"
+                                placeholder="Enter New Confirm Password"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.confirmNewPassword}
+                              />
+                            </div>
+                            {touched?.confirmNewPassword &&
+                            errors?.confirmNewPassword ? (
+                              <div style={{ color: "red" }}>
+                                {errors?.confirmNewPassword}
+                              </div>
+                            ) : null}
+                            {forgotResetPassword ? (
+                              <button
+                                type="submit"
+                                className="form-submit-btn forgot-passwrd-btn-send-rquest "
+                              >
+                                Save Password
+                              </button>
+                            ) : null}
+                          </div>
 
-              { forgotResetPassword ? <button onClick={() => ResetForgetPasswordFunc()}
-                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
-                >
-                  Save Password
-                </button> : null}
-                </div>
+                          {forgotOtp === false ? (
+                            <button
+                              type="submit"
+                              className="form-submit-btn forgot-passwrd-btn-send-rquest otp-Forgot-Btn"
+                            >
+                              Send Request
+                            </button>
+                          ) : null}
+                        </div>
 
-                {forgotOtp === false ?  <button
-                  onClick={() => {sendReuqestfuct() }}
-                  className="form-submit-btn forgot-passwrd-btn-send-rquest otp-Forgot-Btn"
-                >
-                 Send Request
-                </button> : null}
+                        <div className="forgot-text">
+                          {forgotPara && (
+                            <p>
+                              {/* Password Reset Link Has Been Sent To Your Register
+                            Email and Mobile! */}
+                            </p>
+                          )}
+                        </div>
 
-            
-
-              
-                
-                </div>
-            
-
-                <div className="forgot-text">
-                  {forgotPara && (
-                    <p>
-                      Password Reset Link Has Been Sent To Your Register Email
-                      and Mobile!
-                    </p>
-                  )}
-                </div>
-
-               { forgotOtp === false  ?  
-               <div className="switch-form-btn">
-                  <p>New to Kabadpe? </p>
-                  <p onClick={() => setFormComp(false)}>Log In</p>
-                </div>: null}
-              </form>
+                        {/* {forgotOtp === false ? ( */}
+                        <div className="switch-form-btn">
+                          {/* <p>New to Kabadpe? </p> */}
+                          <p
+                            onClick={() => {
+                              setFormComp(false);
+                              setForgotOtp(false);
+                              setForgotResetPassword(false);
+                              setOtherErrors({ forget: "" });
+                            }}
+                          >
+                            Log In
+                          </p>
+                        </div>
+                        {/* ) : null} */}
+                      </Form>
+                    );
+                  }}
+                </Formik>
+              ) : null}
             </div>
           </div>
         </div>

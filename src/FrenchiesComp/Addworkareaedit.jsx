@@ -3,11 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { adminAriaAdd, adminAriaUpdate } from "../apis/admins/arias";
 import { validationAddAria } from "../validators/admin/addAriaValidator";
 
-const Addworkareaedit = ({
-  onclickCloseAddWorkEdit,
-  refetch,
-  values,
-}) => {
+const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
   const formTitle = values ? "Update Work Area" : "Add Work Area";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
@@ -118,24 +114,48 @@ const Addworkareaedit = ({
                         <div style={{ color: "red" }}>{errors?.ariaName}</div>
                       ) : null}
                     </div>
-
-                    <div className="admin-login-fild">
-                      <label htmlFor="subarea">Sub Area</label>
-                      <div className="admin-login-input">
-                        <input
-                          type="text"
-                          name="subAriaName"
-                          id="subarea"
-                          placeholder="Enter your sub area"
-                          autoComplete="off"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.subAriaName}
-                        />
+                    <div className="addwrkarea-form-bx ">
+                      <div className="admin-login-fild">
+                        <label htmlFor="subarea">Sub Area</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="subAriaName"
+                            id="subarea"
+                            placeholder="Enter your sub area"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.subAriaName}
+                          />
+                        </div>
+                        {touched?.subAriaName && errors?.subAriaName ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.subAriaName}
+                          </div>
+                        ) : null}
                       </div>
-                      {touched?.subAriaName && errors?.subAriaName ? (
-                        <div style={{ color: "red" }}>{errors?.subAriaName}</div>
-                      ) : null}
+
+                      <div className="admin-login-fild ">
+                        <label htmlFor="weeklyPrice"> weekly Price</label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="weeklyPrice"
+                            id="weeklyPrice"
+                            placeholder="Weekly Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.weeklyPrice}
+                          />
+                        </div>
+                        {touched?.weeklyPrice && errors?.weeklyPrice ? (
+                          <div style={{ color: "red" }}>
+                            {errors?.weeklyPrice}
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
 
                     <div className="addwrkarea-form-bx ">

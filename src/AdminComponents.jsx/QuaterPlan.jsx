@@ -1,90 +1,83 @@
-import React from 'react'
+import React from "react";
 
-const QuaterPlan = ({onClickCloseQuaterly}) => {
+const QuaterPlan = ({ onClickCloseQuaterly }) => {
   return (
     <>
+      <section className="indi-plan-form-comp" onClick={onClickCloseQuaterly}>
+        <div
+          className="ind-plan-form-main"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h3>Plan For Individual</h3>
 
-    <section className="indi-plan-form-comp" onClick={onClickCloseQuaterly}>
-
-        <div className="ind-plan-form-main" onClick={(e) => e.stopPropagation()}>
-            <h3>Plan For Individual</h3>
-
-            <form action="#">
-
-                
+          <form action="#">
             <div className="ind-plan-form-bx">
+              <div className="admin-login-fild">
+                <label htmlFor="planname">Plan C (Quaterly) </label>
+                <div className="admin-login-input">
+                  <input
+                    type="text"
+                    name="planeName"
+                    id="planname"
+                    placeholder="Enter  Plan  Name"
+                    autoComplete="off"
+                  />
+                </div>
+              </div>
 
-<div className="admin-login-fild">
-        <label htmlFor="planname">Plan C (Quaterly) </label>
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="planeName"
-            id="planname"
-            placeholder="Enter  Plan  Name"
-            autoComplete="off"
-       
-          />
-        </div>
-      
-      </div>
+              <div className="admin-login-fild">
+                <label htmlFor="planname">Fixed</label>
+                <div className="input-parent-bx">
+                  <div className="admin-login-input">
+                    <input
+                      type="text"
+                      name="planeName"
+                      id="planname"
+                      placeholder="Enter Fixed Price"
+                      autoComplete="off"
+                    />
+                  </div>
+                  <span>₹/Lead</span>
+                </div>
+              </div>
 
-      <div className="admin-login-fild">
-        <label htmlFor="planname">Fixed</label>
-        <div className="input-parent-bx">
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="planeName"
-            id="planname"
-            placeholder="Enter Fixed Price"
-            autoComplete="off"
-       
-          />
-        </div>
-        <span>₹/Lead</span>
-        </div>
-      </div>
+              <div className="admin-login-fild">
+                <label htmlFor="planname">Comission</label>
+                <div className="input-parent-main-grid">
+                  <div className="input-parent-bx input-parent-bx2">
+                    <div className="admin-login-input">
+                      <input
+                        type="text"
+                        name="planeName"
+                        id="planname"
+                        placeholder="Enter ₹"
+                        autoComplete="off"
+                      />
+                    </div>
+                    <span>₹</span>
+                  </div>
 
-      <div className="admin-login-fild">
-        <label htmlFor="planname">Comission</label>
-        <div className="input-parent-main-grid">
-        <div className="input-parent-bx input-parent-bx2">
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="planeName"
-            id="planname"
-            placeholder="Enter ₹"
-            autoComplete="off"
-       
-          />
-        </div>
-        <span>₹</span>
-        </div>
+                  <div className="plus">
+                    <i class="fa-solid fa-plus"></i>
+                  </div>
 
-        <div className="plus">
-        <i class="fa-solid fa-plus"></i>
-        </div>
+                  <div className="input-parent-bx input-parent-bx2">
+                    <div className="admin-login-input">
+                      <input
+                        type="text"
+                        name="planeName"
+                        id="planname"
+                        placeholder="Enter %"
+                        autoComplete="off"
+                      />
+                    </div>
+                    <span>%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        <div className="input-parent-bx input-parent-bx2">
-        <div className="admin-login-input">
-          <input
-            type="text"
-            name="planeName"
-            id="planname"
-            placeholder="Enter %"
-            autoComplete="off"
-       
-          />
-        </div>
-        <span>%</span>
-        </div>
-      </div>
-      </div>
-      </div>
-
-{/* 
+            {/* 
                       
 
 
@@ -92,17 +85,12 @@ const QuaterPlan = ({onClickCloseQuaterly}) => {
 
      
                      */}
-                <button  className="add-work-area-btn">
-                     Done
-                    </button>
-            </form>
-            
+            <button className="add-work-area-btn">Done</button>
+          </form>
         </div>
-        
-    </section>
-      
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default QuaterPlan
+export default QuaterPlan;

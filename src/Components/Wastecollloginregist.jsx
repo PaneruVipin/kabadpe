@@ -30,12 +30,32 @@ const Wastecolloginregist = () => {
   const [arias, setArias] = useState([]);
   const [subArias, setSubArias] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
+  const [forgotOtp , setForgotOtp] = useState(false);
+  const [forgotResetPassword ,setForgotResetPassword] = useState(false);
+  // const [forgotText , setForgotText] = useState('Send Request');
   const sendReuqestfuct = () => {
+    setForgotPara(false);
+   
+    setForgotOtp(true)
+
+  };
+
+  const forgotOtpFunc = () => {
+    setForgotPara(false);
+    setForgotPara(false);
+    setForgotResetPassword(true);
+
+    
+  }
+
+  const ResetForgetPasswordFunc = () => {
+
     setForgotPara(true);
     setTimeout(() => {
       setForgotPara(false);
     }, 5000);
-  };
+
+  }
 
   const toggleForm = () => {
     setFormBox(!formBox);
@@ -424,6 +444,8 @@ const Wastecolloginregist = () => {
                         ) : null}
                       </div>
 
+
+
                       <div className="forgt-passwrd-check-bx-flex  mt-3">
                         <div className="form-check ">
                           <input
@@ -451,7 +473,7 @@ const Wastecolloginregist = () => {
                       </div>
 
                       <button
-                        type="submit"
+                       
                         // onClick={() => thanksBtn()}
                         className="form-submit-btn"
                       >
@@ -502,7 +524,9 @@ const Wastecolloginregist = () => {
                 <img src="/images/customImg/logo.png" alt="" />
               </div>
               <form action="#">
-                <div className="log-inpt-bx  log-forgot-passwrd-inpt-bx">
+                <div className={forgotResetPassword ? "forgot-reset-paswrd-main forgotpasswordactive" : "forgot-reset-paswrd-main"}>
+                <div className={forgotOtp ? "forgot-OTP-main forgototpactive" : "forgot-OTP-main"}>
+                <div className="log-inpt-bx forgotpassword-inpt  log-forgot-passwrd-inpt-bx">
                   <input
                     type="text"
                     name="mobemail"
@@ -511,13 +535,65 @@ const Wastecolloginregist = () => {
                     autoComplete="off"
                   />
                 </div>
-
-                <button
-                  onClick={() => sendReuqestfuct()}
-                  className="form-submit-btn forgot-passwrd-btn-send-rquest"
+                <div className="otp-forgot-bx">
+                <div className="log-inpt-bx   log-forgot-passwrd-inpt-bx">
+                  <input
+                    type="text"
+                    name="Otp"
+                    id="Otp"
+                    placeholder="Enter here OTP"
+                    autoComplete="off"
+                  />
+                </div>
+                </div>
+               { forgotOtp ? <button onClick={() => forgotOtpFunc()}
+                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
                 >
-                  Send Request
-                </button>
+                  Verify OTP
+                </button> : null }
+                </div>
+
+                <div className="forgot-reset-passwrd-bx">
+                <div className="log-inpt-bx f-new-paswrd   log-forgot-passwrd-inpt-bx">
+                  <input
+                    type="text"
+                    name="newPassword"
+                    id="newPassword"
+                    placeholder="Enter New Password"
+                    autoComplete="off"
+                  />
+                </div>
+
+                <div className="log-inpt-bx f-confrm-paswrd   log-forgot-passwrd-inpt-bx">
+                  <input
+                    type="text"
+                    name="confrmPassword"
+                    id="confrmPassword"
+                    placeholder="Enter New Confirm Password"
+                    autoComplete="off"
+                  />
+                </div>
+
+              { forgotResetPassword ? <button onClick={() => ResetForgetPasswordFunc()}
+                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
+                >
+                  Save Password
+                </button> : null}
+                </div>
+
+                {forgotOtp === false ?  <button
+                  onClick={() => {sendReuqestfuct() }}
+                  className="form-submit-btn forgot-passwrd-btn-send-rquest otp-Forgot-Btn"
+                >
+                 Send Request
+                </button> : null}
+
+            
+
+              
+                
+                </div>
+            
 
                 <div className="forgot-text">
                   {forgotPara && (
@@ -528,10 +604,11 @@ const Wastecolloginregist = () => {
                   )}
                 </div>
 
-                <div className="switch-form-btn">
+               { forgotOtp === false  ?  
+               <div className="switch-form-btn">
                   <p>New to Kabadpe? </p>
                   <p onClick={() => setFormComp(false)}>Log In</p>
-                </div>
+                </div>: null}
               </form>
             </div>
           </div>

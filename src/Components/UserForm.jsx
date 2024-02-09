@@ -15,6 +15,7 @@ import {
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
 import {
+  userForgetPassCallback,
   userForgetPassRequestOTP,
   userForgetPassRequestReset,
   userForgetPassResendOTP,
@@ -22,6 +23,7 @@ import {
   verifysignup,
 } from "../apis/auth";
 import { object, string } from "yup";
+import { resetpasswordValidation } from "../validators/user/resetPasswordValidator";
 
 const UserForm = ({ closepopUpUserForm }) => {
   const navigate = useNavigate();
@@ -45,10 +47,11 @@ const UserForm = ({ closepopUpUserForm }) => {
   const [userForgotPasswrd, setUserForgotPasswrd] = useState(false);
   const [timer, setTimer] = useState(60);
   const [buttonText, setButtonText] = useState("");
-  const [userparent, setUserParent] = useState(true);
+  const [userparent, setUserParent] = useState(false);
   const [mainparent, setMainParent] = useState(false);
-  const [reset , setReset ] = useState(true);
+  const [reset, setReset] = useState(false);
   const [codes, setCodes] = useState({});
+  const [otherErrors, setOtherErrors] = useState({});
   useEffect(() => {
     let intervalId;
 
@@ -72,6 +75,11 @@ const UserForm = ({ closepopUpUserForm }) => {
       }
     : async () => {
         const res = await userForgetPassResendOTP(codes?.email);
+        if (!res?.error) {
+          setCodes((prev) => ({ ...prev, OTP: res }));
+        }
+        setTimer(60);
+        setButtonText("");
       };
 
   const UserFormToggle = () => {
@@ -149,7 +157,9 @@ const UserForm = ({ closepopUpUserForm }) => {
         if (!res?.error) {
           setCodes((prev) => ({ ...prev, OTP: res, email }));
           setUserParent(true);
+          return;
         }
+        setOtherErrors({ resquestOTP: res?.message });
       };
 
   const handleOTPSubmit = !userForgotPasswrd
@@ -165,9 +175,23 @@ const UserForm = ({ closepopUpUserForm }) => {
         const res = await userForgetPassRequestReset({ code: codes?.OTP, otp });
         if (!res.error) {
           setCodes((prev) => ({ ...prev, reset: res }));
+          setReset(true);
+          return;
         }
+        setOtherErrors({ callbackOTP: res?.message });
       };
 
+  const handleResetSubmit = async ({ newPassword: password }) => {
+    const res = await userForgetPassCallback({ password, code: codes?.reset });
+    if (!res.error) {
+      setReset(false);
+      setUserParent(false);
+      setUserForgotPasswrd(false);
+      closepopUpUserForm();
+      return;
+    }
+    setOtherErrors({ callbackReset: res?.message });
+  };
   useEffect(() => {
     if (login) {
       closepopUpUserForm();
@@ -180,7 +204,6 @@ const UserForm = ({ closepopUpUserForm }) => {
       setMainParent(true);
     }
   }, [login, signup, verifySignup]);
-
   return (
     <>
       <section
@@ -221,198 +244,213 @@ const UserForm = ({ closepopUpUserForm }) => {
             </NavLink>
           </div>
 
-          <div className={reset ? "user-reset-main-bx resetmainactive" : "user-reset-main-bx"}>
           <div
             className={
-              userparent
-                ? "user-form-parent userparentactive"
-                : "user-form-parent"
+              reset
+                ? "user-reset-main-bx resetmainactive"
+                : "user-reset-main-bx"
             }
           >
             <div
               className={
-                userForgotPasswrd === true
-                  ? "user-form-main-bx userforgetpasswrdactive"
-                  : "user-form-main-bx"
+                userparent
+                  ? "user-form-parent userparentactive"
+                  : "user-form-parent"
               }
             >
-              <div onClick={closepopUpUserForm} className="user-form-close-btn">
-                <i className="fa-regular fa-circle-xmark"></i>
-              </div>
-
               <div
                 className={
-                  userFormCont === true
-                    ? "user-form-bx userformactive"
-                    : "user-form-bx"
+                  userForgotPasswrd === true
+                    ? "user-form-main-bx userforgetpasswrdactive"
+                    : "user-form-main-bx"
                 }
               >
-                <div className="user-login-form">
-                  <div className="use-form-heading">
-                    <h3>{userFormheading}</h3>
-                    <p>
-                      Access to the most powerfull tool in the entire design and
-                      web industry.
-                    </p>
-                  </div>
+                <div
+                  onClick={closepopUpUserForm}
+                  className="user-form-close-btn"
+                >
+                  <i className="fa-regular fa-circle-xmark"></i>
+                </div>
 
-                  <div className="user-form">
-                    <Formik
-                      initialValues={initialValues}
-                      onSubmit={handleSubmit}
-                      validationSchema={validationSchema}
-                    >
-                      {({
-                        handleBlur,
-                        handleChange,
-                        values,
-                        errors,
-                        touched,
-                        ...rest
-                      }) => {
-                        return (
-                          <Form>
-                            <div className="user-form-inpt-bx  user-form-inpt-bx1 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
-                              <input
-                                type="text"
-                                name="fullname"
-                                id="name"
-                                placeholder="Full Name"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.fullname}
-                              />
-                              {touched.fullname && errors.fullname ? (
-                                <div
-                                  className="field-text"
-                                  style={{ color: "red" }}
-                                >
-                                  {errors.fullname}
-                                </div>
-                              ) : null}
-                            </div>
+                <div
+                  className={
+                    userFormCont === true
+                      ? "user-form-bx userformactive"
+                      : "user-form-bx"
+                  }
+                >
+                  <div className="user-login-form">
+                    <div className="use-form-heading">
+                      <h3>{userFormheading}</h3>
+                      <p>
+                        Access to the most powerfull tool in the entire design
+                        and web industry.
+                      </p>
+                    </div>
 
-                            <div className="user-form-inpt-bx  user-form-inpt-bx2 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
-                              <input
-                                type="text"
-                                name="phoneNumber"
-                                id="phone"
-                                placeholder="Phone No."
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.phoneNumber}
-                              />
-                              {touched.phoneNumber && errors.phoneNumber ? (
-                                <div
-                                  className="field-text"
-                                  style={{ color: "red" }}
-                                >
-                                  {errors.phoneNumber}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="user-form-inpt-bx  user-form-inpt-bx5  user-form-inpt-bx4 user-inpt-bxx">
-                              <input
-                                type="email"
-                                name="email"
-                                id="Email"
-                                placeholder="E-mail Address"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.email}
-                              />
-                              {touched.email && errors.email ? (
-                                <div
-                                  className="field-text"
-                                  style={{ color: "red" }}
-                                >
-                                  {errors.email}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="user-form-inpt-bx  user-form-inpt-bx6 user-form-inpt-bx4 user-inpt-bxx">
-                              <input
-                                type="text"
-                                name="password"
-                                id="password"
-                                placeholder="Password"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.password}
-                              />
-                              {touched.password && errors.password ? (
-                                <div
-                                  className="field-text"
-                                  style={{ color: "red" }}
-                                >
-                                  {errors.password}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="form-btns-flex-bx">
-                              <button
-                                type="submit"
-                                className="user-form-login-btn"
-                              >
-                                {userFormText}
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={forgotPasswrdFunc}
-                                className="user-form-forgot-passwd-btn"
-                              >
-                                Forget Password?
-                              </button>
-                            </div>
-                            <div>
-                              {userFormCont ? (
-                                errorSignup ? (
-                                  <div style={{ color: "red" }}>
-                                    {errorSignup}
+                    <div className="user-form">
+                      <Formik
+                        initialValues={initialValues}
+                        onSubmit={handleSubmit}
+                        validationSchema={validationSchema}
+                      >
+                        {({
+                          handleBlur,
+                          handleChange,
+                          values,
+                          errors,
+                          touched,
+                          ...rest
+                        }) => {
+                          return (
+                            <Form>
+                              <div className="user-form-inpt-bx  user-form-inpt-bx1 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
+                                <input
+                                  type="text"
+                                  name="fullname"
+                                  id="name"
+                                  placeholder="Full Name"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.fullname}
+                                />
+                                {touched.fullname && errors.fullname ? (
+                                  <div
+                                    className="field-text"
+                                    style={{ color: "red" }}
+                                  >
+                                    {errors.fullname}
                                   </div>
-                                ) : null
-                              ) : errorLogin ? (
-                                <div style={{ color: "red" }}>{errorLogin}</div>
+                                ) : null}
+                              </div>
+
+                              <div className="user-form-inpt-bx  user-form-inpt-bx2 user-form-inpt-bx3 user-inpt-bxx3 user-inpt-bxx">
+                                <input
+                                  type="text"
+                                  name="phoneNumber"
+                                  id="phone"
+                                  placeholder="Phone No."
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.phoneNumber}
+                                />
+                                {touched.phoneNumber && errors.phoneNumber ? (
+                                  <div
+                                    className="field-text"
+                                    style={{ color: "red" }}
+                                  >
+                                    {errors.phoneNumber}
+                                  </div>
+                                ) : null}
+                              </div>
+
+                              <div className="user-form-inpt-bx  user-form-inpt-bx5  user-form-inpt-bx4 user-inpt-bxx">
+                                <input
+                                  type="email"
+                                  name="email"
+                                  id="Email"
+                                  placeholder="E-mail Address"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.email}
+                                />
+                                {touched.email && errors.email ? (
+                                  <div
+                                    className="field-text"
+                                    style={{ color: "red" }}
+                                  >
+                                    {errors.email}
+                                  </div>
+                                ) : null}
+                              </div>
+
+                              <div className="user-form-inpt-bx  user-form-inpt-bx6 user-form-inpt-bx4 user-inpt-bxx">
+                                <input
+                                  type="text"
+                                  name="password"
+                                  id="password"
+                                  placeholder="Password"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.password}
+                                />
+                                {touched.password && errors.password ? (
+                                  <div
+                                    className="field-text"
+                                    style={{ color: "red" }}
+                                  >
+                                    {errors.password}
+                                  </div>
+                                ) : null}
+                              </div>
+                              {userForgotPasswrd && otherErrors?.resquestOTP ? (
+                                <div style={{ color: "red" }}>
+                                  {otherErrors?.resquestOTP}
+                                </div>
                               ) : null}
-                            </div>
-                            <span>{loginChoice}</span>
+                              <div className="form-btns-flex-bx">
+                                <button
+                                  type="submit"
+                                  className="user-form-login-btn"
+                                >
+                                  {userFormText}
+                                </button>
 
-                            <div className="other-pltofrm-login-link-flex-bx">
-                              <button className="login-link-bx">
-                                <i className="fa-brands fa-facebook"></i>
-                                Facebook
-                              </button>
+                                <button
+                                  type="button"
+                                  onClick={forgotPasswrdFunc}
+                                  className="user-form-forgot-passwd-btn"
+                                >
+                                  Forget Password?
+                                </button>
+                              </div>
+                              <div>
+                                {userFormCont ? (
+                                  errorSignup ? (
+                                    <div style={{ color: "red" }}>
+                                      {errorSignup}
+                                    </div>
+                                  ) : null
+                                ) : errorLogin ? (
+                                  <div style={{ color: "red" }}>
+                                    {errorLogin}
+                                  </div>
+                                ) : null}
+                              </div>
+                              <span>{loginChoice}</span>
 
-                              <button className="login-link-bx login-link-bx2">
-                                <i className="fa-brands fa-google-plus"></i>
-                                Google
-                              </button>
+                              <div className="other-pltofrm-login-link-flex-bx">
+                                <button className="login-link-bx">
+                                  <i className="fa-brands fa-facebook"></i>
+                                  Facebook
+                                </button>
 
-                              {/* <button className="login-link-bx login-link-bx3">
+                                <button className="login-link-bx login-link-bx2">
+                                  <i className="fa-brands fa-google-plus"></i>
+                                  Google
+                                </button>
+
+                                {/* <button className="login-link-bx login-link-bx3">
                         <i className="fa-brands fa-linkedin"></i>
                         Linkedin
                         </button> */}
-                            </div>
+                              </div>
 
-                            <button
-                              type="button"
-                              onClick={UserFormToggle}
-                              className="userform-register-btn"
-                            >
-                              {userFormBtn}
-                            </button>
-                          </Form>
-                        );
-                      }}
-                    </Formik>
+                              <button
+                                type="button"
+                                onClick={UserFormToggle}
+                                className="userform-register-btn"
+                              >
+                                {userFormBtn}
+                              </button>
+                            </Form>
+                          );
+                        }}
+                      </Formik>
+                    </div>
                   </div>
-                </div>
 
-                {/* 
+                  {/* 
           <div className="user-register-form">
             <div className="use-form-heading">
             <h3>Register new account </h3>
@@ -478,23 +516,90 @@ const UserForm = ({ closepopUpUserForm }) => {
             </div>
            
           </div> */}
+                </div>
+              </div>
+
+              <div className="user-form-otp-bx">
+                <h6>Verify OTP</h6>
+                <p>OTP has been sent to your registered email Id.</p>
+
+                <div onClick={handleButtonClick} className="timer-text">
+                  {timer > 0 ? `Resend OTP in ${timer} seconds` : ""}
+                  <button>{buttonText} </button>
+                </div>
+                <Formik
+                  initialValues={{
+                    otp: "",
+                  }}
+                  validationSchema={validationVerifyOtpCollector}
+                  onSubmit={handleOTPSubmit}
+                >
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form>
+                        <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                          <input
+                            type="number"
+                            name="otp"
+                            id="otp"
+                            placeholder=" Enter here OTP..."
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.otp}
+                          />
+                        </div>
+                        {touched?.otp && errors?.otp ? (
+                          <div style={{ color: "red" }}>{errors?.otp}</div>
+                        ) : null}
+                        {errorVerify ? (
+                          <p style={{ color: "red" }}>{errorVerify}</p>
+                        ) : null}
+                        {userForgotPasswrd && otherErrors?.callbackOTP ? (
+                          <div style={{ color: "red" }}>
+                            {otherErrors?.callbackOTP}
+                          </div>
+                        ) : null}
+                        <button type="submit" className="user-otp-btn mt-3">
+                          Confirm OTP
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setUserParent(false)}
+                          className="userform-register-btn"
+                        >
+                          Login / Signup
+                        </button>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+                <div
+                  onClick={() => {
+                    setUserParent(false), closepopUpUserForm();
+                  }}
+                  className="close-btn"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </div>
               </div>
             </div>
 
-            <div className="user-form-otp-bx">
-              <h6>Verify OTP</h6>
-              <p>OTP has been sent to your registered email Id.</p>
-
-              <div onClick={handleButtonClick} className="timer-text">
-                {timer > 0 ? `Resend OTP in ${timer} seconds` : ""}
-                <button>{buttonText} </button>
-              </div>
+            <div className="user-reset-bx">
+              <h6>Reset Password</h6>
               <Formik
                 initialValues={{
-                  otp: "",
+                  newPassword: "",
+                  confirmNewPassword: "",
                 }}
-                validationSchema={validationVerifyOtpCollector}
-                onSubmit={handleOTPSubmit}
+                validationSchema={resetpasswordValidation}
+                onSubmit={handleResetSubmit}
               >
                 {({
                   handleBlur,
@@ -508,31 +613,45 @@ const UserForm = ({ closepopUpUserForm }) => {
                     <Form>
                       <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
                         <input
-                          type="number"
-                          name="otp"
-                          id="otp"
-                          placeholder=" Enter here OTP..."
+                          type="text"
+                          name="newPassword"
+                          id="newpassword"
+                          placeholder=" New Password"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.otp}
+                          value={values?.newPassword}
                         />
                       </div>
-                      {touched?.otp && errors?.otp ? (
-                        <div style={{ color: "red" }}>{errors?.otp}</div>
-                      ) : null}
-                      {errorVerify ? (
-                        <p style={{ color: "red" }}>{errorVerify}</p>
+                      {touched?.newPassword && errors?.newPassword ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.newPassword}
+                        </div>
                       ) : null}
 
+                      <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
+                        <input
+                          type="text"
+                          name="confirmNewPassword"
+                          id="confirmpassword"
+                          placeholder=" Confirm Password..."
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.confirmNewPassword}
+                        />
+                      </div>
+                      {touched?.confirmNewPassword &&
+                      errors?.confirmNewPassword ? (
+                        <div style={{ color: "red" }}>
+                          {errors?.confirmNewPassword}
+                        </div>
+                      ) : null}
+                      {otherErrors?.callbackReset ? (
+                        <div style={{ color: "red" }}>
+                          {otherErrors?.callbackReset}
+                        </div>
+                      ) : null}
                       <button type="submit" className="user-otp-btn mt-3">
-                        Confirm OTP
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setUserParent(false)}
-                        className="userform-register-btn"
-                      >
-                        Login / Signup
+                        Save Password
                       </button>
                     </Form>
                   );
@@ -540,7 +659,7 @@ const UserForm = ({ closepopUpUserForm }) => {
               </Formik>
               <div
                 onClick={() => {
-                  setUserParent(false), closepopUpUserForm();
+                  setReset(false), closepopUpUserForm();
                 }}
                 className="close-btn"
               >
@@ -548,46 +667,6 @@ const UserForm = ({ closepopUpUserForm }) => {
               </div>
             </div>
           </div>
-          <div className="user-reset-bx">
-
-            <h6>Reset Password</h6>
-
-            <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
-                        <input
-                          type="text"
-                          name="newpassword"
-                          id="newpassword"
-                          placeholder=" New Password"
-                        
-                        />
-                      </div>
-
-                      <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
-                        <input
-                          type="text"
-                          name="confirmpassword"
-                          id="confirmpassword"
-                          placeholder=" Confirm Password..."
-                        
-                        />
-                      </div>
-
-                      <button type="submit" className="user-otp-btn mt-3">
-                        Save Password
-                      </button>
-
-                      <div
-                onClick={() => {
-                  setReset(false), closepopUpUserForm();
-                }}
-                className="close-btn"
-              >
-                <i class="fa-solid fa-xmark"></i>
-              </div>
-              
-          </div>
-          </div>
-
         </div>
       </section>
     </>

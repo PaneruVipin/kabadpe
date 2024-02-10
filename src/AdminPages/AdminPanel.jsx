@@ -1243,7 +1243,7 @@ const AdminPanel = () => {
 
         {component === "frenchies" ? <Frienchies /> : null}
         {component === "wastecolectr" ? <Wastecolect /> : null}
-        {component === "subscriptionplan" ? <SubscriptionPlan /> : null}
+        {component === "subscriptionplan" ? <SubscriptionPlan onSwitch={() => handleViewComp("individuals")}  /> : null}
         {component === "addworkarea" ? <AddWorkArea /> : null}
         {component === "addsubscription" ? (
           <Addsubscription

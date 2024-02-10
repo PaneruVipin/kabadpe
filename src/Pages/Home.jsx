@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Appointment from "../HomeComponent/Appointment";
 import Ecosystem from "../HomeComponent/Ecosystem";
@@ -19,6 +19,7 @@ import { scrollToParam } from "../lib/scroll";
 
 const Home = ({ setUserForm }) => {
   const location = useLocation();
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     scrollToParam(location, "s");
@@ -27,9 +28,30 @@ const Home = ({ setUserForm }) => {
     Preloadergsap();
   }, []);
 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter(prevCounter => {
+        const nextCounter = prevCounter + 1;
+        if (nextCounter > 100) {
+          clearInterval(interval);
+        }
+        return nextCounter;
+      });
+    }, 50); // Adjust interval to control the animation speed
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Preloader />
+
+      {/* <div className="preloader-container">
+<div className="preloader-box" style={{ width: `${counter}%` }}>
+  {counter === 100 && <span>Loading Complete!</span>}
+</div>
+</div> */}
 
       <div className="mainwrap">
         <HomeSlider />

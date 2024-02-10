@@ -31,7 +31,6 @@ import ContentEdit from "./Pages/ContentEdit";
 import TermPolicy from "./HomeComponent/TermPolicy";
 import VendorLogin from "./VendorPages/VendorLogin";
 import VendorPanel from "./VendorPages/VendorPanel";
-import BuyWasteTable from "./WasteColectComp/BuyWasteTable";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,7 +43,9 @@ function App() {
   }, [login, verifySignup, loginLoading, verifyLoading]);
   const [userForm, setUserForm] = useState(false);
   
+ 
   return (
+   
     <Routes>
       <Route
         path="/"
@@ -81,10 +82,10 @@ function App() {
       <Route path="/termpolicy" element={<TermPolicy />} />
       <Route path="/vendorlogin" element={<VendorLogin />} />
       <Route path="/vendorpanel" element={<VendorPanel />} />
-      <Route path="/buywastetable" element={<BuyWasteTable />} />
-
       
     </Routes>
+
+
     
   );
 }

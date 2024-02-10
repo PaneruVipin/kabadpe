@@ -2124,4 +2124,7 @@ section.whatWeDo .tabContent .tabs.active {
 }
 
 
+.icon img:nth-child(2){
+    border-radius: 50% ;
+  }
 

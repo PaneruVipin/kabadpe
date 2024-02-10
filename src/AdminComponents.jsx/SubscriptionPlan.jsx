@@ -4,11 +4,13 @@ import SubsDetEdit from "./SubsDetEdit";
 import Upgradepopupbx from "./Upgradepopupbx";
 import { adminfranchisePlansFetch } from "../apis/admins/franchisePlans";
 import { useQuery } from "@tanstack/react-query";
+import IndvdualPlan from "./IndvdualPlan";
 
-const SubscriptionPlan = () => {
+const SubscriptionPlan = ({onSwitch}) => {
   const [subsPlan, setSubsPlan] = useState(subsData);
   const [subsDataBox, setSubsDataBox] = useState(false);
   const [upgradeBx, setUpgradeBx] = useState(false);
+  const [subsSwtch , setSubsSwtch] = useState('frenchies');
 
   const subsDataClose = () => {
     setSubsDataBox(false);
@@ -21,9 +23,26 @@ const SubscriptionPlan = () => {
   return (
     <>
       <section className="subscrip-plan-comp">
+
+        <div className="top-switch-plan-flex-bx">
+
         <h6>Subscribed </h6>
 
-        <div className="all-user-table subs-plan-table subs-plan-table5">
+        
+        <div className="top-subsrbed-btns">
+
+          <button onClick={() => setSubsSwtch('frenchies')} className={subsSwtch === 'frenchies' ? "top-plan-switch-btn planswtchactive" : "top-plan-switch-btn"}>
+            Frenchies
+          </button>
+
+          <button onClick={() => setSubsSwtch('individuals')} className={subsSwtch === 'individuals' ? "top-plan-switch-btn planswtchactive" : "top-plan-switch-btn"}>
+            Individuals
+          </button>
+          
+        </div>
+        </div>
+
+       {subsSwtch === 'frenchies' ?  <div className="all-user-table subs-plan-table subs-plan-table5">
           <table>
             <thead>
               <tr>
@@ -126,7 +145,9 @@ const SubscriptionPlan = () => {
               {/* onClick={() => setSubsDataBox(true)} */}
             </tbody>
           </table>
-        </div>
+        </div> : null}
+
+    { subsSwtch === 'individuals' ? <IndvdualPlan onSwitch={onSwitch} /> : null}
 
         {/* <button onClick={() => setUpgradeBx(true)} className="upgrade-btn">
             Upgrade

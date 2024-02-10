@@ -8,6 +8,8 @@ const Header = ({ userForm, setUserForm }) => {
   const [navlink, setNavLink] = useState("");
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);
+  const [link, setLink] = useState('home');
+  
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -49,8 +51,8 @@ const Header = ({ userForm, setUserForm }) => {
                   <ul>
                     <li>
                       <div className="icon">
+                      <img src="/images/customImg/app-store.png" />
                         <img src="/images/customImg/game.png" />
-                        <img src="/images/customImg/app-store.png" />
                       </div>
                       <div className="text">
                         <p>Download App</p>
@@ -91,105 +93,105 @@ const Header = ({ userForm, setUserForm }) => {
                     id="navbarSupportedContent"
                   >
                     <ul className="navigation clearfix ">
-                      <li className="dropdown ">
+                      <li onClick={() => setLink('home')} className={link === 'home' ?"dropdown nav-li navliactive" : "dropdown nav-li "}>
                         <NavLink to="/">
                           <span>Home</span>
                         </NavLink>
                       </li>
-                      <li className="dropdown servicemenu drodpwon-s hover-drop-dwn2">
+                      <li onClick={() => setLink('service')} className={ link === 'service' ? "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2 navliactive":  "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"}>
                         <NavLink to="./service" className="dropdown-s-lik">
                           <span>Services</span>
                         </NavLink>
 
                         <div className="dropdown-bx-serv dropdown-bx-serv-main">
-                          <li className="drodpwon-s hover-drop">
+                          <li onClick={() => setLink('service')} className="drodpwon-s hover-drop">
                             {" "}
                             <NavLink className="dropdown-s-lik" to="#">
                               Individuals
                             </NavLink>
                             <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Zero Waste Societies
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Waste SIP</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Green Life</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Clim Connect</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Blog</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Household Scrap Collection
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Vehicle Scrapping</NavLink>{" "}
                               </li>
                             </div>
                           </li>
 
-                          <li className="drodpwon-s hover-drop">
+                          <li onClick={() => setLink('service')} className="drodpwon-s hover-drop">
                             {" "}
                             <NavLink className="dropdown-s-lik" to="#">
                               Business
                             </NavLink>
                             <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Corporate Waste Management
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">EPR Services</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">CSR Services</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Zero Waste Drives</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Dismantling Services
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">Circular Economy</NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   IEC Development and Consulting
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Paper Shredding Servicesd
                                 </NavLink>{" "}
                               </li>
-                              <li>
+                              <li onClick={() => setLink('service')}>
                                 {" "}
                                 <NavLink tp="#">
                                   Zero Waste Services
@@ -318,41 +320,41 @@ const Header = ({ userForm, setUserForm }) => {
                           </div>
                         </div>
                       </li>
-                      <li className="aboutdrpdwn ">
+                      <li onClick={() => setLink('about')} className={link === 'about' ?"aboutdrpdwn nav-li navliactive" : "aboutdrpdwn nav-li"}>
                         <NavLink to="/about">
                           <span>About Us</span>
                         </NavLink>
                         <div className="about-drpdwn-bx">
-                          <p>
+                          <p onClick={() => setLink('about')}>
                             <NavLink to="/about"> About us</NavLink>
                           </p>
-                          <p>
+                          <p onClick={() => setLink('about')}>
                             <NavLink to="#">Franchise</NavLink>
                           </p>
-                          <p>
+                          <p onClick={() => setLink('about')}>
                             <NavLink to="/contact">Contact now</NavLink>
                           </p>
                         </div>
                       </li>
-                      <li>
+                      <li onClick={() => setLink('wastegpt')} className={ link === 'wastegpt' ? "nav-li navliactive" : "nav-li"}>
                         <NavLink to="/wastegept">
                           <span>Wastegpt</span>
                         </NavLink>
                       </li>
-                      <li>
+                      <li onClick={() => setLink('ratelist')} className={ link === 'ratelist' ? "nav-li navliactive" : "nav-li"}>
                         <NavLink to="/rate">
                           <span>Rate list</span>
                         </NavLink>
                       </li>
                       <Protect reverse>
-                        <li>
+                        <li onClick={() => setLink('kabadshop')} className={ link === 'kabadshop' ? "nav-li navliactive" : "nav-li"} >
                           <NavLink to="/kabadshop">
                             <span>Kabad Shop</span>
                           </NavLink>
                         </li>
                       </Protect>
                       <Protect>
-                        <li>
+                        <li onClick={() => setLink('schedule')} className={ link === 'schedule' ? "nav-li navliactive" : "nav-li"} >
                           <NavLink
                             to="/?s=schedule"
                             onClick={() => scrollToSection("schedule")}
@@ -362,10 +364,28 @@ const Header = ({ userForm, setUserForm }) => {
                         </li>
                       </Protect>
                       <Protect>
-                        <li>
+                        <li onClick={() => setLink('account')} className={ link === 'account' ? "nav-li acnt-link navliactive" : "nav-li acnt-link"}>
                           <NavLink to="/account">
                             <span>My Account</span>
                           </NavLink>
+
+                          <div className="account-dropdown-links">
+                          <p onClick={() => setLink('account')}>
+                            <NavLink to="/about"> Dashboard</NavLink>
+                          </p>
+                          <p onClick={() => setLink('account')}>
+                            <NavLink to="/about"> My Appointments</NavLink>
+                          </p>
+                          <p onClick={() => setLink('account')}>
+                            <NavLink to="/about"> My Details</NavLink>
+                          </p>
+                          <p >
+                            <NavLink to="/about"> LogOut </NavLink>
+                          </p>
+
+                            
+                          </div>
+                          
                         </li>
                       </Protect>
                       <Protect reverse>
@@ -378,13 +398,13 @@ const Header = ({ userForm, setUserForm }) => {
                           </button>
                         </li>
                       </Protect>
-                      <Protect>
+                      {/* <Protect> */}
                         <li>
                           <div className="wallet-icon">
                             <img src="/images/customImg/wallet.png" alt="" />
                           </div>
                         </li>
-                      </Protect>
+                      {/* </Protect> */}
                     </ul>
 
                     <div className="mobile-tags-flex-bx">

@@ -48,7 +48,7 @@ const Wastecollectdashboard = () => {
 
   return (
     <>
-      <TopFixMenu />
+      <TopFixMenu onclickRedirectBuyWasteTable={() => filterTab(10)} />
       {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">

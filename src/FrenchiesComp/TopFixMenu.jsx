@@ -7,6 +7,7 @@ const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
   onclickRedirectNewPage,
+  onclickRedirectBuyWasteTable
 }) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday, setActToday] = useState(false);
@@ -155,7 +156,7 @@ const TopFixMenu = ({
           <ActiveToday onclickClose={() => setActToday(false)} />
         ) : null}
         {buyWaste ? (
-          <BuyWastePOpup onclickBtn={() => setBuyWaste(false)} />
+          <BuyWastePOpup onclickRedirectBuyWasteTable={onclickRedirectBuyWasteTable} onclickBtn={() => setBuyWaste(false)} />
         ) : null}
         {holiday ? (
           <Holiday onclickCloseHoliday={() => setHoliday(false)} />

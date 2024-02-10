@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const BuyWastePOpup = ({onclickBtn , buyWaste , onclickBuyWasteBtn , onclickViewHistBtn}) => {
+const BuyWastePOpup = ({onclickBtn , buyWaste , onclickRedirectBuyWasteTable , onclickBuyWasteBtn , onclickViewHistBtn}) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [userInfo, setUserInfo] = useState(null);
   
@@ -99,7 +99,7 @@ const BuyWastePOpup = ({onclickBtn , buyWaste , onclickBuyWasteBtn , onclickView
         
         <div className="user-info-flex-btn">
 
-            <button onClick={onclickBuyWasteBtn} className="buy-waste-btn buy-waste-btn2">
+            <button onClick={onclickRedirectBuyWasteTable} className="buy-waste-btn buy-waste-btn2">
                 Buy Waste
             </button>
 

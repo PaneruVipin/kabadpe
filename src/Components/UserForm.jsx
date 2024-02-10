@@ -366,7 +366,7 @@ const UserForm = ({ closepopUpUserForm }) => {
 
                               <div className="user-form-inpt-bx  user-form-inpt-bx6 user-form-inpt-bx4 user-inpt-bxx">
                                 <input
-                                  type="text"
+                                  type="password"
                                   name="password"
                                   id="password"
                                   placeholder="Password"
@@ -523,9 +523,11 @@ const UserForm = ({ closepopUpUserForm }) => {
                 <h6>Verify OTP</h6>
                 <p>OTP has been sent to your registered email Id.</p>
 
-                <div onClick={handleButtonClick} className="timer-text">
+                <div className="timer-text">
                   {timer > 0 ? `Resend OTP in ${timer} seconds` : ""}
-                  <button>{buttonText} </button>
+                  {buttonText ? (
+                    <button onClick={handleButtonClick}>{buttonText} </button>
+                  ) : null}
                 </div>
                 <Formik
                   initialValues={{
@@ -613,7 +615,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                     <Form>
                       <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
                         <input
-                          type="text"
+                          type="password"
                           name="newPassword"
                           id="newpassword"
                           placeholder=" New Password"
@@ -630,7 +632,7 @@ const UserForm = ({ closepopUpUserForm }) => {
 
                       <div className="otp-box-inpt user-form-inpt-bx user-form-inpt-bx1 mt-4">
                         <input
-                          type="text"
+                          type="password"
                           name="confirmNewPassword"
                           id="confirmpassword"
                           placeholder=" Confirm Password..."

@@ -30,7 +30,7 @@ const Wastecollectdashboard = () => {
   // console.log("store", loading);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
-
+  const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
   const filterTab = (index) => {
     setProfBtn(index);
   };
@@ -48,7 +48,11 @@ const Wastecollectdashboard = () => {
 
   return (
     <>
-      <TopFixMenu onclickRedirectBuyWasteTable={() => filterTab(10)} />
+      <TopFixMenu
+        buyWasteUserInfo={buyWasteUserInfo}
+        setBuyWasteUserInfo={setBuyWasteUserInfo}
+        onclickRedirectBuyWasteTable={() => filterTab(10)}
+      />
       {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
@@ -234,7 +238,13 @@ const Wastecollectdashboard = () => {
       {profBtn === 7 ? <WasteWallet /> : null}
       {profBtn === 8 ? <MyReviews /> : null}
       {profBtn === 9 ? <Vendor /> : null}
-      {profBtn === 10 ? <BuyWasteTable /> : null}
+      {profBtn === 10 ? (
+        <BuyWasteTable
+          buyWasteUserInfo={buyWasteUserInfo}
+          setBuyWasteUserInfo={setBuyWasteUserInfo}
+          closeBuyWaste={()=> filterTab(1)}
+        />
+      ) : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
 

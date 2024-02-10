@@ -229,7 +229,7 @@ const BuyWasteComp = () => {
           <h6> Total</h6>
 
           <p>
-            2000 : <span>Total Amount</span>
+            2000 : <span>Total Amount </span>
           </p>
 
           <button onClick={() => setPay(true)} className="paynow-btn">

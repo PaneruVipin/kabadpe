@@ -27,7 +27,7 @@ const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage , onclickR
 
         <WasteAppoint />
 
-      { actToday ?  <ActiveToday todayTrue={actToday} onclickClose={() => setActToday(false)} /> : null}
+      { actToday ?  <ActiveToday todayTrue={actToday} onclickClose={() => setActToday(false) } /> : null}
 
       { buyWaste ? <BuyWaste ByWsteTrue={buyWaste} onclickVisible={() => {setGuest(true)}} onclickCloseBuyWaste={() => setBuyWaste()} onclickRedirectBuywaste={onclickRedirectPage}  /> : null}
       { holiday ?  <Holiday onclickCloseHoliday={() => setHoliday(false)} /> : null}

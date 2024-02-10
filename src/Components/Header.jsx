@@ -92,17 +92,18 @@ const Header = ({ userForm, setUserForm }) => {
                     className="collapse navbar-collapse show clearfix"
                     id="navbarSupportedContent"
                   >
+                    
                     <ul className="navigation clearfix ">
                       <li onClick={() => setLink('home')} className={link === 'home' ?"dropdown nav-li navliactive" : "dropdown nav-li "}>
                         <NavLink to="/">
                           <span>Home</span>
                         </NavLink>
                       </li>
+
                       <li onClick={() => setLink('service')} className={ link === 'service' ? "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2 navliactive":  "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"}>
                         <NavLink to="./service" className="dropdown-s-lik">
                           <span>Services</span>
                         </NavLink>
-
                         <div className="dropdown-bx-serv dropdown-bx-serv-main">
                           <li onClick={() => setLink('service')} className="drodpwon-s hover-drop">
                             {" "}

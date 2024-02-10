@@ -1,57 +1,49 @@
-import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { TbPlaceholder } from "react-icons/tb";
+import {
+  workerBuyWasteCallbackCash,
+  workerRateListFetch,
+} from "../apis/worker/buyWaste";
 
-const BuyWasteTable = () => {
+const BuyWasteTable = ({ buyWasteUserInfo, setBuyWasteUserInfo ,closeBuyWaste}) => {
   const [pay, setPay] = useState(false);
   const [waltTranfer, setWaltTranfer] = useState(false);
-
-  const initialData = [
+  const [tableData, setTableData] = useState([
     {
       id: 1,
-      selectedOption: "",
-      imageUrl: "/images/customImg/book.png",
-      email: "",
-      price: "",
-      weight: "",
-      totalCost: "",
     },
-  ];
-
-  const [tableData, setTableData] = useState(initialData);
-
-  const handleInputChange = (id, field, value) => {
-    const updatedData = tableData.map((row) =>
-      row.id === id ? { ...row, [field]: value } : row
-    );
-
-    if (field === "price" || field === "weight") {
-      const updatedRow = updatedData.find((row) => row.id === id);
-      if (updatedRow.price !== "" && updatedRow.weight !== "") {
-        const total =
-          parseFloat(updatedRow.price) * parseFloat(updatedRow.weight);
-        updatedRow.totalCost = isNaN(total) ? "" : total.toFixed(2);
+  ]);
+  const [rateListData, setRateListData] = useState([]);
+  const handleWeightChange = (id, value) => {
+    const newTableData = tableData.map((row) => {
+      if (row?.id == id) {
+        const ammount = +value && +row?.price ? +row?.price * +value : null;
+        return {
+          ...row,
+          weight: value,
+          ammount,
+        };
+      } else {
+        return row;
       }
-    }
-
-    setTableData(updatedData);
+    });
+    setTableData(newTableData);
   };
 
   const handleAddRow = () => {
-    const newRow = {
-      id: tableData.length + 1,
-      selectedOption: "",
-      imageUrl: "/images/customImg/book.png",
-      email: "",
-      price: "",
-      weight: "",
-      totalCost: "",
-    };
+    const id =
+      tableData.reduce(
+        (max, obj) => (obj.id > max ? obj.id : max),
+        Number.MIN_SAFE_INTEGER
+      ) + 1;
+    const newRow = { id };
     setTableData([...tableData, newRow]);
   };
 
-  const handleDeleteRow = (id) => {
-    const updatedData = tableData.filter((row) => row.id !== id);
+  const handleDeleteRow = (idForDelete) => {
+    const updatedData = tableData.filter(({ id }) => id !== idForDelete);
     setTableData(updatedData);
   };
 
@@ -66,9 +58,6 @@ const BuyWasteTable = () => {
   };
 
   const getImageUrl = (selectedOption) => {
-    // Logic to get the image URL based on the selected option
-    // Replace this with your logic to set the image URL for each option
-    // Example logic:
     switch (selectedOption) {
       case "book":
         return "/images/customImg/book.png";
@@ -94,12 +83,42 @@ const BuyWasteTable = () => {
         return "/images/customImg/coil.png";
       case "steel":
         return "/images/customImg/iron-bar.png";
-      // Add more cases as needed
       default:
         return "";
     }
   };
 
+  const { data: rateList, refetch } = useQuery({
+    queryKey: ["workerGetRateList"],
+    queryFn: () => workerRateListFetch(),
+  });
+  useEffect(() => {
+    if (!rateList?.error) {
+      setRateListData(rateList);
+    }
+  }, [rateList]);
+  const totalAmmount = tableData.reduce((a, b) => {
+    if (b?.ammount) {
+      return a + b?.ammount;
+    } else {
+      return a;
+    }
+  }, 0);
+  const rateListForSelect = rateListData?.filter(
+    ({ productName }) => !tableData?.some(({ name }) => productName == name)
+  );
+  const handleCashPaidClick = async () => {
+    const data = {
+      orderDetail: { waste: tableData, totalAmmount },
+      user: buyWasteUserInfo,
+    };
+    const res = await workerBuyWasteCallbackCash(data);
+    if(!res?.error){
+      closeBuyWaste()
+    }
+  };
+
+  console.log("rateListData", rateListData, "rateListData", rateListForSelect);
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -117,14 +136,14 @@ const BuyWasteTable = () => {
         >
           <div className="u-i-lft">
             <p>
-              Name : <span>Faiz Alam</span>
+              Name : <span>{buyWasteUserInfo?.name}</span>
             </p>
             <p>
-              Phone : <span> +91 9971464659 </span>
+              Phone : <span> +91 {buyWasteUserInfo?.phoneNumber} </span>
             </p>
           </div>
 
-          <div className="u-i-rgt u-i-lft">
+          {/* <div className="u-i-rgt u-i-lft">
             <p>
               Address :{" "}
               <span>4929 c/10 kanti nagar old seelumpur delhi-110031</span>
@@ -132,7 +151,7 @@ const BuyWasteTable = () => {
             <p>
               Area : <span>Azad Nagar</span>
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="buy-waste-table">
@@ -143,86 +162,127 @@ const BuyWasteTable = () => {
                 <th>Product Name</th>
                 <th>Product Image</th>
                 <th>Price/Kg</th>
-                <th>Weight/Kg</th>
+                <th>Weight in Kg</th>
                 <th>Amount</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {tableData.map((row, index) => (
-                <tr key={row.id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <div className="selt-prod-bx">
-                      <select
-                        value={row.selectedOption}
-                        onChange={(e) =>
-                          handleSelectChange(row.id, e.target.value)
-                        }
-                      >
-                        {/* <option value="">choose</option> */}
-                        <option value="book">book</option>
-                        <option value="paper">paper</option>
-                        <option value="iron">iron</option>
-                        <option value="plastic">plastic</option>
-                        <option value="cardboard">cardboard</option>
-                        <option value="wheel">wheel</option>
-                        <option value="aluminium">aluminium</option>
-                        <option value="wood">wood</option>
-                        <option value="magazine">magazine</option>
-                        <option value="ewaste">Ewaste</option>
-                        <option value="copper">copper</option>
-                        <option value="steel">steel</option>
+              {tableData.map(
+                ({ id, name, price, weight, ammount, image }, index) => (
+                  <tr key={id}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <div className="selt-prod-bx">
+                        <select
+                          defaultValue=""
+                          onChange={(e) => {
+                            const values = JSON.parse(e.target.value);
+                            const newTableData = tableData.map((row) => {
+                              if (row?.id == id) {
+                                const ammount = +row?.weight
+                                  ? +values?.retailPrice * +row?.weight
+                                  : null;
+                                return {
+                                  ...row,
+                                  name: values?.productName,
+                                  image: values?.productImage,
+                                  price: values?.retailPrice,
+                                  ammount,
+                                };
+                              } else {
+                                return row;
+                              }
+                            });
+                            setTableData(newTableData);
+                            // handleSelectChange(row.id, e.target.value);
+                          }}
+                        >
+                          <option value="" hidden>
+                            choose
+                          </option>
+                          {rateListData?.map(
+                            ({
+                              retailPrice,
+                              productName,
+                              productImage,
+                              bulkPrice,
+                              id,
+                            }) => (
+                              <option
+                                key={id}
+                                value={JSON.stringify({
+                                  retailPrice,
+                                  productName,
+                                  productImage,
+                                  bulkPrice,
+                                  id,
+                                })}
+                              >
+                                {productName}
+                              </option>
+                            )
+                          )}
 
-                        {/* Add your options here */}
-                      </select>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="prod-img">
-                      <img src={row.imageUrl} alt="Select Img" />
-                    </div>
-                  </td>
+                          {/* Add your options here */}
+                        </select>
+                      </div>
+                    </td>
+                    <td>
+                      {image ? (
+                        <div className="prod-img">
+                          <img src={image} alt="Select Img" />
+                        </div>
+                      ) : null}
+                    </td>
 
-                  <td>
-                    <input
-                      type="number"
-                      value={row.price}
-                      placeholder="Enter price here..."
-                      onChange={(e) =>
-                        handleInputChange(row.id, "price", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      value={row.weight}
-                      placeholder="Enter weight here..."
-                      onChange={(e) =>
-                        handleInputChange(row.id, "weight", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    {" "}
-                    <div className="amount-total">{row.totalCost}</div>{" "}
-                  </td>
-                  <td>
-                    <div className="action-flex-btns d-flex align-items-center">
-                      <button className="add-data-btn" onClick={handleAddRow}>
-                        <i class="fa-solid fa-plus"></i>
-                      </button>
-                      <button
-                        className="add-data-btn delt-data-btn"
-                        onClick={() => handleDeleteRow(row.id)}
-                      >
-                        <i class="fa-regular fa-trash-can"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    <td>
+                      {name ? (
+                        <div className="amount-total">{price}</div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {name ? (
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          value={weight}
+                          placeholder="Enter weight here..."
+                          onChange={(e) =>
+                            handleWeightChange(id, e.target.value)
+                          }
+                        />
+                      ) : null}
+                    </td>
+                    <td>
+                      {" "}
+                      {name ? (
+                        <div className="amount-total">{ammount}</div>
+                      ) : null}{" "}
+                    </td>
+                    <td>
+                      <div className="action-flex-btns d-flex align-items-center">
+                        {tableData?.length < rateListData?.length ? (
+                          <button
+                            className="add-data-btn"
+                            onClick={handleAddRow}
+                          >
+                            <i class="fa-solid fa-plus"></i>
+                          </button>
+                        ) : null}
+                        {tableData?.length > 1 ? (
+                          <button
+                            className="add-data-btn delt-data-btn"
+                            onClick={() => handleDeleteRow(id)}
+                          >
+                            <i class="fa-regular fa-trash-can"></i>
+                          </button>
+                        ) : null}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              )}
             </tbody>
           </table>
         </div>
@@ -231,27 +291,31 @@ const BuyWasteTable = () => {
           <h6> Total</h6>
 
           <p>
-            2000 : <span>Total Amount</span>
+            {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          <button onClick={() => setPay(true)} className="paynow-btn">
-            Pay Now
-          </button>
+          {totalAmmount ? (
+            <button onClick={() => setPay(true)} className="paynow-btn">
+              Pay Now
+            </button>
+          ) : null}
         </div>
       </section>
 
       <div className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}>
         <div className="paynow-btn-flex">
-          <button className="pay-btn">Cash Paid</button>
+          <button onClick={handleCashPaidClick} className="pay-btn">
+            Cash Paid
+          </button>
 
-          <button
+          {/* <button
             onClick={() => {
               setWaltTranfer(true), setPay(false);
             }}
             className="pay-btn"
           >
             Wallet Tranfer
-          </button>
+          </button> */}
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i class="fa-solid fa-xmark"></i>

@@ -67,3 +67,37 @@ export const adminSubsDelete = resolvePromise(async (id) => {
   });
   return res?.subs;
 });
+
+export const adminWorkerSubsFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/subscription/worker`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const adminWorkerSubsInsert = resolvePromise(
+  async ({
+    comissionRate,
+    comissionBaseAmount,
+    fixedAmount,
+    planeName,
+    planType,
+  }) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/subscription/worker/${planType}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { comissionRate, comissionBaseAmount, fixedAmount, planeName },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

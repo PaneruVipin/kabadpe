@@ -7,7 +7,11 @@ import {
   workerRateListFetch,
 } from "../apis/worker/buyWaste";
 
-const BuyWasteTable = ({ buyWasteUserInfo, setBuyWasteUserInfo ,closeBuyWaste}) => {
+const BuyWasteTable = ({
+  buyWasteUserInfo,
+  setBuyWasteUserInfo,
+  closeBuyWaste,
+}) => {
   const [pay, setPay] = useState(false);
   const [waltTranfer, setWaltTranfer] = useState(false);
   const [tableData, setTableData] = useState([
@@ -104,21 +108,16 @@ const BuyWasteTable = ({ buyWasteUserInfo, setBuyWasteUserInfo ,closeBuyWaste}) 
       return a;
     }
   }, 0);
-  const rateListForSelect = rateListData?.filter(
-    ({ productName }) => !tableData?.some(({ name }) => productName == name)
-  );
   const handleCashPaidClick = async () => {
     const data = {
       orderDetail: { waste: tableData, totalAmmount },
       user: buyWasteUserInfo,
     };
     const res = await workerBuyWasteCallbackCash(data);
-    if(!res?.error){
-      closeBuyWaste()
+    if (!res?.error) {
+      closeBuyWaste();
     }
   };
-
-  console.log("rateListData", rateListData, "rateListData", rateListForSelect);
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">

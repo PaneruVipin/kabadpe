@@ -7,6 +7,9 @@ const WasteAppoinmentTable = ({
   setPopUp,
   appoinments = [],
   setSelectedAppoinment,
+  setProfBtn,
+  buyWasteUserInfo,
+  setBuyWasteUserInfo,
 }) => {
   return (
     <>
@@ -172,13 +175,13 @@ const WasteAppoinmentTable = ({
               </button>
             </td>
             <td>
-              Under Review <br /> (Reschedule)
+              Under Review <br /> (Reschedule) 2
             </td>
             <td>
-                  <NavLink to="/pricelist">
-                    <button className="pricelist-btn">Buy Waste</button>
-                  </NavLink>
-                </td>
+              <NavLink to="#" onClick={() => setProfBtn(10)}>
+                <button className="pricelist-btn">Buy Waste</button>
+              </NavLink>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -220,7 +223,11 @@ export const AddressPopup = ({
             Phone : <span>{appointmentContactNumber}</span>
           </h6>
           <h6>
-            Date : <span> {DateTime.fromISO(appointmentDate).toFormat("dd-MMM-yyyy")}</span>
+            Date :{" "}
+            <span>
+              {" "}
+              {DateTime.fromISO(appointmentDate).toFormat("dd-MMM-yyyy")}
+            </span>
           </h6>
           {/* <h6>
             Type : <span>Daily</span>

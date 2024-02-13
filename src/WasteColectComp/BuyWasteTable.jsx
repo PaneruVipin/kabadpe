@@ -51,15 +51,7 @@ const BuyWasteTable = ({
     setTableData(updatedData);
   };
 
-  const handleSelectChange = (id, value) => {
-    const updatedData = tableData.map((row) =>
-      row.id === id
-        ? { ...row, selectedOption: value, imageUrl: getImageUrl(value) }
-        : row
-    );
-
-    setTableData(updatedData);
-  };
+ 
 
   const getImageUrl = (selectedOption) => {
     switch (selectedOption) {

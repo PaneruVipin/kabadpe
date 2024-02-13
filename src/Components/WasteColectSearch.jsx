@@ -10,28 +10,59 @@ import BuyWaste from "../WasteColectComp/BuyWaste";
 import Holiday from "../WasteColectComp/Holiday";
 import GuestPopup from "../WasteColectComp/GuestPopup";
 
-
-const WasteColectSearch = ({ onclickShowDetail  , onclickRedirectPage , onclickRedirectNewPage}) => {
+const WasteColectSearch = ({
+  onclickShowDetail,
+  onclickRedirectPage,
+  onclickRedirectNewPage,
+  setProfBtn,
+  buyWasteUserInfo,
+  setBuyWasteUserInfo,
+}) => {
   const [notBox, setNotBox] = useState(false);
-  const [actToday , setActToday] = useState(false);
-  const [buyWaste , setBuyWaste] = useState(false);
-  const [holiday , setHoliday] = useState(false);
-  const [guest , setGuest] = useState(false)
+  const [actToday, setActToday] = useState(false);
+  const [buyWaste, setBuyWaste] = useState(false);
+  const [holiday, setHoliday] = useState(false);
+  const [guest, setGuest] = useState(false);
 
   return (
     <>
       <section className="use-prf-left-main-bx">
-      
-
         <WasteColectCounter />
 
-        <WasteAppoint />
+        <WasteAppoint
+          setProfBtn={setProfBtn}
+          buyWasteUserInfo={buyWasteUserInfo}
+          setBuyWasteUserInfo={setBuyWasteUserInfo}
+        />
 
-      { actToday ?  <ActiveToday todayTrue={actToday} onclickClose={() => setActToday(false) } /> : null}
+        {actToday ? (
+          <ActiveToday
+            todayTrue={actToday}
+            onclickClose={() => setActToday(false)}
+          />
+        ) : null}
 
-      { buyWaste ? <BuyWaste ByWsteTrue={buyWaste} onclickVisible={() => {setGuest(true)}} onclickCloseBuyWaste={() => setBuyWaste()} onclickRedirectBuywaste={onclickRedirectPage}  /> : null}
-      { holiday ?  <Holiday onclickCloseHoliday={() => setHoliday(false)} /> : null}
-      {guest ? <GuestPopup verifyClickBtnRedirect={onclickRedirectNewPage}   onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null}
+        {buyWaste ? (
+          <BuyWaste
+            ByWsteTrue={buyWaste}
+            onclickVisible={() => {
+              setGuest(true);
+            }}
+            onclickCloseBuyWaste={() => setBuyWaste()}
+            onclickRedirectBuywaste={onclickRedirectPage}
+          />
+        ) : null}
+        {holiday ? (
+          <Holiday onclickCloseHoliday={() => setHoliday(false)} />
+        ) : null}
+        {guest ? (
+          <GuestPopup
+            verifyClickBtnRedirect={onclickRedirectNewPage}
+            onclickCloseGuest={() => {
+              onclickCloseBuyWaste(), setGuest(false);
+            }}
+          />
+        ) : null}
       </section>
     </>
   );

@@ -7,6 +7,9 @@ const WasteAppoinmentTable = ({
   setPopUp,
   appoinments = [],
   setSelectedAppoinment,
+  setProfBtn,
+  buyWasteUserInfo,
+  setBuyWasteUserInfo,
 }) => {
   return (
     <>
@@ -72,86 +75,13 @@ const WasteAppoinmentTable = ({
                 </td>
                 <td>Visit Soon</td>
                 <td>
-                  <NavLink to="/pricelist">
+                  <NavLink to="#" onClick={() => setProfBtn(10)}>
                     <button className="pricelist-btn">Buy Waste</button>
                   </NavLink>
                 </td>
               </tr>
             )
           )}
-
-          <tr>
-            <td>2</td>
-            <td>26-09-2023</td>
-            <td>11.00 to 12.00</td>
-            <td>Rohan Das</td>
-            <td>
-              <button
-                onClick={() => setAddressPopup(true)}
-                className="status-btn status-btn-changed"
-              >
-                Details
-              </button>
-            </td>
-            <td>
-              <button className="status-btn status-btn-changed">
-                Call Now
-              </button>
-            </td>
-            <td>Cancelled</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>22-09-2023</td>
-            <td>12.00 to 1.00</td>
-            <td>Rohan Das</td>
-            <td>
-              <button
-                onClick={() => setAddressPopup(true)}
-                className="status-btn status-btn-changed"
-              >
-                Details
-              </button>
-            </td>
-            <td>
-              <button className="status-btn status-btn-changed">
-                Call Now
-              </button>
-            </td>
-            <td>Cancelled</td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>29-09-2023</td>
-            <td>1.00 to 2.00</td>
-            <td>Rohan Das</td>
-            <td>
-              <button
-                onClick={() => setAddressPopup(true)}
-                className="status-btn status-btn-changed"
-              >
-                Details
-              </button>
-            </td>
-            <td>
-              <button className="status-btn status-btn-changed">
-                Call Now
-              </button>
-            </td>
-            <td>
-              <button
-                onClick={() => setPopUp(true)}
-                className="status-btn status-btn-changed"
-              >
-                Confirm Status
-              </button>
-            </td>
-            <td></td>
-          </tr>
 
           <tr>
             <td>5</td>
@@ -175,10 +105,10 @@ const WasteAppoinmentTable = ({
               Under Review <br /> (Reschedule)
             </td>
             <td>
-                  <NavLink to="/pricelist">
-                    <button className="pricelist-btn">Buy Waste</button>
-                  </NavLink>
-                </td>
+              <NavLink to="#" onClick={() => setProfBtn(10)}>
+                <button className="pricelist-btn">Buy Waste</button>
+              </NavLink>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -220,7 +150,11 @@ export const AddressPopup = ({
             Phone : <span>{appointmentContactNumber}</span>
           </h6>
           <h6>
-            Date : <span> {DateTime.fromISO(appointmentDate).toFormat("dd-MMM-yyyy")}</span>
+            Date :{" "}
+            <span>
+              {" "}
+              {DateTime.fromISO(appointmentDate).toFormat("dd-MMM-yyyy")}
+            </span>
           </h6>
           {/* <h6>
             Type : <span>Daily</span>

@@ -80,18 +80,12 @@ export const adminWorkerSubsFetch = resolvePromise(async () => {
 });
 
 export const adminWorkerSubsInsert = resolvePromise(
-  async ({
-    comissionRate,
-    comissionBaseAmount,
-    fixedAmount,
-    planeName,
-    planType,
-  }) => {
+  async ({ additionalAmount, planAmount, planeName, planType }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/subscription/worker/${planType}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
-      { comissionRate, comissionBaseAmount, fixedAmount, planeName },
+      { additionalAmount, planAmount, planeName },
       {
         headers: {
           Authorization: token,

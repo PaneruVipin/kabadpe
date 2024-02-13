@@ -7,13 +7,12 @@ import { adminWorkerSubsFetch } from "../apis/admins/subscription";
 
 const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
   const [indPlanForm, setIndPlanForm] = useState(null);
-  const [formType, setFormType] = useState("weekly");
+  const [formType, setFormType] = useState("demo");
   const [formval, setFormVal] = useState(null);
   const { data: plansData, refetch } = useQuery({
     queryKey: ["adminfetcWorkerSubs"],
     queryFn: () => adminWorkerSubsFetch(),
   });
-  console.log("plansData plansDataplansData", plansData);
   return (
     <>
       <section className="add-work-comn-comp">
@@ -76,18 +75,18 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                       <span>{plansData?.A?.planeName}</span>
                     </td>
                     <td>
-                      <span>Weekly</span>
+                      <span>Demo</span>
                     </td>
                     <td>
                       {plansData?.A ? (
                         <span>
-                          ₹ {plansData?.A?.fixedAmount}{" "}
+                          ₹ {plansData?.A?.planAmount}{" "}
                           <span className="mini-text"></span>{" "}
                         </span>
                       ) : null}
                     </td>
                     <td>
-                      {plansData?.A ? (
+                      {/* {plansData?.A ? (
                         <span>
                           {" "}
                           ₹{plansData?.A?.comissionBaseAmount}
@@ -95,19 +94,17 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                           {plansData?.A?.comissionRate}%
                           <span className="mini-text"></span>
                         </span>
-                      ) : null}
+                      ) : null} */}
                     </td>
                     <td>
                       <div className="edit-remv-btns">
                         <button
                           onClick={() => {
                             setIndPlanForm(true);
-                            setFormType("weekly");
+                            setFormType("demo");
                             setFormVal({
-                              comissionRate: plansData?.A?.comissionRate,
-                              comissionBaseAmount:
-                                plansData?.A?.comissionBaseAmount,
-                              fixedAmount: plansData?.A?.fixedAmount,
+                              planAmount: plansData?.A?.planAmount,
+                              additionalAmount: plansData?.A?.additionalAmount,
                               planeName: plansData?.A?.planeName,
                             });
                           }}
@@ -126,18 +123,18 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                       <span>{plansData?.B?.planeName}</span>
                     </td>
                     <td>
-                      <span>Monthly</span>
+                      <span>Fixed</span>
                     </td>
                     <td>
                       {plansData?.B ? (
                         <span>
-                          ₹ {plansData?.B?.fixedAmount}{" "}
+                          ₹ {plansData?.B?.planAmount}{" "}
                           <span className="mini-text"></span>{" "}
                         </span>
                       ) : null}
                     </td>
                     <td>
-                      {plansData?.B ? (
+                      {/* {plansData?.B ? (
                         <span>
                           {" "}
                           ₹{plansData?.B?.comissionBaseAmount}
@@ -145,19 +142,17 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                           {plansData?.B?.comissionRate}%
                           <span className="mini-text"></span>
                         </span>
-                      ) : null}
+                      ) : null} */}
                     </td>
                     <td>
                       <div className="edit-remv-btns">
                         <button
                           onClick={() => {
                             setIndPlanForm(true);
-                            setFormType("monthly");
+                            setFormType("fixed");
                             setFormVal({
-                              comissionRate: plansData?.B?.comissionRate,
-                              comissionBaseAmount:
-                                plansData?.B?.comissionBaseAmount,
-                              fixedAmount: plansData?.B?.fixedAmount,
+                              planAmount: plansData?.B?.planAmount,
+                              additionalAmount: plansData?.B?.additionalAmount,
                               planeName: plansData?.B?.planeName,
                             });
                           }}
@@ -176,23 +171,23 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                       <span>{plansData?.C?.planeName}</span>
                     </td>
                     <td>
-                      <span>Quaterly</span>
+                      <span>Comission</span>
                     </td>
                     <td>
-                      {plansData?.C ? (
+                      {/* {plansData?.C ? (
                         <span>
                           ₹ {plansData?.C?.fixedAmount}{" "}
                           <span className="mini-text"></span>{" "}
                         </span>
-                      ) : null}
+                      ) : null} */}
                     </td>
                     <td>
                       {plansData?.C ? (
                         <span>
                           {" "}
-                          ₹{plansData?.C?.comissionBaseAmount}
+                          ₹{plansData?.C?.planAmount}
                           <span className="plus-sign">+</span>
-                          {plansData?.C?.comissionRate}%
+                          {plansData?.C?.additionalAmount}%
                           <span className="mini-text"></span>
                         </span>
                       ) : null}
@@ -202,12 +197,10 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         <button
                           onClick={() => {
                             setIndPlanForm(true);
-                            setFormType("quaterly");
+                            setFormType("comission");
                             setFormVal({
-                              comissionRate: plansData?.C?.comissionRate,
-                              comissionBaseAmount:
-                                plansData?.C?.comissionBaseAmount,
-                              fixedAmount: plansData?.C?.fixedAmount,
+                              planAmount: plansData?.C?.planAmount,
+                              additionalAmount: plansData?.C?.additionalAmount,
                               planeName: plansData?.C?.planeName,
                             });
                           }}

@@ -2,26 +2,21 @@ import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { adminWorkerSubsInsert } from "../apis/admins/subscription";
 
-const IndPlanForm = ({
-  formType = "weekly",
-  onClickClose,
-  formval,
-  refetch,
-}) => {
+const IndPlanForm = ({ formType = "demo", onClickClose, formval, refetch }) => {
   const [otherErrors, setOtherErrors] = useState({});
   const planTypes = {
-    weekly: "Plan A (Weekly)",
-    monthly: "Plan B (Monthly)",
-    quaterly: "Plan C (Quaterly)",
+    demo: "Plan A (Demo)",
+    fixed: "Plan B (Fixed)",
+    comission: "Plan C (Comission)",
   };
   const planType = planTypes[formType];
   const initialValues = formval || {
-    comissionRate: "",
-    comissionBaseAmount: "",
-    fixedAmount: "",
+    planAmount: "",
+    additionalAmount: "",
     planeName: "",
   };
   const handleSubmit = async (data) => {
+    
     setOtherErrors({});
     const res = await adminWorkerSubsInsert({ ...data, planType: formType });
     if (!res?.error) {
@@ -40,13 +35,7 @@ const IndPlanForm = ({
         >
           <h3>Plan For Individual</h3>
 
-          <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            // validationSchema={object().shape({
-            //   otp: number().required("Valid OTP Requird"),
-            // })}
-          >
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({
               handleBlur,
               handleChange,
@@ -77,68 +66,72 @@ const IndPlanForm = ({
                       ) : null} */}
                     </div>
 
-                    <div className="admin-login-fild">
-                      <label htmlFor="planname">Fixed</label>
-                      <div className="input-parent-bx">
-                        <div className="admin-login-input">
-                          <input
-                            type="number"
-                            name="fixedAmount"
-                            id="planname"
-                            placeholder="Enter Fixed Price"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onWheel={(e) => e.currentTarget.blur()}
-                            onBlur={handleBlur}
-                            value={values?.fixedAmount}
-                          />
-                        </div>
-                        <span>₹/Lead</span>
-                      </div>
-                    </div>
-
-                    <div className="admin-login-fild">
-                      <label htmlFor="planname">Comission</label>
-                      <div className="input-parent-main-grid">
-                        <div className="input-parent-bx input-parent-bx2">
+                    {formType != "comission" ? (
+                      <div className="admin-login-fild">
+                        <label htmlFor="planname">Fixed</label>
+                        <div className="input-parent-bx">
                           <div className="admin-login-input">
                             <input
                               type="number"
-                              name="comissionBaseAmount"
+                              name="planAmount"
                               id="planname"
-                              placeholder="Enter ₹"
+                              placeholder="Enter Fixed Price"
                               autoComplete="off"
                               onChange={handleChange}
                               onWheel={(e) => e.currentTarget.blur()}
                               onBlur={handleBlur}
-                              value={values?.comissionBaseAmount}
+                              value={values?.planAmount}
                             />
                           </div>
-                          <span>₹</span>
-                        </div>
-
-                        <div className="plus">
-                          <i class="fa-solid fa-plus"></i>
-                        </div>
-
-                        <div className="input-parent-bx input-parent-bx2">
-                          <div className="admin-login-input">
-                            <input
-                              type="number"
-                              name="comissionRate"
-                              id="planname"
-                              placeholder="Enter %"
-                              autoComplete="off"
-                              onChange={handleChange}
-                              onWheel={(e) => e.currentTarget.blur()}
-                              onBlur={handleBlur}
-                              value={values?.comissionRate}
-                            />
-                          </div>
-                          <span>%</span>
+                          <span>₹/Lead</span>
                         </div>
                       </div>
-                    </div>
+                    ) : null}
+
+                    {formType == "comission" ? (
+                      <div className="admin-login-fild">
+                        <label htmlFor="planname">Comission</label>
+                        <div className="input-parent-main-grid">
+                          <div className="input-parent-bx input-parent-bx2">
+                            <div className="admin-login-input">
+                              <input
+                                type="number"
+                                name="planAmount"
+                                id="planname"
+                                placeholder="Enter ₹"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onWheel={(e) => e.currentTarget.blur()}
+                                onBlur={handleBlur}
+                                value={values?.planAmount}
+                              />
+                            </div>
+                            <span>₹</span>
+                          </div>
+
+                          <div className="plus">
+                            <i class="fa-solid fa-plus"></i>
+                          </div>
+
+                          <div className="input-parent-bx input-parent-bx2">
+                            <div className="admin-login-input">
+                              <input
+                                type="number"
+                                name="additionalAmount"
+                                id="planname"
+                                placeholder="Enter %"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onWheel={(e) => e.currentTarget.blur()}
+                                onBlur={handleBlur}
+                                value={values?.additionalAmount}
+                              />
+                            </div>
+                            <span>%</span>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                   {otherErrors ? (
                     <div style={{ color: "red", textAlign: "center" }}>

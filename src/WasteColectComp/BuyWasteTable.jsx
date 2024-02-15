@@ -51,8 +51,6 @@ const BuyWasteTable = ({
     setTableData(updatedData);
   };
 
- 
-
   const getImageUrl = (selectedOption) => {
     switch (selectedOption) {
       case "book":
@@ -93,13 +91,15 @@ const BuyWasteTable = ({
       setRateListData(rateList);
     }
   }, [rateList]);
-  const totalAmmount = tableData.reduce((a, b) => {
-    if (b?.ammount) {
-      return a + b?.ammount;
-    } else {
-      return a;
-    }
-  }, 0);
+  const totalAmmount = tableData
+    .reduce((a, b) => {
+      if (b?.ammount) {
+        return a + b?.ammount;
+      } else {
+        return a;
+      }
+    }, 0)
+    .toFixed(2);
   const handleCashPaidClick = async () => {
     const data = {
       orderDetail: { waste: tableData, totalAmmount },
@@ -159,7 +159,7 @@ const BuyWasteTable = ({
               </tr>
             </thead>
             <tbody>
-              {tableData.map(
+              {tableData?.map(
                 ({ id, name, price, weight, ammount, image }, index) => (
                   <tr key={id}>
                     <td>{index + 1}</td>
@@ -209,6 +209,9 @@ const BuyWasteTable = ({
                                   bulkPrice,
                                   id,
                                 })}
+                                hidden={tableData?.some(
+                                  ({ name }) => name == productName
+                                )}
                               >
                                 {productName}
                               </option>

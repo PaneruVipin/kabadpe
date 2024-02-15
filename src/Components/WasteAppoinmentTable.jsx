@@ -105,8 +105,8 @@ const WasteAppoinmentTable = ({
               Under Review <br /> (Reschedule)
             </td>
             <td>
-              <NavLink to="#" onClick={() => setProfBtn(10)}>
-                <button className="pricelist-btn">Buy Waste</button>
+              <NavLink to="#" >
+                <button onClick={() => setProfBtn(10)} className="pricelist-btn">Buy Waste</button>
               </NavLink>
             </td>
           </tr>

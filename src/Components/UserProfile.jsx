@@ -6,7 +6,7 @@ import SalesHistoryComp from "./SalesHistoryComp";
 import AppointmentComp from "./AppointmentComp";
 import Supportticket from "./Supportticket";
 import UserOrders from "./UserOrders";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import ReferEarn from "./ReferEarn";
@@ -18,6 +18,7 @@ import { logout } from "../lib/logout";
 import Redirect from "./Auth/RedirectIfLogout";
 
 const UserProfile = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const { userInfo: user, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
@@ -54,9 +55,20 @@ const UserProfile = () => {
   useEffect(() => {
     if (user?.profileImage) setSelectedImage(user?.profileImage);
   }, [user?.profileImage]);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const sectionName = params.get("sec");
+    if (sectionName == "dashboard") {
+      setProfBtn(1);
+    } else if (sectionName == "appoinment") {
+      setProfBtn(3);
+    } else if (sectionName == "details") {
+      setProfBtn(2);
+    }
+  }, [location]);
   return (
     <>
-    <Redirect role="user" path="/" />
+      <Redirect role="user" path="/" />
       <div className="user-profile-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">

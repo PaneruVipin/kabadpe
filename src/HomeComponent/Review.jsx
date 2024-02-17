@@ -118,7 +118,7 @@ const Review = () => {
                 <div className="quote-bx">
                   <ImQuotesRight className="quote-icon" />
                 </div>
-                <h5>Students Feedback</h5>
+                <h5> Feedback</h5>
               </div>
               <h4>Trusted By Genius People.</h4>
               <p>
@@ -127,7 +127,6 @@ const Review = () => {
               </p>
 
               <div className="revw-percent-flex">
-                <h6>99%</h6>
                 <span>Student's complete course successfully.</span>
               </div>
             </div>

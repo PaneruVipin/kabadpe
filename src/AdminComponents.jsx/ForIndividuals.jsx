@@ -53,88 +53,6 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
         </div>
 
         <div className="all-user-table add-wrk-table">
-<<<<<<< HEAD
-            <table>
-                <thead>
-                    <tr>
-                        <th>SNo.</th>
-                        <th>Plan Name</th>
-                        <th>Fixed Price</th>
-                        <th>Comission Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <span>1</span>
-                        </td>
-                        <td>
-                            <span>Plan A Name</span>
-                        </td>
-                        <td>
-                            <span>₹300 <span className="mini-text">/week</span> </span>
-                        </td>
-                        <td>
-                        <span> ₹2 <span className="plus-sign">+</span> 2.5%<span className="mini-text">(weekly)</span></span>
-                        </td>
-                        <td>
-                            <div className="edit-remv-btns">
-                                <button onClick={() => setIndPlanForm(true)}>Edit</button>
-                                <div className="current-name">
-          <i class="fa-solid fa-check"></i>
-          </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <span>2</span>
-                        </td>
-                        <td>
-                            <span>Plan B Name</span>
-                        </td>
-                        <td>
-                            <span>₹300<span className="mini-text">/monthly</span></span>
-                        </td>
-                        <td>
-                        <span> ₹5 <span className="plus-sign">+</span> 2.5%<span className="mini-text">(monthly)</span></span>
-                        </td>
-                        <td>
-                            <div className="edit-remv-btns">
-                                <button onClick={() => setMonthlyPlan(true)}>Edit</button>
-                                <span>Assign</span>
-                            </div>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            <span>3</span>
-                        </td>
-                        <td>
-                            <span>Plan C Name</span>
-                        </td>
-                        <td>
-                            <span>₹300<span className="mini-text">/quaterly</span></span>
-                        </td>
-                        <td>
-                            <span> ₹7 <span className="plus-sign">+</span> 2.5%<span className="mini-text">(quaterly)</span></span>
-                        </td>
-                        <td>
-                            <div className="edit-remv-btns">
-                                <button onClick={() => setQuaterPlan(true)}>Edit</button>
-                                <span>Assign</span>
-                   
-                            </div>
-       
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-=======
           <table>
             <thead>
               <tr>
@@ -193,6 +111,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>
@@ -241,6 +160,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>
@@ -289,6 +209,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>
@@ -296,7 +217,6 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
               ) : null}
             </tbody>
           </table>
->>>>>>> 2f5fc773f5f43de52325790f7567b150df9a299d
         </div>
       </section>
 

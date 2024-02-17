@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import SelectArea from "./SelectArea";
 import { useQuery } from "@tanstack/react-query";
-import { workerSubscriptionsFetch } from "../apis/worker/plan";
+import {
+  workerPlanSubscribe,
+  workerSubscriptionsFetch,
+} from "../apis/worker/plan";
 
 const WasteSubsPlan = () => {
   const [plan, setPlan] = useState("monthly");
@@ -28,6 +31,13 @@ const WasteSubsPlan = () => {
       setErrors("Please, Choose Atleast 1 Area");
       return;
     }
+    const ariaIds = selectedArias.map(({ id }) => id);
+    const res = await workerPlanSubscribe({ subscriptionId, ariaIds });
+    if (res?.error) {
+      alert(res?.messge);
+      return;
+    }
+    
   };
   return (
     <>
@@ -35,7 +45,6 @@ const WasteSubsPlan = () => {
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
             <h5>Subscription Plan </h5>
-
             <div className="right-filter-btns-flex-bx">
               {/* <div className="month-qua-filt-btn-flex">
                 <button

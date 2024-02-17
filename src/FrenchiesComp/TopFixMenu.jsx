@@ -26,7 +26,17 @@ const TopFixMenu = ({
             </h5>
           </div>
 
+          
+
           <div className="right-user-prof-search-flex-bx">
+
+            <div className="subscrip-text">
+              <p>Subscription : <span>20/02/2024</span> </p>
+              <button className="renew-btn">
+                Renew
+              </button>
+            </div>
+            
             <div className="u-prf-srch-bx">
               <input
                 type="text"

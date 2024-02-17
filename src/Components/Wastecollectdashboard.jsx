@@ -260,7 +260,7 @@ const Wastecollectdashboard = ({}) => {
         {profBtn === 13 ? (
           <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />
         ) : null}
-        {profBtn === 14 ? <WasteSubsPlan /> : null}
+        {profBtn === 14 ? <WasteSubsPlan onSuccess={() => setProfBtn(13)} /> : null}
       </section>
     </>
   );

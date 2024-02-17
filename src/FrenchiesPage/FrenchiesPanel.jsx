@@ -142,7 +142,7 @@ const FrenchiesPanel = () => {
 
   return (
     <>
-      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -167,16 +167,11 @@ const FrenchiesPanel = () => {
           </div>
 
           <div className="right-admin-box">
-            <div className="admin-top-search-box">
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search here"
-                autoComplete="off"
-              />
-
-              <i class="fa-solid fa-magnifying-glass"></i>
+          <div className="subscrip-text">
+              <p>Subscription : <span>20/02/2024</span> </p>
+              <button className="renew-btn">
+                Renew
+              </button>
             </div>
 
             <button

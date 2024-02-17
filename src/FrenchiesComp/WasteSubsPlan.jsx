@@ -6,7 +6,7 @@ import {
   workerSubscriptionsFetch,
 } from "../apis/worker/plan";
 
-const WasteSubsPlan = () => {
+const WasteSubsPlan = ({onSuccess}) => {
   const [plan, setPlan] = useState("monthly");
   const [locat, setLocat] = useState(false);
   const [selectedArias, setSelectedArias] = useState([]);
@@ -37,7 +37,7 @@ const WasteSubsPlan = () => {
       alert(res?.messge);
       return;
     }
-    
+    onSuccess()
   };
   return (
     <>

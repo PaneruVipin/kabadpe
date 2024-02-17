@@ -2,3 +2,345 @@ vendor remove hoga  .
 log out button ki posotion set hogi .
 body pr  click krne pr popup close hoge .
 
+ <OwlCarousel className="owl-theme review-slider" {...options}>
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div className="review-box">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </OwlCarousel>
+
+
+            <Swiper 
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        loop={true}
+        slidesPerView={'auto'}
+        coverflowEffect={{
+          rotate : 0,
+          stretch : 0,
+          depth : 100,
+          modifier: 2.5,
+        }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay , EffectCoverflow , Pagination , Navigation]}
+        navigation={ 
+          {nextEl:".slider-next",
+          prevEl:".slider-prev",
+          clickable:true }
+         }
+        className="mt-5"
+        >
+          <SwiperSlide className="main-revw">
+          <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <SwiperSlide className="main-revw">
+              <div className="review-box review-boxx">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facere mollitia sint tenetur, ut voluptate officiis sit est
+                  eligendi? Magnam, neque .
+                </p>
+
+                <div className="cust-flex-bx">
+                  <div className="cut-img">
+                    <img src="/images/customImg/team-3.jpg" alt="" />
+                  </div>
+                  <div className="cust-info">
+                    <h6>Adam Vathan</h6>
+                    <span>Customer</span>
+                  </div>
+                </div>
+              </div>
+              </SwiperSlide>
+
+              <div className="slider-arrow-flex-bx">
+
+                <div className="slider-prev slider-arrow-bx">
+                <FaLongArrowAltLeft className="slider-arrow" />
+                </div>
+
+                <div className="slider-next slider-arrow-bx ">
+                <FaLongArrowAltRight  className="slider-arrow" />
+                </div>
+                
+              </div>
+              
+              
+              </Swiper>

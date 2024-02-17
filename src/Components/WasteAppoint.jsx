@@ -8,7 +8,11 @@ import WasteAppoinmentTable, {
 import { useQuery } from "@tanstack/react-query";
 import { workerAppoinmentsFetch } from "../apis/worker/appoinments";
 
-const WasteAppoint = () => {
+const WasteAppoint = ({
+  setProfBtn,
+  buyWasteUserInfo,
+  setBuyWasteUserInfo,
+}) => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
@@ -46,6 +50,9 @@ const WasteAppoint = () => {
                     setPopUp={setPopUp}
                     setSelectedAppoinment={setSelectedAppoinment}
                     appoinments={appoinments}
+                    setProfBtn={setProfBtn}
+                    buyWasteUserInfo={buyWasteUserInfo}
+                    setBuyWasteUserInfo={setBuyWasteUserInfo}
                   />
                 ) : null}
               </div>

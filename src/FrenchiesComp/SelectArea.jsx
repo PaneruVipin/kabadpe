@@ -5,7 +5,12 @@ import {
 } from "../apis/franchise/plans";
 import { useQuery } from "@tanstack/react-query";
 
-const SelectArea = ({ selectedArias, setSelectedArias, onclickClose }) => {
+const SelectArea = ({
+  selectedArias,
+  setSelectedArias,
+  onclickClose,
+  component = "franchise",
+}) => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [pincodes, setPincodes] = useState([]);
@@ -315,14 +320,22 @@ const SelectArea = ({ selectedArias, setSelectedArias, onclickClose }) => {
                       <div className="sub-area-price-bx">
                         <div className="left-area-price-text">
                           <span> {subAriaName}</span>
-                          <p>
-                            {" "}
-                            Monthly Price : <span>₹{monthlyPrice}</span>{" "}
-                          </p>
-                          <p>
-                            {" "}
-                            Quaterly Price : <span>₹{quaterlyPrice}</span>{" "}
-                          </p>
+                          {component != "worker" ? (
+                            <>
+                              <p>
+                                {" "}
+                                Monthly Price : <span>
+                                  ₹{monthlyPrice}
+                                </span>{" "}
+                              </p>
+                              <p>
+                                {" "}
+                                Quaterly Price : <span>
+                                  ₹{quaterlyPrice}
+                                </span>{" "}
+                              </p>
+                            </>
+                          ) : null}
                         </div>
                         {!selectedArias.some((s) => s?.id == id) ? (
                           <button

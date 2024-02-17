@@ -21,27 +21,40 @@ const Home = ({ setUserForm }) => {
   const location = useLocation();
   const [counter, setCounter] = useState(0);
 
+  // useEffect(() => {
+  //   scrollToParam(location, "s");
+  // }, [location.search]);
+  // useEffect(() => {
+   
+  // }, []);
+
   useEffect(() => {
-    scrollToParam(location, "s");
-  }, [location.search]);
-  useEffect(() => {
-    Preloadergsap();
-  }, []);
+
+  
+    
+    return () => {
+      Preloadergsap();
+    
+    }
 
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter(prevCounter => {
-        const nextCounter = prevCounter + 1;
-        if (nextCounter > 100) {
-          clearInterval(interval);
-        }
-        return nextCounter;
-      });
-    }, 50); // Adjust interval to control the animation speed
+    
+})
 
-    return () => clearInterval(interval);
-  }, []);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCounter(prevCounter => {
+  //       const nextCounter = prevCounter + 1;
+  //       if (nextCounter > 100) {
+  //         clearInterval(interval);
+  //       }
+  //       return nextCounter;
+  //     });
+  //   }, 50); // Adjust interval to control the animation speed
+
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <>

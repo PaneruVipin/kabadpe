@@ -267,7 +267,7 @@ const Appointment = ({ setUserForm }) => {
                             )}
                             className="apnt-form-submit-btn add-adres-btn"
                           >
-                            Add Address
+                           Address
                             <i class="fa-solid fa-location-dot"></i>
                           </button>
 
@@ -432,9 +432,10 @@ const Appointment = ({ setUserForm }) => {
 
             <div className="main-video-bx">
               <div className="right-shdule-img-bx">
-                <video controls autoplay preload="auto" type="video/mp4">
+                {/* <video controls autoplay preload="auto" type="video/mp4">
                   <source src="/images/customImg/video-file.mp4" />
-                </video>
+                </video> */}
+                <img src="/images/customImg/05.jpg" alt="" />
               </div>
             </div>
           </div>

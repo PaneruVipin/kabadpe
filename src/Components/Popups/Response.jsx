@@ -22,7 +22,7 @@ const Response = ({
         <div className="thank-u-box">
           {!error ? (
             <div className="thank-u-gif">
-              <img src="/images/customImg/happy.gif" alt="" />
+              <img src="/images/customImg/recycling-truc-1.gif" alt="" />
             </div>
           ) : null}
 

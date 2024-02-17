@@ -27,7 +27,21 @@ const FrenchSubscriptionPlanTwo = ({onclickRedirect}) => {
 
     <section className="subscrip-plan-comp">
 
+        <div className="top-subs-text-flex">
+
         <h6>Subscribed</h6>
+
+
+            <div className="right-btns-flex-subs">       
+        <button onClick={onclickRedirect} className="upgrade-btn">
+            Upgrade
+        </button>
+        <button  className="upgrade-btn renew-btn renew-btn2 renew-btn3">
+            Renew
+        </button>
+        </div> 
+
+        </div>
 
         <div className="all-user-table subs-plan-table subs-plan-table5">
 
@@ -82,9 +96,6 @@ const FrenchSubscriptionPlanTwo = ({onclickRedirect}) => {
 
      
 
-        <button onClick={onclickRedirect} className="upgrade-btn">
-            Upgrade
-        </button>
 
 
         

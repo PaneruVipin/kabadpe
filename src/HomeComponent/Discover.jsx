@@ -20,8 +20,7 @@ const Discover = () => {
 
             <div className="right-quest-bx">
               <p>
-                Lorem ipsum dolor sit amet nsectetur cing elituspe ndisse
-                suscipit sagitis leo sit.
+              Have a specific query? Contact us through the form
               </p>
 
               <button className="disc-btn">

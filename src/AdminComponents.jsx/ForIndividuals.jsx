@@ -73,6 +73,9 @@ const ForIndividuals = ({onSwitch , onactive , onSwitchPrev}) => {
                         <td>
                             <div className="edit-remv-btns">
                                 <button onClick={() => setIndPlanForm(true)}>Edit</button>
+                                <div className="current-name">
+          <i class="fa-solid fa-check"></i>
+          </div>
                             </div>
                         </td>
                     </tr>
@@ -93,6 +96,7 @@ const ForIndividuals = ({onSwitch , onactive , onSwitchPrev}) => {
                         <td>
                             <div className="edit-remv-btns">
                                 <button onClick={() => setMonthlyPlan(true)}>Edit</button>
+                                <span>Assign</span>
                             </div>
                         </td>
                     </tr>
@@ -114,7 +118,10 @@ const ForIndividuals = ({onSwitch , onactive , onSwitchPrev}) => {
                         <td>
                             <div className="edit-remv-btns">
                                 <button onClick={() => setQuaterPlan(true)}>Edit</button>
+                                <span>Assign</span>
+                   
                             </div>
+       
                         </td>
                     </tr>
                 </tbody>

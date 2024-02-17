@@ -31,11 +31,9 @@ const Home = ({ setUserForm }) => {
   useEffect(() => {
 
   
-    
-    return () => {
+ 
       Preloadergsap();
-    
-    }
+  
 
 
     

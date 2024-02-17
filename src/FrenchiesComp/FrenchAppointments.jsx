@@ -426,12 +426,12 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                          onClick={() => confirmPopupfunc()}
                         */}
 
-                                    {/* <button
+                                    <button
                                       onClick={() => setApntSlot(true)}
                                       className="assign-btn"
                                     >
                                       Assign
-                                    </button> */}
+                                    </button>
                                   </div>
                                 </td>
                               </tr>

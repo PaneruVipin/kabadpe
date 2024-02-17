@@ -25,12 +25,11 @@ import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
 import TopFixMenu from "../FrenchiesComp/TopFixMenu";
 import Redirect from "./Auth/RedirectIfLogout";
 
-const Wastecollectdashboard = () => {
+const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
-  // console.log("store", loading);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
-
+  const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
   const filterTab = (index) => {
     setProfBtn(index);
   };
@@ -48,8 +47,12 @@ const Wastecollectdashboard = () => {
 
   return (
     <>
-      <TopFixMenu onclickRedirectBuyWasteTable={() => filterTab(10)} />
-      {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
+      <TopFixMenu
+        buyWasteUserInfo={buyWasteUserInfo}
+        setBuyWasteUserInfo={setBuyWasteUserInfo}
+        onclickRedirectBuyWasteTable={() => filterTab(10)}
+      />
+      <Redirect role="kabadCollector" path="/auth/collector" />
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -224,9 +227,18 @@ const Wastecollectdashboard = () => {
           onclickRedirectGuestBuyWaste={() => filterTab(11)}
           onclickShowDetailComp={() => filterTab(3)}
           onclickRedirectBuyWasteTable={() => filterTab(10)}
+          setProfBtn={setProfBtn}
+          buyWasteUserInfo={buyWasteUserInfo}
+          setBuyWasteUserInfo={setBuyWasteUserInfo}
         />
       ) : null}
-      {profBtn === 2 ? <WasteAppointment /> : null}
+      {profBtn === 2 ? (
+        <WasteAppointment
+          setProfBtn={setProfBtn}
+          buyWasteUserInfo={buyWasteUserInfo}
+          setBuyWasteUserInfo={setBuyWasteUserInfo}
+        />
+      ) : null}
       {profBtn === 3 ? <WasteDetail /> : null}
       {profBtn === 4 ? <WasteWorkLocat /> : null}
       {profBtn === 5 ? <WasteColectin /> : null}
@@ -234,7 +246,13 @@ const Wastecollectdashboard = () => {
       {profBtn === 7 ? <WasteWallet /> : null}
       {profBtn === 8 ? <MyReviews /> : null}
       {profBtn === 9 ? <Vendor /> : null}
-      {profBtn === 10 ? <BuyWasteTable /> : null}
+      {profBtn === 10 ? (
+        <BuyWasteTable
+          buyWasteUserInfo={buyWasteUserInfo}
+          setBuyWasteUserInfo={setBuyWasteUserInfo}
+          closeBuyWaste={() => filterTab(1)}
+        />
+      ) : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
 

@@ -111,6 +111,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>
@@ -159,6 +160,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>
@@ -207,6 +209,7 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                         >
                           Edit
                         </button>
+                        <span>Assign</span>
                       </div>
                     </td>
                   </tr>

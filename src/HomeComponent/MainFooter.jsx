@@ -32,9 +32,18 @@ const MainFooter = () => {
           <div class="fot-grid grid grid-gap">
             <div class="left-footer-bx">
               <h6>About</h6>
+
+              <div className="foter-logo mb-4">
+                <img src="/images/customImg/logo.png" alt="" />
+              </div>
+
               <p>
-                Lorem ipsum dolor sit amet, consect etur adi pisicing elit sed
-                do eiusmod tempor incididunt ut labore
+                Welcome to KabAdPe, a distinguished brand within the ClimStripe
+                Pvt. Ltd. portfolio, dedicated to pioneering sustainable living
+                through innovative waste management solutions. At KabAdPe, we
+                are committed to transforming the way society perceives and
+                handles waste, by offering creative, eco-friendly alternatives
+                to traditional disposal methods
               </p>
 
               <div class="fot-soc-icons-flex">
@@ -50,27 +59,6 @@ const MainFooter = () => {
                 <a href="#">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-              </div>
-
-              <div class="fot-list mt-3">
-                <div class="cont-bx">
-                  <div class="cont-i">
-                    <i class="fa-solid fa-phone-volume"></i>
-                  </div>
-                  <a href="#">+91 98218 61897</a>
-                </div>
-                <div class="cont-bx">
-                  <div class="cont-i">
-                    <i class="fa-solid fa-envelope"></i>
-                  </div>
-                  <span>support@thekabadshop.com</span>
-                </div>
-                <div class="cont-bx">
-                  <div class="cont-i">
-                    <i class="fa-solid fa-location-dot"></i>
-                  </div>
-                  <span>88, Kundan Nagar, Laxmi Nagar New Delhi, India</span>
-                </div>
               </div>
             </div>
 
@@ -161,6 +149,7 @@ const MainFooter = () => {
 
               <div class="fot-li-bx">
                 <h6>Contact</h6>
+
                 <div class="fot-list">
                   <li>
                     <a href="#">About Us</a>
@@ -174,7 +163,28 @@ const MainFooter = () => {
                   <li>
                     <a href="#">FAQ</a>
                   </li>
+                </div>
+
+                <div class="fot-list mt-3">
+                  <div class="cont-bx">
+                    <div class="cont-i">
+                      <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <a href="#">+91 98218 61897</a>
                   </div>
+                  <div class="cont-bx">
+                    <div class="cont-i">
+                      <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <span>support@thekabadshop.com</span>
+                  </div>
+                  <div class="cont-bx">
+                    <div class="cont-i">
+                      <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <span>88, Kundan Nagar, Laxmi Nagar New Delhi, India</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -183,7 +193,7 @@ const MainFooter = () => {
         <div class="last-text-bx">
           <h6>
             Copyright © 2023 <a href="#"> Climstripe Shift </a> All Rights
-            Reserved. | Dev. By: <a href="#"> Digital Dezire </a>{" "}
+            Reserved. | Developed By: <a href="#"> Digital Dezire </a>{" "}
           </h6>
         </div>
       </footer>

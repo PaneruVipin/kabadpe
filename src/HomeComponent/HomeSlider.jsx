@@ -34,8 +34,6 @@ const HomeSlider = () => {
   return (
     <>
       <section className="home-slider-comp">
-        <div className="home-shadow-bx"></div>
-        <div className="home-shadow-bx2"></div>
 
         <div className="home-slide-container">
           <div className="comon-container-2 home-container ">

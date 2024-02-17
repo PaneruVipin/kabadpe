@@ -4,36 +4,55 @@ const tl =  gsap.timeline();
 
 export const Preloadergsap = () => {
 
+    tl.from('.preloader-bx .preloader-logo', {
+        
+        y : 60,
+        duration: .76,
+         opacity : 0,
+
+        
+    })
+
     tl.from('.preloader-text p', {
-            x : 60,
-            stagger : 0.2,
-            duration : 1,
+            y : 30,
+            stagger : 0.05,
+            duration : .6,
             opacity : 0,
 
 
     })
 
-    tl.to('.preloader-text p', {
+    tl.to('.preloader-bx ', {
+        
+        duration: .67,
+         opacity : 0,
 
-        x : -60,
-        stagger : 0.2,
-        duration : 1,
-        opacity : 0,
-        delay : .3,
         
     })
+
+  
+
+    // tl.to('.preloader-text p', {
+
+    //     x : -60,
+    //     stagger : 0.2,
+    //     duration : 1,
+    //     opacity : 0,
+    //     delay : .3,
+        
+    // })
 
     tl.to('.preloader-comp', {
 
         transform : "translateY(-80%)",
-        duration : 1,
+        duration : .76,
         
     })
 
     tl.to('.preloader-comp', {
 
         opacity : 0,
-        duration : 1,
+        duration : .76,
         
     })
 

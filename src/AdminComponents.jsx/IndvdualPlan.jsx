@@ -1,9 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 import { adminIndPlansFetch } from "../apis/admins/franchisePlans";
 import { DateTime } from "luxon";
 
 const IndvdualPlan = ({ onSwitch }) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [upgrade, setUpgrade] = useState(false);
+
+  const handleCalendarChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleCalendarSubmit = () => {
+    setShowCalendar(false);
+    // Perform any additional actions with the selected date
+  };
   const { data: plans, refetch } = useQuery({
     queryKey: ["adminfetchIndPlans"],
     queryFn: () => adminIndPlansFetch(),
@@ -102,8 +116,12 @@ const IndvdualPlan = ({ onSwitch }) => {
 
                         <td>
                           <div className="edit-upgrade-btns">
-                            <button>Edit</button>
-                            <button onClick={onSwitch}>Upgrade</button>
+                            <button onClick={() => setShowCalendar(true)}>
+                              Extend
+                            </button>
+                            <button onClick={() => setUpgrade(true)}>
+                              Upgrade
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -114,6 +132,43 @@ const IndvdualPlan = ({ onSwitch }) => {
           </tbody>
         </table>
       </div>
+
+      {showCalendar && (
+        <div className="calendar-choose-date-comp">
+          <div className="calendar-choose-date-bx">
+            <Calendar onChange={handleCalendarChange} value={selectedDate} />
+            <button
+              onClick={handleCalendarSubmit}
+              className="date-chose-submit-btn"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
+
+      {upgrade && (
+        <div className="upg-popup-bx" onClick={() => setUpgrade(false)}>
+          <div className="upg-popup" onClick={(e) => e.stopPropagation()}>
+            <div className="upg-li">
+              <h6>Plan A Name</h6>
+              <div className="current-name">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            </div>
+
+            <div className="upg-li">
+              <h6>Plan B Name</h6>
+              <span>Assign</span>
+            </div>
+
+            <div className="upg-li">
+              <h6>Plan C Name</h6>
+              <span>Assign</span>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

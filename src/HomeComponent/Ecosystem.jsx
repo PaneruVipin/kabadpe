@@ -16,7 +16,7 @@ const Ecosystem = () => {
             <h3>Waste Management</h3>
           </div>
 
-          <div className="tab-sect">
+          <div className="tab-sect mt-5">
             <div className="tab-swtich-grid-bx">
               <div
                 onClick={() => handleFilter("ecosystem")}
@@ -43,7 +43,7 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon left-tab-icon2">
-                  <img src="/images/customImg/ewallet.gif" alt="" />
+                  <img src="/images/customImg/wallet.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
@@ -58,13 +58,13 @@ const Ecosystem = () => {
                   tab === "waste" ? "tab-swtch-bx tabactive" : "tab-swtch-bx"
                 }
               >
-                <div className="left-tab-icon">
+                <div className="left-tab-icon truck-icon">
                   <img src="/images/customImg/recycling-truck.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
-                  <h6>Start Your Waste SIP</h6>
-                  <p>Small Steps, Big Impact</p>
+                  <h6>Waste SIP</h6>
+                  <p>Sell and earn</p>
                 </div>
               </div>
 
@@ -75,12 +75,12 @@ const Ecosystem = () => {
                 }
               >
                 <div className="left-tab-icon left-tab-icon3">
-                  <img src="/images/customImg/home.gif" alt="" />
+                  <img src="/images/customImg/approved.gif" alt="" />
                 </div>
 
                 <div className="right-tab-info">
-                  <h6>Locate kabadi</h6>
-                  <p>Get easy notification for hassle free experience</p>
+                  <h6>Verified workers</h6>
+                  <p>Safety for your family</p>
                 </div>
               </div>
             </div>
@@ -171,6 +171,35 @@ const Ecosystem = () => {
                 </div>
 
                 <div className="right-tab-info-bx">
+                  <h5>Sell your smallest waste daily and earn into wallet.</h5>
+                  <p>
+                    Don't end waste into landfill instead leverage with KabadPe
+                    technology, and earn through recycling your smallest waste
+                    daily.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className={
+                  tab === "locat"
+                    ? "tab-view-grd tabviewactive"
+                    : "tab-view-grd"
+                }
+              >
+                <div className="main-img-bx-tab">
+                  <div className="left-tab-view-img">
+                    <img src="/images/customImg/waste-img-3.webp" alt="" />
+                  </div>
+
+                  <div className="buble-one"></div>
+                  <div className="buble-one buble-two"></div>
+                  <div className="buble-one buble-three"></div>
+                  <div className="buble-one buble-four"></div>
+                  <div className="buble-one buble-five"></div>
+                </div>
+
+                <div className="right-tab-info-bx">
                   <h5>
                     Ensuring Safety and <br /> Sustainability
                   </h5>
@@ -181,7 +210,7 @@ const Ecosystem = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 className={
                   tab === "locat"
                     ? "tab-view-grd tabviewactive"
@@ -212,7 +241,7 @@ const Ecosystem = () => {
                     community of change with ClimConnect.
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

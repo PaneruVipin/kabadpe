@@ -226,41 +226,41 @@ const WasteDetail = () => {
               <div className="det-user-bx">
                 <h6>Aadhar Front:</h6>
                 {userInfo?.aadharFront ? (
-                 <span
-                 style={{ cursor: "pointer" }}
-                 onClick={() => {
-                   downloadFile(userInfo?.aadharFront, "aadharFront");
-                 }}
-               >
-                 View
-               </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.aadharFront, "aadharFront");
+                    }}
+                  >
+                    View
+                  </span>
                 ) : null}
               </div>
 
               <div className="det-user-bx">
                 <h6>Aadhar Back:</h6>
                 {userInfo?.aadharBack ? (
-                 <span
-                 style={{ cursor: "pointer" }}
-                 onClick={() => {
-                   downloadFile(userInfo?.aadharBack, "aadharBack");
-                 }}
-               >
-                 View
-               </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.aadharBack, "aadharBack");
+                    }}
+                  >
+                    View
+                  </span>
                 ) : null}
               </div>
               <div className="det-user-bx">
                 <h6>Safty Training:</h6>
                 {userInfo?.saftyTraining ? (
-                 <span
-                 style={{ cursor: "pointer" }}
-                 onClick={() => {
-                   downloadFile(userInfo?.saftyTraining, "saftyTraining");
-                 }}
-               >
-                 View
-               </span>
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      downloadFile(userInfo?.saftyTraining, "saftyTraining");
+                    }}
+                  >
+                    View
+                  </span>
                 ) : null}
               </div>
 

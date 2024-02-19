@@ -176,19 +176,16 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
                       <span>Comission</span>
                     </td>
                     <td>
-                      {/* {plansData?.C ? (
+                      {plansData?.C ? (
                         <span>
-                          ₹ {plansData?.C?.fixedAmount}{" "}
+                          ₹ {plansData?.C?.planAmount}{" "}
                           <span className="mini-text"></span>{" "}
                         </span>
-                      ) : null} */}
+                      ) : null}
                     </td>
                     <td>
                       {plansData?.C ? (
                         <span>
-                          {" "}
-                          ₹{plansData?.C?.planAmount}
-                          <span className="plus-sign">+</span>
                           {plansData?.C?.additionalAmount}%
                           <span className="mini-text"></span>
                         </span>

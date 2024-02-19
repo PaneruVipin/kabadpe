@@ -22,6 +22,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
   const [apntSlot, setApntSlot] = useState(false);
   const [wrkcpcity, setWrkcpcity] = useState(false);
   const [addressdetails, setAddressdetails] = useState({});
+  const [appoinmentDetails, setAppoinmentDetails] = useState({});
 
   const confirmPopupfunc = () => {
     setPopUp(true);
@@ -29,150 +30,6 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
 
   return (
     <>
-      <section
-        className={
-          popUp === true
-            ? "appoint-popup-main popupactive"
-            : "appoint-popup-main"
-        }
-      >
-        <div className="appoint-popup-bx appoint-popup-bx2">
-          <div className="appoint-popup-info appoint-popup-info2">
-            <h3>Assign</h3>
-            <h6>Assign Appointment to your waste collector</h6>
-          </div>
-
-          <div className="appoint-det">
-            <p>
-              Name : <span>Faiz Alam</span>{" "}
-            </p>
-            <p>
-              Time Slot : <span>1PM - 3PM</span>{" "}
-            </p>
-            <p>
-              Area : <span>Kanti Nagar</span>{" "}
-            </p>
-          </div>
-
-          <p className="note-text">
-            Note : The KabadiWala is already have a job in same area .{" "}
-          </p>
-
-          <div className="appoint-change-btns-flex">
-            <button
-              onClick={() => {
-                setConfirmPopup(!confirmPopup),
-                  setReshedPopup(false),
-                  setCancelPopupPopup(false);
-              }}
-              className="comn-appoint-btn comn-appoint-btn1 comn-appoint-btn1-bg-chnge "
-            >
-              Confirm Appointment
-            </button>
-
-            <button
-              onClick={() => {
-                setReshedPopup(!reshedPopup),
-                  setConfirmPopup(false),
-                  setCancelPopupPopup(false);
-              }}
-              className="comn-appoint-btn comn-appoint-btn2"
-            >
-              Reshedule Appointment
-            </button>
-
-            <button
-              onClick={() => {
-                setCancelPopupPopup(!cancelPopup),
-                  setReshedPopup(false),
-                  setConfirmPopup(false);
-              }}
-              className="comn-appoint-btn comn-appoint-btn3"
-            >
-              Cancel Appointment
-            </button>
-          </div>
-
-          <button
-            onClick={() => setPopUp(false)}
-            className="cross-btn cross-btn2"
-          >
-            <i className="fa-solid fa-xmark"></i>
-          </button>
-
-          {/* _______________ when user click confirm btn then after show a text  */}
-
-          <div
-            className={
-              confirmPopup === true
-                ? "confirm-text confrmtextactive"
-                : "confirm-text"
-            }
-          >
-            <p>Waste Pickup Scheduled and information has been sent to User</p>
-            <button className="navigate-link-btn navigate-link-btn3 navigate-link-btn5">
-              Confirm
-            </button>
-          </div>
-
-          <div
-            className={
-              reshedPopup === true
-                ? "reshedule-box reshedactive"
-                : "reshedule-box"
-            }
-          >
-            <p>
-              Change date time for reschedule your waste pickup appoint, Appoint
-              will be send to user for confirmation
-            </p>
-
-            <form action="#" className="reshed-form">
-              <div className="reshed-form-grid">
-                <div className="reshd-inpt-bx reshd-inpt-bx3">
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    autoComplete="off"
-                    required
-                  />
-                </div>
-
-                <div className="reshed-select-bx reshd-inpt-bx3">
-                  <select name="time_slot" id="time_slot">
-                    <option value="Choose Time">Choose Time</option>
-                    <option value="Choose Time">10:00 to 11:00</option>
-                    <option value="Choose Time">12:00 to 1:00</option>
-                    <option value="Choose Time">1:00 to 2:00</option>
-                    <option value="Choose Time">2:00 to 3:00</option>
-                  </select>
-                </div>
-
-                <button className="resd-sub-btn navigate-link-btn3 navigate-link-btn5">
-                  Send Request
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div
-            className={
-              cancelPopup === true ? "cancel-text cancelactive" : "cancel-text"
-            }
-          >
-            <p>Are you sure to Cancel Your Waste Pickup appointment</p>
-
-            <button
-              onClick={() => setPopUp(false)}
-              className="ok-btn navigate-link-btn3 navigate-link-btn5"
-            >
-              Confirm
-            </button>
-          </div>
-        </div>
-      </section>
-
       <section
         className={
           addressPopup === true
@@ -318,17 +175,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                             userId,
                             workerId,
                             serviceType,
-                            UserAddress: {
-                              id: addressId,
-                              locationType,
-                              landmark,
-                              subAria,
-                              aria,
-                              zipCode,
-                              state,
-                              city,
-                              street,
-                            },
+                            UserAddress,
                           },
                           i
                         ) => {
@@ -343,7 +190,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                   }).toFormat("ccc dd LLL yyyy")}
                                 </td>
                                 <td> {slotLabels?.[appointmentTimeSlot]} </td>
-                                <td> {subAria} </td>
+                                <td> {UserAddress?.subAria} </td>
                                 <td>
                                   {" "}
                                   <span
@@ -360,7 +207,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                   // }
                                   >
                                     {" "}
-                                    {locationType}{" "}
+                                    {UserAddress?.locationType}{" "}
                                   </span>{" "}
                                 </td>
                                 <td> {String(userId).padStart(6, "0")} </td>
@@ -380,8 +227,8 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                     onClick={() => {
                                       setAddressdetails({
                                         appoinmentAddress,
-                                        city,
-                                        zipCode,
+                                        city: UserAddress?.city,
+                                        zipCode: UserAddress?.zipCode,
                                       });
                                       setAddressPopup(true);
                                     }}
@@ -427,7 +274,17 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                         */}
 
                                     <button
-                                      onClick={() => setApntSlot(true)}
+                                      onClick={() => {
+                                        setApntSlot(true);
+                                        setAppoinmentDetails({
+                                          id,
+                                          serviceType,
+                                          appointmentTimeSlot,
+                                          appointmentDate,
+                                          appoinmentAddress,
+                                          UserAddress,
+                                        });
+                                      }}
                                       className="assign-btn"
                                     >
                                       Assign
@@ -449,9 +306,11 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
 
       {apntSlot ? (
         <AppointSlot
+          component={component}
           ApntSlotTrue={apntSlot}
+          appoinmentDetails={appoinmentDetails}
           onClickOpenPopup={() => {
-            confirmPopupfunc(), setApntSlot(false);
+            setApntSlot(false);
           }}
           onclickCloseApntSlot={() => setApntSlot(false)}
         />

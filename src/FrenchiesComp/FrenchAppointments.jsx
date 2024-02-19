@@ -215,9 +215,9 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                 <td>
                                   {" "}
                                   {
-                                    workers.find(
+                                    workers?.find(
                                       ({ value }) => value == serviceType
-                                    ).label
+                                    )?.label
                                   }{" "}
                                 </td>
                                 <td> {frequency} </td>

@@ -134,8 +134,14 @@ const IndvdualPlan = ({ onSwitch }) => {
       </div>
 
       {showCalendar && (
-        <div className="calendar-choose-date-comp">
-          <div className="calendar-choose-date-bx">
+        <div
+          onClick={() => setShowCalendar(false)}
+          className="calendar-choose-date-comp"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="calendar-choose-date-bx"
+          >
             <Calendar onChange={handleCalendarChange} value={selectedDate} />
             <button
               onClick={handleCalendarSubmit}

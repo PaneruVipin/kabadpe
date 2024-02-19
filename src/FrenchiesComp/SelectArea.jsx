@@ -222,7 +222,11 @@ const SelectArea = ({
   return (
     <>
       <section className="selct-area-comp" onClick={onclickClose}>
-        <div className="sel-area-main-bx" onClick={(e) => e.stopPropagation()}>
+        <div
+          style={{ width: "90%" }}
+          className="sel-area-main-bx"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h5>Select Area</h5>
 
           <div className="seach-loct-bx">
@@ -364,33 +368,48 @@ const SelectArea = ({
               </div>
             </div>
           </div>
-
-          <div className="sub-area-show-list-flex-bx">
-            {selectedArias?.map(
-              ({
-                ariaName,
-                ariaStatus,
-                city,
-                id,
-                monthlyPrice,
-                pincode,
-                quaterlyPrice,
-                state,
-                subAriaName,
-              }) => (
-                <div className="area-show-bx">
-                  <span>
-                    {subAriaName}{" "}
-                    <i
-                      onClick={handleRemoveAria(id)}
-                      class="fa-solid fa-circle-xmark"
-                    ></i>
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-
+          {selectedArias?.length ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <div className="sub-area-show-list-flex-bx">
+                {selectedArias?.map(
+                  ({
+                    ariaName,
+                    ariaStatus,
+                    city,
+                    id,
+                    monthlyPrice,
+                    pincode,
+                    quaterlyPrice,
+                    state,
+                    subAriaName,
+                  }) => (
+                    <div className="area-show-bx">
+                      <span>
+                        {subAriaName}{" "}
+                        <i
+                          onClick={handleRemoveAria(id)}
+                          class="fa-solid fa-circle-xmark"
+                        ></i>
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
+              <button
+              onClick={onclickClose}
+                style={{ width: "100px", height: "40px" }}
+                className="next-button "
+              >
+                Next
+              </button>
+            </div>
+          ) : null}
           <div onClick={onclickClose} className="close-btn">
             <i class="fa-solid fa-xmark"></i>
           </div>

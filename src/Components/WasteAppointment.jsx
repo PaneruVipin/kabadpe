@@ -26,7 +26,12 @@ const WasteAppointment = ({
   });
   return (
     <>
-      <ScheduleActionPopup setPopUp={setPopUp} popUp={popUp} />
+      <ScheduleActionPopup
+        refetchAppoinment={refetch}
+        selectedAppoinment={selectedAppoinment}
+        setPopUp={setPopUp}
+        popUp={popUp}
+      />
       <AddressPopup
         addressPopup={addressPopup}
         setAddressPopup={setAddressPopup}

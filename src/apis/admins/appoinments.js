@@ -41,3 +41,16 @@ export const adminAppoinmentAssign = resolvePromise(
     return res?.workers;
   }
 );
+
+export const adminAppoinmentForAssigningDateFetch = resolvePromise(
+  async (date) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/appinment/${date}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.appoinment;
+  }
+);

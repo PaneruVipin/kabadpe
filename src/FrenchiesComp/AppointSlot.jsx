@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import {
   adminAppoinmentAssign,
+  adminAppoinmentForAssigningDateFetch,
   adminServicableWorkersFetch,
 } from "../apis/admins/appoinments";
 import { slotLabels } from "../lib/slots";
@@ -12,6 +13,7 @@ const AppointSlot = ({
   onClickOpenPopup,
   component,
   appoinmentDetails,
+  refetchAppoinment,
 }) => {
   const [currentDate, setcurrentdate] = useState(new Date());
   const [popUp, setPopUp] = useState(false);
@@ -42,14 +44,21 @@ const AppointSlot = ({
     queryFn: () =>
       component == "admin" ? adminServicableWorkersFetch() : () => {},
   });
+
+  const { data: appoinments, refetch: refetchAppoinments } = useQuery({
+    queryKey: ["fetchAppoinmeAssigned"],
+    queryFn: () =>
+      adminAppoinmentForAssigningDateFetch(appoinmentDetails?.appointmentDate),
+  });
   const handleConfirmClick = async () => {
     const res = await adminAppoinmentAssign({
       appoinmentId: appoinmentDetails?.id,
       workerId: selectedWorker?.id,
     });
     if (!res?.error) {
+      refetchAppoinment();
       setPopUp(false);
-      onClickOpenPopup;
+      onClickOpenPopup();
       return;
     }
   };
@@ -321,9 +330,23 @@ const AppointSlot = ({
                             <td>
                               <div className="assign-flex-bx">
                                 <div className="slot-data">
-                                  <span>1. Laxmi Nagar</span>
-                                  <span>2. Kundan Nagar</span>
-                                  <span>3. Azad Nagar</span>
+                                  {!appoinments?.error
+                                    ? appoinments
+                                        ?.filter(
+                                          (a) =>
+                                            a?.appointmentTimeSlot == key &&
+                                            a?.workerId == id &&
+                                            a?.id != appoinmentDetails?.id
+                                        )
+                                        ?.map(({ UserAddress }, i) => (
+                                          <span>
+                                            {i + 1}.{" "}
+                                            {UserAddress?.aria +
+                                              ", " +
+                                              UserAddress?.subAria}
+                                          </span>
+                                        ))
+                                    : null}
                                 </div>
 
                                 {key ==

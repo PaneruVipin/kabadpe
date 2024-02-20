@@ -52,7 +52,7 @@ const Wastecollectdashboard = ({}) => {
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
       />
-      <Redirect role="kabadCollector" path="/auth/collector" />
+      {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -256,12 +256,10 @@ const Wastecollectdashboard = ({}) => {
       {profBtn === 11 ? <GuestBuyWaste /> : null}
       {profBtn === 12 ? <ClearStock /> : null}
 
-      <section className="right-side-admin-all-comp right-side-admin-all-comp5">
         {profBtn === 13 ? (
           <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />
         ) : null}
         {profBtn === 14 ? <WasteSubsPlan /> : null}
-      </section>
     </>
   );
 };

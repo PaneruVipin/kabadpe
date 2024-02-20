@@ -5,7 +5,7 @@ const WasteSales = () => {
     <>
       <section className='waste-colectin-comp waste-appoint-ment-comp'>
       <h3>Sales History</h3>
-
+      
       <div
                 className= "table-parent-bx table-parent-bx5 table-parent-bx10 tab-bx tabbxactive"
 

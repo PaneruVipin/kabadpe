@@ -38,6 +38,7 @@ import ForIndividuals from "../AdminComponents.jsx/ForIndividuals";
 import { adminAppoinmentsFetch } from "../apis/admins/appoinments";
 import { useQuery } from "@tanstack/react-query";
 import Redirect from "../Components/Auth/RedirectIfLogout";
+import AdminTransaction from "./AdminTransaction";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -178,7 +179,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <Redirect role="superAdmin" path="/adminlogin" />
+      {/* <Redirect role="superAdmin" path="/adminlogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -711,6 +712,24 @@ const AdminPanel = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="admin-nv-li admin-nv-li-dashbrd">
+            <div
+              onClick={() => {
+                handleButtonClick(16), handleViewComp("transaction");
+              }}
+              className={
+                component === "transaction"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="a-nv-i">
+                <CiShop />
+              </div>
+              <span>Transactions</span>
             </div>
           </div>
 
@@ -1283,6 +1302,10 @@ const AdminPanel = () => {
         ) : null}
         {component === "otherAppoint" ? (
           <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} />
+        ) : null}
+
+{component === "transaction" ? (
+          <AdminTransaction  />
         ) : null}
       </section>
     </>

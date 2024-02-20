@@ -12522,3 +12522,16 @@ Our Review Section CSS code
     pointer-events: none;
 
 }
+
+.fren-subscrip-plan-comp2{
+  padding-top: 8rem;
+  padding-inline-start: 20rem;
+}
+
+.sel-area-main-bx{
+  height: 30rem ;
+}
+
+.top-user-prof-search-bx2{
+  z-index: 999 !important;
+}

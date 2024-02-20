@@ -1,267 +1,358 @@
-import React, { useState } from 'react'
-import '../style/ReferEarn.css';
+import React, { useState } from "react";
+import "../style/ReferEarn.css";
 import "../style/Profile.css";
 import "../style/BankCard.css";
 import "../style/WasteColect.css";
-import WalletData from './WalletData';
+import WalletData from "./WalletData";
 import DatePicker from "react-datepicker";
-import ConfirmOtp from './ConfirmOtp';
-import WaletBalance from './WaletBalance';
-import AddMoneyOtp from './AddMoneyOtp';
-import AddMoneyAmount from './AddMoneyAmount';
+import ConfirmOtp from "./ConfirmOtp";
+import WaletBalance from "./WaletBalance";
+import AddMoneyOtp from "./AddMoneyOtp";
+import AddMoneyAmount from "./AddMoneyAmount";
+import SucesfulyTran from "../WasteColectComp/SucesfulyTran";
+import PaymntDet from "../WasteColectComp/PaymntDet";
+import TranferAmnt from "../WasteColectComp/TranferAmnt";
+import TrnferSucesful from "../WasteColectComp/TrnferSucesful";
+import TrnferDet from "../WasteColectComp/TrnferDet";
 
 const WasteWallet = () => {
-    const [waletData , setWaletData] =  useState(WalletData);
-    const [butonActive , setButonActive] = useState(true);
-    const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-    const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-    const [searchItem , setSearchItem] = useState('');
-    const [otp , setOtp ] = useState(false);
-    const [transaction , setTransaction ] = useState(false);
-    const [addMoneyOtp , setAddMoneyOtp] = useState(false)
-    const [addAmount , setAddAmount] = useState(false)
+  const [waletData, setWaletData] = useState(WalletData);
+  const [butonActive, setButonActive] = useState(true);
+  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
+  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [searchItem, setSearchItem] = useState("");
+  const [otp, setOtp] = useState(false);
+  const [transaction, setTransaction] = useState(false);
+  const [addMoneyOtp, setAddMoneyOtp] = useState(false);
+  const [addAmount, setAddAmount] = useState(false);
+  const [sucesfulyTrnsctin, setSucesfulyTrnsctin] = useState(false);
+  const [paymntDet, setPaymntDet] = useState(false);
+  const [trnfrAmnt, setTrnfrAmnt] = useState(false);
+  const [trnfrComplte, setTrnfrComplte] = useState(false);
+  const [trnferDet, setTrnferDet] = useState(false);
 
-
-
-   const filterData = (categValue) => {
-
+  const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
-        return (
+      return elem.category === categValue;
+    });
 
-            elem.category === categValue
-            
-        )
-    })
+    setWaletData(updatedData);
+  };
 
-    setWaletData(updatedData)
-    
-   }
-
-   const butonActFunc = (index) => {
-
+  const butonActFunc = (index) => {
     setButonActive(index);
-    
-   }
+  };
 
-   const showSearchItem = (e) => {
-
+  const showSearchItem = (e) => {
     const updatedSearc = e.target.value;
-    
-   setSearchItem(updatedSearc);
 
-   const updatedSearchData =  WalletData.filter((curItem) => {
-    return (
-        curItem.category.toLowerCase().includes(searchItem.toLowerCase())
-    )
+    setSearchItem(updatedSearc);
 
-   })
+    const updatedSearchData = WalletData.filter((curItem) => {
+      return curItem.category.toLowerCase().includes(searchItem.toLowerCase());
+    });
 
-   setWaletData(updatedSearchData)
+    setWaletData(updatedSearchData);
+  };
 
-   
-    
-   }
-
-    
   return (
     <>
-
-    <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
-
+      <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
         <div className="top-wallet-box">
+          <h6>Transactions</h6>
 
-            <h6>Transactions</h6>
+          <div className="right-wallet-box">
+            <button
+              onClick={() => setAddMoneyOtp(true)}
+              className="tranfer-btn add-money-btn"
+            >
+              Add Money
+            </button>
 
-            <div className="right-wallet-box">
+            <button onClick={() => setOtp(true)} className="tranfer-btn">
+              Withdraw Now
+            </button>
 
-                
-            <button onClick={() => setAddMoneyOtp(true)}   className="tranfer-btn add-money-btn">
-                    Add Money
-                </button>
-
-                <button onClick={() => setOtp(true)} className="tranfer-btn">
-                    Withdraw Now
-                </button>
-
-                <div className="refrl-balance-box">
+            <div className="refrl-balance-box">
               <p>Total Balance</p>
               <div className="balance-box">
-                <div className="rupes-icon">
-                ₹
-                </div>
+                <div className="rupes-icon">₹</div>
                 <span>500.00</span>
               </div>
             </div>
-                
-            </div>
-            
+          </div>
         </div>
 
         <div className="walet-tabs-filter-flex-box">
-
-
-        <div className="wallet-tabs-btns-flex-box">
-
-            <button onClick={() => {setWaletData(WalletData) , butonActFunc(1)}}  className={ butonActive == 1 ? "walt-tab wallactive" : "walt-tab"}>
-                All
+          <div className="wallet-tabs-btns-flex-box">
+            <button
+              onClick={() => {
+                setWaletData(WalletData), butonActFunc(1);
+              }}
+              className={butonActive == 1 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              All
             </button>
-            <button onClick={() => {filterData('receive') , butonActFunc(2)}} className={ butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}>
-                Received
+            <button
+              onClick={() => {
+                filterData("receive"), butonActFunc(2);
+              }}
+              className={butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Received
             </button>
-            <button onClick={() => {filterData('payment') , butonActFunc(3)}} className={ butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}>
-                Payment
+            <button
+              onClick={() => {
+                filterData("payment"), butonActFunc(3);
+              }}
+              className={butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Payment
             </button>
-            <button onClick={() => {filterData('withdraw') , butonActFunc(4)}}  className={ butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}>
-                Withdraw
+            <button
+              onClick={() => {
+                filterData("withdraw"), butonActFunc(4);
+              }}
+              className={butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Withdraw
             </button>
-            
-        </div>
+          </div>
 
-        <div className="right-fitler-part-box">
-
+          <div className="right-fitler-part-box">
             <div className="search-wallet-transactions">
-                <input type="text" name='search' id='search' value={searchItem} onChange={showSearchItem} placeholder='Search...' autoComplete='off' />
+              <input
+                type="text"
+                name="search"
+                id="search"
+                value={searchItem}
+                onChange={showSearchItem}
+                placeholder="Search..."
+                autoComplete="off"
+              />
             </div>
 
             <div className="past-days-selec-box">
-            <i class="fa-regular fa-calendar-days"></i>
-            <select name="pastdays" id="pastdays">
+              <i class="fa-regular fa-calendar-days"></i>
+              <select name="pastdays" id="pastdays">
                 <option value="pastdays">Past 10 days</option>
                 <option value="pastdays">Past 30 days</option>
                 <option value="pastdays">Past 90 days</option>
-
-            </select>
+              </select>
             </div>
 
             <div className="dates-flex-box">
-
-              
-
-                <div className="sel-date">
+              <div className="sel-date">
                 <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        selectsStart
-        startDate={startDate}
-        endDate={endDate}
-      />
-    
-                </div>
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+              </div>
 
-                <span>to</span>
+              <span>to</span>
 
-                <div className="sel-date">
+              <div className="sel-date">
                 <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        selectsEnd
-        startDate={startDate}
-        endDate={endDate}
-        minDate={startDate}
-      />
-                </div>
-
-                
-                
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                />
+              </div>
             </div>
 
             <div className="search-btn">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                  </div>
-            
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </div>
         </div>
 
-        </div>
-
-
-        <div className="bank-card-table wallet-table-box">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
+        <div className="bank-card-table wallet-table-box trnct-table2 trnct-table">
+          <table>
+            <thead>
+              <tr>
+              <th>SN.</th>
                         <th>Date</th>
-                        <th>Invoice ID</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>User Name</th>
+                        <th>User Type</th>
+                        <th>Transaction Type</th>
+                        <th>Amount (Credit) </th>
+                        <th>Amount (Debit)</th>
+                        <th>Comission</th>
+                        <th>Balance </th>
+                        <th>Status </th>
+                        <th>Invoice </th>
+                        <th>Details </th>
+              </tr>
+            </thead>
+            <tbody>
+              {waletData.map((curElem, indx) => {
+                return (
+                  <>
+                    <tr>
+                      {" "}
+                      <td>
+                        <span className="b-span2"> {indx + 1} </span>
+                      </td>
+                      <td>
+                        <div className="b-date">
+                          <p> {curElem.date} </p>
+                          <span> {curElem.time} </span>
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          className="bussin-flex-box"
+                          key={indx}
+                          id={curElem.indx}
+                        >
+                          <div className="b-img">
+                            <img src={curElem.img} alt="" />
+                          </div>
+
+                          <div className="b-info ">
+                            <p>{curElem.name}</p>
+                            <span>{curElem.uniqueID} </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span className="b-span2"> {curElem.usertype} </span>
+                      </td>
+                      <td>
+                        <span className="b-span2">
+                          {" "}
+                          {curElem.transactiontype}{" "}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="b-span2"> {curElem.amountdebit} </span>
+                      </td>
+                      <td>
+                        <span className="b-span2">
+                          {" "}
+                          {curElem.amountcredit}{" "}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="b-span2"> {curElem.cmision} </span>
+                      </td>
+                      <td>
+                        <span className="b-span2"> {curElem.balance} </span>
+                      </td>
+                      <td className="text-tb-left">
+                        <span
+                          className={
+                            curElem.category === "failed"
+                              ? "status-g redstatus"
+                              : "status_g"
+                          }
+                          style={{
+                            color:
+                              curElem.color_Status === "orange"
+                                ? "orange"
+                                : "green",
+                          }}
+                        >
+                          {" "}
+                          {curElem.status}{" "}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="id-dwld-btn">
+                          <span className="b-span"> {curElem.uniqueID2} </span>
+                          <i class="fa-regular fa-circle-down"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          onClick={() => setPaymntDet(true)}
+                          className="det-btn"
+                        >
+                          Details
+                        </div>
+                      </td>
                     </tr>
-                </thead>
-                <tbody>
-                
-                {waletData.map((curElem,indx) => {
-
-                    return(
-                        <>
-
-<tr>
-                        <td>
-                            <div className="bussin-flex-box" key={indx} id={curElem.indx}>
-                                <div className="b-img">
-                                    <img src={curElem.img} alt="" />
-                                </div>
-
-                                <div className="b-info">
-                                    <p>{curElem.name}</p>
-                                    <span>{curElem.uniqueID} </span>
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div className="b-date">
-                                <p> {curElem.date} </p>
-                                <span> {curElem.time} </span>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div className="id-dwld-btn">
-                            <span className='b-span'> {curElem.uniqueID2} </span>
-                            <i class="fa-regular fa-circle-down"></i>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span className='b-span2'> ₹{curElem.amount} </span>
-                        </td>
-
-                        <td>
-                            <span className="status-g" style={{color: curElem.color_Status === 'orange' ? "orange" : "green"}}> {curElem.status} </span>
-                        </td>
-
-                        <td>
-                            <div className="det-btn">
-                                Details
-                            </div>
-                        </td>
-                        
-                    </tr>
-                        
-                        </>
-                    )
-                    
-                })}
-                    
-                    
-                   
-
-                   
-                </tbody>
-            </table>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
+      </section>
 
-    
-    </section>
-
-  
-   {otp == true ? <ConfirmOtp onclickcloseOtp={() => setOtp(false)} onClickOpen={() => {setTransaction(true) , setOtp(false)}} /> : null}
-   { transaction === true ? <WaletBalance oncClickclose={() => {setTransaction(false) , setOtp(false) }}   /> : null}
-  {addMoneyOtp ? <AddMoneyOtp onclickcloseOtp={() => setAddMoneyOtp(false) } onclickOpenAmountBx={() => {setAddAmount(true) , setAddMoneyOtp(false) }} /> : null }
-  {addAmount ? <AddMoneyAmount onclickCloseAmount={() => setAddAmount(false)}   /> : null}
-    
-   
+      {otp == true ? (
+        <ConfirmOtp
+          onclickcloseOtp={() => setOtp(false)}
+          onClickOpen={() => {
+            setTransaction(true), setOtp(false);
+          }}
+        />
+      ) : null}
+      {transaction === true ? (
+        <WaletBalance
+          oncClickclose={() => {
+            setTransaction(false), setOtp(false);
+          }}
+          onclickTrnferAmnt={() => {
+            setTransaction(false), setOtp(false), setTrnfrAmnt(true);
+          }}
+        />
+      ) : null}
+      {addMoneyOtp ? (
+        <AddMoneyOtp
+          onclickcloseOtp={() => setAddMoneyOtp(false)}
+          onclickOpenAmountBx={() => {
+            setAddAmount(true), setAddMoneyOtp(false);
+          }}
+        />
+      ) : null}
+      {addAmount ? (
+        <AddMoneyAmount
+          onclickCloseAmount={() => setAddAmount(false)}
+          onClickAddAmnt={() => {
+            setSucesfulyTrnsctin(true), setAddAmount(false);
+          }}
+        />
+      ) : null}
+      {sucesfulyTrnsctin ? (
+        <SucesfulyTran
+          onclickViewDet={() => {
+            setSucesfulyTrnsctin(false), setPaymntDet(true);
+          }}
+        />
+      ) : null}
+      {paymntDet ? (
+        <PaymntDet onclickCloseAll={() => setPaymntDet(false)} />
+      ) : null}
+      {trnfrAmnt ? (
+        <TranferAmnt
+          onclickCompltTrnfer={() => {
+            setTrnfrComplte(true), setTrnfrAmnt(false);
+          }}
+        />
+      ) : null}
+      {trnfrComplte ? (
+        <TrnferSucesful
+          onclickTrnferDet={() => {
+            setTrnferDet(true), setTrnfrComplte(false);
+          }}
+        />
+      ) : null}
+      {trnferDet ? (
+        <TrnferDet
+          onclickClose={() => {
+            setTrnferDet(false);
+          }}
+        />
+      ) : null}
     </>
-  )
-}
+  );
+};
 
-export default WasteWallet
+export default WasteWallet;

@@ -32,7 +32,10 @@ const FrenchSubscriptionPlanTwo = ({ onclickRedirect }) => {
   };
   return (
     <>
-      <section className="subscrip-plan-comp">
+
+
+    <section className="user-prof-grid-comp subscrip-plan-comp subscrip-plan-comp5 ">
+
         <div className="top-subs-text-flex">
           <h6>Subscribed </h6>
 

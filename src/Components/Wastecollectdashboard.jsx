@@ -24,6 +24,7 @@ import FrenchSubscriptionPlanTwo from "../FrenchiesComp/FrenchSubscriptionPlanTw
 import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
 import TopFixMenu from "../FrenchiesComp/TopFixMenu";
 import Redirect from "./Auth/RedirectIfLogout";
+import { logout } from "../lib/logout";
 
 const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -216,7 +217,10 @@ const Wastecollectdashboard = ({}) => {
           </button> */}
         </div>
 
-        <div className="profile-log-out-btn profile-log-out-btn2">
+        <div
+          onClick={logout}
+          className="profile-log-out-btn profile-log-out-btn2"
+        >
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Log Out</span>
         </div>
@@ -259,7 +263,8 @@ const Wastecollectdashboard = ({}) => {
         {profBtn === 13 ? (
           <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />
         ) : null}
-        {profBtn === 14 ? <WasteSubsPlan /> : null}
+        {profBtn === 14 ? <WasteSubsPlan onSuccess={() => setProfBtn(13)}/> : null}
+      {/* </section> */}
     </>
   );
 };

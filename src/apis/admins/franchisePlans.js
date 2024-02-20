@@ -10,5 +10,16 @@ export const adminfranchisePlansFetch = resolvePromise(async () => {
       Authorization: token,
     },
   });
-  return res?.plans;
+  return res;
+});
+
+export const adminIndPlansFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/ind/plans`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
 });

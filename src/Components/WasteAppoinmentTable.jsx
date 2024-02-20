@@ -1,6 +1,9 @@
 import { DateTime } from "luxon";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import timeslotdata from "../HomeComponent/timeslotData";
+import { slotLabels } from "../lib/slots";
+import { workerAppoinmentsAnswerAssigning } from "../apis/worker/appoinments";
 // import "../style/WasteColect.css";
 const WasteAppoinmentTable = ({
   setAddressPopup,
@@ -33,10 +36,11 @@ const WasteAppoinmentTable = ({
                 id,
                 orderStatus,
                 appointmentDate,
-                formatedAddress,
+                appoinmentAddress,
                 appointmentTimeSlot,
                 appointmentContactNumber,
                 appointmentPersonName,
+                assigningStatus,
               },
               i
             ) => (
@@ -45,7 +49,7 @@ const WasteAppoinmentTable = ({
                 <td>
                   {DateTime.fromISO(appointmentDate).toFormat("dd-MM-yyyy")}
                 </td>
-                <td>{appointmentTimeSlot}</td>
+                <td>{slotLabels?.[appointmentTimeSlot]}</td>
                 <td>{appointmentPersonName}</td>
                 <td>
                   <button
@@ -55,7 +59,7 @@ const WasteAppoinmentTable = ({
                         id,
                         orderStatus,
                         appointmentDate,
-                        formatedAddress,
+                        appoinmentAddress,
                         appointmentTimeSlot,
                         appointmentContactNumber,
                         appointmentPersonName,
@@ -73,43 +77,51 @@ const WasteAppoinmentTable = ({
                     </button>
                   </a>
                 </td>
-                <td>Visit Soon</td>
                 <td>
-                  <NavLink to="#" onClick={() => setProfBtn(10)}>
-                    <button className="pricelist-btn">Buy Waste</button>
-                  </NavLink>
+                  {orderStatus != "active" ? (
+                    orderStatus
+                  ) : assigningStatus == "request" ? (
+                    <button
+                      onClick={() => {
+                        setSelectedAppoinment({
+                          id,
+                          orderStatus,
+                          appointmentDate,
+                          appoinmentAddress,
+                          appointmentTimeSlot,
+                          appointmentContactNumber,
+                          appointmentPersonName,
+                        });
+                        setPopUp(true);
+                      }}
+                      className="status-btn status-btn-changed"
+                    >
+                      Confirm Status
+                    </button>
+                  ) : assigningStatus == "confirm" ? (
+                    "Visit Soon"
+                  ) : null}
+                </td>
+                <td>
+                  {orderStatus == "active" && assigningStatus != "request" ? (
+                    <NavLink
+                      to="#"
+                      onClick={() => {
+                        setBuyWasteUserInfo({
+                          phoneNumber: appointmentContactNumber,
+                          name: appointmentPersonName,
+                          appoinmentId: id,
+                        });
+                        setProfBtn(10);
+                      }}
+                    >
+                      <button className="pricelist-btn">Buy Waste</button>
+                    </NavLink>
+                  ) : null}
                 </td>
               </tr>
             )
           )}
-
-          <tr>
-            <td>5</td>
-            <td>22-09-2023</td>
-            <td>2.00 to 3.00</td>
-            <td>Rohan Das</td>
-            <td>
-              <button
-                onClick={() => setAddressPopup(true)}
-                className="status-btn status-btn-changed"
-              >
-                Details
-              </button>
-            </td>
-            <td>
-              <button className="status-btn status-btn-changed">
-                Call Now
-              </button>
-            </td>
-            <td>
-              Under Review <br /> (Reschedule)
-            </td>
-            <td>
-              <NavLink to="#" >
-                <button onClick={() => setProfBtn(10)} className="pricelist-btn">Buy Waste</button>
-              </NavLink>
-            </td>
-          </tr>
         </tbody>
       </table>
     </>
@@ -125,7 +137,7 @@ export const AddressPopup = ({
     id,
     orderStatus,
     appointmentDate,
-    formatedAddress,
+    appoinmentAddress,
     appointmentTimeSlot,
     appointmentContactNumber,
     appointmentPersonName,
@@ -160,17 +172,17 @@ export const AddressPopup = ({
             Type : <span>Daily</span>
           </h6> */}
           <h6>
-            Time Slot : <span>{appointmentTimeSlot}</span>
+            Time Slot : <span>{slotLabels?.[appointmentTimeSlot]}</span>
           </h6>
           <h6>
-            Address : <span>{formatedAddress}</span>
+            Address : <span>{appoinmentAddress}</span>
           </h6>
         </div>
 
         <a
           target="blank"
           href={`https://www.google.com/maps/dir//${encodeURIComponent(
-            formatedAddress
+            appoinmentAddress
           )}`}
           className="navigate-link-btn navigate-link-btn3 mt-3"
         >
@@ -189,10 +201,25 @@ export const AddressPopup = ({
   );
 };
 
-export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
+export const ScheduleActionPopup = ({
+  selectedAppoinment,
+  setPopUp,
+  popUp,
+  refetchAppoinment,
+}) => {
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
+  const handleConfirm = async (assigningStatus) => {
+    const res = await workerAppoinmentsAnswerAssigning({
+      id: selectedAppoinment?.id,
+      assigningStatus,
+    });
+    if (!res?.error) {
+      refetchAppoinment();
+      setPopUp(false);
+    }
+  };
   return (
     <>
       <section
@@ -223,7 +250,7 @@ export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
               Confirm Appointment
             </button>
 
-            <button
+            {/* <button
               onClick={() => {
                 setReshedPopup(!reshedPopup),
                   setConfirmPopup(false),
@@ -232,7 +259,7 @@ export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
               className="comn-appoint-btn comn-appoint-btn2"
             >
               Reshedule Appointment
-            </button>
+            </button> */}
 
             <button
               onClick={() => {
@@ -242,7 +269,7 @@ export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
               }}
               className="comn-appoint-btn comn-appoint-btn3"
             >
-              Cancel Appointment
+              Reject Appointment
             </button>
           </div>
 
@@ -263,11 +290,14 @@ export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
             }
           >
             <p>Waste Pickup Scheduled and information has been sent to User</p>
-            <button className="navigate-link-btn navigate-link-btn3">
+            <button
+              onClick={() => handleConfirm("confirm")}
+              className="navigate-link-btn navigate-link-btn3"
+            >
               Confirm
             </button>
           </div>
-
+          {/* 
           <div
             className={
               reshedPopup === true
@@ -307,20 +337,20 @@ export const ScheduleActionPopup = ({ setPopUp, popUp }) => {
                 </button>
               </div>
             </form>
-          </div>
+          </div> */}
 
           <div
             className={
               cancelPopup === true ? "cancel-text cancelactive" : "cancel-text"
             }
           >
-            <p>Are you sure to Cancel Your Waste Pickup appointment</p>
+            <p>Are you sure to Reject Your Waste Pickup appointment</p>
 
             <button
-              onClick={() => setPopUp(false)}
+              onClick={() => handleConfirm("cancel")}
               className="ok-btn navigate-link-btn3"
             >
-              Confirm
+              Reject
             </button>
           </div>
         </div>

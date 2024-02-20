@@ -104,6 +104,7 @@ const BuyWasteTable = ({
     const data = {
       orderDetail: { waste: tableData, totalAmmount },
       user: buyWasteUserInfo,
+      appoinmentId:buyWasteUserInfo?.appoinmentId
     };
     const res = await workerBuyWasteCallbackCash(data);
     if (!res?.error) {

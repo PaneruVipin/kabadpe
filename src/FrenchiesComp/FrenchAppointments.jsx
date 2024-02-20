@@ -11,7 +11,11 @@ import { slotLabels } from "../lib/slots";
 import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
 
-const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
+const FrenchAppointments = ({
+  refetchAppoinment,
+  appoinments,
+  component = "franchise",
+}) => {
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
@@ -152,6 +156,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                     <th>Frequency</th>
                     <th>Esimated Weight</th>
                     <th>Customer Address</th>
+                    <th>Worker Name</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -176,6 +181,8 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                             workerId,
                             serviceType,
                             UserAddress,
+                            assigningStatus,
+                            KabadCollector,
                           },
                           i
                         ) => {
@@ -237,8 +244,17 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                                     Details
                                   </button>
                                 </td>
+                                <td>{KabadCollector?.fullname}</td>
                                 <td>
-                                  {" "}
+                                  {orderStatus != "active" ? (
+                                    <span>{orderStatus}</span>
+                                  ) : assigningStatus == "request" ? (
+                                    <span>Assign - Requested</span>
+                                  ) : assigningStatus == "confirm" ? (
+                                    <span>Assigned</span>
+                                  ) : assigningStatus == "cancel" ? (
+                                    <span>Assign - Rejected</span>
+                                  ) : null}{" "}
                                   {/* <span
                                   // className={
                                   //   elem.statustype === "reschedule" ||
@@ -273,22 +289,26 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
                          onClick={() => confirmPopupfunc()}
                         */}
 
-                                    <button
-                                      onClick={() => {
-                                        setApntSlot(true);
-                                        setAppoinmentDetails({
-                                          id,
-                                          serviceType,
-                                          appointmentTimeSlot,
-                                          appointmentDate,
-                                          appoinmentAddress,
-                                          UserAddress,
-                                        });
-                                      }}
-                                      className="assign-btn"
-                                    >
-                                      Assign
-                                    </button>
+                                    {(!assigningStatus ||
+                                      assigningStatus == "cancel") &&
+                                    orderStatus == "active" ? (
+                                      <button
+                                        onClick={() => {
+                                          setApntSlot(true);
+                                          setAppoinmentDetails({
+                                            id,
+                                            serviceType,
+                                            appointmentTimeSlot,
+                                            appointmentDate,
+                                            appoinmentAddress,
+                                            UserAddress,
+                                          });
+                                        }}
+                                        className="assign-btn"
+                                      >
+                                        Assign
+                                      </button>
+                                    ) : null}
                                   </div>
                                 </td>
                               </tr>
@@ -306,6 +326,7 @@ const FrenchAppointments = ({ appoinments, component = "franchise" }) => {
 
       {apntSlot ? (
         <AppointSlot
+          refetchAppoinment={refetchAppoinment}
           component={component}
           ApntSlotTrue={apntSlot}
           appoinmentDetails={appoinmentDetails}

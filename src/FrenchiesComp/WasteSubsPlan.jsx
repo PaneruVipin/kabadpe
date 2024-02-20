@@ -112,8 +112,8 @@ const WasteSubsPlan = ({onSuccess}) => {
 
                           <p>
                             {" "}
-                            ₹{subs?.C?.planAmount
-                              ? subs?.C?.planAmount
+                            ₹{subs?.B?.planAmount
+                              ? subs?.B?.planAmount
                               : 0.0}{" "}
                             <span>/Per lead</span>{" "}
                           </p>
@@ -364,7 +364,7 @@ const WasteSubsPlan = ({onSuccess}) => {
                             {" "}
                             <button
                               className="subs-now-btn"
-                              onClick={handelSubscribeClick(subs?.A?.id)}
+                              onClick={handelSubscribeClick(subs?.B?.id)}
                             >
                               Subscribe Now
                             </button>{" "}
@@ -375,7 +375,7 @@ const WasteSubsPlan = ({onSuccess}) => {
                             {" "}
                             <button
                               className="subs-now-btn"
-                              onClick={handelSubscribeClick(subs?.A?.id)}
+                              onClick={handelSubscribeClick(subs?.C?.id)}
                             >
                               Subscribe Now
                             </button>{" "}

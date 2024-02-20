@@ -595,7 +595,7 @@
    position: relative;
    width: 30rem;
    border-radius: .45rem;
-   padding: 1.45rem 2rem 2.5rem 2rem;
+   padding: 1.45rem 2rem 1.87rem 2rem;
    background-color: #fff;
  }
 
@@ -631,19 +631,21 @@
  }
 
  .tranfer-btn5{
-   margin: 1.5rem auto 1.5rem auto;
+   margin: 0 auto 0 auto;
    background-color: #4e49b8;
    border-color: #4e49b8;
  }
 
  .walet-bal-box .note-text{
-   position: absolute;
-   bottom: .2rem;
-   left: .56rem;
+   position: relative;
+   top: -1rem;
+   margin-bottom: 1rem;
+   left: 0;
    display: block;
    font-size: .8rem;
    color: #000248;
    font-weight: 600;
+   text-align: left;
 
  }
 
@@ -902,3 +904,433 @@
   border-color: #ddd;
  }
 
+ .add-amnt-field{
+  margin-bottom: 0;
+ }
+
+ .sucesfuly-trnsctin-comp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .sucesfuly-trnsctin-comp:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.67;
+ }
+
+ .sucesfuly-trnsctin-box{
+  position: relative;
+  width: max-content;
+  padding: 2rem 2.98rem;
+  background-color: #fff;
+  border-radius: .55rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+ }
+
+ .check-bx{
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  background-color: #096609;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 2rem;
+  animation: pulseshadowss 1s linear infinite ;
+ }
+
+ @keyframes pulseshadowss {
+
+  0%{
+    box-shadow:  0 0 0 1px #c2f5c2;
+  }
+
+  100%{
+    box-shadow:  0 0 0 25px transparent;
+
+
+  }
+
+ 
+  
+ }
+
+ .sucesfuly-trnsctin-box p{
+  margin-bottom: 0;
+ }
+
+ .sucesfuly-trnsctin-box h6{
+  color: #000248;
+ }
+
+ .check-bx i{
+  font-size: 1.87rem;
+  color: #fff;
+
+ }
+
+ .paymnt-det-bx{
+  position: relative;
+  width: 30rem;
+  padding: 1.5rem 1.5rem;
+  background-color: #fff;
+  border-radius: .55rem;
+
+ }
+
+ .paymnt-det-bx > h5{
+  font-size: 1.2rem;
+  letter-spacing: .55px;
+  color: #000248;
+ }
+
+ .paymnt-det-bx > h5 ~ p{
+  position: relative;
+  font-size: 1rem;
+  letter-spacing: .55px;
+  margin-bottom: 0;
+  padding-bottom: .1rem;
+  border-bottom: .1rem solid #eee;
+  margin-bottom: 1.5rem;
+ }
+
+ 
+ .paymnt-det-text-bx{
+  position: relative;
+  width: 100%;
+  margin-bottom: .5rem;
+ }
+
+ .paymnt-det-text-bx > h6{
+  font-size: .9rem;
+  color: #111111;
+  font-weight: 700;
+ }
+
+ 
+ .paymnt-det-text-bx > h6 ~ span{
+  font-size: .9rem;
+ }
+
+ .debted-form{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  border-bottom: .1rem solid #eee;
+ }
+
+ .left-bank-logo{
+  position: relative;
+  width: 1.3rem;
+
+ }
+
+ .left-bank-logo img{
+  width: 100%;
+  height: auto;
+ }
+
+ .bank-infoo {
+  margin-top: .4rem;
+ }
+
+ .bank-infoo h6{
+  font-size: 1rem;
+  color: #363636;
+ }
+
+ .bank-infoo p{
+  font-size: .9rem;
+ }
+
+ .pricee-t{
+  position: absolute;
+  top: 0;
+  right: 0;
+ }
+
+ .bank-btns-flex{
+  display: flex;
+  align-items: center;
+  gap: 0;
+  justify-content: center;
+ }
+ 
+
+ .trnfr-amnt-bx{
+  position: relative;
+  width: 30rem;
+  background-color: #fff;
+  border-radius: .55rem;
+  padding: 1.5rem 1.5rem;
+  
+ }
+
+ .add-amnt-grid{
+  display: grid;
+  grid-template-columns: 1fr .3fr 1fr;
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+ }
+
+ .add-amnt-bx{
+  width: 100%;
+ }
+
+ .add-amnt-bx input{
+  width: 100%;
+ }
+
+ .full-amnt-btn{
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  color: #000248;
+ }
+
+ .add-amnt-grid span{
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .trnfr-amnt-bx h6{
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1.3rem;
+ }
+
+ .cent-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+ }
+
+ .status-g{
+  color: #ff0000 !important;
+  text-align: left;
+ }
+
+ .admin-transction{
+  padding-top: 2rem !important;
+  padding-inline-start: 0 ;
+ }
+
+ .trnct-table table tbody tr .text-tb-left{
+  text-align: left;
+ }
+
+ /* _______________________________________
+  Our Admin Transactions CSS codes
+  ---------------------- */
+
+  .total-walet-main{
+    position: relative;
+    cursor: pointer;
+
+  }
+
+  .walet-balnce-main-bx{
+    position: absolute;
+    top: 2.5rem;
+    left: -.87rem;
+    z-index: 999;
+    width: 16rem;
+    background-color: #fff;
+    border: .1rem solid #eee;
+    padding: 1rem .67rem;
+    border-radius: .55rem;
+    transition: 400ms ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+
+  }
+
+  .refrl-balance-box2{
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 400ms ease;
+    padding: .4rem .56rem ;
+    border-radius: .55rem;
+  }
+
+  .refrl-balance-box2:hover{
+    background-color: #fff8ec;
+  }
+
+  .total-walet-main:hover .walet-balnce-main-bx{
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+
+  .update-walet-credit-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .update-walet-credit-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111111af;
+    z-index: -1;
+  }
+
+
+  .updte-walet-credit-bx{
+    position: relative;
+    width: 30rem;
+    background-color: #fff;
+    border-radius: .55rem;
+    padding: 1.5rem 1.5rem;
+
+  }
+
+  .amnt-fild-bx{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    margin-bottom: .65rem;
+  }
+
+  .amnt-fild-bx label{
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: .45px;
+    color: #363636;
+  }
+
+  .amnt-fild-bx input{
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    background-color: transparent;
+    /* border: .1rem solid #eee; */
+    background-color: #fefbf4;
+    border-radius: .55rem;
+    padding-inline: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #363636;
+  }
+
+  .updte-walet-credit-bx p{
+    margin-top: 1.78rem;
+    font-size: .9rem;
+    max-width: 100%;
+    width: 100%;
+    color: #ff0000;
+    line-height: 1.4;
+  }
+
+  
+  .updte-walet-credit-bx p span{
+    color: #a4a1a1;
+  }
+
+  .trnct-table2 table thead tr th{
+    font-size: .95rem;
+  }
+
+  .trnct-table2 table tbody tr td span{
+    font-size: .9rem;
+  }
+
+  .trnct-table2 table tbody tr td:nth-child(4),
+ 
+  .trnct-table2 table tbody tr td:nth-child(5),
+  
+  .trnct-table2 table tbody tr td:nth-child(6),
+  .trnct-table2 table tbody tr td:nth-child(7),
+  .trnct-table2 table tbody tr td:nth-child(8),
+  .trnct-table2 table tbody tr td:nth-child(9),
+  .trnct-table2 table tbody tr td:nth-child(10),
+  .trnct-table2 table tbody tr td:nth-child(11){
+    vertical-align: baseline ;
+  }
+
+  .b-date p{
+    line-height: .1;
+    font-size: .9rem;
+  }
+
+  .b-date{
+    transform: translateY(6.5px);
+  }
+
+  
+  .b-info{
+    transform: translateY(8px);
+  }
+  
+  .b-info p{
+    font-size: .87rem;
+    line-height: .1;
+
+  }
+
+  .b-img img{
+    border-radius: 50%;
+  }
+
+  .bank-card-table::-webkit-scrollbar{
+    height: .25rem;
+  }
+
+  
+  .bank-card-table::-webkit-scrollbar-thumb{
+    background-color: #1983d9;
+  }
+
+  .rupes-icon2 {
+    background: #0aa30a !important;
+  }
+
+  .add-money-btn{
+    background-color: #0ea5e9 !important;
+    border-color: #0ea5e9 !important;
+  }
+  
+
+  .subscrip-plan-comp5{
+    margin-top: 8rem !important;
+  }
+  /* 0ea5e9 */

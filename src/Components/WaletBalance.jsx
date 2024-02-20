@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/ReferEarn.css';
 
-const WaletBalance = ({oncClickclose}) => {
+const WaletBalance = ({oncClickclose , onclickTrnferAmnt}) => {
   return (
     <>
       <section className="walet-balance">
@@ -13,15 +13,15 @@ const WaletBalance = ({oncClickclose}) => {
                 <h6>Bank Name : <span>Kotak Bank</span></h6>
                 <h6>Account Number : <span>xxxx xxxx xxxx 8567</span></h6>
                 
+                <span className='note-text'> <span>Note</span> : Please check your bank details before clicking the Transfer Button</span>
 
-                <button className="tranfer-btn tranfer-btn5">
+                <button onClick={onclickTrnferAmnt} className="tranfer-btn tranfer-btn5">
                     Tranfer Now
                 </button>
 
                 
             </div>
             
-            <span className='note-text'> <span>Note</span> : Please check your bank details before clicking the Transfer Button</span>
 
             <div onClick={oncClickclose} className="walt-bal-close">
             <i class="fa-solid fa-xmark"></i>

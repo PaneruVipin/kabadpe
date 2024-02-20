@@ -41,7 +41,7 @@ const WasteSubsPlan = ({onSuccess}) => {
   };
   return (
     <>
-      <section className="fren-subscrip-plan-comp">
+      <section className="user-prof-grid-comp fren-subscrip-plan-comp fren-subscrip-plan-comp2">
         <div className="common-container">
           <div className="sel-area-filt-btn-flex-main">
             <h5>Subscription Plan </h5>

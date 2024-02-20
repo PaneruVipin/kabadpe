@@ -406,7 +406,7 @@ const AdminPanel = () => {
                   ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
                   : "admin-nv-btn admin-nv-btn2"
               }
-            > 
+            >
               <div className="a-nv-i">
                 <RiTableFill />
               </div>
@@ -415,7 +415,7 @@ const AdminPanel = () => {
           </div>
 
           <div className="admin-nv-li">
-            <div 
+            <div
               onClick={() => handleButtonClick(3)}
               className={getButtonClassName(3)}
             >
@@ -445,7 +445,7 @@ const AdminPanel = () => {
                   activeTav === "Active"
                     ? "page-link-btn pagelinkactive"
                     : "page-link-btn"
-                }  
+                }
               >
                 {""}
                 <NavLink to="#">Active Users</NavLink>{" "}
@@ -1243,7 +1243,9 @@ const AdminPanel = () => {
 
         {component === "frenchies" ? <Frienchies /> : null}
         {component === "wastecolectr" ? <Wastecolect /> : null}
-        {component === "subscriptionplan" ? <SubscriptionPlan onSwitch={() => handleViewComp("individuals")}  /> : null}
+        {component === "subscriptionplan" ? (
+          <SubscriptionPlan onSwitch={() => handleViewComp("individuals")} />
+        ) : null}
         {component === "addworkarea" ? <AddWorkArea /> : null}
         {component === "addsubscription" ? (
           <Addsubscription
@@ -1274,6 +1276,7 @@ const AdminPanel = () => {
         {component === "AllAppointment" ? (
           <FrenchAppointments
             component="admin"
+            refetchAppoinment={refetch}
             appoinments={appoinments}
             updatedFrenchAppointData={apntData}
           />

@@ -3,40 +3,39 @@ import ActiveToday from "../WasteColectComp/ActiveToday";
 import Holiday from "../WasteColectComp/Holiday";
 import GuestPopup from "../WasteColectComp/GuestPopup";
 import BuyWastePOpup from "./BuyWastePOpup";
+import { useSelector } from "react-redux";
 const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
   onclickRedirectNewPage,
   onclickRedirectBuyWasteTable,
   buyWasteUserInfo,
-  setBuyWasteUserInfo
+  setBuyWasteUserInfo,
 }) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday, setActToday] = useState(false);
   const [buyWaste, setBuyWaste] = useState(false);
   const [holiday, setHoliday] = useState(false);
   const [guest, setGuest] = useState(false);
+  const { userInfo } = useSelector((s) => s?.user);
   return (
     <>
       <section className="top-user-prof-search-bx top-user-prof-search-bx2">
         <div className="u-p-cont top-user-prof-search-bx-flex">
           <div className="left-user-prof-name-bx">
             <h5>
-              Hi, <span>Tom Holland</span>
+              Hi, <span>{userInfo?.fullname}</span>
             </h5>
           </div>
 
-          
-
           <div className="right-user-prof-search-flex-bx">
-
             <div className="subscrip-text">
-              <p>Subscription : <span>20/02/2024</span> </p>
-              <button className="renew-btn">
-                Renew
-              </button>
+              <p>
+                Subscription : <span>20/02/2024</span>{" "}
+              </p>
+              <button className="renew-btn">Renew</button>
             </div>
-            
+
             <div className="u-prf-srch-bx">
               <input
                 type="text"

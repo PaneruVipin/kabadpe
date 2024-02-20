@@ -48,7 +48,7 @@ const WalletData = [
 
     {
         id : 3,
-        img : './images/customImg/client-01.png',
+        img : '/images/customImg/client-01.png',
         name : 'William Mardoch',
         company : 'Brand Orbiter',
         uniqueID : ' 25087431',
@@ -70,7 +70,7 @@ const WalletData = [
 
     {
         id : 4,
-        img : './images/customImg/client-01.png',
+        img : '/images/customImg/client-01.png',
         name : 'William Mardoch',
         company : 'Brand Orbiter',
         uniqueID : ' 25087431',
@@ -92,7 +92,7 @@ const WalletData = [
 
     {
         id : 5,
-        img : './images/customImg/client-01.png',
+        img : '/images/customImg/client-01.png',
         name : 'William Mardoch',
         company : 'Brand Orbiter',
         uniqueID : ' 25087431',
@@ -114,7 +114,7 @@ const WalletData = [
 
     {
         id : 6,
-        img : './images/customImg/client-01.png',
+        img : '/images/customImg/client-01.png',
         name : 'William Mardoch',
         company : 'Brand Orbiter',
         uniqueID : ' 25087431',

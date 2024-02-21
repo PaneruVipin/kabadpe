@@ -242,7 +242,7 @@ const GuestBuyWaste = () => {
 
       <div className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}>
         <div className="paynow-btn-flex">
-          <button className="pay-btn">Cash Paid</button>
+          <button className="pay-btn">Cash Paid </button>
 
           <button
             onClick={() => {

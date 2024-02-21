@@ -289,9 +289,9 @@ const FrenchAppointments = ({
                          onClick={() => confirmPopupfunc()}
                         */}
 
-                                    {(!assigningStatus ||
+                                    {/* {(!assigningStatus ||
                                       assigningStatus == "cancel") &&
-                                    orderStatus == "active" ? (
+                                    orderStatus == "active" ? ( */}
                                       <button
                                         onClick={() => {
                                           setApntSlot(true);
@@ -308,7 +308,7 @@ const FrenchAppointments = ({
                                       >
                                         Assign
                                       </button>
-                                    ) : null}
+                                    {/* ) : null} */}
                                   </div>
                                 </td>
                               </tr>

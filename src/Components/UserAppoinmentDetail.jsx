@@ -1,15 +1,26 @@
 const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
+
   return (
     <>
       <div
+        onClick={() => setPopup(false)}
         className={showPopup ? "pop-up-box-10 popupactive" : "pop-up-box-10"}
       >
-        <div className="user-info-pop-up-bx">
+        <div
+          className="user-info-pop-up-bx"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h5>Waste Collector</h5>
           {collectorInfo?.KabadCollector ? (
             <div className="waste-coll-logo-user-det-flex-bx">
               <div className="left-waste-col-logo">
-                <img src="/images/customImg/user-prf-img.webp" alt="" />
+                <img
+                  src={collectorInfo?.KabadCollector?.profileImage}
+                  alt=""
+                  onError={(e) =>
+                    (e.currentTarget.src = "/images/customImg/test-img-1.jpg")
+                  }
+                />
                 <div className="stars-flex-bx">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
@@ -24,17 +35,23 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
 
               <div className="user-det-bx">
                 <h6>
-                  Name : <span>Kunal Vernma</span>
+                  Name : <span>{collectorInfo?.KabadCollector?.fullname}</span>
                 </h6>
                 <h6>
-                  Phone No. : <span>9087543213</span>
+                  Phone No. :{" "}
+                  <span>{collectorInfo?.KabadCollector?.phoneNumber}</span>
                 </h6>
                 {/* <h6>Address : <span>3810 B/20 krishna nagar 110005 near mobile shop</span> </h6> */}
 
                 <div className="verify-det-box">
-                  <h6>Police verified</h6>
+                  {collectorInfo?.KabadCollector?.policeVerification ? (
+                    <h6>Police verified</h6>
+                  ) : null}
 
-                  <h6>Aadhar Verified</h6>
+                  {collectorInfo?.KabadCollector?.aadharBack ||
+                  collectorInfo?.KabadCollector?.aadharFront ? (
+                    <h6>Aadhar Verified</h6>
+                  ) : null}
                 </div>
               </div>
             </div>

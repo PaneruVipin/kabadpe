@@ -44,6 +44,7 @@ const AppointmentComp = ({ onSupportClick }) => {
               </div>
             </div>
             <AppointmentRows
+              refetchAppoinment={refetch}
               onSupportClick={onSupportClick}
               appoinments={appoinments}
             />

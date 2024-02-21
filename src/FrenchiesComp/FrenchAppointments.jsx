@@ -183,6 +183,7 @@ const FrenchAppointments = ({
                             UserAddress,
                             assigningStatus,
                             KabadCollector,
+                            ariaId
                           },
                           i
                         ) => {
@@ -302,6 +303,7 @@ const FrenchAppointments = ({
                                             appointmentDate,
                                             appoinmentAddress,
                                             UserAddress,
+                                            ariaId
                                           });
                                         }}
                                         className="assign-btn"

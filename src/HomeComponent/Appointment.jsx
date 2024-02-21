@@ -67,6 +67,7 @@ const Appointment = ({ setUserForm }) => {
       companyId: selectedSlotData?.selectedCompany?.id,
       appointmentTimeSlot: selectedSlotData?.slotName,
       appoinmentAria: selectedAddress?.id,
+      ariaId:servicableAriaId
     };
     const res = await userScheduleAppoinment(newData);
     setShowResponse(true);

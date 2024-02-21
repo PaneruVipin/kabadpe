@@ -10,13 +10,31 @@ import ReviewPopup from "./ReviewPopup";
 import ReportPopup from "./ReportPopup";
 import UserAppoinmentDetail from "./UserAppoinmentDetail";
 import { Formik, Form } from "formik";
+import { slotLabels } from "../lib/slots";
+import { adminAppoinmentReschedule } from "../apis/admins/appoinments";
+import PDFTest from "./PDFtest";
 
-const AppointmentRows = ({ onSupportClick, appoinments }) => {
+const AppointmentRows = ({
+  onSupportClick,
+  appoinments,
+  refetchAppoinment,
+}) => {
   const [collectorInfo, setCollectorInfo] = useState({});
   const [popupUser, setPopupUser] = useState(false);
   const [reshBox, setReshBox] = useState(false);
   const [revBox, setRevBox] = useState(false);
   const [repBox, setRepBox] = useState(false);
+  const [selectedAppoinment, setSelectedAppoinment] = useState({});
+
+  const handleReschedule = async (data) => {
+    const payload = { ...data, id: selectedAppoinment?.id };
+    const res = await adminAppoinmentReschedule(payload);
+    if (!res?.error) {
+      refetchAppoinment();
+      setReshBox(false);
+      return;
+    }
+  };
   return (
     <>
       <div className="u-p-updt-table-bx">
@@ -80,13 +98,17 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                       </td>
                       <td>
                         <div
-                          onClick={() => setReshBox(true)}
+                          onClick={() => {
+                            setSelectedAppoinment({ id });
+                            setReshBox(true);
+                          }}
                           className=" tb-reshed-btn"
                         >
                           Reschedule
                         </div>
                       </td>
-                      {KabadCollector?.phoneNumber ? (
+                      {KabadCollector?.phoneNumber &&
+                      orderStatus == "active" ? (
                         <td>
                           <div className=" tb-call-btn tb-call-btn5">Call </div>
                         </td>
@@ -101,14 +123,14 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                           <div className="complet-bx upcoming-bx">Upcoming</div>
                         </td>
                       ) : null}
-                      {orderStatus == "completed" ? (
+                      {orderStatus == "fullfill" ? (
                         <td>
                           <div className="complet-bx complet-bx3">
                             Completed
                           </div>
                         </td>
                       ) : null}
-                      {orderStatus == "cancelled" ? (
+                      {orderStatus == "cancel" ? (
                         <td>
                           <div className="complet-bx complet-bx3 conceld-bx">
                             Cancelled
@@ -142,15 +164,16 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
         className={
           reshBox ? "reshed-popup-main reshdactive" : "reshed-popup-main"
         }
+        onClick={() => setReshBox(false)}
       >
-        <div className="res-popup-box">
+        <div className="res-popup-box" onClick={(e) => e.stopPropagation()}>
           <h6>Reschedule Appointment</h6>
 
           <div className="reshedule-box res-appint-fild-flex-box reshedactive">
             <Formik
-            //   initialValues={initialValues}
-            //   onSubmit={handleSubmit}
-            //   validationSchema={validationLoginAdmin}
+              initialValues={{ appointmentTimeSlot: "", appointmentDate: "" }}
+              onSubmit={handleReschedule}
+              // validationSchema={validationLoginAdmin}
             >
               {({
                 handleBlur,
@@ -168,18 +191,32 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                           type="date"
                           name="appointmentDate"
                           id="date"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentDate}
                           autoComplete="off"
                           required
+                          min={new Date().toISOString().split("T")[0]}
                         />
                       </div>
 
                       <div className="reshed-select-bx reshd-inpt-bx3">
-                        <select name="appointmentTimeSlot" id="time_slot">
-                          <option value="Choose Time">Choose Time</option>
-                          <option value="Choose Time">10:00 to 11:00</option>
-                          <option value="Choose Time">12:00 to 1:00</option>
-                          <option value="Choose Time">1:00 to 2:00</option>
-                          <option value="Choose Time">2:00 to 3:00</option>
+                        <select
+                          required
+                          name="appointmentTimeSlot"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentTimeSlot}
+                          id="time_slot"
+                        >
+                          <option value="" hidden>
+                            Choose Time
+                          </option>
+                          {Object.keys(slotLabels)?.map((key) => (
+                            <option key={key} value={key}>
+                              {slotLabels?.[key]}
+                            </option>
+                          ))}
                         </select>
                       </div>
 

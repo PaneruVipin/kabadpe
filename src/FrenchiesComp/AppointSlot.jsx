@@ -2,10 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import {
   adminAppoinmentAssign,
+  adminAppoinmentCancel,
   adminAppoinmentForAssigningDateFetch,
+  adminAppoinmentReschedule,
   adminServicableWorkersFetch,
 } from "../apis/admins/appoinments";
 import { slotLabels } from "../lib/slots";
+import { Form, Formik } from "formik";
 
 const AppointSlot = ({
   onclickCloseApntSlot,
@@ -63,6 +66,25 @@ const AppointSlot = ({
     }
   };
 
+  const handleReschedule = async (data) => {
+    const payload = { ...data, id: appoinmentDetails?.id };
+    const res = await adminAppoinmentReschedule(payload);
+    if (!res?.error) {
+      refetchAppoinment();
+      setPopUp(false);
+      onClickOpenPopup();
+      return;
+    }
+  };
+  const handleCancel = async () => {
+    const res = await adminAppoinmentCancel(appoinmentDetails?.id);
+    if (!res?.error) {
+      refetchAppoinment();
+      setPopUp(false);
+      onClickOpenPopup();
+      return;
+    }
+  };
   return (
     <>
       <section
@@ -172,34 +194,64 @@ const AppointSlot = ({
               Change date time for reschedule your waste pickup appoint, Appoint
               will be send to user for confirmation
             </p>
+            <Formik
+              initialValues={{ appointmentTimeSlot: "", appointmentDate: "" }}
+              onSubmit={handleReschedule}
+            >
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                return (
+                  <Form className="reshed-form">
+                    <div className="reshed-form-grid">
+                      <div className="reshd-inpt-bx reshd-inpt-bx3">
+                        <input
+                          type="date"
+                          name="appointmentDate"
+                          id="date"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentDate}
+                          autoComplete="off"
+                          required
+                          min={new Date().toISOString().split("T")[0]}
+                        />
+                      </div>
 
-            <form action="#" className="reshed-form">
-              <div className="reshed-form-grid">
-                <div className="reshd-inpt-bx reshd-inpt-bx3">
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    autoComplete="off"
-                    required
-                  />
-                </div>
+                      <div className="reshed-select-bx reshd-inpt-bx3">
+                        <select
+                          required
+                          name="appointmentTimeSlot"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentTimeSlot}
+                          id="time_slot"
+                        >
+                          <option value="">Choose Time</option>
+                          {Object.keys(slotLabels)?.map((key) => (
+                            <option key={key} value={key}>
+                              {slotLabels?.[key]}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                <div className="reshed-select-bx reshd-inpt-bx3">
-                  <select name="time_slot" id="time_slot">
-                    <option value="Choose Time">Choose Time</option>
-                    <option value="Choose Time">10:00 to 11:00</option>
-                    <option value="Choose Time">12:00 to 1:00</option>
-                    <option value="Choose Time">1:00 to 2:00</option>
-                    <option value="Choose Time">2:00 to 3:00</option>
-                  </select>
-                </div>
-
-                <button className="resd-sub-btn navigate-link-btn3 navigate-link-btn5">
-                  Send Request
-                </button>
-              </div>
-            </form>
+                      <button
+                        type="submit"
+                        className="resd-sub-btn navigate-link-btn3 navigate-link-btn5"
+                      >
+                        Send Request
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
 
           <div
@@ -210,7 +262,7 @@ const AppointSlot = ({
             <p>Are you sure to Cancel Your Waste Pickup appointment</p>
 
             <button
-              onClick={() => setPopUp(false)}
+              onClick={handleCancel}
               className="ok-btn navigate-link-btn3 navigate-link-btn5"
             >
               Confirm

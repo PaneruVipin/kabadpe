@@ -104,7 +104,7 @@ const BuyWasteTable = ({
     const data = {
       orderDetail: { waste: tableData, totalAmmount },
       user: buyWasteUserInfo,
-      appoinmentId:buyWasteUserInfo?.appoinmentId
+      appoinmentId: buyWasteUserInfo?.appoinmentId,
     };
     const res = await workerBuyWasteCallbackCash(data);
     if (!res?.error) {
@@ -262,7 +262,7 @@ const BuyWasteTable = ({
                             className="add-data-btn"
                             onClick={handleAddRow}
                           >
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                           </button>
                         ) : null}
                         {tableData?.length > 1 ? (
@@ -270,7 +270,7 @@ const BuyWasteTable = ({
                             className="add-data-btn delt-data-btn"
                             onClick={() => handleDeleteRow(id)}
                           >
-                            <i class="fa-regular fa-trash-can"></i>
+                            <i className="fa-regular fa-trash-can"></i>
                           </button>
                         ) : null}
                       </div>
@@ -289,7 +289,7 @@ const BuyWasteTable = ({
             {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          {totalAmmount ? (
+          {+totalAmmount ? (
             <button onClick={() => setPay(true)} className="paynow-btn">
               Pay Now
             </button>
@@ -297,8 +297,13 @@ const BuyWasteTable = ({
         </div>
       </section>
 
-      <div className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}>
-        <div className="paynow-btn-flex">
+      <div
+        onClick={()=>setPay(false)}
+        className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}
+      >
+        <div 
+        onClick={(e) => e.stopPropagation()}
+         className="paynow-btn-flex">
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>
@@ -313,7 +318,7 @@ const BuyWasteTable = ({
           </button> */}
 
           <div onClick={() => setPay(false)} className="close-btn ">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
@@ -344,7 +349,7 @@ const BuyWasteTable = ({
           <button className="confirm-btn">Confirm</button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

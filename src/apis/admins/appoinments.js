@@ -54,3 +54,35 @@ export const adminAppoinmentForAssigningDateFetch = resolvePromise(
     return res?.appoinment;
   }
 );
+
+export const adminAppoinmentCancel = resolvePromise(async (id) => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/appoinment/${id}/cancel`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});
+
+export const adminAppoinmentReschedule = resolvePromise(
+  async ({ id, appointmentTimeSlot, appointmentDate }) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/appoinment/${id}/reschedule`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { appointmentTimeSlot, appointmentDate },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

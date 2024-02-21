@@ -67,6 +67,7 @@ const Appointment = ({ setUserForm }) => {
       companyId: selectedSlotData?.selectedCompany?.id,
       appointmentTimeSlot: selectedSlotData?.slotName,
       appoinmentAria: selectedAddress?.id,
+      ariaId: servicableAriaId,
     };
     const res = await userScheduleAppoinment(newData);
     setShowResponse(true);
@@ -472,8 +473,9 @@ const Appointment = ({ setUserForm }) => {
                   </h3>
                   {selectedDate > new Date() ? (
                     <div className="avalbe-cmpnies-main-bx">
-                      {!availableCompanies?.error
-                        ? availableCompanies.map(
+                      {availableCompanies?.length ? (
+                        !availableCompanies?.error ? (
+                          availableCompanies.map(
                             (
                               {
                                 Franchise: {
@@ -645,7 +647,13 @@ const Appointment = ({ setUserForm }) => {
                               );
                             }
                           )
-                        : null}
+                        ) : null
+                      ) : (
+                        <p style={{ textAlign: "center" }}>
+                          Currently All Slots Are Filled For{" "}
+                          {selectedServiceType}
+                        </p>
+                      )}
                     </div>
                   ) : (
                     <div style={{ textAlign: "center" }}>

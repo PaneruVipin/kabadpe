@@ -183,7 +183,7 @@ const FrenchAppointments = ({
                             UserAddress,
                             assigningStatus,
                             KabadCollector,
-                            ariaId
+                            ariaId,
                           },
                           i
                         ) => {
@@ -291,8 +291,8 @@ const FrenchAppointments = ({
                         */}
 
                                     {/* {(!assigningStatus ||
-                                      assigningStatus == "cancel") &&
-                                    orderStatus == "active" ? ( */}
+                                      assigningStatus == "cancel") &&*/}
+                                    {orderStatus == "active" ? (
                                       <button
                                         onClick={() => {
                                           setApntSlot(true);
@@ -303,14 +303,14 @@ const FrenchAppointments = ({
                                             appointmentDate,
                                             appoinmentAddress,
                                             UserAddress,
-                                            ariaId
+                                            ariaId,
                                           });
                                         }}
                                         className="assign-btn"
                                       >
                                         Assign
                                       </button>
-                                    {/* ) : null} */}
+                                    ) : null}
                                   </div>
                                 </td>
                               </tr>

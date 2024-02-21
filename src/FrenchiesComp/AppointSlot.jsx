@@ -6,6 +6,7 @@ import {
   adminAppoinmentForAssigningDateFetch,
   adminAppoinmentReschedule,
   adminServicableWorkersFetch,
+  adminWorkerInSameJobFetch,
 } from "../apis/admins/appoinments";
 import { slotLabels } from "../lib/slots";
 import { Form, Formik } from "formik";
@@ -90,6 +91,16 @@ const AppointSlot = ({
       return;
     }
   };
+
+  const { data: workerInSameJob, refetch: refetchworkerInSameJOb } = useQuery({
+    queryKey: ["fetchWorkerInSameJob"],
+    queryFn: () =>
+      adminWorkerInSameJobFetch({
+        date: appoinmentDetails?.appointmentDate,
+        serviceType: appoinmentDetails?.serviceType,
+        ariaId: appoinmentDetails?.ariaId,
+      }),
+  });
   return (
     <>
       <section
@@ -124,9 +135,12 @@ const AppointSlot = ({
             </p>
           </div>
 
-          <p className="note-text">
-            Note : The KabadiWala is already have a job in same area .{" "}
-          </p>
+          {!workerInSameJob?.error && workerInSameJob?.length ? (
+            <p className="note-text">
+              Note : The {workerInSameJob?.[0]?.KabadCollector?.fullname} is
+              already have a job in same area .{" "}
+            </p>
+          ) : null}
 
           <div className="appoint-change-btns-flex">
             <button

@@ -88,3 +88,17 @@ export const adminAppoinmentReschedule = resolvePromise(
     return res?.message;
   }
 );
+
+export const adminWorkerInSameJobFetch = resolvePromise(
+  async ({ date, serviceType, ariaId }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/appinment/${serviceType}/${ariaId}/${date}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.appoinment;
+  }
+);

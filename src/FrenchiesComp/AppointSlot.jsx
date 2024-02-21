@@ -29,7 +29,7 @@ const AppointSlot = ({
 
     setcurrentdate(inputData);
   };
-
+  console.log("appappoinmentDetails appoinmentDetails", appoinmentDetails);
   const handleDateChange = (direction) => {
     const newDate = new Date(currentDate);
 
@@ -45,7 +45,12 @@ const AppointSlot = ({
   const { data: workers, refetch } = useQuery({
     queryKey: ["fetchServicableWorkers"],
     queryFn: () =>
-      component == "admin" ? adminServicableWorkersFetch() : () => {},
+      component == "admin"
+        ? adminServicableWorkersFetch({
+            worker: appoinmentDetails?.serviceType,
+            ariaId: appoinmentDetails?.ariaId,
+          })
+        : () => {},
   });
 
   const { data: appoinments, refetch: refetchAppoinments } = useQuery({

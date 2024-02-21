@@ -96,23 +96,25 @@ const AppointmentRows = ({
                           </span>
                         </div>
                       </td>
-                      <td>
-                        <div
-                          onClick={() => {
-                            setSelectedAppoinment({ id });
-                            setReshBox(true);
-                          }}
-                          className=" tb-reshed-btn"
-                        >
-                          Reschedule
-                        </div>
-                      </td>
+                      {orderStatus == "active" ? (
+                        <td>
+                          <div
+                            onClick={() => {
+                              setSelectedAppoinment({ id });
+                              setReshBox(true);
+                            }}
+                            className=" tb-reshed-btn"
+                          >
+                            Reschedule
+                          </div>
+                        </td>
+                      ) : <td></td>}
                       {KabadCollector?.phoneNumber &&
                       orderStatus == "active" ? (
                         <td>
                           <div className=" tb-call-btn tb-call-btn5">Call </div>
                         </td>
-                      ) : null}
+                      ) : <td></td>}
 
                       <td>
                         <div className=" tb-call-btn tb-report-btn">Report</div>

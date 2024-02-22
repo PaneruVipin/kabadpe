@@ -482,6 +482,7 @@ const Appointment = ({ setUserForm }) => {
                                   companyName,
                                   franchiseAddress,
                                   id,
+                                  franchiseLogo,
                                 },
                               },
                               i
@@ -492,7 +493,14 @@ const Appointment = ({ setUserForm }) => {
                                     <div className="avalbe-cmpnies-flex">
                                       <div className="left-cmpnies-bx">
                                         <div className="cmpnies-logo">
-                                          <img src={""} alt="" />
+                                          <img
+                                            src={
+                                              id == "kabadpe"
+                                                ? "/favicon-32x32.png"
+                                                : franchiseLogo
+                                            }
+                                            alt=""
+                                          />
                                         </div>
                                         <div className="cmpnies-info">
                                           <h6> {companyName} </h6>

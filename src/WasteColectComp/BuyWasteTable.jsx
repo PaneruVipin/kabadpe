@@ -22,8 +22,13 @@ const BuyWasteTable = ({
   const [rateListData, setRateListData] = useState([]);
   const handleWeightChange = (id, value) => {
     const newTableData = tableData.map((row) => {
+      let ammount;
       if (row?.id == id) {
-        const ammount = +value && +row?.price ? +row?.price * +value : null;
+        if (+value <= 200) {
+          ammount = +value && +row?.price ? +row?.price * +value : null;
+        } else {
+          ammount = +value && +row?.bulkPrice ? +row?.bulkPrice * +value : null;
+        }
         return {
           ...row,
           weight: value,
@@ -49,37 +54,6 @@ const BuyWasteTable = ({
   const handleDeleteRow = (idForDelete) => {
     const updatedData = tableData.filter(({ id }) => id !== idForDelete);
     setTableData(updatedData);
-  };
-
-  const getImageUrl = (selectedOption) => {
-    switch (selectedOption) {
-      case "book":
-        return "/images/customImg/book.png";
-      case "paper":
-        return "/images/customImg/cash.png";
-      case "iron":
-        return "/images/customImg/beam.png";
-      case "plastic":
-        return "/images/customImg/plastic.png";
-      case "cardboard":
-        return "/images/customImg/cardboard.png";
-      case "wheel":
-        return "/images/customImg/wheel.png";
-      case "aluminium":
-        return "/images/customImg/aluminium-paper.png";
-      case "wood":
-        return "/images/customImg/furniture.png";
-      case "magazine":
-        return "/images/customImg/magazine.png";
-      case "ewaste":
-        return "/images/customImg/broken.png";
-      case "copper":
-        return "/images/customImg/coil.png";
-      case "steel":
-        return "/images/customImg/iron-bar.png";
-      default:
-        return "";
-    }
   };
 
   const { data: rateList, refetch } = useQuery({
@@ -111,6 +85,7 @@ const BuyWasteTable = ({
       closeBuyWaste();
     }
   };
+  console.log("tableData tableData tableData", tableData);
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -153,7 +128,8 @@ const BuyWasteTable = ({
                 <th>SNo.</th>
                 <th>Product Name</th>
                 <th>Product Image</th>
-                <th>Price/Kg</th>
+                <th>Retail Price/Kg</th>
+                <th>Bulk Price/Kg</th>
                 <th>Weight in Kg</th>
                 <th>Amount</th>
                 <th>Action</th>
@@ -161,7 +137,10 @@ const BuyWasteTable = ({
             </thead>
             <tbody>
               {tableData?.map(
-                ({ id, name, price, weight, ammount, image }, index) => (
+                (
+                  { id, name, price, weight, ammount, image, bulkPrice },
+                  index
+                ) => (
                   <tr key={id}>
                     <td>{index + 1}</td>
                     <td>
@@ -180,6 +159,7 @@ const BuyWasteTable = ({
                                   name: values?.productName,
                                   image: values?.productImage,
                                   price: values?.retailPrice,
+                                  bulkPrice: values?.bulkPrice,
                                   ammount,
                                 };
                               } else {
@@ -234,6 +214,11 @@ const BuyWasteTable = ({
                     <td>
                       {name ? (
                         <div className="amount-total">{price}</div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {name ? (
+                        <div className="amount-total">{bulkPrice}</div>
                       ) : null}
                     </td>
                     <td>
@@ -298,12 +283,10 @@ const BuyWasteTable = ({
       </section>
 
       <div
-        onClick={()=>setPay(false)}
+        onClick={() => setPay(false)}
         className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}
       >
-        <div 
-        onClick={(e) => e.stopPropagation()}
-         className="paynow-btn-flex">
+        <div onClick={(e) => e.stopPropagation()} className="paynow-btn-flex">
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>

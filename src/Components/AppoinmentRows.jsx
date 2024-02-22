@@ -108,22 +108,36 @@ const AppointmentRows = ({
                             Reschedule
                           </div>
                         </td>
-                      ) : <td></td>}
+                      ) : (
+                        <td></td>
+                      )}
                       {KabadCollector?.phoneNumber &&
                       orderStatus == "active" ? (
                         <td>
                           <div className=" tb-call-btn tb-call-btn5">Call </div>
                         </td>
-                      ) : <td></td>}
+                      ) : (
+                        <td></td>
+                      )}
 
                       <td>
                         <div className=" tb-call-btn tb-report-btn">Report</div>
                       </td>
 
                       {orderStatus == "active" ? (
-                        <td>
-                          <div className="complet-bx upcoming-bx">Upcoming</div>
-                        </td>
+                        KabadCollector?.id ? (
+                          <td>
+                            <div className="complet-bx upcoming-bx">
+                              Assigned
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="complet-bx upcoming-bx">
+                              Assigning...
+                            </div>
+                          </td>
+                        )
                       ) : null}
                       {orderStatus == "fullfill" ? (
                         <td>

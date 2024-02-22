@@ -10,6 +10,7 @@ import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
 import { slotLabels } from "../lib/slots";
 import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
+import { Form, Formik } from "formik";
 
 const FrenchAppointments = ({
   refetchAppoinment,
@@ -248,8 +249,15 @@ const FrenchAppointments = ({
                                 <td>{KabadCollector?.fullname}</td>
                                 <td>
                                   {orderStatus != "active" ? (
-                                    <span>{orderStatus}</span>
-                                  ) : assigningStatus == "request" ? (
+                                    <span>
+                                      {orderStatus == "cancel"
+                                        ? "Cancelled"
+                                        : orderStatus == "fullfill"
+                                        ? "Completed"
+                                        : null}
+                                    </span>
+                                  ) : assigningStatus == "request" &&
+                                    workerId ? (
                                     <span>Assign - Requested</span>
                                   ) : assigningStatus == "confirm" ? (
                                     <span>Assigned</span>
@@ -278,17 +286,18 @@ const FrenchAppointments = ({
                                 <td>
                                   <div className="appoint-flex-btns">
                                     {/* <button onClick={() => confirmPopupfunc()}>
-                          <i class="fa-regular fa-circle-check"></i>
-                        </button>
-                        <button onClick={() => reschedulePopupfunc()}>
-                        <i class="fa-solid fa-calendar-days"></i>
-                        </button>
-                        <button onClick={() => cancelPopupFunc()}>
-                        <i class="fa-regular fa-circle-xmark"></i>
-                        </button> 
+                                      <i class="fa-regular fa-circle-check"></i>
+                                    </button> */}
+                                    {/* <button
+                                      onClick={() => reschedulePopupfunc()}
+                                    >
+                                      <i class="fa-solid fa-calendar-days"></i>
+                                    </button>
+                                    <button onClick={() => cancelPopupFunc()}>
+                                      <i class="fa-regular fa-circle-xmark"></i>
+                                    </button> */}
 
-                         onClick={() => confirmPopupfunc()}
-                        */}
+                                    {/* onClick={() => confirmPopupfunc()} */}
 
                                     {/* {(!assigningStatus ||
                                       assigningStatus == "cancel") &&*/}

@@ -79,7 +79,11 @@ const WasteAppoinmentTable = ({
                 </td>
                 <td>
                   {orderStatus != "active" ? (
-                    orderStatus
+                    orderStatus == "cancel" ? (
+                      "Canceled"
+                    ) : orderStatus == "fullfill" ? (
+                      "Completed"
+                    ) : null
                   ) : assigningStatus == "request" ? (
                     <button
                       onClick={() => {
@@ -103,7 +107,7 @@ const WasteAppoinmentTable = ({
                   ) : null}
                 </td>
                 <td>
-                  {orderStatus == "active" ? (//&& assigningStatus != "request" 
+                  {orderStatus == "active" ? ( //&& assigningStatus != "request"
                     <NavLink
                       to="#"
                       onClick={() => {

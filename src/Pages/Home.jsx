@@ -21,9 +21,9 @@ const Home = ({ setUserForm }) => {
   const location = useLocation();
   const [counter, setCounter] = useState(0);
 
-  // useEffect(() => {
-  //   scrollToParam(location, "s");
-  // }, [location.search]);
+  useEffect(() => {
+    scrollToParam(location, "s");
+  }, [location.search]);
   // useEffect(() => {
    
   // }, []);

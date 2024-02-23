@@ -13,6 +13,7 @@ import { Formik, Form } from "formik";
 import { slotLabels } from "../lib/slots";
 import { adminAppoinmentReschedule } from "../apis/admins/appoinments";
 import PDFTest from "./PDFtest";
+import { appoinmentDefaultSort } from "../lib/appoinment";
 
 const AppointmentRows = ({
   onSupportClick,
@@ -41,130 +42,136 @@ const AppointmentRows = ({
         <table>
           <tbody>
             {!appoinments?.error
-              ? appoinments?.map(
-                  (
-                    {
-                      id,
-                      appointmentDate,
-                      appointmentTimeSlot,
-                      Franchise,
-                      Arium,
-                      KabadCollector,
-                      orderStatus,
-                    },
-                    index
-                  ) => (
-                    <tr key={id}>
-                      <td>
-                        <div className="u-p-tb-data">
-                          <div className="t-icn">{index + 1}</div>
-                          <div className="u-p-tb-info">
-                            <h6>{Franchise?.name}</h6>
-                            <span className="pan-box-nav">
-                              {KabadCollector
-                                ? KabadCollector?.fullname
-                                : "Unassigned"}{" "}
-                              <NavLink
-                                to="#"
-                                onClick={() => {
-                                  setCollectorInfo({
-                                    Franchise,
-                                    KabadCollector,
-                                  });
-                                  setPopupUser(true);
-                                }}
-                              >
-                                <i class="fa-solid fa-circle-arrow-right"></i>
-                              </NavLink>{" "}
+              ? appoinments
+                  ?.sort(appoinmentDefaultSort)
+                  ?.map(
+                    (
+                      {
+                        id,
+                        appointmentDate,
+                        appointmentTimeSlot,
+                        Franchise,
+                        Arium,
+                        KabadCollector,
+                        orderStatus,
+                      },
+                      index
+                    ) => (
+                      <tr key={id}>
+                        <td>
+                          <div className="u-p-tb-data">
+                            <div className="t-icn">{index + 1}</div>
+                            <div className="u-p-tb-info">
+                              <h6>{Franchise?.name}</h6>
+                              <span className="pan-box-nav">
+                                {KabadCollector
+                                  ? KabadCollector?.fullname
+                                  : "Unassigned"}{" "}
+                                <NavLink
+                                  to="#"
+                                  onClick={() => {
+                                    setCollectorInfo({
+                                      Franchise,
+                                      KabadCollector,
+                                    });
+                                    setPopupUser(true);
+                                  }}
+                                >
+                                  <i class="fa-solid fa-circle-arrow-right"></i>
+                                </NavLink>{" "}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="u-p-tb-numb-bx">
+                            <h6>
+                              {DateTime.fromISO(appointmentDate, {
+                                zone: "utc",
+                              }).toFormat("ccc dd LLL yyyy")}{" "}
+                            </h6>
+                            <span>
+                              Ap.No.-{" "}
+                              <NavLink to="#">
+                                {" "}
+                                {String(id).padStart(6, "0")}{" "}
+                              </NavLink>
                             </span>
                           </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="u-p-tb-numb-bx">
-                          <h6>
-                            {DateTime.fromISO(appointmentDate, {
-                              zone: "utc",
-                            }).toFormat("ccc dd LLL yyyy")}{" "}
-                          </h6>
-                          <span>
-                            Ap.No.-{" "}
-                            <NavLink to="#">
-                              {" "}
-                              {String(id).padStart(6, "0")}{" "}
-                            </NavLink>
-                          </span>
-                        </div>
-                      </td>
-                      {orderStatus == "active" ? (
-                        <td>
-                          <div
-                            onClick={() => {
-                              setSelectedAppoinment({ id });
-                              setReshBox(true);
-                            }}
-                            className=" tb-reshed-btn"
-                          >
-                            Reschedule
-                          </div>
                         </td>
-                      ) : (
-                        <td></td>
-                      )}
-                      {KabadCollector?.phoneNumber &&
-                      orderStatus == "active" ? (
-                        <td>
-                          <div className=" tb-call-btn tb-call-btn5">Call </div>
-                        </td>
-                      ) : (
-                        <td></td>
-                      )}
-
-                      <td>
-                        <div className=" tb-call-btn tb-report-btn">Report</div>
-                      </td>
-
-                      {orderStatus == "active" ? (
-                        KabadCollector?.id ? (
+                        {orderStatus == "active" ? (
                           <td>
-                            <div className="complet-bx upcoming-bx">
-                              Assigned
+                            <div
+                              onClick={() => {
+                                setSelectedAppoinment({ id });
+                                setReshBox(true);
+                              }}
+                              className=" tb-reshed-btn"
+                            >
+                              Reschedule
                             </div>
                           </td>
                         ) : (
+                          <td></td>
+                        )}
+                        {KabadCollector?.phoneNumber &&
+                        orderStatus == "active" ? (
                           <td>
-                            <div className="complet-bx upcoming-bx">
-                              Assigning...
+                            <div className=" tb-call-btn tb-call-btn5">
+                              Call{" "}
                             </div>
                           </td>
-                        )
-                      ) : null}
-                      {orderStatus == "fullfill" ? (
+                        ) : (
+                          <td></td>
+                        )}
+
                         <td>
-                          <div className="complet-bx complet-bx3">
-                            Completed
+                          <div className=" tb-call-btn tb-report-btn">
+                            Report
                           </div>
                         </td>
-                      ) : null}
-                      {orderStatus == "cancel" ? (
+
+                        {orderStatus == "active" ? (
+                          KabadCollector?.id ? (
+                            <td>
+                              <div className="complet-bx upcoming-bx">
+                                Assigned
+                              </div>
+                            </td>
+                          ) : (
+                            <td>
+                              <div className="complet-bx upcoming-bx">
+                                Assigning...
+                              </div>
+                            </td>
+                          )
+                        ) : null}
+                        {orderStatus == "fullfill" ? (
+                          <td>
+                            <div className="complet-bx complet-bx3">
+                              Completed
+                            </div>
+                          </td>
+                        ) : null}
+                        {orderStatus == "cancel" ? (
+                          <td>
+                            <div className="complet-bx complet-bx3 conceld-bx">
+                              Cancelled
+                            </div>
+                          </td>
+                        ) : null}
                         <td>
-                          <div className="complet-bx complet-bx3 conceld-bx">
-                            Cancelled
-                          </div>
+                          <button
+                            onClick={onSupportClick}
+                            className="supp-link-btn supp-link-btn2"
+                          >
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                            Support
+                          </button>
                         </td>
-                      ) : null}
-                      <td>
-                        <button
-                          onClick={onSupportClick}
-                          className="supp-link-btn supp-link-btn2"
-                        >
-                          <i class="fa-solid fa-hands-holding-child"></i>
-                          Support
-                        </button>
-                      </td>
-                    </tr>
+                      </tr>
+                    )
                   )
-                )
               : null}
           </tbody>
         </table>

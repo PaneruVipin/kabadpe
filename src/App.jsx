@@ -42,10 +42,8 @@ function App() {
     dispatch(userFetch());
   }, [login, verifySignup, loginLoading, verifyLoading]);
   const [userForm, setUserForm] = useState(false);
-  
- 
+
   return (
-   
     <Routes>
       <Route
         path="/"
@@ -82,11 +80,7 @@ function App() {
       <Route path="/termpolicy" element={<TermPolicy />} />
       <Route path="/vendorlogin" element={<VendorLogin />} />
       <Route path="/vendorpanel" element={<VendorPanel />} />
-      
     </Routes>
-
-
-    
   );
 }
 

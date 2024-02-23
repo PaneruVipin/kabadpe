@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import timeslotdata from "../HomeComponent/timeslotData";
 import { slotLabels } from "../lib/slots";
 import { workerAppoinmentsAnswerAssigning } from "../apis/worker/appoinments";
+import { appoinmentDefaultSort } from "../lib/appoinment";
 // import "../style/WasteColect.css";
 const WasteAppoinmentTable = ({
   setAddressPopup,
@@ -30,63 +31,33 @@ const WasteAppoinmentTable = ({
           </tr>
         </thead>
         <tbody>
-          {appoinments?.map(
-            (
-              {
-                id,
-                orderStatus,
-                appointmentDate,
-                appoinmentAddress,
-                appointmentTimeSlot,
-                appointmentContactNumber,
-                appointmentPersonName,
-                assigningStatus,
-              },
-              i
-            ) => (
-              <tr key={id}>
-                <td>{i + 1}</td>
-                <td>
-                  {DateTime.fromISO(appointmentDate).toFormat("dd-MM-yyyy")}
-                </td>
-                <td>{slotLabels?.[appointmentTimeSlot]}</td>
-                <td>{appointmentPersonName}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      setAddressPopup(true);
-                      setSelectedAppoinment({
-                        id,
-                        orderStatus,
-                        appointmentDate,
-                        appoinmentAddress,
-                        appointmentTimeSlot,
-                        appointmentContactNumber,
-                        appointmentPersonName,
-                      });
-                    }}
-                    className="status-btn status-btn-changed"
-                  >
-                    Details
-                  </button>
-                </td>
-                <td>
-                  <a href={`tel:${appointmentContactNumber}`}>
-                    <button className="status-btn status-btn-changed">
-                      Call Now
-                    </button>
-                  </a>
-                </td>
-                <td>
-                  {orderStatus != "active" ? (
-                    orderStatus == "cancel" ? (
-                      "Canceled"
-                    ) : orderStatus == "fullfill" ? (
-                      "Completed"
-                    ) : null
-                  ) : assigningStatus == "request" ? (
+          {appoinments
+            ?.sort(appoinmentDefaultSort)
+            ?.map(
+              (
+                {
+                  id,
+                  orderStatus,
+                  appointmentDate,
+                  appoinmentAddress,
+                  appointmentTimeSlot,
+                  appointmentContactNumber,
+                  appointmentPersonName,
+                  assigningStatus,
+                },
+                i
+              ) => (
+                <tr key={id}>
+                  <td>{i + 1}</td>
+                  <td>
+                    {DateTime.fromISO(appointmentDate).toFormat("dd-MM-yyyy")}
+                  </td>
+                  <td>{slotLabels?.[appointmentTimeSlot]}</td>
+                  <td>{appointmentPersonName}</td>
+                  <td>
                     <button
                       onClick={() => {
+                        setAddressPopup(true);
                         setSelectedAppoinment({
                           id,
                           orderStatus,
@@ -96,36 +67,68 @@ const WasteAppoinmentTable = ({
                           appointmentContactNumber,
                           appointmentPersonName,
                         });
-                        setPopUp(true);
                       }}
                       className="status-btn status-btn-changed"
                     >
-                      Confirm Status
+                      Details
                     </button>
-                  ) : assigningStatus == "confirm" ? (
-                    "Visit Soon"
-                  ) : null}
-                </td>
-                <td>
-                  {orderStatus == "active" ? ( //&& assigningStatus != "request"
-                    <NavLink
-                      to="#"
-                      onClick={() => {
-                        setBuyWasteUserInfo({
-                          phoneNumber: appointmentContactNumber,
-                          name: appointmentPersonName,
-                          appoinmentId: id,
-                        });
-                        setProfBtn(10);
-                      }}
-                    >
-                      <button className="pricelist-btn">Buy Waste</button>
-                    </NavLink>
-                  ) : null}
-                </td>
-              </tr>
-            )
-          )}
+                  </td>
+                  <td>
+                    <a href={`tel:${appointmentContactNumber}`}>
+                      <button className="status-btn status-btn-changed">
+                        Call Now
+                      </button>
+                    </a>
+                  </td>
+                  <td>
+                    {orderStatus != "active" ? (
+                      orderStatus == "cancel" ? (
+                        "Canceled"
+                      ) : orderStatus == "fullfill" ? (
+                        "Completed"
+                      ) : null
+                    ) : assigningStatus == "request" ? (
+                      <button
+                        onClick={() => {
+                          setSelectedAppoinment({
+                            id,
+                            orderStatus,
+                            appointmentDate,
+                            appoinmentAddress,
+                            appointmentTimeSlot,
+                            appointmentContactNumber,
+                            appointmentPersonName,
+                          });
+                          setPopUp(true);
+                        }}
+                        className="status-btn status-btn-changed"
+                      >
+                        Confirm Status
+                      </button>
+                    ) : assigningStatus == "confirm" ? (
+                      "Visit Soon"
+                    ) : null}
+                  </td>
+                  <td>
+                    {orderStatus == "active" ? ( //&& assigningStatus != "request"
+                      <NavLink
+                        to="#"
+                        onClick={() => {
+                          setBuyWasteUserInfo({
+                            phoneNumber: appointmentContactNumber,
+                            name: appointmentPersonName,
+                            appoinmentId: id,
+                          });
+                          setProfBtn(10);
+                        }}
+                      >
+                        <button className="pricelist-btn">Buy Waste</button>
+                      </NavLink>
+                    ) : null}
+                  </td>
+                </tr>
+              )
+            )}
         </tbody>
       </table>
     </>

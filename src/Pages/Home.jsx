@@ -16,6 +16,7 @@ import MainFooter from "../HomeComponent/MainFooter";
 import Discover from "../HomeComponent/Discover";
 import { useLocation } from "react-router-dom";
 import { scrollToParam } from "../lib/scroll";
+import { testInsta } from "../apis/user";
 
 const Home = ({ setUserForm }) => {
   const location = useLocation();
@@ -24,21 +25,13 @@ const Home = ({ setUserForm }) => {
   useEffect(() => {
     scrollToParam(location, "s");
   }, [location.search]);
-  // useEffect(() => {
-   
-  // }, []);
+  useEffect(() => {
+    testInsta();
+  }, []);
 
   useEffect(() => {
-
-  
- 
-      Preloadergsap();
-  
-
-
-    
-})
-
+    Preloadergsap();
+  });
 
   // useEffect(() => {
   //   const interval = setInterval(() => {

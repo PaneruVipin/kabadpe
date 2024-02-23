@@ -303,7 +303,7 @@ const Appointment = ({ setUserForm }) => {
                                 <option value="" hidden>
                                   Select Your Service
                                 </option>
-                                {workers.map(({ label, value, id }) => (
+                                {[workers?.[0]].map(({ label, value, id }) => (
                                   <option key={id} value={value}>
                                     {label}
                                   </option>

@@ -188,7 +188,13 @@ const Wastecolect = () => {
                               </td>
                               <td>
                                 <div className="user-prof-img">
-                                  <img src={profileImage || "./images/temp/user-temp-profile.webp"} alt="" />
+                                  <img
+                                    src={
+                                      profileImage ||
+                                      "./images/temp/temp-user-profile.png"
+                                    }
+                                    alt=""
+                                  />
                                 </div>
                               </td>
 

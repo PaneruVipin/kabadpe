@@ -150,7 +150,7 @@ const Frienchies = () => {
                                   <img
                                     src={
                                       franchiseLogo ||
-                                      "./images/temp/user-temp-profile.webp"
+                                      "./images/temp/temp-user-profile.png"
                                     }
                                     alt=""
                                   />

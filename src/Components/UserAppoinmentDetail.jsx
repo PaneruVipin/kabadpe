@@ -1,5 +1,4 @@
 const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
-
   return (
     <>
       <div
@@ -18,7 +17,8 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
                   src={collectorInfo?.KabadCollector?.profileImage}
                   alt=""
                   onError={(e) =>
-                    (e.currentTarget.src = "/images/customImg/test-img-1.jpg")
+                    (e.currentTarget.src =
+                      "./images/temp/user-temp-profile.webp")
                   }
                 />
                 <div className="stars-flex-bx">
@@ -64,7 +64,14 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
           {collectorInfo?.Franchise ? (
             <div className="org-logo-info-flex-bx">
               <div className="left-org-logo">
-                <img src={collectorInfo?.Franchise?.franchiseLogo} alt="" />
+                <img
+                  src={
+                    collectorInfo?.Franchise?.id == "kabadpe"
+                      ? "./images/logos/logo-small.jpg"
+                      : collectorInfo?.Franchise?.franchiseLogo
+                  }
+                  alt=""
+                />
                 <div className="tick-check">
                   <i class="fa-solid fa-circle-check"></i>
                 </div>

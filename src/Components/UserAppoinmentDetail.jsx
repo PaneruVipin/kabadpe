@@ -18,7 +18,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
                   alt=""
                   onError={(e) =>
                     (e.currentTarget.src =
-                      "./images/temp/user-temp-profile.webp")
+                      "./images/temp/temp-user-profile.png")
                   }
                 />
                 <div className="stars-flex-bx">

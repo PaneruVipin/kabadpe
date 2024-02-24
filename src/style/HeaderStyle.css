@@ -253,10 +253,13 @@
     align-items: center;
     justify-content: center;
     width: 265px;
-    height: 95px;
+    height: 70px;
 
 }
+.main-logo-box img {
+ height: 50px;
 
+}
 .main-logo-box a {
     position: relative;
     display: inline-block;

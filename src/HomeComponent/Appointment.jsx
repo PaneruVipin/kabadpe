@@ -496,8 +496,9 @@ const Appointment = ({ setUserForm }) => {
                                           <img
                                             src={
                                               id == "kabadpe"
-                                                ? "/favicon-32x32.png"
-                                                : franchiseLogo
+                                                ? "./images/logos/logo-small.jpg"
+                                                : franchiseLogo ||
+                                                  "./images/temp/user-temp-profile.webp"
                                             }
                                             alt=""
                                           />

@@ -147,7 +147,13 @@ const Frienchies = () => {
                               </td>
                               <td>
                                 <div className="user-prof-img">
-                                  <img src={franchiseLogo} alt="" />
+                                  <img
+                                    src={
+                                      franchiseLogo ||
+                                      "./images/temp/user-temp-profile.webp"
+                                    }
+                                    alt=""
+                                  />
                                 </div>
                               </td>
 

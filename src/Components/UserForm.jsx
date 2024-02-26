@@ -15,6 +15,7 @@ import {
 import { SignUpToVerify } from "./Auth/SignupToVerify";
 import { validationVerifyOtpCollector } from "../validators/auth/kabadCollectorAuth";
 import {
+  googleAuth,
   userForgetPassCallback,
   userForgetPassRequestOTP,
   userForgetPassRequestReset,
@@ -204,6 +205,7 @@ const UserForm = ({ closepopUpUserForm }) => {
       setMainParent(true);
     }
   }, [login, signup, verifySignup]);
+
   return (
     <>
       <section
@@ -420,16 +422,23 @@ const UserForm = ({ closepopUpUserForm }) => {
                               <span>{loginChoice}</span>
 
                               <div className="other-pltofrm-login-link-flex-bx">
-                                <button className="login-link-bx">
+                                <button
+                                  type="button"
+                                  // onClick={openPopup}
+                                  className="login-link-bx"
+                                >
                                   <i className="fa-brands fa-facebook"></i>
                                   Facebook
                                 </button>
-
-                                <button className="login-link-bx login-link-bx2">
-                                  <i className="fa-brands fa-google-plus"></i>
-                                  Google
-                                </button>
-
+                                <NavLink to={`${ENV_API_BASE_URL}/auth/google`}>
+                                  <button
+                                    type="button"
+                                    className="login-link-bx login-link-bx2"
+                                  >
+                                    <i className="fa-brands fa-google-plus"></i>
+                                    Google
+                                  </button>
+                                </NavLink>
                                 {/* <button className="login-link-bx login-link-bx3">
                         <i className="fa-brands fa-linkedin"></i>
                         Linkedin

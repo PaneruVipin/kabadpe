@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Service from "./Pages/Service";
@@ -31,8 +31,10 @@ import ContentEdit from "./Pages/ContentEdit";
 import TermPolicy from "./HomeComponent/TermPolicy";
 import VendorLogin from "./VendorPages/VendorLogin";
 import VendorPanel from "./VendorPages/VendorPanel";
-
+import { setInLocalStorage } from "./lib/localStorage";
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     success: { login, verifySignup },
@@ -42,7 +44,15 @@ function App() {
     dispatch(userFetch());
   }, [login, verifySignup, loginLoading, verifyLoading]);
   const [userForm, setUserForm] = useState(false);
-
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const t = params.get("t");
+    if (t) {
+      setInLocalStorage("token", t);
+      navigate("/");
+      window.location.reload();
+    }
+  }, []);
   return (
     <Routes>
       <Route

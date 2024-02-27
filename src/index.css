@@ -12541,3 +12541,89 @@ Our Review Section CSS code
 .top-user-prof-search-bx2{
   z-index: 999 !important;
 }
+
+.ruppecoin{
+  padding-block:  0;
+  padding-inline: 0;
+  cursor: default;
+}
+
+.bal-bxmain{
+  position: relative;
+}
+
+.rupe-to-coin-bx{
+  position: absolute;
+  bottom: -3.2rem;
+  transition: 500ms ease;
+  left: -1rem !important;
+  background-color: #fff;
+  border: .1rem solid #eee !important;
+  z-index: 99;
+  border: .3rem;
+  border-radius: .4rem;
+  width: max-content;
+  padding-block: .3rem;
+  padding-inline: .5rem;
+  left: 0;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.bal-bxmain:hover .rupe-to-coin-bx{
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.wallet-comp7{
+  padding-inline-end: 20rem !important;
+}
+
+.product-side-comp-wallet{
+  width: 20rem !important;
+}
+
+.text-tb-right span{
+  text-align: center !important;
+}
+
+.walet-credit-two-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+
+.walet-credit-bx span{
+  font-size: 1rem;
+  color: #1c1c1c;
+}
+
+.username-bx{
+  position: relative;
+  width: 100%;
+  padding-block: .5rem;
+  border-radius: .5rem;
+  padding-inline: .5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1d1c1c;
+  background-color: #fefbf4;
+}
+
+.right-wallet-box{
+  gap: 1rem !important;
+}
+
+
+.text-center-align{
+justify-content: center;
+text-align: center;
+}
+.b-span4{
+  text-align: right !important;
+}

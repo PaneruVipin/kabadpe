@@ -5,6 +5,7 @@ import timeslotdata from "../HomeComponent/timeslotData";
 import { slotLabels } from "../lib/slots";
 import { workerAppoinmentsAnswerAssigning } from "../apis/worker/appoinments";
 import { appoinmentDefaultSort } from "../lib/appoinment";
+import { adminAppoinmentCancel } from "../apis/admins/appoinments";
 // import "../style/WasteColect.css";
 const WasteAppoinmentTable = ({
   setAddressPopup,
@@ -213,20 +214,32 @@ export const ScheduleActionPopup = ({
   setPopUp,
   popUp,
   refetchAppoinment,
+  component = "worker",
 }) => {
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
-  const handleConfirm = async (assigningStatus) => {
-    const res = await workerAppoinmentsAnswerAssigning({
-      id: selectedAppoinment?.id,
-      assigningStatus,
-    });
-    if (!res?.error) {
-      refetchAppoinment();
-      setPopUp(false);
-    }
-  };
+
+  const handleConfirm =
+    component == "user"
+      ? async (ident) => {
+          const flow = ident == "confirm" ? "flow" : "";
+          const res = await adminAppoinmentCancel({id:selectedAppoinment?.id, flow});
+          if (!res?.error) {
+            refetchAppoinment();
+            setPopUp(false);
+          }
+        }
+      : async (assigningStatus) => {
+          const res = await workerAppoinmentsAnswerAssigning({
+            id: selectedAppoinment?.id,
+            assigningStatus,
+          });
+          if (!res?.error) {
+            refetchAppoinment();
+            setPopUp(false);
+          }
+        };
   return (
     <>
       <section
@@ -242,7 +255,7 @@ export const ScheduleActionPopup = ({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="appoint-popup-info">
-            <h3>Changes Appointments</h3>
+            <h3>Changes Appointments </h3>
           </div>
 
           <div className="appoint-change-btns-flex">
@@ -254,7 +267,9 @@ export const ScheduleActionPopup = ({
               }}
               className="comn-appoint-btn comn-appoint-btn1 comn-appoint-btn1-bg-chnge"
             >
-              Confirm Appointment
+              {component == "user"
+                ? "Cancel All Frequency"
+                : "Confirm Appointment"}
             </button>
 
             {/* <button
@@ -276,7 +291,7 @@ export const ScheduleActionPopup = ({
               }}
               className="comn-appoint-btn comn-appoint-btn3"
             >
-              Reject Appointment
+              {component == "user" ? "Cancel This" : "Reject Appointment"}
             </button>
           </div>
 
@@ -296,7 +311,11 @@ export const ScheduleActionPopup = ({
                 : "confirm-text"
             }
           >
-            <p>Waste Pickup Scheduled and information has been sent to User</p>
+            <p>
+              {component == "user"
+                ? "Are you sure to Cancel all frequencies releted this appointment"
+                : "Waste Pickup Scheduled and information has been sent to User"}
+            </p>
             <button
               onClick={() => handleConfirm("confirm")}
               className="navigate-link-btn navigate-link-btn3"
@@ -351,13 +370,17 @@ export const ScheduleActionPopup = ({
               cancelPopup === true ? "cancel-text cancelactive" : "cancel-text"
             }
           >
-            <p>Are you sure to Reject Your Waste Pickup appointment</p>
+            <p>
+              {component == "user"
+                ? "Are you sure to Cancel Your Waste Pickup appointment"
+                : "Are you sure to Reject Your Waste Pickup appointment"}
+            </p>
 
             <button
               onClick={() => handleConfirm("cancel")}
               className="ok-btn navigate-link-btn3"
             >
-              Reject
+              {component == "user" ? "Confirm" : "Reject"}
             </button>
           </div>
         </div>

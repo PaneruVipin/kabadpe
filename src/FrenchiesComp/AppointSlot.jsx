@@ -82,7 +82,7 @@ const AppointSlot = ({
     }
   };
   const handleCancel = async () => {
-    const res = await adminAppoinmentCancel(appoinmentDetails?.id);
+    const res = await adminAppoinmentCancel({ id: appoinmentDetails?.id });
     if (!res?.error) {
       refetchAppoinment();
       setPopUp(false);

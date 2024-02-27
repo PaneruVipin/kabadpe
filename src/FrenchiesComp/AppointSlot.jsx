@@ -2,9 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import {
   adminAppoinmentAssign,
+  adminAppoinmentCancel,
+  adminAppoinmentForAssigningDateFetch,
+  adminAppoinmentReschedule,
   adminServicableWorkersFetch,
+  adminWorkerInSameJobFetch,
 } from "../apis/admins/appoinments";
 import { slotLabels } from "../lib/slots";
+import { Form, Formik } from "formik";
 
 const AppointSlot = ({
   onclickCloseApntSlot,
@@ -12,6 +17,7 @@ const AppointSlot = ({
   onClickOpenPopup,
   component,
   appoinmentDetails,
+  refetchAppoinment,
 }) => {
   const [currentDate, setcurrentdate] = useState(new Date());
   const [popUp, setPopUp] = useState(false);
@@ -24,7 +30,6 @@ const AppointSlot = ({
 
     setcurrentdate(inputData);
   };
-
   const handleDateChange = (direction) => {
     const newDate = new Date(currentDate);
 
@@ -40,7 +45,18 @@ const AppointSlot = ({
   const { data: workers, refetch } = useQuery({
     queryKey: ["fetchServicableWorkers"],
     queryFn: () =>
-      component == "admin" ? adminServicableWorkersFetch() : () => {},
+      component == "admin"
+        ? adminServicableWorkersFetch({
+            worker: appoinmentDetails?.serviceType,
+            ariaId: appoinmentDetails?.ariaId,
+          })
+        : () => {},
+  });
+
+  const { data: appoinments, refetch: refetchAppoinments } = useQuery({
+    queryKey: ["fetchAppoinmeAssigned"],
+    queryFn: () =>
+      adminAppoinmentForAssigningDateFetch(appoinmentDetails?.appointmentDate),
   });
   const handleConfirmClick = async () => {
     const res = await adminAppoinmentAssign({
@@ -48,12 +64,42 @@ const AppointSlot = ({
       workerId: selectedWorker?.id,
     });
     if (!res?.error) {
+      refetchAppoinment();
       setPopUp(false);
-      onClickOpenPopup;
+      onClickOpenPopup();
       return;
     }
   };
 
+  const handleReschedule = async (data) => {
+    const payload = { ...data, id: appoinmentDetails?.id };
+    const res = await adminAppoinmentReschedule(payload);
+    if (!res?.error) {
+      refetchAppoinment();
+      setPopUp(false);
+      onClickOpenPopup();
+      return;
+    }
+  };
+  const handleCancel = async () => {
+    const res = await adminAppoinmentCancel(appoinmentDetails?.id);
+    if (!res?.error) {
+      refetchAppoinment();
+      setPopUp(false);
+      onClickOpenPopup();
+      return;
+    }
+  };
+
+  const { data: workerInSameJob, refetch: refetchworkerInSameJOb } = useQuery({
+    queryKey: ["fetchWorkerInSameJob"],
+    queryFn: () =>
+      adminWorkerInSameJobFetch({
+        date: appoinmentDetails?.appointmentDate,
+        serviceType: appoinmentDetails?.serviceType,
+        ariaId: appoinmentDetails?.ariaId,
+      }),
+  });
   return (
     <>
       <section
@@ -68,41 +114,55 @@ const AppointSlot = ({
           onClick={(e) => e.stopPropagation()}
           className="appoint-popup-bx appoint-popup-bx2"
         >
-          <div className="appoint-popup-info appoint-popup-info2">
-            <h3>Assign</h3>
-            <h6>Assign Appointment to your waste collector</h6>
-          </div>
+          {workers?.length ? (
+            <div className="appoint-popup-info appoint-popup-info2">
+              <h3>Assign</h3>
+              <h6>Assign Appointment to your waste collector</h6>
+            </div>
+          ) : (
+            <div className="appoint-popup-info appoint-popup-info2">
+              <h3>Take action</h3>
+              <h6>Re-schedule or cancel appoinment</h6>
+            </div>
+          )}
+          {workers?.length ? (
+            <>
+              <div className="appoint-det">
+                <p>
+                  Name : <span>{selectedWorker?.fullname}</span>{" "}
+                </p>
+                <p>
+                  Time Slot :{" "}
+                  <span>
+                    {slotLabels?.[appoinmentDetails?.appointmentTimeSlot]}
+                  </span>{" "}
+                </p>
+                <p>
+                  Area : <span>{appoinmentDetails?.UserAddress?.aria}</span>{" "}
+                </p>
+              </div>
 
-          <div className="appoint-det">
-            <p>
-              Name : <span>{selectedWorker?.fullname}</span>{" "}
-            </p>
-            <p>
-              Time Slot :{" "}
-              <span>
-                {slotLabels?.[appoinmentDetails?.appointmentTimeSlot]}
-              </span>{" "}
-            </p>
-            <p>
-              Area : <span>{appoinmentDetails?.UserAddress?.aria}</span>{" "}
-            </p>
-          </div>
-
-          <p className="note-text">
-            Note : The KabadiWala is already have a job in same area .{" "}
-          </p>
-
+              {!workerInSameJob?.error && workerInSameJob?.length ? (
+                <p className="note-text">
+                  Note : The {workerInSameJob?.[0]?.KabadCollector?.fullname} is
+                  already have a job in same area .{" "}
+                </p>
+              ) : null}
+            </>
+          ) : null}
           <div className="appoint-change-btns-flex">
-            <button
-              onClick={() => {
-                setConfirmPopup(!confirmPopup),
-                  setReshedPopup(false),
-                  setCancelPopupPopup(false);
-              }}
-              className="comn-appoint-btn comn-appoint-btn1 comn-appoint-btn1-bg-chnge "
-            >
-              Confirm Appointment
-            </button>
+            {workers?.length ? (
+              <button
+                onClick={() => {
+                  setConfirmPopup(!confirmPopup),
+                    setReshedPopup(false),
+                    setCancelPopupPopup(false);
+                }}
+                className="comn-appoint-btn comn-appoint-btn1 comn-appoint-btn1-bg-chnge "
+              >
+                Assign Appointment
+              </button>
+            ) : null}
 
             <button
               onClick={() => {
@@ -148,7 +208,7 @@ const AppointSlot = ({
               onClick={handleConfirmClick}
               className="navigate-link-btn navigate-link-btn3 navigate-link-btn5"
             >
-              Confirm
+              Assign
             </button>
           </div>
 
@@ -163,34 +223,66 @@ const AppointSlot = ({
               Change date time for reschedule your waste pickup appoint, Appoint
               will be send to user for confirmation
             </p>
+            <Formik
+              initialValues={{ appointmentTimeSlot: "", appointmentDate: "" }}
+              onSubmit={handleReschedule}
+            >
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                return (
+                  <Form className="reshed-form">
+                    <div className="reshed-form-grid">
+                      <div className="reshd-inpt-bx reshd-inpt-bx3">
+                        <input
+                          type="date"
+                          name="appointmentDate"
+                          id="date"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentDate}
+                          autoComplete="off"
+                          required
+                          min={new Date().toISOString().split("T")[0]}
+                        />
+                      </div>
 
-            <form action="#" className="reshed-form">
-              <div className="reshed-form-grid">
-                <div className="reshd-inpt-bx reshd-inpt-bx3">
-                  <input
-                    type="date"
-                    name="date"
-                    id="date"
-                    autoComplete="off"
-                    required
-                  />
-                </div>
+                      <div className="reshed-select-bx reshd-inpt-bx3">
+                        <select
+                          required
+                          name="appointmentTimeSlot"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentTimeSlot}
+                          id="time_slot"
+                        >
+                          <option value="" hidden>
+                            Choose Time
+                          </option>
+                          {Object.keys(slotLabels)?.map((key) => (
+                            <option key={key} value={key}>
+                              {slotLabels?.[key]}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                <div className="reshed-select-bx reshd-inpt-bx3">
-                  <select name="time_slot" id="time_slot">
-                    <option value="Choose Time">Choose Time</option>
-                    <option value="Choose Time">10:00 to 11:00</option>
-                    <option value="Choose Time">12:00 to 1:00</option>
-                    <option value="Choose Time">1:00 to 2:00</option>
-                    <option value="Choose Time">2:00 to 3:00</option>
-                  </select>
-                </div>
-
-                <button className="resd-sub-btn navigate-link-btn3 navigate-link-btn5">
-                  Send Request
-                </button>
-              </div>
-            </form>
+                      <button
+                        type="submit"
+                        className="resd-sub-btn navigate-link-btn3 navigate-link-btn5"
+                      >
+                        Send Request
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
 
           <div
@@ -201,7 +293,7 @@ const AppointSlot = ({
             <p>Are you sure to Cancel Your Waste Pickup appointment</p>
 
             <button
-              onClick={() => setPopUp(false)}
+              onClick={handleCancel}
               className="ok-btn navigate-link-btn3 navigate-link-btn5"
             >
               Confirm
@@ -258,98 +350,130 @@ const AppointSlot = ({
           </div>
 
           <div className="buy-waste-table appoint-slot-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  {Object.keys(slotLabels)?.map((key, i) => (
-                    <th>
-                      {" "}
-                      <div className="slot-text-flex">
+            {workers?.length ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    {Object.keys(slotLabels)?.map((key, i) => (
+                      <th>
                         {" "}
-                        <p>
-                          {key?.split("")?.map((s, i) => {
-                            if (i) {
-                              return s;
-                            } else {
-                              return s?.toLocaleUpperCase();
-                            }
-                          })}
-                        </p>{" "}
-                        {slotLabels?.[key]}{" "}
-                      </div>{" "}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+                        <div className="slot-text-flex">
+                          {" "}
+                          <p>
+                            {key?.split("")?.map((s, i) => {
+                              if (i) {
+                                return s;
+                              } else {
+                                return s?.toLocaleUpperCase();
+                              }
+                            })}
+                          </p>{" "}
+                          {slotLabels?.[key]}{" "}
+                        </div>{" "}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
 
-              <tbody>
-                {!workers?.error
-                  ? workers?.map(
-                      ({
-                        aadharBack,
-                        aadharFront,
-                        address,
-                        ariaName,
-                        caste,
-                        email,
-                        fullname,
-                        gender,
-                        id,
-                        panNo,
-                        phoneNumber,
-                        pincode,
-                        profileImage,
-                        subAriaName,
-                        workCity,
-                        workerRole,
-                      }) => (
-                        <tr>
-                          <td>
-                            <span>
-                              {" "}
-                              {fullname?.split("")?.map((s, i) => {
-                                if (!i) {
-                                  return s?.toUpperCase();
-                                } else {
-                                  return s;
-                                }
-                              })}{" "}
-                            </span>
-                          </td>
-                          {Object.keys(slotLabels)?.map((key, i) => (
+                <tbody>
+                  {!workers?.error
+                    ? workers?.map(
+                        ({
+                          aadharBack,
+                          aadharFront,
+                          address,
+                          ariaName,
+                          caste,
+                          email,
+                          fullname,
+                          gender,
+                          id,
+                          panNo,
+                          phoneNumber,
+                          pincode,
+                          profileImage,
+                          subAriaName,
+                          workCity,
+                          workerRole,
+                        }) => (
+                          <tr>
                             <td>
-                              <div className="assign-flex-bx">
-                                <div className="slot-data">
-                                  <span>1. Laxmi Nagar</span>
-                                  <span>2. Kundan Nagar</span>
-                                  <span>3. Azad Nagar</span>
-                                </div>
-
-                                {key ==
-                                appoinmentDetails?.appointmentTimeSlot ? (
-                                  <button
-                                    className="assign-btn assign-btn3"
-                                    onClick={() => {
-                                      setPopUp(true);
-                                      setSelectedWorker({
-                                        fullname,
-                                        id,
-                                      });
-                                    }}
-                                  >
-                                    Assign
-                                  </button>
-                                ) : null}
-                              </div>
+                              <span>
+                                {" "}
+                                {fullname?.split("")?.map((s, i) => {
+                                  if (!i) {
+                                    return s?.toUpperCase();
+                                  } else {
+                                    return s;
+                                  }
+                                })}{" "}
+                              </span>
                             </td>
-                          ))}
-                        </tr>
+                            {Object.keys(slotLabels)?.map((key, i) => (
+                              <td>
+                                <div className="assign-flex-bx">
+                                  <div className="slot-data">
+                                    {!appoinments?.error
+                                      ? appoinments
+                                          ?.filter(
+                                            (a) =>
+                                              a?.appointmentTimeSlot == key &&
+                                              a?.workerId == id &&
+                                              a?.id != appoinmentDetails?.id
+                                          )
+                                          ?.map(({ UserAddress }, i) => (
+                                            <span>
+                                              {i + 1}.{" "}
+                                              {UserAddress?.aria +
+                                                ", " +
+                                                UserAddress?.subAria}
+                                            </span>
+                                          ))
+                                      : null}
+                                  </div>
+
+                                  {key ==
+                                  appoinmentDetails?.appointmentTimeSlot ? (
+                                    <button
+                                      className="assign-btn assign-btn3"
+                                      onClick={() => {
+                                        setPopUp(true);
+                                        setSelectedWorker({
+                                          fullname,
+                                          id,
+                                        });
+                                      }}
+                                    >
+                                      Assign
+                                    </button>
+                                  ) : null}
+                                </div>
+                              </td>
+                            ))}
+                          </tr>
+                        )
                       )
-                    )
-                  : null}
-              </tbody>
-            </table>
+                    : null}
+                </tbody>
+              </table>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <span>Currently Workers are not available for this Job</span>
+                <button
+                  className="assign-btn assign-btn3"
+                  onClick={() => {
+                    setPopUp(true);
+                    // setSelectedWorker({
+                    //   fullname,
+                    //   id,
+                    // });
+                  }}
+                >
+                  Actions
+                </button>
+              </div>
+            )}
           </div>
 
           <div onClick={onclickCloseApntSlot} className="close-appoint-btn-bx">

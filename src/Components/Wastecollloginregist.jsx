@@ -405,11 +405,13 @@ const Wastecolloginregist = () => {
                                 <option value="" hidden>
                                   Choose Worker Type
                                 </option>
-                                {workers.map(({ label, value, id }) => (
-                                  <option key={id} value={value}>
-                                    {label}
-                                  </option>
-                                ))}
+                                {workers.map(
+                                  ({ label, hindiLable, value, id }) => (
+                                    <option key={id} value={value}>
+                                      {hindiLable}
+                                    </option>
+                                  )
+                                )}
                               </select>
                               {touched?.workerRole && errors?.workerRole ? (
                                 <div style={{ color: "red" }}>

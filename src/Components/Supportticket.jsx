@@ -6,6 +6,7 @@ import "../style/Profile.css";
 import "../style/Support.css";
 import JoditEditor from "jodit-react";
 import UseProfRightbx from "./UseProfRightbx";
+import { useSelector } from "react-redux";
 
 const Supportticket = () => {
   const editor = useRef(null);
@@ -13,7 +14,7 @@ const Supportticket = () => {
   const [fileInputs, setFileInputs] = useState([0]);
   const [ticketForm, setTicketForm] = useState(false);
   const [submitTicketText, setSubmitTicketText] = useState(false);
-
+  const { userInfo } = useSelector((s) => s?.user);
   // Function to add a new input file box
   const addInputFile = (e) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ const Supportticket = () => {
             <div className="u-p-cont u-p-cont3 top-user-prof-search-bx-flex">
               <div className="left-user-prof-name-bx">
                 <h5>
-                  Hi, <span>Alysia</span>
+                  Hi, <span>{userInfo?.fullname}</span>
                 </h5>
               </div>
 
@@ -367,7 +368,7 @@ const Supportticket = () => {
                     ref={editor}
                     value={content}
                     onChange={(newContent) => {
-                        setContent(newContent);
+                      setContent(newContent);
                     }}
                   />
                 </div>

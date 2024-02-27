@@ -10,123 +10,168 @@ import ReviewPopup from "./ReviewPopup";
 import ReportPopup from "./ReportPopup";
 import UserAppoinmentDetail from "./UserAppoinmentDetail";
 import { Formik, Form } from "formik";
+import { slotLabels } from "../lib/slots";
+import { adminAppoinmentReschedule } from "../apis/admins/appoinments";
+import PDFTest from "./PDFtest";
+import { appoinmentDefaultSort } from "../lib/appoinment";
 
-const AppointmentRows = ({ onSupportClick, appoinments }) => {
+const AppointmentRows = ({
+  onSupportClick,
+  appoinments,
+  refetchAppoinment,
+}) => {
   const [collectorInfo, setCollectorInfo] = useState({});
   const [popupUser, setPopupUser] = useState(false);
   const [reshBox, setReshBox] = useState(false);
   const [revBox, setRevBox] = useState(false);
   const [repBox, setRepBox] = useState(false);
+  const [selectedAppoinment, setSelectedAppoinment] = useState({});
+
+  const handleReschedule = async (data) => {
+    const payload = { ...data, id: selectedAppoinment?.id };
+    const res = await adminAppoinmentReschedule(payload);
+    if (!res?.error) {
+      refetchAppoinment();
+      setReshBox(false);
+      return;
+    }
+  };
   return (
     <>
       <div className="u-p-updt-table-bx">
         <table>
           <tbody>
             {!appoinments?.error
-              ? appoinments?.map(
-                  (
-                    {
-                      id,
-                      appointmentDate,
-                      appointmentTimeSlot,
-                      Franchise,
-                      Arium,
-                      KabadCollector,
-                      orderStatus,
-                    },
-                    index
-                  ) => (
-                    <tr key={id}>
-                      <td>
-                        <div className="u-p-tb-data">
-                          <div className="t-icn">{index + 1}</div>
-                          <div className="u-p-tb-info">
-                            <h6>{Franchise?.name}</h6>
-                            <span className="pan-box-nav">
-                              {KabadCollector
-                                ? KabadCollector?.fullname
-                                : "Unassigned"}{" "}
-                              <NavLink
-                                to="#"
-                                onClick={() => {
-                                  setCollectorInfo({
-                                    Franchise,
-                                    KabadCollector,
-                                  });
-                                  setPopupUser(true);
-                                }}
-                              >
-                                <i class="fa-solid fa-circle-arrow-right"></i>
-                              </NavLink>{" "}
+              ? appoinments
+                  ?.sort(appoinmentDefaultSort)
+                  ?.map(
+                    (
+                      {
+                        id,
+                        appointmentDate,
+                        appointmentTimeSlot,
+                        Franchise,
+                        Arium,
+                        KabadCollector,
+                        orderStatus,
+                      },
+                      index
+                    ) => (
+                      <tr key={id}>
+                        <td>
+                          <div className="u-p-tb-data">
+                            <div className="t-icn">{index + 1}</div>
+                            <div className="u-p-tb-info">
+                              <h6>{Franchise?.name}</h6>
+                              <span className="pan-box-nav">
+                                {KabadCollector
+                                  ? KabadCollector?.fullname
+                                  : "Unassigned"}{" "}
+                                <NavLink
+                                  to="#"
+                                  onClick={() => {
+                                    setCollectorInfo({
+                                      Franchise,
+                                      KabadCollector,
+                                    });
+                                    setPopupUser(true);
+                                  }}
+                                >
+                                  <i class="fa-solid fa-circle-arrow-right"></i>
+                                </NavLink>{" "}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="u-p-tb-numb-bx">
+                            <h6>
+                              {DateTime.fromISO(appointmentDate, {
+                                zone: "utc",
+                              }).toFormat("ccc dd LLL yyyy")}{" "}
+                            </h6>
+                            <span>
+                              Ap.No.-{" "}
+                              <NavLink to="#">
+                                {" "}
+                                {String(id).padStart(6, "0")}{" "}
+                              </NavLink>
                             </span>
                           </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="u-p-tb-numb-bx">
-                          <h6>
-                            {DateTime.fromISO(appointmentDate, {
-                              zone: "utc",
-                            }).toFormat("ccc dd LLL yyyy")}{" "}
-                          </h6>
-                          <span>
-                            Ap.No.-{" "}
-                            <NavLink to="#">
-                              {" "}
-                              {String(id).padStart(6, "0")}{" "}
-                            </NavLink>
-                          </span>
-                        </div>
-                      </td>
-                      <td>
-                        <div
-                          onClick={() => setReshBox(true)}
-                          className=" tb-reshed-btn"
-                        >
-                          Reschedule
-                        </div>
-                      </td>
-                      {KabadCollector?.phoneNumber ? (
-                        <td>
-                          <div className=" tb-call-btn tb-call-btn5">Call </div>
                         </td>
-                      ) : null}
+                        {orderStatus == "active" ? (
+                          <td>
+                            <div
+                              onClick={() => {
+                                setSelectedAppoinment({ id });
+                                setReshBox(true);
+                              }}
+                              className=" tb-reshed-btn"
+                            >
+                              Reschedule
+                            </div>
+                          </td>
+                        ) : (
+                          <td></td>
+                        )}
+                        {KabadCollector?.phoneNumber &&
+                        orderStatus == "active" ? (
+                          <td>
+                            <div className=" tb-call-btn tb-call-btn5">
+                              Call{" "}
+                            </div>
+                          </td>
+                        ) : (
+                          <td></td>
+                        )}
 
-                      <td>
-                        <div className=" tb-call-btn tb-report-btn">Report</div>
-                      </td>
-
-                      {orderStatus == "active" ? (
                         <td>
-                          <div className="complet-bx upcoming-bx">Upcoming</div>
-                        </td>
-                      ) : null}
-                      {orderStatus == "completed" ? (
-                        <td>
-                          <div className="complet-bx complet-bx3">
-                            Completed
+                          <div className=" tb-call-btn tb-report-btn">
+                            Report
                           </div>
                         </td>
-                      ) : null}
-                      {orderStatus == "cancelled" ? (
+
+                        {orderStatus == "active" ? (
+                          KabadCollector?.id ? (
+                            <td>
+                              <div className="complet-bx upcoming-bx">
+                                Assigned
+                              </div>
+                            </td>
+                          ) : (
+                            <td>
+                              <div className="complet-bx upcoming-bx">
+                                Assigning...
+                              </div>
+                            </td>
+                          )
+                        ) : null}
+                        {orderStatus == "fullfill" ? (
+                          <td>
+                            <div className="complet-bx complet-bx3">
+                              Completed
+                            </div>
+                          </td>
+                        ) : null}
+                        {orderStatus == "cancel" ? (
+                          <td>
+                            <div className="complet-bx complet-bx3 conceld-bx">
+                              Cancelled
+                            </div>
+                          </td>
+                        ) : null}
                         <td>
-                          <div className="complet-bx complet-bx3 conceld-bx">
-                            Cancelled
-                          </div>
+                          <button
+                            onClick={onSupportClick}
+                            className="supp-link-btn supp-link-btn2"
+                          >
+                            <i class="fa-solid fa-hands-holding-child"></i>
+                            Support
+                          </button>
                         </td>
-                      ) : null}
-                      <td>
-                        <button
-                          onClick={onSupportClick}
-                          className="supp-link-btn supp-link-btn2"
-                        >
-                          <i class="fa-solid fa-hands-holding-child"></i>
-                          Support
-                        </button>
-                      </td>
-                    </tr>
+                      </tr>
+                    )
                   )
-                )
               : null}
           </tbody>
         </table>
@@ -142,15 +187,16 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
         className={
           reshBox ? "reshed-popup-main reshdactive" : "reshed-popup-main"
         }
+        onClick={() => setReshBox(false)}
       >
-        <div className="res-popup-box">
+        <div className="res-popup-box" onClick={(e) => e.stopPropagation()}>
           <h6>Reschedule Appointment</h6>
 
           <div className="reshedule-box res-appint-fild-flex-box reshedactive">
             <Formik
-            //   initialValues={initialValues}
-            //   onSubmit={handleSubmit}
-            //   validationSchema={validationLoginAdmin}
+              initialValues={{ appointmentTimeSlot: "", appointmentDate: "" }}
+              onSubmit={handleReschedule}
+              // validationSchema={validationLoginAdmin}
             >
               {({
                 handleBlur,
@@ -168,18 +214,32 @@ const AppointmentRows = ({ onSupportClick, appoinments }) => {
                           type="date"
                           name="appointmentDate"
                           id="date"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentDate}
                           autoComplete="off"
                           required
+                          min={new Date().toISOString().split("T")[0]}
                         />
                       </div>
 
                       <div className="reshed-select-bx reshd-inpt-bx3">
-                        <select name="appointmentTimeSlot" id="time_slot">
-                          <option value="Choose Time">Choose Time</option>
-                          <option value="Choose Time">10:00 to 11:00</option>
-                          <option value="Choose Time">12:00 to 1:00</option>
-                          <option value="Choose Time">1:00 to 2:00</option>
-                          <option value="Choose Time">2:00 to 3:00</option>
+                        <select
+                          required
+                          name="appointmentTimeSlot"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.appointmentTimeSlot}
+                          id="time_slot"
+                        >
+                          <option value="" hidden>
+                            Choose Time
+                          </option>
+                          {Object.keys(slotLabels)?.map((key) => (
+                            <option key={key} value={key}>
+                              {slotLabels?.[key]}
+                            </option>
+                          ))}
                         </select>
                       </div>
 

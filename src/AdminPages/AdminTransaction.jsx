@@ -3,30 +3,33 @@ import '../style/ReferEarn.css';
 import "../style/Profile.css";
 import "../style/BankCard.css";
 import "../style/WasteColect.css";
-import WalletData from '../Components/WalletData';
+// import WalletData from '../Components/WalletData';
+import AdminWallet from '../Components/AdminWaletData';
 import DatePicker from "react-datepicker";
 import UpdateWalet from './UpdateWalet';
 import PaymntDet from '../WasteColectComp/PaymntDet';
+import WalletCreditPopup from '../Components/WalletCreditPopup';
 
 
 const AdminTransaction = () => {
-    const [waletData , setWaletData] =  useState(WalletData);
+    const [waletData , setWaletData] =  useState(AdminWallet);
     const [butonActive , setButonActive] = useState(true);
     const [startDate, setStartDate] = useState(new Date("2014/02/08"));
     const [endDate, setEndDate] = useState(new Date("2014/02/10"));
     const [searchItem , setSearchItem] = useState('');
     const [updteWalet , setUpdteWalet] = useState(false);
     const [paymntDet , setPaymntDet] = useState(false);
+    const [waletCredit , setWaletCredit] = useState(false);
 
 
 
 
-   const filterData = (categValue) => {
+   const filterData = (value) => {
 
-    const updatedData = WalletData.filter((elem) => {
+    const updatedData = AdminWallet.filter((elem) => {
         return (
 
-            elem.category === categValue
+            elem.tnxtype == value || elem.mode == value || elem.status == value 
             
         )
     })
@@ -74,7 +77,7 @@ const AdminTransaction = () => {
 
                 
             <button onClick={() => setUpdteWalet(true)}   className="tranfer-btn add-money-btn">
-                    Update Wallet Credit
+                    Wallet Limit
                 </button>
 
                 <div className="total-walet-main">
@@ -140,19 +143,40 @@ const AdminTransaction = () => {
 
         <div className="wallet-tabs-btns-flex-box">
 
-            <button onClick={() => {setWaletData(WalletData) , butonActFunc(1)}}  className={ butonActive == 1 ? "walt-tab wallactive" : "walt-tab"}>
+            <button onClick={() => {setWaletData(AdminWallet) , butonActFunc(1)}}  className={ butonActive == 1 ? "walt-tab wallactive" : "walt-tab"}>
                 All
             </button>
-            <button onClick={() => {filterData('receive') , butonActFunc(2)}} className={ butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}>
+
+            <button onClick={() => {filterData('Bank') , butonActFunc(2)}} className={ butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}>
+                Bank
+            </button>
+
+            <button onClick={() => {filterData('Wallet') , butonActFunc(3)}} className={ butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}>
+                Wallet
+            </button>
+
+            <button onClick={() => {filterData('Cash') , butonActFunc(4)}}  className={ butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}>
+                Cash
+            </button>
+
+            <button onClick={() => {filterData('In') , butonActFunc(5)}}  className={ butonActive == 5 ? "walt-tab wallactive" : "walt-tab"}>
+                In
+            </button>
+
+            <button onClick={() => {filterData('Out') , butonActFunc(6)}}  className={ butonActive == 6 ? "walt-tab wallactive" : "walt-tab"}>
+                Out
+            </button>
+
+            
+            <button onClick={() => {filterData('Received') , butonActFunc(7)}}  className={ butonActive == 7 ? "walt-tab wallactive" : "walt-tab"}>
                 Received
             </button>
-            <button onClick={() => {filterData('payment') , butonActFunc(3)}} className={ butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}>
-                Payment
-            </button>
-            <button onClick={() => {filterData('withdraw') , butonActFunc(4)}}  className={ butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}>
-                Withdraw
-            </button>
+
             
+            <button onClick={() => {filterData('Paid') , butonActFunc(8)}}  className={ butonActive == 8 ? "walt-tab wallactive" : "walt-tab"}>
+                Paid
+            </button>
+
         </div>
 
         <div className="right-fitler-part-box">
@@ -238,16 +262,18 @@ const AdminTransaction = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>SN.</th>
-                        <th>Date</th>
+                        <th>Date/Time</th>
                         <th>User Name</th>
+                        <th>User ID</th>
                         <th>User Type</th>
-                        <th>Transaction Type</th>
-                        <th>Amount (Debit)</th>
-                        <th>Amount (Credit) </th>
-                        <th>Comission</th>
-                        <th>Balance </th>
+                        <th>Tnx Type</th>
+                        <th>Mode</th>
+                        <th>Eco Points </th>
+                        <th>Wallet </th>
+                        <th>Income </th>
                         <th>Status </th>
+                        <th>Wallet Tnx ID</th>
+                        <th>Bank Tnx ID</th>
                         <th>Invoice </th>
                         <th>Details </th>
 
@@ -260,9 +286,7 @@ const AdminTransaction = () => {
                     return(
                         <>
 
-<tr>                     <td>
-                            <span className='b-span2'> {indx+1} </span>
-                        </td>
+<tr>                    
 
                         <td>
                             <div className="b-date">
@@ -279,10 +303,13 @@ const AdminTransaction = () => {
                                 </div>
 
                                 <div className="b-info ">
-                                    <p>{curElem.name}</p>
-                                    <span>{curElem.uniqueID} </span>
+                                    <p>{curElem.username}</p>
                                 </div>
                             </div>
+                        </td>
+
+                        <td>
+                            <span className='b-span2'> {curElem.userid} </span>
                         </td>
 
                         <td>
@@ -290,39 +317,55 @@ const AdminTransaction = () => {
                         </td>
 
                         <td>
-                            <span className='b-span2'> {curElem.transactiontype} </span>
+                            <span className='b-span2'> {curElem.tnxtype} </span>
                         </td>
 
                         <td>
-                            <span className='b-span2'> {curElem.amountdebit} </span>
+                            <span className='b-span2'> {curElem.mode} </span>
                         </td>
 
                         <td>
-                            <span className='b-span2'> {curElem.amountcredit} </span>
+                            <span className='b-span2'> {curElem.ecopoints} </span>
+                        </td>
+                        <td>
+                            <span className='b-span2'> {curElem.wallet} </span>
+                            
                         </td>
 
                         <td>
-                            <span className='b-span2'> {curElem.cmision} </span>
-                        </td>
-                        <td>
-                            <span className='b-span2'> {curElem.balance} </span>
+                            <span className='b-span2'> {curElem.income} </span>
+                            
                         </td>
 
-                        <td className='text-tb-left'>
-                            <span className={ curElem.category === 'failed' ? "status-g redstatus" : "status_g"} style={{color: curElem.color_Status === 'orange' ? "orange" : "green"}}> {curElem.status} </span>
+                        <td className='text-tb-right'>
+                            <span className={ curElem.status === 'Out' ? "status-g redstatus" : "status_g"} style={{color: curElem.status === 'Done' ? "orange" : "green"}}> {curElem.status} </span>
                         </td> 
+
+                        
+                        <td>
+                        <span className='b-span2'> {curElem.walettnxId} </span>
+                           
+                        </td>
+
+                        
+                        <td>
+                        <span className='b-span2'> {curElem.banktnxId} </span>
+                           
+                        </td>
+
+                        
+                     
 
                         <td>
                             <div className="id-dwld-btn">
-                            <span className='b-span'> {curElem.uniqueID2} </span>
+                            <span className='b-span'> {curElem.invoice} </span>
                             <i class="fa-regular fa-circle-down"></i>
                             </div>
                         </td>
 
                         <td>
-                            <div onClick={() => setPaymntDet(true)}  className="det-btn">
-                                Details
-                            </div>
+                        <span className='b-span2'> {curElem.details} </span>
+                           
                         </td>
 
 
@@ -347,9 +390,10 @@ const AdminTransaction = () => {
     </section>
 
   
-  {updteWalet ? <UpdateWalet onClickClose={() => setUpdteWalet(false)} /> : null}
+  {updteWalet ? <UpdateWalet onClickClose={() => {setUpdteWalet(false), setWaletCredit(true)}} /> : null}
   {paymntDet ? <PaymntDet onclickCloseAll={() => setPaymntDet(false)} /> : null}
 
+  { waletCredit ? <WalletCreditPopup onclickClosePopup={() => setWaletCredit(false)}  /> : null }
    
     </>
   )

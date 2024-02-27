@@ -22,8 +22,13 @@ const BuyWasteTable = ({
   const [rateListData, setRateListData] = useState([]);
   const handleWeightChange = (id, value) => {
     const newTableData = tableData.map((row) => {
+      let ammount;
       if (row?.id == id) {
-        const ammount = +value && +row?.price ? +row?.price * +value : null;
+        if (+value <= 200) {
+          ammount = +value && +row?.price ? +row?.price * +value : null;
+        } else {
+          ammount = +value && +row?.bulkPrice ? +row?.bulkPrice * +value : null;
+        }
         return {
           ...row,
           weight: value,
@@ -51,37 +56,6 @@ const BuyWasteTable = ({
     setTableData(updatedData);
   };
 
-  const getImageUrl = (selectedOption) => {
-    switch (selectedOption) {
-      case "book":
-        return "/images/customImg/book.png";
-      case "paper":
-        return "/images/customImg/cash.png";
-      case "iron":
-        return "/images/customImg/beam.png";
-      case "plastic":
-        return "/images/customImg/plastic.png";
-      case "cardboard":
-        return "/images/customImg/cardboard.png";
-      case "wheel":
-        return "/images/customImg/wheel.png";
-      case "aluminium":
-        return "/images/customImg/aluminium-paper.png";
-      case "wood":
-        return "/images/customImg/furniture.png";
-      case "magazine":
-        return "/images/customImg/magazine.png";
-      case "ewaste":
-        return "/images/customImg/broken.png";
-      case "copper":
-        return "/images/customImg/coil.png";
-      case "steel":
-        return "/images/customImg/iron-bar.png";
-      default:
-        return "";
-    }
-  };
-
   const { data: rateList, refetch } = useQuery({
     queryKey: ["workerGetRateList"],
     queryFn: () => workerRateListFetch(),
@@ -104,12 +78,14 @@ const BuyWasteTable = ({
     const data = {
       orderDetail: { waste: tableData, totalAmmount },
       user: buyWasteUserInfo,
+      appoinmentId: buyWasteUserInfo?.appoinmentId,
     };
     const res = await workerBuyWasteCallbackCash(data);
     if (!res?.error) {
       closeBuyWaste();
     }
   };
+  console.log("tableData tableData tableData", tableData);
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -152,7 +128,8 @@ const BuyWasteTable = ({
                 <th>SNo.</th>
                 <th>Product Name</th>
                 <th>Product Image</th>
-                <th>Price/Kg</th>
+                <th>Retail Price/Kg</th>
+                <th>Bulk Price/Kg</th>
                 <th>Weight in Kg</th>
                 <th>Amount</th>
                 <th>Action</th>
@@ -160,7 +137,10 @@ const BuyWasteTable = ({
             </thead>
             <tbody>
               {tableData?.map(
-                ({ id, name, price, weight, ammount, image }, index) => (
+                (
+                  { id, name, price, weight, ammount, image, bulkPrice },
+                  index
+                ) => (
                   <tr key={id}>
                     <td>{index + 1}</td>
                     <td>
@@ -179,6 +159,7 @@ const BuyWasteTable = ({
                                   name: values?.productName,
                                   image: values?.productImage,
                                   price: values?.retailPrice,
+                                  bulkPrice: values?.bulkPrice,
                                   ammount,
                                 };
                               } else {
@@ -237,6 +218,11 @@ const BuyWasteTable = ({
                     </td>
                     <td>
                       {name ? (
+                        <div className="amount-total">{bulkPrice}</div>
+                      ) : null}
+                    </td>
+                    <td>
+                      {name ? (
                         <input
                           type="number"
                           onWheel={(e) => e.currentTarget.blur()}
@@ -261,7 +247,7 @@ const BuyWasteTable = ({
                             className="add-data-btn"
                             onClick={handleAddRow}
                           >
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                           </button>
                         ) : null}
                         {tableData?.length > 1 ? (
@@ -269,7 +255,7 @@ const BuyWasteTable = ({
                             className="add-data-btn delt-data-btn"
                             onClick={() => handleDeleteRow(id)}
                           >
-                            <i class="fa-regular fa-trash-can"></i>
+                            <i className="fa-regular fa-trash-can"></i>
                           </button>
                         ) : null}
                       </div>
@@ -288,7 +274,7 @@ const BuyWasteTable = ({
             {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          {totalAmmount ? (
+          {+totalAmmount ? (
             <button onClick={() => setPay(true)} className="paynow-btn">
               Pay Now
             </button>
@@ -296,8 +282,11 @@ const BuyWasteTable = ({
         </div>
       </section>
 
-      <div className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}>
-        <div className="paynow-btn-flex">
+      <div
+        onClick={() => setPay(false)}
+        className={pay ? "pay-now-btn-sec payactive" : "pay-now-btn-sec"}
+      >
+        <div onClick={(e) => e.stopPropagation()} className="paynow-btn-flex">
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>
@@ -312,7 +301,7 @@ const BuyWasteTable = ({
           </button> */}
 
           <div onClick={() => setPay(false)} className="close-btn ">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
@@ -343,7 +332,7 @@ const BuyWasteTable = ({
           <button className="confirm-btn">Confirm</button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

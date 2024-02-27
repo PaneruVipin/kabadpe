@@ -67,6 +67,7 @@ const Appointment = ({ setUserForm }) => {
       companyId: selectedSlotData?.selectedCompany?.id,
       appointmentTimeSlot: selectedSlotData?.slotName,
       appoinmentAria: selectedAddress?.id,
+      ariaId: servicableAriaId,
     };
     const res = await userScheduleAppoinment(newData);
     setShowResponse(true);
@@ -302,7 +303,7 @@ const Appointment = ({ setUserForm }) => {
                                 <option value="" hidden>
                                   Select Your Service
                                 </option>
-                                {workers.map(({ label, value, id }) => (
+                                {[workers?.[0]].map(({ label, value, id }) => (
                                   <option key={id} value={value}>
                                     {label}
                                   </option>
@@ -472,14 +473,16 @@ const Appointment = ({ setUserForm }) => {
                   </h3>
                   {selectedDate > new Date() ? (
                     <div className="avalbe-cmpnies-main-bx">
-                      {!availableCompanies?.error
-                        ? availableCompanies.map(
+                      {availableCompanies?.length ? (
+                        !availableCompanies?.error ? (
+                          availableCompanies.map(
                             (
                               {
                                 Franchise: {
                                   companyName,
                                   franchiseAddress,
                                   id,
+                                  franchiseLogo,
                                 },
                               },
                               i
@@ -490,7 +493,15 @@ const Appointment = ({ setUserForm }) => {
                                     <div className="avalbe-cmpnies-flex">
                                       <div className="left-cmpnies-bx">
                                         <div className="cmpnies-logo">
-                                          <img src={""} alt="" />
+                                          <img
+                                            src={
+                                              id == "kabadpe"
+                                                ? "./images/logos/logo-small.jpg"
+                                                : franchiseLogo ||
+                                                  "./images/temp/temp-user-profile.png"
+                                            }
+                                            alt=""
+                                          />
                                         </div>
                                         <div className="cmpnies-info">
                                           <h6> {companyName} </h6>
@@ -645,7 +656,13 @@ const Appointment = ({ setUserForm }) => {
                               );
                             }
                           )
-                        : null}
+                        ) : null
+                      ) : (
+                        <p style={{ textAlign: "center" }}>
+                          Currently All Slots Are Filled For{" "}
+                          {selectedServiceType}
+                        </p>
+                      )}
                     </div>
                   ) : (
                     <div style={{ textAlign: "center" }}>

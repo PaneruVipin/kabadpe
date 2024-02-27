@@ -18,6 +18,7 @@ const UserProfUpdates = ({ onSupportClick }) => {
         <div className="u-p-cont">
           <h5>Appointments</h5>
           <AppointmentRows
+          refetchAppoinment={refetch}
             onSupportClick={onSupportClick}
             appoinments={appoinments}
           />

@@ -160,7 +160,7 @@ const AllUser = ({ updatedFilterData }) => {
                           role,
                           accountStatus,
                           fullname,
-                          franchiseStatus
+                          franchiseStatus,
                         },
                         i
                       ) => {
@@ -172,7 +172,18 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
                               <td>
                                 <div className="user-prof-img">
-                                  <img src={profileImage} alt="" />
+                                  <img
+                                    src={
+                                      profileImage ||
+                                      "./images/temp/temp-user-profile.png"
+                                    }
+                                    onError={(e) => {
+                                      console.log("running onError");
+                                      e.currentTarget.src =
+                                        "./images/temp/temp-user-profile.png";
+                                    }}
+                                    alt=""
+                                  />
                                 </div>
                               </td>
 
@@ -193,28 +204,24 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
                               <td>
                                 <span
-                                  // style={{
-                                  //   color:
-                                  //     curElem.categoryStatus === "Active"
-                                  //       ? "Green"
-                                  //       : "orange",
-                                  // }}
-                                  // className={
-                                  //   curElem.categoryStatus === "Banned"
-                                  //     ? "status-t statColor"
-                                  //     : "status-t"
-                                  // }
+                                // style={{
+                                //   color:
+                                //     curElem.categoryStatus === "Active"
+                                //       ? "Green"
+                                //       : "orange",
+                                // }}
+                                // className={
+                                //   curElem.categoryStatus === "Banned"
+                                //     ? "status-t statColor"
+                                //     : "status-t"
+                                // }
                                 >
                                   {" "}
                                   {accountStatus || franchiseStatus}{" "}
                                 </span>
                               </td>
-                              <td>
-                                {/* <span> {curElem.City} </span> */}
-                              </td>
-                              <td>
-                                {/* <span> {curElem.Zip} </span> */}
-                              </td>
+                              <td>{/* <span> {curElem.City} </span> */}</td>
+                              <td>{/* <span> {curElem.Zip} </span> */}</td>
 
                               <td>
                                 <div

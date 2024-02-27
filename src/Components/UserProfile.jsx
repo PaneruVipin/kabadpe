@@ -77,7 +77,7 @@ const UserProfile = () => {
                 src={
                   user?.profileImage
                     ? user?.profileImage
-                    : `./images/customImg/test-img-1.jpg`
+                    : `./images/temp/temp-user-profile.png`
                 }
                 alt=""
               />

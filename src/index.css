@@ -12614,3 +12614,16 @@ Our Review Section CSS code
   color: #1d1c1c;
   background-color: #fefbf4;
 }
+
+.right-wallet-box{
+  gap: 1rem !important;
+}
+
+
+.text-center-align{
+justify-content: center;
+text-align: center;
+}
+.b-span4{
+  text-align: right !important;
+}

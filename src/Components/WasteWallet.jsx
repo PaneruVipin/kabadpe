@@ -288,11 +288,11 @@ const WasteWallet = () => {
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2 b-span3"> {curElem.uniqueID} </span>
+                        <span className="b-span2 "> {curElem.uniqueID} </span>
                         
                       </td>
                       <td>
-                        <span className="b-span2 b-span3">
+                        <span className="b-span2 ">
                           {" "}
                           {curElem.usertype}{" "}
                         </span>
@@ -323,31 +323,31 @@ const WasteWallet = () => {
                       </td> */}
 
                       <td>
-                        <span className="b-span2 b-span3">
+                        <span className="b-span2 ">
                           {" "}
                           {curElem.tnxtype}{" "}
                         </span>
                       </td>
 
                       <td>
-                        <span className="b-span2 b-span3">
+                        <span className="b-span2 ">
                           {" "}
                           {curElem.mode}{" "}
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2 b-span3"> {curElem.ecopoints} </span>
+                        <span className="b-span2  b-span4"> {curElem.ecopoints} </span>
                       </td>
                       <td>
-                        <span className="b-span2 b-span3">
+                        <span className="b-span2  b-span4">
                           {" "}
                           {curElem.wallet}{" "}
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2 b-span3"> {curElem.income} </span>
+                        <span className="b-span2 "> {curElem.income} </span>
                       </td>
-                      <td className="text-tb-left">
+                      <td className="text-tb-right">
                         <span
                           className={
                             curElem.status === "Failed" ||   curElem.status === "Out" 
@@ -366,14 +366,14 @@ const WasteWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.walettnxId} </span>
+                        <span className="b-span2 text-center-align"> {curElem.walettnxId} </span>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.banktnxId} </span>
+                        <span className="b-span2 text-center-align"> {curElem.banktnxId} </span>
                       </td>
                       <td>
-                        <div className="id-dwld-btn">
+                        <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
                          {curElem.invoice === '' ? <i class="fa-regular fa-circle-down"></i> : null}
                         </div>

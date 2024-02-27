@@ -327,10 +327,10 @@ const MyWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.ecopoints} </span>
+                        <span className="b-span2 b-span4"> {curElem.ecopoints} </span>
                       </td>
                       <td>
-                        <span className="b-span2">
+                        <span className="b-span2 b-span4">
                           {" "}
                           {curElem.wallet}{" "}
                         </span>
@@ -357,14 +357,14 @@ const MyWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.walettnxId} </span>
+                        <span className="b-span2 text-center-align"> {curElem.tnxid} </span>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.banktnxid} </span>
+                        <span className="b-span2 text-center-align"> {curElem.banktnxid} </span>
                       </td>
                       <td>
-                        <div className="id-dwld-btn">
+                        <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
                           <i class="fa-regular fa-circle-down"></i>
                         </div>

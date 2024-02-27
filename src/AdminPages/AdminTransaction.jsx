@@ -74,7 +74,9 @@ const AdminTransaction = () => {
             <h6>Transactions</h6>
 
             <div className="right-wallet-box">
-
+            <button onClick={() => setWaletCredit(true)}   className="tranfer-btn add-money-btn">
+                    Credit Limit
+                </button>
                 
             <button onClick={() => setUpdteWalet(true)}   className="tranfer-btn add-money-btn">
                     Wallet Limit
@@ -325,10 +327,10 @@ const AdminTransaction = () => {
                         </td>
 
                         <td>
-                            <span className='b-span2'> {curElem.ecopoints} </span>
+                            <span className='b-span2 b-span4'> {curElem.ecopoints} </span>
                         </td>
                         <td>
-                            <span className='b-span2'> {curElem.wallet} </span>
+                            <span className='b-span2 b-span4'> {curElem.wallet} </span>
                             
                         </td>
 
@@ -343,13 +345,13 @@ const AdminTransaction = () => {
 
                         
                         <td>
-                        <span className='b-span2'> {curElem.walettnxId} </span>
+                        <span className=' text-center-align'> {curElem.walettnxId} </span>
                            
                         </td>
 
                         
                         <td>
-                        <span className='b-span2'> {curElem.banktnxId} </span>
+                        <span className='b-span2 text-center-align'> {curElem.banktnxId} </span>
                            
                         </td>
 
@@ -357,7 +359,7 @@ const AdminTransaction = () => {
                      
 
                         <td>
-                            <div className="id-dwld-btn">
+                            <div className="id-dwld-btn text-center-align">
                             <span className='b-span'> {curElem.invoice} </span>
                             <i class="fa-regular fa-circle-down"></i>
                             </div>
@@ -390,7 +392,7 @@ const AdminTransaction = () => {
     </section>
 
   
-  {updteWalet ? <UpdateWalet onClickClose={() => {setUpdteWalet(false), setWaletCredit(true)}} /> : null}
+  {updteWalet ? <UpdateWalet onClickClose={() => {setUpdteWalet(false)}} /> : null}
   {paymntDet ? <PaymntDet onclickCloseAll={() => setPaymntDet(false)} /> : null}
 
   { waletCredit ? <WalletCreditPopup onclickClosePopup={() => setWaletCredit(false)}  /> : null }

@@ -29,10 +29,13 @@ const WalletCreditPopup = ({onclickClosePopup}) => {
                 
             </div>
 
-            <div className="amnt-fild-bx">
+            <div className="amnt-fild-bx mt-4">
                 <label htmlFor="#">Wallet Eco Points</label>
                 <input type="text" name='ecopoints' id='ecopoints' placeholder='Coins'  />
             </div>
+
+            <p>Note :  <span>This will give wallet credit to your users at the time of registration, please check carefully and update as per your convenience or requirements.
+</span></p>
             
             <button onClick={onclickClosePopup} className="tranfer-btn tranfer-btn5 mt-3 mx-auto d-flex justify-content-center align-items-center">
                     Apply

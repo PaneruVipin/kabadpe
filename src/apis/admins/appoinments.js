@@ -57,8 +57,9 @@ export const adminAppoinmentForAssigningDateFetch = resolvePromise(
   }
 );
 
-export const adminAppoinmentCancel = resolvePromise(async (id) => {
-  const apiUrl = ENV_API_BASE_URL + `/admin/appoinment/${id}/cancel`;
+export const adminAppoinmentCancel = resolvePromise(async ({id, flow=""}) => {
+  const apiUrl =
+    ENV_API_BASE_URL + `/admin/appoinment/${id}/cancel?flow=${flow}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.put(
     apiUrl,

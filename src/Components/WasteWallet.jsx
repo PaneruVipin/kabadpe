@@ -33,7 +33,7 @@ const WasteWallet = () => {
 
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
-      return elem.category === categValue;
+      return elem.tnxtype === categValue || elem.status === categValue ;
     });
 
     setWaletData(updatedData);
@@ -73,13 +73,37 @@ const WasteWallet = () => {
               Withdraw Now
             </button>
 
+            <div className="total-walet-main">
+                <div className="refrl-balance-box">
+              <p>Total Wallet</p>
+              <div className="bal-bxmain">
+              <div className="balance-box">
+                <div className="rupes-icon">
+                <i class="fa-solid fa-coins"></i>
+                </div>
+                <span>5000.00</span>
+              </div>
+
+              <div className="rupe-to-coin-bx">
+            <div className="refrl-balance-box ruppecoin">
+              <p>1 Rupee =  1 coin</p>
+            </div>
+           
+            </div>
+            </div>
+
+          
+            </div>
+          
+            </div>
+{/* 
             <div className="refrl-balance-box">
               <p>Total Balance</p>
               <div className="balance-box">
                 <div className="rupes-icon">₹</div>
                 <span>500.00</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -93,30 +117,69 @@ const WasteWallet = () => {
             >
               All
             </button>
+            {/* All Bank Wallet Cash In Out Received Paid */}
+
             <button
               onClick={() => {
-                filterData("receive"), butonActFunc(2);
+                filterData("Bank"), butonActFunc(2);
               }}
               className={butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Bank
+            </button>
+
+            <button
+              onClick={() => {
+                filterData("Wallet"), butonActFunc(3);
+              }}
+              className={butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Wallet
+            </button>
+
+            <button
+              onClick={() => {
+                filterData("Cash"), butonActFunc(4);
+              }}
+              className={butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Cash
+            </button>
+
+            <button
+              onClick={() => {
+                filterData("In"), butonActFunc(5);
+              }}
+              className={butonActive == 5 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              In
+            </button>
+
+            <button
+              onClick={() => {
+                filterData("Out"), butonActFunc(6);
+              }}
+              className={butonActive == 6 ? "walt-tab wallactive" : "walt-tab"}
+            >
+              Out
+            </button>
+            <button
+              onClick={() => {
+                filterData("Received"), butonActFunc(7);
+              }}
+              className={butonActive == 7 ? "walt-tab wallactive" : "walt-tab"}
             >
               Received
             </button>
             <button
               onClick={() => {
-                filterData("payment"), butonActFunc(3);
+                filterData("Paid"), butonActFunc(8);
               }}
-              className={butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}
+              className={butonActive == 8 ? "walt-tab wallactive" : "walt-tab"}
             >
-              Payment
+              Paid
             </button>
-            <button
-              onClick={() => {
-                filterData("withdraw"), butonActFunc(4);
-              }}
-              className={butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Withdraw
-            </button>
+            
           </div>
 
           <div className="right-fitler-part-box">
@@ -176,18 +239,22 @@ const WasteWallet = () => {
           <table>
             <thead>
               <tr>
-              <th>SN.</th>
-                        <th>Date</th>
+                   <th>SN.</th>
+                        <th>Date/Time</th>
                         <th>User Name</th>
+                        <th>User ID</th>
                         <th>User Type</th>
-                        <th>Transaction Type</th>
-                        <th>Amount (Credit) </th>
-                        <th>Amount (Debit)</th>
-                        <th>Comission</th>
-                        <th>Balance </th>
+                        <th>Txn Type</th>
+                        <th>Mode </th>
+                        <th>Eco Points  </th>
+                        <th>Wallet </th>
+                        <th>Income</th>
                         <th>Status </th>
+                        <th>Wallet <br/> Txn ID </th>
+                        <th>Bank  <br/> Txn ID </th>
                         <th>Invoice </th>
                         <th>Details </th>
+
               </tr>
             </thead>
             <tbody>
@@ -216,45 +283,80 @@ const WasteWallet = () => {
                           </div>
 
                           <div className="b-info ">
-                            <p>{curElem.name}</p>
-                            <span>{curElem.uniqueID} </span>
+                            <p>{curElem.from}</p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.usertype} </span>
+                        <span className="b-span2 "> {curElem.uniqueID} </span>
+                        
                       </td>
                       <td>
-                        <span className="b-span2">
+                        <span className="b-span2 ">
                           {" "}
-                          {curElem.transactiontype}{" "}
+                          {curElem.usertype}{" "}
+                        </span>
+                      </td>
+
+
+                      {/* <td>
+                      <div
+                          className="bussin-flex-box"
+                          key={indx}
+                          id={curElem.indx}
+                        >
+                          <div className="b-img">
+                            <img src={curElem.img2} alt="" />
+                          </div>
+
+                          <div className="b-info b-info2 ">
+                            <p>{curElem.to}</p>
+                          </div>
+                        </div>
+                      </td> */}
+
+                      {/* <td>
+                        <span className="b-span2 b-span3">
+                          {" "}
+                          {curElem.to}{" "}
+                        </span>
+                      </td> */}
+
+                      <td>
+                        <span className="b-span2 ">
+                          {" "}
+                          {curElem.tnxtype}{" "}
+                        </span>
+                      </td>
+
+                      <td>
+                        <span className="b-span2 ">
+                          {" "}
+                          {curElem.mode}{" "}
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.amountdebit} </span>
+                        <span className="b-span2  b-span4"> {curElem.ecopoints} </span>
                       </td>
                       <td>
-                        <span className="b-span2">
+                        <span className="b-span2  b-span4">
                           {" "}
-                          {curElem.amountcredit}{" "}
+                          {curElem.wallet}{" "}
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.cmision} </span>
+                        <span className="b-span2 "> {curElem.income} </span>
                       </td>
-                      <td>
-                        <span className="b-span2"> {curElem.balance} </span>
-                      </td>
-                      <td className="text-tb-left">
+                      <td className="text-tb-right">
                         <span
                           className={
-                            curElem.category === "failed"
+                            curElem.status === "Failed" ||   curElem.status === "Out" 
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.color_Status === "orange"
+                              curElem.status === "Paid"
                                 ? "orange"
                                 : "green",
                           }}
@@ -264,18 +366,20 @@ const WasteWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <div className="id-dwld-btn">
-                          <span className="b-span"> {curElem.uniqueID2} </span>
-                          <i class="fa-regular fa-circle-down"></i>
+                        <span className="b-span2 text-center-align"> {curElem.walettnxId} </span>
+                      </td>
+
+                      <td>
+                        <span className="b-span2 text-center-align"> {curElem.banktnxId} </span>
+                      </td>
+                      <td>
+                        <div className="id-dwld-btn text-center-align">
+                          <span className="b-span"> {curElem.invoice} </span>
+                         {curElem.invoice === '' ? <i class="fa-regular fa-circle-down"></i> : null}
                         </div>
                       </td>
                       <td>
-                        <div
-                          onClick={() => setPaymntDet(true)}
-                          className="det-btn"
-                        >
-                          Details
-                        </div>
+                        <span className="b-span2"> {curElem.details} </span>
                       </td>
                     </tr>
                   </>

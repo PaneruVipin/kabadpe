@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import WalletCreditPopup from '../Components/WalletCreditPopup';
 
 const UpdateWalet = ({onClickClose}) => {
+    
   return (
     <>
 
     <section className="update-walet-credit-comp" onClick={onClickClose}>
 
         <div className="updte-walet-credit-bx" onClick={(e) => e.stopPropagation()}>
-            <h6 className="text-center">Update Wallet Credit</h6>
+            <h6 className="text-center">Wallet Limit</h6>
             <div className="amnt-fild-bx">
                 <label htmlFor="#">User</label>
                 <input type="text" name='useramount' id='useramount' placeholder='User Amount...'  />
@@ -34,6 +36,8 @@ const UpdateWalet = ({onClickClose}) => {
         </div>
         
     </section>
+
+
       
     </>
   )

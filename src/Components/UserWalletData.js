@@ -13,7 +13,7 @@ const UserWalletData = [
         wallet : '500',
         income : '0',
         status : 'In',
-        tnxid : '99858478',
+        tnxid : '124463',
         banktnxid : '857428',
         invoice : 'OPO2134587', 
         details : 'Waste Sold',

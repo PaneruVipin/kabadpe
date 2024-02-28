@@ -14,6 +14,7 @@ import { slotLabels } from "../lib/slots";
 import { adminAppoinmentReschedule } from "../apis/admins/appoinments";
 import PDFTest from "./PDFtest";
 import { appoinmentDefaultSort } from "../lib/appoinment";
+import { ScheduleActionPopup } from "./WasteAppoinmentTable";
 
 const AppointmentRows = ({
   onSupportClick,
@@ -26,6 +27,7 @@ const AppointmentRows = ({
   const [revBox, setRevBox] = useState(false);
   const [repBox, setRepBox] = useState(false);
   const [selectedAppoinment, setSelectedAppoinment] = useState({});
+  const [popUp, setPopUp] = useState(false);
 
   const handleReschedule = async (data) => {
     const payload = { ...data, id: selectedAppoinment?.id };
@@ -169,6 +171,20 @@ const AppointmentRows = ({
                             Support
                           </button>
                         </td>
+                        {orderStatus == "active" ? (
+                          <td>
+                            <div
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setPopUp(true);
+                                setSelectedAppoinment({ id });
+                              }}
+                              className="complet-bx complet-bx3 conceld-bx"
+                            >
+                              Cancel
+                            </div>
+                          </td>
+                        ) : null}
                       </tr>
                     )
                   )
@@ -271,6 +287,13 @@ const AppointmentRows = ({
       ) : null}
 
       {repBox ? <ReportPopup onclickRepClose={() => setRepBox(false)} /> : null}
+      <ScheduleActionPopup
+        refetchAppoinment={refetchAppoinment}
+        selectedAppoinment={selectedAppoinment}
+        setPopUp={setPopUp}
+        popUp={popUp}
+        component="user"
+      />
     </>
   );
 };

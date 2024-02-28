@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
+import "../style/Admin.css";
 import "../style/WasteColect.css";
 import { NavLink } from "react-router-dom";
 import WasteDashboard from "./WasteDashboard";
@@ -31,6 +32,8 @@ const Wastecollectdashboard = ({}) => {
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
   const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
+  const [wasteNavBtn , setWasteNavBtn] = useState(0);
+
   const filterTab = (index) => {
     setProfBtn(index);
   };
@@ -45,6 +48,26 @@ const Wastecollectdashboard = ({}) => {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleButtonClick = (buttonName) => {
+    setWasteNavBtn(buttonName === wasteNavBtn ? null : buttonName);
+  };
+
+  const getButtonClassName = (buttonName) => {
+    return buttonName === wasteNavBtn
+      ? "u-prf-bx profactive"
+      : "u-prf-bx";
+  };
+  // "u-prf-bx profactive" : "u-prf-bx"
+
+  const getButonClasnameTwo = (butonIndex) => {
+    return butonIndex === wasteNavBtn ? "waste-dropdwn-list-bx wastedropdwnlistactive" : "waste-dropdwn-list-bx";
+  };
+
+  
+  // const handleViewComp = (compName) => {
+  //   setComponent(compName);
+  // };
 
   return (
     <>
@@ -166,7 +189,30 @@ const Wastecollectdashboard = ({}) => {
             My Details
           </button>
 
-          <button
+          <div className="waste-colect-dropdwn-btn">
+
+               <button
+            onClick={() => handleButtonClick(12)}
+            className={getButtonClassName(12) }
+          >
+            <div className="u-prf-tab-icon">
+              <i class="fa-solid fa-money-bill-trend-up"></i>
+            </div>
+            Manage Waste
+          </button>
+          <div className={getButonClasnameTwo(12)}>
+
+            <li onClick={() => setProfBtn(17)} className={ profBtn === 17 ? "waste-nav-li-btn wastenavactive" : "waste-nav-li-btn"}>
+              <span>All Waste Pickups</span>
+            </li>
+            <li  onClick={() => setProfBtn(19)} className={ profBtn === 19 ? "waste-nav-li-btn wastenavactive" : "waste-nav-li-btn"}>
+              <span>Current Waste</span>
+            </li>
+          </div>
+            
+          </div>
+
+          {/* <button
             onClick={() => filterTab(12)}
             className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -174,7 +220,7 @@ const Wastecollectdashboard = ({}) => {
               <i class="fa-solid fa-money-bill-trend-up"></i>
             </div>
             Clear Stock
-          </button>
+          </button> */}
 
           <button
             onClick={() => filterTab(8)}
@@ -258,7 +304,7 @@ const Wastecollectdashboard = ({}) => {
         />
       ) : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
-      {profBtn === 12 ? <ClearStock /> : null}
+      {profBtn === 17 ? <ClearStock /> : null}
 
       {profBtn === 13 ? (
         <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />

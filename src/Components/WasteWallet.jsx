@@ -248,7 +248,7 @@ const WasteWallet = () => {
                         <th>Mode </th>
                         <th>Eco Points  </th>
                         <th>Wallet </th>
-                        <th>Income</th>
+                        {/* <th>Income</th> */}
                         <th>Status </th>
                         <th>Wallet <br/> Txn ID </th>
                         <th>Bank  <br/> Txn ID </th>
@@ -344,9 +344,9 @@ const WasteWallet = () => {
                           {curElem.wallet}{" "}
                         </span>
                       </td>
-                      <td>
+                      {/* <td>
                         <span className="b-span2 "> {curElem.income} </span>
-                      </td>
+                      </td> */}
                       <td className="text-tb-right">
                         <span
                           className={
@@ -375,7 +375,7 @@ const WasteWallet = () => {
                       <td>
                         <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
-                         {curElem.invoice === '' ? <i class="fa-regular fa-circle-down"></i> : null}
+                         {curElem.bolean === true ? <i class="fa-regular fa-circle-down"></i> : null}
                         </div>
                       </td>
                       <td>

@@ -10,10 +10,10 @@ const UpdateWalet = ({onClickClose}) => {
 
         <div className="updte-walet-credit-bx" onClick={(e) => e.stopPropagation()}>
             <h6 className="text-center">Wallet Limit</h6>
-            <div className="amnt-fild-bx">
+            {/* <div className="amnt-fild-bx">
                 <label htmlFor="#">User</label>
                 <input type="text" name='useramount' id='useramount' placeholder='User Amount...'  />
-            </div>
+            </div> */}
 
             <div className="amnt-fild-bx">
                 <label htmlFor="#">Worker</label>

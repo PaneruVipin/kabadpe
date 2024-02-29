@@ -43,9 +43,9 @@ const FrenchSubscriptionPlanTwo = ({ onclickRedirect }) => {
             <button onClick={onclickRedirect} className="upgrade-btn">
               Upgrade
             </button>
-            <button className="upgrade-btn renew-btn renew-btn2 renew-btn3">
+            {/* <button className="upgrade-btn renew-btn renew-btn2 renew-btn3">
               Renew
-            </button>
+            </button> */}
           </div>
         </div>
 

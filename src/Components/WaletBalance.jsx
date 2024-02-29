@@ -6,7 +6,7 @@ const WaletBalance = ({ oncClickclose, onclickTrnferAmnt }) => {
     <>
       <section className="walet-balance" onClick={oncClickclose}>
         <div className="walet-bal-box" onClick={(e) => e.stopPropagation()}>
-          <h5>Wallet-Balance : ₹5,382.36</h5>
+          <h5>Balance Eco Coins: 5,382.36</h5>
 
           <div className="bank-info">
             <h6>

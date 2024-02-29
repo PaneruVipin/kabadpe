@@ -13,6 +13,7 @@ import {
 } from "../apis/user";
 import { Form, Formik } from "formik";
 import { validationAddressForm } from "../validators/user/addressFormValidator";
+import { AddressForm } from "../HomeComponent/AddAddressList";
 const UserProfForm = () => {
   const initailAddress = {
     street: "",
@@ -77,6 +78,8 @@ const UserProfForm = () => {
                         landmark,
                         id,
                         locationType,
+                        aria,
+                        subAria,
                       }) => (
                         <div key={id} className="user-prof-form-bx">
                           <div className="u-p-f-i">
@@ -100,6 +103,8 @@ const UserProfForm = () => {
                                 landmark,
                                 id,
                                 locationType,
+                                aria,
+                                subAria,
                               })
                             }
                             className="prof-data-edit"
@@ -137,7 +142,7 @@ const UserProfForm = () => {
                 }
               >
                 <h5>My Details</h5>
-                <Formik
+                {/* <Formik
                   initialValues={initialValuesAddresss}
                   onSubmit={
                     fromTypeEdit
@@ -236,7 +241,6 @@ const UserProfForm = () => {
                             value={values.landmark}
                             placeholder="Land-mark"
                             autoComplete="off"
-                            required
                           />
                           {touched.landmark && errors.landmark ? (
                             <div style={{ color: "red" }}>
@@ -272,7 +276,13 @@ const UserProfForm = () => {
                       </button>
                     </Form>
                   )}
-                </Formik>
+                </Formik> */}
+                <AddressForm
+                  setAddrsForm={setProfForm}
+                  initialFormValues={initialValuesAddresss}
+                  isEditForm={fromTypeEdit}
+                  refetch={refetch}
+                />
                 <div
                   onClick={() => setProfForm(false)}
                   className="close-my-det-bx"

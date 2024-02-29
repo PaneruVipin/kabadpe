@@ -249,7 +249,7 @@ const MyWallet = () => {
                         <th>Mode</th>
                         <th>Eco Points</th>
                         <th>Wallet</th>
-                        <th>Income</th>
+                        {/* <th>Income</th> */}
                         <th>Staus</th>
               
                         <th>Wallet Txn ID</th>
@@ -335,9 +335,9 @@ const MyWallet = () => {
                           {curElem.wallet}{" "}
                         </span>
                       </td>
-                      <td>
+                      {/* <td>
                         <span className="b-span2 "> {curElem.income} </span>
-                      </td>
+                      </td> */}
                       <td className="text-tb-right">
                         <span
                           className={

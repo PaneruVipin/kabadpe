@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
 import stockData from './StockData';
-
+import AdminWasteProd from './AdminWasteProductsList';
+import ManageWasteTable from './ManageWasteTable';
 
 const ClearStock = () => {
     const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -12,12 +13,40 @@ const ClearStock = () => {
       
       <section className="waste-appoint-ment-comp">
         <div className="right-tab-main-bx  tab-bx tabbxactive">
-          <div className="tab-main-bx tab-main-bx3">
-            <h3>Clear Stock</h3>
+          <div className="tab-main-bx tab-main-bx3 tab-main-bx-title">
+            <h3>Manage Waste</h3>
+
+            <div className="waste-mnge-prod-main">
+
+            <div className="waste-manage-prod-grid-main">
+
+              {AdminWasteProd.map((curElem,id) => {
+                return (
+                  <>
+                    <div key={id} className="waste-mnge-prod-bx" >
+              
+                <div className="waste-mnge-prod-text">
+                  <h6> {curElem.title} </h6>
+                  <p> {curElem.minitext} </p>
+                </div>
+                <div className="waste-prod-icon">
+                  <img src={curElem.img} alt="" />
+                </div>
+              </div>
+                  </>
+                )
+              })}
+
+            
+              
+            </div>
+            </div>
+            
+            <ManageWasteTable />
 
             <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">
-                <p className="tex-line tex-line2"> Clear Stock</p>
+                <p className="tex-line tex-line2"> Manage Waste</p>
 
                 <div className="right-search-date-filter-box">
                   <div className="A-search-box">

@@ -3,10 +3,12 @@ import SelectArea from "./SelectArea";
 import { useQuery } from "@tanstack/react-query";
 import {
   workerPlanSubscribe,
+  workerPlansFetch,
   workerSubscriptionsFetch,
 } from "../apis/worker/plan";
+import { DateTime } from "luxon";
 
-const WasteSubsPlan = ({onSuccess}) => {
+const WasteSubsPlan = ({ onSuccess }) => {
   const [plan, setPlan] = useState("monthly");
   const [locat, setLocat] = useState(false);
   const [selectedArias, setSelectedArias] = useState([]);
@@ -37,8 +39,27 @@ const WasteSubsPlan = ({onSuccess}) => {
       alert(res?.messge);
       return;
     }
-    onSuccess()
+    onSuccess();
   };
+  const { data: plans, refetchPlan } = useQuery({
+    queryKey: ["workerfetcPlans:3"],
+    queryFn: () => workerPlansFetch(),
+  });
+  console.log("plans plansv v plans v plans", plans);
+  const demoPlanData = !plans?.error
+    ? plans?.find(({ WorkerSub }) => WorkerSub?.planType == "demo")
+    : null;
+  const currentPlanData = !plans?.error
+    ? plans?.find(({ planStatus }) => planStatus == "active")
+    : null;
+  console.log(
+    "demoPlanData demoPlanDatademoPlanData demoPlanData",
+    demoPlanData
+  );
+  console.log(
+    "currentPlanData currentPlanData currentPlanData currentPlanData",
+    currentPlanData
+  );
   return (
     <>
       <section className="user-prof-grid-comp fren-subscrip-plan-comp fren-subscrip-plan-comp2">
@@ -351,34 +372,57 @@ const WasteSubsPlan = ({onSuccess}) => {
                         {subs?.A ? (
                           <td>
                             {" "}
-                            <button
-                              className="subs-now-btn"
-                              onClick={handelSubscribeClick(subs?.A?.id)}
-                            >
-                              Subscribe Now
-                            </button>{" "}
+                            {!demoPlanData ? (
+                              <button
+                                className="subs-now-btn"
+                                onClick={handelSubscribeClick(subs?.A?.id)}
+                              >
+                                Subscribe Now
+                              </button>
+                            ) : new Date(demoPlanData?.endDate) > new Date() ? (
+                              <div>
+                                <span style={{ lineHeight: 1 }}>Active</span>
+                                <span style={{ lineHeight: 1 }}>
+                                  Expiry :{" "}
+                                  {DateTime.fromISO(demoPlanData?.endDate, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy")}
+                                </span>
+                              </div>
+                            ) : (
+                              <div>Expired</div>
+                            )}{" "}
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             {" "}
-                            <button
-                              className="subs-now-btn"
-                              onClick={handelSubscribeClick(subs?.B?.id)}
-                            >
-                              Subscribe Now
-                            </button>{" "}
+                            {currentPlanData?.WorkerSub?.planType != "fixed" ? (
+                              <button
+                                className="subs-now-btn"
+                                onClick={handelSubscribeClick(subs?.B?.id)}
+                              >
+                                Subscribe Now
+                              </button>
+                            ) : (
+                              "Active"
+                            )}{" "}
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             {" "}
-                            <button
-                              className="subs-now-btn"
-                              onClick={handelSubscribeClick(subs?.C?.id)}
-                            >
-                              Subscribe Now
-                            </button>{" "}
+                            {!currentPlanData?.WorkerSub?.planType !=
+                            "comission" ? (
+                              <button
+                                className="subs-now-btn"
+                                onClick={handelSubscribeClick(subs?.C?.id)}
+                              >
+                                Subscribe Now
+                              </button>
+                            ) : (
+                              "Active"
+                            )}{" "}
                           </td>
                         ) : null}
                       </tr>

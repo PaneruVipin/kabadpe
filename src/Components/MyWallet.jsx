@@ -78,7 +78,7 @@ const MyWallet = () => {
 
             <div className="total-walet-main">
               <div className="refrl-balance-box">
-                <p>Total Wallet</p>
+                <p>Balance Eco Coins</p>
                 <div className="bal-bxmain">
                   <div className="balance-box">
                     <div className="rupes-icon">

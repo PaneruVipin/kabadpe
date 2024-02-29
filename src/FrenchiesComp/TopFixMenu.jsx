@@ -4,6 +4,9 @@ import Holiday from "../WasteColectComp/Holiday";
 import GuestPopup from "../WasteColectComp/GuestPopup";
 import BuyWastePOpup from "./BuyWastePOpup";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { workerPlansFetch } from "../apis/worker/plan";
+import { DateTime } from "luxon";
 const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
@@ -11,6 +14,7 @@ const TopFixMenu = ({
   onclickRedirectBuyWasteTable,
   buyWasteUserInfo,
   setBuyWasteUserInfo,
+  setProfBtn,
 }) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday, setActToday] = useState(false);
@@ -18,6 +22,13 @@ const TopFixMenu = ({
   const [holiday, setHoliday] = useState(false);
   const [guest, setGuest] = useState(false);
   const { userInfo } = useSelector((s) => s?.user);
+  const { data: plans, refetchPlan } = useQuery({
+    queryKey: ["workerfetcPlans:4"],
+    queryFn: () => workerPlansFetch(),
+  });
+  const demoPlanData = !plans?.error
+    ? plans?.find(({ WorkerSub }) => WorkerSub?.planType == "demo")
+    : null;
   return (
     <>
       <section className="top-user-prof-search-bx top-user-prof-search-bx2">
@@ -29,12 +40,21 @@ const TopFixMenu = ({
           </div>
 
           <div className="right-user-prof-search-flex-bx">
-            <div className="subscrip-text">
-              <p>
-                Subscription : <span>20/02/2024</span>{" "}
-              </p>
-              <button className="renew-btn">Renew</button>
-            </div>
+            {demoPlanData?.planStatus == "active" ? (
+              <div className="subscrip-text">
+                <p>
+                  Subscription :{" "}
+                  <span>
+                    {DateTime.fromISO(demoPlanData?.endDate, {
+                      zone: "utc",
+                    }).toFormat("ccc dd LLL yyyy")}
+                  </span>{" "}
+                </p>
+                <button onClick={() => setProfBtn(14)} className="renew-btn">
+                  Upgrade
+                </button>
+              </div>
+            ) : null}
 
             <div className="u-prf-srch-bx">
               <input

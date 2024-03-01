@@ -76,7 +76,7 @@ const Wastecollectdashboard = ({}) => {
   return (
     <>
       <TopFixMenu
-      setProfBtn={setProfBtn}
+        setProfBtn={setProfBtn}
         buyWasteUserInfo={buyWasteUserInfo}
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
@@ -108,7 +108,9 @@ const Wastecollectdashboard = ({}) => {
             <i class="fa-solid fa-mobile-screen"></i>
             {userInfo?.phoneNumber}
           </span>
-          <span className="em-text">Brand Orbiter</span>
+          <span className="em-text">
+            {userInfo?.franchiseId ? "" : "KabadPe"}
+          </span>
           <div className="rating-prof">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>

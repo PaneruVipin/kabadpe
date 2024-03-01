@@ -2,22 +2,28 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { adminIndPlansFetch } from "../apis/admins/franchisePlans";
+import {
+  adminExtendPlan,
+  adminIndPlansFetch,
+} from "../apis/admins/franchisePlans";
 import { DateTime } from "luxon";
 
 const IndvdualPlan = ({ onSwitch }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [upgrade, setUpgrade] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState({});
 
-  const handleCalendarChange = (date) => {
+  const handleCalendarChange =  (date) => {
     setSelectedDate(date);
   };
 
-  const handleCalendarSubmit = () => {
+  const handleCalendarSubmit =async () => {
+    await adminExtendPlan({ endDate: selectedDate, id: selectedPlan?.id });
+    refetch();
     setShowCalendar(false);
-    // Perform any additional actions with the selected date
   };
+
   const { data: plans, refetch } = useQuery({
     queryKey: ["adminfetchIndPlans"],
     queryFn: () => adminIndPlansFetch(),
@@ -116,7 +122,21 @@ const IndvdualPlan = ({ onSwitch }) => {
 
                         <td>
                           <div className="edit-upgrade-btns">
-                            <button onClick={() => setShowCalendar(true)}>
+                            <button
+                              disabled={WorkerSub?.planType != "demo"}
+                              onClick={() => {
+                                setShowCalendar(true);
+                                setSelectedPlan({
+                                  KabadCollector,
+                                  WorkerSub,
+                                  ariaIds,
+                                  endDate,
+                                  id,
+                                  planStatus,
+                                  startDate,
+                                });
+                              }}
+                            >
                               Extend
                             </button>
                             <button onClick={() => setUpgrade(true)}>
@@ -142,7 +162,11 @@ const IndvdualPlan = ({ onSwitch }) => {
             onClick={(e) => e.stopPropagation()}
             className="calendar-choose-date-bx"
           >
-            <Calendar onChange={handleCalendarChange} value={selectedDate} />
+            <Calendar
+              minDate={new Date()}
+              onChange={handleCalendarChange}
+              value={selectedDate}
+            />
             <button
               onClick={handleCalendarSubmit}
               className="date-chose-submit-btn"

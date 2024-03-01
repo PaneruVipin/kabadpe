@@ -22,7 +22,7 @@ const AppointmentComp = ({ onSupportClick }) => {
         <section className="user-prf-update-comp user-prf-update-comp-rem-spce user-prf-update-comp3">
           <div className="u-p-cont">
             <div className="appoint-search-supp-btn-flex-bx">
-              <h5>My Appointments</h5>
+              <h5>Appointments </h5>
 
               <div className="search-supp-flex-bx">
                 <div className="search-bx-appt">

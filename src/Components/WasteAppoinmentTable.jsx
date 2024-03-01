@@ -45,6 +45,7 @@ const WasteAppoinmentTable = ({
                   appointmentContactNumber,
                   appointmentPersonName,
                   assigningStatus,
+                  rescheduleStatus,
                 },
                 i
               ) => (
@@ -104,6 +105,10 @@ const WasteAppoinmentTable = ({
                         }}
                         className="status-btn status-btn-changed"
                       >
+                        {rescheduleStatus == "confirm" &&
+                        orderStatus == "active"
+                          ? "Re-scheduled "
+                          : null}
                         Confirm Status
                       </button>
                     ) : assigningStatus == "confirm" ? (
@@ -224,7 +229,10 @@ export const ScheduleActionPopup = ({
     component == "user"
       ? async (ident) => {
           const flow = ident == "confirm" ? "flow" : "";
-          const res = await adminAppoinmentCancel({id:selectedAppoinment?.id, flow});
+          const res = await adminAppoinmentCancel({
+            id: selectedAppoinment?.id,
+            flow,
+          });
           if (!res?.error) {
             refetchAppoinment();
             setPopUp(false);

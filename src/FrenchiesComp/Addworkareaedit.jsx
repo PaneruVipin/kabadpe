@@ -4,11 +4,12 @@ import { adminAriaAdd, adminAriaUpdate } from "../apis/admins/arias";
 import { validationAddAria } from "../validators/admin/addAriaValidator";
 
 const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
-  const formTitle = values ? "Update Work Area" : "Add Work Area";
+  const formTitle = values?.id ? "Update Work Area" : "Add Work Area";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
+    console.log(data)
     onclickCloseAddWorkEdit();
-    if (values) {
+    if (values?.id) {
       await adminAriaUpdate(data);
       refetch();
     } else {

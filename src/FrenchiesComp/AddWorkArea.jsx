@@ -3,6 +3,7 @@ import addworkareaData from "../AddWorkAreaData";
 import Addworkareaedit from "./Addworkareaedit";
 import { adminAriaDelete, adminAriaFetch } from "../apis/admins/arias";
 import { useQuery } from "@tanstack/react-query";
+import { IoDuplicate } from "react-icons/io5";
 
 const AddWorkArea = () => {
   const [editFormVal, setEditFormval] = useState({});
@@ -60,7 +61,7 @@ const AddWorkArea = () => {
                         ariaName,
                         monthlyPrice,
                         quaterlyPrice,
-                        weeklyPrice
+                        weeklyPrice,
                       },
                       i
                     ) => (
@@ -98,7 +99,7 @@ const AddWorkArea = () => {
                                     ariaName,
                                     monthlyPrice,
                                     quaterlyPrice,
-                                    weeklyPrice
+                                    weeklyPrice,
                                   }),
                                     setAddWorkArea(true);
                                 }}
@@ -112,6 +113,23 @@ const AddWorkArea = () => {
                                 className="add-wrok-actn-btn"
                               >
                                 <i class="fa-solid fa-trash"></i>
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setEditFormval({
+                                    state,
+                                    pincode,
+                                    city,
+                                    ariaName,
+                                    monthlyPrice,
+                                    quaterlyPrice,
+                                    weeklyPrice,
+                                  }),
+                                    setAddWorkArea(true);
+                                }}
+                                className="add-wrok-actn-btn"
+                              >
+                                <IoDuplicate />
                               </button>
                             </div>
                           </td>

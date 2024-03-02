@@ -244,6 +244,7 @@ const AllUser = ({ updatedFilterData }) => {
       </section>
 
       <section
+      
         className={
           editableForm
             ? "all-user-editable-form-main-box editformactive"
@@ -299,11 +300,6 @@ const AllUser = ({ updatedFilterData }) => {
               <div className="user-prof-info-box">
                 <label htmlFor="#"> Email</label>
                 <span>nawaz001@gmail.com</span>
-              </div>
-
-              <div className="user-prof-info-box">
-                <label htmlFor="#"> User Type</label>
-                <span>Staff (Support Team) </span>
               </div>
             </div>
 
@@ -439,72 +435,6 @@ const AllUser = ({ updatedFilterData }) => {
                       name="email"
                       id="email"
                       value={userPrfData.email}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="userdata-form-grid">
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="UserType ">User Type</label>
-                  <div className="user-edit-inpt user-edit-inpt2">
-                    <select
-                      name="userType"
-                      id="userType"
-                      value={userPrfData.userType}
-                      onChange={handleInputChangeData}
-                    >
-                      <option value="User">User</option>
-                      <option value="Vendor">Vendor</option>
-                      <option value="Staff (Manager)">Staff (Manager)</option>
-                      <option value="Staff  (Sales Team)">
-                        Staff (Sales Team)
-                      </option>
-                      <option value="Staff  (Support Team)">
-                        Staff (Support Team)
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="City ">City</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      value={userPrfData.city}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Zip_Code ">Zip Code</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="Pin"
-                      id="Pin"
-                      value={userPrfData.Pin}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Zip_Code ">State</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="State"
-                      id="State"
-                      value={userPrfData.State}
                       onChange={handleInputChangeData}
                       autoComplete="off"
                     />

@@ -638,7 +638,7 @@
         letter-spacing: .6px;
         background-color: #e8e5f7;
         color: #6448ea;
-        width: max-content;
+        /* width: max-content; */
         margin-left: auto;
         text-align: center;
         padding: .1rem .5rem;

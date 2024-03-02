@@ -363,7 +363,7 @@ const Header = ({ userForm, setUserForm }) => {
                           </p>
                         </div>
                       </li>
-                      <li
+                      {/* <li
                         onClick={() => setLink("wastegpt")}
                         className={
                           link === "wastegpt" ? "nav-li navliactive" : "nav-li"
@@ -372,7 +372,7 @@ const Header = ({ userForm, setUserForm }) => {
                         <NavLink to="/wastegept">
                           <span>Wastegpt</span>
                         </NavLink>
-                      </li>
+                      </li> */}
                       <li
                         onClick={() => setLink("ratelist")}
                         className={

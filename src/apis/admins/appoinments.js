@@ -57,21 +57,23 @@ export const adminAppoinmentForAssigningDateFetch = resolvePromise(
   }
 );
 
-export const adminAppoinmentCancel = resolvePromise(async ({id, flow=""}) => {
-  const apiUrl =
-    ENV_API_BASE_URL + `/admin/appoinment/${id}/cancel?flow=${flow}`;
-  const token = getFromLocalStorage("token");
-  const { data: res } = await axios.put(
-    apiUrl,
-    {},
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-  return res?.message;
-});
+export const adminAppoinmentCancel = resolvePromise(
+  async ({ id, flow = "" }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/appoinment/${id}/cancel?flow=${flow}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
 
 export const adminAppoinmentReschedule = resolvePromise(
   async ({ id, appointmentTimeSlot, appointmentDate }) => {
@@ -101,5 +103,23 @@ export const adminWorkerInSameJobFetch = resolvePromise(
       },
     });
     return res?.appoinment;
+  }
+);
+
+export const adminChangeAppoinmentStatus = resolvePromise(
+  async ({ id, orderStatus }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/appoinment/${id}/${orderStatus}/statusChange`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
   }
 );

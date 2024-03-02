@@ -11,6 +11,7 @@ export const adminAriaAdd = resolvePromise(
     city,
     monthlyPrice,
     quaterlyPrice,
+    weeklyPrice
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/aria`;
     const token = getFromLocalStorage("token");
@@ -24,6 +25,7 @@ export const adminAriaAdd = resolvePromise(
         city,
         monthlyPrice,
         quaterlyPrice,
+        weeklyPrice
       },
       {
         headers: {

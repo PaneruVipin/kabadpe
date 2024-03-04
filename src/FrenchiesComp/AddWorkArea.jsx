@@ -8,6 +8,7 @@ import {
 } from "../apis/admins/arias";
 import { useQuery } from "@tanstack/react-query";
 import { IoDuplicate } from "react-icons/io5";
+import { sort } from "../lib/array";
 
 const AddWorkArea = () => {
   const [editFormVal, setEditFormval] = useState({});
@@ -58,7 +59,13 @@ const AddWorkArea = () => {
 
             <tbody>
               {!arias?.error
-                ? arias?.map(
+                ? sort(arias, [
+                    "state",
+                    "city",
+                    // "pincode",
+                    "ariaName",
+                    "subAriaName",
+                  ])?.map(
                     (
                       {
                         id,
@@ -147,52 +154,56 @@ const AddWorkArea = () => {
                   )
                 : null}
               {!pendingArias?.error
-                ? pendingArias?.map(
-                    ({ id, subAria, zipCode, city, state, aria }, i) => (
-                      <>
-                        <tr key={i}>
-                          <td>
-                            <span> </span>
-                          </td>
-                          <td>
-                            <span> {state} </span>
-                          </td>
-                          <td>
-                            <span> {city} </span>
-                          </td>
-                          <td>
-                            <span> {zipCode} </span>
-                          </td>
-                          <td>
-                            <span> {aria} </span>
-                          </td>
-                          <td>
-                            <span> {subAria} </span>
-                          </td>
+                ? sort(pendingArias, [
+                    "state",
+                    "city",
+                    // "zipCode",
+                    "aria",
+                    "subAria",
+                  ])?.map(({ id, subAria, zipCode, city, state, aria }, i) => (
+                    <>
+                      <tr key={i}>
+                        <td>
+                          <span> </span>
+                        </td>
+                        <td>
+                          <span> {state} </span>
+                        </td>
+                        <td>
+                          <span> {city} </span>
+                        </td>
+                        <td>
+                          <span> {zipCode} </span>
+                        </td>
+                        <td>
+                          <span> {aria} </span>
+                        </td>
+                        <td>
+                          <span> {subAria} </span>
+                        </td>
 
-                          <td>
-                            <div className="edit-remv-btns">
-                              <button
-                                onClick={() => {
-                                  setEditFormval({
-                                    state,
-                                    pincode: zipCode,
-                                    city,
-                                    ariaName: aria,
-                                    subAriaName: subAria,
-                                  }),
-                                    setAddWorkArea(true);
-                                }}
-                                className="add-wrok-actn-btn"
-                              >
-                                Approve this Area
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </>
-                    )
-                  )
+                        <td>
+                          <div className="edit-remv-btns">
+                            <button
+                              onClick={() => {
+                                setEditFormval({
+                                  state,
+                                  pincode: zipCode,
+                                  city,
+                                  ariaName: aria,
+                                  subAriaName: subAria,
+                                }),
+                                  setAddWorkArea(true);
+                              }}
+                              className="add-wrok-actn-btn"
+                            >
+                              Approve this Area
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
+                  ))
                 : null}
             </tbody>
           </table>

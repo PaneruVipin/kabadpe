@@ -4,12 +4,14 @@ import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
 import { adminGetAllUsers } from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
+import { search } from "../lib/array";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
   const [editableForm, setEditableForm] = useState(false);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [serachQuery, setSearchQuery] = useState("");
   const [selectedImage, setSelectedImage] = useState(
     "/images/customImg/836.jpg"
   );
@@ -77,6 +79,10 @@ const AllUser = ({ updatedFilterData }) => {
                   id="search"
                   placeholder="Search..."
                   autoComplete="off"
+                  value={serachQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value?.trimStart());
+                  }}
                 />
               </div>
 
@@ -149,7 +155,7 @@ const AllUser = ({ updatedFilterData }) => {
 
               <tbody>
                 {!allUsers?.error
-                  ? allUsers?.map(
+                  ? search(allUsers, serachQuery)?.map(
                       (
                         {
                           id,
@@ -188,7 +194,7 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
 
                               <td>
-                                <span> {id} </span>
+                                <span>KPU{String(id).padStart(7, "0")} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>
@@ -244,7 +250,6 @@ const AllUser = ({ updatedFilterData }) => {
       </section>
 
       <section
-      
         className={
           editableForm
             ? "all-user-editable-form-main-box editformactive"

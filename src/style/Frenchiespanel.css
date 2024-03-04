@@ -2767,10 +2767,25 @@ input[type="number"]::-webkit-inner-spin-button{
     color: #fff;
     transition: 400ms ease;
 }
-
+.add-area-btn-2{
+    position: relative;
+    width: max-content;
+    padding: .01rem 1rem;
+    font-size: .9rem;
+    background-color: #0ed7e9;
+    border: .1rem solid #0ed3e9;
+    border-radius: 3rem;
+    color: #fff;
+    transition: 400ms ease;
+}
 .add-area-btn:hover{
     background-color: transparent;
     color: #0ea5e9;
+}
+
+.add-area-btn-2:hover{
+    background-color: transparent;
+    color: #141b1e;
 }
 .next-button{
     width: max-content;

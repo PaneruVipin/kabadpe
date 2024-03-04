@@ -28,6 +28,7 @@ import Redirect from "./Auth/RedirectIfLogout";
 import { logout } from "../lib/logout";
 import { useQuery } from "@tanstack/react-query";
 import { workerPlansFetch } from "../apis/worker/plan";
+import { workerFranchiseName } from "../apis/worker/user";
 
 const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -73,6 +74,10 @@ const Wastecollectdashboard = ({}) => {
     queryKey: ["workerfetcPlans:2"],
     queryFn: () => workerPlansFetch(),
   });
+  const { data: companyName, refetchCompanyName } = useQuery({
+    queryKey: ["companyName"],
+    queryFn: () => workerFranchiseName(),
+  });
   return (
     <>
       <TopFixMenu
@@ -109,7 +114,11 @@ const Wastecollectdashboard = ({}) => {
             {userInfo?.phoneNumber}
           </span>
           <span className="em-text">
-            {userInfo?.franchiseId ? "" : "KabadPe"}
+            {userInfo?.franchiseId
+              ? !companyName?.error
+                ? companyName
+                : ""
+              : "KabadPe"}
           </span>
           <div className="rating-prof">
             <i class="fa-solid fa-star"></i>

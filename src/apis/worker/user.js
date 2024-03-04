@@ -34,7 +34,7 @@ export const updateWorkerProfile = resolvePromise(
     aadharBack,
     policeVerification,
     saftyTraining,
-    address
+    address,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/collector/info`;
     const token = getFromLocalStorage("token");
@@ -55,7 +55,7 @@ export const updateWorkerProfile = resolvePromise(
         aadharBack,
         policeVerification,
         saftyTraining,
-        address
+        address,
       },
       {
         headers: {
@@ -67,3 +67,14 @@ export const updateWorkerProfile = resolvePromise(
     return res?.message;
   }
 );
+
+export const workerFranchiseName = resolvePromise(async (id) => {
+  const apiUrl = ENV_API_BASE_URL + "/worker/franchise/info";
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.companyName;
+});

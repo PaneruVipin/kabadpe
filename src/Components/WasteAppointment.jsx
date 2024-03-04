@@ -41,7 +41,7 @@ const WasteAppointment = ({
       <section className="waste-appoint-ment-comp">
         <div className="right-tab-main-bx  tab-bx tabbxactive">
           <div className="tab-main-bx tab-main-bx3">
-            <h3>Appointments </h3>
+            <h3>Appointments</h3>
 
             <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">

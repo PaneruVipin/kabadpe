@@ -56,6 +56,7 @@ const AppointmentRows = ({
                         Arium,
                         KabadCollector,
                         orderStatus,
+                        rescheduleStatus
                       },
                       index
                     ) => (
@@ -137,12 +138,20 @@ const AppointmentRows = ({
                           KabadCollector?.id ? (
                             <td>
                               <div className="complet-bx upcoming-bx">
+                                {rescheduleStatus == "confirm" &&
+                                orderStatus == "active"
+                                  ? "Re-scheduled "
+                                  : null}{" "}
                                 Assigned
                               </div>
                             </td>
                           ) : (
                             <td>
                               <div className="complet-bx upcoming-bx">
+                                {rescheduleStatus == "confirm" &&
+                                orderStatus == "active"
+                                  ? "Re-scheduled "
+                                  : null}{" "}
                                 Assigning...
                               </div>
                             </td>

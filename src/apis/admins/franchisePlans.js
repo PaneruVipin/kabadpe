@@ -23,3 +23,21 @@ export const adminIndPlansFetch = resolvePromise(async () => {
   });
   return res;
 });
+
+export const adminExtendPlan = resolvePromise(
+  async ({ id, endDate, type = "ind" }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/plans/${id}/extend/${endDate}?type=${type}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

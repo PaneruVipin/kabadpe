@@ -29,9 +29,7 @@ const Home = ({ setUserForm }) => {
     testInsta();
   }, []);
 
-  useEffect(() => {
-    Preloadergsap();
-  });
+
 
   // useEffect(() => {
   //   const interval = setInterval(() => {

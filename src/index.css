@@ -11495,7 +11495,10 @@ __________ */
   letter-spacing: .4px;
   color: #fff;
 }
-
+.edit-upgrade-btns button:nth-child(1):disabled{
+  background-color: gray;
+  cursor: no-drop;
+}
 .wallet-icon {
   position: relative;
   top: -2px;
@@ -12566,7 +12569,7 @@ Our Review Section CSS code
 }
 
 .sel-area-main-bx {
-  height: 30rem;
+  height: 90%;
 }
 
 .top-user-prof-search-bx2 {

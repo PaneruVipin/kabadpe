@@ -564,22 +564,29 @@ const AdminPanel = () => {
 
             <div className={getButonClasnameTwo(18)}>
               <div className={getContentPageClassName(19)}>
-                <div
+                {/* <div
                   onClick={() => handleContentPageBtn(19)}
                   className={DropdownButton(19)}
                 >
                   <span> All Appointments</span>
-                </div>
+                </div> */}
 
-                <div className={getContentPageClassNameTwo(16)}>
-                  <div
-                    onClick={() => handleChangePageBtnTwo(16)}
-                    className={DropdownButtonTwo(16)}
+                <div 
+                // className={getContentPageClassNameTwo(16)}
+                >
+                  <li
+                    onClick={() => {
+                      refetch();
+                      handleViewComp("AllAppointment"),
+                        setApntData(FrenchAppointData);
+                    }}
+                    className="page-link-btn"
+                    // className={DropdownButtonTwo(16)}
                   >
-                    <span className="appnt-text5"> Kabadpe Appointments</span>
-                  </div>
+                    <NavLink to='#'className="active"> Kabadpe Appointments</NavLink>
+                  </li>
 
-                  <div className="inner-page-list ">
+                  {/* <div className="inner-page-list ">
                     <li
                       onClick={() => {
                         refetch();
@@ -639,18 +646,24 @@ const AdminPanel = () => {
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className={getContentPageClassNameTwo(17)}>
-                  <div
-                    onClick={() => handleChangePageBtnTwo(17)}
-                    className={DropdownButtonTwo(17)}
+                <div 
+                // className={getContentPageClassNameTwo(17)}
+                >
+                  <li
+                    onClick={() => {
+                      handleViewComp("otherAppoint"),
+                        setApntDataTwo(FrenchAppointData);
+                    }}
+                    className="page-link-btn"
+                    // className={DropdownButtonTwo(17)}
                   >
-                    <span className="appnt-text5"> Other Appointments</span>
-                  </div>
+                    <NavLink to='#'className="active"> Other Appointments</NavLink>
+                  </li>
 
-                  <div className="inner-page-list ">
+                  {/* <div className="inner-page-list ">
                     <li
                       onClick={() => {
                         handleViewComp("otherAppoint"),
@@ -709,7 +722,7 @@ const AdminPanel = () => {
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -1304,9 +1317,7 @@ const AdminPanel = () => {
           <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} />
         ) : null}
 
-{component === "transaction" ? (
-          <AdminTransaction  />
-        ) : null}
+        {component === "transaction" ? <AdminTransaction /> : null}
       </section>
     </>
   );

@@ -26,13 +26,15 @@ import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
 import TopFixMenu from "../FrenchiesComp/TopFixMenu";
 import Redirect from "./Auth/RedirectIfLogout";
 import { logout } from "../lib/logout";
+import { useQuery } from "@tanstack/react-query";
+import { workerPlansFetch } from "../apis/worker/plan";
 
 const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
   const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
-  const [wasteNavBtn , setWasteNavBtn] = useState(0);
+  const [wasteNavBtn, setWasteNavBtn] = useState(0);
 
   const filterTab = (index) => {
     setProfBtn(index);
@@ -54,24 +56,27 @@ const Wastecollectdashboard = ({}) => {
   };
 
   const getButtonClassName = (buttonName) => {
-    return buttonName === wasteNavBtn
-      ? "u-prf-bx profactive"
-      : "u-prf-bx";
+    return buttonName === wasteNavBtn ? "u-prf-bx profactive" : "u-prf-bx";
   };
   // "u-prf-bx profactive" : "u-prf-bx"
 
   const getButonClasnameTwo = (butonIndex) => {
-    return butonIndex === wasteNavBtn ? "waste-dropdwn-list-bx wastedropdwnlistactive" : "waste-dropdwn-list-bx";
+    return butonIndex === wasteNavBtn
+      ? "waste-dropdwn-list-bx wastedropdwnlistactive"
+      : "waste-dropdwn-list-bx";
   };
 
-  
   // const handleViewComp = (compName) => {
   //   setComponent(compName);
   // };
-
+  const { data: plans, refetch } = useQuery({
+    queryKey: ["workerfetcPlans:2"],
+    queryFn: () => workerPlansFetch(),
+  });
   return (
     <>
       <TopFixMenu
+        setProfBtn={setProfBtn}
         buyWasteUserInfo={buyWasteUserInfo}
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
@@ -103,7 +108,9 @@ const Wastecollectdashboard = ({}) => {
             <i class="fa-solid fa-mobile-screen"></i>
             {userInfo?.phoneNumber}
           </span>
-          <span className="em-text">Brand Orbiter</span>
+          <span className="em-text">
+            {userInfo?.franchiseId ? "" : "KabadPe"}
+          </span>
           <div className="rating-prof">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
@@ -159,15 +166,17 @@ const Wastecollectdashboard = ({}) => {
             My Appointments
           </button>
 
-          <button
-            onClick={() => filterTab(14)}
-            className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
-          >
-            <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-seedling"></i>
-            </div>
-            My Plans
-          </button>
+          {!plans?.error && !plans?.length ? (
+            <button
+              onClick={() => filterTab(14)}
+              className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              My Plans
+            </button>
+          ) : null}
 
           <button
             onClick={() => filterTab(13)}
@@ -190,26 +199,37 @@ const Wastecollectdashboard = ({}) => {
           </button>
 
           <div className="waste-colect-dropdwn-btn">
-
-               <button
-            onClick={() => handleButtonClick(12)}
-            className={getButtonClassName(12) }
-          >
-            <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-money-bill-trend-up"></i>
+            <button
+              onClick={() => handleButtonClick(12)}
+              className={getButtonClassName(12)}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </div>
+              Manage Waste
+            </button>
+            <div className={getButonClasnameTwo(12)}>
+              <li
+                onClick={() => setProfBtn(17)}
+                className={
+                  profBtn === 17
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+                <span>All Waste Pickups</span>
+              </li>
+              <li
+                onClick={() => setProfBtn(19)}
+                className={
+                  profBtn === 19
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+                <span>Current Waste</span>
+              </li>
             </div>
-            Manage Waste
-          </button>
-          <div className={getButonClasnameTwo(12)}>
-
-            <li onClick={() => setProfBtn(17)} className={ profBtn === 17 ? "waste-nav-li-btn wastenavactive" : "waste-nav-li-btn"}>
-              <span>All Waste Pickups</span>
-            </li>
-            <li  onClick={() => setProfBtn(19)} className={ profBtn === 19 ? "waste-nav-li-btn wastenavactive" : "waste-nav-li-btn"}>
-              <span>Current Waste</span>
-            </li>
-          </div>
-            
           </div>
 
           {/* <button

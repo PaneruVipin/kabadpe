@@ -135,6 +135,150 @@ const Review = () => {
             <div className="right-review-slider-main">
               <div className="review-slider">
                 <div className="revw-silder-containr-bx">
+                  <div className="slider-items">
+                    <div className="revw-box">
+                      <div className="revw-left-img">
+                        <img src="/images/customImg/nawaz.jpg" alt="" />
+                      </div>
+                      <div className="revw-info-bx">
+                        <div className="revw-ratng">
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <p>
+                          Efficient, reliable, and convenient! This waste
+                          collection app revolutionizes the chore of waste
+                          management. Seamless scheduling and hassle-free
+                          disposal make it a game-changer for urban living.
+                        </p>
+
+                        <div className="revw-name-info">
+                          <h6>Nawaz Akhtar</h6>
+                          <span>Digital Dezire </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="slider-items">
+                    <div className="revw-box">
+                      <div className="revw-left-img">
+                        <img src="/images/customImg/raju.jpg" alt="" />
+                      </div>
+                      <div className="revw-info-bx">
+                        <div className="revw-ratng">
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <p>
+                          Revolutionizing waste management, this app simplifies
+                          scheduling, offers timely reminders, and ensures
+                          prompt pickups. Its intuitive interface makes waste
+                          disposal effortless, contributing to a cleaner, more
+                          sustainable environment. Highly recommended for all!
+                        </p>
+
+                        <div className="revw-name-info">
+                          <h6>Rohit Shrivastav</h6>
+                          <span>Brand Orbitor</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="slider-items">
+                    <div className="revw-box">
+                      <div className="revw-left-img">
+                        <img src="/images/customImg/faisal.jpg" alt="" />
+                      </div>
+                      <div className="revw-info-bx">
+                        <div className="revw-ratng">
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <p>
+                          Simplify waste management with this app! Easy
+                          scheduling, timely reminders, and prompt pickups make
+                          keeping the environment clean effortless. Highly
+                          recommended for efficient waste disposal.
+                        </p>
+
+                        <div className="revw-name-info">
+                          <h6>Mr. Faisal</h6>
+                          <span>Extra Frames Products</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* <div className="slider-items">
+                    <div className="revw-box">
+                      <div className="revw-left-img">
+                        <img src="/images/customImg/team-2.jpg" alt="" />
+                      </div>
+                      <div className="revw-info-bx">
+                        <div className="revw-ratng">
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Quaerat cumque commodi dolore expedita, itaque
+                          enim officia a, laudantium fugit.
+                        </p>
+
+                        <div className="revw-name-info">
+                          <h6>Andrew Garfield</h6>
+                          <span>Network Security</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="slider-items">
+                    <div className="revw-box">
+                      <div className="revw-left-img">
+                        <img src="/images/customImg/test-img-1.jpg" alt="" />
+                      </div>
+                      <div className="revw-info-bx">
+                        <div className="revw-ratng">
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                          <i class="fa-solid fa-star"></i>
+                        </div>
+
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Quaerat cumque commodi dolore expedita, itaque
+                          enim officia a, laudantium fugit.
+                        </p>
+
+                        <div className="revw-name-info">
+                          <h6>Andrew Garfield</h6>
+                          <span>Network Security</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
 
                   <div className="slider-items">
                     <div className="revw-box">
@@ -162,9 +306,9 @@ const Review = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="slider-items">
+                  {/* <div className="slider-items">
                     <div className="revw-box">
                       <div className="revw-left-img">
                         <img src="/images/customImg/team-3.jpg" alt="" />
@@ -277,166 +421,18 @@ const Review = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-
-
-                  <div className="slider-items">
-                    <div className="revw-box">
-                      <div className="revw-left-img">
-                        <img src="/images/customImg/user-prf-img.webp" alt="" />
-                      </div>
-                      <div className="revw-info-bx">
-                        <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                        </div>
-
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Quaerat cumque commodi dolore expedita, itaque
-                          enim officia a, laudantium fugit.
-                        </p>
-
-                        <div className="revw-name-info">
-                          <h6>Andrew Garfield</h6>
-                          <span>Network Security</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="slider-items">
-                    <div className="revw-box">
-                      <div className="revw-left-img">
-                        <img src="/images/customImg/team-3.jpg" alt="" />
-                      </div>
-                      <div className="revw-info-bx">
-                        <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                        </div>
-
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Quaerat cumque commodi dolore expedita, itaque
-                          enim officia a, laudantium fugit.
-                        </p>
-
-                        <div className="revw-name-info">
-                          <h6>Andrew Garfield</h6>
-                          <span>Network Security</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-                  <div className="slider-items">
-                    <div className="revw-box">
-                      <div className="revw-left-img">
-                        <img src="/images/customImg/testi-thumb-2.jpg" alt="" />
-                      </div>
-                      <div className="revw-info-bx">
-                        <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                        </div>
-
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Quaerat cumque commodi dolore expedita, itaque
-                          enim officia a, laudantium fugit.
-                        </p>
-
-                        <div className="revw-name-info">
-                          <h6>Andrew Garfield</h6>
-                          <span>Network Security</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div className="slider-items">
-                    <div className="revw-box">
-                      <div className="revw-left-img">
-                        <img src="/images/customImg/team-2.jpg" alt="" />
-                      </div>
-                      <div className="revw-info-bx">
-                        <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                        </div>
-
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Quaerat cumque commodi dolore expedita, itaque
-                          enim officia a, laudantium fugit.
-                        </p>
-
-                        <div className="revw-name-info">
-                          <h6>Andrew Garfield</h6>
-                          <span>Network Security</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="slider-items">
-                    <div className="revw-box">
-                      <div className="revw-left-img">
-                        <img src="/images/customImg/test-img-1.jpg" alt="" />
-                      </div>
-                      <div className="revw-info-bx">
-                        <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                        </div>
-
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Quaerat cumque commodi dolore expedita, itaque
-                          enim officia a, laudantium fugit.
-                        </p>
-
-                        <div className="revw-name-info">
-                          <h6>Andrew Garfield</h6>
-                          <span>Network Security</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="revw-slider-btns-flex">
-
                   <button className="revw-slider-btns hiden-btn slider-control prev-slider-btn">
-                  <ion-icon name="chevron-back-outline"></ion-icon>
+                    <ion-icon name="chevron-back-outline"></ion-icon>
                   </button>
 
-                  
                   <button className="revw-slider-btnss hiden-btn slider-control next-slider-btn">
-                  <ion-icon name="chevron-forward-outline"></ion-icon>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
                   </button>
-                  
                 </div>
-                
               </div>
             </div>
           </div>

@@ -17,8 +17,8 @@ const KabadJugad = () => {
 
             <div className="right-kabad-grid-bx">
               <div className="kabad-info-bx">
-                <div className="k-icon">
-                  <img src="/images/customImg/eco-icon.png" alt="" />
+                <div className="k-icon k-icon2">
+                  <img src="/images/customImg/kabadpe-logo.jpg" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Kabadpe</h6>
@@ -33,7 +33,7 @@ const KabadJugad = () => {
 
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="/images/customImg/eco-icon2.png" alt="" />
+                  <img src="/images/customImg/tgss-logo.jpg" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>The green saman shop</h6>
@@ -47,7 +47,7 @@ const KabadJugad = () => {
 
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="/images/customImg/eco-icon3.png" alt="" />
+                  <img src="/images/customImg/climconnect-logo.jpg" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Climconnect</h6>

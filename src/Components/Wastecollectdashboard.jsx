@@ -260,7 +260,7 @@ const Wastecollectdashboard = ({}) => {
                     : "waste-nav-li-btn"
                 }
               >
-               <NavLink to="https://chat.google.com/dm/iU2-s0AAAAE/jCsFdLlDNAg/jCsFdLlDNAg?cls=10" target="_blank"> <span>Resource Material (सिखने का लिंक)</span> </NavLink> 
+               <NavLink to="https://drive.google.com/drive/folders/1rWU7sPNXH_Z5-3uMaylUSHIE2-IZ_y7-?usp=sharing" target="_blank"> <span>Resource Material (सिखने का लिंक)</span> </NavLink> 
               </li>
               <li
                 // onClick={() => setProfBtn(25)}

@@ -6736,10 +6736,10 @@ _______________________ */
   margin: 0 auto;
   background-color: #000000;
   margin-top: -15rem;
-  z-index: 9999;
-  padding: 1rem 1rem 1rem 1rem;
+  z-index: 999;
+  padding: 1rem 1.5rem 1rem 1.5rem;
   background-color: #fff;
-  border-radius: 3rem;
+  border-radius: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   
 
@@ -6779,7 +6779,7 @@ _______________________ */
   grid-template-columns: 1.4fr 1fr;
   column-gap: 3rem;
   row-gap: 3rem;
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .left-shdule-apnt-form-bx,
@@ -12935,17 +12935,23 @@ Our Review Section CSS code
 
 .hero-text-info-bx{
   position: absolute;
-  top: 30%;
+  top: 35%;
   transform: translateY(-50%);
   left: 0;
   width: 100%;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 .hero-text-info-bx h1{
   font-size: 4.5rem;
   color: #fff;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: "poppins", sans-serif;
 }
 
 .hero-text-info-bx button{
@@ -13058,7 +13064,8 @@ Our Review Section CSS code
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: .45px;
-  border: .1rem solid #eee;
+  /* border: .1rem solid #eee; */
+
 
 }
 
@@ -13156,8 +13163,45 @@ Our Review Section CSS code
   font-weight: 600;
 }
 
+.learm-mre-btn a{
+  color: #fff;
+}
+
 .waste-colect-dropdwn-btn li a{
   color: #a09393 !important;
 }
 
+.apnt-form-text5{
+  text-align:left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: .3rem !important;
+  padding-inline-start: .34rem;
+  font-size: 1rem ;
+  letter-spacing: .45px;
+}
+
+.left-shdule-apnt-form-bx, .apnt-slot-form-bx{
+  display: block;
+}
+
+.k-icon{
+  width: 7rem;
+  height: 3rem;
+}
+
+.k-icon2{
+  width: 6.5rem;
+  height: 2.65rem;
+}
+
+.k-icon img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.k-icon , .k-icon img{
+  border-radius: 50%;
+}
 /* eca219 */

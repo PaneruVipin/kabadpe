@@ -185,13 +185,14 @@ const Appointment = ({ setUserForm }) => {
       />
       <section className="schedule-apnt-comp">
         <div className="comon-container-2 apnt-container">
-          <div className="apnt-heading">
+          {/* <div className="apnt-heading">
             <p>Book Slots</p>
             <h3>Schedual Appointment</h3>
-          </div>
+          </div> */}
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
+              <p className="apnt-form-text5">Schedule Your Appointment</p>
               {!formLoading && !loading ? (
                 <Formik
                   initialValues={initialFormValues}

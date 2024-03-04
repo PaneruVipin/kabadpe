@@ -4,12 +4,14 @@ import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
 import { adminGetAllUsers } from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
+import { search } from "../lib/array";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
   const [editableForm, setEditableForm] = useState(false);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [serachQuery, setSearchQuery] = useState("");
   const [selectedImage, setSelectedImage] = useState(
     "/images/customImg/836.jpg"
   );
@@ -77,6 +79,10 @@ const AllUser = ({ updatedFilterData }) => {
                   id="search"
                   placeholder="Search..."
                   autoComplete="off"
+                  value={serachQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value?.trimStart());
+                  }}
                 />
               </div>
 
@@ -149,7 +155,7 @@ const AllUser = ({ updatedFilterData }) => {
 
               <tbody>
                 {!allUsers?.error
-                  ? allUsers?.map(
+                  ? search(allUsers, serachQuery)?.map(
                       (
                         {
                           id,
@@ -188,7 +194,7 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
 
                               <td>
-                                <span> {id} </span>
+                                <span>KPU{String(id).padStart(7, "0")} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>
@@ -299,11 +305,6 @@ const AllUser = ({ updatedFilterData }) => {
               <div className="user-prof-info-box">
                 <label htmlFor="#"> Email</label>
                 <span>nawaz001@gmail.com</span>
-              </div>
-
-              <div className="user-prof-info-box">
-                <label htmlFor="#"> User Type</label>
-                <span>Staff (Support Team) </span>
               </div>
             </div>
 
@@ -439,72 +440,6 @@ const AllUser = ({ updatedFilterData }) => {
                       name="email"
                       id="email"
                       value={userPrfData.email}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="userdata-form-grid">
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="UserType ">User Type</label>
-                  <div className="user-edit-inpt user-edit-inpt2">
-                    <select
-                      name="userType"
-                      id="userType"
-                      value={userPrfData.userType}
-                      onChange={handleInputChangeData}
-                    >
-                      <option value="User">User</option>
-                      <option value="Vendor">Vendor</option>
-                      <option value="Staff (Manager)">Staff (Manager)</option>
-                      <option value="Staff  (Sales Team)">
-                        Staff (Sales Team)
-                      </option>
-                      <option value="Staff  (Support Team)">
-                        Staff (Support Team)
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="City ">City</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="city"
-                      id="city"
-                      value={userPrfData.city}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Zip_Code ">Zip Code</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="Pin"
-                      id="Pin"
-                      value={userPrfData.Pin}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Zip_Code ">State</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="State"
-                      id="State"
-                      value={userPrfData.State}
                       onChange={handleInputChangeData}
                       autoComplete="off"
                     />

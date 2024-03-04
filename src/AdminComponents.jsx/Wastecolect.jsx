@@ -8,6 +8,7 @@ import AddWorkerComp from "./AddWorkerComp";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetWorkers } from "../apis/admins/users";
 import { workers as workerTypes } from "../lib/worker";
+import { search } from "../lib/array";
 
 const Wastecolect = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -17,7 +18,7 @@ const Wastecolect = () => {
   const [wasteViewData, setWasteViewData] = useState(false);
   const [workChange, setWorkChange] = useState("");
   const [addWork, setAddWork] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const data = {
     cleaner: ["Cleaner"],
     kabadiwala: ["Kabadiwala"],
@@ -65,6 +66,8 @@ const Wastecolect = () => {
                   id="search"
                   placeholder="Search..."
                   autoComplete="off"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
                 />
               </div>
 
@@ -163,7 +166,18 @@ const Wastecolect = () => {
 
               <tbody>
                 {!workers?.error
-                  ? workers?.map(
+                  ? search(workers, searchQuery, [
+                      "id",
+                      "profileImage",
+                      "workerRole",
+                      "fullname",
+                      "phoneNumber",
+                      "email",
+                      "ariaName",
+                      "subAriaName",
+                      "pincode",
+                      "accountStatus",
+                    ])?.map(
                       (
                         {
                           id,
@@ -199,7 +213,7 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                <span> {String(id).padStart(6, "0")} </span>
+                                <span> KPW{String(id).padStart(7, "0")} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

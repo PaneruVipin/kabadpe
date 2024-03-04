@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import addworkareaData from "../AddWorkAreaData";
 import Addworkareaedit from "./Addworkareaedit";
-import { adminAriaDelete, adminAriaFetch } from "../apis/admins/arias";
+import {
+  adminAriaDelete,
+  adminAriaFetch,
+  adminPendingAriasFetch,
+} from "../apis/admins/arias";
 import { useQuery } from "@tanstack/react-query";
 import { IoDuplicate } from "react-icons/io5";
+import { sort } from "../lib/array";
 
 const AddWorkArea = () => {
   const [editFormVal, setEditFormval] = useState({});
@@ -13,10 +18,14 @@ const AddWorkArea = () => {
     queryKey: ["ariasFetch"],
     queryFn: () => adminAriaFetch(),
   });
-
+  const { data: pendingArias, refetch: refetchPendingArias } = useQuery({
+    queryKey: ["pendingAriasFetch"],
+    queryFn: () => adminPendingAriasFetch(),
+  });
   const handleDeleteAriaClick = async (id) => {
     await adminAriaDelete(id);
     refetch();
+    refetchPendingArias();
   };
   return (
     <>
@@ -50,7 +59,13 @@ const AddWorkArea = () => {
 
             <tbody>
               {!arias?.error
-                ? arias?.map(
+                ? sort(arias, [
+                    "state",
+                    "city",
+                    // "pincode",
+                    "ariaName",
+                    "subAriaName",
+                  ])?.map(
                     (
                       {
                         id,
@@ -138,6 +153,58 @@ const AddWorkArea = () => {
                     )
                   )
                 : null}
+              {!pendingArias?.error
+                ? sort(pendingArias, [
+                    "state",
+                    "city",
+                    // "zipCode",
+                    "aria",
+                    "subAria",
+                  ])?.map(({ id, subAria, zipCode, city, state, aria }, i) => (
+                    <>
+                      <tr key={i}>
+                        <td>
+                          <span> </span>
+                        </td>
+                        <td>
+                          <span> {state} </span>
+                        </td>
+                        <td>
+                          <span> {city} </span>
+                        </td>
+                        <td>
+                          <span> {zipCode} </span>
+                        </td>
+                        <td>
+                          <span> {aria} </span>
+                        </td>
+                        <td>
+                          <span> {subAria} </span>
+                        </td>
+
+                        <td>
+                          <div className="edit-remv-btns">
+                            <button
+                              onClick={() => {
+                                setEditFormval({
+                                  state,
+                                  pincode: zipCode,
+                                  city,
+                                  ariaName: aria,
+                                  subAriaName: subAria,
+                                }),
+                                  setAddWorkArea(true);
+                              }}
+                              className="add-wrok-actn-btn"
+                            >
+                              Approve this Area
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
+                  ))
+                : null}
             </tbody>
           </table>
         </div>
@@ -148,7 +215,10 @@ const AddWorkArea = () => {
           workAreaTrue={addWorkArea}
           onclickCloseAddWorkEdit={() => setAddWorkArea(false)}
           values={editFormVal}
-          refetch={refetch}
+          refetch={() => {
+            refetch();
+            refetchPendingArias();
+          }}
         />
       ) : null}
     </>

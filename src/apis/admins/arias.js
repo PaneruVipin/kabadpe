@@ -11,7 +11,7 @@ export const adminAriaAdd = resolvePromise(
     city,
     monthlyPrice,
     quaterlyPrice,
-    weeklyPrice
+    weeklyPrice,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/aria`;
     const token = getFromLocalStorage("token");
@@ -25,7 +25,7 @@ export const adminAriaAdd = resolvePromise(
         city,
         monthlyPrice,
         quaterlyPrice,
-        weeklyPrice
+        weeklyPrice,
       },
       {
         headers: {
@@ -91,4 +91,15 @@ export const adminAriaFetch = resolvePromise(async () => {
     },
   });
   return res?.arias;
+});
+
+export const adminPendingAriasFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/arias/pending`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.filterdPendings;
 });

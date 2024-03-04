@@ -118,17 +118,18 @@ const Review = () => {
                 <div className="quote-bx">
                   <ImQuotesRight className="quote-icon" />
                 </div>
-                <h5> Feedback</h5>
+                <h5> Our</h5>
               </div>
-              <h4>Trusted By Genius People.</h4>
-              <p>
+              {/* <h4>Trusted By Genius People.</h4> */}
+              <h4>Sustainability Champion</h4>
+              {/* <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
                 reiciendis tenetur debitis consequatur.
-              </p>
+              </p> */}
 
-              <div className="revw-percent-flex">
+              {/* <div className="revw-percent-flex">
                 <span>Student's complete course successfully.</span>
-              </div>
+              </div> */}
             </div>
 
             <div className="right-review-slider-main">

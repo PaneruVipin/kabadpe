@@ -44,7 +44,7 @@ const ClearStock = () => {
             
             <ManageWasteTable />
 
-            <div className="waste-appoint-main-bx">
+            {/* <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">
                 <p className="tex-line tex-line2"> Manage Waste</p>
 
@@ -122,7 +122,7 @@ const ClearStock = () => {
                     </table>
                 </div>
                 
-              </div>
+              </div> */}
 
               </div>
               </div>

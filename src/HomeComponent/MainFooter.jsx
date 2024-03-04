@@ -187,10 +187,12 @@ const MainFooter = () => {
                 </div>
                 <div className="right-download-btns-flex mt-4">
                 <button className="learm-mre-btn">
-            Waste Colect Login
+          <NavLink to="/auth/collector">  Waste Colect Login </NavLink>
         </button>
         <button className="learm-mre-btn">
-            Frenchies Login
+            
+          <NavLink to="/frenchieslogin">  Frenchies Login </NavLink>
+
         </button>
                 </div>
               </div>

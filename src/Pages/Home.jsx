@@ -65,14 +65,14 @@ const Home = ({ setUserForm }) => {
         </div>
         <InfiniteSliderWaste />
         <Discover />
-        <DownloadApp />
+        {/* <DownloadApp /> */}
         <AdsBanner />
         <Ecosystem />
         <KabadJugad />
         <Contribution />
         <ImpactComp />
         <Review />
-        <InstaFeed />
+        {/* <InstaFeed /> */}
         <MainFooter />
       </div>
 

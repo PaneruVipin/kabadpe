@@ -12,7 +12,7 @@ import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
 import { adminChangeAppoinmentStatus } from "../apis/admins/appoinments";
-import { filteredData } from "../lib/array";
+import { filteredData, search } from "../lib/array";
 
 const FrenchAppointments = ({
   refetchAppoinment,
@@ -31,6 +31,7 @@ const FrenchAppointments = ({
   const [addressdetails, setAddressdetails] = useState({});
   const [appoinmentDetails, setAppoinmentDetails] = useState({});
   const [filters, setFilters] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const confirmPopupfunc = () => {
     setPopUp(true);
@@ -201,6 +202,19 @@ const FrenchAppointments = ({
             <div className="appointment-flex-box">
               <div className="left-appont-bx">
                 <p className="tex-line tex-line2"> Appointments</p>
+                <div className="user-data-search-box">
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    placeholder="Search..."
+                    autoComplete="off"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value?.trimStart());
+                    }}
+                  />
+                </div>
                 <div className="A-search-box sel-opt-bx">
                   <select onChange={handleStatusFilter} name="status">
                     <option value="">All Status</option>
@@ -286,7 +300,17 @@ const FrenchAppointments = ({
                 </thead>
                 <tbody>
                   {!appoinments?.error
-                    ? filteredData(appoinments, filters)?.map(
+                    ? search(filteredData(appoinments, filters), searchQuery, [
+                        "appoinmentAddress",
+                        "appointmentContactNumber",
+                        "appointmentDate",
+                        "appointmentPersonName",
+                        "appointmentTimeSlot",
+                        "estimateWeight",
+                        "frequency",
+                        "orderStatus",
+                        "rescheduleStatus",
+                      ])?.map(
                         (
                           {
                             appoinmentAddress,
@@ -455,6 +479,7 @@ const FrenchAppointments = ({
                                       <span></span>
                                     )}
                                     <select
+                                      defaultValue={orderStatus}
                                       onClick={changeAppoinmentStatus(id)}
                                       style={{ width: "120px", height: "40px" }}
                                     >

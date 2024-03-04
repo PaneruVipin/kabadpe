@@ -6,12 +6,14 @@ import {
   adminkabadProductFetch,
 } from "../apis/admins/kabadProducts";
 import { useQuery } from "@tanstack/react-query";
+import { search } from "../lib/array";
 
 const WasteProduct = () => {
   const [wasteProd, setWasteProd] = useState(WasteProdData);
   const [prodEdit, setProdEdit] = useState(false);
   const [isEdit, setisEdit] = useState(false);
   const [editFormValues, setEditFormValues] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
   const { data: products, refetch } = useQuery({
     queryKey: ["adminkabadProductFetch"],
     queryFn: () => adminkabadProductFetch(),
@@ -32,10 +34,12 @@ const WasteProduct = () => {
                     id="search"
                     placeholder="Search..."
                     autoComplete="off"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value.trimStart())}
                   />
                 </div>
 
-                <div className="user-type-sel-box user-data-search-box">
+                {/* <div className="user-type-sel-box user-data-search-box">
                   <select name="user-type-data" id="user-type-data">
                     <option value="1">User</option>
                     <option value="1">Vendor</option>
@@ -55,7 +59,7 @@ const WasteProduct = () => {
 
                 <div className="user-data-search-btn">
                   <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -85,7 +89,7 @@ const WasteProduct = () => {
 
               <tbody>
                 {!products?.error
-                  ? products?.map(
+                  ? search(products, searchQuery)?.map(
                       (
                         {
                           bulkEndWeight,

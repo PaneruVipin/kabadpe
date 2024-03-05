@@ -217,7 +217,7 @@ const Review = () => {
 
                         <div className="revw-name-info">
                           <h6>Mr. Faisal</h6>
-                          <span>Extra Frames Products</span>
+                          <span>Extra Frames Production</span>
                         </div>
                       </div>
                     </div>

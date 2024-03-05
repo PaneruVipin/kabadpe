@@ -7371,7 +7371,7 @@ __________ */
 .tab-view-main-bx {
   position: relative;
   width: 100%;
-  margin-top: 12rem;
+  margin-top: 7rem;
 }
 
 .tab-view-grd {
@@ -7400,8 +7400,14 @@ __________ */
   padding: 1.4rem 1.4rem;
   /* background-color: #fff; */
   background: #fff;
+  z-index: 9;
   /* box-shadow: 10px 10px 22px #e1e1e1,
     -10px -10px 22px #f9f9f9; */
+}
+
+.left-tab-view-img3{
+  height: 25rem;
+  background-color: transparent;
 }
 
 .left-tab-view-img img {
@@ -13204,4 +13210,78 @@ Our Review Section CSS code
 .k-icon , .k-icon img{
   border-radius: 50%;
 }
+
+.clor-1{
+  color: #036838 !important;
+}
+
+.clor-2{
+  color: #03989e !important;
+}
+
+.clor-3{
+  color: #448078 !important;
+}
+
+.mantra-text{
+  position: relative;
+}
+
+.mantra-text h5{
+  padding-left: 5rem;
+  font-size: 2.2rem;
+}
+
+.mantra-text h6{
+  position: absolute;
+  top: -4.4rem;
+  left: -2rem;
+  color: #024b48;
+  font-size: 13rem;
+}
+
+.tab-bg{
+  position: absolute;
+  bottom: 13rem;
+  left: -6rem;
+  width: 13rem;
+  opacity: 0.06;
+  z-index: 1;
+
+}
+
+.tab-bg img{
+  width: 100%;
+  height: auto;
+}
+
+.eco-bg{
+  position: absolute;
+  top: -6rem;
+  right: -6rem;
+  width: 12rem;
+  opacity: 0.04;
+  z-index: 1;
+}
+
+.eco-bg img{
+  width: 100%;
+  height: auto;
+}
+
+.tab-swtich-grid-bx{
+  z-index: 5;
+}
+
+
+.leaf-bg{
+  position: absolute;
+  position: absolute;
+  bottom: -1rem;
+  left: 32rem;
+  width: 10rem;
+  opacity: 0.087;
+  z-index: 1;
+}
+
 /* eca219 */

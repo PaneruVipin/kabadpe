@@ -6737,7 +6737,7 @@ _______________________ */
   background-color: #000000;
   margin-top: -15rem;
   z-index: 999;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 2rem 1rem 2rem;
   background-color: #fff;
   border-radius: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
@@ -12853,11 +12853,14 @@ Our Review Section CSS code
 .mnge-waste-table table thead tr th{
   background-color: #eca219 !important;
   font-size: .9rem !important;
+  line-height: 1.3 !important;
+  text-align: center;
 }
 
 .mnge-waste-table table tbody tr td{
   padding: 0.55rem 0.5rem !important;
   padding-inline: 0.3 !important;
+  text-align: center;
 }
 
 
@@ -13014,13 +13017,13 @@ Our Review Section CSS code
 .slide-bx{
   position: relative;
   margin-inline: .67rem;
-  width: 180px;
-  height: 160px;
+  width: 175px;
+  height: 170px;
   display: inline-flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  /* gap: 1rem; */
   border-radius: 50%;
   border: .1rem solid #eee;
   transition: 500ms ease;
@@ -13058,6 +13061,7 @@ Our Review Section CSS code
 .slide-img{
   position: relative;
   width: 3rem;
+  margin-bottom: 1rem;
 }
 
 .slide-img img{
@@ -13073,6 +13077,11 @@ Our Review Section CSS code
   /* border: .1rem solid #eee; */
 
 
+}
+
+.check-rate-btn{
+  font-size: .78rem;
+  color: #024b48;
 }
 
 .download-app-sec{
@@ -13178,13 +13187,47 @@ Our Review Section CSS code
 }
 
 .apnt-form-text5{
+  position: relative;
   text-align:left;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: .3rem !important;
+  margin-bottom: .76rem !important;
   padding-inline-start: .34rem;
-  font-size: 1rem ;
+  font-size: 1.1rem ;
   letter-spacing: .45px;
+  display: inline-flex;
+  align-items: center;
+  
+}
+
+.arow-icon{
+  position: relative;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2ac4c8;
+  border: .1rem solid #2ac4c8;
+  border-radius: 50%;
+  margin-right: .55rem;
+}
+
+.apnt-form-text5 i{
+  font-size: .76rem;
+  color: #fff;
+  animation: downarrow .6s cubic-bezier(0.33, 1, 0.68, 1) infinite alternate;
+}
+
+
+@keyframes downarrow {
+  form{
+    transform: translateY(-3px);
+  }
+
+  to{
+    transform: translateY(3px);
+  }
 }
 
 .left-shdule-apnt-form-bx, .apnt-slot-form-bx{
@@ -13283,5 +13326,47 @@ Our Review Section CSS code
   opacity: 0.087;
   z-index: 1;
 }
+
+.excel-export-btn{
+  position: relative;
+  width: 3rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: .3rem;
+  background-color:#fff;
+  border: .1rem solid #eee;
+  color: #036838;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.mnge-waste-table table thead tr th:nth-child(5),
+.mnge-waste-table table thead tr th:nth-child(7){
+    text-align: left !important;
+}
+
+.mnge-waste-filter-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  /* border-bottom: .05rem solid #eca219; */
+}
+
+.mnge-waste-filter-bx .mnge-wastefilt-btn{
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .55px;
+  padding-inline: .67rem;
+  padding-block: .5rem;
+  transition: 300ms ease;
+}
+
+.mnge-wastefilt-btn.wsteactive , .mnge-wastefilt-btn:hover{
+  color: #eca219;
+}
+
+
 
 /* eca219 */

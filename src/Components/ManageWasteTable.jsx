@@ -61,6 +61,10 @@ const ManageWasteTable = () => {
               </div>
             </div>
 
+            <div className="excel-export-btn">
+            <i class="fa-solid fa-file-excel"></i>
+            </div>
+
             <button className="clr-stck">Clear Stock</button>
           </div>
         </div>
@@ -69,28 +73,28 @@ const ManageWasteTable = () => {
           <table>
             <thead>
               <tr>
-                <th>SNO.</th>
+              <th>SNO.</th>
                 <th>Date & Time</th>
-                <th>Total Waste (Kg)</th>
+                <th>Total <br/> Waste  (Kg)</th>
                 <th>Value (<i class="fa-solid fa-indian-rupee-sign"></i>)</th>
                 <th>Name</th>
-                <th>Newspaper (kg)</th>
-                <th>Office Paper (kg)</th>
-                <th>Copies/Books (kg)</th>
-                <th>Cardboard (kg)</th>
-                <th>Plastic (kg)</th>
-                <th>Iron (kg)</th>
-                <th>Steel (kg)</th>
-                <th>Aluminium (kg)</th>
-                <th>Brass (kg)</th>
-                <th>Copper (kg)</th>
-                <th>Heavy Waste (kg)</th>
-                <th>Light Waste (piece)</th>
-                <th>Scrap Tablet (piece)</th>
-                <th>Scrap Laptop (piece)</th>
-                <th>CRT Monitor (piece)</th>
-                <th>LCD Monitor (kg)</th>
-                <th>Computer CPU (piece)</th>
+                <th>Newspaper <br/> (kg)</th>
+                <th>Office Paper <br/> (kg)</th>
+                <th>Copies/Books <br/> (kg)</th>
+                <th>Cardboard <br/> (kg)</th>
+                <th>Plastic <br/> (kg)</th>
+                <th>Iron <br/> (kg)</th>
+                <th>Steel <br/> (kg)</th>
+                <th>Aluminium <br/> (kg)</th>
+                <th>Brass <br/> (kg)</th>
+                <th>Copper <br/> (kg)</th>
+                <th>Heavy <br/> Waste  (kg)</th>
+                <th>Light <br/> Waste (piece)</th>
+                <th>Scrap <br/> Tablet (piece)</th>
+                <th>Scrap <br/> Laptop (piece)</th>
+                <th>CRT <br/> Monitor (piece)</th>
+                <th>LCD <br/> Monitor (kg)</th>
+                <th>Computer <br/> CPU (piece)</th>
                 <th>Invoice</th>
               </tr>
             </thead>

@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const KabadJugad = () => {
   return (
@@ -6,7 +7,7 @@ const KabadJugad = () => {
       <section className="kabad-jugad-comp">
         <div className="comon-container-2">
           <div className="apnt-heading">
-            <p>Ecosystem</p>
+            <p>Our Ecosystem</p>
             <h3>Circular life</h3>
           </div>
 
@@ -27,7 +28,6 @@ const KabadJugad = () => {
                     and traceable system.
                   </p>
 
-                  <button className="read-mre-btn">Read More</button>
                 </div>
               </div>
 
@@ -41,13 +41,13 @@ const KabadJugad = () => {
                     Green living made simple, enjoy eco-friendly products for
                     daily needs.
                   </p>
-                  <button className="read-mre-btn">Read More</button>
+                  <NavLink to="https://thegreensamanshop.com/"> <button className="read-mre-btn">Visit Website</button> </NavLink>
                 </div>
               </div>
 
               <div className="kabad-info-bx">
                 <div className="k-icon">
-                  <img src="/images/customImg/climconnect-logo.jpg" alt="" />
+                  <img src="/images/customImg/climconnect-logo.png" alt="" />
                 </div>
                 <div className="kabad-det">
                   <h6>Climconnect</h6>
@@ -55,7 +55,7 @@ const KabadJugad = () => {
                     Become a climate Warrier, raise your voice and let people
                     know your climate contribution
                   </p>
-                  <button className="read-mre-btn">Read More</button>
+                  <button className="read-mre-btn">Visit Website</button>
                 </div>
               </div>
 
@@ -64,12 +64,12 @@ const KabadJugad = () => {
                   <img src="/images/customImg/eco-icon4.png" alt="" />
                 </div>
                 <div className="kabad-det">
-                  <h6>Waste resource hub</h6>
+                  <h6>Waste AI</h6>
                   <p>
                     Need waste related solutions, find best solution to combat
                     waste problems.
                   </p>
-                  <button className="read-mre-btn">Read More</button>
+                  <button className="read-mre-btn">Coming Soon</button>
                 </div>
               </div>
             </div>

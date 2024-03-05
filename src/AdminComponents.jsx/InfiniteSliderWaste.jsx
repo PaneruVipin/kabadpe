@@ -1,5 +1,6 @@
 import React from 'react'
 import { AdminWasteProdData } from '../Components/AdminWasteProdSlideData'
+import { NavLink } from 'react-router-dom'
 
 const InfiniteSliderWaste = () => {
   return (
@@ -14,12 +15,15 @@ const InfiniteSliderWaste = () => {
                     {AdminWasteProdData.map((elem,id) => {
                         return (
                             <>
+                            <NavLink to="">
                             <div className="slide-bx">
                         <div className="slide-img">
                             <img src={elem.img} alt="" />
                         </div>
                         <h6> {elem.title} </h6>
+                        <NavLink to="" className='check-rate-btn'> Check Today's Rate </NavLink>
                     </div>
+                    </NavLink>
                             </>
                         )
                     })}

@@ -43,7 +43,7 @@ const HomeSlider = () => {
         </div>
         </div>
           <video className="home-video"  loop muted plays-inline autoplay='autoplay'>
-            <source src="/images/customImg/waste-video-bg.mp4" type="video/mp4" />
+            <source src="/images/customImg/waste-video.mp4" type="video/mp4" />
           </video>
       </section>
 

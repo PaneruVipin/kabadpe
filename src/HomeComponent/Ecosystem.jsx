@@ -143,15 +143,15 @@ const Ecosystem = () => {
                 }
               >
                 <div className="main-img-bx-tab">
-                  <div className="left-tab-view-img">
-                    <img src="/images/customImg/waste-img-4.jpg" alt="" />
+                  <div className="left-tab-view-img left-tab-view-img3">
+                    <img src="/images/customImg/waste-img-2.png" alt="" />
                   </div>
 
-                  <div className="buble-one"></div>
+                  {/* <div className="buble-one"></div>
                   <div className="buble-one buble-two"></div>
                   <div className="buble-one buble-three"></div>
                   <div className="buble-one buble-four"></div>
-                  <div className="buble-one buble-five"></div>
+                  <div className="buble-one buble-five"></div> */}
                 </div>
 
                 <div className="right-tab-info-bx">

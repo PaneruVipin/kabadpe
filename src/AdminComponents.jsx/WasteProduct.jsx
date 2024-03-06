@@ -7,12 +7,13 @@ import {
 } from "../apis/admins/kabadProducts";
 import { useQuery } from "@tanstack/react-query";
 import { search } from "../lib/array";
+import { IoDuplicate } from "react-icons/io5";
 
 const WasteProduct = () => {
   const [wasteProd, setWasteProd] = useState(WasteProdData);
   const [prodEdit, setProdEdit] = useState(false);
   const [isEdit, setisEdit] = useState(false);
-  const [editFormValues, setEditFormValues] = useState({});
+  const [editFormValues, setEditFormValues] = useState();
   const [searchQuery, setSearchQuery] = useState("");
   const { data: products, refetch } = useQuery({
     queryKey: ["adminkabadProductFetch"],
@@ -81,6 +82,7 @@ const WasteProduct = () => {
                   <th>SNO.</th>
                   <th>Product Name</th>
                   <th>Product Image</th>
+                  <th>Area</th>
                   <th>Retail Price</th>
                   <th>Bulk Price</th>
                   <th>Action</th>
@@ -101,6 +103,7 @@ const WasteProduct = () => {
                           productImage,
                           productName,
                           id,
+                          Arium,
                         },
                         i
                       ) => {
@@ -118,6 +121,12 @@ const WasteProduct = () => {
                               <td>
                                 {" "}
                                 <img src={productImage} alt="" />{" "}
+                              </td>
+                              <td>
+                                <p>
+                                  {Arium?.subAriaName} --{" "}
+                                  <span>{`${Arium?.state}, ${Arium?.city}, ${Arium?.ariaName} - ${Arium?.pincode}`}</span>
+                                </p>
                               </td>
                               <td>
                                 {" "}
@@ -144,6 +153,7 @@ const WasteProduct = () => {
                                         productImage,
                                         productName,
                                         id,
+                                        Arium,
                                       });
                                     }}
                                   >
@@ -157,6 +167,26 @@ const WasteProduct = () => {
                                     }}
                                   >
                                     <i class="fa-solid fa-trash"></i>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setisEdit(false);
+                                      setProdEdit(true);
+                                      setEditFormValues({
+                                        bulkEndWeight,
+                                        bulkStartWeight,
+                                        retailEndWeight,
+                                        retailStartWeight,
+                                        bulkPrice,
+                                        retailPrice,
+                                        productImage,
+                                        productName,
+                                        id,
+                                        Arium,
+                                      });
+                                    }}
+                                  >
+                                    <IoDuplicate />
                                   </button>
                                 </div>
                               </td>
@@ -177,7 +207,10 @@ const WasteProduct = () => {
           isEdit={isEdit}
           editFormValues={editFormValues}
           refetch={refetch}
-          onclickEditClose={() => setProdEdit(false)}
+          onclickEditClose={() => {
+            setProdEdit(false);
+            setEditFormValues(null);
+          }}
         />
       ) : null}
     </>

@@ -86,6 +86,19 @@ const Ecosystem = () => {
             </div>
 
             <div className="tab-view-main-bx">
+
+              <div className="tab-bg">
+                <img src="/images/customImg/bg.png" alt="" />
+              </div>
+
+              <div className="eco-bg">
+                <img src="/images/customImg/bg2.png" alt="" />
+              </div>
+
+              <div className="leaf-bg">
+                <img src="/images/customImg/bg3.png" alt="" />
+              </div>
+              
               <div
                 className={
                   tab === "ecosystem"
@@ -94,21 +107,24 @@ const Ecosystem = () => {
                 }
               >
                 <div className="main-img-bx-tab">
-                  <div className="left-tab-view-img">
-                    <img src="/images/customImg/waste-img.jpg" alt="" />
+                  <div className="left-tab-view-img left-tab-view-img3">
+                    <img src="/images/customImg/Message.png" alt="" />
                   </div>
 
-                  <div className="buble-one"></div>
+                  {/* <div className="buble-one"></div>
                   <div className="buble-one buble-two"></div>
                   <div className="buble-one buble-three"></div>
                   <div className="buble-one buble-four"></div>
-                  <div className="buble-one buble-five"></div>
+                  <div className="buble-one buble-five"></div> */}
                 </div>
 
                 <div className="right-tab-info-bx">
+                  <div className="mantra-text">
+                  <h6>3</h6>
                   <h5>
-                    The New 3R Mantra <br /> Rethink, Rejuvenate, Resonate.
+                     New  Mantra <br /> <span className="clor-1">Rethink</span> , <span className="clor-2">Rejuvenate</span>  <span className="clor-3">Resonate</span> .
                   </h5>
+                  </div>
                   <p>
                     Rethink your shopping habits with The Green Saman Shop's
                     array of eco-friendly products. Rejuvenate old materials
@@ -127,15 +143,15 @@ const Ecosystem = () => {
                 }
               >
                 <div className="main-img-bx-tab">
-                  <div className="left-tab-view-img">
-                    <img src="/images/customImg/waste-img-4.jpg" alt="" />
+                  <div className="left-tab-view-img left-tab-view-img3">
+                    <img src="/images/customImg/waste-img-2.png" alt="" />
                   </div>
 
-                  <div className="buble-one"></div>
+                  {/* <div className="buble-one"></div>
                   <div className="buble-one buble-two"></div>
                   <div className="buble-one buble-three"></div>
                   <div className="buble-one buble-four"></div>
-                  <div className="buble-one buble-five"></div>
+                  <div className="buble-one buble-five"></div> */}
                 </div>
 
                 <div className="right-tab-info-bx">

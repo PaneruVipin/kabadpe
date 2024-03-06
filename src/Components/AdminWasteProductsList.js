@@ -1,5 +1,5 @@
 
-const AdminWasteProd = [
+ const AdminWasteProd = [
 
     {
         id : 1,
@@ -11,14 +11,14 @@ const AdminWasteProd = [
     },
 
     
-    {
-        id : 2,
-        img : '/images/customImg/hazardous.png',
-        title : 'Waste Available',
-        minitext : '200 (kg) ',
+    // {
+    //     id : 2,
+    //     img : '/images/customImg/hazardous.png',
+    //     title : 'Waste Available',
+    //     minitext : '200 (kg) ',
         
         
-    },
+    // },
 
     
     {
@@ -181,6 +181,13 @@ const AdminWasteProd = [
         
         
     },
+
+ 
+    
     
 ]
-export default AdminWasteProd  ;
+
+
+export default AdminWasteProd
+
+

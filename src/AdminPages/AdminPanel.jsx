@@ -39,6 +39,7 @@ import { adminAppoinmentsFetch } from "../apis/admins/appoinments";
 import { useQuery } from "@tanstack/react-query";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import AdminTransaction from "./AdminTransaction";
+import AdminManageWaste from "../AdminComponents.jsx/AdminManageWaste";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -179,7 +180,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <Redirect role="superAdmin" path="/adminlogin" />
+      {/* <Redirect role="superAdmin" path="/adminlogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -886,6 +887,44 @@ const AdminPanel = () => {
 
           <div className="admin-nv-li">
             <div
+              onClick={() => handleButtonClick(70)}
+              className={getButtonClassName(70)}
+            >
+              <div className=" a-nv-i a-nv-i2 u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+                {/* <CiShop /> */}
+              </div>
+              <span> Manage Waste</span>
+            </div>
+
+            <div className={getButonClasnameTwo(70)}>
+              <li
+                onClick={() => handleViewComp("managewaste")}
+                className={
+                  component === "managewaste"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> All Waste Pickups </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("currentwaste")}
+                className={
+                  component === "currentwaste"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Current Waste </NavLink>{" "}
+              </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
               onClick={() => {
                 handleViewComp("reviews");
               }}
@@ -1318,6 +1357,8 @@ const AdminPanel = () => {
         ) : null}
 
         {component === "transaction" ? <AdminTransaction /> : null}
+        {component === "managewaste" ? <AdminManageWaste /> : null}
+
       </section>
     </>
   );

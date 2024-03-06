@@ -86,7 +86,7 @@ const Wastecollectdashboard = ({}) => {
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
       />
-      <Redirect role="kabadCollector" path="/auth/collector" />
+      {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -237,6 +237,40 @@ const Wastecollectdashboard = ({}) => {
                 }
               >
                 <span>Current Waste</span>
+              </li>
+            </div>
+          </div>
+
+          <div className="waste-colect-dropdwn-btn">
+            <button
+              onClick={() => handleButtonClick(21)}
+              className={getButtonClassName(21)}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </div>
+              Safety and Skills
+            </button>
+            <div className={getButonClasnameTwo(21)}>
+              <li
+                // onClick={() => setProfBtn(17)}
+                className={
+                  profBtn === 17
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+               <NavLink to="https://drive.google.com/drive/folders/1rWU7sPNXH_Z5-3uMaylUSHIE2-IZ_y7-?usp=sharing" target="_blank"> <span>Resource Material (सिखने का लिंक)</span> </NavLink> 
+              </li>
+              <li
+                // onClick={() => setProfBtn(25)}
+                className={
+                  profBtn === 25
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+               <NavLink to="https://docs.google.com/forms/d/e/1FAIpQLSeq8i1cjVusDUyZK6RldOdR3rcM_1CuctbPXqLO-3pFMeIZRQ/viewform" target="_blank"> <span>Certificate Test  </span> </NavLink>
               </li>
             </div>
           </div>

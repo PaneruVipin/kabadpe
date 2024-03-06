@@ -3108,6 +3108,15 @@ side nav icon Btn on hover show list box
   margin-top: 1rem;
  }
 
+ .two-fild-grid{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+  margin-top: 1rem;
+ }
  .fild-bx{
   position: relative;
   display: flex;

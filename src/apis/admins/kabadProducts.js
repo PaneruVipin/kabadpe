@@ -12,6 +12,8 @@ export const adminkabadProductAdd = resolvePromise(
     retailPrice,
     productImage,
     productName,
+    state,
+    city,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/kabadpe/product`;
     const token = getFromLocalStorage("token");
@@ -26,6 +28,8 @@ export const adminkabadProductAdd = resolvePromise(
         retailPrice,
         productImage,
         productName,
+        state,
+        city,
       },
       {
         headers: {

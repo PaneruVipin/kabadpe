@@ -4,6 +4,9 @@ import {
   adminkabadProductAdd,
   adminkabadProductUpdate,
 } from "../apis/admins/kabadProducts";
+import { AutoComplete, Select } from "antd";
+import { adminAriaFetch } from "../apis/admins/arias";
+import { useQuery } from "@tanstack/react-query";
 
 const WasteProdEdit = ({
   onclickEditClose,
@@ -14,10 +17,16 @@ const WasteProdEdit = ({
 }) => {
   const [selectImg, setSelectImg] = useState("");
   const [otherErrors, setOtherErrors] = useState({});
+  const [states, setStates] = useState([]);
+  const [cites, setCites] = useState([]);
   const formTitle = isEdit ? " Update Waste Product " : "Add Waste Product";
   const submitBuutonText = isEdit ? " Update Product " : "Add Product";
-  const initialValues = isEdit
-    ? editFormValues
+  const initialValues = editFormValues
+    ? {
+        ...editFormValues,
+        state: editFormValues?.Arium?.state,
+        city: editFormValues?.Arium?.city,
+      }
     : {
         bulkEndWeight: "",
         bulkStartWeight: "",
@@ -27,14 +36,15 @@ const WasteProdEdit = ({
         retailPrice: "",
         productImage: "",
         productName: "",
+        state: "",
+        city: "",
       };
-
   const handleSubmit = async (data) => {
     setOtherErrors({});
     const newData = { ...data };
-    if (!(newData?.productImage instanceof File)) {
-      delete newData?.productImage;
-    }
+    // if (!(newData?.productImage instanceof File) && !newData?.productImage) {
+    //   delete newData?.productImage;
+    // }
     const res = isEdit
       ? await adminkabadProductUpdate(newData)
       : await adminkabadProductAdd(newData);
@@ -45,6 +55,27 @@ const WasteProdEdit = ({
     }
     setOtherErrors({ insert: res?.message });
   };
+  const getStates = (res) =>
+    [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
+      id: i,
+      name,
+    }));
+  const getCities = (state, res) => {
+    return [
+      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
+    ].map((name, i) => ({ id: i, name }));
+  };
+  const { data: adminArias } = useQuery({
+    queryKey: ["adminariafetch--"],
+    queryFn: () => adminAriaFetch(),
+  });
+  useEffect(() => {
+    if (adminArias?.error || !adminArias || !adminArias?.length) {
+      return;
+    }
+    const state = getStates(adminArias);
+    setStates(state);
+  }, [adminArias]);
   return (
     <>
       <section className="waste-prod-edit-comp" onClick={onclickEditClose}>
@@ -87,41 +118,114 @@ const WasteProdEdit = ({
                       <div style={{ color: "red" }}>{errors?.otp}</div>
                     ) : null} */}
                   </div>
+                  <div className="two-fild-grid">
+                    <div className="prod-image-main mt-3">
+                      <h6>Area</h6>
 
-                  <div className="prod-image-main mt-3">
-                    <h6>Product Image</h6>
-
-                    <div className="image-fild-flex-bx">
-                      <div className="input-file-btn">
-                        <label htmlFor="Prod_img">Product Image</label>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          id="Prod_img"
-                          name="productImage"
-                          onChange={(event) => {
-                            const file = event.target.files[0];
-                            values.productImage = event.target.files[0];
-                            const reader = new FileReader();
-
-                            reader.onload = () => {
-                              setSelectImg(reader.result);
-                            };
-
-                            if (file) {
-                              reader.readAsDataURL(file);
-                            }
-                          }}
-                        />
-                      </div>
-                      {selectImg || values?.productImage ? (
-                        <div className="image-add-bx">
-                          <img src={selectImg || values?.productImage} alt="" />
+                      {isEdit ? (
+                        <div>
+                          {" "}
+                          <p>
+                            {editFormValues?.Arium?.subAriaName} --{" "}
+                            <span>{`${editFormValues?.Arium?.state}, ${editFormValues?.Arium?.city}, ${editFormValues?.Arium?.ariaName} - ${editFormValues?.Arium?.pincode}`}</span>
+                          </p>
                         </div>
-                      ) : null}
+                      ) : editFormValues ? (
+                        <div>
+                          {" "}
+                          <p>
+                            {editFormValues?.Arium?.city} --{" "}
+                            <span>{`${editFormValues?.Arium?.state}`}</span>
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="image-fild-flex-bx">
+                          <Select
+                            onChange={(v) => {
+                              const cities = getCities(v, adminArias);
+                              setCites(cities);
+                              handleChange({
+                                target: { name: "state", value: v },
+                              });
+                            }}
+                            onBlur={(v) => {
+                              handleBlur({
+                                target: { name: "state" },
+                              });
+                            }}
+                            showSearch={true}
+                            optionFilterProp="children"
+                            placeholder="Select State"
+                            className="apnt-inpt-bx-autotype"
+                          >
+                            {states?.map(({ name, id }) => (
+                              <Select.Option key={id} value={name}>
+                                {name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                          <Select
+                            showSearch={true}
+                            optionFilterProp="children"
+                            placeholder="Select City"
+                            className="apnt-inpt-bx-autotype"
+                            onChange={(v) => {
+                              handleChange({
+                                target: { name: "city", value: v },
+                              });
+                            }}
+                            onBlur={(v) => {
+                              handleBlur({
+                                target: { name: "city" },
+                              });
+                            }}
+                          >
+                            {cites?.map(({ name, id }) => (
+                              <Select.Option key={id} value={name}>
+                                {name}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </div>
+                      )}
+                    </div>
+                    <div className="prod-image-main mt-3">
+                      <h6>Product Image</h6>
+
+                      <div className="image-fild-flex-bx">
+                        <div className="input-file-btn">
+                          <label htmlFor="Prod_img">Product Image</label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="Prod_img"
+                            name="productImage"
+                            onChange={(event) => {
+                              const file = event.target.files[0];
+                              values.productImage = event.target.files[0];
+                              const reader = new FileReader();
+
+                              reader.onload = () => {
+                                setSelectImg(reader.result);
+                              };
+
+                              if (file) {
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                          />
+                        </div>
+                        {selectImg || values?.productImage ? (
+                          <div className="image-add-bx">
+                            <img
+                              src={selectImg || values?.productImage}
+                              alt=""
+                            />
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
-
                   <div className="three-fild-bx">
                     <h6>Retail Price</h6>
 

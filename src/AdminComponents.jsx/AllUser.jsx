@@ -197,7 +197,7 @@ const AllUser = ({ updatedFilterData }) => {
                                 <span>
                                   {role == "user"
                                     ? "KPU"
-                                    : role == "franchiseAdmin"
+                                    : role == "franchise"
                                     ? "KPF"
                                     : "KPW"}
                                   {String(id).padStart(7, "0")}{" "}

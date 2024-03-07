@@ -198,7 +198,7 @@ const Wastecolect = () => {
                           <>
                             <tr key={i}>
                               <td>
-                                <span> {id} </span>
+                                <span> {i+1} </span>
                               </td>
                               <td>
                                 <div className="user-prof-img">

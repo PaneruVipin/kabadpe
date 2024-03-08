@@ -142,14 +142,13 @@ const FrenchiesPanel = () => {
 
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
             <div className="admin-logo">
               <img src="/images/customImg/nav-logo.png" alt="" />
             </div>
-
             <button
               onClick={() => {
                 setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
@@ -167,11 +166,11 @@ const FrenchiesPanel = () => {
           </div>
 
           <div className="right-admin-box">
-          <div className="subscrip-text">
-              <p>Subscription : <span>20/02/2024</span> </p>
-              <button className="renew-btn">
-                Renew
-              </button>
+            <div className="subscrip-text">
+              <p>
+                Subscription : <span>20/02/2024</span>{" "}
+              </p>
+              <button className="renew-btn">Renew</button>
             </div>
 
             <button

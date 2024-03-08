@@ -1,47 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import stockData from './StockData';
-import AdminWasteProd from './AdminWasteProductsList';
-import ManageWasteTable from './ManageWasteTable';
+import stockData from "./StockData";
+import AdminWasteProd from "./AdminWasteProductsList";
+import ManageWasteTable from "./ManageWasteTable";
+import { useQuery } from "@tanstack/react-query";
+import { workerWasteCollectionFetch } from "../apis/worker/manageWaste";
 
 const ClearStock = () => {
-    const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-    const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-    const [stock , setStock] = useState(stockData);
+  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
+  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [stock, setStock] = useState(stockData);
+  const { data: allUsers, refetch } = useQuery({
+    queryKey: ["workerWasteCollectionFetch"],
+    queryFn: () => workerWasteCollectionFetch(),
+  });
+  console.log("dada ada data data", allUsers);
   return (
     <>
-      
       <section className="waste-appoint-ment-comp">
         <div className="right-tab-main-bx  tab-bx tabbxactive">
           <div className="tab-main-bx tab-main-bx3 tab-main-bx-title">
-            <h3>Manage Waste</h3>
+            <h3>Manage Waste 2</h3>
 
             <div className="waste-mnge-prod-main">
-
-            <div className="waste-manage-prod-grid-main">
-
-              {AdminWasteProd.map((curElem,id) => {
-                return (
-                  <>
-                    <div key={id} className="waste-mnge-prod-bx" >
-              
-                <div className="waste-mnge-prod-text">
-                  <h6> {curElem.title} </h6>
-                  <p> {curElem.minitext} </p>
-                </div>
-                <div className="waste-prod-icon">
-                  <img src={curElem.img} alt="" />
-                </div>
+              <div className="waste-manage-prod-grid-main">
+                {AdminWasteProd.map((curElem, id) => {
+                  return (
+                    <>
+                      <div key={id} className="waste-mnge-prod-bx">
+                        <div className="waste-mnge-prod-text">
+                          <h6> {curElem.title} </h6>
+                          <p> {curElem.minitext} </p>
+                        </div>
+                        <div className="waste-prod-icon">
+                          <img src={curElem.img} alt="" />
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
               </div>
-                  </>
-                )
-              })}
+            </div>
 
-            
-              
-            </div>
-            </div>
-            
             <ManageWasteTable />
 
             {/* <div className="waste-appoint-main-bx">
@@ -123,12 +123,11 @@ const ClearStock = () => {
                 </div>
                 
               </div> */}
-
-              </div>
-              </div>
-              </section>
+          </div>
+        </div>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ClearStock
+export default ClearStock;

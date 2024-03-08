@@ -56,13 +56,13 @@ const WasteProdEdit = ({
     setOtherErrors({ insert: res?.message });
   };
   const getStates = (res) =>
-    [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
+    [...new Set(res?.map((e, i) => e?.state))].map((name, i) => ({
       id: i,
       name,
     }));
   const getCities = (state, res) => {
     return [
-      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
+      ...new Set(res?.filter((e) => e?.state == state)?.map((e, i) => e?.city)),
     ].map((name, i) => ({ id: i, name }));
   };
   const { data: adminArias } = useQuery({
@@ -76,6 +76,18 @@ const WasteProdEdit = ({
     const state = getStates(adminArias);
     setStates(state);
   }, [adminArias]);
+  useEffect(() => {
+    if (
+      adminArias?.error ||
+      !adminArias ||
+      !adminArias?.length ||
+      !initialValues?.state
+    ) {
+      return;
+    }
+    const cities = getCities(initialValues?.state, adminArias);
+    setCites(cities);
+  }, []);
   return (
     <>
       <section className="waste-prod-edit-comp" onClick={onclickEditClose}>
@@ -130,17 +142,10 @@ const WasteProdEdit = ({
                             <span>{`${editFormValues?.Arium?.state}, ${editFormValues?.Arium?.city}, ${editFormValues?.Arium?.ariaName} - ${editFormValues?.Arium?.pincode}`}</span>
                           </p>
                         </div>
-                      ) : editFormValues ? (
-                        <div>
-                          {" "}
-                          <p>
-                            {editFormValues?.Arium?.city} --{" "}
-                            <span>{`${editFormValues?.Arium?.state}`}</span>
-                          </p>
-                        </div>
                       ) : (
                         <div className="image-fild-flex-bx">
                           <Select
+                            defaultValue={values?.state}
                             onChange={(v) => {
                               const cities = getCities(v, adminArias);
                               setCites(cities);
@@ -165,6 +170,7 @@ const WasteProdEdit = ({
                             ))}
                           </Select>
                           <Select
+                            defaultValue={values?.city}
                             showSearch={true}
                             optionFilterProp="children"
                             placeholder="Select City"

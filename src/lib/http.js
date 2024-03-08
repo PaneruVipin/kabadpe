@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-
 export const resolvePromise = (asyncFn) => {
   return (data) => {
     const promise = new Promise((resolve) => {

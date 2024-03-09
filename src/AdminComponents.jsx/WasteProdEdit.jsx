@@ -24,8 +24,6 @@ const WasteProdEdit = ({
   const initialValues = editFormValues
     ? {
         ...editFormValues,
-        state: editFormValues?.Arium?.state,
-        city: editFormValues?.Arium?.city,
       }
     : {
         bulkEndWeight: "",
@@ -36,8 +34,8 @@ const WasteProdEdit = ({
         retailPrice: "",
         productImage: "",
         productName: "",
-        state: "",
-        city: "",
+        state: undefined,
+        city: undefined,
       };
   const handleSubmit = async (data) => {
     setOtherErrors({});
@@ -134,66 +132,62 @@ const WasteProdEdit = ({
                     <div className="prod-image-main mt-3">
                       <h6>Area</h6>
 
-                      {isEdit ? (
-                        <div>
-                          {" "}
-                          <p>
-                            {editFormValues?.Arium?.subAriaName} --{" "}
-                            <span>{`${editFormValues?.Arium?.state}, ${editFormValues?.Arium?.city}, ${editFormValues?.Arium?.ariaName} - ${editFormValues?.Arium?.pincode}`}</span>
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="image-fild-flex-bx">
-                          <Select
-                            defaultValue={values?.state}
-                            onChange={(v) => {
-                              const cities = getCities(v, adminArias);
-                              setCites(cities);
-                              handleChange({
-                                target: { name: "state", value: v },
-                              });
-                            }}
-                            onBlur={(v) => {
-                              handleBlur({
-                                target: { name: "state" },
-                              });
-                            }}
-                            showSearch={true}
-                            optionFilterProp="children"
-                            placeholder="Select State"
-                            className="apnt-inpt-bx-autotype"
-                          >
-                            {states?.map(({ name, id }) => (
-                              <Select.Option key={id} value={name}>
-                                {name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                          <Select
-                            defaultValue={values?.city}
-                            showSearch={true}
-                            optionFilterProp="children"
-                            placeholder="Select City"
-                            className="apnt-inpt-bx-autotype"
-                            onChange={(v) => {
-                              handleChange({
-                                target: { name: "city", value: v },
-                              });
-                            }}
-                            onBlur={(v) => {
-                              handleBlur({
-                                target: { name: "city" },
-                              });
-                            }}
-                          >
-                            {cites?.map(({ name, id }) => (
-                              <Select.Option key={id} value={name}>
-                                {name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </div>
-                      )}
+                      <div className="image-fild-flex-bx">
+                        <Select
+                          value={values?.state}
+                          onChange={(v) => {
+                            const cities = getCities(v, adminArias);
+                            setCites(cities);
+                            handleChange({
+                              target: { name: "state", value: v },
+                            });
+                            handleChange({
+                              target: { name: "city", value: undefined },
+                            });
+                            handleBlur({
+                              target: { name: "city" },
+                            });
+                          }}
+                          onBlur={(v) => {
+                            handleBlur({
+                              target: { name: "state" },
+                            });
+                          }}
+                          showSearch={true}
+                          optionFilterProp="children"
+                          placeholder="Select State"
+                          className="apnt-inpt-bx-autotype"
+                        >
+                          {states?.map(({ name, id }) => (
+                            <Select.Option key={id} value={name}>
+                              {name}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                        <Select
+                          value={values?.city}
+                          showSearch={true}
+                          optionFilterProp="children"
+                          placeholder="Select City"
+                          className="apnt-inpt-bx-autotype"
+                          onChange={(v) => {
+                            handleChange({
+                              target: { name: "city", value: v },
+                            });
+                          }}
+                          onBlur={(v) => {
+                            handleBlur({
+                              target: { name: "city" },
+                            });
+                          }}
+                        >
+                          {cites?.map(({ name, id }) => (
+                            <Select.Option key={id} value={name}>
+                              {name}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </div>
                     </div>
                     <div className="prod-image-main mt-3">
                       <h6>Product Image</h6>

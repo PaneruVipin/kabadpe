@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import WasteProdData from "./WasteProdData";
 import WasteProdEdit from "./WasteProdEdit";
 import {
@@ -6,18 +6,88 @@ import {
   adminkabadProductFetch,
 } from "../apis/admins/kabadProducts";
 import { useQuery } from "@tanstack/react-query";
-import { search } from "../lib/array";
+import { filteredData, search } from "../lib/array";
+import { IoDuplicate } from "react-icons/io5";
+import { adminAriaFetch } from "../apis/admins/arias";
 
 const WasteProduct = () => {
   const [wasteProd, setWasteProd] = useState(WasteProdData);
   const [prodEdit, setProdEdit] = useState(false);
   const [isEdit, setisEdit] = useState(false);
-  const [editFormValues, setEditFormValues] = useState({});
+  const [editFormValues, setEditFormValues] = useState();
   const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cites, setCites] = useState([]);
+  const [city, setCity] = useState("");
   const { data: products, refetch } = useQuery({
     queryKey: ["adminkabadProductFetch"],
     queryFn: () => adminkabadProductFetch(),
   });
+  const { data: adminArias } = useQuery({
+    queryKey: ["adminariafetch--1"],
+    queryFn: () => adminAriaFetch(),
+  });
+
+  const handleFilterByAria = (e) => {
+    const { name, value } = e.target;
+    let newFilters;
+    if (!value) {
+      newFilters = filters?.filter((f) => f?.id != name);
+    } else {
+      const exist = filters?.find(({ id }) => id == name);
+      const fn = (e) => {
+        return e?.[name] == value;
+      };
+      if (exist) {
+        newFilters = filters.map((f) => {
+          if (f?.id == name) {
+            return {
+              ...f,
+              fn,
+            };
+          } else {
+            return f;
+          }
+        });
+      } else {
+        newFilters = [
+          ...filters,
+          {
+            id: name,
+            fn,
+          },
+        ];
+      }
+    }
+    if (name == "state") {
+      newFilters = newFilters?.filter(({ id }) => id != "city");
+      const cities = getCities(value, adminArias);
+      setCites(cities);
+    } else {
+      setCity(value);
+    }
+
+    setFilters(newFilters);
+  };
+  const getStates = (res) =>
+    [...new Set(res?.map((e, i) => e?.state))].map((name, i) => ({
+      id: i,
+      name,
+    }));
+  const getCities = (state, res) => {
+    return [
+      ...new Set(res?.filter((e) => e?.state == state)?.map((e, i) => e?.city)),
+    ].map((name, i) => ({ id: i, name }));
+  };
+
+  useEffect(() => {
+    if (adminArias?.error || !adminArias || !adminArias?.length) {
+      return;
+    }
+    const state = getStates(adminArias);
+    setStates(state);
+  }, [adminArias]);
   return (
     <>
       <section className="all-user-data-comp">
@@ -39,16 +109,36 @@ const WasteProduct = () => {
                   />
                 </div>
 
-                {/* <div className="user-type-sel-box user-data-search-box">
-                  <select name="user-type-data" id="user-type-data">
-                    <option value="1">User</option>
-                    <option value="1">Vendor</option>
-                    <option value="1">Staff (Manager)</option>
-                    <option value="1">Staff (Sales Team)</option>
-                    <option value="1">Staff (Support Team)</option>
+                <div className="user-type-sel-box user-data-search-box">
+                  <select
+                    onChange={handleFilterByAria}
+                    name="state"
+                    id="user-type-data"
+                  >
+                    <option value="">All States</option>
+                    {states?.map(({ id, name }) => (
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
+                    ))}
                   </select>
                 </div>
-
+                <div className="user-type-sel-box user-data-search-box">
+                  <select
+                    value={city}
+                    onChange={handleFilterByAria}
+                    name="city"
+                    id="user-type-data"
+                  >
+                    <option value="">All Cities</option>
+                    {cites?.map(({ id, name }) => (
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {/* 
                 <div className="user-type-sel-box  user-data-search-box user-type-sel-box3">
                   <select name="user-type-data" id="user-type-data">
                     <option value="1">Today</option>
@@ -81,6 +171,7 @@ const WasteProduct = () => {
                   <th>SNO.</th>
                   <th>Product Name</th>
                   <th>Product Image</th>
+                  <th>Area</th>
                   <th>Retail Price</th>
                   <th>Bulk Price</th>
                   <th>Action</th>
@@ -89,7 +180,7 @@ const WasteProduct = () => {
 
               <tbody>
                 {!products?.error
-                  ? search(products, searchQuery)?.map(
+                  ? search(filteredData(products, filters), searchQuery)?.map(
                       (
                         {
                           bulkEndWeight,
@@ -101,6 +192,8 @@ const WasteProduct = () => {
                           productImage,
                           productName,
                           id,
+                          state,
+                          city,
                         },
                         i
                       ) => {
@@ -118,6 +211,11 @@ const WasteProduct = () => {
                               <td>
                                 {" "}
                                 <img src={productImage} alt="" />{" "}
+                              </td>
+                              <td>
+                                <p>
+                                  {city} <span>{state}</span>
+                                </p>
                               </td>
                               <td>
                                 {" "}
@@ -144,6 +242,8 @@ const WasteProduct = () => {
                                         productImage,
                                         productName,
                                         id,
+                                        state,
+                                        city,
                                       });
                                     }}
                                   >
@@ -157,6 +257,27 @@ const WasteProduct = () => {
                                     }}
                                   >
                                     <i class="fa-solid fa-trash"></i>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setisEdit(false);
+                                      setProdEdit(true);
+                                      setEditFormValues({
+                                        bulkEndWeight,
+                                        bulkStartWeight,
+                                        retailEndWeight,
+                                        retailStartWeight,
+                                        bulkPrice,
+                                        retailPrice,
+                                        productImage,
+                                        productName,
+                                        id,
+                                        state,
+                                        city,
+                                      });
+                                    }}
+                                  >
+                                    <IoDuplicate />
                                   </button>
                                 </div>
                               </td>
@@ -177,7 +298,10 @@ const WasteProduct = () => {
           isEdit={isEdit}
           editFormValues={editFormValues}
           refetch={refetch}
-          onclickEditClose={() => setProdEdit(false)}
+          onclickEditClose={() => {
+            setProdEdit(false);
+            setEditFormValues(null);
+          }}
         />
       ) : null}
     </>

@@ -194,7 +194,14 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
 
                               <td>
-                                <span>KPU{String(id).padStart(7, "0")} </span>
+                                <span>
+                                  {role == "user"
+                                    ? "KPU"
+                                    : role == "franchise"
+                                    ? "KPF"
+                                    : "KPW"}
+                                  {String(id).padStart(7, "0")}{" "}
+                                </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

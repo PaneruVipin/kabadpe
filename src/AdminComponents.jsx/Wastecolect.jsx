@@ -8,7 +8,7 @@ import AddWorkerComp from "./AddWorkerComp";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetWorkers } from "../apis/admins/users";
 import { workers as workerTypes } from "../lib/worker";
-import { search } from "../lib/array";
+import { kabadPeUserIdMapper, search } from "../lib/array";
 
 const Wastecolect = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -166,7 +166,7 @@ const Wastecolect = () => {
 
               <tbody>
                 {!workers?.error
-                  ? search(workers, searchQuery, [
+                  ? search(kabadPeUserIdMapper(workers,"KPW"), searchQuery, [
                       "id",
                       "profileImage",
                       "workerRole",
@@ -191,6 +191,7 @@ const Wastecolect = () => {
                           pincode,
                           accountStatus,
                           Franchise,
+                          hashId
                         },
                         i
                       ) => {
@@ -213,7 +214,7 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                <span> KPW{String(id).padStart(7, "0")} </span>
+                                <span> {hashId} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

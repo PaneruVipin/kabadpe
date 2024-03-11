@@ -54,3 +54,20 @@ export const sort = (dataList, keysPriority, sortOrder = "ascending") => {
     return 0;
   });
 };
+
+export const kabadPeUserIdMapper = (data, perfix) => {
+  const hashId = (id, role) => {
+    const newPerfix = perfix
+      ? perfix
+      : role == "user"
+      ? "KPU"
+      : role == "worker"
+      ? "KPW"
+      : "KPF";
+    return `${newPerfix}${String(id).padStart(7, "0")}`;
+  };
+  const newData = data?.map((d) => {
+    return { ...d, hashId: hashId(d?.id, d?.role) };
+  });
+  return newData;
+};

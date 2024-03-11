@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 .mainwrap {
   position: relative;
   width: 100%;
@@ -6758,10 +6758,12 @@ _______________________ */
   margin-bottom: 0;
   font-size: 1.1rem;
   color: #2BC2C6;
-  font-weight: 700;
   letter-spacing: .5px;
   text-transform: capitalize;
   /* font-family: var(--thm-font-2); */
+  font-family: "Libre Baskerville", serif !important;
+  font-weight: 400 !important;
+
 }
 
 .apnt-heading h3 {
@@ -6769,7 +6771,9 @@ _______________________ */
   letter-spacing: .5px;
   color: #252525;
   margin-top: .3rem;
-  font-weight: 800;
+  font-family: "Libre Baskerville", serif !important;
+  font-weight: 700 !important;
+
 }
 
 .apnt-grid-bx {
@@ -7530,6 +7534,7 @@ __________ */
   position: relative;
   width: 100%;
   padding: 5rem 1.87rem;
+  z-index: 99;
 }
 
 .kabad-jugad-grid-bx {
@@ -8936,7 +8941,8 @@ __________ */
   }
 
   .apnt-heading p {
-    font-size: 2rem;
+    font-size: 2rem ;
+    /* font-weight: 400 !important; */
   }
 
 
@@ -12921,7 +12927,7 @@ Our Review Section CSS code
   position: relative;
   width: 100vw;
   height: 100vh;
-  z-index: 999;
+  z-index: 99;
 }
 
 .home-video-comp:before{
@@ -12967,7 +12973,7 @@ Our Review Section CSS code
   margin-top: 1rem;
   width: max-content;
   padding: .55rem 1.76rem;
-  background-color: #3babcf;
+  background-color: #2ac4c8;
   border-radius: 3rem;
   font-size: 1rem;
   color: #fff;
@@ -12999,7 +13005,7 @@ Our Review Section CSS code
 .infnte-slide-waste-main{
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 205px;
   display: grid;
   overflow-x: hidden;
 }
@@ -13080,8 +13086,29 @@ Our Review Section CSS code
 }
 
 .check-rate-btn{
-  font-size: .78rem;
+  font-size: .87rem;
   color: #024b48;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  padding-inline: 1rem;
+  color: #019095;
+  margin-left: auto;
+  border-radius: .5rem;
+}
+
+.check-rate-btn i{
+  margin-left: .5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background-color: #019095;
+  font-size: .76rem;
 }
 
 .download-app-sec{
@@ -13137,6 +13164,10 @@ Our Review Section CSS code
   width: 100%;
   height: 20rem;
   background: url('../public/images/customImg/banner-4.png')no-repeat center center/cover;
+}
+
+.imp-info{
+  text-transform: uppercase;
 }
 
 .ads-info-bx{
@@ -13367,6 +13398,175 @@ Our Review Section CSS code
   color: #eca219;
 }
 
+.arrow-tall-bx{
+  position: relative;
+  margin-top: 2.5rem;
+  width: 2rem;
+  height: 3.45rem;
+  background-color: transparent;
+  border: .1rem solid #fff;
+  border-radius: 3rem;
+  
+}
 
+.arrow-tall-bx i{
+  color: #fff;
+  font-size: 1rem;
+  animation: downmove .75s linear infinite alternate;
+}
+
+@keyframes downmove {
+
+  0%{
+    transform: translateY(0%);
+  }
+
+  100%{
+    transform: translateY(110%);
+
+  }
+  
+}
+
+.leaf-img{
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  opacity: 0.04;
+  width: 100%;
+  animation: moveLeft 70.76s linear infinite ;
+}
+
+.leaf-img img {
+  animation: rotateimg 50.76s linear infinite ;
+  
+}
+
+.kabad-jugad-grid-bx{
+  z-index: 99;
+}
+
+.leaf-img2{
+  position: absolute;
+  bottom: 10rem;
+  left: 0;
+  width: 100%;
+  opacity: 0.04;
+  /* animation: moveLeft 80.76s linear  15.5s infinite ; */
+  animation: moveLeft 70.76s linear  12.5s infinite ;
+
+  transform: translateX(-10%) ;
+
+}
+
+.leaf-img2 img{
+  animation: rotateimg 75.76s linear infinite ;
+
+}
+
+.leaf-img2 img{
+  width: 5rem;
+  height: auto;
+}
+
+.leaf-img3{
+  position: absolute;
+  top: 24rem;
+  left: 0;
+  width: 100%;
+  opacity: 0.04;
+  /* animation: moveLeft 60.76s linear  8s  infinite ; */
+  animation: moveLeft 70.76s linear  8s  infinite ;
+
+  transform: translateX(-10%) ;
+
+}
+
+
+.leaf-img3 img{
+  width: 4rem;
+  height: auto;
+  animation: rotateimg 65.76s linear infinite ;
+
+}
+
+
+.paper-img{
+  position: absolute;
+  top: 12rem;
+
+  left: 0;
+  width: 100%;
+  opacity: 0.1;
+  animation: moveLeft 70.76s linear  18.5s  infinite ;
+
+  /* animation: moveLeft 75.76s linear  10.5s  infinite ; */
+  transform: translateX(-10%) ;
+
+}
+
+@keyframes rotateimg {
+
+  0%{
+    transform: rotate(0deg);
+  }
+
+  100%{
+    transform: rotate(360deg);
+  }
+  
+}
+
+@keyframes moveLeft {
+
+  0%{
+    transform: translateX(-10%) ;
+  }
+
+
+
+  100%{
+    transform: translateX(100%) ;
+  }
+  
+}
+
+.serv-comp-three{
+  background-color: #fff;
+}
+
+.serv-three-comp2{
+  background-color: #fcfbf8;
+}
+
+
+.full-text2 p{
+  padding-left: 0;
+}
+
+.full-text2 h6{
+  font-size: 1.2rem;
+  color: #303030;
+}
+
+.serv-comp-one2{
+  background-color: #fff;
+}
+
+.waste-sip-list span , .waste-sip-list p{
+  position: relative;
+  padding-left: 1rem;
+}
+
+.waste-sip-list span:before , .waste-sip-list p:before{
+  content: "";
+  position: absolute;
+  top:.55rem;
+  left: 0;
+  width: .5rem;
+  height: .5rem;
+  background-color: #212121;
+  border-radius: 50%;
+}
 
 /* eca219 */

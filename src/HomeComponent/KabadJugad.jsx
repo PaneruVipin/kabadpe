@@ -5,6 +5,21 @@ const KabadJugad = () => {
   return (
     <>
       <section className="kabad-jugad-comp">
+
+        <div className="leaf-img">
+          <img src="/images/customImg/leaf.png" alt="" />
+        </div>
+        <div className="paper-img ">
+          <img src="/images/customImg/paper.png" alt="" />
+        </div>
+       
+        <div className="leaf-img3 ">
+          <img src="/images/customImg/leaf.png" alt="" />
+        </div>
+
+        <div className="leaf-img2 ">
+          <img src="/images/customImg/leaf.png" alt="" />
+        </div>
         <div className="comon-container-2">
           <div className="apnt-heading">
             <p>Our Ecosystem</p>

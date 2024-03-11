@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 import { NavLink } from "react-router-dom";
 
-const ServCompThree = () => {
+const WastesipCompTwo = () => {
   return (
     <>
-      <section className="serv-three-comp">
+       <section className="serv-three-comp serv-three-comp2" >
         <div className="comon-container-2">
           <div className="serv-list-grid-bx">
             <div className="left-serv-img-bx">
@@ -12,22 +12,21 @@ const ServCompThree = () => {
             </div>
 
             <div className="right-serv-info-bx">
-              <h5>Join Us in Making a Difference</h5>
+              <h5>Join the Waste SIP Community</h5>
               <p>
-                Take the first step towards a greener future with Kabadpe.
-                Contact us to explore how we can transform your community into a
-                model of sustainability.
+              Be Part of the Change <br/>
+              Sign up for Waste SIP today and start your journey towards a greener, cleaner planet.
               </p>
 
               <NavLink to="/contact" className="s-link-btn">
-                Contact Us
+                Sign Up
               </NavLink>
             </div>
           </div>
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ServCompThree;
+export default WastesipCompTwo

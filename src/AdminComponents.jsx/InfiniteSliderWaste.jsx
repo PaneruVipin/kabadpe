@@ -21,9 +21,9 @@ const InfiniteSliderWaste = () => {
                             <img src={elem.img} alt="" />
                         </div>
                         <h6> {elem.title} </h6>
-                        <NavLink to="" className='check-rate-btn'> Check Today's Rate </NavLink>
                     </div>
                     </NavLink>
+
                             </>
                         )
                     })}
@@ -32,6 +32,7 @@ const InfiniteSliderWaste = () => {
                 </div>
                
             </div>
+            <NavLink to="" className='check-rate-btn'> Check Today's Rate  <i class="fa-solid fa-chevron-right"></i> </NavLink>
             
         </div>
     </section>

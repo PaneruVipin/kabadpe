@@ -1,22 +1,23 @@
-import React from "react";
-import Detailslist from "../Components/Detailslist";
-import Whatwedo from "../Components/Whatwedo";
+import React from 'react'
 import "../style/HeaderStyle.css";
 import "../style/BannerSection.css";
-import { NavLink } from "react-router-dom";
 import ServBanner from "../ServComps/ServBanner";
 import ServCompOne from "../ServComps/ServCompOne";
 import ServCompTwo from "../ServComps/ServCompTwo";
 import ServCompThree from "../ServComps/ServCompThree";
 import Discover from "../HomeComponent/Discover";
 import MainFooter from "../HomeComponent/MainFooter";
-
-const Service = () => {
+const Zerowastesocieties = () => {
   return (
     <>
-    
+      <ServBanner />
+    <ServCompOne />
+    <ServCompTwo />
+    <ServCompThree />
+    <Discover />
+    <MainFooter />
     </>
-  );
-};
+  )
+}
 
-export default Service;
+export default Zerowastesocieties

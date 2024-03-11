@@ -192,7 +192,7 @@ const Appointment = ({ setUserForm }) => {
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
-              <p className="apnt-form-text5"><div className="arow-icon"> <i class="fa-solid fa-chevron-down"></i> </div>Schedule Your Appointment</p>
+              <p className="apnt-form-text5">Schedule Your Appointment</p>
               {!formLoading && !loading ? (
                 <Formik
                   initialValues={initialFormValues}

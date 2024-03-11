@@ -185,6 +185,16 @@ const MainFooter = () => {
                     <span>88, Kundan Nagar, Laxmi Nagar New Delhi, India</span>
                   </div>
                 </div>
+                <div className="right-download-btns-flex mt-4">
+                <button className="learm-mre-btn">
+          <NavLink to="/auth/collector">  Waste Colect Login </NavLink>
+        </button>
+        <button className="learm-mre-btn">
+            
+          <NavLink to="/frenchieslogin">  Frenchies Login </NavLink>
+
+        </button>
+                </div>
               </div>
             </div>
           </div>

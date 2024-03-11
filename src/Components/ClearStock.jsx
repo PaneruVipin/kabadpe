@@ -1,23 +1,108 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
-import stockData from './StockData';
-
+import stockData from "./StockData";
+import AdminWasteProd from "./AdminWasteProductsList";
+import ManageWasteTable from "./ManageWasteTable";
+import { useQuery } from "@tanstack/react-query";
+import { workerWasteCollectionFetch } from "../apis/worker/manageWaste";
 
 const ClearStock = () => {
-    const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-    const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-    const [stock , setStock] = useState(stockData);
+  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
+  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [stock, setStock] = useState(stockData);
+  const [waste, setWaste] = useState([]);
+  const { data: wasteData, refetch } = useQuery({
+    queryKey: ["workerWasteCollectionFetch"],
+    queryFn: () => workerWasteCollectionFetch(),
+  });
+  useEffect(() => {
+    if (!wasteData || wasteData?.error) {
+      return;
+    }
+    const waste = wasteData?.reduce((a, b) => {
+      let newData = [...a];
+      try {
+        const w = JSON.parse(b?.waste)?.waste;
+        w?.forEach(({ name, image, price, bulkPrice, ammount, weight }) => {
+          const exist = newData?.find(({ id }) => id == name);
+          let newObj = {
+            id: name,
+            image,
+            price,
+            bulkPrice,
+            ammount: +ammount,
+            weight: +weight,
+          };
+          if (exist) {
+            newObj = {
+              ...exist,
+              ammount: +(exist?.ammount || 0) + +(ammount || 0),
+              weight: +(exist?.weight || 0) + +(weight || 0),
+            };
+            newData = newData?.map((d) => {
+              if (d?.id == name) {
+                return newObj;
+              } else {
+                return d;
+              }
+            });
+            return;
+          }
+          newData?.push(newObj);
+        });
+      } catch {}
+      return newData;
+    }, []);
+    setWaste(waste);
+  }, [wasteData]);
+  const totalWaste = waste?.reduce((a, b) => {
+    return a + +b?.weight;
+  }, 0);
   return (
     <>
-      
       <section className="waste-appoint-ment-comp">
         <div className="right-tab-main-bx  tab-bx tabbxactive">
-          <div className="tab-main-bx tab-main-bx3">
-            <h3>Clear Stock</h3>
+          <div className="tab-main-bx tab-main-bx3 tab-main-bx-title">
+            <h3>Manage Waste 2</h3>
 
-            <div className="waste-appoint-main-bx">
+            <div className="waste-mnge-prod-main">
+              <div className="waste-manage-prod-grid-main">
+                <div className="waste-mnge-prod-bx">
+                  <div className="waste-mnge-prod-text">
+                    <h6> Total Waste </h6>
+                    <p> {totalWaste}kg </p>
+                  </div>
+                  <div className="waste-prod-icon">
+                    <img src={"/images/customImg/hazardous.png"} alt="" />
+                  </div>
+                </div>
+                {AdminWasteProd.map((curElem, id) => {
+                  const w = waste?.find(
+                    ({ id }) =>
+                      id?.toLowerCase() == curElem?.title?.toLowerCase()
+                  );
+                  return (
+                    <>
+                      <div key={id} className="waste-mnge-prod-bx">
+                        <div className="waste-mnge-prod-text">
+                          <h6> {curElem.title} </h6>
+                          <p> {w?.weight || "00.00"} kg </p>
+                        </div>
+                        <div className="waste-prod-icon">
+                          <img src={curElem.img} alt="" />
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+
+            <ManageWasteTable />
+
+            {/* <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">
-                <p className="tex-line tex-line2"> Clear Stock</p>
+                <p className="tex-line tex-line2"> Manage Waste</p>
 
                 <div className="right-search-date-filter-box">
                   <div className="A-search-box">
@@ -93,13 +178,12 @@ const ClearStock = () => {
                     </table>
                 </div>
                 
-              </div>
-
-              </div>
-              </div>
-              </section>
+              </div> */}
+          </div>
+        </div>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ClearStock
+export default ClearStock;

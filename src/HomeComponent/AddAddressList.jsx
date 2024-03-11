@@ -16,93 +16,13 @@ const AddAddressList = ({
   selectedAddress,
 }) => {
   const [addrsForm, setAddrsForm] = useState(false);
-  const [states, setStates] = useState([]);
   const [isEditForm, setIsEditForm] = useState(false);
   const [initialFormValues, setInitialFormValues] = useState({});
-  const [city, setCity] = useState([]);
-  const [pincodes, setPincodes] = useState([]);
-  const [arias, setArias] = useState([]);
-  const [subArias, setSubArias] = useState([]);
-  const [selection, setSelection] = useState({
-    state: "",
-    city: "",
-    pincode: "",
-    aria: "",
-    subAria: "",
-  });
   const { data: addresses, refetch } = useQuery({
     queryKey: ["userAddress:appoinment"],
     queryFn: () => userAddressesFetch(),
   });
 
-  const { data: servicableAddresses } = useQuery({
-    queryKey: ["servicableAddresses:appoinment"],
-    queryFn: () => userServicableAriasFetch(),
-  });
-
-  const getStates = (res) =>
-    [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
-      id: i,
-      name,
-    }));
-
-  const getCities = (state, res) => {
-    return [
-      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
-    ].map((name, i) => ({ id: i, name }));
-  };
-
-  const getPincodes = (state, city, res) => {
-    return [
-      ...new Set(
-        res
-          .filter((e) => e.state == state && e.city == city)
-          .map((e, i) => e?.pincode)
-      ),
-    ].map((name, i) => ({ id: i, name }));
-  };
-  const getArias = (state, city, pincode, res) => {
-    return [
-      ...new Set(
-        res
-          .filter(
-            (e) => e.state == state && e.city == city && e?.pincode == pincode
-          )
-          .map((e, i) => e?.ariaName)
-      ),
-    ].map((name, i) => ({ id: i, name }));
-  };
-
-  const getSubArias = (state, city, pincode, aria, res) => {
-    return res.filter(
-      (e) =>
-        e.state == state &&
-        e.city == city &&
-        e?.pincode == pincode &&
-        e?.ariaName == aria
-    );
-  };
-
-  const handleAddressSubmit = async (data) => {
-    if (isEditForm) {
-      await userAddressesUpdate(data);
-    } else {
-      await userAddressesAdd(data);
-    }
-    setAddrsForm(false);
-    refetch();
-  };
-  useEffect(() => {
-    if (
-      servicableAddresses?.error ||
-      !servicableAddresses ||
-      !servicableAddresses?.length
-    ) {
-      return;
-    }
-    const state = getStates(servicableAddresses);
-    setStates(state);
-  }, [servicableAddresses]);
   return (
     <>
       <section className="add-address-table-comp" onClick={onclickClose}>
@@ -261,264 +181,12 @@ const AddAddressList = ({
                   : "add-addres-form-bx"
               }
             >
-              <Formik
-                initialValues={initialFormValues}
-                onSubmit={handleAddressSubmit}
-                validationSchema={validationAddressForm}
-              >
-                {({
-                  handleBlur,
-                  handleChange,
-                  values,
-                  errors,
-                  touched,
-                  ...rest
-                }) => {
-                  return (
-                    <Form>
-                      <div className="address-add-type-grid-bx">
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address  spe-apnt-inpt-bx">
-                        <div className="apnt-inpt-bx-s">
-                          <select
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.locationType}
-                            name="locationType"
-                            id="addresstype"
-                          >
-                            <option value="" hidden>
-                              {" "}
-                              Address Type
-                            </option>
-                            <option value="home">Home</option>
-                            <option value="office">Office</option>
-                            <option value="shop">Shop</option>
-                            <option value="mall">Mall/Outlet</option>
-                          </select>
-                          </div>
-                          {touched?.locationType && errors?.locationType ? (
-                            <div className="field-text" style={{ color: "red" }}>
-                              {errors?.locationType}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a spe-apnt-inpt-bx">
-                          <input
-                            type="text"
-                            name="street"
-                            id="address"
-                            placeholder="Wing/Flat No./Building Name/Street No./House No./Colony Name "
-                            autoComplete="off"
-                            required
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.street}
-                          />
-                          {touched?.street && errors?.street ? (
-                            <div className="field-text" style={{ color: "red" }}>{errors?.street}</div>
-                          ) : null}
-                        </div>
-
-                        <div className="apnt-inpt-bx apnt-inpt-bx-address spe-apnt-inpt-bx">
-                        <div className="apnt-inpt-bx-s">
-                          <select
-                            onChange={(e) => {
-                              setSelection((prev) => ({
-                                ...prev,
-                                state: e.target.value,
-                              }));
-                              const cities = getCities(
-                                e.target.value,
-                                servicableAddresses
-                              );
-                              setCity(
-                                cities?.map(({ name, id }) => ({
-                                  value: name,
-                                  lable: name,
-                                }))
-                              );
-                              handleChange(e);
-                            }}
-                            onBlur={handleBlur}
-                            value={values?.state}
-                            name="state"
-                            id="addresstype"
-                          >
-                            <option value="" hidden>
-                              {" "}
-                              State
-                            </option>
-                            {states?.map(({ name, id }) => (
-                              <option key={id} value={name}>
-                                {name?.slice(0, 1)?.toUpperCase() +
-                                  name?.slice(1)}
-                              </option>
-                            ))}
-                          </select>
-                          </div>
-                          {touched?.state && errors?.state ? (
-                            <div className="field-text" style={{ color: "red" }}>{errors?.state}</div>
-                          ) : null}
-                        </div>
-                      </div>
-
-                      <div className="addrs-form-grid">
-                        <div>
-                          <AutoComplete
-                            optionSelectedColor={"#050505"}
-                            className="apnt-inpt-bx-autotype"
-                            options={city}
-                            filterOption={true}
-                            placeholder="Enter City here"
-                            onChange={(v) => {
-                              values.city = v;
-                              setSelection((prev) => ({ ...prev, city: v }));
-                              const pins = getPincodes(
-                                selection?.state,
-                                v,
-                                servicableAddresses
-                              );
-                              setPincodes(
-                                pins.map(({ name }) => ({
-                                  value: name,
-                                  lable: name,
-                                }))
-                              );
-                              handleBlur({ target: { name: "city" } });
-                            }}
-                            onBlur={(e) => (
-                              (e.target.name = "city"), handleBlur(e)
-                            )}
-                            defaultValue={values?.city}
-                          />
-                          {touched?.city && errors?.city ? (
-                            <div className="field-text" style={{ color: "red" }}>{errors?.city}</div>
-                          ) : null}
-                        </div>
-                        <div>
-                          <AutoComplete
-                            optionSelectedColor={"#050505"}
-                            className="apnt-inpt-bx-autotype"
-                            options={pincodes}
-                            filterOption={true}
-                            placeholder="Enter Pin here"
-                            onChange={(v) => {
-                              values.zipCode = v;
-                              setSelection((prev) => ({ ...prev, pincode: v }));
-                              const arias = getArias(
-                                selection?.state,
-                                selection?.city,
-                                v,
-                                servicableAddresses
-                              );
-                              setArias(
-                                arias?.map(({ name }) => ({
-                                  value: name,
-                                  lable: name,
-                                }))
-                              );
-                              handleBlur({ target: { name: "zipCode" } });
-                            }}
-                            onBlur={(e) => (
-                              (e.target.name = "zipCode"), handleBlur(e)
-                            )}
-                            defaultValue={values?.zipCode}
-                          />
-                          {touched?.zipCode && errors?.zipCode ? (
-                            <div className="field-text" style={{ color: "red" }}>
-                              {errors?.zipCode}
-                            </div>
-                          ) : null}
-                        </div>
-                        <div>
-                          <AutoComplete
-                            optionSelectedColor={"#050505"}
-                            className="apnt-inpt-bx-autotype"
-                            options={arias}
-                            filterOption={true}
-                            placeholder="Enter Area"
-                            onChange={(v) => {
-                              values.aria = v;
-                              setSelection((prev) => ({ ...prev, aria: v }));
-                              const subArias = getSubArias(
-                                selection?.state,
-                                selection?.city,
-                                selection?.pincode,
-                                v,
-                                servicableAddresses
-                              );
-                              setSubArias(
-                                subArias?.map(({ subAriaName }) => ({
-                                  value: subAriaName,
-                                  lable: subAriaName,
-                                }))
-                              );
-                              handleBlur({ target: { name: "aria" } });
-                            }}
-                            onBlur={(e) => (
-                              (e.target.name = "aria"), handleBlur(e)
-                            )}
-                            defaultValue={values?.aria}
-                          />
-                          {touched?.aria && errors?.aria ? (
-                            <div className="field-text" style={{ color: "red" }}>{errors?.aria}</div>
-                          ) : null}
-                        </div>
-                        <div>
-                          <AutoComplete
-                            optionSelectedColor={"#050505"}
-                            className="apnt-inpt-bx-autotype"
-                            options={subArias}
-                            filterOption={true}
-                            placeholder="Enter Sub Area"
-                            onChange={(v) => (
-                              (values.subAria = v),
-                              handleBlur({ target: { name: "subAria" } })
-                            )}
-                            onBlur={(e) => (
-                              (e.target.name = "subAria"), handleBlur(e)
-                            )}
-                            defaultValue={values?.subAria}
-                          />
-                          {touched?.subAria && errors?.subAria ? (
-                            <div className="field-text" style={{ color: "red" }}>
-                              {errors?.subAria}
-                            </div>
-                          ) : null}
-                        </div>
-                        <div>
-                          <AutoComplete
-                            optionSelectedColor={"#050505"}
-                            className="apnt-inpt-bx-autotype"
-                            filterOption={true}
-                            placeholder="Near Landmark"
-                            onChange={(v) => (
-                              (values.landmark = v),
-                              handleBlur({ target: { name: "landmark" } })
-                            )}
-                            onBlur={(e) => (
-                              (e.target.name = "landmark"), handleBlur(e)
-                            )}
-                            defaultValue={values?.landmark}
-                          />
-                          {touched?.landmark && errors?.landmark ? (
-                            <div className="field-text" style={{ color: "red" }}>
-                              {errors?.landmark}
-                            </div>
-                          ) : null}
-                        </div>
-                        <button
-                          type="submit"
-                          className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres "
-                        >
-                          {isEditForm ? "Update Address" : "Add Address"}
-                        </button>
-                      </div>
-                    </Form>
-                  );
-                }}
-              </Formik>
+              <AddressForm
+                setAddrsForm={setAddrsForm}
+                initialFormValues={initialFormValues}
+                isEditForm={isEditForm}
+                refetch={refetch}
+              />
             </div>
           ) : null}
         </div>
@@ -527,4 +195,404 @@ const AddAddressList = ({
   );
 };
 
+export const AddressForm = ({
+  initialFormValues,
+  isEditForm,
+  setAddrsForm,
+  refetch,
+}) => {
+  const [states, setStates] = useState([]);
+  const [city, setCity] = useState([]);
+  const [pincodes, setPincodes] = useState([]);
+  const [arias, setArias] = useState([]);
+  const [subArias, setSubArias] = useState([]);
+  const [selection, setSelection] = useState({
+    state: "",
+    city: "",
+    pincode: "",
+    aria: "",
+    subAria: "",
+  });
+  const getCities = (state, res) => {
+    return [
+      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
+    ].map((name, i) => ({ id: i, name }));
+  };
+
+  const getPincodes = (state, city, res) => {
+    return [
+      ...new Set(
+        res
+          .filter((e) => e.state == state && e.city == city)
+          .map((e, i) => e?.pincode)
+      ),
+    ].map((name, i) => ({ id: i, name }));
+  };
+  const getArias = (state, city, pincode, res) => {
+    return [
+      ...new Set(
+        res
+          .filter(
+            (e) => e.state == state && e.city == city && e?.pincode == pincode
+          )
+          .map((e, i) => e?.ariaName)
+      ),
+    ].map((name, i) => ({ id: i, name }));
+  };
+
+  const getSubArias = (state, city, pincode, aria, res) => {
+    return res.filter(
+      (e) =>
+        e.state == state &&
+        e.city == city &&
+        e?.pincode == pincode &&
+        e?.ariaName == aria
+    );
+  };
+
+  const handleAddressSubmit = async (data) => {
+    if (isEditForm) {
+      await userAddressesUpdate(data);
+    } else {
+      await userAddressesAdd(data);
+    }
+    setAddrsForm(false);
+    refetch();
+  };
+  const { data: servicableAddresses } = useQuery({
+    queryKey: ["servicableAddresses:appoinment"],
+    queryFn: () => userServicableAriasFetch(),
+  });
+
+  const getStates = (res) =>
+    [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
+      id: i,
+      name,
+    }));
+
+  useEffect(() => {
+    if (
+      servicableAddresses?.error ||
+      !servicableAddresses ||
+      !servicableAddresses?.length
+    ) {
+      return;
+    }
+    const state = getStates(servicableAddresses);
+    setStates(state);
+  }, [servicableAddresses]);
+  useEffect(() => {
+    setSelection({
+      state: initialFormValues?.state || "",
+      city: initialFormValues?.city || "",
+      pincode: initialFormValues?.zipCode || "",
+      aria: initialFormValues?.aria || "",
+      subAria: initialFormValues?.subAria || "",
+    });
+    if (
+      servicableAddresses?.error ||
+      !servicableAddresses ||
+      !servicableAddresses?.length
+    ) {
+      return;
+    }
+    if (!initialFormValues?.state) return;
+    const cities = getCities(initialFormValues?.state, servicableAddresses);
+    setCity(
+      cities?.map(({ name, id }) => ({
+        value: name,
+        lable: name,
+      }))
+    );
+    if (!initialFormValues?.city) return;
+    const pins = getPincodes(
+      initialFormValues?.state,
+      initialFormValues?.city,
+      servicableAddresses
+    );
+    setPincodes(
+      pins.map(({ name }) => ({
+        value: name,
+        lable: name,
+      }))
+    );
+    if (!initialFormValues?.zipCode) return;
+    const arias = getArias(
+      initialFormValues?.state,
+      initialFormValues?.city,
+      initialFormValues?.zipCode,
+      servicableAddresses
+    );
+    setArias(
+      arias?.map(({ name }) => ({
+        value: name,
+        lable: name,
+      }))
+    );
+    if (!initialFormValues?.aria) return;
+    const subArias = getSubArias(
+      initialFormValues?.state,
+      initialFormValues?.city,
+      initialFormValues?.zipCode,
+      initialFormValues?.aria,
+      servicableAddresses
+    );
+    setSubArias(
+      subArias?.map(({ subAriaName }) => ({
+        value: subAriaName,
+        lable: subAriaName,
+      }))
+    );
+  }, []);
+  return (
+    <Formik
+      initialValues={initialFormValues}
+      onSubmit={handleAddressSubmit}
+      validationSchema={validationAddressForm}
+    >
+      {({ handleBlur, handleChange, values, errors, touched, ...rest }) => {
+        return (
+          <Form>
+            <div className="address-add-type-grid-bx">
+              <div className="apnt-inpt-bx apnt-inpt-bx-address  spe-apnt-inpt-bx">
+                <div className="apnt-inpt-bx-s">
+                  <select
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values?.locationType}
+                    name="locationType"
+                    id="addresstype"
+                  >
+                    <option value="" hidden>
+                      {" "}
+                      Address Type
+                    </option>
+                    <option value="home">Home</option>
+                    <option value="office">Office</option>
+                    <option value="shop">Shop</option>
+                    <option value="mall">Mall/Outlet</option>
+                  </select>
+                </div>
+                {touched?.locationType && errors?.locationType ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.locationType}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="apnt-inpt-bx apnt-inpt-bx-address apnt-inpt-bx-a spe-apnt-inpt-bx">
+                <input
+                  type="text"
+                  name="street"
+                  id="address"
+                  placeholder="Wing/Flat No./Building Name/Street No./House No./Colony Name "
+                  autoComplete="off"
+                  required
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values?.street}
+                />
+                {touched?.street && errors?.street ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.street}
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="apnt-inpt-bx apnt-inpt-bx-address spe-apnt-inpt-bx">
+                <div className="apnt-inpt-bx-s">
+                  <select
+                    onChange={(e) => {
+                      setSelection((prev) => ({
+                        ...prev,
+                        state: e.target.value,
+                      }));
+                      const cities = getCities(
+                        e.target.value,
+                        servicableAddresses
+                      );
+                      setCity(
+                        cities?.map(({ name, id }) => ({
+                          value: name,
+                          lable: name,
+                        }))
+                      );
+                      handleChange(e);
+                    }}
+                    onBlur={handleBlur}
+                    value={values?.state}
+                    name="state"
+                    id="addresstype"
+                  >
+                    <option value="" hidden>
+                      {" "}
+                      State
+                    </option>
+                    {states?.map(({ name, id }) => (
+                      <option key={id} value={name}>
+                        {name?.slice(0, 1)?.toUpperCase() + name?.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {touched?.state && errors?.state ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.state}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="addrs-form-grid">
+              <div>
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={city}
+                  filterOption={true}
+                  placeholder="Enter City here"
+                  onChange={(v) => {
+                    values.city = v;
+                    setSelection((prev) => ({ ...prev, city: v }));
+                    const pins = getPincodes(
+                      selection?.state,
+                      v,
+                      servicableAddresses
+                    );
+                    setPincodes(
+                      pins.map(({ name }) => ({
+                        value: name,
+                        lable: name,
+                      }))
+                    );
+                    handleBlur({ target: { name: "city" } });
+                  }}
+                  onBlur={(e) => ((e.target.name = "city"), handleBlur(e))}
+                  defaultValue={values?.city}
+                />
+                {touched?.city && errors?.city ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.city}
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={pincodes}
+                  filterOption={true}
+                  placeholder="Enter Pin here"
+                  onChange={(v) => {
+                    values.zipCode = v;
+                    setSelection((prev) => ({ ...prev, pincode: v }));
+                    const arias = getArias(
+                      selection?.state,
+                      selection?.city,
+                      v,
+                      servicableAddresses
+                    );
+                    setArias(
+                      arias?.map(({ name }) => ({
+                        value: name,
+                        lable: name,
+                      }))
+                    );
+                    handleBlur({ target: { name: "zipCode" } });
+                  }}
+                  onBlur={(e) => ((e.target.name = "zipCode"), handleBlur(e))}
+                  defaultValue={values?.zipCode}
+                />
+                {touched?.zipCode && errors?.zipCode ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.zipCode}
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={arias}
+                  filterOption={true}
+                  placeholder="Enter Area"
+                  onChange={(v) => {
+                    values.aria = v;
+                    setSelection((prev) => ({ ...prev, aria: v }));
+                    const subArias = getSubArias(
+                      selection?.state,
+                      selection?.city,
+                      selection?.pincode,
+                      v,
+                      servicableAddresses
+                    );
+                    setSubArias(
+                      subArias?.map(({ subAriaName }) => ({
+                        value: subAriaName,
+                        lable: subAriaName,
+                      }))
+                    );
+                    handleBlur({ target: { name: "aria" } });
+                  }}
+                  onBlur={(e) => ((e.target.name = "aria"), handleBlur(e))}
+                  defaultValue={values?.aria}
+                />
+                {touched?.aria && errors?.aria ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.aria}
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  options={subArias}
+                  filterOption={true}
+                  placeholder="Enter Sub Area"
+                  onChange={(v) => (
+                    (values.subAria = v),
+                    handleBlur({ target: { name: "subAria" } })
+                  )}
+                  onBlur={(e) => ((e.target.name = "subAria"), handleBlur(e))}
+                  defaultValue={values?.subAria}
+                />
+                {touched?.subAria && errors?.subAria ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.subAria}
+                  </div>
+                ) : null}
+              </div>
+              <div>
+                <AutoComplete
+                  optionSelectedColor={"#050505"}
+                  className="apnt-inpt-bx-autotype"
+                  filterOption={true}
+                  placeholder="Near Landmark"
+                  onChange={(v) => (
+                    (values.landmark = v),
+                    handleBlur({ target: { name: "landmark" } })
+                  )}
+                  onBlur={(e) => ((e.target.name = "landmark"), handleBlur(e))}
+                  defaultValue={values?.landmark}
+                />
+                {touched?.landmark && errors?.landmark ? (
+                  <div className="field-text" style={{ color: "red" }}>
+                    {errors?.landmark}
+                  </div>
+                ) : null}
+              </div>
+              <button
+                type="submit"
+                className="apnt-form-submit-btn apnt-form-submit-btn-add-new-adres "
+              >
+                {isEditForm ? "Update Address" : "Add Address"}
+              </button>
+            </div>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};
 export default AddAddressList;

@@ -58,7 +58,7 @@ const BuyWasteTable = ({
 
   const { data: rateList, refetch } = useQuery({
     queryKey: ["workerGetRateList"],
-    queryFn: () => workerRateListFetch(),
+    queryFn: () => workerRateListFetch({ ariaId: buyWasteUserInfo?.ariaId }),
   });
   useEffect(() => {
     if (!rateList?.error) {
@@ -85,7 +85,6 @@ const BuyWasteTable = ({
       closeBuyWaste();
     }
   };
-  console.log("tableData tableData tableData", tableData);
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">

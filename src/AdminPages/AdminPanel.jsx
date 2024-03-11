@@ -39,6 +39,7 @@ import { adminAppoinmentsFetch } from "../apis/admins/appoinments";
 import { useQuery } from "@tanstack/react-query";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import AdminTransaction from "./AdminTransaction";
+import AdminManageWaste from "../AdminComponents.jsx/AdminManageWaste";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -564,22 +565,29 @@ const AdminPanel = () => {
 
             <div className={getButonClasnameTwo(18)}>
               <div className={getContentPageClassName(19)}>
-                <div
+                {/* <div
                   onClick={() => handleContentPageBtn(19)}
                   className={DropdownButton(19)}
                 >
                   <span> All Appointments</span>
-                </div>
+                </div> */}
 
-                <div className={getContentPageClassNameTwo(16)}>
-                  <div
-                    onClick={() => handleChangePageBtnTwo(16)}
-                    className={DropdownButtonTwo(16)}
+                <div 
+                // className={getContentPageClassNameTwo(16)}
+                >
+                  <li
+                    onClick={() => {
+                      refetch();
+                      handleViewComp("AllAppointment"),
+                        setApntData(FrenchAppointData);
+                    }}
+                    className="page-link-btn"
+                    // className={DropdownButtonTwo(16)}
                   >
-                    <span className="appnt-text5"> Kabadpe Appointments</span>
-                  </div>
+                    <NavLink to='#'className="active"> Kabadpe Appointments</NavLink>
+                  </li>
 
-                  <div className="inner-page-list ">
+                  {/* <div className="inner-page-list ">
                     <li
                       onClick={() => {
                         refetch();
@@ -639,18 +647,24 @@ const AdminPanel = () => {
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className={getContentPageClassNameTwo(17)}>
-                  <div
-                    onClick={() => handleChangePageBtnTwo(17)}
-                    className={DropdownButtonTwo(17)}
+                <div 
+                // className={getContentPageClassNameTwo(17)}
+                >
+                  <li
+                    onClick={() => {
+                      handleViewComp("otherAppoint"),
+                        setApntDataTwo(FrenchAppointData);
+                    }}
+                    className="page-link-btn"
+                    // className={DropdownButtonTwo(17)}
                   >
-                    <span className="appnt-text5"> Other Appointments</span>
-                  </div>
+                    <NavLink to='#'className="active"> Other Appointments</NavLink>
+                  </li>
 
-                  <div className="inner-page-list ">
+                  {/* <div className="inner-page-list ">
                     <li
                       onClick={() => {
                         handleViewComp("otherAppoint"),
@@ -709,7 +723,7 @@ const AdminPanel = () => {
                       {" "}
                       <NavLink to="#"> Reschedule Appointment </NavLink>
                     </li>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -867,6 +881,44 @@ const AdminPanel = () => {
               >
                 {" "}
                 <NavLink to="#">Return</NavLink>{" "}
+              </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
+              onClick={() => handleButtonClick(70)}
+              className={getButtonClassName(70)}
+            >
+              <div className=" a-nv-i a-nv-i2 u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+                {/* <CiShop /> */}
+              </div>
+              <span> Manage Waste</span>
+            </div>
+
+            <div className={getButonClasnameTwo(70)}>
+              <li
+                onClick={() => handleViewComp("managewaste")}
+                className={
+                  component === "managewaste"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> All Waste Pickups </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("currentwaste")}
+                className={
+                  component === "currentwaste"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Current Waste </NavLink>{" "}
               </li>
             </div>
           </div>
@@ -1304,9 +1356,9 @@ const AdminPanel = () => {
           <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} />
         ) : null}
 
-{component === "transaction" ? (
-          <AdminTransaction  />
-        ) : null}
+        {component === "transaction" ? <AdminTransaction /> : null}
+        {component === "managewaste" ? <AdminManageWaste /> : null}
+
       </section>
     </>
   );

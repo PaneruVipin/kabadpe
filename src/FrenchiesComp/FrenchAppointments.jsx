@@ -11,6 +11,8 @@ import { slotLabels } from "../lib/slots";
 import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
+import { adminChangeAppoinmentStatus } from "../apis/admins/appoinments";
+import { filteredData, search } from "../lib/array";
 
 const FrenchAppointments = ({
   refetchAppoinment,
@@ -28,11 +30,115 @@ const FrenchAppointments = ({
   const [wrkcpcity, setWrkcpcity] = useState(false);
   const [addressdetails, setAddressdetails] = useState({});
   const [appoinmentDetails, setAppoinmentDetails] = useState({});
+  const [filters, setFilters] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const confirmPopupfunc = () => {
     setPopUp(true);
   };
-
+  const changeAppoinmentStatus = (id) => {
+    return async (e) => {
+      const orderStatus = e.target.value;
+      await adminChangeAppoinmentStatus({ id, orderStatus });
+      refetchAppoinment();
+    };
+  };
+  const handleStatusFilter = (e) => {
+    const { name, value } = e?.target;
+    if (!value) {
+      const newFilters = filters?.filter(({ id }) => id != name);
+      setFilters(newFilters);
+    } else {
+      const exist = filters?.find(({ id }) => id == name);
+      let newFilters = filters;
+      if (!exist) {
+        newFilters = [...newFilters, { id: name }];
+      }
+      switch (value) {
+        case "complete":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return e?.orderStatus == "fullfill";
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+        case "unassign":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return (
+                  e?.assigningStatus &&
+                  e?.assigningStatus == "cancel" &&
+                  e?.orderStatus == "active"
+                );
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+        case "assign":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return (
+                  e?.assigningStatus &&
+                  e?.assigningStatus != "cancel" &&
+                  e?.orderStatus == "active"
+                );
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+        case "overdue":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return (
+                  e?.orderStatus == "active" &&
+                  new Date() > new Date(e?.appointmentDate) &&
+                  new Date().toISOString()?.split("T")?.[0] !=
+                    new Date(e?.appointmentDate).toISOString()?.split("T")?.[0]
+                );
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+        case "reschedule":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return (
+                  e?.rescheduleStatus == "confirm" && e?.orderStatus == "active"
+                );
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+        case "cancel":
+          newFilters = newFilters.map((f) => {
+            if (f?.id == name) {
+              const fn = (e) => {
+                return e?.orderStatus == "cancel";
+              };
+              return { ...f, fn };
+            } else f;
+          });
+          setFilters(newFilters);
+          return;
+      }
+    }
+  };
   return (
     <>
       <section
@@ -63,7 +169,13 @@ const FrenchAppointments = ({
             {" "}
             <span>Pin Code :</span> {addressdetails?.zipCode}
           </p>
-
+          <p>
+            {" "}
+            <span>Created At:</span>
+            {DateTime.fromISO(addressdetails?.addedOn, {
+              zone: "utc",
+            }).toFormat("ccc dd LLL yyyy - hh:mm a")}
+          </p>
           <button
             onClick={() => setAddressPopup(false)}
             className="cross-btn cross-btn2"
@@ -90,17 +202,41 @@ const FrenchAppointments = ({
             <div className="appointment-flex-box">
               <div className="left-appont-bx">
                 <p className="tex-line tex-line2"> Appointments</p>
-
+                <div className="user-data-search-box">
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    placeholder="Search..."
+                    autoComplete="off"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value?.trimStart());
+                    }}
+                  />
+                </div>
                 <div className="A-search-box sel-opt-bx">
+                  <select onChange={handleStatusFilter} name="status">
+                    <option value="">All Status</option>
+                    <option value="overdue">Over Due</option>
+                    <option value="complete">Completed</option>
+                    <option value="assign">Assigned</option>
+                    <option value="unassign">Unassigned</option>
+                    <option value="reschedule">Reschedule</option>
+                    <option value="cancel">Cancelled</option>
+                  </select>
+                </div>
+
+                {/* <div className="A-search-box sel-opt-bx">
                   <select name="select" id="select">
                     <option value="Today">Today</option>
                     <option value="LastWeek">LastWeek</option>
                     <option value="LastMonth">LastMonth</option>
                   </select>
-                </div>
+                </div> */}
               </div>
 
-              <div className="right-search-date-filter-box">
+              {/* <div className="right-search-date-filter-box">
                 <div className="A-search-box">
                   <input
                     type="text"
@@ -139,7 +275,7 @@ const FrenchAppointments = ({
                 <div className="search-btn">
                   <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="prof-table-main-bx appoint-prof-table-main-bx appoint-prof-table-main-bx3 wasteappoint-prof-table-main-bx french-appoint-table-box">
@@ -164,7 +300,17 @@ const FrenchAppointments = ({
                 </thead>
                 <tbody>
                   {!appoinments?.error
-                    ? appoinments?.map(
+                    ? search(filteredData(appoinments, filters), searchQuery, [
+                        "appoinmentAddress",
+                        "appointmentContactNumber",
+                        "appointmentDate",
+                        "appointmentPersonName",
+                        "appointmentTimeSlot",
+                        "estimateWeight",
+                        "frequency",
+                        "orderStatus",
+                        "rescheduleStatus",
+                      ])?.map(
                         (
                           {
                             appoinmentAddress,
@@ -185,6 +331,8 @@ const FrenchAppointments = ({
                             assigningStatus,
                             KabadCollector,
                             ariaId,
+                            addedOn,
+                            rescheduleStatus,
                           },
                           i
                         ) => {
@@ -238,6 +386,7 @@ const FrenchAppointments = ({
                                         appoinmentAddress,
                                         city: UserAddress?.city,
                                         zipCode: UserAddress?.zipCode,
+                                        addedOn,
                                       });
                                       setAddressPopup(true);
                                     }}
@@ -248,6 +397,10 @@ const FrenchAppointments = ({
                                 </td>
                                 <td>{KabadCollector?.fullname}</td>
                                 <td>
+                                  {rescheduleStatus == "confirm" &&
+                                  orderStatus == "active"
+                                    ? "Re-scheduled "
+                                    : null}
                                   {orderStatus != "active" ? (
                                     <span>
                                       {orderStatus == "cancel"
@@ -284,7 +437,10 @@ const FrenchAppointments = ({
                                   </span>{" "} */}
                                 </td>
                                 <td>
-                                  <div className="appoint-flex-btns">
+                                  <div
+                                    style={{ justifyContent: "space-between" }}
+                                    className="appoint-flex-btns"
+                                  >
                                     {/* <button onClick={() => confirmPopupfunc()}>
                                       <i class="fa-regular fa-circle-check"></i>
                                     </button> */}
@@ -319,7 +475,21 @@ const FrenchAppointments = ({
                                       >
                                         Assign
                                       </button>
-                                    ) : null}
+                                    ) : (
+                                      <span></span>
+                                    )}
+                                    <select
+                                      defaultValue={orderStatus}
+                                      onClick={changeAppoinmentStatus(id)}
+                                      style={{ width: "120px", height: "40px" }}
+                                    >
+                                      <option value="" hidden>
+                                        Status
+                                      </option>
+                                      <option value="fullfill">Complete</option>
+                                      <option value="cancel">Cancel</option>
+                                      <option value="active">Active</option>
+                                    </select>
                                   </div>
                                 </td>
                               </tr>

@@ -4,11 +4,12 @@ import { adminAriaAdd, adminAriaUpdate } from "../apis/admins/arias";
 import { validationAddAria } from "../validators/admin/addAriaValidator";
 
 const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
-  const formTitle = values ? "Update Work Area" : "Add Work Area";
+  const formTitle = values?.id ? "Update Work Area" : "Add Work Area";
   const initialValues = values || {};
   const handleSubmit = async (data, { resetForm }) => {
+    console.log(data);
     onclickCloseAddWorkEdit();
-    if (values) {
+    if (values?.id) {
       await adminAriaUpdate(data);
       refetch();
     } else {
@@ -20,8 +21,14 @@ const Addworkareaedit = ({ onclickCloseAddWorkEdit, refetch, values }) => {
 
   return (
     <>
-      <section className="add-work-area-edit-comp">
-        <div className="add-work-area-edit-main-bx">
+      <section
+        className="add-work-area-edit-comp"
+        onClick={onclickCloseAddWorkEdit}
+      >
+        <div
+          className="add-work-area-edit-main-bx"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h6 className="banktext">{formTitle}</h6>
           <Formik
             initialValues={initialValues}

@@ -21,7 +21,7 @@ const Appointment = ({ setUserForm }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [addAddress, setAddAddress] = useState(false);
   const [bookApnt, setBookApnt] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -173,7 +173,6 @@ const Appointment = ({ setUserForm }) => {
   useEffect(() => {
     setSelectedSlotData(null);
   }, [selectedAddress, selectedServiceType]);
-
   return (
     <>
       <Response
@@ -186,13 +185,14 @@ const Appointment = ({ setUserForm }) => {
       />
       <section className="schedule-apnt-comp">
         <div className="comon-container-2 apnt-container">
-          <div className="apnt-heading">
+          {/* <div className="apnt-heading">
             <p>Book Slots</p>
             <h3>Schedual Appointment</h3>
-          </div>
+          </div> */}
 
           <div className="apnt-grid-bx">
             <div className="left-shdule-apnt-form-bx">
+              <p className="apnt-form-text5">Schedule Your Appointment</p>
               {!formLoading && !loading ? (
                 <Formik
                   initialValues={initialFormValues}
@@ -462,7 +462,11 @@ const Appointment = ({ setUserForm }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="calendar-popup">
-                <Calendar onChange={handleDateChange} value={selectedDate} />
+                <Calendar
+                  minDate={new Date()}
+                  onChange={handleDateChange}
+                  value={selectedDate}
+                />
               </div>
 
               {selectedDate && (
@@ -471,7 +475,9 @@ const Appointment = ({ setUserForm }) => {
                     Available Companies{" "}
                     <span> {selectedDate?.toDateString()} </span>
                   </h3>
-                  {selectedDate > new Date() ? (
+                  {new Date(selectedDate) > new Date() ||
+                  new Date()?.toISOString()?.split("T")?.[0] ==
+                    new Date(selectedDate)?.toISOString()?.split("T")?.[0] ? (
                     <div className="avalbe-cmpnies-main-bx">
                       {availableCompanies?.length ? (
                         !availableCompanies?.error ? (

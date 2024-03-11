@@ -8,6 +8,7 @@ import AddWorkerComp from "./AddWorkerComp";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetWorkers } from "../apis/admins/users";
 import { workers as workerTypes } from "../lib/worker";
+import { kabadPeUserIdMapper, search } from "../lib/array";
 
 const Wastecolect = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -17,7 +18,7 @@ const Wastecolect = () => {
   const [wasteViewData, setWasteViewData] = useState(false);
   const [workChange, setWorkChange] = useState("");
   const [addWork, setAddWork] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
   const data = {
     cleaner: ["Cleaner"],
     kabadiwala: ["Kabadiwala"],
@@ -65,6 +66,8 @@ const Wastecolect = () => {
                   id="search"
                   placeholder="Search..."
                   autoComplete="off"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
                 />
               </div>
 
@@ -163,7 +166,18 @@ const Wastecolect = () => {
 
               <tbody>
                 {!workers?.error
-                  ? workers?.map(
+                  ? search(kabadPeUserIdMapper(workers,"KPW"), searchQuery, [
+                      "id",
+                      "profileImage",
+                      "workerRole",
+                      "fullname",
+                      "phoneNumber",
+                      "email",
+                      "ariaName",
+                      "subAriaName",
+                      "pincode",
+                      "accountStatus",
+                    ])?.map(
                       (
                         {
                           id,
@@ -177,6 +191,7 @@ const Wastecolect = () => {
                           pincode,
                           accountStatus,
                           Franchise,
+                          hashId
                         },
                         i
                       ) => {
@@ -184,7 +199,7 @@ const Wastecolect = () => {
                           <>
                             <tr key={i}>
                               <td>
-                                <span> {id} </span>
+                                <span> {i+1} </span>
                               </td>
                               <td>
                                 <div className="user-prof-img">
@@ -199,7 +214,7 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                <span> {String(id).padStart(6, "0")} </span>
+                                <span> {hashId} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

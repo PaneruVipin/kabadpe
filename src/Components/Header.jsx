@@ -37,7 +37,7 @@ const Header = ({ userForm, setUserForm }) => {
                 <a href="#" className="linkactive">
                   <span>|</span> Kabadpe
                 </a>
-                <a href="https://thegreensamanshop.com/" target="_blank">
+                <a href="httos://thegreensamanshop.com/" >
                   <span>|</span>The Green Saman Shop{" "}
                 </a>
                 <a href="#">
@@ -114,7 +114,7 @@ const Header = ({ userForm, setUserForm }) => {
                             : "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"
                         }
                       >
-                        <NavLink to="./service" className="dropdown-s-lik">
+                        <NavLink to="#" className="dropdown-s-lik">
                           <span>Services</span>
                         </NavLink>
                         <div className="dropdown-bx-serv dropdown-bx-serv-main">
@@ -129,35 +129,35 @@ const Header = ({ userForm, setUserForm }) => {
                             <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="/service/zero-waste-societies">
                                   Zero Waste Societies
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Waste SIP</NavLink>{" "}
+                                <NavLink to="#">Waste SIP</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Green Life</NavLink>{" "}
+                                <NavLink to="#">Green Life</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Clim Connect</NavLink>{" "}
+                                <NavLink to="#">Clim Connect</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Blog</NavLink>{" "}
+                                <NavLink to="#">Blog</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   Household Scrap Collection
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Vehicle Scrapping</NavLink>{" "}
+                                <NavLink to="#">Vehicle Scrapping</NavLink>{" "}
                               </li>
                             </div>
                           </li>
@@ -173,47 +173,47 @@ const Header = ({ userForm, setUserForm }) => {
                             <div className="dorpdown-bx-serv dorpdown-bx-serv-list">
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   Corporate Waste Management
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">EPR Services</NavLink>{" "}
+                                <NavLink to="#">EPR Services</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">CSR Services</NavLink>{" "}
+                                <NavLink to="#">CSR Services</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Zero Waste Drives</NavLink>{" "}
+                                <NavLink to="#">Zero Waste Drives</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   Dismantling Services
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">Circular Economy</NavLink>{" "}
+                                <NavLink to="#">Circular Economy</NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   IEC Development and Consulting
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   Paper Shredding Servicesd
                                 </NavLink>{" "}
                               </li>
                               <li onClick={() => setLink("service")}>
                                 {" "}
-                                <NavLink tp="#">
+                                <NavLink to="#">
                                   Zero Waste Services
                                 </NavLink>{" "}
                               </li>
@@ -227,46 +227,60 @@ const Header = ({ userForm, setUserForm }) => {
                               <h6>For Individuals</h6>
                               <div className="s-drpdwn-lists s-drpdwn-submenu-grid2">
                                 <div className="s-dpdwn-sb-menu-bx">
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")} >
+                                    <NavLink  to="/service/zero-waste-societies" >
                                       Zero Waste Societies
                                     </NavLink>
                                   </p>
 
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/waste-sip" >
                                       Waste SIP
                                     </NavLink>
                                   </p>
 
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/Green-life" >
                                       Green Life
                                     </NavLink>
                                   </p>
 
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/climconnect" >
                                       Clim Connect
                                     </NavLink>
                                   </p>
                                 </div>
 
                                 <div className="s-dpdwn-sb-menu-bx">
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/blog" >
                                       Blog
                                     </NavLink>
                                   </p>
 
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/household" >
                                       Household Scrap Collection
                                     </NavLink>
                                   </p>
 
-                                  <p>
-                                    <NavLink to="#" target="_blank">
+                                  
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/bulkwastepickup" >
+                                      Bulk Waste Pickup
+                                    </NavLink>
+                                  </p>
+
+                                  
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/electwaste" >
+                                      Electronic Waste Pickup
+                                    </NavLink>
+                                  </p>
+
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/vehiclescrap" >
                                       Vehicle Scrapping
                                     </NavLink>
                                   </p>
@@ -278,43 +292,48 @@ const Header = ({ userForm, setUserForm }) => {
                               <h6>For Businesses</h6>
                               <div className="s-drpdwn-submenu-grid">
                                 <div className="s-dpdwn-sb-menu-bx">
-                                  <p>
-                                    <NavLink to="#">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/corporatewaste">
                                       Corporate Waste Management
                                     </NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">EPR services</NavLink>
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/eprservice">EPR services</NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/dismantling">
                                       Dismantling Services
                                     </NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">Circular Economy</NavLink>
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/circulareconomy">Circular Economy</NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/zerowaste">
                                       Zero Waste Services
                                     </NavLink>
                                   </p>
                                 </div>
 
                                 <div className="s-dpdwn-sb-menu-bx">
-                                  <p>
-                                    <NavLink to="#">CSR Services</NavLink>
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/csr">CSR Services</NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">Zero Waste Drives</NavLink>
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/zerodrive">Zero Waste Drives</NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/iec">
                                       IEC Development and Consulting
                                     </NavLink>
                                   </p>
-                                  <p>
-                                    <NavLink to="#">
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/recoverymngemt">
+                                      Material Recovery Management
+                                    </NavLink>
+                                  </p>
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/papershredding">
                                       Paper Shredding Services
                                     </NavLink>
                                   </p>
@@ -326,12 +345,12 @@ const Header = ({ userForm, setUserForm }) => {
                               <h6>For Governments</h6>
                               <div className="s-drpdwn-lists">
                                 <p>
-                                  <NavLink to="#" target="_blank">
+                                  <NavLink to="#" >
                                     Material Recovery Facility
                                   </NavLink>
                                 </p>
                                 <p>
-                                  <NavLink to="#" target="_blank">
+                                  <NavLink to="#" >
                                     IEC
                                   </NavLink>
                                 </p>
@@ -363,7 +382,7 @@ const Header = ({ userForm, setUserForm }) => {
                           </p>
                         </div>
                       </li>
-                      <li
+                      {/* <li
                         onClick={() => setLink("wastegpt")}
                         className={
                           link === "wastegpt" ? "nav-li navliactive" : "nav-li"
@@ -372,7 +391,7 @@ const Header = ({ userForm, setUserForm }) => {
                         <NavLink to="/wastegept">
                           <span>Wastegpt</span>
                         </NavLink>
-                      </li>
+                      </li> */}
                       <li
                         onClick={() => setLink("ratelist")}
                         className={

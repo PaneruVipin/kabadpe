@@ -13,6 +13,11 @@ import {
 import { validationSchedulePickup } from "../validators/kabadPeUser/schedule";
 import { userLocationByQuery } from "../apis/location";
 import { useQuery } from "@tanstack/react-query";
+import { Header } from "antd/es/layout/layout";
+import AboutBanner from "../AboutComp/AboutBanner";
+// import { AdminWasteProdData } from "./AdminWasteProdSlideData";
+import { RateListProd } from "./RatelistProd";
+
 const Ratelistcomp = () => {
   const [listBox, setListBox] = useState(false);
   const [mainPrice, setmainPrice] = useState(false);
@@ -65,371 +70,217 @@ const Ratelistcomp = () => {
     if (!totalPrice.error) setCalculatedPrice(totalPrice);
     hideFunc();
   };
+  const data = {
+    title: "Rate List",
+    text: "Ratelist",
+  };
+
+  // -----------------------------------------
+
+  const [showInput, setShowInput] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState(RateListProd);
+  const [subtotal, setSubtotal] = useState(0);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const handleCalculatorClick = () => {
+    setShowInput(true);
+  };
+
+  const handleCheckboxChange = (id) => {
+    const updatedProducts = [...products];
+    const productIndex = updatedProducts.findIndex(
+      (product) => product.id === id
+    );
+    updatedProducts[productIndex].checked =
+      !updatedProducts[productIndex].checked;
+    setProducts(updatedProducts);
+    const selectedProduct = updatedProducts[productIndex];
+    setSelectedProduct(selectedProduct);
+    if (selectedProduct.checked) {
+      setSelectedProducts([...selectedProducts, selectedProduct]);
+    } else {
+      setSelectedProducts(
+        selectedProducts.filter((product) => product.id !== id)
+      );
+    }
+  };
+
+  const handleWeightChange = (e) => {
+    const weight = parseFloat(e.target.value);
+    const updatedProduct = { ...selectedProduct, weight };
+    setSelectedProduct(updatedProduct);
+
+    const updatedProducts = products.map((product) =>
+      product.id === selectedProduct.id ? updatedProduct : product
+    );
+    setProducts(updatedProducts);
+
+    const updatedSelectedProducts = selectedProducts.map((product) =>
+      product.id === selectedProduct.id ? updatedProduct : product
+    );
+    setSelectedProducts(updatedSelectedProducts);
+  };
+
+  const calculateSubtotal = () => {
+    let total = 0;
+    selectedProducts.forEach((product) => {
+      total += product.weight * product.price;
+    });
+    setSubtotal(total);
+  };
   return (
     <>
-      <section className="user-prof-comp user-prof-comp5">
-        <span className="u-pf-one"></span>
-        <span className="u-pf-two">
-          <span className="u-pf-three"></span>
-        </span>
-        <span className="u-pf-four"></span>
-
-        <h2>Rate List</h2>
-      </section>
+      <AboutBanner data={data} />
 
       <section className="ratelist-comp">
         <div className="ratelist-container">
-          <div className="ratelist-table-grid">
-            <div className="ratelist-table-bx">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S No.</th>
-                    <th>Waste Products</th>
-                    <th>Rate/KG</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {!kabadItems?.error
-                    ? kabadItems
-                        ?.slice(0, Math.floor(kabadItems.length / 2))
-                        ?.map(
-                          ({ id, initialPrice, categoryName, image }, i) => (
-                            <tr key={id}>
-                              <td>{i + 1}</td>
-                              <td>
-                                <div className="waste-prod-bx">
-                                  <div className="waste-prod-img">
-                                    <img src={image} alt="" />
-                                  </div>
-                                  <h6>{categoryName}</h6>
-                                </div>
-                              </td>
+          <div className="rate-list-filt-main">
+            <div className="rate-list-filter-bx">
+              <div className="ratelist-sel-bx">
+                <select name="Area" id="state">
+                  <option value="">state</option>
+                  <option value="">state2</option>
+                  <option value="">state3</option>
+                  <option value="">state4</option>
+                </select>
+              </div>
 
-                              <td>₹{initialPrice?.toFixed(2)} </td>
-                            </tr>
-                          )
-                        )
-                    : null}
-                </tbody>
-              </table>
-            </div>
-            <div className="ratelist-table-bx">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S No.</th>
-                    <th>Waste Products</th>
-                    <th>Rate/KG</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {!kabadItems?.error
-                    ? kabadItems
-                        ?.slice(Math.floor(kabadItems.length / 2))
-                        ?.map(
-                          ({ id, initialPrice, categoryName, image }, i) => (
-                            <tr key={id}>
-                              <td>
-                                {i + 1 + Math.floor(kabadItems.length / 2)}
-                              </td>
-                              <td>
-                                <div className="waste-prod-bx">
-                                  <div className="waste-prod-img">
-                                    <img src={image} alt="" />
-                                  </div>
-                                  <h6>{categoryName}</h6>
-                                </div>
-                              </td>
+              <div className="ratelist-sel-bx">
+                <select name="city" id="city">
+                  <option value="">city</option>
+                  <option value="">city2</option>
+                  <option value="">city3</option>
+                  <option value="">city4</option>
+                </select>
+              </div>
 
-                              <td>₹{initialPrice?.toFixed(2)} </td>
-                            </tr>
-                          )
-                        )
-                    : null}
-                </tbody>
-              </table>
-            </div>
-
-            <div
-              className={
-                mainPrice === true
-                  ? "main-price-third-bx mainpriceactive"
-                  : "main-price-third-bx"
-              }
-            >
-              <div
-                className={
-                  listBox === true
-                    ? "prodactive price-third-box"
-                    : " price-third-box"
-                }
-              >
-                <div className="prod-list-main">
-                  <span>E-WASTE RECYCLING</span>
-                  <h4>Calculator</h4>
-                  <Formik onSubmit={calculateRate} initialValues={{}}>
-                    {({
-                      handleBlur,
-                      handleChange,
-                      values,
-                      errors,
-                      touched,
-                      ...rest
-                    }) => (
-                      <Form>
-                        <div className="prod-list-bx">
-                          {!kabadItems?.error
-                            ? kabadItems?.map(
-                                ({ id, initialPrice, categoryName }) => (
-                                  <div key={id} className="p-bx">
-                                    <div className="left-prod-i">
-                                      <img
-                                        src="/images/customImg/magazine.png"
-                                        alt=""
-                                      />
-                                      <h5>{categoryName}</h5>
-                                    </div>
-
-                                    <input
-                                      type="text"
-                                      name={id}
-                                      id="value"
-                                      placeholder=".../kg"
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      value={values?.[id] || ""}
-                                    />
-                                  </div>
-                                )
-                              )
-                            : null}
-                        </div>
-                        <button type="submit" className="prod-submit-btn">
-                          Calculate Benefits !
-                        </button>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-
-                <div className="schedule-pickup-bx">
-                  <h5>Total Valuation of your waste</h5>
-
-                  <h3>{calculatedPrice.toFixed(2)}/</h3>
-
-                  <button
-                    disabled={!calculatedPrice}
-                    onClick={ShcedulPickuFunc}
-                    className="schedule-pickup-btn"
-                  >
-                    Schedule Pickup
-                  </button>
-                </div>
-
-                <div className="schedule-pickup-form-bx">
-                  <h5>Schedual Pickup</h5>
-                  <Formik
-                    initialValues={initialSchedulePickupValues}
-                    onSubmit={handlePickupSubmit}
-                    validationSchema={validationSchedulePickup}
-                  >
-                    {({
-                      handleBlur,
-                      handleChange,
-                      values,
-                      errors,
-                      touched,
-                      ...rest
-                    }) => {
-                      return (
-                        <Form>
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt bor-inpt">
-                              <input
-                                type="text"
-                                name="appointmentPersonName"
-                                id="name"
-                                placeholder="Name"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.appointmentPersonName}
-                              />
-                            </div>
-
-                            {touched.appointmentPersonName &&
-                            errors.appointmentPersonName ? (
-                              <div style={{ color: "red" }}>
-                                {errors.appointmentPersonName}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt bor-inpt">
-                              <input
-                                type="text"
-                                name="appointmentContactNumber"
-                                id="appointmentContactNumber"
-                                placeholder="Phone"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.appointmentContactNumber}
-                              />
-                            </div>
-                            {touched.appointmentContactNumber &&
-                            errors.appointmentContactNumber ? (
-                              <div style={{ color: "red" }}>
-                                {errors.appointmentContactNumber}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="date-bx2 bor-inpt">
-                              <i className="fa-solid fa-calendar-days calendar"></i>
-                              <Datepicker
-                                name="appointmentDate"
-                                id="appointmentDate"
-                                className="datepicker"
-                                selected={values.appointmentDate}
-                                onChange={(date) => {
-                                  values.appointmentDate = date;
-                                  document
-                                    .getElementById("appointmentContactNumber")
-                                    .focus();
-                                }}
-                                onBlur={handleBlur}
-                              />
-                            </div>
-                            {touched.appointmentDate &&
-                            errors.appointmentDate ? (
-                              <div style={{ color: "red" }}>
-                                {errors.appointmentDate}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt sel-bx bor-inpt">
-                              <i className="fa-solid fa-angle-down arrow-dwn"></i>
-                              <select
-                                name="appointmentTimeSlot"
-                                id="appointmentTimeSlot"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.appointmentTimeSlot}
-                              >
-                                <option disabled value="" hidden>
-                                  Choose Time Slot
-                                </option>
-                                <option value="10:00-11:00">
-                                  10.00 to 11.00
-                                </option>
-                                <option value="11:00-12:00">
-                                  11.00 to 12.00
-                                </option>
-                                <option value="13:00-14:00">
-                                  1.00 to 2.00
-                                </option>
-                                <option value="14:00-15:00">
-                                  2.00 to 3.00
-                                </option>
-                                <option value="16:00-17:00">
-                                  4.00 to 5.00
-                                </option>
-                                <option value="17:00-18:00">
-                                  5.00 to 6.00
-                                </option>
-                              </select>
-                            </div>
-                            {touched.appointmentTimeSlot &&
-                            errors.appointmentTimeSlot ? (
-                              <div style={{ color: "red" }}>
-                                {errors.appointmentTimeSlot}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt bor-inpt">
-                              <input
-                                type="text"
-                                name="pincode"
-                                id="pincode"
-                                placeholder="pincode"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.pincode}
-                              />
-                            </div>
-                            {touched.pincode && errors.pincode ? (
-                              <div style={{ color: "red" }}>
-                                {errors.pincode}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt sel-bx bor-inpt">
-                              <i className="fa-solid fa-angle-down arrow-dwn"></i>
-                              <select
-                                name="serviceType"
-                                id="serviceType"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.serviceType}
-                              >
-                                <option disabled value="" hidden>
-                                  Choose Service
-                                </option>
-                                <option value="kabadi">Kabadi Wala</option>
-                                <option value="cleaner">Cleaner</option>
-                              </select>
-                            </div>
-                            {touched.serviceType && errors.serviceType ? (
-                              <div style={{ color: "red" }}>
-                                {errors.serviceType}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <div className="pickup-inpt-bx">
-                            <div className="sched-inpt bor-inpt">
-                              <input
-                                type="text"
-                                name="formatedAddress"
-                                id="address"
-                                placeholder="Address"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.appointmentAddress}
-                              />
-                            </div>
-                            {touched.formatedAddress &&
-                            errors.formatedAddress ? (
-                              <div style={{ color: "red" }}>
-                                {errors.formatedAddress}
-                              </div>
-                            ) : null}
-                          </div>
-
-                          <button type="submit" className="pickup-submit-btn">
-                            Submit
-                          </button>
-                          {apiErrors ? (
-                            <div style={{ color: "red" }}>
-                              {apiErrors.shcedulPickup}
-                            </div>
-                          ) : null}
-                        </Form>
-                      );
-                    }}
-                  </Formik>
+              <div className="ratelist-sel-bx">
+                <input
+                  type="text"
+                  name="pin"
+                  id="pin"
+                  placeholder="Enter your pin"
+                />
+                <div className="search-btn rate-search-icon">
+                  <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
               </div>
             </div>
+            <button
+              onClick={() => setShowInput(!showInput)}
+              className="rate-list-calcult-btn"
+            >
+              Waste Calculator
+            </button>
           </div>
+          <div
+            className={
+              showInput === true
+                ? "ratelist-list-grid-main ratelist-list-grid-main-active"
+                : "ratelist-list-grid-main"
+            }
+          >
+            <div
+              className={
+                showInput === true
+                  ? "rate-list-grid-left rate-list-grid-left-active"
+                  : "rate-list-grid-left"
+              }
+            >
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <div className="check">
+                          <p> ₹15/kg </p>
+                          <div className="tick-bx">
+                            {showInput  === true ?   <input
+                                type="checkbox"
+                                checked={curElem.checked}
+                                onChange={() =>
+                                  handleCheckboxChange(curElem.id)
+                                }
+                              /> : null
+                            }
+                            {curElem.checked &&  showInput  === true &&  (
+                              <input
+                                className="weight-inpt"
+                                type="number"
+                                value={curElem.weight}
+                                onChange={handleWeightChange}
+                                placeholder="Enter weight"
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
+            </div>
+{ showInput &&
+            <div className="right-waste-calculator-main">
+              <h4>Waste Calculator</h4>
+              <div className="product-list-box">
+                <div className=" added-prod-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Weight (kg) </th>
+                        <th> Rate/kg </th>
+                        <th> Value </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {selectedProducts.map((product) => (
+                        <tr>
+                            <td>
+                            <span > {product.title}</span>
+                            </td>
+                            <td><span >{product.weight} </span></td>
+                            <td><span >{product.price} </span></td>
+                            <td><span> {product.weight * product.price} </span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {/* <div className="added-prod-bx" key={product.id}>
+                  // <h6 className="added-prod-title"> {product.title}</h6>
+                  //{" "}
+                  <div className="prod-weight">
+                    // <h5 className="added-prod-value">{product.weight} </h5>
+                    // <h5 className="added-prod-value">{product.price} </h5>
+                    //{" "}
+                  </div>
+                  //{" "}
+                  <h5 className="added-prod-value">
+                    {product.weight * product.price}{" "}
+                  </h5>
+                  //{" "}
+                </div> */}
+              </div>
+
+              <div className="rate-subtotl-bx">
+
+                <h6>SubTotal : <span>3,000</span></h6>
+                
+              </div>
+              
+            </div>}
+
+            <div></div>
+          </div>
+
+       
         </div>
       </section>
     </>

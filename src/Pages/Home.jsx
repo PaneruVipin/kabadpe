@@ -17,6 +17,9 @@ import Discover from "../HomeComponent/Discover";
 import { useLocation } from "react-router-dom";
 import { scrollToParam } from "../lib/scroll";
 import { testInsta } from "../apis/user";
+import InfiniteSliderWaste from "../AdminComponents.jsx/InfiniteSliderWaste";
+import DownloadApp from "../HomeComponent/DownloadApp";
+import AdsBanner from "../HomeComponent/AdsBanner";
 
 const Home = ({ setUserForm }) => {
   const location = useLocation();
@@ -29,9 +32,7 @@ const Home = ({ setUserForm }) => {
     testInsta();
   }, []);
 
-  useEffect(() => {
-    Preloadergsap();
-  });
+
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -62,13 +63,16 @@ const Home = ({ setUserForm }) => {
         <div id="schedule">
           <Appointment setUserForm={setUserForm} />
         </div>
+        <InfiniteSliderWaste />
+        <Discover />
+        {/* <DownloadApp /> */}
+        <AdsBanner />
         <Ecosystem />
         <KabadJugad />
         <Contribution />
         <ImpactComp />
         <Review />
         <InstaFeed />
-        <Discover />
         <MainFooter />
       </div>
 

@@ -6,6 +6,7 @@ import FrenchEdit from "./FrenchEdit";
 import FrenchDetPopup from "./FrenchDetPopup";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetFranchises } from "../apis/admins/users";
+import { kabadPeUserIdMapper, search } from "../lib/array";
 
 const Frienchies = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -13,6 +14,7 @@ const Frienchies = () => {
   const [frienData, setFrienData] = useState(frienchiesData);
   const [editForm, setEditForm] = useState(false);
   const [frenchDet, setFrenchDet] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const frencDetOpen = () => {
     setEditForm(true);
@@ -49,6 +51,8 @@ const Frienchies = () => {
                   id="search"
                   placeholder="Search..."
                   autoComplete="off"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
                 />
               </div>
 
@@ -125,7 +129,15 @@ const Frienchies = () => {
 
               <tbody>
                 {!franchise?.error
-                  ? franchise?.map(
+                  ? search(kabadPeUserIdMapper(franchise, "KPF"), searchQuery, [
+                      "id",
+                      "companyName",
+                      "fullname",
+                      "franchiseAddress",
+                      "phone",
+                      "email",
+                      "franchiseStatus",
+                    ])?.map(
                       (
                         {
                           id,
@@ -136,6 +148,7 @@ const Frienchies = () => {
                           phone,
                           email,
                           franchiseStatus,
+                          hashId,
                         },
                         i
                       ) => {
@@ -158,7 +171,7 @@ const Frienchies = () => {
                               </td>
 
                               <td>
-                                <span> {id} </span>
+                                <span>{hashId} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

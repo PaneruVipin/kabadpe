@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
+import "../style/Admin.css";
 import "../style/WasteColect.css";
 import { NavLink } from "react-router-dom";
 import WasteDashboard from "./WasteDashboard";
@@ -25,12 +26,17 @@ import WasteSubsPlan from "../FrenchiesComp/WasteSubsPlan";
 import TopFixMenu from "../FrenchiesComp/TopFixMenu";
 import Redirect from "./Auth/RedirectIfLogout";
 import { logout } from "../lib/logout";
+import { useQuery } from "@tanstack/react-query";
+import { workerPlansFetch } from "../apis/worker/plan";
+import { workerFranchiseName } from "../apis/worker/user";
 
 const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
   const [profBtn, setProfBtn] = useState(1);
   const [profChange, setProfChange] = useState(false);
   const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
+  const [wasteNavBtn, setWasteNavBtn] = useState(0);
+
   const filterTab = (index) => {
     setProfBtn(index);
   };
@@ -46,14 +52,41 @@ const Wastecollectdashboard = ({}) => {
     }
   };
 
+  const handleButtonClick = (buttonName) => {
+    setWasteNavBtn(buttonName === wasteNavBtn ? null : buttonName);
+  };
+
+  const getButtonClassName = (buttonName) => {
+    return buttonName === wasteNavBtn ? "u-prf-bx profactive" : "u-prf-bx";
+  };
+  // "u-prf-bx profactive" : "u-prf-bx"
+
+  const getButonClasnameTwo = (butonIndex) => {
+    return butonIndex === wasteNavBtn
+      ? "waste-dropdwn-list-bx wastedropdwnlistactive"
+      : "waste-dropdwn-list-bx";
+  };
+
+  // const handleViewComp = (compName) => {
+  //   setComponent(compName);
+  // };
+  const { data: plans, refetch } = useQuery({
+    queryKey: ["workerfetcPlans:2"],
+    queryFn: () => workerPlansFetch(),
+  });
+  const { data: companyName, refetchCompanyName } = useQuery({
+    queryKey: ["companyName"],
+    queryFn: () => workerFranchiseName(),
+  });
   return (
     <>
       <TopFixMenu
+        setProfBtn={setProfBtn}
         buyWasteUserInfo={buyWasteUserInfo}
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
       />
-      <Redirect role="kabadCollector" path="/auth/collector" />
+      {/* <Redirect role="kabadCollector" path="/auth/collector" /> */}
       <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -80,7 +113,13 @@ const Wastecollectdashboard = ({}) => {
             <i class="fa-solid fa-mobile-screen"></i>
             {userInfo?.phoneNumber}
           </span>
-          <span className="em-text">Brand Orbiter</span>
+          <span className="em-text">
+            {userInfo?.franchiseId
+              ? !companyName?.error
+                ? companyName
+                : ""
+              : "KabadPe"}
+          </span>
           <div className="rating-prof">
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
@@ -136,15 +175,17 @@ const Wastecollectdashboard = ({}) => {
             My Appointments
           </button>
 
-          <button
-            onClick={() => filterTab(14)}
-            className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
-          >
-            <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-seedling"></i>
-            </div>
-            My Plans
-          </button>
+          {!plans?.error && !plans?.length ? (
+            <button
+              onClick={() => filterTab(14)}
+              className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              My Plans
+            </button>
+          ) : null}
 
           <button
             onClick={() => filterTab(13)}
@@ -166,7 +207,75 @@ const Wastecollectdashboard = ({}) => {
             My Details
           </button>
 
-          <button
+          <div className="waste-colect-dropdwn-btn">
+            <button
+              onClick={() => handleButtonClick(12)}
+              className={getButtonClassName(12)}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </div>
+              Manage Waste
+            </button>
+            <div className={getButonClasnameTwo(12)}>
+              <li
+                onClick={() => setProfBtn(17)}
+                className={
+                  profBtn === 17
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+                <span>All Waste Pickups</span>
+              </li>
+              <li
+                onClick={() => setProfBtn(19)}
+                className={
+                  profBtn === 19
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+                <span>Current Waste</span>
+              </li>
+            </div>
+          </div>
+
+          <div className="waste-colect-dropdwn-btn">
+            <button
+              onClick={() => handleButtonClick(21)}
+              className={getButtonClassName(21)}
+            >
+              <div className="u-prf-tab-icon">
+                <i class="fa-solid fa-money-bill-trend-up"></i>
+              </div>
+              Safety and Skills
+            </button>
+            <div className={getButonClasnameTwo(21)}>
+              <li
+                // onClick={() => setProfBtn(17)}
+                className={
+                  profBtn === 17
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+               <NavLink to="https://drive.google.com/drive/folders/1rWU7sPNXH_Z5-3uMaylUSHIE2-IZ_y7-?usp=sharing" target="_blank"> <span>Resource Material (सिखने का लिंक)</span> </NavLink> 
+              </li>
+              <li
+                // onClick={() => setProfBtn(25)}
+                className={
+                  profBtn === 25
+                    ? "waste-nav-li-btn wastenavactive"
+                    : "waste-nav-li-btn"
+                }
+              >
+               <NavLink to="https://docs.google.com/forms/d/e/1FAIpQLSeq8i1cjVusDUyZK6RldOdR3rcM_1CuctbPXqLO-3pFMeIZRQ/viewform" target="_blank"> <span>Certificate Test  </span> </NavLink>
+              </li>
+            </div>
+          </div>
+
+          {/* <button
             onClick={() => filterTab(12)}
             className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -174,7 +283,7 @@ const Wastecollectdashboard = ({}) => {
               <i class="fa-solid fa-money-bill-trend-up"></i>
             </div>
             Clear Stock
-          </button>
+          </button> */}
 
           <button
             onClick={() => filterTab(8)}
@@ -258,7 +367,7 @@ const Wastecollectdashboard = ({}) => {
         />
       ) : null}
       {profBtn === 11 ? <GuestBuyWaste /> : null}
-      {profBtn === 12 ? <ClearStock /> : null}
+      {profBtn === 17 ? <ClearStock /> : null}
 
       {profBtn === 13 ? (
         <FrenchSubscriptionPlanTwo onclickRedirect={() => setProfBtn(14)} />

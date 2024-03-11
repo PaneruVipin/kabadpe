@@ -33,7 +33,7 @@ const WasteWallet = () => {
 
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
-      return elem.tnxtype === categValue || elem.status === categValue ;
+      return elem.tnxtype === categValue || elem.status === categValue;
     });
 
     setWaletData(updatedData);
@@ -63,7 +63,7 @@ const WasteWallet = () => {
 
           <div className="right-wallet-box">
             <button
-              onClick={() => setAddMoneyOtp(true)}
+              onClick={() => setAddAmount(true)}
               className="tranfer-btn add-money-btn"
             >
               Add Money
@@ -74,29 +74,25 @@ const WasteWallet = () => {
             </button>
 
             <div className="total-walet-main">
-                <div className="refrl-balance-box">
-              <p>Total Wallet</p>
-              <div className="bal-bxmain">
-              <div className="balance-box">
-                <div className="rupes-icon">
-                <i class="fa-solid fa-coins"></i>
+              <div className="refrl-balance-box">
+                <p>Balance Eco Coins</p>
+                <div className="bal-bxmain">
+                  <div className="balance-box">
+                    <div className="rupes-icon">
+                      <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <span>5000.00</span>
+                  </div>
+
+                  <div className="rupe-to-coin-bx">
+                    <div className="refrl-balance-box ruppecoin">
+                      <p>1 Rupee = 1 coin</p>
+                    </div>
+                  </div>
                 </div>
-                <span>5000.00</span>
               </div>
-
-              <div className="rupe-to-coin-bx">
-            <div className="refrl-balance-box ruppecoin">
-              <p>1 Rupee =  1 coin</p>
             </div>
-           
-            </div>
-            </div>
-
-          
-            </div>
-          
-            </div>
-{/* 
+            {/* 
             <div className="refrl-balance-box">
               <p>Total Balance</p>
               <div className="balance-box">
@@ -179,7 +175,6 @@ const WasteWallet = () => {
             >
               Paid
             </button>
-            
           </div>
 
           <div className="right-fitler-part-box">
@@ -239,22 +234,25 @@ const WasteWallet = () => {
           <table>
             <thead>
               <tr>
-                   <th>SN.</th>
-                        <th>Date/Time</th>
-                        <th>User Name</th>
-                        <th>User ID</th>
-                        <th>User Type</th>
-                        <th>Txn Type</th>
-                        <th>Mode </th>
-                        <th>Eco Points  </th>
-                        <th>Wallet </th>
-                        <th>Income</th>
-                        <th>Status </th>
-                        <th>Wallet <br/> Txn ID </th>
-                        <th>Bank  <br/> Txn ID </th>
-                        <th>Invoice </th>
-                        <th>Details </th>
-
+                <th>SN.</th>
+                <th>Date/Time</th>
+                <th>User Name</th>
+                <th>User ID</th>
+                <th>User Type</th>
+                <th>Txn Type</th>
+                <th>Mode </th>
+                <th>Eco Points </th>
+                <th>Wallet </th>
+                {/* <th>Income</th> */}
+                <th>Status </th>
+                <th>
+                  Wallet <br /> Txn ID{" "}
+                </th>
+                <th>
+                  Bank <br /> Txn ID{" "}
+                </th>
+                <th>Invoice </th>
+                <th>Details </th>
               </tr>
             </thead>
             <tbody>
@@ -289,16 +287,10 @@ const WasteWallet = () => {
                       </td>
                       <td>
                         <span className="b-span2 "> {curElem.uniqueID} </span>
-                        
                       </td>
                       <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.usertype}{" "}
-                        </span>
+                        <span className="b-span2 "> {curElem.usertype} </span>
                       </td>
-
-
                       {/* <td>
                       <div
                           className="bussin-flex-box"
@@ -314,29 +306,23 @@ const WasteWallet = () => {
                           </div>
                         </div>
                       </td> */}
-
                       {/* <td>
                         <span className="b-span2 b-span3">
                           {" "}
                           {curElem.to}{" "}
                         </span>
                       </td> */}
-
                       <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.tnxtype}{" "}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.mode}{" "}
-                        </span>
+                        <span className="b-span2 "> {curElem.tnxtype} </span>
                       </td>
                       <td>
-                        <span className="b-span2  b-span4"> {curElem.ecopoints} </span>
+                        <span className="b-span2 "> {curElem.mode} </span>
+                      </td>
+                      <td>
+                        <span className="b-span2  b-span4">
+                          {" "}
+                          {curElem.ecopoints}{" "}
+                        </span>
                       </td>
                       <td>
                         <span className="b-span2  b-span4">
@@ -344,21 +330,20 @@ const WasteWallet = () => {
                           {curElem.wallet}{" "}
                         </span>
                       </td>
-                      <td>
+                      {/* <td>
                         <span className="b-span2 "> {curElem.income} </span>
-                      </td>
+                      </td> */}
                       <td className="text-tb-right">
                         <span
                           className={
-                            curElem.status === "Failed" ||   curElem.status === "Out" 
+                            curElem.status === "Failed" ||
+                            curElem.status === "Out"
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.status === "Paid"
-                                ? "orange"
-                                : "green",
+                              curElem.status === "Paid" ? "orange" : "green",
                           }}
                         >
                           {" "}
@@ -366,16 +351,23 @@ const WasteWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2 text-center-align"> {curElem.walettnxId} </span>
+                        <span className="b-span2 text-center-align">
+                          {" "}
+                          {curElem.walettnxId}{" "}
+                        </span>
                       </td>
-
                       <td>
-                        <span className="b-span2 text-center-align"> {curElem.banktnxId} </span>
+                        <span className="b-span2 text-center-align">
+                          {" "}
+                          {curElem.banktnxId}{" "}
+                        </span>
                       </td>
                       <td>
                         <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
-                         {curElem.invoice === '' ? <i class="fa-regular fa-circle-down"></i> : null}
+                          {curElem.bolean === true ? (
+                            <i class="fa-regular fa-circle-down"></i>
+                          ) : null}
                         </div>
                       </td>
                       <td>
@@ -408,14 +400,14 @@ const WasteWallet = () => {
           }}
         />
       ) : null}
-      {addMoneyOtp ? (
+      {/* {addMoneyOtp ? (
         <AddMoneyOtp
           onclickcloseOtp={() => setAddMoneyOtp(false)}
           onclickOpenAmountBx={() => {
             setAddAmount(true), setAddMoneyOtp(false);
           }}
         />
-      ) : null}
+      ) : null} */}
       {addAmount ? (
         <AddMoneyAmount
           onclickCloseAmount={() => setAddAmount(false)}
@@ -426,6 +418,9 @@ const WasteWallet = () => {
       ) : null}
       {sucesfulyTrnsctin ? (
         <SucesfulyTran
+          onCloseClick={() => {
+            setSucesfulyTrnsctin(false);
+          }}
           onclickViewDet={() => {
             setSucesfulyTrnsctin(false), setPaymntDet(true);
           }}
@@ -436,6 +431,9 @@ const WasteWallet = () => {
       ) : null}
       {trnfrAmnt ? (
         <TranferAmnt
+          onClose={() => {
+            setTrnfrAmnt(false);
+          }}
           onclickCompltTrnfer={() => {
             setTrnfrComplte(true), setTrnfrAmnt(false);
           }}
@@ -443,6 +441,7 @@ const WasteWallet = () => {
       ) : null}
       {trnfrComplte ? (
         <TrnferSucesful
+        onClose={() => setTrnfrComplte(false)}
           onclickTrnferDet={() => {
             setTrnferDet(true), setTrnfrComplte(false);
           }}

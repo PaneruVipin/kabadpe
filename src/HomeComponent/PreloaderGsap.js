@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { setInLocalStorage } from '../lib/localStorage';
 
 const tl =  gsap.timeline();
 
@@ -117,5 +118,5 @@ export const Preloadergsap = () => {
     })
 
 
-    
+    setInLocalStorage("notbeginer", "true");
 }

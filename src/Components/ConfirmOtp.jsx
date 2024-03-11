@@ -5,7 +5,7 @@ const ConfirmOtp = ({onclickcloseOtp , onClickOpen}) => {
   return (
     <>
 
-    <section className="confirm-otp" onClick={onClickOpen}>
+    <section className="confirm-otp" onClick={onclickcloseOtp}>
 
         <div className="otp-main-box" onClick={(e) => e.stopPropagation()}>
             <h6>Confirm  OTP</h6>

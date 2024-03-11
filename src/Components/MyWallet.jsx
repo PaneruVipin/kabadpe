@@ -34,7 +34,7 @@ const MyWallet = () => {
 
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
-      return elem.tnxtype === categValue || elem.status === categValue ;
+      return elem.tnxtype === categValue || elem.status === categValue;
     });
 
     setWaletData(updatedData);
@@ -64,7 +64,9 @@ const MyWallet = () => {
 
           <div className="right-wallet-box">
             <button
-              onClick={() => setAddMoneyOtp(true)}
+              onClick={() => {
+                setAddAmount(true), setAddMoneyOtp(false);
+              }}
               className="tranfer-btn add-money-btn"
             >
               Add Money
@@ -75,29 +77,25 @@ const MyWallet = () => {
             </button>
 
             <div className="total-walet-main">
-                <div className="refrl-balance-box">
-              <p>Total Wallet</p>
-              <div className="bal-bxmain">
-              <div className="balance-box">
-                <div className="rupes-icon">
-                <i class="fa-solid fa-coins"></i>
+              <div className="refrl-balance-box">
+                <p>Balance Eco Coins</p>
+                <div className="bal-bxmain">
+                  <div className="balance-box">
+                    <div className="rupes-icon">
+                      <i class="fa-solid fa-coins"></i>
+                    </div>
+                    <span>5000.00</span>
+                  </div>
+
+                  <div className="rupe-to-coin-bx">
+                    <div className="refrl-balance-box ruppecoin">
+                      <p>1 Rupee = 1 coin</p>
+                    </div>
+                  </div>
                 </div>
-                <span>5000.00</span>
               </div>
-
-              <div className="rupe-to-coin-bx">
-            <div className="refrl-balance-box ruppecoin">
-              <p>1 Rupee =  1 coin</p>
             </div>
-           
-            </div>
-            </div>
-
-          
-            </div>
-          
-            </div>
-{/* 
+            {/* 
             <div className="refrl-balance-box">
               <p>Total Balance</p>
               <div className="balance-box">
@@ -180,7 +178,6 @@ const MyWallet = () => {
             >
               Paid
             </button>
-            
           </div>
 
           <div className="right-fitler-part-box">
@@ -240,27 +237,22 @@ const MyWallet = () => {
           <table>
             <thead>
               <tr>
-                   <th>SN.</th>
-                        <th>Date/Time</th>
-                        <th>User Name</th>
-                        <th>User ID</th>
-                        <th>User type</th>
-                        <th>Txn Type</th>
-                        <th>Mode</th>
-                        <th>Eco Points</th>
-                        <th>Wallet</th>
-                        <th>Income</th>
-                        <th>Staus</th>
-              
-                        <th>Wallet Txn ID</th>
-                        <th>Bank Txn ID</th>
-                        <th>Invoice</th>
-                        <th>Details</th>
+                <th>SN.</th>
+                <th>Date/Time</th>
+                <th>User Name</th>
+                <th>User ID</th>
+                <th>User type</th>
+                <th>Txn Type</th>
+                <th>Mode</th>
+                <th>Eco Points</th>
+                <th>Wallet</th>
+                {/* <th>Income</th> */}
+                <th>Staus</th>
 
-
-
-                       
-
+                <th>Wallet Txn ID</th>
+                <th>Bank Txn ID</th>
+                <th>Invoice</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
@@ -295,39 +287,27 @@ const MyWallet = () => {
                       </td>
                       <td>
                         <span className="b-span2 "> {curElem.userid} </span>
-                        
                       </td>
                       <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.usertype}{" "}
-                        </span>
+                        <span className="b-span2 "> {curElem.usertype} </span>
                       </td>
-
-
-
                       {/* <td>
                         <span className="b-span2 b-span3">
                           {" "}
                           {curElem.to}{" "}
                         </span>
                       </td> */}
-
                       <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.tnxtype}{" "}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.mode}{" "}
-                        </span>
+                        <span className="b-span2 "> {curElem.tnxtype} </span>
                       </td>
                       <td>
-                        <span className="b-span2 b-span4"> {curElem.ecopoints} </span>
+                        <span className="b-span2 "> {curElem.mode} </span>
+                      </td>
+                      <td>
+                        <span className="b-span2 b-span4">
+                          {" "}
+                          {curElem.ecopoints}{" "}
+                        </span>
                       </td>
                       <td>
                         <span className="b-span2 b-span4">
@@ -335,19 +315,21 @@ const MyWallet = () => {
                           {curElem.wallet}{" "}
                         </span>
                       </td>
-                      <td>
+                      {/* <td>
                         <span className="b-span2 "> {curElem.income} </span>
-                      </td>
+                      </td> */}
                       <td className="text-tb-right">
                         <span
                           className={
-                            curElem.status === "Out" ||   curElem.status === "Failed" 
+                            curElem.status === "Out" ||
+                            curElem.status === "Failed"
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.status === "Paid" || curElem.status === "Done" 
+                              curElem.status === "Paid" ||
+                              curElem.status === "Done"
                                 ? "orange"
                                 : "green",
                           }}
@@ -357,11 +339,16 @@ const MyWallet = () => {
                         </span>
                       </td>
                       <td>
-                        <span className="b-span2 text-center-align"> {curElem.tnxid} </span>
+                        <span className="b-span2 text-center-align">
+                          {" "}
+                          {curElem.tnxid}{" "}
+                        </span>
                       </td>
-
                       <td>
-                        <span className="b-span2 text-center-align"> {curElem.banktnxid} </span>
+                        <span className="b-span2 text-center-align">
+                          {" "}
+                          {curElem.banktnxid}{" "}
+                        </span>
                       </td>
                       <td>
                         <div className="id-dwld-btn text-center-align">
@@ -370,8 +357,7 @@ const MyWallet = () => {
                         </div>
                       </td>
                       <td>
-                      <span className="b-span2"> {curElem.details} </span>
-                      
+                        <span className="b-span2"> {curElem.details} </span>
                       </td>
                     </tr>
                   </>
@@ -383,10 +369,8 @@ const MyWallet = () => {
       </section>
 
       <section className="product-side-comp product-side-comp-wallet">
-
-     <h4>Products</h4>
-
-     </section>
+        <h4>Products</h4>
+      </section>
 
       {otp == true ? (
         <ConfirmOtp
@@ -406,14 +390,14 @@ const MyWallet = () => {
           }}
         />
       ) : null}
-      {addMoneyOtp ? (
+      {/* {addMoneyOtp ? (
         <AddMoneyOtp
           onclickcloseOtp={() => setAddMoneyOtp(false)}
           onclickOpenAmountBx={() => {
             setAddAmount(true), setAddMoneyOtp(false);
           }}
         />
-      ) : null}
+      ) : null} */}
       {addAmount ? (
         <AddMoneyAmount
           onclickCloseAmount={() => setAddAmount(false)}
@@ -424,6 +408,9 @@ const MyWallet = () => {
       ) : null}
       {sucesfulyTrnsctin ? (
         <SucesfulyTran
+          onCloseClick={() => {
+            setSucesfulyTrnsctin(false);
+          }}
           onclickViewDet={() => {
             setSucesfulyTrnsctin(false), setPaymntDet(true);
           }}
@@ -434,6 +421,9 @@ const MyWallet = () => {
       ) : null}
       {trnfrAmnt ? (
         <TranferAmnt
+          onClose={() => {
+            setTrnfrAmnt(false);
+          }}
           onclickCompltTrnfer={() => {
             setTrnfrComplte(true), setTrnfrAmnt(false);
           }}
@@ -441,6 +431,7 @@ const MyWallet = () => {
       ) : null}
       {trnfrComplte ? (
         <TrnferSucesful
+          onClose={() => setTrnfrComplte(false)}
           onclickTrnferDet={() => {
             setTrnferDet(true), setTrnfrComplte(false);
           }}
@@ -459,38 +450,6 @@ const MyWallet = () => {
 
 export default MyWallet;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState } from 'react'
 // import '../style/ReferEarn.css';
 // import "../style/Profile.css";
@@ -501,7 +460,6 @@ export default MyWallet;
 // import WaletBalance from './WaletBalance';
 // import '../style/SideProduct.css'
 
-
 // const MyWallet = () => {
 //     const [waletData , setWaletData] =  useState(WalletData);
 //     const [butonActive , setButonActive] = useState(true);
@@ -511,31 +469,30 @@ export default MyWallet;
 //     const [otp , setOtp ] = useState(false);
 //     const [transaction , setTransaction ] = useState(false);
 
-
 //    const filterData = (categValue) => {
 
 //     const updatedData = WalletData.filter((elem) => {
 //         return (
 
 //             elem.category === categValue
-            
+
 //         )
 //     })
 
 //     setWaletData(updatedData)
-    
+
 //    }
 
 //    const butonActFunc = (index) => {
 
 //     setButonActive(index);
-    
+
 //    }
 
 //    const showSearchItem = (e) => {
 
 //     const updatedSearc = e.target.value;
-    
+
 //    setSearchItem(updatedSearc);
 
 //    const updatedSearchData =  WalletData.filter((curItem) => {
@@ -547,11 +504,8 @@ export default MyWallet;
 
 //    setWaletData(updatedSearchData)
 
-   
-    
 //    }
 
-    
 //   return (
 //     <>
 
@@ -576,13 +530,12 @@ export default MyWallet;
 //                 <span>500.00</span>
 //               </div>
 //             </div>
-                
+
 //             </div>
-            
+
 //         </div>
 
 //         <div className="walet-tabs-filter-flex-box">
-
 
 //         <div className="wallet-tabs-btns-flex-box">
 
@@ -598,7 +551,7 @@ export default MyWallet;
 //             <button onClick={() => {filterData('withdraw') , butonActFunc(4)}}  className={ butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}>
 //                 Withdraw
 //             </button>
-            
+
 //         </div>
 
 //         <div className="right-fitler-part-box">
@@ -619,8 +572,6 @@ export default MyWallet;
 
 //             <div className="dates-flex-box">
 
-              
-
 //                 <div className="sel-date">
 //                 <DatePicker
 //         selected={startDate}
@@ -629,7 +580,7 @@ export default MyWallet;
 //         startDate={startDate}
 //         endDate={endDate}
 //       />
-    
+
 //                 </div>
 
 //                 <span>to</span>
@@ -645,14 +596,11 @@ export default MyWallet;
 //       />
 //                 </div>
 
-                
-                
 //             </div>
-            
-//         </div>
 
 //         </div>
 
+//         </div>
 
 //         <div className="bank-card-table wallet-table-box">
 //             <table>
@@ -667,7 +615,7 @@ export default MyWallet;
 //                     </tr>
 //                 </thead>
 //                 <tbody>
-                
+
 //                 {waletData.map((curElem,indx) => {
 
 //                     return(
@@ -714,22 +662,18 @@ export default MyWallet;
 //                                 Details
 //                             </div>
 //                         </td>
-                        
+
 //                     </tr>
-                        
+
 //                         </>
 //                     )
-                    
-//                 })}
-                    
-                    
-                   
 
-                   
+//                 })}
+
 //                 </tbody>
 //             </table>
 //         </div>
-    
+
 //     </section>
 
 //     <section className="product-side-comp product-side-comp-wallet">
@@ -740,7 +684,7 @@ export default MyWallet;
 
 //    {otp == true ? <ConfirmOtp onclickcloseOtp={() => setOtp(false)} onClickOpen={() => {setTransaction(true) , setOtp(false)}} /> : null}
 //    { transaction === true ? <WaletBalance oncClickclose={() => {setTransaction(false) , setOtp(false) }}   /> : null}
-    
+
 //     </>
 //   )
 // }

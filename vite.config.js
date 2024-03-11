@@ -15,9 +15,7 @@ export default defineConfig(({ command, mode }) => {
   }
   const allEnv = keyPerfixer("ENV", env);
   return {
-    plugins: [
-      react(),
-    ],
+    plugins: [react()],
     define: { ...allEnv, ENV: env },
   };
 });

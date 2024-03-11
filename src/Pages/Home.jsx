@@ -72,7 +72,7 @@ const Home = ({ setUserForm }) => {
         <Contribution />
         <ImpactComp />
         <Review />
-        {/* <InstaFeed /> */}
+        <InstaFeed />
         <MainFooter />
       </div>
 

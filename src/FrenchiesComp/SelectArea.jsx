@@ -4,7 +4,7 @@ import {
   franchiseSubscriptionsFetch,
 } from "../apis/franchise/plans";
 import { useQuery } from "@tanstack/react-query";
-import { sort } from "../lib/array";
+import { search, sort } from "../lib/array";
 
 const SelectArea = ({
   selectedArias,
@@ -23,10 +23,18 @@ const SelectArea = ({
     pincode: "",
     aria: "",
   });
-  const { data: ariasSubs, refetch } = useQuery({
+  const [ariasSubs, setariaSubs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState([]);
+  const { data: dataAriasSubs, refetch } = useQuery({
     queryKey: ["subscripionArias"],
     queryFn: () => franchiseAriasFetch(),
   });
+
+  useEffect(() => {
+    if (!dataAriasSubs?.error) {
+      setariaSubs(search(dataAriasSubs, searchQuery));
+    }
+  }, [dataAriasSubs, searchQuery]);
   const getStates = (res) =>
     [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
       id: i,
@@ -179,7 +187,18 @@ const SelectArea = ({
   };
 
   useEffect(() => {
-    if (!ariasSubs || ariasSubs?.error) {
+    if (!ariasSubs || !ariasSubs?.length || ariasSubs?.error) {
+      // setStates([]);
+      // setCities([]);
+      // setPincodes({
+      //   state: "",
+      //   city: "",
+      //   pincode: "",
+      //   aria: "",
+      // });
+      // setSelection([]);
+      // setSubArias([]);
+      // setArias([]);
       return;
     }
     const states = getStates(ariasSubs);
@@ -409,6 +428,8 @@ const SelectArea = ({
               name="searchloct"
               id="searchloct"
               placeholder="Search area  "
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
             />
           </div>
 
@@ -417,7 +438,7 @@ const SelectArea = ({
               <h6>State</h6>
 
               <div className="area-list">
-                {states?.map(({ name, id }) => (
+                {sort(states, ["name"])?.map(({ name, id }) => (
                   <li
                     onClick={handeleSelection("state", name)}
                     className={`${name == selection.state ? "areaactive" : ""}`}
@@ -454,7 +475,7 @@ const SelectArea = ({
                     ></input>
                   </div>
                 </li>
-                {cities?.map(({ name, id }) => (
+                {sort(cities, ["name"])?.map(({ name, id }) => (
                   <li
                     onClick={handeleSelection("city", name)}
                     className={`${name == selection.city ? "areaactive" : ""}`}
@@ -499,7 +520,7 @@ const SelectArea = ({
                     ></input>
                   </div>
                 </li>
-                {pincodes?.map(({ name, id }) => (
+                {sort(pincodes, ["name"])?.map(({ name, id }) => (
                   <li
                     onClick={handeleSelection("pincode", name)}
                     className={`${
@@ -553,7 +574,7 @@ const SelectArea = ({
                     ></input>
                   </div>
                 </li>
-                {arias?.map(({ name, id }) => (
+                {sort(arias, ["name"])?.map(({ name, id }) => (
                   <li
                     onClick={handeleSelection("aria", name)}
                     className={`${name == selection.aria ? "areaactive" : ""}`}

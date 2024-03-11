@@ -14,12 +14,7 @@ import MainFooter from "../HomeComponent/MainFooter";
 const Service = () => {
   return (
     <>
-    <ServBanner />
-    <ServCompOne />
-    <ServCompTwo />
-    <ServCompThree />
-    <Discover />
-    <MainFooter />
+    
     </>
   );
 };

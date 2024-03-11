@@ -8,7 +8,7 @@ const ServCompThree = () => {
         <div className="comon-container-2">
           <div className="serv-list-grid-bx">
             <div className="left-serv-img-bx">
-              <img src="/images/customImg/serv-img-3.jpg" alt="" />
+              <img src="/images/customImg/join-us.jpg" alt="" />
             </div>
 
             <div className="right-serv-info-bx">

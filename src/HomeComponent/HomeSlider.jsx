@@ -40,6 +40,11 @@ const HomeSlider = () => {
           Faltu Ke Kabad Se
           </h1>
           <button>Sell Waste</button>
+
+          <div className="arrow-tall-bx">
+          <i class="fa-solid fa-angles-down"></i>
+          </div>
+          
         </div>
         </div>
           <video className="home-video"  loop muted plays-inline autoplay='autoplay'>

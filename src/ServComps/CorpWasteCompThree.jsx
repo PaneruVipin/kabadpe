@@ -1,10 +1,10 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-const ServCompThree = () => {
+const CorpWasteCompThree = () => {
   return (
     <>
-      <section className="serv-three-comp">
+      <section className="serv-three-comp serv-three-comp2" >
         <div className="comon-container-2">
           <div className="serv-list-grid-bx">
             <div className="left-serv-img-bx">
@@ -12,22 +12,22 @@ const ServCompThree = () => {
             </div>
 
             <div className="right-serv-info-bx">
-              <h5>Join Us in Making a Difference</h5>
+              <h5>Get Started with KabadPe</h5>
               <p>
-                Take the first step towards a greener future with Kabadpe.
-                Contact us to explore how we can transform your community into a
-                model of sustainability.
+              Ready to transform your business’s approach to waste management? Contact
+us today to learn more about how KabadPe can assist your business in
+achieving its sustainability goals.
               </p>
 
               <NavLink to="/contact" className="s-link-btn">
-                Contact Us
+                Contact
               </NavLink>
             </div>
           </div>
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ServCompThree;
+export default CorpWasteCompThree

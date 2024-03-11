@@ -344,3 +344,283 @@ body pr  click krne pr popup close hoge .
               
               
               </Swiper>
+
+
+                 {/* <div
+              className={
+                mainPrice === true
+                  ? "main-price-third-bx mainpriceactive"
+                  : "main-price-third-bx"
+              }
+            >
+              <div
+                className={
+                  listBox === true
+                    ? "prodactive price-third-box"
+                    : " price-third-box"
+                }
+              >
+                <div className="prod-list-main">
+                  <span>WASTE RECYCLING</span>
+                  <h4>Calculator</h4>
+                  <Formik onSubmit={calculateRate} initialValues={{}}>
+                    {({
+                      handleBlur,
+                      handleChange,
+                      values,
+                      errors,
+                      touched,
+                      ...rest
+                    }) => (
+                      <Form>
+                        <div className="prod-list-bx">
+                          {!kabadItems?.error
+                            ? kabadItems?.map(
+                                ({ id, initialPrice, categoryName }) => (
+                                  <div key={id} className="p-bx">
+                                    <div className="left-prod-i">
+                                      <img
+                                        src="/images/customImg/magazine.png"
+                                        alt=""
+                                      />
+                                      <h5>{categoryName}</h5>
+                                    </div>
+
+                                    <input
+                                      type="text"
+                                      name={id}
+                                      id="value"
+                                      placeholder=".../kg"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values?.[id] || ""}
+                                    />
+                                  </div>
+                                )
+                              )
+                            : null}
+                        </div>
+                        <button type="submit" className="prod-submit-btn">
+                          Calculate Benefits !
+                        </button>
+                      </Form>
+                    )}
+                  </Formik>
+                </div>
+
+                <div className="schedule-pickup-bx">
+                  <h5>Total Valuation of your waste</h5>
+
+                  <h3>{calculatedPrice.toFixed(2)}/</h3>
+
+                  <button
+                    disabled={!calculatedPrice}
+                    onClick={ShcedulPickuFunc}
+                    className="schedule-pickup-btn"
+                  >
+                    Schedule Pickup
+                  </button>
+                </div>
+
+                <div className="schedule-pickup-form-bx">
+                  <h5>Schedual Pickup</h5>
+                  <Formik
+                    initialValues={initialSchedulePickupValues}
+                    onSubmit={handlePickupSubmit}
+                    validationSchema={validationSchedulePickup}
+                  >
+                    {({
+                      handleBlur,
+                      handleChange,
+                      values,
+                      errors,
+                      touched,
+                      ...rest
+                    }) => {
+                      return (
+                        <Form>
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt bor-inpt">
+                              <input
+                                type="text"
+                                name="appointmentPersonName"
+                                id="name"
+                                placeholder="Name"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.appointmentPersonName}
+                              />
+                            </div>
+
+                            {touched.appointmentPersonName &&
+                            errors.appointmentPersonName ? (
+                              <div style={{ color: "red" }}>
+                                {errors.appointmentPersonName}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt bor-inpt">
+                              <input
+                                type="text"
+                                name="appointmentContactNumber"
+                                id="appointmentContactNumber"
+                                placeholder="Phone"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.appointmentContactNumber}
+                              />
+                            </div>
+                            {touched.appointmentContactNumber &&
+                            errors.appointmentContactNumber ? (
+                              <div style={{ color: "red" }}>
+                                {errors.appointmentContactNumber}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="date-bx2 bor-inpt">
+                              <i className="fa-solid fa-calendar-days calendar"></i>
+                              <Datepicker
+                                name="appointmentDate"
+                                id="appointmentDate"
+                                className="datepicker"
+                                selected={values.appointmentDate}
+                                onChange={(date) => {
+                                  values.appointmentDate = date;
+                                  document
+                                    .getElementById("appointmentContactNumber")
+                                    .focus();
+                                }}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            {touched.appointmentDate &&
+                            errors.appointmentDate ? (
+                              <div style={{ color: "red" }}>
+                                {errors.appointmentDate}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt sel-bx bor-inpt">
+                              <i className="fa-solid fa-angle-down arrow-dwn"></i>
+                              <select
+                                name="appointmentTimeSlot"
+                                id="appointmentTimeSlot"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.appointmentTimeSlot}
+                              >
+                                <option disabled value="" hidden>
+                                  Choose Time Slot
+                                </option>
+                                <option value="10:00-11:00">
+                                  10.00 to 11.00
+                                </option>
+                                <option value="11:00-12:00">
+                                  11.00 to 12.00
+                                </option>
+                                <option value="13:00-14:00">
+                                  1.00 to 2.00
+                                </option>
+                                <option value="14:00-15:00">
+                                  2.00 to 3.00
+                                </option>
+                                <option value="16:00-17:00">
+                                  4.00 to 5.00
+                                </option>
+                                <option value="17:00-18:00">
+                                  5.00 to 6.00
+                                </option>
+                              </select>
+                            </div>
+                            {touched.appointmentTimeSlot &&
+                            errors.appointmentTimeSlot ? (
+                              <div style={{ color: "red" }}>
+                                {errors.appointmentTimeSlot}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt bor-inpt">
+                              <input
+                                type="text"
+                                name="pincode"
+                                id="pincode"
+                                placeholder="pincode"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.pincode}
+                              />
+                            </div>
+                            {touched.pincode && errors.pincode ? (
+                              <div style={{ color: "red" }}>
+                                {errors.pincode}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt sel-bx bor-inpt">
+                              <i className="fa-solid fa-angle-down arrow-dwn"></i>
+                              <select
+                                name="serviceType"
+                                id="serviceType"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.serviceType}
+                              >
+                                <option disabled value="" hidden>
+                                  Choose Service
+                                </option>
+                                <option value="kabadi">Kabadi Wala</option>
+                                <option value="cleaner">Cleaner</option>
+                              </select>
+                            </div>
+                            {touched.serviceType && errors.serviceType ? (
+                              <div style={{ color: "red" }}>
+                                {errors.serviceType}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div className="pickup-inpt-bx">
+                            <div className="sched-inpt bor-inpt">
+                              <input
+                                type="text"
+                                name="formatedAddress"
+                                id="address"
+                                placeholder="Address"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.appointmentAddress}
+                              />
+                            </div>
+                            {touched.formatedAddress &&
+                            errors.formatedAddress ? (
+                              <div style={{ color: "red" }}>
+                                {errors.formatedAddress}
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <button type="submit" className="pickup-submit-btn">
+                            Submit
+                          </button>
+                          {apiErrors ? (
+                            <div style={{ color: "red" }}>
+                              {apiErrors.shcedulPickup}
+                            </div>
+                          ) : null}
+                        </Form>
+                      );
+                    }}
+                  </Formik>
+                </div>
+              </div>
+            </div> */}

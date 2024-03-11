@@ -10,9 +10,15 @@ import Discover from "../HomeComponent/Discover";
 import MainFooter from "../HomeComponent/MainFooter";
 
 const About = () => {
+
+  const data = {
+    title : 'Rate List',
+    text : 'Ratelist',
+  }
+  
   return (
     <>
-     <AboutBanner />
+     <AboutBanner  data={data} />
      <AboutGrid />
      <AboutPointsComp />
      <AboutFrenchies />

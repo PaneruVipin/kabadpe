@@ -8405,7 +8405,7 @@ __________ */
 .banner-comp {
   position: relative;
   width: 100%;
-  height: 20rem;
+  height: 17rem;
   background-color: transparent;
   z-index: 10;
 
@@ -8447,7 +8447,7 @@ __________ */
 .banner-main-bx {
   position: relative;
   width: 100%;
-  height: 20rem;
+  height: 17rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -13569,4 +13569,306 @@ Our Review Section CSS code
   border-radius: 50%;
 }
 
-/* eca219 */
+.ratelist-list-grid-main{
+  position: relative;
+  width: 100%;
+  display: grid;
+  /* grid-template-columns: 3fr 2fr; */
+  column-gap: 2rem;
+  row-gap: 2rem;
+  transition: 500ms ease;
+
+}
+
+.ratelist-list-grid-main-active{
+  grid-template-columns: 3fr 1.4fr;
+
+}
+
+.rate-list-grid-left{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  transition: 500ms ease;
+
+}
+
+.rate-list-grid-left-active{
+  grid-template-columns: repeat(3, 1fr);
+  transition: 500ms ease;
+
+
+}
+
+.rate-list-prod-bx{
+  position: relative;
+  width: 100%;
+  height: 5rem;
+  background-color: #fff;
+  border: .05rem solid #2ac4c8;
+  border-top-right-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .5rem;
+  border-top-left-radius: 5rem;
+  border-bottom-left-radius: 5rem;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.ratelist-img{
+  position: relative;
+  width: 4.5rem;
+  height: 100%;
+  border-radius: 50%;
+  /* background-color: #2ac4c8; */
+  /* border: .05rem solid #2ac4c8; */
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ratelist-img img{
+  width: 2.3rem;
+  height: auto;
+}
+
+.ratelist-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ratelist-info h6{
+  font-weight: 400;
+  font-size: 1rem;
+  color:#019095 ;
+  font-weight: 600 ;
+  letter-spacing: .45px;
+  color: #252525;
+}
+
+.ratelist-info p{
+  font-size: .9rem;
+  color:#242324;
+  margin-bottom: 0 !important;
+  line-height: normal !important;
+}
+
+.rate-list-filter-bx{
+  position: relative;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.ratelist-sel-bx{
+  position: relative;
+  width: 12rem;
+  height: 2.5rem;
+  background-color: #fff;
+  border: .1rem solid #eee;
+  padding-inline: .4rem;
+  border-radius: 3rem;
+}
+
+.ratelist-sel-bx select , .ratelist-sel-bx input{
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  color: #242324;
+  border-radius: 3rem;
+  background-color: transparent;
+  border: none;
+
+}
+
+.rate-search-icon{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: .87rem;
+  font-size: .95rem;
+  color: #242324;
+}
+
+.rate-list-filt-main{
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+}
+
+.rate-list-calcult-btn{
+  position: relative;
+  width: max-content;
+  padding-inline: 1rem;
+  height: 3rem;
+  background-color: #2ac4c8;
+  border-radius: 3.5rem;
+  font-size: 1rem;
+  color: #fff;
+  font-weight: 500;
+  transition: 400ms ease;
+  border: .1rem solid #2ac4c8;
+}
+.rate-list-calcult-btn:hover{
+  color: #2ac4c8;
+  border-color: #2ac4c8;
+  background-color: transparent;
+}
+
+.ratelist-comp{
+  margin-top: -2rem;
+}
+
+.check{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.tick-bx{
+  margin-top: .25rem;
+}
+
+
+.tick-bx input{
+  cursor: pointer;
+}
+
+.weight-inpt{
+  position: relative;
+  left: .5rem;
+  width: 6rem;
+  height: 1.5rem;
+  background-color: #fff;
+  font-size: .8rem;
+  border-radius: 3rem;
+  padding-inline: .3rem;
+  border: .1rem solid #eee;
+  top: -.2rem;
+}
+
+.right-waste-calculator-main{
+  position: relative;
+  width: 100%;
+  background-color: #f3f7ff;
+  padding: 2rem 2rem;
+  
+}
+
+.right-waste-calculator-main h4{
+  text-align: center;
+  font-size: 1.55rem;
+  color: #00224f;
+  letter-spacing: .4px;
+  margin-bottom: 1.5rem;
+}
+
+.added-prod-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns:.78fr 1fr .5fr;
+  /* margin-bottom:.5rem; */
+  padding: 0 .87rem;
+  background-color: #faf9ff;
+  border-top: .1rem solid #eee;
+  border-inline: .1rem solid #eee;
+  height: 3rem;
+}
+
+.added-prod-bx:last-child{
+  border-bottom: .1rem solid #eee;
+}
+
+.added-prod-title{
+  /* border-right: .1rem solid #eee; */
+  display: flex;
+  align-items: center;
+  font-weight: 600 !important;
+}
+
+.prod-weight{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.added-prod-bx h6{
+  font-weight: 500;
+  color: #242424;
+  margin-bottom: 0;
+}
+
+.added-prod-value{
+  font-weight: 500;
+  font-size: 1rem !important;
+  /* border-left: .1rem solid #eee; */
+}
+
+.added-prod-table{
+  position: relative;
+  width: 100%;
+}
+
+.added-prod-table table{
+
+  width: 100%;
+}
+
+.added-prod-table table thead tr th{
+  font-weight: 500;
+  padding: .5rem .5rem;
+  background-color: #fff;
+  color: #202020;
+  text-align: center;
+  border-block: .1rem solid #eee;
+  border-top-right-radius: .5rem;
+  border-top-left-radius: .5rem;
+
+}
+
+.added-prod-table table thead tr th:nth-child(1),.added-prod-table table tbody tr td:nth-child(1){
+  text-align: left;
+}
+
+.added-prod-table table thead , .added-prod-table table tbody{
+  border-inline: .1rem solid #eee;
+
+}
+
+
+.added-prod-table table tbody tr td {
+  text-align: center;
+  padding: .5rem .5rem;
+  background-color: #fff;
+  border-bottom: .1rem solid #eee;
+}
+
+.rate-subtotl-bx{
+  position: relative;
+  top: 1.5rem;
+  right: 1.1rem;
+  margin-left: auto;
+  width: max-content;
+}
+
+.rate-subtotl-bx h6{
+  font-size: 1rem;
+
+}

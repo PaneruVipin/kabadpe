@@ -116,7 +116,7 @@ function App() {
 
       {/* <Route path="/useraccounts" element={<WastecollectorPage />} /> */}
       <Route path="/auth/collector" element={<LogReg />} />
-      <Route path="/ratelist" element={<RateList />} />
+      {/* <Route path="/ratelist" element={<RateList />} /> */}
       <Route path="/pricelist" element={<PricelistPage />} />
       <Route path="/otpverify" element={<OtpVerify />} />
       <Route

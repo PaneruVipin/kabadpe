@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
 import { adminGetAllUsers } from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
-import { search } from "../lib/array";
+import { kabadPeUserIdMapper, search } from "../lib/array";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
@@ -155,7 +155,7 @@ const AllUser = ({ updatedFilterData }) => {
 
               <tbody>
                 {!allUsers?.error
-                  ? search(allUsers, serachQuery)?.map(
+                  ? search(kabadPeUserIdMapper(allUsers), serachQuery)?.map(
                       (
                         {
                           id,
@@ -167,6 +167,7 @@ const AllUser = ({ updatedFilterData }) => {
                           accountStatus,
                           fullname,
                           franchiseStatus,
+                          hashId,
                         },
                         i
                       ) => {
@@ -194,14 +195,7 @@ const AllUser = ({ updatedFilterData }) => {
                               </td>
 
                               <td>
-                                <span>
-                                  {role == "user"
-                                    ? "KPU"
-                                    : role == "franchise"
-                                    ? "KPF"
-                                    : "KPW"}
-                                  {String(id).padStart(7, "0")}{" "}
-                                </span>
+                                <span>{hashId}</span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

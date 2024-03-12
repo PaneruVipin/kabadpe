@@ -88,6 +88,7 @@ const WasteProduct = () => {
     const state = getStates(adminArias);
     setStates(state);
   }, [adminArias]);
+ 
   return (
     <>
       <section className="all-user-data-comp">

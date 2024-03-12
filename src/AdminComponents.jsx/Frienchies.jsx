@@ -6,7 +6,7 @@ import FrenchEdit from "./FrenchEdit";
 import FrenchDetPopup from "./FrenchDetPopup";
 import { useQuery } from "@tanstack/react-query";
 import { adminGetFranchises } from "../apis/admins/users";
-import { search } from "../lib/array";
+import { kabadPeUserIdMapper, search } from "../lib/array";
 
 const Frienchies = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -129,7 +129,7 @@ const Frienchies = () => {
 
               <tbody>
                 {!franchise?.error
-                  ? search(franchise, searchQuery, [
+                  ? search(kabadPeUserIdMapper(franchise, "KPF"), searchQuery, [
                       "id",
                       "companyName",
                       "fullname",
@@ -148,6 +148,7 @@ const Frienchies = () => {
                           phone,
                           email,
                           franchiseStatus,
+                          hashId,
                         },
                         i
                       ) => {
@@ -170,7 +171,7 @@ const Frienchies = () => {
                               </td>
 
                               <td>
-                                <span>KPF{String(id).padStart(7,"0")} </span>
+                                <span>{hashId} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

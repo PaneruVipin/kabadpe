@@ -3,119 +3,119 @@ const AdminWasteProd = [
     id: 3,
     img: "/images/customImg/newspaper-folded.png",
     title: "Newspaper",
-    minitext: "  15 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 4,
     img: "/images/customImg/magazine.png",
     title: "Office Paper",
-    minitext: "  15 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 5,
     img: "/images/customImg/newspaper-folded.png",
     title: "Copies/Books",
-    minitext: "  12 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 6,
     img: "/images/customImg/cardboard.png",
     title: "Cardboard",
-    minitext: " 8 (kg)",
+    unit: " (kg) ",
   },
 
   {
     id: 7,
     img: "/images/customImg/plastic.png",
     title: "Plastic",
-    minitext: "  10 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 8,
     img: "/images/customImg/beam.png",
     title: "Iron",
-    minitext: "  27 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 9,
     img: "/images/customImg/iron-bar.png",
     title: "Steel",
-    minitext: "  37 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 10,
     img: "/images/customImg/metal.png",
     title: "Aluminium",
-    minitext: "  105 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 11,
     img: "/images/customImg/brass.png",
     title: "Brass",
-    minitext: "  305 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 12,
     img: "/images/customImg/coil.png",
     title: "Copper",
-    minitext: "  425 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 13,
     img: "/images/customImg/pipeline.png",
     title: "Heavy Waste",
-    minitext: "  35 (kg) ",
+    unit: " (kg) ",
   },
 
   {
     id: 14,
     img: "/images/customImg/street-lamp.png",
     title: "Light Waste",
-    minitext: "  200 (piece) ",
+    unit: " (piece) ",
   },
 
   {
     id: 15,
     img: "/images/customImg/tablet.png",
     title: "Scrap Tablet",
-    minitext: "  40 (piece) ",
+    unit: " (piece) ",
   },
 
   {
     id: 16,
     img: "/images/customImg/laptop.png",
     title: "Scrap Laptop",
-    minitext: "  300 (piece) ",
+    unit: " (piece) ",
   },
 
   {
     id: 17,
     img: "/images/customImg/broken.png",
     title: "CRT Monitor",
-    minitext: "  150 (piece) ",
+    unit: " (piece) ",
   },
 
   {
     id: 18,
     img: "/images/customImg/broken.png",
     title: "LCD Monitor",
-    minitext: "  20 (kg) ",
+    unit: " (piece) ",
   },
 
   {
     id: 19,
     img: "/images/customImg/cpu-tower.png",
     title: "Computer CPU",
-    minitext: "  200 (piece) ",
+    unit: " (piece) ",
   },
 ];
 

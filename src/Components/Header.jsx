@@ -398,7 +398,7 @@ const Header = ({ userForm, setUserForm }) => {
                           link === "ratelist" ? "nav-li navliactive" : "nav-li"
                         }
                       >
-                        <NavLink to="/rate">
+                        <NavLink to="/ratelist">
                           <span>Rate list</span>
                         </NavLink>
                       </li>

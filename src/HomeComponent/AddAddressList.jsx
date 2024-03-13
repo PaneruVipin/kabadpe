@@ -355,7 +355,11 @@ export const AddressForm = ({
           <Form>
             <div className="address-add-type-grid-bx">
               <div className="apnt-inpt-bx apnt-inpt-bx-address  spe-apnt-inpt-bx">
-                <div className="apnt-inpt-bx-s">
+                <div
+                  className={`${
+                    values?.locationType ? "apnt-inpt-bx-w" : "apnt-inpt-bx-s"
+                  }`}
+                >
                   <select
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -400,7 +404,11 @@ export const AddressForm = ({
               </div>
 
               <div className="apnt-inpt-bx apnt-inpt-bx-address spe-apnt-inpt-bx">
-                <div className="apnt-inpt-bx-s">
+                <div
+                  className={`${
+                    values?.state ? "apnt-inpt-bx-w" : "apnt-inpt-bx-s"
+                  }`}
+                >
                   <select
                     onChange={(e) => {
                       setSelection((prev) => ({

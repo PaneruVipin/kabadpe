@@ -288,7 +288,13 @@ const Appointment = ({ setUserForm }) => {
 
                         <div className="form-grid form-grid3">
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
-                            <div className="apnt-inpt-bx-s">
+                            <div
+                              className={`${
+                                values?.serviceType
+                                  ? "apnt-inpt-bx-w"
+                                  : "apnt-inpt-bx-s"
+                              }`}
+                            >
                               <select
                                 name="serviceType"
                                 id="service"
@@ -321,7 +327,13 @@ const Appointment = ({ setUserForm }) => {
                           </div>
 
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
-                            <div className="apnt-inpt-bx-s">
+                            <div
+                              className={`${
+                                values?.estimateWeight
+                                  ? "apnt-inpt-bx-w"
+                                  : "apnt-inpt-bx-s"
+                              }`}
+                            >
                               <select
                                 name="estimateWeight"
                                 id="service"
@@ -354,7 +366,13 @@ const Appointment = ({ setUserForm }) => {
                           </div>
 
                           <div className="apnt-inpt-bx  spe-apnt-inpt-bx">
-                            <div className="apnt-inpt-bx-s">
+                            <div
+                              className={`${
+                                values?.frequency
+                                  ? "apnt-inpt-bx-w"
+                                  : "apnt-inpt-bx-s"
+                              }`}
+                            >
                               <select
                                 name="frequency"
                                 id="service"

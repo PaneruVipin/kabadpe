@@ -6891,7 +6891,7 @@ _______________________ */
   font-size: .87rem;
   letter-spacing: .5px;
   font-weight: 400;
-  color: #515151;
+  color: #100f0f;
 
 }
 
@@ -9551,8 +9551,12 @@ __________ */
   justify-content: center;
   font-size: .87rem;
   letter-spacing: .5px;
-  font-weight: 400
+  font-weight: 400;
+  color:#100f0f
     /* line-height: 1.4; */
+}
+.select > .option:nth-child(n+2) {
+  color:#100f0f
 }
 
 .apnt-inpt-bx-text span {
@@ -12024,9 +12028,12 @@ Our footer comp
 }
 
 .apnt-inpt-bx-s select {
-  color: #c5c5c5;
+  color:#c5c5c5;
 }
 
+.apnt-inpt-bx-w select {
+  color:#100f0f
+}
 /* c5c5c5 */
 
 

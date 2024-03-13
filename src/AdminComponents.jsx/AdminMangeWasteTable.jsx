@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import ManageWasteData from "../Components/ManageWasteData";
+import { DateTime } from "luxon";
+import { search } from "../lib/array";
 
-const AdminMangeWasteTable = () => {
+const AdminMangeWasteTable = ({ wasteHistory }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [searchItem, setSearchItem] = useState("");
@@ -93,7 +95,6 @@ const AdminMangeWasteTable = () => {
                 <th>
                   Frenchies <br /> Name
                 </th>
-              
 
                 <th>
                   Newspaper <br /> (kg)
@@ -150,125 +151,290 @@ const AdminMangeWasteTable = () => {
               </tr>
             </thead>
             <tbody>
-              {filterData.map((elem, id) => {
-                return (
-                  <>
-                    <tr key={id}>
-                      <td>
-                        {" "}
-                        <span> {elem.id} </span>{" "}
-                      </td>
-                      <td>
-                        <div className="mnge-date">
-                          <p> {elem.date} </p>
-                          <span> {elem.time} </span>
-                        </div>
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.totalwaste} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.value} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <div className="mnge-date user-text-m">
-                          {" "}
-                          <p> {elem.name} </p>
-                          <span> {elem.userId} </span>{" "}
-                        </div>
-                      </td>
-                      <td>
-                        <span>{elem.wastecolectorname}</span>
-                      </td>
-                      <td>
-                      <div className="mnge-date user-text-m">
-                          {" "}
-                          <p> {elem.frenchiesname} </p>
-                          <span> {elem.userId} </span>{" "}
-                        </div>
-                      </td>
-                    
-                      <td>
-                        {" "}
-                        <span> {elem.newspaper} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.officepaper} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.books} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.cardboard} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.plastic} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.iron} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.steel} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.aluminium} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.brass} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.copper} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.heavywaste} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.lightwaste} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.tablet} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.laptop} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.monitor} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.lcd} </span>{" "}
-                      </td>
-                      <td>
-                        {" "}
-                        <span> {elem.computer} </span>{" "}
-                      </td>
-                      <td>
-                        <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {elem.invoice} </span>
-                          <i class="fa-regular fa-circle-down"></i>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
+              {!wasteHistory?.error
+                ? search(
+                    wasteHistory?.map((w) => {
+                      return {
+                        ...w,
+                        date: DateTime.fromISO(w?.addedOn, {
+                          zone: "utc",
+                        }).toFormat("ccc dd LLL yyyy"),
+                        time: DateTime.fromISO(w?.addedOn, {
+                          zone: "utc",
+                        }).toFormat("hh:mm a"),
+                        u: w?.User?.fullname,
+                        k: w?.KabadCollector?.fullname,
+                        f:
+                          w?.Franchise?.companyName ||
+                          w?.KabadCollector?.Franchise?.companyName,
+                      };
+                    }),
+                    searchItem
+                  )?.map(
+                    (
+                      {
+                        addedOn,
+                        ammount,
+                        appoinmentId,
+                        buyerId,
+                        buyerType,
+                        collectionStatus,
+                        id,
+                        paymentMode,
+                        sellerId,
+                        sellerType,
+                        waste,
+                        User,
+                        KabadCollector,
+                        Franchise,
+                      },
+                      i
+                    ) => {
+                      let w;
+                      try {
+                        w = JSON.parse(waste)?.waste;
+                      } catch {}
+                      const totalWaste = w?.reduce((a, b) => {
+                        return a + +b?.weight;
+                      }, 0);
+                      return (
+                        <>
+                          <tr key={id}>
+                            <td>
+                              {" "}
+                              <span> {i + 1} </span>{" "}
+                            </td>
+                            <td>
+                              <div className="mnge-date">
+                                <p>
+                                  {" "}
+                                  {DateTime.fromISO(addedOn, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy")}{" "}
+                                </p>
+                                <span>
+                                  {" "}
+                                  {DateTime.fromISO(addedOn, {
+                                    zone: "utc",
+                                  }).toFormat("hh:mm a")}{" "}
+                                </span>
+                              </div>
+                            </td>
+                            <td>
+                              {" "}
+                              <span> {totalWaste} </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span> {ammount} </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <div className="mnge-date user-text-m">
+                                {" "}
+                                <p> {User?.fullname} </p>
+                                {/* <span> {"elem.userId"} </span>{" "} */}
+                              </div>
+                            </td>
+                            <td>
+                              <span>{KabadCollector?.fullname}</span>
+                            </td>
+                            <td>
+                              <div className="mnge-date user-text-m">
+                                {" "}
+                                <p>
+                                  {" "}
+                                  {Franchise?.companyName ||
+                                    KabadCollector?.Franchise?.companyName}{" "}
+                                </p>
+                                {/* <span> {"elem.userId"} </span>{" "} */}
+                              </div>
+                            </td>
+
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "newspaper"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "officepaper"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "copies/books"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {" "}
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "cardboard"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "plastic"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {" "}
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "iron"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "steel"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "aluminium"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "brass"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "copper"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "heavywaste"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "lightwaste"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "scraptablet"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "scraplaptop"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "crtmonitor"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "lcdmonitor"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "computercpu"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              <div className="id-dwld-btn text-center-align">
+                                {/* <span className="b-span"> {elem.invoice} </span> */}
+                                <i class="fa-regular fa-circle-down"></i>
+                              </div>
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import ManageWasteData from "./ManageWasteData";
 import { DateTime } from "luxon";
+import { search } from "../lib/array";
 
 const ManageWasteTable = ({ wasteData }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -14,7 +15,7 @@ const ManageWasteTable = ({ wasteData }) => {
       curData.userId.toString().includes(searchItem);
     return matchItem;
   });
-  console.log("this is waste data",wasteData)
+  console.log("this is waste data", wasteData);
   return (
     <>
       <div className="mnge-wste-table-main-bx">
@@ -136,7 +137,21 @@ const ManageWasteTable = ({ wasteData }) => {
             </thead>
             <tbody>
               {!wasteData?.error
-                ? wasteData?.map(
+                ? search(
+                    wasteData?.map((w) => {
+                      return {
+                        ...w,
+                        date: DateTime.fromISO(w?.addedOn, {
+                          zone: "utc",
+                        }).toFormat("ccc dd LLL yyyy"),
+                        time: DateTime.fromISO(w?.addedOn, {
+                          zone: "utc",
+                        }).toFormat("hh:mm a"),
+                        u: w?.User?.fullname,
+                      };
+                    }),
+                    searchItem
+                  )?.map(
                     (
                       {
                         addedOn,
@@ -151,6 +166,8 @@ const ManageWasteTable = ({ wasteData }) => {
                         sellerType,
                         waste,
                         User,
+                        time,
+                        date,
                       },
                       i
                     ) => {
@@ -161,27 +178,17 @@ const ManageWasteTable = ({ wasteData }) => {
                       const totalWaste = w?.reduce((a, b) => {
                         return a + +b?.weight;
                       }, 0);
-                      console.log("this is total waste", totalWaste);
                       return (
                         <>
-                          <tr key={i}>
+                          <tr key={id}>
                             <td>
                               {" "}
                               <span> {i + 1} </span>{" "}
                             </td>
                             <td>
                               <div className="mnge-date">
-                                <p>
-                                  {DateTime.fromISO(addedOn, {
-                                    zone: "utc",
-                                  }).toFormat("ccc dd LLL yyyy")}{" "}
-                                </p>
-                                <span>
-                                  {" "}
-                                  {DateTime.fromISO(addedOn, {
-                                    zone: "utc",
-                                  }).toFormat("hh:mm a")}
-                                </span>
+                                <p>{date} </p>
+                                <span> {time}</span>
                               </div>
                             </td>
                             <td>
@@ -206,7 +213,28 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "newspaper" || name == "Newspaper"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "newspaper"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "officepaper"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "copies/books"
                                 )?.weight || "0.00"}
                               </span>{" "}
                             </td>
@@ -216,8 +244,18 @@ const ManageWasteTable = ({ wasteData }) => {
                                 {" "}
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "officepaper" ||
-                                    name == "Officepaper"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "cardboard"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "plastic"
                                 )?.weight || "0.00"}
                               </span>{" "}
                             </td>
@@ -227,74 +265,8 @@ const ManageWasteTable = ({ wasteData }) => {
                                 {" "}
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "books" || name == "Books"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "cardboard" || name == "Cardboard"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "plastic" || name == "Plastic"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) => name == "iron" || name == "Iron"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "steel" || name == "Steel"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "aluminium" || name == "Aluminium"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "brass" || name == "Brass"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name == "copper" || name == "Copper"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "iron"
                                 )?.weight || "0.00"}
                               </span>{" "}
                             </td>
@@ -303,7 +275,18 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "heavywaste" || name == "Heavywaste"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "steel"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "aluminium"
                                 )?.weight || "0.00"}
                               </span>{" "}
                             </td>
@@ -312,7 +295,8 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "lightwaste" || name == "Lightwaste"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "brass"
                                 )?.weight || "0.00"}{" "}
                               </span>{" "}
                             </td>
@@ -321,17 +305,18 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "tablet" || name == "Tablet"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "copper"
                                 )?.weight || "0.00"}
                               </span>{" "}
                             </td>
                             <td>
                               {" "}
                               <span>
-                                {" "}
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "laptop" || name == "Laptop"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "heavywaste"
                                 )?.weight || "0.00"}{" "}
                               </span>{" "}
                             </td>
@@ -340,7 +325,8 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "monitor" || name == "Monitor"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "lightwaste"
                                 )?.weight || "0.00"}{" "}
                               </span>{" "}
                             </td>
@@ -349,9 +335,8 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "lcd" ||
-                                    name == "Lcd" ||
-                                    name == "LCD"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "scraptablet"
                                 )?.weight || "0.00"}{" "}
                               </span>{" "}
                             </td>
@@ -360,7 +345,38 @@ const ManageWasteTable = ({ wasteData }) => {
                               <span>
                                 {w?.find(
                                   ({ name }) =>
-                                    name == "computer" || name == "Computer"
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "scraplaptop"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "crtmonitor"
+                                )?.weight || "0.00"}{" "}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "lcdmonitor"
+                                )?.weight || "0.00"}
+                              </span>{" "}
+                            </td>
+                            <td>
+                              {" "}
+                              <span>
+                                {w?.find(
+                                  ({ name }) =>
+                                    name?.toLowerCase()?.split(" ")?.join("") ==
+                                    "computercpu"
                                 )?.weight || "0.00"}{" "}
                               </span>{" "}
                             </td>

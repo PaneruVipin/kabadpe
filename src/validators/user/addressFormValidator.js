@@ -7,6 +7,6 @@ export const validationAddressForm = object().shape({
   zipCode: number().required("Zip code is required"),
   landmark: string().optional().nullable(),
   locationType: string().required("Location type is required"),
-  aria: string().required("Aria is required"),
+  aria: string().required("Area is required"),
   subAria: string().required("Sub aria is required"),
 });

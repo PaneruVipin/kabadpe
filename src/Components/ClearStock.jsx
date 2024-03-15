@@ -15,6 +15,11 @@ const ClearStock = () => {
     queryKey: ["workerWasteCollectionFetch"],
     queryFn: () => workerWasteCollectionFetch(),
   });
+
+  const { data: wasteHistory, refetchWasteHistory } = useQuery({
+    queryKey: ["workerWasteCollectionhistrFetch"],
+    queryFn: () => workerWasteCollectionFetch("history"),
+  });
   useEffect(() => {
     if (!wasteData || wasteData?.error) {
       return;
@@ -63,7 +68,7 @@ const ClearStock = () => {
       <section className="waste-appoint-ment-comp">
         <div className="right-tab-main-bx  tab-bx tabbxactive">
           <div className="tab-main-bx tab-main-bx3 tab-main-bx-title">
-            <h3>Manage Waste 2</h3>
+            <h3>Manage Waste</h3>
 
             <div className="waste-mnge-prod-main">
               <div className="waste-manage-prod-grid-main">
@@ -86,7 +91,11 @@ const ClearStock = () => {
                       <div key={id} className="waste-mnge-prod-bx">
                         <div className="waste-mnge-prod-text">
                           <h6> {curElem.title} </h6>
-                          <p> {w?.weight || "00.00"} kg </p>
+                          <p>
+                            {" "}
+                            {w?.weight || "00.00"}
+                            {curElem?.unit}{" "}
+                          </p>
                         </div>
                         <div className="waste-prod-icon">
                           <img src={curElem.img} alt="" />
@@ -98,7 +107,7 @@ const ClearStock = () => {
               </div>
             </div>
 
-            <ManageWasteTable />
+            <ManageWasteTable wasteData={wasteHistory} />
 
             {/* <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">

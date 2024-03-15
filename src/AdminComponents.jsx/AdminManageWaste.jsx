@@ -1,17 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import stockData from "../Components/StockData";
 import AdminWasteProd from "../Components/AdminWasteProductsList";
 import ManageWasteTable from "../Components/ManageWasteTable";
 import AdminMangeWasteTable from "./AdminMangeWasteTable";
 import { useQuery } from "@tanstack/react-query";
-import { workerWasteCollectionFetch } from "../apis/worker/manageWaste";
+import {
+  adminWasteCollectionFetch,
+  workerWasteCollectionFetch,
+} from "../apis/worker/manageWaste";
 
 const AdminManageWaste = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [stock, setStock] = useState(stockData);
+  const [waste, setWaste] = useState([]);
+  const { data: wasteData, refetch } = useQuery({
+    queryKey: ["adminfetcwasteData"],
+    queryFn: () => adminWasteCollectionFetch(),
+  });
 
+  const { data: wasteHistory, refetchWasteHistory } = useQuery({
+    queryKey: ["adminfetcwasteHistory"],
+    queryFn: () => adminWasteCollectionFetch("history"),
+  });
+  useEffect(() => {
+    if (!wasteData || wasteData?.error) {
+      return;
+    }
+    const waste = wasteData?.reduce((a, b) => {
+      let newData = [...a];
+      try {
+        const w = JSON.parse(b?.waste)?.waste;
+        w?.forEach(({ name, image, price, bulkPrice, ammount, weight }) => {
+          const exist = newData?.find(({ id }) => id == name);
+          let newObj = {
+            id: name,
+            image,
+            price,
+            bulkPrice,
+            ammount: +ammount,
+            weight: +weight,
+          };
+          if (exist) {
+            newObj = {
+              ...exist,
+              ammount: +(exist?.ammount || 0) + +(ammount || 0),
+              weight: +(exist?.weight || 0) + +(weight || 0),
+            };
+            newData = newData?.map((d) => {
+              if (d?.id == name) {
+                return newObj;
+              } else {
+                return d;
+              }
+            });
+            return;
+          }
+          newData?.push(newObj);
+        });
+      } catch {}
+      return newData;
+    }, []);
+    setWaste(waste);
+  }, [wasteData]);
+  const totalWaste = waste?.reduce((a, b) => {
+    return a + +b?.weight;
+  }, 0);
   return (
     <>
       <section className="admin-mange-waste-bx">
@@ -21,13 +76,30 @@ const AdminManageWaste = () => {
 
             <div className="waste-mnge-prod-main">
               <div className="waste-manage-prod-grid-main">
+                <div className="waste-mnge-prod-bx">
+                  <div className="waste-mnge-prod-text">
+                    <h6> Total Waste </h6>
+                    <p> {totalWaste}kg </p>
+                  </div>
+                  <div className="waste-prod-icon">
+                    <img src={"/images/customImg/hazardous.png"} alt="" />
+                  </div>
+                </div>
                 {AdminWasteProd.map((curElem, id) => {
+                  const w = waste?.find(
+                    ({ id }) =>
+                      id?.toLowerCase() == curElem?.title?.toLowerCase()
+                  );
                   return (
                     <>
                       <div key={id} className="waste-mnge-prod-bx">
                         <div className="waste-mnge-prod-text">
                           <h6> {curElem.title} </h6>
-                          <p> {curElem.minitext} </p>
+                          <p>
+                            {" "}
+                            {w?.weight || "00.00"}
+                            {curElem?.unit}{" "}
+                          </p>
                         </div>
                         <div className="waste-prod-icon">
                           <img src={curElem.img} alt="" />
@@ -39,7 +111,7 @@ const AdminManageWaste = () => {
               </div>
             </div>
 
-            <AdminMangeWasteTable />
+            <AdminMangeWasteTable wasteHistory={wasteHistory} />
 
             {/* <div className="waste-appoint-main-bx">
               <div className="appointment-flex-box">

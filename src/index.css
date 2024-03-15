@@ -12957,7 +12957,7 @@ Our Review Section CSS code
 
 .hero-text-info-bx{
   position: absolute;
-  top: 35%;
+  top: 40%;
   transform: translateY(-50%);
   left: 0;
   width: 100%;
@@ -13407,11 +13407,10 @@ Our Review Section CSS code
 
 .arrow-tall-bx{
   position: relative;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   width: 2rem;
   height: 3.45rem;
   background-color: transparent;
-  border: .1rem solid #fff;
   border-radius: 3rem;
   
 }
@@ -13595,6 +13594,7 @@ Our Review Section CSS code
 .rate-list-grid-left{
   position: relative;
   width: 100%;
+  height: max-content;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   column-gap: 1.5rem;
@@ -13613,7 +13613,7 @@ Our Review Section CSS code
 .rate-list-prod-bx{
   position: relative;
   width: 100%;
-  height: 5rem;
+  height: 6rem;
   background-color: #fff;
   border: .05rem solid #2ac4c8;
   border-top-right-radius: .5rem;
@@ -13682,7 +13682,7 @@ Our Review Section CSS code
 
 .ratelist-sel-bx{
   position: relative;
-  width: 12rem;
+  width: 11rem;
   height: 2.5rem;
   background-color: #fff;
   border: .1rem solid #eee;
@@ -13721,8 +13721,8 @@ Our Review Section CSS code
 .rate-list-calcult-btn{
   position: relative;
   width: max-content;
-  padding-inline: 1rem;
-  height: 3rem;
+  padding-inline: 1.3rem;
+  height: 2.67rem;
   background-color: #2ac4c8;
   border-radius: 3.5rem;
   font-size: 1rem;
@@ -13748,11 +13748,19 @@ Our Review Section CSS code
 }
 
 .tick-bx{
-  margin-top: .25rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+  /* margin-top: .25rem; */
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 
 .tick-bx input{
+ width: 100%;
+ height: 100%;
   cursor: pointer;
 }
 
@@ -13772,6 +13780,7 @@ Our Review Section CSS code
 .right-waste-calculator-main{
   position: relative;
   width: 100%;
+  height: max-content;
   background-color: #f3f7ff;
   padding: 2rem 2rem;
   
@@ -13867,6 +13876,15 @@ Our Review Section CSS code
   border-bottom: .1rem solid #eee;
 }
 
+.added-prod-table table tbody tr td input{
+  width: 6rem;
+  text-align: center;
+}
+
+.added-prod-table table tbody tr td input::placeholder{
+  font-size: .9rem;
+}
+
 .rate-subtotl-bx{
   position: relative;
   top: 1.5rem;
@@ -13877,5 +13895,430 @@ Our Review Section CSS code
 
 .rate-subtotl-bx h6{
   font-size: 1rem;
+
+}
+
+.right-btns-flex-rate{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+
+.rate-list-calcult-btn.rateactivebtn{
+  background-color: transparent;
+  color: #2ac4c8;
+}
+
+.calcult-btn23{
+  position: relative;
+  bottom: 0;
+  margin-top: 5rem;
+  width: 7rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+.totl-value-main h6{
+  text-align: right;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.totl-value-main h5{
+  text-align: center;
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: .55px;
+}
+
+.waste-saved-main-list-bx{
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #fff;
+}
+
+.waste-saved-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .4rem .55rem;
+  border-bottom: .064rem solid #eee;
+}
+
+.waste-saved-bx p{
+  margin-bottom: 0;
+}
+
+.prod-sug-main-list-bx{
+  position: relative;
+  width: 100%;
+  margin-top: 1.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  height: 15rem;
+  overflow-y: auto;
+}
+
+.prod-sug-main-list-bx::-webkit-scrollbar{
+  width: .234rem;
+  background-color: transparent;
+}
+
+.prod-sug-main-list-bx::-webkit-scrollbar-thumb{
+  width: .234rem;
+  background-color: transparent;
+}
+
+.prod-sug-bx{
+  position: relative;
+  width: 100%;
+  height: 5rem;
+  background-color: #fff;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.left-prod-sug-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: .67rem 1rem;
+}
+
+.left-prod-sug-info h4{
+  font-size: .9rem;
+  font-weight: 500;
+  margin-bottom: .1rem;
+
+}
+
+.left-prod-sug-info p{
+  font-size: .8rem;
+  margin-bottom: 0;
+  line-height: normal;
+  font-weight: 400;
+}
+
+.left-prod-sug-info span{
+  line-height: 0 !important;
+  font-size: .87rem;
+}
+
+.right-prod-sug-img{
+  position: relative;
+  width: 5rem;
+  height: 100%;
+}
+
+.price-buy-nw-btn{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  line-height: normal;
+}
+
+.right-prod-sug-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+}
+
+.buy-now-btn{
+  position: relative;
+  width: max-content;
+  font-size: .87rem;
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+.calcult-btn32{
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  height: max-content;
+  padding-block: .3rem;
+}
+
+.sorting-btn{
+  position: relative;
+  width: max-content;
+  font-size: .9rem;
+  font-weight: 500;
+  color: #242324;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .56rem;
+  border: .1rem solid #eee;
+  padding: .1rem .55rem;
+  border-radius: 3rem;
+}
+
+.sorting-btn1{
+  width: 12rem !important;
+}
+
+.sorting-btn i{
+  font-size: .87rem;
+}
+
+.dropdwn-tab-box{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: .65rem;
+  width: 100%;
+  height: max-content;
+  background-color: #fff;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 99;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  border-radius: .65rem;
+  transition:0.5s cubic-bezier(0.61, 1, 0.88, 1);;
+  transform: translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+} 
+
+.sorting-btn:hover .dropdwn-tab-box{
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdwn-tab-box button{
+  position: relative;
+  width: 100%;
+  font-size: .9rem;
+  color: #22252a;
+  font-weight: 500;
+  padding: .4rem .5rem;
+  text-align: left;
+  line-height: normal;
+  transition: 400ms ease;
+}
+
+
+.dropdwn-tab-box button:hover{
+  background-color: #f3f7ff;
+
+}
+
+.prod-sugetin-main{
+  position: relative;
+  width: 100%;
+  margin-top: 4rem;
+  padding: 3rem 1.76rem;
+  
+}
+
+.prod-sug-head{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction:column;
+  text-align: center;
+  gap: .65rem;
+}
+
+.prod-sug-head span{
+  color: #00224f;
+  font-size: 1.1rem;
+  letter-spacing: .45px;
+}
+
+.prod-sug-head h3{
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #121212;
+}
+
+.prod-sug-grid-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.prod-sug-card-bx{
+  position: relative;
+  width: 100%;
+  padding: .76rem .76rem;
+  border: .1rem solid #cfe8d2;
+  border-radius: .87rem;
+
+}
+
+.prod-sug-img-bx{
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 16rem;
+}
+
+.prod-sug-img-bx img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: .87rem;
+  transition:  1.5s cubic-bezier(0,0,.05,1);
+  overflow: hidden;
+
+}
+
+.prod-sug-img-bx img:nth-child(2){
+  opacity: 0;
+}
+
+.prod-sug-card-bx:hover img:nth-child(2){
+  transform: scale(1.055);
+  opacity: 1;
+}
+
+.prod-sug-card-bx:hover img:nth-child(1){
+  opacity: 0;
+}
+
+.prod-sugg-info{
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.prod-sugg-info span{
+  font-size: .9rem;
+  color: gray;
+}
+
+.prod-sugg-info h6{
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: .45px;
+}
+
+.prod-sugg-info p{
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: .9rem;
+  margin-top: .65rem;
+  letter-spacing: .4px;
+  max-width: calc(100% - 2rem);
+  margin-bottom: .4rem;
+}
+
+.rating-bx{
+  display:flex;
+  align-items: center;
+  gap: .76rem;
+  margin-bottom: .2rem;
+}
+
+.rating{
+  display: flex;
+  align-items: center;
+  color: orange;
+  font-size: .9rem;
+}
+
+.rating-bx span{
+  color: #212121;
+}
+
+.price-buy-now-btn-bx{
+  position: relative;
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.price-buy-now-btn-bx  h6{
+  font-size: 1.2rem;
+  color: #303030;
+  margin-bottom: 0;
+  line-height: 1.7;
+  transition: 500ms cubic-bezier(0.61, 1, 0.88, 1);;
+
+}
+
+.price-buy-now-btn-bx a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: .4px;
+  color: #2ac4c8;
+  text-decoration: underline;
+  transition: 500ms cubic-bezier(0.61, 1, 0.88, 1);;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.prod-sug-card-bx:hover .price-buy-now-btn-bx h6{
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.prod-sug-card-bx:hover .price-buy-now-btn-bx a{
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.load-btn{
+  position: relative;
+  width: max-content;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #2ac4c8;
+  border: .1rem solid #2ac4c8;
+  border-radius: 3rem;
+  padding-inline: 2rem;
+  padding-block: .3rem;
+  transition: 500ms cubic-bezier(0.61, 1, 0.88, 1);;
+}
+
+.load-btn:hover{
+  background-color: transparent;
+  color: #2ac4c8;
+  
+}
+
+.ratelist-info > span{
+  font-size: .8rem ;
+  line-height: 1.3;
+  display: inline-block;
+  max-width: 9rem;
 
 }

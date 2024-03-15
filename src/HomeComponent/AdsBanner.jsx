@@ -1,6 +1,8 @@
 import React from 'react'
 
 const AdsBanner = () => {
+
+ 
   return (
     <>
 
@@ -16,7 +18,7 @@ const AdsBanner = () => {
         </div>
         </div>
     </div>
-      
+   
     </>
   )
 }

@@ -72,8 +72,7 @@ export const RateListProd = [
     {
         id: 5,
         img: '/images/customImg/plastic.png',
-        title: 'PET ',
-        text : '(Beverage Bottles, Food Containers)',
+        title: 'PET (Beverage Bottles, Food Containers)',
         minitext: '  10 (kg) ',
         checked: false,
         weight: "",
@@ -86,8 +85,7 @@ export const RateListProd = [
     {
         id: 19,
         img: '/images/customImg/grocery-bag.png',
-        title: 'HDPE ',
-        text : '(Milk Jugs, Detergent Bottles, Grocery Bags)',
+        title: 'HDPE (Milk Jugs, Detergent Bottles, Grocery Bags)',
         minitext: '  10 (kg) ',
         checked: false,
         weight: "",
@@ -99,8 +97,7 @@ export const RateListProd = [
     {
         id: 20,
         img: '/images/customImg/plastic-bottle.png',
-        title: 'LDPE ',
-        text : '(Plastic Bags, Cling Wraps, Squeeze Bottles)',
+        title: 'LDPE (Plastic Bags, Cling Wraps, Squeeze Bottles)',
         minitext: '  10 (kg) ',
         checked: false,
         weight: "",
@@ -112,8 +109,7 @@ export const RateListProd = [
     {
         id: 21,
         img: '/images/customImg/package.png',
-        title: 'Packaging Waste ',
-        text : '(more than 50 % Plastic)',
+        title: 'Packaging Waste (more than 50 % Plastic)',
         minitext: '  10 (kg) ',
         checked: false,
         weight: "",
@@ -125,7 +121,7 @@ export const RateListProd = [
     {
         id: 6,
         img: '/images/customImg/beam.png',
-        title: 'Heavy Iron',
+        title: 'Iron',
         minitext: '  27 (kg) ',
         checked: false,
         weight: "",
@@ -184,48 +180,6 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '425',
-
-
-
-    },
-
-
-    {
-        id: 22,
-        img: '/images/customImg/steel-beam.png',
-        title: 'Light Iron',
-        minitext: '  27 (kg) ',
-        checked: false,
-        weight: "",
-        price: '27',
-
-
-
-    },
-
-
-    {
-        id: 23,
-        img: '/images/customImg/can.png',
-        title: 'Tin',
-        minitext: '  27 (kg) ',
-        checked: false,
-        weight: "",
-        price: '27',
-
-
-
-    },
-
-    {
-        id: 24,
-        img: '/images/customImg/metal-mix.png',
-        title: 'Mix Metal Waste',
-        text :'(more than 50% metal)',
-        minitext: '  27 (kg) ',
-        checked: false,
-        weight: "",
-        price: '27',
 
 
 

@@ -17,6 +17,7 @@ import { Header } from "antd/es/layout/layout";
 import AboutBanner from "../AboutComp/AboutBanner";
 // import { AdminWasteProdData } from "./AdminWasteProdSlideData";
 import { RateListProd } from "./RatelistProd";
+import MainFooter from "../HomeComponent/MainFooter";
 
 const Ratelistcomp = () => {
   const [listBox, setListBox] = useState(false);
@@ -77,58 +78,129 @@ const Ratelistcomp = () => {
 
   // -----------------------------------------
 
-  const [showInput, setShowInput] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [calculatorData, setCalculatorData] = useState([]);
+  const [totlWaste, setTotlWaste] = useState(false);
   const [products, setProducts] = useState(RateListProd);
-  const [subtotal, setSubtotal] = useState(0);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [prodSug, setProdSug] = useState([
+    {
+      id: 1,
+      img1: "/images/customImg/product-1.webp",
+      img2: "images/customImg/product-2.webp",
+    },
 
-  const handleCalculatorClick = () => {
-    setShowInput(true);
-  };
+    {
+      id: 2,
+      img1: "/images/customImg/product-3.webp",
+      img2: "images/customImg/product-1.webp",
+    },
 
+    {
+      id: 3,
+      img1: "/images/customImg/gall-img-4.jpg",
+      img2: "images/customImg/gall-img-2.jpg",
+    },
+
+    {
+      id: 4,
+      img1: "/images/customImg/product-4.png",
+      img2: "images/customImg/product-5.png",
+    },
+
+    {
+      id: 5,
+      img1: "/images/customImg/product-10.png",
+      img2: "images/customImg/product-9.png",
+    },
+
+    {
+      id: 6,
+      img1: "/images/customImg/product-7.jpg",
+      img2: "images/customImg/product-8.png",
+    },
+
+    {
+      id: 7,
+      img1: "/images/customImg/product-2.webp",
+      img2: "images/customImg/product-5.png",
+    },
+
+    {
+      id: 8,
+      img1: "/images/customImg/product-3.webp",
+      img2: "images/customImg/product-6.png",
+    },
+
+    {
+      id: 9,
+      img1: "/images/customImg/product-4.png",
+      img2: "images/customImg/product-5.png",
+    },
+
+    {
+      id: 10,
+      img1: "/images/customImg/product-10.png",
+      img2: "images/customImg/product-9.png",
+    },
+    {
+      id: 11,
+      img1: "/images/customImg/product-7.jpg",
+      img2: "images/customImg/product-8.png",
+    },
+
+    {
+      id: 12,
+      img1: "/images/customImg/product-2.webp",
+      img2: "images/customImg/product-5.png",
+    },
+  ]);
+  const [visibleProd, setVisibleProd] = useState(8);
+  const [selectedOption , setSelectedOption] = useState(null);
+ 
+  const [options , setOptions] = useState([
+
+    'All' , 'Paper And Cardboard' , 'Plastic' , 'Metal' , 'e-Waste' , 'Vehicle'
+    , 'Others'
+
+    
+  ])
   const handleCheckboxChange = (id) => {
-    const updatedProducts = [...products];
-    const productIndex = updatedProducts.findIndex(
-      (product) => product.id === id
+    const updatedProducts = products.map((product) =>
+      product.id === id ? { ...product, checked: !product.checked } : product
     );
-    updatedProducts[productIndex].checked =
-      !updatedProducts[productIndex].checked;
     setProducts(updatedProducts);
-    const selectedProduct = updatedProducts[productIndex];
-    setSelectedProduct(selectedProduct);
-    if (selectedProduct.checked) {
-      setSelectedProducts([...selectedProducts, selectedProduct]);
+
+    if (updatedProducts.find((product) => product.id === id).checked) {
+      setCalculatorData([
+        ...calculatorData,
+        updatedProducts.find((product) => product.id === id),
+      ]);
     } else {
-      setSelectedProducts(
-        selectedProducts.filter((product) => product.id !== id)
-      );
+      setCalculatorData(calculatorData.filter((product) => product.id !== id));
     }
   };
 
-  const handleWeightChange = (e) => {
-    const weight = parseFloat(e.target.value);
-    const updatedProduct = { ...selectedProduct, weight };
-    setSelectedProduct(updatedProduct);
-
+  const handleWeightChange = (id, weight) => {
     const updatedProducts = products.map((product) =>
-      product.id === selectedProduct.id ? updatedProduct : product
+      product.id === id ? { ...product, weight: weight } : product
     );
     setProducts(updatedProducts);
 
-    const updatedSelectedProducts = selectedProducts.map((product) =>
-      product.id === selectedProduct.id ? updatedProduct : product
+    const updatedCalculatorData = calculatorData.map((product) =>
+      product.id === id ? { ...product, weight: weight } : product
     );
-    setSelectedProducts(updatedSelectedProducts);
+    setCalculatorData(updatedCalculatorData);
   };
 
-  const calculateSubtotal = () => {
-    let total = 0;
-    selectedProducts.forEach((product) => {
-      total += product.weight * product.price;
-    });
-    setSubtotal(total);
+  const loadMore = () => {
+    setVisibleProd(visibleProd + 4);
   };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
+
+ 
+
   return (
     <>
       <AboutBanner data={data} />
@@ -137,23 +209,56 @@ const Ratelistcomp = () => {
         <div className="ratelist-container">
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
-              <div className="ratelist-sel-bx">
-                <select name="Area" id="state">
-                  <option value="">state</option>
-                  <option value="">state2</option>
-                  <option value="">state3</option>
-                  <option value="">state4</option>
-                </select>
-              </div>
+              <button className="sorting-btn sorting-btn1">
+              {selectedOption || 'Choose Waste Type'}
+                
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box dropdwn-tab-box1">
 
-              <div className="ratelist-sel-bx">
-                <select name="city" id="city">
-                  <option value="">city</option>
-                  <option value="">city2</option>
-                  <option value="">city3</option>
-                  <option value="">city4</option>
-                </select>
-              </div>
+                  {options.map((curData , indx) => {
+                    return (
+                      <>
+                  <button className="prod-tab-btn"  key={indx}
+                  onClick={() => handleOptionClick(curData)}
+                  > {curData} </button>
+
+                      </>
+                    )
+                  })}
+                  
+                
+                </div>
+              </button>
+
+              <button className="sorting-btn">
+                Choose Your Seller
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box">
+                  <button className="prod-tab-btn">Kabadpe</button>
+                  <button className="prod-tab-btn">Brand Orbitor</button>
+                  <button className="prod-tab-btn">Extra Frames</button>
+                </div>
+              </button>
+
+              <button className="sorting-btn">
+                Choose State
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box">
+                  <button className="prod-tab-btn">State1</button>
+                  <button className="prod-tab-btn">State2</button>
+                  <button className="prod-tab-btn">State3</button>
+                </div>
+              </button>
+
+              <button className="sorting-btn">
+                Choose City
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box">
+                  <button className="prod-tab-btn">City1</button>
+                  <button className="prod-tab-btn">City2</button>
+                  <button className="prod-tab-btn">City3</button>
+                </div>
+              </button>
 
               <div className="ratelist-sel-bx">
                 <input
@@ -167,27 +272,11 @@ const Ratelistcomp = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => setShowInput(!showInput)}
-              className="rate-list-calcult-btn"
-            >
-              Waste Calculator
-            </button>
           </div>
           <div
-            className={
-              showInput === true
-                ? "ratelist-list-grid-main ratelist-list-grid-main-active"
-                : "ratelist-list-grid-main"
-            }
+            className={"ratelist-list-grid-main ratelist-list-grid-main-active"}
           >
-            <div
-              className={
-                showInput === true
-                  ? "rate-list-grid-left rate-list-grid-left-active"
-                  : "rate-list-grid-left"
-              }
-            >
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
               {products.map((curElem, indx) => {
                 return (
                   <>
@@ -197,26 +286,15 @@ const Ratelistcomp = () => {
                       </div>
                       <div className="ratelist-info">
                         <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
                         <div className="check">
-                          <p> ₹15/kg </p>
+                          <p> {curElem.minitext} </p>
                           <div className="tick-bx">
-                            {showInput  === true ?   <input
-                                type="checkbox"
-                                checked={curElem.checked}
-                                onChange={() =>
-                                  handleCheckboxChange(curElem.id)
-                                }
-                              /> : null
-                            }
-                            {curElem.checked &&  showInput  === true &&  (
-                              <input
-                                className="weight-inpt"
-                                type="number"
-                                value={curElem.weight}
-                                onChange={handleWeightChange}
-                                placeholder="Enter weight"
-                              />
-                            )}
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
                           </div>
                         </div>
                       </div>
@@ -225,64 +303,158 @@ const Ratelistcomp = () => {
                 );
               })}
             </div>
-{ showInput &&
             <div className="right-waste-calculator-main">
-              <h4>Waste Calculator</h4>
-              <div className="product-list-box">
-                <div className=" added-prod-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Weight (kg) </th>
-                        <th> Rate/kg </th>
-                        <th> Value </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {selectedProducts.map((product) => (
-                        <tr>
-                            <td>
-                            <span > {product.title}</span>
-                            </td>
-                            <td><span >{product.weight} </span></td>
-                            <td><span >{product.price} </span></td>
-                            <td><span> {product.weight * product.price} </span></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                {/* <div className="added-prod-bx" key={product.id}>
-                  // <h6 className="added-prod-title"> {product.title}</h6>
-                  //{" "}
-                  <div className="prod-weight">
-                    // <h5 className="added-prod-value">{product.weight} </h5>
-                    // <h5 className="added-prod-value">{product.price} </h5>
-                    //{" "}
+              {totlWaste ? (
+                <div className="totl-value-main">
+                  <h6>Total Value : ₹ 3000 </h6>
+
+                  <h5>You Saved</h5>
+
+                  <div className="waste-saved-main-list-bx">
+                    <div className="waste-saved-bx">
+                      <span>200 (kgs) </span>
+                      <p>Plastic</p>
+                    </div>
+                    <div className="waste-saved-bx">
+                      <span>40 </span>
+                      <p>Plants</p>
+                    </div>
+                    <div className="waste-saved-bx">
+                      <span>40 (ltrs) </span>
+                      <p>Water</p>
+                    </div>
+                    <div className="waste-saved-bx">
+                      <span>40 (kgs) </span>
+                      <p>Carbon</p>
+                    </div>
                   </div>
-                  //{" "}
-                  <h5 className="added-prod-value">
-                    {product.weight * product.price}{" "}
-                  </h5>
-                  //{" "}
-                </div> */}
-              </div>
+                </div>
+              ) : null}
 
-              <div className="rate-subtotl-bx">
+              {totlWaste === false ? (
+                <div className="waste-calcult-bx">
+                  <h4>Waste Calculator</h4>
+                  <div className="product-list-box">
+                    <div className=" added-prod-table">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Weight (kg) </th>
+                            <th> Rate/kg </th>
+                            <th> Value </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {calculatorData.map((product) => (
+                            <tr>
+                              <td>
+                                <span> {product.title}</span>
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  value={product.weight}
+                                  onChange={(e) =>
+                                    handleWeightChange(
+                                      product.id,
+                                      e.target.value
+                                    )
+                                  }
+                                  placeholder="Enter weight (kg)"
+                                />
+                              </td>
+                              <td>
+                                <span>{product.price} </span>
+                              </td>
+                              <td>
+                                <span> {product.price * product.weight} </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-                <h6>SubTotal : <span>3,000</span></h6>
-                
-              </div>
-              
-            </div>}
-
-            <div></div>
+                  <div className="rate-subtotl-bx">
+                    <h6>
+                      SubTotal : <span>3,000</span>
+                    </h6>
+                  </div>
+                </div>
+              ) : null}
+              {totlWaste === false ? (
+                <button
+                  onClick={() => setTotlWaste(true)}
+                  className="rate-list-calcult-btn calcult-btn23"
+                >
+                  Calculate
+                </button>
+              ) : null}
+              {totlWaste ? (
+                <button
+                  onClick={() => setTotlWaste(true)}
+                  className="rate-list-calcult-btn calcult-btn32 mt-4"
+                >
+                  Schedule Pickup
+                </button>
+              ) : null}
+            </div>
           </div>
 
-       
+          <div className="prod-sugetin-main">
+            <div className="prod-sug-head">
+              <span>Our Products</span>
+              <h3>Product Suggestions</h3>
+            </div>
+
+            <div className="prod-sug-grid-bx">
+              {prodSug.slice(0, visibleProd).map((curelem, indx) => {
+                return (
+                  <>
+                    <div className="prod-sug-card-bx" key={indx}>
+                      <div className="prod-sug-img-bx">
+                        <img src={curelem.img1} alt="" />
+                        <img src={curelem.img2} alt="" />
+                      </div>
+
+                      <div className="prod-sugg-info">
+                        <span>armani</span>
+                        <h6>Ample Lamp Basket</h6>
+
+                        <div className="rating-bx">
+                          <div className="rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                          </div>
+                          <span>90%</span>
+                        </div>
+                        <div className="price-buy-now-btn-bx">
+                          <h6>₹500</h6>
+
+                          <a href="#">Buy Now</a>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
+            </div>
+
+            <button onClick={() => loadMore()} className="load-btn">
+              Load More
+
+            </button>
+            
+          </div>
         </div>
       </section>
+
+      <MainFooter />
     </>
   );
 };

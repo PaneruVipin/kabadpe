@@ -123,7 +123,7 @@ const Footer = () => {
         </div>
 
         <div class="last-text-bx">
-            <h6>Copyright © 2023 <a href="#"> Climstripe Shift </a> All Rights Reserved. | Dev. By: <a href="#"> Digital Dezire </a> </h6>
+            <h6>Copyright © 2024 <a href="#"> Climstripe Shift </a> All Rights Reserved. | Dev. By: <a href="#"> Digital Dezire </a> </h6>
         </div>
         
     </footer>

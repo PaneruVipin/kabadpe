@@ -202,8 +202,8 @@ const MainFooter = () => {
 
         <div class="last-text-bx">
           <h6>
-            Copyright © 2023 <a href="#"> Climstripe Shift </a> All Rights
-            Reserved. | Developed By: <a href="#"> Digital Dezire </a>{" "}
+            Copyright © { new Date().getFullYear() } <a href="#"> Climstripe Shift </a> All Rights
+            Reserved. | Developed By: <a href="https://digitaldezire.com/" target="_blank"> Digital Dezire </a>{" "}
           </h6>
         </div>
       </footer>

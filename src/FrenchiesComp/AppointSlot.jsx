@@ -477,15 +477,20 @@ const AppointSlot = ({
                                     ? "Appoinment Day - Leave"
                                     : ""}
                                 </span>
-                                <span
-                                  style={{ display: "block", lineHeight: 1.4 }}
-                                >
-                                  Leaves -
-                                  {futureLeaves?.map(
-                                    ({ date }) =>
-                                      new Date(date).getDate() + ", "
-                                  )}
-                                </span>
+                                {futureLeaves?.length ? (
+                                  <span
+                                    style={{
+                                      display: "block",
+                                      lineHeight: 1.4,
+                                    }}
+                                  >
+                                    Leaves -
+                                    {futureLeaves?.map(
+                                      ({ date }) =>
+                                        new Date(date).getDate() + ", "
+                                    )}
+                                  </span>
+                                ) : null}
                               </td>
                               {Object.keys(slotLabels)?.map((key, i) => (
                                 <td>

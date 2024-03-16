@@ -10,8 +10,14 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
   const [userData, setUserData] = useState(null);
   const [walletCoin, setWalletCoin] = useState(""); // State for wallet coin
   const handleInputChange = async (event) => {
-    const userId = event.target.value || 0;
-    const role = "user"; // Assuming role is fixed as 'admin' for this example
+    debugger;
+    // const inputString = "KPU0000016";
+    const { rolev, id } = determineUserRole(event.target.value || 0);
+
+    const userId = id;
+    const role = rolev; // Assuming role is fixed as 'admin' for this example
+    // const userId = event.target.value || 0;
+    // const role = ""; // Assuming role is fixed as 'admin' for this example
     try {
       const userDetails = await FuntiontoGetUserDetailsByRoleAndUserId(
         userId,
@@ -19,6 +25,7 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
       );
       setUserData(userDetails);
     } catch (error) {
+      setUserData(null);
       console.error("Error fetching user details:", error);
     }
   };
@@ -26,6 +33,7 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
   const handleApplyClick = async () => {
     try {
       // Assuming walletCoin is obtained from the input field
+
       const userId = userData.id; // Assuming userData contains user ID
       const role = "user"; // Assuming role is fixed as 'user' for this example
       const walletmoney = walletCoin;
@@ -47,6 +55,28 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
       console.error("Error updating wallet details:", error);
     }
   };
+
+  function determineUserRole(input) {
+    const numberRegex = /\d+$/; // Regular expression to match the last number
+    const words = input.split(" "); // Split input string by spaces
+
+    // Extract the last number from the input
+    const match = input.match(numberRegex);
+    const lastNumber = match ? parseInt(match[0]) : null;
+
+    // Determine role based on the last three words
+    const lastThreeWords = words.slice(-3).join(" ");
+    let rolev;
+    if (lastThreeWords === "KPU") {
+      rolev = "user";
+    } else if (lastThreeWords === "KPW") {
+      rolev = "worker";
+    } else {
+      rolev = "franchise";
+    }
+
+    return { rolev, id: lastNumber };
+  }
 
   return (
     <>

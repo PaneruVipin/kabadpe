@@ -49,6 +49,7 @@ const AppointSlot = ({
         ? adminServicableWorkersFetch({
             worker: appoinmentDetails?.serviceType,
             ariaId: appoinmentDetails?.ariaId,
+            date: appoinmentDetails?.appointmentDate,
           })
         : () => {},
   });
@@ -396,6 +397,7 @@ const AppointSlot = ({
                           subAriaName,
                           workCity,
                           workerRole,
+                          WorkerAvailabilities,
                         }) => (
                           <tr>
                             <td>
@@ -408,6 +410,42 @@ const AppointSlot = ({
                                     return s;
                                   }
                                 })}{" "}
+                              </span>
+                              <span style={{ display: "block" }}>
+                                {WorkerAvailabilities?.find(
+                                  ({ date }) =>
+                                    new Date(appoinmentDetails?.appointmentDate)
+                                      ?.toISOString()
+                                      ?.split("T")?.[0] ==
+                                    new Date(date)
+                                      ?.toISOString()
+                                      ?.split("T")?.[0]
+                                )?.availabilityStatus == "leave"
+                                  ? "Appoinment Day - Leave"
+                                  : ""}
+                              </span>
+                              <span style={{ display: "block" }}>
+                                {WorkerAvailabilities?.find(
+                                  ({ date }) =>
+                                    new Date()
+                                      ?.toISOString()
+                                      ?.split("T")?.[0] ==
+                                    new Date(date)
+                                      ?.toISOString()
+                                      ?.split("T")?.[0]
+                                )?.availabilityStatus == "leave"
+                                  ? "Today - Leave"
+                                  : WorkerAvailabilities?.find(
+                                      ({ date }) =>
+                                        new Date()
+                                          ?.toISOString()
+                                          ?.split("T")?.[0] ==
+                                        new Date(date)
+                                          ?.toISOString()
+                                          ?.split("T")?.[0]
+                                    )?.availabilityStatus == "active"
+                                  ? "Today - Active"
+                                  : "Today - Not Active"}
                               </span>
                             </td>
                             {Object.keys(slotLabels)?.map((key, i) => (

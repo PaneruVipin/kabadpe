@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
 import { GetWalletDetails } from "../apis/wallet/wallet";
+import { useSelector } from "react-redux";
 
 //created on :18-02-2024
 //Created by :kunal verma
@@ -13,7 +14,7 @@ const WasteColectCounter = () => {
     const fetchData = async () => {
       try {
         if (userInfo) {
-          const data = await GetWalletDetails(userInfo.id, "user");
+          const data = await GetWalletDetails(userInfo?.id, "user");
           setWalletDetails(data);
         }
       } catch (error) {

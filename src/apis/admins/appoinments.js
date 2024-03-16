@@ -14,8 +14,9 @@ export const adminAppoinmentsFetch = resolvePromise(async () => {
 });
 
 export const adminServicableWorkersFetch = resolvePromise(
-  async ({ worker, ariaId }) => {
-    const apiUrl = ENV_API_BASE_URL + `/admin/servicable/${worker}/${ariaId}`;
+  async ({ worker, ariaId, date }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/servicable/${worker}/${ariaId}?date=${date}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

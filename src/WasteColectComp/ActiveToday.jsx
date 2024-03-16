@@ -1,56 +1,47 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from "react";
+import {
+  workerMarkActiveToday,
+  workerTodayAvailabilityFetch,
+} from "../apis/worker/availability";
+import { useQuery } from "@tanstack/react-query";
 
-const ActiveToday = ({onclickClose , todayTrue}) => {
-
-  const todayRef = useRef(null);
-
-
-  useEffect(() => {
-
-    const handleClickOutside = (event) => {
-
-      if(todayRef.current && !todayRef.current.contains(event.target)){
-        onclickClose()
-      }
-    
-  }
-
-    if(todayTrue){
-      document.addEventListener("mousedown", handleClickOutside)
-    }else{
-      document.removeEventListener("mousedown", handleClickOutside)
-
+const ActiveToday = ({ onclickClose, todayTrue }) => {
+  const handleMarkActiveToday = async () => {
+    const res = await workerMarkActiveToday();
+    if (!res?.error) {
+      onclickClose();
     }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-      
-  }, [todayTrue])
-  
+  };
+  const { data: todayAvail, refetch } = useQuery({
+    queryKey: ["workerTodayAvailabilityFetch"],
+    queryFn: () => workerTodayAvailabilityFetch(),
+  });
   return (
     <>
+      <section className="comn-popup-comp" onClick={onclickClose}>
+        <div className="comn-popup-bx" onClick={(e) => e.stopPropagation()}>
+          <h6>
+            {todayAvail?.availabilityStatus != "active"
+              ? "Mark you are working today."
+              : "Allready Marked working today."}
+          </h6>
 
-    <section className="comn-popup-comp">
-
-        <div className="comn-popup-bx" ref={todayRef}>
-
-            <h6>Mark you are working today .</h6>
-
-            <button onClick={onclickClose} className="popup-action-btn">
-                Confirm
+          {todayAvail?.availabilityStatus != "active" ? (
+            <button
+              onClick={handleMarkActiveToday}
+              className="popup-action-btn"
+            >
+              Confirm
             </button>
+          ) : null}
 
-            <div onClick={onclickClose} className="close-btn">
+          <div onClick={onclickClose} className="close-btn">
             <i class="fa-solid fa-xmark"></i>
-            </div>
-            
+          </div>
         </div>
-        
-    </section>
-      
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ActiveToday
+export default ActiveToday;

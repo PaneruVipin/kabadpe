@@ -32,7 +32,7 @@ const InfiniteSliderWaste = () => {
                 </div>
                
             </div>
-            <NavLink to="" className='check-rate-btn'> Check Today's Rate  <i class="fa-solid fa-chevron-right"></i> </NavLink>
+            <NavLink to="/ratelist" className='check-rate-btn'> Check Today's Rate  <i class="fa-solid fa-chevron-right"></i> </NavLink>
             
         </div>
     </section>

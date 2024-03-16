@@ -17,8 +17,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
                   src={collectorInfo?.KabadCollector?.profileImage}
                   alt=""
                   onError={(e) =>
-                    (e.currentTarget.src =
-                      "./images/temp/temp-user-profile.png")
+                    (e.currentTarget.src = "/images/temp/temp-user-profile.png")
                   }
                 />
                 <div className="stars-flex-bx">

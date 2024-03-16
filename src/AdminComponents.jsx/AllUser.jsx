@@ -182,12 +182,12 @@ const AllUser = ({ updatedFilterData }) => {
                                   <img
                                     src={
                                       profileImage ||
-                                      "./images/temp/temp-user-profile.png"
+                                      "/images/temp/temp-user-profile.png"
                                     }
                                     onError={(e) => {
                                       console.log("running onError");
                                       e.currentTarget.src =
-                                        "./images/temp/temp-user-profile.png";
+                                        "/images/temp/temp-user-profile.png";
                                     }}
                                     alt=""
                                   />

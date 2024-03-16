@@ -487,7 +487,7 @@ const AppointSlot = ({
                                     Leaves -
                                     {futureLeaves?.map(
                                       ({ date }) =>
-                                        new Date(date).getDate() + ", "
+                                        new Date(date).getUTCDate() + ", "
                                     )}
                                   </span>
                                 ) : null}

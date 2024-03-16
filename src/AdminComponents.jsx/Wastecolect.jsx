@@ -166,7 +166,7 @@ const Wastecolect = () => {
 
               <tbody>
                 {!workers?.error
-                  ? search(kabadPeUserIdMapper(workers,"KPW"), searchQuery, [
+                  ? search(kabadPeUserIdMapper(workers, "KPW"), searchQuery, [
                       "id",
                       "profileImage",
                       "workerRole",
@@ -191,7 +191,7 @@ const Wastecolect = () => {
                           pincode,
                           accountStatus,
                           Franchise,
-                          hashId
+                          hashId,
                         },
                         i
                       ) => {
@@ -199,14 +199,14 @@ const Wastecolect = () => {
                           <>
                             <tr key={i}>
                               <td>
-                                <span> {i+1} </span>
+                                <span> {i + 1} </span>
                               </td>
                               <td>
                                 <div className="user-prof-img">
                                   <img
                                     src={
                                       profileImage ||
-                                      "./images/temp/temp-user-profile.png"
+                                      "/images/temp/temp-user-profile.png"
                                     }
                                     alt=""
                                   />

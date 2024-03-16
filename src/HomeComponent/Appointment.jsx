@@ -522,7 +522,7 @@ const Appointment = ({ setUserForm }) => {
                                               id == "kabadpe"
                                                 ? "./images/logos/logo-small.jpg"
                                                 : franchiseLogo ||
-                                                  "./images/temp/temp-user-profile.png"
+                                                  "/images/temp/temp-user-profile.png"
                                             }
                                             alt=""
                                           />

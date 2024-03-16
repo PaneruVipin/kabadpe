@@ -207,7 +207,7 @@ const AdminTransaction = () => {
             </div>
 
             <div className="past-days-selec-box">
-              <i class="fa-regular fa-calendar-days"></i>
+              <i className="fa-regular fa-calendar-days"></i>
               <select name="pastdays" id="pastdays">
                 <option value="pastdays">Past 10 days</option>
                 <option value="pastdays">Past 30 days</option>
@@ -259,7 +259,7 @@ const AdminTransaction = () => {
             </div>
 
             <div className="search-btn">
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
         </div>
@@ -379,7 +379,7 @@ const AdminTransaction = () => {
                       <td>
                         <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
-                          <i class="fa-regular fa-circle-down"></i>
+                          <i className="fa-regular fa-circle-down"></i>
                         </div>
                       </td>
 

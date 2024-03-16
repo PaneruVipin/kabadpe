@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/ReferEarn.css";
 import "../style/Profile.css";
 import "../style/BankCard.css";
@@ -15,7 +15,8 @@ import PaymntDet from "../WasteColectComp/PaymntDet";
 import TranferAmnt from "../WasteColectComp/TranferAmnt";
 import TrnferSucesful from "../WasteColectComp/TrnferSucesful";
 import TrnferDet from "../WasteColectComp/TrnferDet";
-
+import { GetWalletDetails } from "../apis/wallet/wallet";
+import { useSelector } from "react-redux";
 const MyWallet = () => {
   const [waletData, setWaletData] = useState(UserWalletData);
   const [butonActive, setButonActive] = useState(true);
@@ -31,6 +32,9 @@ const MyWallet = () => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
+  const { userInfo, loading } = useSelector((state) => state.user);
+  const [walletDetails, setWalletDetails] = useState(null);
+  const [error, setError] = useState(null);
 
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
@@ -55,6 +59,21 @@ const MyWallet = () => {
 
     setWaletData(updatedSearchData);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userInfo) {
+          const data = await GetWalletDetails(userInfo.id, "user");
+          setWalletDetails(data);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, [userInfo]); // useEffect dependency added
 
   return (
     <>
@@ -84,7 +103,7 @@ const MyWallet = () => {
                     <div className="rupes-icon">
                       <i class="fa-solid fa-coins"></i>
                     </div>
-                    <span>5000.00</span>
+                    <span>{walletDetails ? walletDetails.walletmoney : 0}</span>
                   </div>
 
                   <div className="rupe-to-coin-bx">

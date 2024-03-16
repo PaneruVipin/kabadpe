@@ -19,7 +19,7 @@ import { scrollToParam } from "../lib/scroll";
 import { testInsta } from "../apis/user";
 import InfiniteSliderWaste from "../AdminComponents.jsx/InfiniteSliderWaste";
 import DownloadApp from "../HomeComponent/DownloadApp";
-import AdsBanner from "../HomeComponent/AdsBanner";
+// import AdsBanner from "../HomeComponent/AdsBanner";
 
 const Home = ({ setUserForm }) => {
   const location = useLocation();
@@ -31,8 +31,6 @@ const Home = ({ setUserForm }) => {
   useEffect(() => {
     testInsta();
   }, []);
-
-
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -66,7 +64,7 @@ const Home = ({ setUserForm }) => {
         <InfiniteSliderWaste />
         <Discover />
         {/* <DownloadApp /> */}
-        <AdsBanner />
+        {/* <AdsBanner /> */}
         <Ecosystem />
         <KabadJugad />
         <Contribution />

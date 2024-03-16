@@ -398,99 +398,139 @@ const AppointSlot = ({
                           workCity,
                           workerRole,
                           WorkerAvailabilities,
-                        }) => (
-                          <tr>
-                            <td>
-                              <span>
-                                {" "}
-                                {fullname?.split("")?.map((s, i) => {
-                                  if (!i) {
-                                    return s?.toUpperCase();
-                                  } else {
-                                    return s;
-                                  }
-                                })}{" "}
-                              </span>
-                              <span style={{ display: "block" }}>
-                                {WorkerAvailabilities?.find(
-                                  ({ date }) =>
-                                    new Date(appoinmentDetails?.appointmentDate)
-                                      ?.toISOString()
-                                      ?.split("T")?.[0] ==
-                                    new Date(date)
-                                      ?.toISOString()
-                                      ?.split("T")?.[0]
-                                )?.availabilityStatus == "leave"
-                                  ? "Appoinment Day - Leave"
-                                  : ""}
-                              </span>
-                              <span style={{ display: "block" }}>
-                                {WorkerAvailabilities?.find(
-                                  ({ date }) =>
-                                    new Date()
-                                      ?.toISOString()
-                                      ?.split("T")?.[0] ==
-                                    new Date(date)
-                                      ?.toISOString()
-                                      ?.split("T")?.[0]
-                                )?.availabilityStatus == "leave"
-                                  ? "Today - Leave"
-                                  : WorkerAvailabilities?.find(
-                                      ({ date }) =>
-                                        new Date()
-                                          ?.toISOString()
-                                          ?.split("T")?.[0] ==
-                                        new Date(date)
-                                          ?.toISOString()
-                                          ?.split("T")?.[0]
-                                    )?.availabilityStatus == "active"
-                                  ? "Today - Active"
-                                  : "Today - Not Active"}
-                              </span>
-                            </td>
-                            {Object.keys(slotLabels)?.map((key, i) => (
+                        }) => {
+                          const futureLeaves = WorkerAvailabilities?.filter(
+                            ({ date, availabilityStatus }) => {
+                              const dateString = new Date(date)
+                                .toISOString()
+                                .split("T")[0];
+                              const currentDate = new Date();
+                              const next10Days = [];
+                              for (let i = 0; i < 10; i++) {
+                                const nextDate = new Date(currentDate);
+                                nextDate.setDate(currentDate.getDate() + i);
+                                next10Days.push(
+                                  nextDate.toISOString().split("T")[0]
+                                );
+                              }
+                              return (
+                                availabilityStatus == "leave" &&
+                                next10Days.includes(dateString)
+                              );
+                            }
+                          )?.sort(
+                            (a, b) => new Date(a?.date) - new Date(b?.date)
+                          );
+                          return (
+                            <tr>
                               <td>
-                                <div className="assign-flex-bx">
-                                  <div className="slot-data">
-                                    {!appoinments?.error
-                                      ? appoinments
-                                          ?.filter(
-                                            (a) =>
-                                              a?.appointmentTimeSlot == key &&
-                                              a?.workerId == id &&
-                                              a?.id != appoinmentDetails?.id
-                                          )
-                                          ?.map(({ UserAddress }, i) => (
-                                            <span>
-                                              {i + 1}.{" "}
-                                              {UserAddress?.aria +
-                                                ", " +
-                                                UserAddress?.subAria}
-                                            </span>
-                                          ))
-                                      : null}
-                                  </div>
+                                <span>
+                                  {" "}
+                                  {fullname?.split("")?.map((s, i) => {
+                                    if (!i) {
+                                      return s?.toUpperCase();
+                                    } else {
+                                      return s;
+                                    }
+                                  })}{" "}
+                                </span>
 
-                                  {key ==
-                                  appoinmentDetails?.appointmentTimeSlot ? (
-                                    <button
-                                      className="assign-btn assign-btn3"
-                                      onClick={() => {
-                                        setPopUp(true);
-                                        setSelectedWorker({
-                                          fullname,
-                                          id,
-                                        });
-                                      }}
-                                    >
-                                      Assign
-                                    </button>
-                                  ) : null}
-                                </div>
+                                <span
+                                  style={{ display: "block", lineHeight: 1.4 }}
+                                >
+                                  {WorkerAvailabilities?.find(
+                                    ({ date }) =>
+                                      new Date()
+                                        ?.toISOString()
+                                        ?.split("T")?.[0] ==
+                                      new Date(date)
+                                        ?.toISOString()
+                                        ?.split("T")?.[0]
+                                  )?.availabilityStatus == "leave"
+                                    ? "Today - Leave"
+                                    : WorkerAvailabilities?.find(
+                                        ({ date }) =>
+                                          new Date()
+                                            ?.toISOString()
+                                            ?.split("T")?.[0] ==
+                                          new Date(date)
+                                            ?.toISOString()
+                                            ?.split("T")?.[0]
+                                      )?.availabilityStatus == "active"
+                                    ? "Today - Active"
+                                    : "Today - Not Active"}
+                                </span>
+                                <span
+                                  style={{ display: "block", lineHeight: 1.4 }}
+                                >
+                                  {WorkerAvailabilities?.find(
+                                    ({ date }) =>
+                                      new Date(
+                                        appoinmentDetails?.appointmentDate
+                                      )
+                                        ?.toISOString()
+                                        ?.split("T")?.[0] ==
+                                      new Date(date)
+                                        ?.toISOString()
+                                        ?.split("T")?.[0]
+                                  )?.availabilityStatus == "leave"
+                                    ? "Appoinment Day - Leave"
+                                    : ""}
+                                </span>
+                                <span
+                                  style={{ display: "block", lineHeight: 1.4 }}
+                                >
+                                  Leaves -
+                                  {futureLeaves?.map(
+                                    ({ date }) =>
+                                      new Date(date).getDate() + ", "
+                                  )}
+                                </span>
                               </td>
-                            ))}
-                          </tr>
-                        )
+                              {Object.keys(slotLabels)?.map((key, i) => (
+                                <td>
+                                  <div className="assign-flex-bx">
+                                    <div className="slot-data">
+                                      {!appoinments?.error
+                                        ? appoinments
+                                            ?.filter(
+                                              (a) =>
+                                                a?.appointmentTimeSlot == key &&
+                                                a?.workerId == id &&
+                                                a?.id != appoinmentDetails?.id
+                                            )
+                                            ?.map(({ UserAddress }, i) => (
+                                              <span>
+                                                {i + 1}.{" "}
+                                                {UserAddress?.aria +
+                                                  ", " +
+                                                  UserAddress?.subAria}
+                                              </span>
+                                            ))
+                                        : null}
+                                    </div>
+
+                                    {key ==
+                                    appoinmentDetails?.appointmentTimeSlot ? (
+                                      <button
+                                        className="assign-btn assign-btn3"
+                                        onClick={() => {
+                                          setPopUp(true);
+                                          setSelectedWorker({
+                                            fullname,
+                                            id,
+                                          });
+                                        }}
+                                      >
+                                        Assign
+                                      </button>
+                                    ) : null}
+                                  </div>
+                                </td>
+                              ))}
+                            </tr>
+                          );
+                        }
                       )
                     : null}
                 </tbody>

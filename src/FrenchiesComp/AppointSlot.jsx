@@ -10,6 +10,7 @@ import {
 } from "../apis/admins/appoinments";
 import { slotLabels } from "../lib/slots";
 import { Form, Formik } from "formik";
+import { DateTime } from "luxon";
 
 const AppointSlot = ({
   onclickCloseApntSlot,
@@ -418,13 +419,25 @@ const AppointSlot = ({
                                 next10Days.includes(dateString)
                               );
                             }
-                          )?.sort(
-                            (a, b) => new Date(a?.date) - new Date(b?.date)
-                          );
+                          )
+                            ?.sort(
+                              (a, b) => new Date(a?.date) - new Date(b?.date)
+                            )
+                            ?.reduce((result, current, index, array) => {
+                              if (
+                                index === 0 ||
+                                new Date(current?.date).getDate() ===
+                                  new Date(array[index - 1]?.date).getDate() + 1
+                              ) {
+                                return [...result, current];
+                              } else {
+                                return result;
+                              }
+                            }, []);
                           return (
                             <tr>
                               <td>
-                                <span>
+                                <span style={{ lineHeight: 1.4 }}>
                                   {" "}
                                   {fullname?.split("")?.map((s, i) => {
                                     if (!i) {
@@ -433,11 +446,6 @@ const AppointSlot = ({
                                       return s;
                                     }
                                   })}{" "}
-                                </span>
-
-                                <span
-                                  style={{ display: "block", lineHeight: 1.4 }}
-                                >
                                   {WorkerAvailabilities?.find(
                                     ({ date }) =>
                                       new Date()
@@ -446,37 +454,29 @@ const AppointSlot = ({
                                       new Date(date)
                                         ?.toISOString()
                                         ?.split("T")?.[0]
-                                  )?.availabilityStatus == "leave"
-                                    ? "Today - Leave"
-                                    : WorkerAvailabilities?.find(
-                                        ({ date }) =>
-                                          new Date()
-                                            ?.toISOString()
-                                            ?.split("T")?.[0] ==
-                                          new Date(date)
-                                            ?.toISOString()
-                                            ?.split("T")?.[0]
-                                      )?.availabilityStatus == "active"
-                                    ? "Today - Active"
-                                    : "Today - Not Active"}
+                                  )?.availabilityStatus == "leave" ? (
+                                    <span style={{ color: "red" }}>
+                                      ( Not Working )
+                                    </span>
+                                  ) : WorkerAvailabilities?.find(
+                                      ({ date }) =>
+                                        new Date()
+                                          ?.toISOString()
+                                          ?.split("T")?.[0] ==
+                                        new Date(date)
+                                          ?.toISOString()
+                                          ?.split("T")?.[0]
+                                    )?.availabilityStatus == "active" ? (
+                                    <span style={{ color: "green" }}>
+                                      ( Working )
+                                    </span>
+                                  ) : (
+                                    <span style={{ color: "red" }}>
+                                      ( Not Working )
+                                    </span>
+                                  )}
                                 </span>
-                                <span
-                                  style={{ display: "block", lineHeight: 1.4 }}
-                                >
-                                  {WorkerAvailabilities?.find(
-                                    ({ date }) =>
-                                      new Date(
-                                        appoinmentDetails?.appointmentDate
-                                      )
-                                        ?.toISOString()
-                                        ?.split("T")?.[0] ==
-                                      new Date(date)
-                                        ?.toISOString()
-                                        ?.split("T")?.[0]
-                                  )?.availabilityStatus == "leave"
-                                    ? "Appoinment Day - Leave"
-                                    : ""}
-                                </span>
+
                                 {futureLeaves?.length ? (
                                   <span
                                     style={{
@@ -484,11 +484,19 @@ const AppointSlot = ({
                                       lineHeight: 1.4,
                                     }}
                                   >
-                                    Leaves -
-                                    {futureLeaves?.map(
-                                      ({ date }) =>
-                                        new Date(date).getUTCDate() + ", "
-                                    )}
+                                    Leaves
+                                    <br />
+                                    {DateTime.fromISO(futureLeaves?.[0]?.date, {
+                                      zone: "utc",
+                                    }).toFormat("ccc dd LLL yyyy")}{" "}
+                                    -{" "}
+                                    {DateTime.fromISO(
+                                      futureLeaves?.[futureLeaves?.length - 1]
+                                        ?.date,
+                                      {
+                                        zone: "utc",
+                                      }
+                                    ).toFormat("ccc dd LLL yyyy")}{" "}
                                   </span>
                                 ) : null}
                               </td>

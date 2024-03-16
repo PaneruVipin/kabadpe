@@ -70,7 +70,7 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
     if (lastThreeWords === "KPU") {
       rolev = "user";
     } else if (lastThreeWords === "KPW") {
-      rolev = "worker";
+      rolev = "kabadCollector";
     } else {
       rolev = "franchise";
     }

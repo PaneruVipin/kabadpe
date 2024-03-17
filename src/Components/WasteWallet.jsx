@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/ReferEarn.css";
 import "../style/Profile.css";
 import "../style/BankCard.css";
@@ -14,7 +14,8 @@ import PaymntDet from "../WasteColectComp/PaymntDet";
 import TranferAmnt from "../WasteColectComp/TranferAmnt";
 import TrnferSucesful from "../WasteColectComp/TrnferSucesful";
 import TrnferDet from "../WasteColectComp/TrnferDet";
-
+import { GetWalletDetails } from "../apis/wallet/wallet";
+import { useSelector } from "react-redux";
 const WasteWallet = () => {
   const [waletData, setWaletData] = useState(WalletData);
   const [butonActive, setButonActive] = useState(true);
@@ -30,7 +31,8 @@ const WasteWallet = () => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
-
+  const [walletDetails, setWalletDetails] = useState(null);
+  const { userInfo, loading } = useSelector((state) => state.user);
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
       return elem.tnxtype === categValue || elem.status === categValue;
@@ -54,7 +56,20 @@ const WasteWallet = () => {
 
     setWaletData(updatedSearchData);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userInfo) {
+          const data = await GetWalletDetails(userInfo.id, "user");
+          setWalletDetails(data);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
 
+    fetchData();
+  }, [userInfo]); // useEffect dependency added
   return (
     <>
       <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
@@ -81,7 +96,7 @@ const WasteWallet = () => {
                     <div className="rupes-icon">
                       <i class="fa-solid fa-coins"></i>
                     </div>
-                    <span>5000.00</span>
+                    <span>{walletDetails ? walletDetails.walletmoney : 0}</span>
                   </div>
 
                   <div className="rupe-to-coin-bx">
@@ -441,7 +456,7 @@ const WasteWallet = () => {
       ) : null}
       {trnfrComplte ? (
         <TrnferSucesful
-        onClose={() => setTrnfrComplte(false)}
+          onClose={() => setTrnfrComplte(false)}
           onclickTrnferDet={() => {
             setTrnferDet(true), setTrnfrComplte(false);
           }}

@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
-import { adminGetAllUsers } from "../apis/admins/users";
+import { adminGetAllUsers, adminUsersUpdate } from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
 import { kabadPeUserIdMapper, search } from "../lib/array";
+import { Form, Formik } from "formik";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
@@ -18,6 +19,7 @@ const AllUser = ({ updatedFilterData }) => {
   const [profChange, setProfChange] = useState(false);
   const [editForm, setEditForm] = useState(false);
   // const [userStatAct, setUserStatAct] = useState('Active');
+  const [selectedUser, setSelectedUser] = useState();
   const [userPrfData, setUserPrfData] = useState({
     userId: "ACU435GRh",
     Name: "Richard Parker",
@@ -55,10 +57,30 @@ const AllUser = ({ updatedFilterData }) => {
       reader.onload = (event) => {
         setSelectedImage(event.target.result);
       };
+
       reader.readAsDataURL(file);
     }
   };
-
+  const handleSubmit = async ({
+    fullname,
+    email,
+    phoneNumber,
+    accountStatus,
+    id,
+  }) => {
+    const res = await adminUsersUpdate({
+      fullname,
+      email,
+      phoneNumber,
+      accountStatus,
+      role: "user",
+      id,
+    });
+    if (!res?.error) {
+      setEditableForm(false);
+      refetch();
+    }
+  };
   const { data: allUsers, refetch } = useQuery({
     queryKey: ["adminfetcUsers"],
     queryFn: () => adminGetAllUsers(),
@@ -145,7 +167,6 @@ const AllUser = ({ updatedFilterData }) => {
                   <th>User Name</th>
                   <th>Mobile No.</th>
                   <th>Email</th>
-                  <th>User Type</th>
                   <th>User Status</th>
                   <th>City</th>
                   <th>Zip Code</th>
@@ -155,7 +176,10 @@ const AllUser = ({ updatedFilterData }) => {
 
               <tbody>
                 {!allUsers?.error
-                  ? search(kabadPeUserIdMapper(allUsers), serachQuery)?.map(
+                  ? search(
+                      kabadPeUserIdMapper(allUsers, "KPU"),
+                      serachQuery
+                    )?.map(
                       (
                         {
                           id,
@@ -207,9 +231,6 @@ const AllUser = ({ updatedFilterData }) => {
                                 <span> {email} </span>
                               </td>
                               <td>
-                                <span> {role} </span>
-                              </td>
-                              <td>
                                 <span
                                 // style={{
                                 //   color:
@@ -232,7 +253,21 @@ const AllUser = ({ updatedFilterData }) => {
 
                               <td>
                                 <div
-                                  onClick={() => setEditableForm(true)}
+                                  onClick={() => {
+                                    setSelectedUser({
+                                      id,
+                                      profileImage,
+                                      username,
+                                      phoneNumber,
+                                      email,
+                                      role,
+                                      accountStatus,
+                                      fullname,
+                                      franchiseStatus,
+                                      hashId,
+                                    });
+                                    setEditableForm(true);
+                                  }}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
@@ -250,32 +285,37 @@ const AllUser = ({ updatedFilterData }) => {
         </div>
       </section>
 
-      <section
-        className={
-          editableForm
-            ? "all-user-editable-form-main-box editformactive"
-            : "all-user-editable-form-main-box"
-        }
-      >
-        <div className="all-user-edit-form-box">
-          <div className="user-prof-editable-box">
-            <h5>Profile</h5>
+      {editableForm ? (
+        <section
+          onClick={() => setEditableForm(false)}
+          className={
+            editableForm
+              ? "all-user-editable-form-main-box editformactive"
+              : "all-user-editable-form-main-box"
+          }
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="all-user-edit-form-box"
+          >
+            <div className="user-prof-editable-box">
+              <h5>Profile</h5>
 
-            <div className="update-prof-img-flex-box">
-              <div className="update-prof-img">
-                <img src={selectImg} alt="" />
+              <div className="update-prof-img-flex-box">
+                <div className="update-prof-img">
+                  <img src={selectImg} alt="" />
 
-                <div
-                  onClick={() => {
-                    setProfChange(true);
-                  }}
-                  className="prof-user-data-edit-btn"
-                >
-                  Edit
+                  <div
+                    onClick={() => {
+                      setProfChange(true);
+                    }}
+                    className="prof-user-data-edit-btn"
+                  >
+                    Edit
+                  </div>
                 </div>
-              </div>
 
-              {/* <label htmlFor="Updte_Prof_img">
+                {/* <label htmlFor="Updte_Prof_img">
                 Upload Image
             </label>
 
@@ -285,188 +325,210 @@ const AllUser = ({ updatedFilterData }) => {
               name="Updte_Prof_img"
               id="Updte_Prof_img"
             /> */}
+              </div>
+
+              <div className="user-prof-data-box">
+                <div className="user-prof-info-box">
+                  <label htmlFor="#">User Id</label>
+                  <span>{selectedUser?.hashId}</span>
+                </div>
+
+                <div className="user-prof-info-box">
+                  <label htmlFor="#"> Name</label>
+                  <span>{selectedUser?.fullname}</span>
+                </div>
+
+                <div className="user-prof-info-box">
+                  <label htmlFor="#"> Mobile</label>
+                  <span>{selectedUser?.phoneNumber}</span>
+                </div>
+
+                <div className="user-prof-info-box">
+                  <label htmlFor="#"> Email</label>
+                  <span>{selectedUser?.email}</span>
+                </div>
+              </div>
+
+              <div className="user-prof-table-data-box">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>S-No.</th>
+                      <th>Address</th>
+                      <th>Add. Type</th>
+                      <th>City</th>
+                      <th>Pin</th>
+                      <th>State</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span>1</span>
+                      </td>
+                      <td>
+                        <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
+                      </td>
+                      <td>
+                        <span>Home </span>
+                      </td>
+                      <td>
+                        <span> Bihar </span>
+                      </td>
+                      <td>
+                        <span> 110031 </span>
+                      </td>
+                      <td>
+                        <span> Patna </span>
+                      </td>
+                      <td>
+                        <button className="actin-btn"> primary </button>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <span>2</span>
+                      </td>
+                      <td>
+                        <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
+                      </td>
+
+                      <td>
+                        <span>Work </span>
+                      </td>
+
+                      <td>
+                        <span> Bihar </span>
+                      </td>
+                      <td>
+                        <span> 110031 </span>
+                      </td>
+                      <td>
+                        <span> Patna </span>
+                      </td>
+                      <td>
+                        <button className="actin-btn actin-btn2">
+                          {" "}
+                          Delivery{" "}
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            {editForm ? (
+              <Formik initialValues={selectedUser} onSubmit={handleSubmit}>
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form
+                      className={
+                        editForm
+                          ? "user-edit-main-form editformactive"
+                          : "user-edit-main-form"
+                      }
+                    >
+                      <div className="user-data-form-edit">
+                        <div className="userdata-form-grid">
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="User Name">User Name</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="fullname"
+                                id="Name"
+                                value={values?.fullname}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
+                            </div>
+                          </div>
 
-            <div className="user-prof-data-box">
-              <div className="user-prof-info-box">
-                <label htmlFor="#">User Id</label>
-                <span>ACU435GRh</span>
-              </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="Mobile No.">Mobile No.</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="phoneNumber"
+                                id="Mobile"
+                                value={values?.phoneNumber}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
+                            </div>
+                          </div>
 
-              <div className="user-prof-info-box">
-                <label htmlFor="#"> Name</label>
-                <span>Richard Parker</span>
-              </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="Email ">Email</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                value={values?.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
+                            </div>
+                          </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="status">Status</label>
+                            <div className="user-edit-inpt">
+                              <select
+                                type="text"
+                                name="accountStatus"
+                                value={values?.accountStatus}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                id="status"
+                                autoComplete="off"
+                              >
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="ban">Ban</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-              <div className="user-prof-info-box">
-                <label htmlFor="#"> Mobile</label>
-                <span>908654576</span>
-              </div>
-
-              <div className="user-prof-info-box">
-                <label htmlFor="#"> Email</label>
-                <span>nawaz001@gmail.com</span>
-              </div>
-            </div>
-
-            <div className="user-prof-table-data-box">
-              <table>
-                <thead>
-                  <tr>
-                    <th>S-No.</th>
-                    <th>Address</th>
-                    <th>Add. Type</th>
-                    <th>City</th>
-                    <th>Pin</th>
-                    <th>State</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span>1</span>
-                    </td>
-                    <td>
-                      <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                    </td>
-                    <td>
-                      <span>Home </span>
-                    </td>
-                    <td>
-                      <span> Bihar </span>
-                    </td>
-                    <td>
-                      <span> 110031 </span>
-                    </td>
-                    <td>
-                      <span> Patna </span>
-                    </td>
-                    <td>
-                      <button className="actin-btn"> primary </button>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span>2</span>
-                    </td>
-                    <td>
-                      <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                    </td>
-
-                    <td>
-                      <span>Work </span>
-                    </td>
-
-                    <td>
-                      <span> Bihar </span>
-                    </td>
-                    <td>
-                      <span> 110031 </span>
-                    </td>
-                    <td>
-                      <span> Patna </span>
-                    </td>
-                    <td>
-                      <button className="actin-btn actin-btn2">
-                        {" "}
-                        Delivery{" "}
+                      <button type="submit" className="sqave-chang-btn">
+                        Save Changes
                       </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            ) : null}
 
-          <form
-            action="#"
-            className={
-              editForm
-                ? "user-edit-main-form editformactive"
-                : "user-edit-main-form"
-            }
-          >
-            <div className="user-data-form-edit">
-              <div className="userdata-form-grid">
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="User Id">User Id</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="userId"
-                      value={userPrfData.userId}
-                      onChange={handleInputChangeData}
-                      id="userId"
-                      autoComplete="off"
-                      disabled
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="User Name">User Name</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="Name"
-                      id="Name"
-                      value={userPrfData.Name}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Mobile No.">Mobile No.</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="Mobile"
-                      id="Mobile"
-                      value={userPrfData.Mobile}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div className="user-edit-inpt-box">
-                  <label htmlFor="Email ">Email</label>
-                  <div className="user-edit-inpt">
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      value={userPrfData.email}
-                      onChange={handleInputChangeData}
-                      autoComplete="off"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div
+              onClick={() => setEditableForm(false)}
+              className="edit-form-close-btn"
+            >
+              <i class="fa-solid fa-xmark"></i>
             </div>
 
-            <button className="sqave-chang-btn">Save Changes</button>
-          </form>
-
-          <div
-            onClick={() => setEditableForm(false)}
-            className="edit-form-close-btn"
-          >
-            <i class="fa-solid fa-xmark"></i>
+            <div
+              onClick={() => setEditForm(!editForm)}
+              className="edit-form-close-btn edit-user-btn2"
+            >
+              <i class="fa-solid fa-user-pen"></i>
+            </div>
           </div>
-
-          <div
-            onClick={() => setEditForm(!editForm)}
-            className="edit-form-close-btn edit-user-btn2"
-          >
-            <i class="fa-solid fa-user-pen"></i>
-          </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <div
         className={

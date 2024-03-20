@@ -6,6 +6,7 @@ import { adminGetAllUsers, adminUsersUpdate } from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
 import { kabadPeUserIdMapper, search } from "../lib/array";
 import { Form, Formik } from "formik";
+import { userAddressesFetch } from "../apis/user";
 const AllUser = ({ updatedFilterData }) => {
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
@@ -31,7 +32,7 @@ const AllUser = ({ updatedFilterData }) => {
     Pin: "110031",
     State: "Patna",
   });
-
+  const [otherErrors, setOtherErrors] = useState({});
   const handleInputChangeData = (e) => {
     const { name, value } = e.target;
     setUserPrfData({ ...userPrfData, [name]: value });
@@ -68,6 +69,7 @@ const AllUser = ({ updatedFilterData }) => {
     accountStatus,
     id,
   }) => {
+    setOtherErrors({});
     const res = await adminUsersUpdate({
       fullname,
       email,
@@ -79,13 +81,23 @@ const AllUser = ({ updatedFilterData }) => {
     if (!res?.error) {
       setEditableForm(false);
       refetch();
+      return;
     }
+    setOtherErrors({ update: res?.message });
   };
   const { data: allUsers, refetch } = useQuery({
     queryKey: ["adminfetcUsers"],
     queryFn: () => adminGetAllUsers(),
   });
 
+  const { data: useAddress, refetch: refetchAddress } = useQuery({
+    queryKey: ["adminfetcuseAddress"],
+    queryFn: () => userAddressesFetch(selectedUser?.id),
+  });
+  useEffect(() => {
+    refetchAddress();
+  }, [selectedUser]);
+  console.log("this is errors", otherErrors);
   return (
     <>
       <section className="all-user-data-comp">
@@ -168,8 +180,8 @@ const AllUser = ({ updatedFilterData }) => {
                   <th>Mobile No.</th>
                   <th>Email</th>
                   <th>User Status</th>
-                  <th>City</th>
-                  <th>Zip Code</th>
+                  {/* <th>City</th>
+                  <th>Zip Code</th> */}
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -209,7 +221,6 @@ const AllUser = ({ updatedFilterData }) => {
                                       "/images/temp/temp-user-profile.png"
                                     }
                                     onError={(e) => {
-                                      console.log("running onError");
                                       e.currentTarget.src =
                                         "/images/temp/temp-user-profile.png";
                                     }}
@@ -245,11 +256,11 @@ const AllUser = ({ updatedFilterData }) => {
                                 // }
                                 >
                                   {" "}
-                                  {accountStatus || franchiseStatus}{" "}
+                                  {accountStatus}{" "}
                                 </span>
                               </td>
-                              <td>{/* <span> {curElem.City} </span> */}</td>
-                              <td>{/* <span> {curElem.Zip} </span> */}</td>
+                              {/* <td> <span> {curElem.City} </span> </td>
+                              <td> <span> {curElem.Zip} </span> </td> */}
 
                               <td>
                                 <div
@@ -303,16 +314,26 @@ const AllUser = ({ updatedFilterData }) => {
 
               <div className="update-prof-img-flex-box">
                 <div className="update-prof-img">
-                  <img src={selectImg} alt="" />
+                  <img
+                    src={
+                      selectedUser?.profileImage ||
+                      "/images/temp/temp-user-profile.png"
+                    }
+                    onError={(e) => {
+                      e.currentTarget.src =
+                        "/images/temp/temp-user-profile.png";
+                    }}
+                    alt=""
+                  />
 
-                  <div
+                  {/* <div
                     onClick={() => {
                       setProfChange(true);
                     }}
                     className="prof-user-data-edit-btn"
                   >
                     Edit
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* <label htmlFor="Updte_Prof_img">
@@ -359,62 +380,52 @@ const AllUser = ({ updatedFilterData }) => {
                       <th>City</th>
                       <th>Pin</th>
                       <th>State</th>
-                      <th>Action</th>
+                      {/* <th>Action</th> */}
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <span>1</span>
-                      </td>
-                      <td>
-                        <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                      </td>
-                      <td>
-                        <span>Home </span>
-                      </td>
-                      <td>
-                        <span> Bihar </span>
-                      </td>
-                      <td>
-                        <span> 110031 </span>
-                      </td>
-                      <td>
-                        <span> Patna </span>
-                      </td>
-                      <td>
-                        <button className="actin-btn"> primary </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <span>2</span>
-                      </td>
-                      <td>
-                        <span>B/10 Azad Nagar street No.-2 Delhi-110008 </span>
-                      </td>
-
-                      <td>
-                        <span>Work </span>
-                      </td>
-
-                      <td>
-                        <span> Bihar </span>
-                      </td>
-                      <td>
-                        <span> 110031 </span>
-                      </td>
-                      <td>
-                        <span> Patna </span>
-                      </td>
-                      <td>
-                        <button className="actin-btn actin-btn2">
-                          {" "}
-                          Delivery{" "}
-                        </button>
-                      </td>
-                    </tr>
+                    {!useAddress?.error && useAddress
+                      ? useAddress?.map(
+                          (
+                            {
+                              id,
+                              street,
+                              city,
+                              state,
+                              zipCode,
+                              landmark,
+                              locationType,
+                              aria,
+                              subAria,
+                            },
+                            i
+                          ) => (
+                            <tr>
+                              <td>
+                                <span>{i + 1}</span>
+                              </td>
+                              <td>
+                                <span>{street}</span>
+                              </td>
+                              <td>
+                                <span>{locationType}</span>
+                              </td>
+                              <td>
+                                <span>{city} </span>
+                              </td>
+                              <td>
+                                <span> {zipCode} </span>
+                              </td>
+                              <td>
+                                <span> {state} </span>
+                              </td>
+                              {/* <td>
+                                <button className="actin-btn"> primary </button>
+                              </td> */}
+                            </tr>
+                          )
+                        )
+                      : null}
                   </tbody>
                 </table>
               </div>
@@ -503,7 +514,15 @@ const AllUser = ({ updatedFilterData }) => {
                           </div>
                         </div>
                       </div>
-
+                      <p
+                        style={{
+                          color: "red",
+                          textAlign: "center",
+                          lineHeight: .1,
+                        }}
+                      >
+                        {otherErrors?.update}
+                      </p>
                       <button type="submit" className="sqave-chang-btn">
                         Save Changes
                       </button>

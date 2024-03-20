@@ -439,9 +439,9 @@ const AdminPanel = () => {
                 }
               >
                 {" "}
-                <NavLink to="#">All Users</NavLink>{" "}
+                <NavLink to="#">Users</NavLink>{" "}
               </li>
-              <li
+              {/* <li
                 onClick={() => handleFilter("Active")}
                 className={
                   activeTav === "Active"
@@ -473,7 +473,7 @@ const AdminPanel = () => {
               >
                 {" "}
                 <NavLink to="#">Unverified Users</NavLink>{" "}
-              </li>
+              </li> */}
               <li
                 onClick={() => handleViewComp("frenchies")}
                 className={

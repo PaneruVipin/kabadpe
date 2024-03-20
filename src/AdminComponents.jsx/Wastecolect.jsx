@@ -270,12 +270,12 @@ const Wastecolect = () => {
                               </td>
 
                               <td>
-                                {/* <div
+                                <div
                                   onClick={() => setWasteDataBox(true)}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
-                                </div> */}
+                                </div>
                               </td>
 
                               <td>

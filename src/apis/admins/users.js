@@ -45,3 +45,20 @@ export const adminGetUsers = resolvePromise(async () => {
   });
   return res?.users;
 });
+
+export const adminUsersUpdate = resolvePromise(
+  async ({ role, id, ...rest }) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/${role}/update/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { ...rest },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.users;
+  }
+);

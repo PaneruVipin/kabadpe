@@ -13,8 +13,8 @@ export const getUser = async () => {
   return res;
 };
 
-export const userAddressesFetch = resolvePromise(async () => {
-  const apiUrl = ENV_API_BASE_URL + `/user/address`;
+export const userAddressesFetch = resolvePromise(async (id) => {
+  const apiUrl = ENV_API_BASE_URL + `/user/address?id=${id}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.get(apiUrl, {
     headers: {

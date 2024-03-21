@@ -280,6 +280,28 @@ const AdminWallet = [
 
     },
 
+
+    {
+        id : 14,
+        img : '/images/customImg/team-3.jpg',
+        date : '21 March 2023',
+        time : 'At 8:45 PM',
+        username : "Gayatri",
+        userid : '18769',
+        usertype : 'User    ',
+        tnxtype : 'Pending',
+        mode : 'Bank',
+        ecopoints : '200',
+        wallet : '200',
+        income : '200',
+        status : 'Out',
+        walettnxId : '_',
+        invoice : '_',
+        banktnxId : '_',
+        details : 'Withdrawl',
+
+    },
+
 ]
 
 export default AdminWallet ;

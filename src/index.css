@@ -12955,6 +12955,10 @@ Our Review Section CSS code
   height: 100%;
 }
 
+.orange-color{
+  color: orange;
+}
+
 .hero-text-info-bx{
   position: absolute;
   top: 40%;
@@ -12968,6 +12972,8 @@ Our Review Section CSS code
   justify-content: center;
   text-align: center;
 }
+
+
 
 .hero-text-info-bx h1{
   font-size: 4.5rem;
@@ -14321,4 +14327,148 @@ Our Review Section CSS code
   display: inline-block;
   max-width: 9rem;
 
+}
+
+.withdral-comp{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+}
+
+.withdral-comp:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #030516;
+  opacity: 0.5;
+}
+
+.withdrawl-field-bx{
+  position: relative;
+  width:40rem;
+  background-color: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: .5rem;
+}
+
+.paid-btn{
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7rem;
+  height: 2.76rem;
+  font-size: 1rem;
+}
+
+.withdrawl-field-bx h6{
+  text-align: center;
+  font-size: 1.76rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  
+}
+
+.withdrawl-inpt-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.withdrawl-inpt-bx span{
+  display: inline-block;
+  position: relative;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #030516;
+  width: 10rem;
+}
+
+.withdral-inpt{
+  position: relative;
+  width: calc(100% - 10rem);
+  background-color: #f3f7ff;
+  height: 3rem;
+}
+
+.withdral-inpt input , .withdral-inpt select{
+  width: 100%;
+  height: 100%;
+  padding-inline: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #030516;
+  font-weight: 500;
+  background-color: transparent;
+  border: none;
+}
+
+.add-money-btn{
+  background-color: #d0d0d0 !important;
+  border-color: #d0d0d0 !important;
+}
+
+.add-money-btn span{
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  transform: translateY(145%);
+  width: max-content;
+  display: inline-block;
+  background-color: #c7c7c7;
+  color: #fff;
+  font-size: .8rem;
+  padding-inline: .5rem;
+  border-radius: .5rem;
+  transition: 500ms ease;
+  opacity: 0;
+
+}
+
+.add-money-btn span:before{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: .4rem solid #c7c7c7;
+  border-color: transparent;
+  border-bottom-color: #c7c7c7;
+  bottom: 100%;
+}
+
+.add-money-btn:hover span{
+  transform: translateY(140%);
+  opacity: 1;
+}
+
+.otp-main-box h6{
+  line-height: 1.5 !important;
+  font-size: .87rem;
+  text-align: left;
+  margin-top: .5rem;
+}
+
+.approve{
+  position: relative !important;
+  width: max-content !important;
+  padding: .1rem 1rem !important;
+  background-color: #007dbc !important;
+  border-radius: .5rem !important;
+  font-size: .9rem !important;
+  font-weight: 500 !important;
+  color: #fff !important;
 }

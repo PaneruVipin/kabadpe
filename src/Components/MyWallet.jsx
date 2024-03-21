@@ -83,12 +83,13 @@ const MyWallet = () => {
 
           <div className="right-wallet-box">
             <button
-              onClick={() => {
-                setAddAmount(true), setAddMoneyOtp(false);
-              }}
-              className="tranfer-btn add-money-btn"
+              // onClick={() => {
+              //   setAddAmount(true), setAddMoneyOtp(false);
+              // }}
+              className="tranfer-btn add-money-btn" 
             >
               Add Money
+              <span>Coming Soon</span>
             </button>
 
             <button onClick={() => setOtp(true)} className="tranfer-btn">
@@ -393,10 +394,15 @@ const MyWallet = () => {
 
       {otp == true ? (
         <ConfirmOtp
-          onclickcloseOtp={() => setOtp(false)}
-          onClickOpen={() => {
-            setTransaction(true), setOtp(false);
+          // onclickcloseOtp={() => setOtp(false)}
+          // onClickOpen={() => {
+          //   setTransaction(true), setOtp(false);
+          // }}
+
+          onClickAddAmnt={() => {
+            setSucesfulyTrnsctin(true), setOtp(false);
           }}
+          
         />
       ) : null}
       {transaction === true ? (

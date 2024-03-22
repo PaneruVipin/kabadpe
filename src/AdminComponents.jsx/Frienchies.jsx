@@ -15,7 +15,7 @@ const Frienchies = () => {
   const [editForm, setEditForm] = useState(false);
   const [frenchDet, setFrenchDet] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedUser, setSelectedUser] = useState();
   const frencDetOpen = () => {
     setEditForm(true);
   };
@@ -117,13 +117,13 @@ const Frienchies = () => {
                   <th>Work Area </th>
                   <th>Mobile No.</th>
                   <th>Email</th>
-                  <th>Subs. Type</th>
+                  {/* <th>Subs. Type</th> */}
                   <th>User Status</th>
-                  <th>City</th>
-                  <th>Zip Code</th>
+                  {/* <th>City</th>
+                  <th>Zip Code</th> */}
                   <th>Edit</th>
-                  <th>View</th>
-                  <th>Action</th>
+                  {/* <th>View</th>
+                  <th>Action</th> */}
                 </tr>
               </thead>
 
@@ -149,6 +149,7 @@ const Frienchies = () => {
                           email,
                           franchiseStatus,
                           hashId,
+                          ...rest
                         },
                         i
                       ) => {
@@ -190,12 +191,10 @@ const Frienchies = () => {
                                 <span> {email} </span>
                               </td>
 
-                              <td>
+                              {/* <td>
                                 <span className="substype-text">
-                                  {" "}
-                                  {/* {curElem.substype}{" "} */}
                                 </span>
-                              </td>
+                              </td> */}
 
                               <td>
                                 <span
@@ -215,28 +214,42 @@ const Frienchies = () => {
                                   {franchiseStatus}{" "}
                                 </span>
                               </td>
-                              <td>{/* <span> {curElem.City} </span> */}</td>
-                              <td>{/* <span> {curElem.Zip} </span> */}</td>
+                              {/* <td> <span> {curElem.City} </span> </td>
+                              <td> <span> {curElem.Zip} </span> </td> */}
 
                               <td>
                                 <div
-                                  onClick={() => frencDetOpen()}
+                                  onClick={() => {
+                                    setSelectedUser({
+                                      id,
+                                      franchiseLogo,
+                                      companyName,
+                                      fullname,
+                                      franchiseAddress,
+                                      phone,
+                                      email,
+                                      franchiseStatus,
+                                      hashId,
+                                      ...rest,
+                                    });
+                                    frencDetOpen();
+                                  }}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
                                 </div>
                               </td>
 
-                              <td>
+                              {/* <td>
                                 <div
                                   onClick={() => DetView()}
                                   className="edit-user-btn view-btn"
                                 >
                                   <i class="fa-regular fa-eye"></i>
                                 </div>
-                              </td>
+                              </td> */}
 
-                              <td>
+                              {/* <td>
                                 <div className="icon-flex-box">
                                   <button
                                     className="app-dis-btn"
@@ -251,7 +264,7 @@ const Frienchies = () => {
                                     <i class="fa-regular fa-circle-xmark"></i>
                                   </button>
                                 </div>
-                              </td>
+                              </td> */}
 
                               {/*     */}
                             </tr>
@@ -266,7 +279,13 @@ const Frienchies = () => {
         </div>
       </section>
 
-      {editForm ? <FrenchEdit onClickCloseEditForm={frencDetClose} /> : null}
+      {editForm ? (
+        <FrenchEdit
+          initialValues={selectedUser}
+          onClickCloseEditForm={frencDetClose}
+          refetch={refetch}
+        />
+      ) : null}
 
       {frenchDet ? (
         <FrenchDetPopup onclickCloseDetFrench={DetViewClose} />

@@ -2,7 +2,7 @@ export const AdminWasteProdData = [
 
     {
         id : 1,
-        img : '/images/customImg/hazardous.png',
+        img : '/images//hazardous.png',
         title : 'Total Waste ',
         minitext : '300 (kg) ',
 

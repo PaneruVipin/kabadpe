@@ -19,6 +19,7 @@ const Wastecolect = () => {
   const [workChange, setWorkChange] = useState("");
   const [addWork, setAddWork] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedUser, setSelectedUser] = useState({});
   const data = {
     cleaner: ["Cleaner"],
     kabadiwala: ["Kabadiwala"],
@@ -158,8 +159,8 @@ const Wastecolect = () => {
                   <th>Work Type</th>
                   <th>User Status</th>
                   <th>Zip Code</th>
-                  {/* <th>Edit</th>
-                  <th>View</th> */}
+                  <th>Edit</th>
+                  {/*  <th>View</th> */}
                   {/* <th>Action</th> */}
                 </tr>
               </thead>
@@ -192,6 +193,7 @@ const Wastecolect = () => {
                           accountStatus,
                           Franchise,
                           hashId,
+                          ...rest
                         },
                         i
                       ) => {
@@ -271,7 +273,24 @@ const Wastecolect = () => {
 
                               <td>
                                 <div
-                                  onClick={() => setWasteDataBox(true)}
+                                  onClick={() => {
+                                    setSelectedUser({
+                                      id,
+                                      profileImage,
+                                      workerRole,
+                                      fullname,
+                                      phoneNumber,
+                                      email,
+                                      ariaName,
+                                      subAriaName,
+                                      pincode,
+                                      accountStatus,
+                                      Franchise,
+                                      hashId,
+                                      ...rest,
+                                    });
+                                    setWasteDataBox(true);
+                                  }}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
@@ -310,7 +329,11 @@ const Wastecolect = () => {
       </section>
 
       {wasteDataBox ? (
-        <WasteColectEdit onClickCloseEditForm={subsDataClose} />
+        <WasteColectEdit
+        refetch={refetch}
+          initialValues={selectedUser}
+          onClickCloseEditForm={subsDataClose}
+        />
       ) : null}
 
       {wasteViewData ? (

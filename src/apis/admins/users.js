@@ -56,6 +56,7 @@ export const adminUsersUpdate = resolvePromise(
       {
         headers: {
           Authorization: token,
+          "Content-Type": "multipart/form-data",
         },
       }
     );

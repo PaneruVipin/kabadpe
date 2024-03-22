@@ -1717,7 +1717,7 @@ side nav icon Btn on hover show list box
 
     .french-edit-main-box{
       position: relative;
-      width: 55rem;
+      width: 70rem;
       background-color: #fff;
       padding: 2rem 3rem;
       border-radius: .56rem;
@@ -1805,6 +1805,10 @@ side nav icon Btn on hover show list box
       column-gap: 2rem;
       row-gap: 2rem;
 
+    }
+
+    .french-det-grid4{
+      grid-template-columns: repeat(4, 1fr);
     }
 
 

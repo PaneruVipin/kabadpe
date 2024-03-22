@@ -43,6 +43,7 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
     email,
     fullname,
     id,
+    profileImage,
   }) => {
     setOtherErrors({});
     const res = await adminUsersUpdate({
@@ -65,6 +66,7 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
       fullname,
       id,
       role: "worker",
+      profileImage,
     });
     if (!res?.error) {
       onClickCloseEditForm();
@@ -87,6 +89,32 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                 <h5>Waste Collector (Edit) </h5>
 
                 <div className="french-det-grid">
+                  <div className="french-det-logo-box">
+                    <div className="f-logo">
+                      <img
+                        src={
+                          selectedImage?.profileImage ||
+                          initialValues?.profileImage ||
+                          "/images/temp/temp-user-profile.png"
+                        }
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "/images/temp/temp-user-profile.png";
+                        }}
+                        alt=""
+                      />
+                    </div>
+                    <label htmlFor="image_Path" className="french-logo-btn">
+                      Upload
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="profileImage"
+                      id="image_Path"
+                      onChange={handleImageChange(values, "profileImage")}
+                    />
+                  </div>
                   <div className="admin-login-fild">
                     <label htmlFor="name">Name</label>
                     <div className="admin-login-input">
@@ -479,6 +507,7 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                 </div>
 
                 <button
+                  type="button"
                   onClick={onClickCloseEditForm}
                   className="close-popup-btn"
                 >

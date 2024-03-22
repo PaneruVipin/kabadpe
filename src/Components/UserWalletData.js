@@ -69,7 +69,7 @@ const UserWalletData = [
         from : 'Wallet',
         userid : '_',
         usertype : '_',
-        tnxtype : 'Paid',
+        tnxtype : 'Requested',
         mode : "Wallet",
         ecopoints : '500',
         wallet : '200',

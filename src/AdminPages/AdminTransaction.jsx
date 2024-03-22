@@ -9,6 +9,8 @@ import DatePicker from "react-datepicker";
 import UpdateWalet from "./UpdateWalet";
 import PaymntDet from "../WasteColectComp/PaymntDet";
 import WalletCreditPopup from "../Components/WalletCreditPopup";
+import WithdrawlRequest from "./WithdrawlRequest";
+import RequestWithdrawlpopoup from "../AdminComponents.jsx/RequestWithdrawlpopoup";
 
 const AdminTransaction = () => {
   const [waletData, setWaletData] = useState(AdminWallet);
@@ -19,6 +21,8 @@ const AdminTransaction = () => {
   const [updteWalet, setUpdteWalet] = useState(false);
   const [paymntDet, setPaymntDet] = useState(false);
   const [waletCredit, setWaletCredit] = useState(false);
+  const [withDrawl , setWithDrawl] = useState(false);
+  const [reqPopup , setReqPopup] = useState(false);
 
   const filterData = (value) => {
     const updatedData = AdminWallet.filter((elem) => {
@@ -282,6 +286,7 @@ const AdminTransaction = () => {
                 <th>Bank Tnx ID</th>
                 <th>Invoice </th>
                 <th>Details </th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -321,7 +326,7 @@ const AdminTransaction = () => {
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.tnxtype} </span>
+                        <span className={ curElem.tnxtype == 'Pending' ? 'orange-color b-span2' : "b-span2"} > {curElem.tnxtype} </span>
                       </td>
 
                       <td>
@@ -379,13 +384,22 @@ const AdminTransaction = () => {
                       <td>
                         <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.invoice} </span>
-                          <i className="fa-regular fa-circle-down"></i>
+                         
                         </div>
                       </td>
 
                       <td>
                         <span className="b-span2"> {curElem.details} </span>
                       </td>
+                      {curElem.tnxtype === 'Pending' ? 
+                        <td>
+
+                          <button onClick={() => setWithDrawl(true)}  className="approve">
+                            Approve
+                          </button> 
+                          
+                      </td>: null
+                      }
                     </tr>
                   </>
                 );
@@ -394,6 +408,9 @@ const AdminTransaction = () => {
           </table>
         </div>
       </section>
+
+      {withDrawl ? <WithdrawlRequest onClickOpen={() =>{ setReqPopup(true), setWithDrawl(false)}} onClickClose={() => setWithDrawl(false)} /> : null }
+      {reqPopup ?  <RequestWithdrawlpopoup onClickClose={() => {setReqPopup(false) , setWithDrawl(false)}} /> : null }
 
       {updteWalet ? (
         <UpdateWalet

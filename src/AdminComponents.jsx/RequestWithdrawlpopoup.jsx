@@ -1,19 +1,18 @@
-import React from "react";
-import "../style/ReferEarn.css";
+import React from 'react'
 
-const SucesfulyTran = ({ onCloseClick, onclickViewDet }) => {
+const RequestWithdrawlpopoup = ({onClickClose}) => {
   return (
     <>
-      <section className="sucesfuly-trnsctin-comp" onClick={onCloseClick}>
+     <section className="sucesfuly-trnsctin-comp" onClick={onClickClose} >
         <div
           className="sucesfuly-trnsctin-box"
-          onClick={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
         >
           <div className="check-bx">
             <i class="fa-solid fa-check fa-fw"></i>
           </div>
 
-          <p>Thank You For Request , We Will Get Back To You Soon.</p>
+          <p>Status Changed Successfull.</p>
           {/* <h6>Transaction ID: T230989570970474</h6> */}
 
           {/* <button
@@ -22,13 +21,13 @@ const SucesfulyTran = ({ onCloseClick, onclickViewDet }) => {
           >
             View Details
           </button> */}
-          <div onClick={onCloseClick} className="close-otp-btn">
+          <div onClick={onClickClose} className="close-otp-btn">
             <i class="fa-solid fa-xmark"></i>
           </div>
         </div>
-      </section>
+      </section> 
     </>
-  );
-};
+  )
+}
 
-export default SucesfulyTran;
+export default RequestWithdrawlpopoup

@@ -134,7 +134,7 @@
     position: relative;
     top: 0;
     background-color: #fff;
-    width: 60rem;
+    width: 70rem;
     height: 30rem;
     overflow-y: auto;
     border-radius: .4rem;
@@ -225,8 +225,8 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 2rem;
-    row-gap: 2rem;
-    margin-bottom: 2rem;
+    /* row-gap: 2rem; */
+    /* margin-bottom: 2rem; */
  }
 
  .user-edit-inpt-box{

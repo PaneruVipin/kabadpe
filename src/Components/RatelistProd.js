@@ -130,6 +130,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '27',
+        category : 'iron',
 
 
 
@@ -144,6 +145,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '37',
+        category : 'iron',
 
 
 
@@ -158,6 +160,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '105',
+        category : 'iron',
 
 
     },
@@ -171,6 +174,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '305',
+        category : 'iron',
 
 
 
@@ -184,6 +188,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '425',
+        category : 'iron',
 
 
 
@@ -198,6 +203,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '27',
+        category : 'iron',
 
 
 
@@ -213,6 +219,7 @@ export const RateListProd = [
         weight: "",
         price: '27',
 
+        category : 'iron',
 
 
     },
@@ -226,6 +233,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '27',
+        category : 'iron',
 
 
 
@@ -240,6 +248,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '35',
+        category : 'iron',
 
 
 
@@ -255,6 +264,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '200',
+        category : 'iron',
 
 
 
@@ -268,6 +278,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '40',
+        category : 'ewaste',
 
 
 
@@ -282,6 +293,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '300',
+        category : 'ewaste',
 
 
 
@@ -296,6 +308,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '150',
+        category : 'ewaste',
 
 
 
@@ -309,6 +322,7 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '20',
+        category : 'ewaste',
 
 
 
@@ -322,7 +336,91 @@ export const RateListProd = [
         checked: false,
         weight: "",
         price: '200',
+        category : 'ewaste',
 
+
+    },
+
+    {
+        id: 25,
+        img: '/images/customImg/battery.png',
+        title: 'Battery',
+        minitext: '  80 (piece) ',
+        checked: false,
+        weight: "",
+        price: '200',
+        category : 'vehicle',
+
+
+    },
+
+
+    {
+        id: 26,
+        img: '/images/customImg/sedan.png',
+        title: 'Car',
+        checked: false,
+        weight: "",
+        price: '900',
+        category : 'vehicle',
+
+
+    },
+
+
+
+    {
+        id: 27,
+        img: '/images/customImg/motorbike.png',
+        title: 'Motorbike',
+        checked: false,
+        weight: "",
+        price: '700',
+        category : 'vehicle',
+
+
+    },
+
+    
+    {
+        id: 28,
+        img: '/images/customImg/tyre.png',
+        title: 'Tyre',
+        minitext: '  10 (piece) ',
+        checked: false,
+        weight: "",
+        price: '100',
+        category : 'other',
+
+
+    },
+
+
+    
+    {
+        id: 29,
+        img: '/images/customImg/wood.png',
+        title: 'Wood',
+        minitext: '  25 (piece) ',
+        checked: false,
+        weight: "",
+        price: '700',
+        category : 'other',
+
+
+    },
+
+
+    
+    {
+        id: 30,
+        img: '/images/customImg/laundry.png',
+        title: 'Clothes',
+        minitext: '  15 (piece) ',
+        checked: false,
+        weight: "",
+        price: '500',
+        category : 'other',
 
 
     },

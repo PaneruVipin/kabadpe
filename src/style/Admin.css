@@ -3090,6 +3090,15 @@ side nav icon Btn on hover show list box
   border-radius: .5rem;
  } 
 
+ .admin-login-fild3 select{
+  background-color: #fff5e3;
+  height: 2.56rem;
+  padding-inline: 1rem;
+  font-weight: 500;
+  color: #000;
+  font-size: 1rem;
+  border-radius: .5rem;
+ } 
  .three-fild-bx{
   margin-top: 1rem;
  }

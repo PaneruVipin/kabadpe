@@ -23,9 +23,9 @@ const MainFooter = () => {
                 id="email"
                 placeholder="Email address"
               />
-              <div class="tg-icon">
-                <img src="./images/telegram.png" alt="" />
-              </div>
+              <button class="tg-btn">
+                Send
+              </button>
             </div>
           </div>
 

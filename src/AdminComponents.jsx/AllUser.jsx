@@ -51,8 +51,9 @@ const AllUser = ({ updatedFilterData }) => {
     }
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = (object, feild) => (e) => {
     const file = e.target.files[0];
+    object[feild] = file;
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
@@ -68,6 +69,7 @@ const AllUser = ({ updatedFilterData }) => {
     phoneNumber,
     accountStatus,
     id,
+    profileImage,
   }) => {
     setOtherErrors({});
     const res = await adminUsersUpdate({
@@ -77,6 +79,7 @@ const AllUser = ({ updatedFilterData }) => {
       accountStatus,
       role: "user",
       id,
+      profileImage,
     });
     if (!res?.error) {
       setEditableForm(false);
@@ -313,7 +316,7 @@ const AllUser = ({ updatedFilterData }) => {
               <h5>Profile</h5>
 
               <div className="update-prof-img-flex-box">
-                <div className="update-prof-img">
+                {/* <div className="update-prof-img">
                   <img
                     src={
                       selectedUser?.profileImage ||
@@ -326,15 +329,15 @@ const AllUser = ({ updatedFilterData }) => {
                     alt=""
                   />
 
-                  {/* <div
+                  <div
                     onClick={() => {
                       setProfChange(true);
                     }}
                     className="prof-user-data-edit-btn"
                   >
                     Edit
-                  </div> */}
-                </div>
+                  </div> 
+                </div> */}
 
                 {/* <label htmlFor="Updte_Prof_img">
                 Upload Image
@@ -348,7 +351,7 @@ const AllUser = ({ updatedFilterData }) => {
             /> */}
               </div>
 
-              <div className="user-prof-data-box">
+              {/* <div className="user-prof-data-box">
                 <div className="user-prof-info-box">
                   <label htmlFor="#">User Id</label>
                   <span>{selectedUser?.hashId}</span>
@@ -368,7 +371,132 @@ const AllUser = ({ updatedFilterData }) => {
                   <label htmlFor="#"> Email</label>
                   <span>{selectedUser?.email}</span>
                 </div>
-              </div>
+              </div> */}
+                <Formik initialValues={selectedUser} onSubmit={handleSubmit}>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form className={"user-edit-main-form editformactive"}>
+                        <div className="user-data-form-edit">
+                          <div className="french-det-logo-box">
+                            <div className="f-logo">
+                              <img
+                                src={
+                                  selectedImage ||
+                                  selectedUser?.profileImage ||
+                                  "/images/temp/temp-user-profile.png"
+                                }
+                                onError={(e) => {
+                                  e.currentTarget.src =
+                                    "/images/temp/temp-user-profile.png";
+                                }}
+                                alt=""
+                              />
+                            </div>
+                            <label
+                              htmlFor="image_Path"
+                              className="french-logo-btn"
+                            >
+                              Upload
+                            </label>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              name="profileImage"
+                              id="image_Path"
+                              onChange={handleImageChange(
+                                values,
+                                "profileImage"
+                              )}
+                            />
+                          </div>
+                          <div className="userdata-form-grid">
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="User Name">User Name</label>
+                              <div className="user-edit-inpt">
+                                <input
+                                  type="text"
+                                  name="fullname"
+                                  id="Name"
+                                  value={values?.fullname}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  autoComplete="off"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="Mobile No.">Mobile No.</label>
+                              <div className="user-edit-inpt">
+                                <input
+                                  type="text"
+                                  name="phoneNumber"
+                                  id="Mobile"
+                                  value={values?.phoneNumber}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  autoComplete="off"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="Email ">Email</label>
+                              <div className="user-edit-inpt">
+                                <input
+                                  type="text"
+                                  name="email"
+                                  id="email"
+                                  value={values?.email}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  autoComplete="off"
+                                />
+                              </div>
+                            </div>
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="status">Status</label>
+                              <div className="user-edit-inpt">
+                                <select
+                                  type="text"
+                                  name="accountStatus"
+                                  value={values?.accountStatus}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  id="status"
+                                  autoComplete="off"
+                                >
+                                  <option value="active">Active</option>
+                                  <option value="inactive">Inactive</option>
+                                  <option value="ban">Ban</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <p
+                          style={{
+                            color: "red",
+                            textAlign: "center",
+                            lineHeight: 0.1,
+                          }}
+                        >
+                          {otherErrors?.update}
+                        </p>
+                        <button type="submit" className="sqave-chang-btn">
+                          Save Changes
+                        </button>
+                      </Form>
+                    );
+                  }}
+                </Formik>
 
               <div className="user-prof-table-data-box">
                 <table>
@@ -430,107 +558,6 @@ const AllUser = ({ updatedFilterData }) => {
                 </table>
               </div>
             </div>
-            {editForm ? (
-              <Formik initialValues={selectedUser} onSubmit={handleSubmit}>
-                {({
-                  handleBlur,
-                  handleChange,
-                  values,
-                  errors,
-                  touched,
-                  ...rest
-                }) => {
-                  return (
-                    <Form
-                      className={
-                        editForm
-                          ? "user-edit-main-form editformactive"
-                          : "user-edit-main-form"
-                      }
-                    >
-                      <div className="user-data-form-edit">
-                        <div className="userdata-form-grid">
-                          <div className="user-edit-inpt-box">
-                            <label htmlFor="User Name">User Name</label>
-                            <div className="user-edit-inpt">
-                              <input
-                                type="text"
-                                name="fullname"
-                                id="Name"
-                                value={values?.fullname}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                autoComplete="off"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="user-edit-inpt-box">
-                            <label htmlFor="Mobile No.">Mobile No.</label>
-                            <div className="user-edit-inpt">
-                              <input
-                                type="text"
-                                name="phoneNumber"
-                                id="Mobile"
-                                value={values?.phoneNumber}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                autoComplete="off"
-                              />
-                            </div>
-                          </div>
-
-                          <div className="user-edit-inpt-box">
-                            <label htmlFor="Email ">Email</label>
-                            <div className="user-edit-inpt">
-                              <input
-                                type="text"
-                                name="email"
-                                id="email"
-                                value={values?.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                autoComplete="off"
-                              />
-                            </div>
-                          </div>
-                          <div className="user-edit-inpt-box">
-                            <label htmlFor="status">Status</label>
-                            <div className="user-edit-inpt">
-                              <select
-                                type="text"
-                                name="accountStatus"
-                                value={values?.accountStatus}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                id="status"
-                                autoComplete="off"
-                              >
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="ban">Ban</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <p
-                        style={{
-                          color: "red",
-                          textAlign: "center",
-                          lineHeight: .1,
-                        }}
-                      >
-                        {otherErrors?.update}
-                      </p>
-                      <button type="submit" className="sqave-chang-btn">
-                        Save Changes
-                      </button>
-                    </Form>
-                  );
-                }}
-              </Formik>
-            ) : null}
 
             <div
               onClick={() => setEditableForm(false)}
@@ -539,48 +566,15 @@ const AllUser = ({ updatedFilterData }) => {
               <i class="fa-solid fa-xmark"></i>
             </div>
 
-            <div
+            {/* <div
               onClick={() => setEditForm(!editForm)}
               className="edit-form-close-btn edit-user-btn2"
             >
               <i class="fa-solid fa-user-pen"></i>
-            </div>
+            </div> */}
           </div>
         </section>
       ) : null}
-
-      <div
-        className={
-          profChange
-            ? "user-prof-change-popup-box prof-chang-popupactive"
-            : "user-prof-change-popup-box"
-        }
-      >
-        <div className="user-prof-popup-bx">
-          <div className="prof-chang-img">
-            {selectedImage && <img src={selectedImage} alt="Selected" />}
-          </div>
-
-          <div className="prof-input-file-bx prof-input-file-bx3">
-            <label htmlFor="prof_input">Update profile Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              id="prof_input"
-            />
-          </div>
-
-          <button className="confirm-prof-btn">Confirm</button>
-
-          <div
-            onClick={() => setProfChange(false)}
-            className="prof-popup-close-btn"
-          >
-            <i class="fa-solid fa-xmark"></i>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

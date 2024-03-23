@@ -15,7 +15,6 @@ const ManageWasteTable = ({ wasteData }) => {
       curData.userId.toString().includes(searchItem);
     return matchItem;
   });
-  console.log("this is waste data", wasteData);
   return (
     <>
       <div className="mnge-wste-table-main-bx">
@@ -138,7 +137,7 @@ const ManageWasteTable = ({ wasteData }) => {
             <tbody>
               {!wasteData?.error
                 ? search(
-                    wasteData?.map((w) => {
+                    wasteData?.collection?.map((w) => {
                       return {
                         ...w,
                         date: DateTime.fromISO(w?.addedOn, {

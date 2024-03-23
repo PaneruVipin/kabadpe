@@ -155,14 +155,35 @@ const Ratelistcomp = () => {
   ]);
   const [visibleProd, setVisibleProd] = useState(8);
   const [selectedOption , setSelectedOption] = useState(null);
- 
-  const [options , setOptions] = useState([
+  const [selectedOptionOne , setSelectedOptionOne] = useState(null);
+  const [selectedOptionTwo , setSelectedOptionTwo] = useState(null);
+  const [selectedOptionThree , setSelectedOptionThree] = useState(null);
 
-    'All' , 'Paper And Cardboard' , 'Plastic' , 'Metal' , 'e-Waste' , 'Vehicle'
-    , 'Others'
+
+ 
+
+  const [optionOne , setOptionOne] = useState([
+
+    'Kabadpe' , 'Brand Orbitor' , 'Extra Frames'
 
     
   ])
+
+  const [optionTwo , setOptionTwo] = useState([
+
+    'State1' , 'State2' , 'State3'
+
+    
+  ])
+
+
+  const [optionThree , setOptionThree] = useState([
+
+    'City1' , 'City2' , 'City3'
+
+    
+  ])
+  
   const handleCheckboxChange = (id) => {
     const updatedProducts = products.map((product) =>
       product.id === id ? { ...product, checked: !product.checked } : product
@@ -199,7 +220,17 @@ const Ratelistcomp = () => {
     setSelectedOption(option);
   };
 
- 
+  const handleOptionClickOne = (option) => {
+    setSelectedOptionOne(option);
+  };
+
+  const handleOptionClickTwo = (option) => {
+    setSelectedOptionTwo(option);
+  };
+
+  const handleOptionClickThree = (option) => {
+    setSelectedOptionThree(option);
+  };
 
   return (
     <>
@@ -209,17 +240,19 @@ const Ratelistcomp = () => {
         <div className="ratelist-container">
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
+            
+
               <button className="sorting-btn sorting-btn1">
-              {selectedOption || 'Choose Waste Type'}
+              {selectedOptionOne || 'Choose Your Seller'}
                 
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
 
-                  {options.map((curData , indx) => {
+                  {optionOne.map((curData , indx) => {
                     return (
                       <>
                   <button className="prod-tab-btn"  key={indx}
-                  onClick={() => handleOptionClick(curData)}
+                  onClick={() => handleOptionClickOne(curData)}
                   > {curData} </button>
 
                       </>
@@ -230,35 +263,49 @@ const Ratelistcomp = () => {
                 </div>
               </button>
 
-              <button className="sorting-btn">
-                Choose Your Seller
+              <button className="sorting-btn sorting-btn1">
+              {selectedOptionTwo || 'Choose  State'}
+                
                 <i class="fa-solid fa-angle-down"></i>
-                <div className="dropdwn-tab-box">
-                  <button className="prod-tab-btn">Kabadpe</button>
-                  <button className="prod-tab-btn">Brand Orbitor</button>
-                  <button className="prod-tab-btn">Extra Frames</button>
+                <div className="dropdwn-tab-box dropdwn-tab-box1">
+
+                  {optionTwo.map((curData , indx) => {
+                    return (
+                      <>
+                  <button className="prod-tab-btn"  key={indx}
+                  onClick={() => handleOptionClickTwo(curData)}
+                  > {curData} </button>
+
+                      </>
+                    )
+                  })}
+                  
+                
                 </div>
               </button>
 
-              <button className="sorting-btn">
-                Choose State
+              <button className="sorting-btn sorting-btn1">
+              {selectedOptionThree || 'Choose  City'}
+                
                 <i class="fa-solid fa-angle-down"></i>
-                <div className="dropdwn-tab-box">
-                  <button className="prod-tab-btn">State1</button>
-                  <button className="prod-tab-btn">State2</button>
-                  <button className="prod-tab-btn">State3</button>
+                <div className="dropdwn-tab-box dropdwn-tab-box1">
+
+                  {optionThree.map((curData , indx) => {
+                    return (
+                      <>
+                  <button className="prod-tab-btn"  key={indx}
+                  onClick={() => handleOptionClickThree(curData)}
+                  > {curData} </button>
+
+                      </>
+                    )
+                  })}
+                  
+                
                 </div>
               </button>
 
-              <button className="sorting-btn">
-                Choose City
-                <i class="fa-solid fa-angle-down"></i>
-                <div className="dropdwn-tab-box">
-                  <button className="prod-tab-btn">City1</button>
-                  <button className="prod-tab-btn">City2</button>
-                  <button className="prod-tab-btn">City3</button>
-                </div>
-              </button>
+             
 
               <div className="ratelist-sel-bx">
                 <input
@@ -276,11 +323,14 @@ const Ratelistcomp = () => {
           <div
             className={"ratelist-list-grid-main ratelist-list-grid-main-active"}
           >
+            <div className="main-ratelist-product">
+            <div className="ratelist-prod-bx">
+              <h6>Paper</h6>
             <div className={"rate-list-grid-left rate-list-grid-left-active"}>
               {products.map((curElem, indx) => {
                 return (
                   <>
-                    <div className="rate-list-prod-bx">
+                    { curElem.category === 'paper' ? <div className="rate-list-prod-bx">
                       <div className="ratelist-img">
                         <img src={curElem.img} alt="" />
                       </div>
@@ -298,11 +348,172 @@ const Ratelistcomp = () => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>  : null}
                   </>
                 );
               })}
             </div>
+            </div>
+
+            <div className="ratelist-prod-bx">
+              <h6>Plastic</h6>
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    { curElem.category === 'plastic' ? <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
+                        <div className="check">
+                          <p> {curElem.minitext} </p>
+                          <div className="tick-bx">
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>  : null}
+                  </>
+                );
+              })}
+            </div>
+            </div>
+
+
+            <div className="ratelist-prod-bx">
+              <h6>Metal</h6>
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    { curElem.category === 'iron' ? <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
+                        <div className="check">
+                          <p> {curElem.minitext} </p>
+                          <div className="tick-bx">
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>  : null}
+                  </>
+                );
+              })}
+            </div>
+            </div>
+
+            <div className="ratelist-prod-bx">
+              <h6>Ewaste</h6>
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    { curElem.category === 'ewaste' ? <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
+                        <div className="check">
+                          <p> {curElem.minitext} </p>
+                          <div className="tick-bx">
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>  : null}
+                  </>
+                );
+              })}
+            </div>
+            </div>
+
+
+            <div className="ratelist-prod-bx">
+              <h6>Vehicle</h6>
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    { curElem.category === 'vehicle' ? <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
+                        <div className="check">
+                          <p> {curElem.minitext} </p>
+                          <div className="tick-bx">
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>  : null}
+                  </>
+                );
+              })}
+            </div>
+            </div>
+
+            <div className="ratelist-prod-bx">
+              <h6>Others</h6>
+            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
+              {products.map((curElem, indx) => {
+                return (
+                  <>
+                    { curElem.category === 'other' ? <div className="rate-list-prod-bx">
+                      <div className="ratelist-img">
+                        <img src={curElem.img} alt="" />
+                      </div>
+                      <div className="ratelist-info">
+                        <h6> {curElem.title} </h6>
+                        <span> {curElem.text} </span>
+                        <div className="check">
+                          <p> {curElem.minitext} </p>
+                          <div className="tick-bx">
+                            <input
+                              type="checkbox"
+                              checked={curElem.checked}
+                              onChange={() => handleCheckboxChange(curElem.id)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>  : null}
+                  </>
+                );
+              })}
+            </div>
+            </div>
+
+            </div>
+            
             <div className="right-waste-calculator-main">
               {totlWaste ? (
                 <div className="totl-value-main">

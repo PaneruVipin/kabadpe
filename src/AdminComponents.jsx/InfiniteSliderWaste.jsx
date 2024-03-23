@@ -13,7 +13,129 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx">
                         <div className="slide-img">
-                          <img src= '/images/contribution/document.png' alt="" />
+                          <img src= '/images/contribution/paper-stack.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Paper</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx2">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/plastic.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Plastic</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/garbage.png' alt="" />
+                        </div>
+                      </div>
+                      <h6>Others</h6>
+
+                      </div>
+
+                    </NavLink>
+
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx3">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/laundry.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Clothes</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx4">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/vehi-cle.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Vehicle</h6>
+
+                      </div>
+
+                    </NavLink>
+
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx5">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/wood.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Wood</h6>
+
+                      </div>
+
+                    </NavLink>
+
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/bottle.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Glass</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx7">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/metal.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> Metal</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/ewaste.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> E-waste</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                  
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/paper-stack.png' alt="" />
                         </div>
                       </div>
                       <h6> Paper</h6>
@@ -53,7 +175,7 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx4">
                         <div className="slide-img">
-                          <img src= '/images/contribution/vehicle.png' alt="" />
+                          <img src= '/images/contribution/vehi-cle.png' alt="" />
                         </div>
                       </div>
                       <h6> Vehicle</h6>
@@ -61,7 +183,18 @@ const InfiniteSliderWaste = () => {
                       </div>
 
                     </NavLink>
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/garbage.png' alt="" />
+                        </div>
+                      </div>
+                      <h6>Others</h6>
 
+                      </div>
+
+                    </NavLink>
 
                     <NavLink to="" >
                         <div className="slide-main">
@@ -81,7 +214,7 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx6">
                         <div className="slide-img">
-                          <img src= '/images/contribution/glass.png' alt="" />
+                          <img src= '/images/contribution/bottle.png' alt="" />
                         </div>
                       </div>
                       <h6> Glass</h6>
@@ -94,10 +227,23 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx7">
                         <div className="slide-img">
-                          <img src= '/images/contribution/beam.png' alt="" />
+                          <img src= '/images/contribution/metal.png' alt="" />
                         </div>
                       </div>
                       <h6> Metal</h6>
+
+                      </div>
+
+                    </NavLink>
+
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/ewaste.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> E-waste</h6>
 
                       </div>
 
@@ -108,7 +254,7 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx">
                         <div className="slide-img">
-                          <img src= '/images/contribution/document.png' alt="" />
+                          <img src= '/images/contribution/paper-stack.png' alt="" />
                         </div>
                       </div>
                       <h6> Paper</h6>
@@ -130,6 +276,18 @@ const InfiniteSliderWaste = () => {
 
                     </NavLink>
 
+                    <NavLink to="" >
+                        <div className="slide-main">
+                      <div className="slide-bx slide-bx6">
+                        <div className="slide-img">
+                          <img src= '/images/contribution/ewaste.png' alt="" />
+                        </div>
+                      </div>
+                      <h6> E-waste</h6>
+
+                      </div>
+
+                    </NavLink>
 
                     <NavLink to="" >
                         <div className="slide-main">
@@ -148,7 +306,7 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx4">
                         <div className="slide-img">
-                          <img src= '/images/contribution/vehicle.png' alt="" />
+                          <img src= '/images/contribution/vehi-cle.png' alt="" />
                         </div>
                       </div>
                       <h6> Vehicle</h6>
@@ -176,7 +334,7 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx6">
                         <div className="slide-img">
-                          <img src= '/images/contribution/glass.png' alt="" />
+                          <img src= '/images/contribution/bottle.png' alt="" />
                         </div>
                       </div>
                       <h6> Glass</h6>
@@ -189,78 +347,10 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx7">
                         <div className="slide-img">
-                          <img src= '/images/contribution/beam.png' alt="" />
+                          <img src= '/images/contribution/metal.png' alt="" />
                         </div>
                       </div>
                       <h6> Metal</h6>
-
-                      </div>
-
-                    </NavLink>
-
-
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/document.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Paper</h6>
-
-                      </div>
-
-                    </NavLink>
-
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx slide-bx2">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/plastic.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Plastic</h6>
-
-                      </div>
-
-                    </NavLink>
-
-
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx slide-bx3">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/laundry.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Clothes</h6>
-
-                      </div>
-
-                    </NavLink>
-
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx slide-bx4">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/vehicle.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Vehicle</h6>
-
-                      </div>
-
-                    </NavLink>
-
-
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx slide-bx5">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/wood.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Wood</h6>
 
                       </div>
 
@@ -271,27 +361,16 @@ const InfiniteSliderWaste = () => {
                         <div className="slide-main">
                       <div className="slide-bx slide-bx6">
                         <div className="slide-img">
-                          <img src= '/images/contribution/glass.png' alt="" />
+                          <img src= '/images/contribution/garbage.png' alt="" />
                         </div>
                       </div>
-                      <h6> Glass</h6>
+                      <h6>Others</h6>
 
                       </div>
 
                     </NavLink>
 
-                    <NavLink to="" >
-                        <div className="slide-main">
-                      <div className="slide-bx slide-bx7">
-                        <div className="slide-img">
-                          <img src= '/images/contribution/beam.png' alt="" />
-                        </div>
-                      </div>
-                      <h6> Metal</h6>
 
-                      </div>
-
-                    </NavLink>
             </div>
           </div>
           <NavLink to="/ratelist" className="check-rate-btn">

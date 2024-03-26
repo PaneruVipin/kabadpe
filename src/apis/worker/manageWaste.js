@@ -21,5 +21,5 @@ export const adminWasteCollectionFetch = resolvePromise(async (type = "") => {
       Authorization: token,
     },
   });
-  return res?.collection;
+  return res;
 });

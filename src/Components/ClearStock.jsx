@@ -68,7 +68,6 @@ const ClearStock = () => {
   const totalWaste = waste?.reduce((a, b) => {
     return a + +b?.weight;
   }, 0);
-  console.log("this is waste", waste);
   return (
     <>
       <section className="waste-appoint-ment-comp">
@@ -99,7 +98,15 @@ const ClearStock = () => {
                           <>
                             <div key={i} className="waste-mnge-prod-bx">
                               <div className="waste-mnge-prod-text">
-                                <h6> {productName?.split(" ")?.map(s=>s)} </h6>
+                                <h6>
+                                  {" "}
+                                  {productName?.replace(
+                                    /\b\w/g,
+                                    function (char) {
+                                      return char?.toUpperCase();
+                                    }
+                                  )}{" "}
+                                </h6>
                                 <p>
                                   {" "}
                                   {w?.weight || "00.00"}

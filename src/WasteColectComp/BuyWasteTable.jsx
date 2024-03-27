@@ -160,6 +160,7 @@ const BuyWasteTable = ({
                                   price: values?.retailPrice,
                                   bulkPrice: values?.bulkPrice,
                                   ammount,
+                                  productId: values?.id,
                                 };
                               } else {
                                 return row;

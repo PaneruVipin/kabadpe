@@ -16,6 +16,10 @@ export const adminkabadProductAdd = resolvePromise(
     city,
     category,
     unit,
+    oilSaved,
+    electrictySaved,
+    waterSaved,
+    co2Offset,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/kabadpe/product`;
     const token = getFromLocalStorage("token");
@@ -34,6 +38,10 @@ export const adminkabadProductAdd = resolvePromise(
         city,
         category,
         unit,
+        oilSaved,
+        electrictySaved,
+        waterSaved,
+        co2Offset,
       },
       {
         headers: {
@@ -61,6 +69,10 @@ export const adminkabadProductUpdate = resolvePromise(
     city,
     category,
     unit,
+    oilSaved,
+    electrictySaved,
+    waterSaved,
+    co2Offset,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/kabadpe/product/${id}`;
     const token = getFromLocalStorage("token");
@@ -79,6 +91,10 @@ export const adminkabadProductUpdate = resolvePromise(
         city,
         category,
         unit,
+        oilSaved,
+        electrictySaved,
+        waterSaved,
+        co2Offset,
       },
       {
         headers: {

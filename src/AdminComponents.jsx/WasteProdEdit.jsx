@@ -39,6 +39,10 @@ const WasteProdEdit = ({
         city: undefined,
         category: "",
         unit: "",
+        oilSaved: "",
+        electrictySaved: "",
+        waterSaved: "",
+        co2Offset: "",
       };
   const handleSubmit = async (data) => {
     setOtherErrors({});
@@ -338,6 +342,66 @@ const WasteProdEdit = ({
                           <option value="kg">Kg</option>
                           <option value="piece">Piece</option>
                         </select>
+                      </div>
+                    </div>
+                    <div className="two-fild-grid">
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">CO2 Offset (Kg)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="co2Offset"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="CO2 Offset"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.co2Offset}
+                        />
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Water Saved (Litres)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="waterSaved"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Water Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.waterSaved}
+                        />
+                      </div>
+                    </div>
+                    <div className="two-fild-grid">
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Electricity Saved (KWh)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="electrictySaved"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Electricity Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.electrictySaved}
+                        />
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Oil Saved (Lakhs Litres)</label>
+                        <input
+                          type="number"
+                          name="oilSaved"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Oil Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.oilSaved}
+                        />
                       </div>
                     </div>
                   </div>

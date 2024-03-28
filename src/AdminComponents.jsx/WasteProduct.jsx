@@ -277,6 +277,7 @@ const WasteProduct = () => {
                                         id,
                                         state,
                                         city,
+                                        ...rest,
                                       });
                                     }}
                                   >

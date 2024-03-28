@@ -1,10 +1,10 @@
 import React from 'react'
 import Ratelistcomp from '../Components/Ratelistcomp'
 
-const RateList = () => {
+const RateList = ({setUserForm}) => {
   return (
     <>
-      <Ratelistcomp />
+      <Ratelistcomp setUserForm={setUserForm} />
     </>
   )
 }

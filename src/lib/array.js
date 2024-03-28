@@ -1,8 +1,11 @@
 export const filteredData = (data = [], filter = []) => {
+  console.log("provide data and filter", data, filter);
   let newData = data;
   filter?.forEach(({ fn }) => {
+    console.log("this is filter fn", fn?.toString());
     newData = newData?.filter(fn);
   });
+  console.log("provide data and filter & newData", data, filter, newData);
   return newData;
 };
 

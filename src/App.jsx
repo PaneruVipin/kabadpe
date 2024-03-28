@@ -108,7 +108,7 @@ function App() {
 {/* eprservice */}
 
 
-        <Route path="/ratelist" element={<RateList />} />
+        <Route path="/ratelist" element={<RateList setUserForm={setUserForm} />} />
         <Route path="/kabadshop" element={<KabadShop />} />
         <Route path="/wastegept" element={<Wastgept />} />
         <Route path="/resetpasswrd" element={<ResetPassword />} />

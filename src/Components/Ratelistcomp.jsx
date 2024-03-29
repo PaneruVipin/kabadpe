@@ -24,7 +24,7 @@ import { adminAriaFetch } from "../apis/admins/arias";
 import { filteredData } from "../lib/array";
 import AppoinmentPopup from "../HomeComponent/AppoinmentPopup";
 
-const Ratelistcomp = ({setUserForm}) => {
+const Ratelistcomp = ({ setUserForm }) => {
   const data = {
     title: "Rate List",
     text: "Ratelist",
@@ -218,7 +218,7 @@ const Ratelistcomp = ({setUserForm}) => {
   return (
     <>
       <AppoinmentPopup
-      setUserForm={setUserForm}
+        setUserForm={setUserForm}
         appoinmentForm={appoinmentForm}
         setAppoinmentForm={setAppoinmentForm}
       />
@@ -299,7 +299,9 @@ const Ratelistcomp = ({setUserForm}) => {
               {!rateList?.error && rateList?.length
                 ? catageories?.map(({ id, name }) => {
                     const list = rateList?.filter(
-                      ({ category }) => category == name
+                      ({ category }) =>
+                        category == name ||
+                        (name == "Others" ? !category : false)
                     );
                     return list?.length ? (
                       <div key={id} className="ratelist-prod-bx">
@@ -467,7 +469,10 @@ const Ratelistcomp = ({setUserForm}) => {
                   Calculate
                 </button>
                 {totlWaste ? (
-                  <button onClick={()=>setAppoinmentForm(true)} className="rate-list-calcult-btn calcult-btn32 mt-4">
+                  <button
+                    onClick={() => setAppoinmentForm(true)}
+                    className="rate-list-calcult-btn calcult-btn32 mt-4"
+                  >
                     Schedule Pickup
                   </button>
                 ) : null}

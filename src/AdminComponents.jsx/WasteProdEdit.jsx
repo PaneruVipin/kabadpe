@@ -39,10 +39,10 @@ const WasteProdEdit = ({
         city: undefined,
         category: "",
         unit: "",
-        oilSaved: "",
-        electrictySaved: "",
-        waterSaved: "",
-        co2Offset: "",
+        oilSaved: 0,
+        electrictySaved: 0,
+        waterSaved: 0,
+        co2Offset: 0,
       };
   const handleSubmit = async (data) => {
     setOtherErrors({});

@@ -181,6 +181,11 @@ const Ratelistcomp = ({ setUserForm }) => {
   );
   const handleFilter = (name, value) => () => {
     setSelection({ ...selection, [name]: value });
+    if (name == "state") {
+      const cities = getCities(value, arias);
+      setCites(cities);
+      setSelection((selection) => ({ ...selection, city: cities?.[0]?.name }));
+    }
   };
   useEffect(() => {
     if (arias?.error || !arias || !arias?.length) {

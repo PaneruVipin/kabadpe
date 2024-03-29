@@ -111,6 +111,12 @@ const Ratelistcomp = ({ setUserForm }) => {
   const [rateList, setRateList] = useState([]);
   const [filters, setFilters] = useState([]);
   const [appoinmentForm, setAppoinmentForm] = useState(false);
+  const [selectedOptionOne, seSelectedOptionOne] = useState("");
+  const [optionOne, setOptionOne] = useState([
+    "Kabadpe",
+    "Brand Orbitor",
+    "Extra Frames",
+  ]);
   const handleCheckboxChange =
     ({ id, ...data }) =>
     () => {
@@ -232,7 +238,7 @@ const Ratelistcomp = ({ setUserForm }) => {
         <div className="ratelist-container">
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
-              {/* <button className="sorting-btn sorting-btn1">
+              <button className="sorting-btn sorting-btn1">
                 {selectedOptionOne || "Choose Your Seller"}
 
                 <i class="fa-solid fa-angle-down"></i>
@@ -243,7 +249,7 @@ const Ratelistcomp = ({ setUserForm }) => {
                         <button
                           className="prod-tab-btn"
                           key={indx}
-                          onClick={() => handleOptionClickOne(curData)}
+                          onClick={() => seSelectedOptionOne(curData)}
                         >
                           {" "}
                           {curData}{" "}
@@ -252,7 +258,7 @@ const Ratelistcomp = ({ setUserForm }) => {
                     );
                   })}
                 </div>
-              </button> */}
+              </button>
 
               <button className="sorting-btn sorting-btn1">
                 {selection?.state || states?.[0]?.name}

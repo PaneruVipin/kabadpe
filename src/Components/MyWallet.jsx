@@ -15,9 +15,16 @@ import PaymntDet from "../WasteColectComp/PaymntDet";
 import TranferAmnt from "../WasteColectComp/TranferAmnt";
 import TrnferSucesful from "../WasteColectComp/TrnferSucesful";
 import TrnferDet from "../WasteColectComp/TrnferDet";
-import { GetWalletDetails } from "../apis/wallet/wallet";
+import {
+  FuntiontoGetTransactionDetails,
+  FuntiontoRaisepaymnetrequest,
+  GetWalletDetails,
+} from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const MyWallet = () => {
+  const [waletDataNew, setwaletDataNew] = useState([]);
   const [waletData, setWaletData] = useState(UserWalletData);
   const [butonActive, setButonActive] = useState(true);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -35,7 +42,8 @@ const MyWallet = () => {
   const { userInfo, loading } = useSelector((state) => state.user);
   const [walletDetails, setWalletDetails] = useState(null);
   const [error, setError] = useState(null);
-
+  const [PaymentReqAmount, setPaymentReqAmount] = useState(null);
+  const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
       return elem.tnxtype === categValue || elem.status === categValue;
@@ -64,8 +72,16 @@ const MyWallet = () => {
     const fetchData = async () => {
       try {
         if (userInfo) {
-          const data = await GetWalletDetails(userInfo.id, "user");
+          const data = await GetWalletDetails(
+            userInfo.id,
+            userInfo.role || "user"
+          );
+          const walletdata = await FuntiontoGetTransactionDetails(
+            userInfo.id,
+            userInfo.role || "user"
+          );
           setWalletDetails(data);
+          setwaletDataNew(walletdata);
         }
       } catch (error) {
         setError(error);
@@ -74,6 +90,12 @@ const MyWallet = () => {
 
     fetchData();
   }, [userInfo]); // useEffect dependency added
+
+  const SucefData = {
+
+    paraone : 'Thank You For Request , We Will Get Back To You Soon.',
+  
+}
 
   return (
     <>
@@ -86,7 +108,7 @@ const MyWallet = () => {
               // onClick={() => {
               //   setAddAmount(true), setAddMoneyOtp(false);
               // }}
-              className="tranfer-btn add-money-btn" 
+              className="tranfer-btn add-money-btn"
             >
               Add Money
               <span>Coming Soon</span>
@@ -276,7 +298,7 @@ const MyWallet = () => {
               </tr>
             </thead>
             <tbody>
-              {waletData.map((curElem, indx) => {
+              {waletDataNew.map((curElem, indx) => {
                 return (
                   <>
                     <tr>
@@ -286,8 +308,8 @@ const MyWallet = () => {
                       </td>
                       <td>
                         <div className="b-date">
-                          <p> {curElem.date} </p>
-                          <span> {curElem.time} </span>
+                          <p> {curElem.DateTime} </p>
+                          {/* <span> {curElem.time} </span> */}
                         </div>
                       </td>
                       <td>
@@ -301,15 +323,15 @@ const MyWallet = () => {
                           </div>
 
                           <div className="b-info ">
-                            <p>{curElem.from}</p>
+                            <p>{curElem.UserName}</p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.userid} </span>
+                        <span className="b-span2 "> {curElem.UserID} </span>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.usertype} </span>
+                        <span className="b-span2 "> {curElem.Usertype} </span>
                       </td>
                       {/* <td>
                         <span className="b-span2 b-span3">
@@ -318,21 +340,24 @@ const MyWallet = () => {
                         </span>
                       </td> */}
                       <td>
-                        <span className="b-span2 "> {curElem.tnxtype} </span>
+                        <span className="b-span2 "> {curElem.TxnType} </span>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.mode} </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 b-span4">
+                        <span className="b-span2 ">
                           {" "}
-                          {curElem.ecopoints}{" "}
+                          {curElem.PAYMENTMODE}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 b-span4">
                           {" "}
-                          {curElem.wallet}{" "}
+                          {curElem.EcoPoints}{" "}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="b-span2 b-span4">
+                          {" "}
+                          {curElem.Wallet}{" "}
                         </span>
                       </td>
                       {/* <td>
@@ -341,43 +366,46 @@ const MyWallet = () => {
                       <td className="text-tb-right">
                         <span
                           className={
-                            curElem.status === "Out" ||
-                            curElem.status === "Failed"
+                            curElem.Staus === "Out" ||
+                            curElem.Staus === "Failed"
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.status === "Paid" ||
-                              curElem.status === "Done"
+                              curElem.Staus === "Paid" ||
+                              curElem.Staus === "Done"
                                 ? "orange"
                                 : "green",
                           }}
                         >
                           {" "}
-                          {curElem.status}{" "}
+                          {curElem.Staus}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 text-center-align">
                           {" "}
-                          {curElem.tnxid}{" "}
+                          {curElem.TXNID}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 text-center-align">
                           {" "}
-                          {curElem.banktnxid}{" "}
+                          {curElem.BANKTXNID}{" "}
                         </span>
                       </td>
                       <td>
                         <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {curElem.invoice} </span>
+                          <span className="b-span"> {curElem.InvoiceId} </span>
                           <i class="fa-regular fa-circle-down"></i>
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.details} </span>
+                        <span className="b-span2">
+                          {" "}
+                          {curElem.Paymentdetails}{" "}
+                        </span>
                       </td>
                     </tr>
                   </>
@@ -388,9 +416,9 @@ const MyWallet = () => {
         </div>
       </section>
 
-      <section className="product-side-comp product-side-comp-wallet">
+      {/* <section className="product-side-comp product-side-comp-wallet">
         <h4>Products</h4>
-      </section>
+      </section> */}
 
       {otp == true ? (
         <ConfirmOtp
@@ -399,10 +427,10 @@ const MyWallet = () => {
           //   setTransaction(true), setOtp(false);
           // }}
 
-          onClickAddAmnt={() => {
-            setSucesfulyTrnsctin(true), setOtp(false);
-          }}
-          
+          // onClickAddAmnt={() => {
+          //   setSucesfulyTrnsctin(true), setOtp(false);
+          // }}
+          onClickAddAmount={handleClickAddAmount}
         />
       ) : null}
       {transaction === true ? (
@@ -432,7 +460,7 @@ const MyWallet = () => {
         />
       ) : null}
       {sucesfulyTrnsctin ? (
-        <SucesfulyTran
+        <SucesfulyTran SucefData={SucefData}
           onCloseClick={() => {
             setSucesfulyTrnsctin(false);
           }}

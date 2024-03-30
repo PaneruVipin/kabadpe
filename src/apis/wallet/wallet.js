@@ -63,3 +63,74 @@ export const FuntionToUpdateWalletDetailsByRole = resolvePromise(
     }
   }
 );
+//created by kunal verma
+//To raise request for payment
+export const FuntiontoRaisepaymnetrequest = async ({
+  p_userId,
+  p_userrole,
+  p_money,
+}) => {
+  try {
+    const apiUrl = `${ENV_API_BASE_URL}/api/Wallet/FuntiontoRaisepaymnetrequest`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.post(
+      apiUrl,
+      { p_userId, p_userrole, p_money }, // Pass parameters as an object
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error("Error raising payment request:", error);
+    throw error;
+  }
+};
+//created by kunal verma
+//To Approve Transaction request for payment
+export const FuntiontoApproveTransaction = async ({
+  p_userId,
+  p_userrole,
+  P_REQUESTID,
+}) => {
+  debugger;
+  try {
+    const apiUrl = `${ENV_API_BASE_URL}/api/Wallet/FuntiontoApproveTransaction`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.post(
+      apiUrl,
+      { p_userId, p_userrole, P_REQUESTID }, // Pass parameters as an object
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.error("Error Approve Transaction payment request:", error);
+    throw error;
+  }
+};
+
+//TransactionList for user
+export const FuntiontoGetTransactionDetails = async (userId, role) => {
+  try {
+    // console.log("check " + userId, role);
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/api/Wallet/FuntiontoGetTransactionDetails/${userId}/${role}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error("Error fetching wallet details:", error);
+    throw error;
+  }
+};

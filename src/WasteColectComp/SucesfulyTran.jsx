@@ -1,10 +1,13 @@
 import React from "react";
 import "../style/ReferEarn.css";
 
-const SucesfulyTran = ({ onCloseClick, onclickViewDet }) => {
+const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , SucefData }) => {
+
+
+  
   return (
     <>
-      <section className="sucesfuly-trnsctin-comp" onClick={onCloseClick}>
+      <section className="sucesfuly-trnsctin-comp" onClick={ () => {onClickCloseSucsMesge(), onCloseClick() }}>
         <div
           className="sucesfuly-trnsctin-box"
           onClick={(e) => e.stopPropagation()}
@@ -13,7 +16,9 @@ const SucesfulyTran = ({ onCloseClick, onclickViewDet }) => {
             <i class="fa-solid fa-check fa-fw"></i>
           </div>
 
-          <p>Thank You For Request , We Will Get Back To You Soon.</p>
+          <p> {SucefData.paraone} </p>
+          <p> {SucefData.paratwo} </p>
+
           {/* <h6>Transaction ID: T230989570970474</h6> */}
 
           {/* <button
@@ -22,9 +27,10 @@ const SucesfulyTran = ({ onCloseClick, onclickViewDet }) => {
           >
             View Details
           </button> */}
-          <div onClick={onCloseClick} className="close-otp-btn">
+          <div onClick={ () => {  onClickCloseSucsMesge() , onCloseClick()}  } className="close-otp-btn">
             <i class="fa-solid fa-xmark"></i>
           </div>
+          
         </div>
       </section>
     </>

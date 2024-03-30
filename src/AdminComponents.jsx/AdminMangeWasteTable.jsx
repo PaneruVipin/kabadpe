@@ -95,65 +95,23 @@ const AdminMangeWasteTable = ({ wasteHistory }) => {
                 <th>
                   Frenchies <br /> Name
                 </th>
-
-                <th>
-                  Newspaper <br /> (kg)
-                </th>
-                <th>
-                  Office Paper <br /> (kg)
-                </th>
-                <th>
-                  Copies/Books <br /> (kg)
-                </th>
-                <th>
-                  Cardboard <br /> (kg)
-                </th>
-                <th>
-                  Plastic <br /> (kg)
-                </th>
-                <th>
-                  Iron <br /> (kg)
-                </th>
-                <th>
-                  Steel <br /> (kg)
-                </th>
-                <th>
-                  Aluminium <br /> (kg)
-                </th>
-                <th>
-                  Brass <br /> (kg)
-                </th>
-                <th>
-                  Copper <br /> (kg)
-                </th>
-                <th>
-                  Heavy <br /> Waste (kg)
-                </th>
-                <th>
-                  Light <br /> Waste (piece)
-                </th>
-                <th>
-                  Scrap <br /> Tablet (piece)
-                </th>
-                <th>
-                  Scrap <br /> Laptop (piece)
-                </th>
-                <th>
-                  CRT <br /> Monitor (piece)
-                </th>
-                <th>
-                  LCD <br /> Monitor (kg)
-                </th>
-                <th>
-                  Computer <br /> CPU (piece)
-                </th>
+                {!wasteHistory?.error
+                  ? wasteHistory?.products?.map(({ id, productName, unit }) => (
+                      <th key={id}>
+                        {productName?.replace(/\b\w/g, function (char) {
+                          return char?.toUpperCase();
+                        })}{" "}
+                        <br /> ({unit})
+                      </th>
+                    ))
+                  : null}
                 <th>Invoice</th>
               </tr>
             </thead>
             <tbody>
               {!wasteHistory?.error
                 ? search(
-                    wasteHistory?.map((w) => {
+                    wasteHistory?.collection?.map((w) => {
                       return {
                         ...w,
                         date: DateTime.fromISO(w?.addedOn, {
@@ -245,184 +203,23 @@ const AdminMangeWasteTable = ({ wasteHistory }) => {
                                 <p>
                                   {" "}
                                   {Franchise?.companyName ||
-                                    KabadCollector?.Franchise?.companyName}{" "}
+                                    KabadCollector?.Franchise?.companyName || "KabadPe"}{" "}
                                 </p>
                                 {/* <span> {"elem.userId"} </span>{" "} */}
                               </div>
                             </td>
-
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "newspaper"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "officepaper"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "copies/books"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "cardboard"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "plastic"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {" "}
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "iron"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "steel"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "aluminium"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "brass"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "copper"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "heavywaste"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "lightwaste"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "scraptablet"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "scraplaptop"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "crtmonitor"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "lcdmonitor"
-                                )?.weight || "0.00"}
-                              </span>{" "}
-                            </td>
-                            <td>
-                              {" "}
-                              <span>
-                                {w?.find(
-                                  ({ name }) =>
-                                    name?.toLowerCase()?.split(" ")?.join("") ==
-                                    "computercpu"
-                                )?.weight || "0.00"}{" "}
-                              </span>{" "}
-                            </td>
+                            {!wasteHistory?.error
+                              ? wasteHistory?.products?.map(
+                                  ({ id, productName }) => {
+                                    const waste = w?.find(
+                                      ({ productId, name }) =>
+                                        productName == name ||
+                                        id?.includes(productId)
+                                    )?.weight;
+                                    return <td>{waste}</td>;
+                                  }
+                                )
+                              : null}
                             <td>
                               <div className="id-dwld-btn text-center-align">
                                 {/* <span className="b-span"> {elem.invoice} </span> */}

@@ -10,7 +10,7 @@ export const workerWasteCollectionFetch = resolvePromise(async (type = "") => {
       Authorization: token,
     },
   });
-  return res?.collection;
+  return res;
 });
 
 export const adminWasteCollectionFetch = resolvePromise(async (type = "") => {
@@ -21,5 +21,5 @@ export const adminWasteCollectionFetch = resolvePromise(async (type = "") => {
       Authorization: token,
     },
   });
-  return res?.collection;
+  return res;
 });

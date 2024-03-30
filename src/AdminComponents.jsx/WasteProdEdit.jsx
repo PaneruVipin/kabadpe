@@ -7,6 +7,7 @@ import {
 import { AutoComplete, Select } from "antd";
 import { adminAriaFetch } from "../apis/admins/arias";
 import { useQuery } from "@tanstack/react-query";
+import { catageories } from "../lib/kabadCatageories";
 
 const WasteProdEdit = ({
   onclickEditClose,
@@ -36,6 +37,12 @@ const WasteProdEdit = ({
         productName: "",
         state: undefined,
         city: undefined,
+        category: "",
+        unit: "",
+        oilSaved: 0,
+        electrictySaved: 0,
+        waterSaved: 0,
+        co2Offset: 0,
       };
   const handleSubmit = async (data) => {
     setOtherErrors({});
@@ -112,21 +119,42 @@ const WasteProdEdit = ({
             }) => {
               return (
                 <Form>
-                  <div className="admin-login-fild admin-login-fild3">
-                    <label htmlFor="#">Product Name</label>
-                    <input
-                      type="text"
-                      name="productName"
-                      id="productname"
-                      autoComplete="off"
-                      placeholder="Enter Product Name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values?.productName}
-                    />
-                    {/* {touched?.otp && errors?.otp ? (
-                      <div style={{ color: "red" }}>{errors?.otp}</div>
-                    ) : null} */}
+                  <div className="two-fild-grid">
+                    <div className="admin-login-fild admin-login-fild3">
+                      <label htmlFor="#">Product Name</label>
+                      <input
+                        type="text"
+                        name="productName"
+                        id="productname"
+                        autoComplete="off"
+                        placeholder="Enter Product Name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.productName}
+                      />
+                    </div>
+                    <div className="admin-login-fild admin-login-fild3">
+                      <label htmlFor="#">Category</label>
+                      <select
+                        type="text"
+                        name="category"
+                        id="productname"
+                        autoComplete="off"
+                        placeholder="Enter Product Name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.category}
+                      >
+                        <option value="" hidden>
+                          Select Catageory
+                        </option>
+                        {catageories?.map(({ id, name }) => (
+                          <option key={id} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                   <div className="two-fild-grid">
                     <div className="prod-image-main mt-3">
@@ -227,10 +255,10 @@ const WasteProdEdit = ({
                     </div>
                   </div>
                   <div className="three-fild-bx">
-                    <h6>Retail Price</h6>
+                    {/* <h6>Retail Price</h6> */}
 
                     <div className="three-fild-grid">
-                      <div className="admin-login-fild admin-login-fild3">
+                      {/* <div className="admin-login-fild admin-login-fild3">
                         <label htmlFor="#">Start</label>
                         <div className="fild-bx">
                           <input
@@ -262,11 +290,12 @@ const WasteProdEdit = ({
                           />
                           <span>Kg</span>
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Price</label>
+                        <label htmlFor="#">Retail Price Per Unit</label>
                         <div className="fild-bx">
+                          <span>₹</span>
                           <input
                             type="number"
                             onWheel={(e) => e.currentTarget.blur()}
@@ -277,13 +306,107 @@ const WasteProdEdit = ({
                             onBlur={handleBlur}
                             value={values?.retailPrice}
                           />
-                          <span>₹</span>
                         </div>
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Bulk Price Per Unit</label>
+                        <div className="fild-bx">
+                          <span>₹</span>
+                          <input
+                            type="number"
+                            onWheel={(e) => e.currentTarget.blur()}
+                            name="bulkPrice"
+                            id="Price"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.bulkPrice}
+                          />
+                        </div>
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Unit</label>
+                        <select
+                          type="text"
+                          name="unit"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Enter Product Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.unit}
+                        >
+                          <option value="" hidden>
+                            Select Unit
+                          </option>
+                          <option value="kg">Kg</option>
+                          <option value="piece">Piece</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="two-fild-grid">
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">CO2 Offset (Kg)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="co2Offset"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="CO2 Offset"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.co2Offset}
+                        />
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Water Saved (Litres)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="waterSaved"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Water Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.waterSaved}
+                        />
+                      </div>
+                    </div>
+                    <div className="two-fild-grid">
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Electricity Saved (KWh)</label>
+                        <input
+                          type="number"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          name="electrictySaved"
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Electricity Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.electrictySaved}
+                        />
+                      </div>
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Oil Saved (Lakhs Litres)</label>
+                        <input
+                          type="number"
+                          name="oilSaved"
+                          onWheel={(e) => e.currentTarget.blur()}
+                          id="productname"
+                          autoComplete="off"
+                          placeholder="Oil Saved"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.oilSaved}
+                        />
                       </div>
                     </div>
                   </div>
 
-                  <div className="three-fild-bx">
+                  {/* <div className="three-fild-bx">
                     <h6>Bulk Price</h6>
 
                     <div className="three-fild-grid">
@@ -320,25 +443,8 @@ const WasteProdEdit = ({
                           <span>Kg</span>
                         </div>
                       </div>
-
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Price</label>
-                        <div className="fild-bx">
-                          <input
-                            type="number"
-                            onWheel={(e) => e.currentTarget.blur()}
-                            name="bulkPrice"
-                            id="Price"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.bulkPrice}
-                          />
-                          <span>₹</span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
+                  </div> */}
                   {otherErrors?.insert ? (
                     <div style={{ color: "red", textAlign: "center" }}>
                       {otherErrors?.insert}

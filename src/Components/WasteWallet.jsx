@@ -78,11 +78,17 @@ const WasteWallet = () => {
 
           <div className="right-wallet-box">
             <button
-              onClick={() => setAddAmount(true)}
+              // onClick={
+              //   () => setAddAmount(true)
+              // }
               className="tranfer-btn add-money-btn"
             >
               Add Money
+              <span>Coming Soon</span>
+
             </button>
+
+          
 
             <button onClick={() => setOtp(true)} className="tranfer-btn">
               Withdraw Now

@@ -60,24 +60,14 @@ const Wastecolect = () => {
             <h6>Waste Collector </h6>
 
             <div className="right-worker-type-flex-bx right-worker-type-flex-bx5">
-              <div className="user-data-search-box">
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  placeholder="Search..."
-                  autoComplete="off"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
-                />
-              </div>
+             
 
-              <button
+              {/* <button
                 onClick={() => setAddWork(true)}
                 className="work-type-btn"
               >
                 Add Worker Type
-              </button>
+              </button> */}
 
               <div className="export-btn">
                 <i class="fa-regular fa-file-excel"></i>
@@ -90,6 +80,17 @@ const Wastecolect = () => {
           </div>
 
           <div className="right-user-filter-data-flex-box right-user-filter-data-flex-box6">
+          <div className="user-data-search-box">
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="Search..."
+                  autoComplete="off"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
+                />
+              </div>
             <div className="add-work-sel-bx user-type-sel-box user-data-search-box">
               <select
                 name="worktype"

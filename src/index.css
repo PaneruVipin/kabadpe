@@ -13034,7 +13034,8 @@ Our Review Section CSS code
 .infnte-slide-waste-main{
   position: relative;
   width: 100%;
-  height: 205px;
+  height: 220px;
+  margin-bottom: 1rem;
   display: grid;
   overflow-x: hidden;
 }
@@ -13042,7 +13043,7 @@ Our Review Section CSS code
 .slider-track{
   position: relative;
   display: flex;
-  width: calc(180px * 36);
+  width: calc(180px * 29);
   /* gap: 2rem; */
   animation: infiniteslide 74s linear infinite;
 }
@@ -13050,8 +13051,8 @@ Our Review Section CSS code
 
 .slide-bx{
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   display: inline-flex;
   align-items: center;
   flex-direction: column;
@@ -13061,8 +13062,8 @@ Our Review Section CSS code
   background-color: #48bbc1;
   border: .1rem solid #48bbc1;
   transition: 500ms ease;
+  margin-bottom: .5rem;
   
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; */
 
 }
 
@@ -13157,7 +13158,7 @@ Our Review Section CSS code
 
 .slide-img{
   position: relative;
-  width: 4rem;
+  width: 4.4rem;
 }
 
 .slide-img img{
@@ -13175,8 +13176,8 @@ Our Review Section CSS code
 
 .slide-main {
   position: relative;
-  width: 150px;
-  margin-inline: 2rem;
+  width: 140px;
+  margin-inline: 3rem;
   margin-top: 1rem;
 
 
@@ -13185,6 +13186,7 @@ Our Review Section CSS code
 .slide-main h6{
   margin-top: 1rem;
   text-align: center !important;
+  font-size: 1.2rem;
 }
 
 .check-rate-btn{
@@ -14164,7 +14166,7 @@ Our Review Section CSS code
 }
 
 .sorting-btn1{
-  width: 12rem !important;
+  width: 10rem !important;
 }
 
 .sorting-btn i{
@@ -14560,4 +14562,32 @@ Our Review Section CSS code
   font-size: .9rem !important;
   font-weight: 500 !important;
   color: #fff !important;
+}
+
+.main-ratelist-product{
+  position: relative;
+  width: 100%;
+}
+
+.ratelist-prod-bx{
+  margin-bottom: 1.5rem;
+}
+
+.ratelist-prod-bx > h6{
+  text-align: center;
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  font-family: "Libre Baskerville", serif !important;
+}
+
+.paynow-btn-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+}
+
+.google-img-i{
+  width: .9rem;
 }

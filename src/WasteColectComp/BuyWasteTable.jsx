@@ -291,14 +291,14 @@ const BuyWasteTable = ({
             Cash Paid
           </button>
 
-          {/* <button
+          <button
             onClick={() => {
               setWaltTranfer(true), setPay(false);
             }}
             className="pay-btn"
           >
             Wallet Tranfer
-          </button> */}
+          </button>
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>

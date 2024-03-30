@@ -12656,7 +12656,7 @@ Our Review Section CSS code
 }
 
 .wallet-comp7 {
-  padding-inline-end: 20rem !important;
+  /* padding-inline-end: 20rem !important; */
 }
 
 .product-side-comp-wallet {

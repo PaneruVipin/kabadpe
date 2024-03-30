@@ -27,9 +27,10 @@ const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , 
           >
             View Details
           </button> */}
-          <div onClick={() => {onCloseClick() , onClickCloseSucsMesge()}} className="close-otp-btn">
+          <div onClick={onCloseClick } className="close-otp-btn">
             <i class="fa-solid fa-xmark"></i>
           </div>
+          
         </div>
       </section>
     </>

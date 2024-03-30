@@ -284,11 +284,11 @@ const BuyWasteTable = ({
             {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          {+totalAmmount ? (
+          {/* {+totalAmmount ? ( */}
             <button onClick={() => setPay(true)} className="paynow-btn">
               Pay Now
             </button>
-          ) : null}
+          {/* ) : null} */}
         </div>
       </section>
 
@@ -313,7 +313,6 @@ const BuyWasteTable = ({
             Wallet Tranfer
           </button>
 
-          { waletSuc ? <SucesfulyTran SucefData={SucefData} onClickCloseSucsMesge={() => setWaletSuc(false)} /> : null }
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>
@@ -333,15 +332,15 @@ const BuyWasteTable = ({
 
           <p>
             {" "}
-            Wallet Balance : <span>₹5000.00</span>{" "}
+            Wallet Balance : <span>5000.00</span>{" "}
           </p>
           <p>
             {" "}
-            Payment Value : <span>₹2000.00</span>{" "}
+            Payment Value : <span>2000.00</span>{" "}
           </p>
           <p>
             {" "}
-            Balance Pay : <span>₹3000.00</span>{" "}
+            Balance Pay : <span>3000.00</span>{" "}
           </p>
 
           <button onClick={() => {setWaletSuc(true) ,setWaltTranfer(false), setPay(false) }} className="confirm-btn">Confirm</button>
@@ -351,6 +350,9 @@ const BuyWasteTable = ({
           </div>
         </div>
       </div>
+
+      { waletSuc ? <SucesfulyTran SucefData={SucefData} onClickCloseSucsMesge={() => setWaletSuc(false)} /> : null }
+
     </>
   );
 };

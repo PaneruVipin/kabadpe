@@ -24,37 +24,42 @@ const ClearStock = () => {
     if (!wasteData || wasteData?.error) {
       return;
     }
-    const waste = wasteData?.reduce((a, b) => {
+    const waste = wasteData?.collection?.reduce((a, b) => {
       let newData = [...a];
       try {
         const w = JSON.parse(b?.waste)?.waste;
-        w?.forEach(({ name, image, price, bulkPrice, ammount, weight }) => {
-          const exist = newData?.find(({ id }) => id == name);
-          let newObj = {
-            id: name,
-            image,
-            price,
-            bulkPrice,
-            ammount: +ammount,
-            weight: +weight,
-          };
-          if (exist) {
-            newObj = {
-              ...exist,
-              ammount: +(exist?.ammount || 0) + +(ammount || 0),
-              weight: +(exist?.weight || 0) + +(weight || 0),
+        w?.forEach(
+          ({ name, image, price, bulkPrice, ammount, weight, productId }) => {
+            const exist = newData?.find(
+              ({ id, productId }) => id == name || productId == productId
+            );
+            let newObj = {
+              id: name,
+              productId,
+              image,
+              price,
+              bulkPrice,
+              ammount: +ammount,
+              weight: +weight,
             };
-            newData = newData?.map((d) => {
-              if (d?.id == name) {
-                return newObj;
-              } else {
-                return d;
-              }
-            });
-            return;
+            if (exist) {
+              newObj = {
+                ...exist,
+                ammount: +(exist?.ammount || 0) + +(ammount || 0),
+                weight: +(exist?.weight || 0) + +(weight || 0),
+              };
+              newData = newData?.map((d) => {
+                if (d?.id == name || d?.productId == productId) {
+                  return newObj;
+                } else {
+                  return d;
+                }
+              });
+              return;
+            }
+            newData?.push(newObj);
           }
-          newData?.push(newObj);
-        });
+        );
       } catch {}
       return newData;
     }, []);
@@ -81,29 +86,42 @@ const ClearStock = () => {
                     <img src={"/images/customImg/hazardous.png"} alt="" />
                   </div>
                 </div>
-                {AdminWasteProd.map((curElem, id) => {
-                  const w = waste?.find(
-                    ({ id }) =>
-                      id?.toLowerCase() == curElem?.title?.toLowerCase()
-                  );
-                  return (
-                    <>
-                      <div key={id} className="waste-mnge-prod-bx">
-                        <div className="waste-mnge-prod-text">
-                          <h6> {curElem.title} </h6>
-                          <p>
-                            {" "}
-                            {w?.weight || "00.00"}
-                            {curElem?.unit}{" "}
-                          </p>
-                        </div>
-                        <div className="waste-prod-icon">
-                          <img src={curElem.img} alt="" />
-                        </div>
-                      </div>
-                    </>
-                  );
-                })}
+                {!wasteData?.error
+                  ? wasteData?.products?.map(
+                      ({ id, productImage, productName, unit }, i) => {
+                        const w = waste?.find(
+                          ({ id: wasteId, productId }) =>
+                            wasteId?.toLowerCase() ==
+                              productName?.toLowerCase() || productId == id
+                        );
+                        return (
+                          <>
+                            <div key={i} className="waste-mnge-prod-bx">
+                              <div className="waste-mnge-prod-text">
+                                <h6>
+                                  {" "}
+                                  {productName?.replace(
+                                    /\b\w/g,
+                                    function (char) {
+                                      return char?.toUpperCase();
+                                    }
+                                  )}{" "}
+                                </h6>
+                                <p>
+                                  {" "}
+                                  {w?.weight || "00.00"}
+                                  {unit}{" "}
+                                </p>
+                              </div>
+                              <div className="waste-prod-icon">
+                                <img src={productImage} alt="" />
+                              </div>
+                            </div>
+                          </>
+                        );
+                      }
+                    )
+                  : null}
               </div>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,69 +18,18 @@ import AboutBanner from "../AboutComp/AboutBanner";
 // import { AdminWasteProdData } from "./AdminWasteProdSlideData";
 import { RateListProd } from "./RatelistProd";
 import MainFooter from "../HomeComponent/MainFooter";
+import { catageories } from "../lib/kabadCatageories";
+import { adminkabadProductFetch } from "../apis/admins/kabadProducts";
+import { adminAriaFetch } from "../apis/admins/arias";
+import { filteredData } from "../lib/array";
+import AppoinmentPopup from "../HomeComponent/AppoinmentPopup";
 
-const Ratelistcomp = () => {
-  const [listBox, setListBox] = useState(false);
-  const [mainPrice, setmainPrice] = useState(false);
-  const [apiErrors, setApiErrors] = useState({ shcedulPickup: "" });
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [calculatedPrice, setCalculatedPrice] = useState(0);
-  const initialSchedulePickupValues = {
-    formatedAddress: "",
-    appointmentContactNumber: "",
-    appointmentPersonName: "",
-    appointmentTimeSlot: "",
-    appointmentDate: null,
-    pincode: "",
-    serviceType: "",
-  };
-  const hideFunc = () => {
-    setListBox(true);
-  };
-
-  const ShcedulPickuFunc = () => {
-    setmainPrice(true);
-  };
-  const handlePickupSubmit = async (data) => {
-    setApiErrors({
-      ...apiErrors,
-      shcedulPickup: "",
-    });
-    const res = await userSchedulePickup({
-      ...data,
-    });
-    if (res.error) {
-      setApiErrors({
-        ...apiErrors,
-        shcedulPickup: res.message,
-      });
-      return;
-    }
-    setApiErrors({
-      ...apiErrors,
-      shcedulPickup: "",
-    });
-  };
-
-  const { isPending, data: kabadItems } = useQuery({
-    queryKey: ["rateList"],
-    queryFn: () => userRateListFetch(),
-  });
-  const calculateRate = async (data) => {
-    const totalPrice = await userCalculateKabadRate(data);
-    if (!totalPrice.error) setCalculatedPrice(totalPrice);
-    hideFunc();
-  };
+const Ratelistcomp = ({ setUserForm }) => {
   const data = {
     title: "Rate List",
     text: "Ratelist",
   };
-
-  // -----------------------------------------
-
-  const [calculatorData, setCalculatorData] = useState([]);
   const [totlWaste, setTotlWaste] = useState(false);
-  const [products, setProducts] = useState(RateListProd);
   const [prodSug, setProdSug] = useState([
     {
       id: 1,
@@ -154,389 +103,309 @@ const Ratelistcomp = () => {
     },
   ]);
   const [visibleProd, setVisibleProd] = useState(8);
-  const [selectedOption , setSelectedOption] = useState(null);
-  const [selectedOptionOne , setSelectedOptionOne] = useState(null);
-  const [selectedOptionTwo , setSelectedOptionTwo] = useState(null);
-  const [selectedOptionThree , setSelectedOptionThree] = useState(null);
 
+  const [selectedRates, setSelectedRates] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cites, setCites] = useState([]);
+  const [selection, setSelection] = useState();
+  const [rateList, setRateList] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [appoinmentForm, setAppoinmentForm] = useState(false);
+  const [selectedOptionOne, seSelectedOptionOne] = useState("");
+  const [optionOne, setOptionOne] = useState([
+    "Kabadpe",
+    "Brand Orbitor",
+    "Extra Frames",
+  ]);
+  const handleCheckboxChange =
+    ({ id, ...data }) =>
+    () => {
+      let newSelectedRates = [];
+      const exist = selectedRates?.find((e) => e?.id == id);
+      if (exist) {
+        newSelectedRates = selectedRates?.filter((e) => e?.id != id);
+      } else {
+        newSelectedRates = [...selectedRates, { id, ...data }];
+      }
+      setSelectedRates(newSelectedRates);
+    };
 
- 
-
-  const [optionOne , setOptionOne] = useState([
-
-    'Kabadpe' , 'Brand Orbitor' , 'Extra Frames'
-
-    
-  ])
-
-  const [optionTwo , setOptionTwo] = useState([
-
-    'State1' , 'State2' , 'State3'
-
-    
-  ])
-
-
-  const [optionThree , setOptionThree] = useState([
-
-    'City1' , 'City2' , 'City3'
-
-    
-  ])
-  
-  const handleCheckboxChange = (id) => {
-    const updatedProducts = products.map((product) =>
-      product.id === id ? { ...product, checked: !product.checked } : product
-    );
-    setProducts(updatedProducts);
-
-    if (updatedProducts.find((product) => product.id === id).checked) {
-      setCalculatorData([
-        ...calculatorData,
-        updatedProducts.find((product) => product.id === id),
-      ]);
-    } else {
-      setCalculatorData(calculatorData.filter((product) => product.id !== id));
-    }
-  };
-
-  const handleWeightChange = (id, weight) => {
-    const updatedProducts = products.map((product) =>
-      product.id === id ? { ...product, weight: weight } : product
-    );
-    setProducts(updatedProducts);
-
-    const updatedCalculatorData = calculatorData.map((product) =>
-      product.id === id ? { ...product, weight: weight } : product
-    );
-    setCalculatorData(updatedCalculatorData);
+  const handleWeightChange = (id) => (e) => {
+    const weight = e.target.value;
+    const newRates = selectedRates.map((e) => {
+      if (e?.id == id) {
+        return { ...e, weight };
+      } else {
+        return e;
+      }
+    });
+    setSelectedRates(newRates);
   };
 
   const loadMore = () => {
     setVisibleProd(visibleProd + 4);
   };
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
+  const { data: rateListData, refetch } = useQuery({
+    queryKey: ["userRateListFetch"],
+    queryFn: () => adminkabadProductFetch(),
+  });
+  const { data: arias } = useQuery({
+    queryKey: ["ratelistArias"],
+    queryFn: () => adminAriaFetch(),
+  });
+  const getStates = (res) =>
+    [...new Set(res?.map((e, i) => e?.state))].map((name, i) => ({
+      id: i,
+      name,
+    }));
+  const getCities = (state, res) => {
+    return [
+      ...new Set(res?.filter((e) => e?.state == state)?.map((e, i) => e?.city)),
+    ].map((name, i) => ({ id: i, name }));
   };
-
-  const handleOptionClickOne = (option) => {
-    setSelectedOptionOne(option);
+  const totalRate = filteredData(selectedRates, filters)?.reduce((a, b) => {
+    const weight = +b?.weight ? +b?.weight : 0;
+    const value = +b?.retailPrice * weight;
+    return a + value;
+  }, 0);
+  const enviournmentSaving = filteredData(selectedRates, filters)?.reduce(
+    (a, b) => {
+      const weight = +b?.weight ? +b?.weight : 0;
+      const co2Offset = (+b?.co2Offset || 0) * weight;
+      const waterSaved = (+b?.waterSaved || 0) * weight;
+      const electrictySaved = (+b?.electrictySaved || 0) * weight;
+      const oilSaved = (+b?.oilSaved || 0) * weight;
+      return {
+        co2: a?.co2 + co2Offset,
+        water: a?.water + waterSaved,
+        oil: a?.oil + oilSaved,
+        electricty: a?.electricty + electrictySaved,
+      };
+    },
+    { co2: 0, water: 0, oil: 0, electricty: 0 }
+  );
+  const handleFilter = (name, value) => () => {
+    setSelection({ ...selection, [name]: value });
+    if (name == "state") {
+      const cities = getCities(value, arias);
+      setCites(cities);
+      setSelection((selection) => ({ ...selection, city: cities?.[0]?.name }));
+    }
   };
-
-  const handleOptionClickTwo = (option) => {
-    setSelectedOptionTwo(option);
-  };
-
-  const handleOptionClickThree = (option) => {
-    setSelectedOptionThree(option);
-  };
-
+  useEffect(() => {
+    if (arias?.error || !arias || !arias?.length) {
+      return;
+    }
+    const state = getStates(arias);
+    setStates(state);
+    const cities = getCities(state?.[0]?.name, arias);
+    setCites(cities);
+    setSelection({
+      ...selection,
+      state: state?.[0]?.name,
+      city: cities?.[0]?.name,
+    });
+  }, [arias]);
+  useEffect(() => {
+    if (rateListData?.error || !rateListData || !rateListData?.length) {
+      return;
+    }
+    setRateList(rateListData);
+  }, [rateListData]);
+  useEffect(() => {
+    if (selection) {
+      const filter = {
+        id: "area",
+        fn: (e) => {
+          return e?.state == selection?.state && e?.city == selection?.city;
+        },
+      };
+      setFilters([filter]);
+      const newRateList = filteredData(rateListData, [filter]);
+      setRateList(newRateList);
+    }
+  }, [selection]);
   return (
     <>
+      <AppoinmentPopup
+        setUserForm={setUserForm}
+        appoinmentForm={appoinmentForm}
+        setAppoinmentForm={setAppoinmentForm}
+      />
       <AboutBanner data={data} />
-
       <section className="ratelist-comp">
         <div className="ratelist-container">
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
-            
-
               <button className="sorting-btn sorting-btn1">
-              {selectedOptionOne || 'Choose Your Seller'}
-                
+                {selectedOptionOne || "Choose Your Seller"}
+
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
-
-                  {optionOne.map((curData , indx) => {
+                  {optionOne.map((curData, indx) => {
                     return (
                       <>
-                  <button className="prod-tab-btn"  key={indx}
-                  onClick={() => handleOptionClickOne(curData)}
-                  > {curData} </button>
-
+                        <button
+                          className="prod-tab-btn"
+                          key={indx}
+                          onClick={() => seSelectedOptionOne(curData)}
+                        >
+                          {" "}
+                          {curData}{" "}
+                        </button>
                       </>
-                    )
+                    );
                   })}
-                  
-                
                 </div>
               </button>
 
               <button className="sorting-btn sorting-btn1">
-              {selectedOptionTwo || 'Choose  State'}
-                
+                {selection?.state || states?.[0]?.name}
+
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
-
-                  {optionTwo.map((curData , indx) => {
+                  {states.map(({ id, name }, indx) => {
                     return (
                       <>
-                  <button className="prod-tab-btn"  key={indx}
-                  onClick={() => handleOptionClickTwo(curData)}
-                  > {curData} </button>
-
+                        <button
+                          className="prod-tab-btn"
+                          key={id}
+                          onClick={handleFilter("state", name)}
+                        >
+                          {name}
+                        </button>
                       </>
-                    )
+                    );
                   })}
-                  
-                
                 </div>
               </button>
 
               <button className="sorting-btn sorting-btn1">
-              {selectedOptionThree || 'Choose  City'}
-                
+                {selection?.city || cites?.[0]?.name}
+
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
-
-                  {optionThree.map((curData , indx) => {
+                  {cites.map(({ id, name }, indx) => {
                     return (
                       <>
-                  <button className="prod-tab-btn"  key={indx}
-                  onClick={() => handleOptionClickThree(curData)}
-                  > {curData} </button>
-
+                        <button
+                          className="prod-tab-btn"
+                          key={id}
+                          onClick={handleFilter("city", name)}
+                        >
+                          {name}
+                        </button>
                       </>
-                    )
+                    );
                   })}
-                  
-                
                 </div>
               </button>
-
-             
-
-              <div className="ratelist-sel-bx">
-                <input
-                  type="text"
-                  name="pin"
-                  id="pin"
-                  placeholder="Enter your pin"
-                />
-                <div className="search-btn rate-search-icon">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-              </div>
             </div>
           </div>
           <div
             className={"ratelist-list-grid-main ratelist-list-grid-main-active"}
           >
             <div className="main-ratelist-product">
-            <div className="ratelist-prod-bx">
-              <h6>Paper</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'paper' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
+              {!rateList?.error && rateList?.length
+                ? catageories?.map(({ id, name }) => {
+                    const list = rateList?.filter(
+                      ({ category }) =>
+                        category == name ||
+                        (name == "Others" ? !category : false)
+                    );
+                    return list?.length ? (
+                      <div key={id} className="ratelist-prod-bx">
+                        <h6>
+                          {name?.replace(/\b\w/g, function (char) {
+                            return char.toUpperCase();
+                          })}
+                        </h6>
+                        <div
+                          className={
+                            "rate-list-grid-left rate-list-grid-left-active"
+                          }
+                        >
+                          {list?.map(
+                            ({
+                              id,
+                              productImage,
+                              productName,
+                              bulkPrice,
+                              retailPrice,
+                              unit,
+                              ...rest
+                            }) => (
+                              <div key={id} className="rate-list-prod-bx">
+                                <div className="ratelist-img">
+                                  <img src={productImage} alt="" />
+                                </div>
+                                <div className="ratelist-info">
+                                  <h6>
+                                    {" "}
+                                    {productName?.replace(
+                                      /\b\w/g,
+                                      function (char) {
+                                        return char.toUpperCase();
+                                      }
+                                    )}{" "}
+                                  </h6>
+                                  {/* <span> {"curElem.text"} </span> */}
+                                  <div className="check">
+                                    <p> {`${retailPrice} (${unit})`} </p>
+                                    <div className="tick-bx">
+                                      <input
+                                        type="checkbox"
+                                        name={id}
+                                        checked={selectedRates?.some(
+                                          (e) => e?.id == id
+                                        )}
+                                        onChange={handleCheckboxChange({
+                                          id,
+                                          productImage,
+                                          productName,
+                                          bulkPrice,
+                                          retailPrice,
+                                          unit,
+                                          ...rest,
+                                        })}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          )}
                         </div>
                       </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
+                    ) : null;
+                  })
+                : null}
             </div>
 
-            <div className="ratelist-prod-bx">
-              <h6>Plastic</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'plastic' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
-            </div>
-
-
-            <div className="ratelist-prod-bx">
-              <h6>Metal</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'iron' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
-            </div>
-
-            <div className="ratelist-prod-bx">
-              <h6>Ewaste</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'ewaste' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
-            </div>
-
-
-            <div className="ratelist-prod-bx">
-              <h6>Vehicle</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'vehicle' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
-            </div>
-
-            <div className="ratelist-prod-bx">
-              <h6>Others</h6>
-            <div className={"rate-list-grid-left rate-list-grid-left-active"}>
-              {products.map((curElem, indx) => {
-                return (
-                  <>
-                    { curElem.category === 'other' ? <div className="rate-list-prod-bx">
-                      <div className="ratelist-img">
-                        <img src={curElem.img} alt="" />
-                      </div>
-                      <div className="ratelist-info">
-                        <h6> {curElem.title} </h6>
-                        <span> {curElem.text} </span>
-                        <div className="check">
-                          <p> {curElem.minitext} </p>
-                          <div className="tick-bx">
-                            <input
-                              type="checkbox"
-                              checked={curElem.checked}
-                              onChange={() => handleCheckboxChange(curElem.id)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>  : null}
-                  </>
-                );
-              })}
-            </div>
-            </div>
-
-            </div>
-            
             <div className="right-waste-calculator-main">
               {totlWaste ? (
                 <div className="totl-value-main">
-                  <h6>Total Value : ₹ 3000 </h6>
+                  <h6>Total Value : ₹ {totalRate} </h6>
 
                   <h5>You Saved</h5>
 
                   <div className="waste-saved-main-list-bx">
                     <div className="waste-saved-bx">
-                      <span>200 (kgs) </span>
-                      <p>Plastic</p>
+                      <span>{enviournmentSaving?.co2} Kg</span>
+                      <p>CO2 Offset</p>
                     </div>
                     <div className="waste-saved-bx">
-                      <span>40 </span>
-                      <p>Plants</p>
-                    </div>
-                    <div className="waste-saved-bx">
-                      <span>40 (ltrs) </span>
+                      <span>{enviournmentSaving?.water} Litres</span>
                       <p>Water</p>
                     </div>
                     <div className="waste-saved-bx">
-                      <span>40 (kgs) </span>
-                      <p>Carbon</p>
+                      <span>{enviournmentSaving?.electricty} KWh</span>
+                      <p>Electricity</p>
+                    </div>
+                    <div className="waste-saved-bx">
+                      <span>{enviournmentSaving?.oil} Lakhs Litres </span>
+                      <p>Oil</p>
                     </div>
                   </div>
                 </div>
@@ -551,38 +420,46 @@ const Ratelistcomp = () => {
                         <thead>
                           <tr>
                             <th>Name</th>
-                            <th>Weight (kg) </th>
-                            <th> Rate/kg </th>
+                            <th>Quantity</th>
+                            <th> Rate</th>
                             <th> Value </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {calculatorData.map((product) => (
-                            <tr>
-                              <td>
-                                <span> {product.title}</span>
-                              </td>
-                              <td>
-                                <input
-                                  type="number"
-                                  value={product.weight}
-                                  onChange={(e) =>
-                                    handleWeightChange(
-                                      product.id,
-                                      e.target.value
-                                    )
-                                  }
-                                  placeholder="Enter weight (kg)"
-                                />
-                              </td>
-                              <td>
-                                <span>{product.price} </span>
-                              </td>
-                              <td>
-                                <span> {product.price * product.weight} </span>
-                              </td>
-                            </tr>
-                          ))}
+                          {filteredData(selectedRates, filters)?.map(
+                            ({
+                              id,
+                              productImage,
+                              productName,
+                              bulkPrice,
+                              retailPrice,
+                              unit,
+                              weight,
+                            }) => (
+                              <tr>
+                                <td>
+                                  <span> {productName}</span>
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    value={weight}
+                                    onChange={handleWeightChange(id)}
+                                    placeholder={`Enter Quantity`}
+                                  />
+                                  <span>{unit}</span>
+                                </td>
+                                <td>
+                                  <span>
+                                    {retailPrice}/{unit}{" "}
+                                  </span>
+                                </td>
+                                <td>
+                                  <span> {retailPrice * weight || 0} </span>
+                                </td>
+                              </tr>
+                            )
+                          )}
                         </tbody>
                       </table>
                     </div>
@@ -590,27 +467,27 @@ const Ratelistcomp = () => {
 
                   <div className="rate-subtotl-bx">
                     <h6>
-                      SubTotal : <span>3,000</span>
+                      SubTotal : <span>₹{totalRate}</span>
                     </h6>
                   </div>
                 </div>
               ) : null}
-              {totlWaste === false ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <button
-                  onClick={() => setTotlWaste(true)}
-                  className="rate-list-calcult-btn calcult-btn23"
+                  onClick={() => setTotlWaste(!totlWaste)}
+                  className="rate-list-calcult-btn calcult-btn32 mt-4 "
                 >
                   Calculate
                 </button>
-              ) : null}
-              {totlWaste ? (
-                <button
-                  onClick={() => setTotlWaste(true)}
-                  className="rate-list-calcult-btn calcult-btn32 mt-4"
-                >
-                  Schedule Pickup
-                </button>
-              ) : null}
+                {totlWaste ? (
+                  <button
+                    onClick={() => setAppoinmentForm(true)}
+                    className="rate-list-calcult-btn calcult-btn32 mt-4"
+                  >
+                    Schedule Pickup
+                  </button>
+                ) : null}
+              </div>
             </div>
           </div>
 
@@ -658,9 +535,7 @@ const Ratelistcomp = () => {
 
             <button onClick={() => loadMore()} className="load-btn">
               Load More
-
             </button>
-            
           </div>
         </div>
       </section>

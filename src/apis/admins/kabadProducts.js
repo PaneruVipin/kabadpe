@@ -14,22 +14,34 @@ export const adminkabadProductAdd = resolvePromise(
     productName,
     state,
     city,
+    category,
+    unit,
+    oilSaved,
+    electrictySaved,
+    waterSaved,
+    co2Offset,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/kabadpe/product`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
       {
-        bulkEndWeight,
-        bulkStartWeight,
-        retailEndWeight,
-        retailStartWeight,
+        // bulkEndWeight,
+        // bulkStartWeight,
+        // retailEndWeight,
+        // retailStartWeight,
         bulkPrice,
         retailPrice,
         productImage,
         productName,
         state,
         city,
+        category,
+        unit,
+        oilSaved,
+        electrictySaved,
+        waterSaved,
+        co2Offset,
       },
       {
         headers: {
@@ -44,10 +56,10 @@ export const adminkabadProductAdd = resolvePromise(
 
 export const adminkabadProductUpdate = resolvePromise(
   async ({
-    bulkEndWeight,
-    bulkStartWeight,
-    retailEndWeight,
-    retailStartWeight,
+    // bulkEndWeight,
+    // bulkStartWeight,
+    // retailEndWeight,
+    // retailStartWeight,
     bulkPrice,
     retailPrice,
     productImage,
@@ -55,22 +67,34 @@ export const adminkabadProductUpdate = resolvePromise(
     id,
     state,
     city,
+    category,
+    unit,
+    oilSaved,
+    electrictySaved,
+    waterSaved,
+    co2Offset,
   }) => {
     const apiUrl = ENV_API_BASE_URL + `/admin/kabadpe/product/${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
       {
-        bulkEndWeight,
-        bulkStartWeight,
-        retailEndWeight,
-        retailStartWeight,
+        // bulkEndWeight,
+        // bulkStartWeight,
+        // retailEndWeight,
+        // retailStartWeight,
         bulkPrice,
         retailPrice,
         productImage,
         productName,
         state,
         city,
+        category,
+        unit,
+        oilSaved,
+        electrictySaved,
+        waterSaved,
+        co2Offset,
       },
       {
         headers: {

@@ -1,29 +1,42 @@
-import React from 'react'
-import WaletBalance from './WaletBalance'
+import React, { useState } from "react";
+import WaletBalance from "./WaletBalance";
 
-const ConfirmOtp = ({onclickcloseOtp , onClickAddAmnt , onClickOpen}) => {
+const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
+  const [withdrawalAmount, setWithdrawalAmount] = useState("");
+  const handleWithdrawalRequest = () => {
+    // Call onClickAddAmount with the withdrawalAmount
+    onClickAddAmount(withdrawalAmount);
+  };
   return (
     <>
+      <section className="confirm-otp" onClick={onClickAddAmount}>
+        <div className="otp-main-box" onClick={(e) => e.stopPropagation()}>
+          <h6>Withdrawl</h6>
 
-    <section className="confirm-otp" onClick={onClickAddAmnt}>
+          <div className="otp-fild">
+            <input
+              type="text"
+              name="otp"
+              id="otp"
+              placeholder="Enter  withdrawl amount"
+              value={withdrawalAmount}
+              onChange={(e) => setWithdrawalAmount(e.target.value)}
+            />
+          </div>
+          <h6>
+            {" "}
+            Note: Kabadpe Admin Will check and transfer the amount to your bank
+            account, You will get notify.{" "}
+          </h6>
+          <h6 style={{ color: "red" }}>Note : Not more than Wallet Balance</h6>
 
-    <div className="otp-main-box" onClick={(e) => e.stopPropagation()}>
-            <h6>Withdrawl</h6>
+          <button onClick={handleWithdrawalRequest} className="submit-otp">
+            Withdrawl Request
+          </button>
 
-            <div className="otp-fild">
-                <input type="text" name='otp' id='otp' placeholder='Enter  withdrawl amount' />
-            </div>
-            <h6>  Note: Kabadpe Admin Will check and transfer the amount to your bank account, You will get notify.    </h6>
-            <h6 style={{color : "red"}}>Note : Not more than Wallet Balance</h6>
-
-            <button onClick={onClickAddAmnt} className="submit-otp">
-               Withdrawl Request
-            </button>
-
-            <div onClick={onclickcloseOtp} className="close-otp-btn">
+          <div onClick={onclickcloseOtp} className="close-otp-btn">
             <i class="fa-solid fa-xmark"></i>
-            </div>
-            
+          </div>
         </div>
 
         {/* <div className="otp-main-box" onClick={(e) => e.stopPropagation()}>
@@ -43,13 +56,9 @@ const ConfirmOtp = ({onclickcloseOtp , onClickAddAmnt , onClickOpen}) => {
             </div>
             
         </div> */}
-        
-    </section>
-
-  
-      
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ConfirmOtp
+export default ConfirmOtp;

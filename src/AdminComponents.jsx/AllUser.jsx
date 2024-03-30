@@ -372,131 +372,128 @@ const AllUser = ({ updatedFilterData }) => {
                   <span>{selectedUser?.email}</span>
                 </div>
               </div> */}
-                <Formik initialValues={selectedUser} onSubmit={handleSubmit}>
-                  {({
-                    handleBlur,
-                    handleChange,
-                    values,
-                    errors,
-                    touched,
-                    ...rest
-                  }) => {
-                    return (
-                      <Form className={"user-edit-main-form editformactive"}>
-                        <div className="user-data-form-edit">
-                          <div className="french-det-logo-box">
-                            <div className="f-logo">
-                              <img
-                                src={
-                                  selectedImage ||
-                                  selectedUser?.profileImage ||
-                                  "/images/temp/temp-user-profile.png"
-                                }
-                                onError={(e) => {
-                                  e.currentTarget.src =
-                                    "/images/temp/temp-user-profile.png";
-                                }}
-                                alt=""
-                              />
-                            </div>
-                            <label
-                              htmlFor="image_Path"
-                              className="french-logo-btn"
-                            >
-                              Upload
-                            </label>
-                            <input
-                              type="file"
-                              accept="image/*"
-                              name="profileImage"
-                              id="image_Path"
-                              onChange={handleImageChange(
-                                values,
-                                "profileImage"
-                              )}
+              <Formik initialValues={selectedUser} onSubmit={handleSubmit}>
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  ...rest
+                }) => {
+                  return (
+                    <Form className={"user-edit-main-form editformactive"}>
+                      <div className="user-data-form-edit">
+                        <div className="french-det-logo-box">
+                          <div className="f-logo">
+                            <img
+                              src={
+                                selectedImage ||
+                                selectedUser?.profileImage ||
+                                "/images/temp/temp-user-profile.png"
+                              }
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  "/images/temp/temp-user-profile.png";
+                              }}
+                              alt=""
                             />
                           </div>
-                          <div className="userdata-form-grid">
-                            <div className="user-edit-inpt-box">
-                              <label htmlFor="User Name">User Name</label>
-                              <div className="user-edit-inpt">
-                                <input
-                                  type="text"
-                                  name="fullname"
-                                  id="Name"
-                                  value={values?.fullname}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  autoComplete="off"
-                                />
-                              </div>
+                          <label
+                            htmlFor="image_Path"
+                            className="french-logo-btn"
+                          >
+                            Upload
+                          </label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            name="profileImage"
+                            id="image_Path"
+                            onChange={handleImageChange(values, "profileImage")}
+                          />
+                        </div>
+                        <div className="userdata-form-grid">
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="User Name">User Name</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="fullname"
+                                id="Name"
+                                value={values?.fullname}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
                             </div>
+                          </div>
 
-                            <div className="user-edit-inpt-box">
-                              <label htmlFor="Mobile No.">Mobile No.</label>
-                              <div className="user-edit-inpt">
-                                <input
-                                  type="text"
-                                  name="phoneNumber"
-                                  id="Mobile"
-                                  value={values?.phoneNumber}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  autoComplete="off"
-                                />
-                              </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="Mobile No.">Mobile No.</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="phoneNumber"
+                                id="Mobile"
+                                value={values?.phoneNumber}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
                             </div>
+                          </div>
 
-                            <div className="user-edit-inpt-box">
-                              <label htmlFor="Email ">Email</label>
-                              <div className="user-edit-inpt">
-                                <input
-                                  type="text"
-                                  name="email"
-                                  id="email"
-                                  value={values?.email}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  autoComplete="off"
-                                />
-                              </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="Email ">Email</label>
+                            <div className="user-edit-inpt">
+                              <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                value={values?.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                autoComplete="off"
+                              />
                             </div>
-                            <div className="user-edit-inpt-box">
-                              <label htmlFor="status">Status</label>
-                              <div className="user-edit-inpt">
-                                <select
-                                  type="text"
-                                  name="accountStatus"
-                                  value={values?.accountStatus}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  id="status"
-                                  autoComplete="off"
-                                >
-                                  <option value="active">Active</option>
-                                  <option value="inactive">Inactive</option>
-                                  <option value="ban">Ban</option>
-                                </select>
-                              </div>
+                          </div>
+                          <div className="user-edit-inpt-box">
+                            <label htmlFor="status">Status</label>
+                            <div className="user-edit-inpt">
+                              <select
+                                type="text"
+                                name="accountStatus"
+                                value={values?.accountStatus}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                id="status"
+                                autoComplete="off"
+                              >
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="ban">Ban</option>
+                              </select>
                             </div>
                           </div>
                         </div>
-                        <p
-                          style={{
-                            color: "red",
-                            textAlign: "center",
-                            lineHeight: 0.1,
-                          }}
-                        >
-                          {otherErrors?.update}
-                        </p>
-                        <button type="submit" className="sqave-chang-btn">
-                          Save Changes
-                        </button>
-                      </Form>
-                    );
-                  }}
-                </Formik>
+                      </div>
+                      <p
+                        style={{
+                          color: "red",
+                          textAlign: "center",
+                          lineHeight: 0.1,
+                        }}
+                      >
+                        {otherErrors?.update}
+                      </p>
+                      <button type="submit" className="sqave-chang-btn">
+                        Save Changes
+                      </button>
+                    </Form>
+                  );
+                }}
+              </Formik>
 
               <div className="user-prof-table-data-box">
                 <table>

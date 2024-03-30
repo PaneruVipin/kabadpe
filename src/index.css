@@ -12656,7 +12656,7 @@ Our Review Section CSS code
 }
 
 .wallet-comp7 {
-  padding-inline-end: 20rem !important;
+  /* padding-inline-end: 20rem !important; */
 }
 
 .product-side-comp-wallet {
@@ -14578,4 +14578,16 @@ Our Review Section CSS code
   font-size: 1.35rem;
   margin-bottom: 1.5rem;
   font-family: "Libre Baskerville", serif !important;
+}
+
+.paynow-btn-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+}
+
+.google-img-i{
+  width: .9rem;
 }

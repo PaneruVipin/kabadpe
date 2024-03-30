@@ -6,6 +6,7 @@ import {
   workerBuyWasteCallbackCash,
   workerRateListFetch,
 } from "../apis/worker/buyWaste";
+import SucesfulyTran from "./SucesfulyTran";
 
 const BuyWasteTable = ({
   buyWasteUserInfo,
@@ -14,6 +15,7 @@ const BuyWasteTable = ({
 }) => {
   const [pay, setPay] = useState(false);
   const [waltTranfer, setWaltTranfer] = useState(false);
+  const [ waletSuc , setWaletSuc ] =  useState(false);
   const [tableData, setTableData] = useState([
     {
       id: 1,
@@ -85,6 +87,14 @@ const BuyWasteTable = ({
       closeBuyWaste();
     }
   };
+
+  const SucefData = {
+
+    paraone : 'Total Wallet Tranfer: 200',
+    paratwo : 'KPB Txn ID - 9822307632',
+    
+  }
+  
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -274,11 +284,11 @@ const BuyWasteTable = ({
             {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          {+totalAmmount ? (
+          {/* {+totalAmmount ? ( */}
             <button onClick={() => setPay(true)} className="paynow-btn">
               Pay Now
             </button>
-          ) : null}
+          {/* ) : null} */}
         </div>
       </section>
 
@@ -290,6 +300,9 @@ const BuyWasteTable = ({
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>
+          {/* <button onClick={() => setWaletSuc(true)}  className="pay-btn">
+            Wallet Transfer
+          </button> */}
 
           <button
             onClick={() => {
@@ -318,24 +331,27 @@ const BuyWasteTable = ({
 
           <p>
             {" "}
-            Wallet Balance : <span>₹5000.00</span>{" "}
+            Wallet Balance : <span>5000.00</span>{" "}
           </p>
           <p>
             {" "}
-            Payment Value : <span>₹2000.00</span>{" "}
+            Payment Value : <span>2000.00</span>{" "}
           </p>
           <p>
             {" "}
-            Balance Pay : <span>₹3000.00</span>{" "}
+            Balance Pay : <span>3000.00</span>{" "}
           </p>
 
-          <button className="confirm-btn">Confirm</button>
+          <button onClick={() => {setWaletSuc(true) ,setWaltTranfer(false), setPay(false) }} className="confirm-btn">Confirm</button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
             <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
+
+      { waletSuc ? <SucesfulyTran SucefData={SucefData} onClickCloseSucsMesge={() => setWaletSuc(false)} /> : null }
+
     </>
   );
 };

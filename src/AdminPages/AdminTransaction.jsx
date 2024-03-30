@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/ReferEarn.css";
 import "../style/Profile.css";
 import "../style/BankCard.css";
@@ -11,6 +11,11 @@ import PaymntDet from "../WasteColectComp/PaymntDet";
 import WalletCreditPopup from "../Components/WalletCreditPopup";
 import WithdrawlRequest from "./WithdrawlRequest";
 import RequestWithdrawlpopoup from "../AdminComponents.jsx/RequestWithdrawlpopoup";
+import {
+  FuntiontoGetTransactionDetails,
+  GetWalletDetails,
+} from "../apis/wallet/wallet";
+import { useSelector } from "react-redux";
 
 const AdminTransaction = () => {
   const [waletData, setWaletData] = useState(AdminWallet);
@@ -21,9 +26,15 @@ const AdminTransaction = () => {
   const [updteWalet, setUpdteWalet] = useState(false);
   const [paymntDet, setPaymntDet] = useState(false);
   const [waletCredit, setWaletCredit] = useState(false);
-  const [withDrawl , setWithDrawl] = useState(false);
-  const [reqPopup , setReqPopup] = useState(false);
+  const [withDrawl, setWithDrawl] = useState(false);
+  const [withDrawlDataNew, setWithDrawlDataNew] = useState({
+    isOpen: false,
+    curElem: null,
+  });
 
+  const [reqPopup, setReqPopup] = useState(false);
+  const [waletDataNew, setwaletDataNew] = useState([]);
+  const { userInfo, loading } = useSelector((state) => state.user);
   const filterData = (value) => {
     const updatedData = AdminWallet.filter((elem) => {
       return (
@@ -48,6 +59,35 @@ const AdminTransaction = () => {
     });
 
     setWaletData(updatedSearchData);
+  };
+  useEffect(() => {
+    debugger;
+    const fetchData = async () => {
+      try {
+        if (userInfo) {
+          const data = await GetWalletDetails(
+            userInfo.id,
+            userInfo.role || "Admin"
+          );
+          const walletdata = await FuntiontoGetTransactionDetails(
+            userInfo.id,
+            userInfo.role || "Admin"
+          );
+          //   setWalletDetails(data);
+          setwaletDataNew(walletdata);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, [userInfo]);
+
+  // Function to handle approval
+  const handleApprove = (element) => {
+    setWithDrawlDataNew(element); // Set the current element
+    setWithDrawl(true); // Set `withDrawl` to true to show the WithdrawlRequest component
   };
 
   return (
@@ -290,14 +330,14 @@ const AdminTransaction = () => {
               </tr>
             </thead>
             <tbody>
-              {waletData.map((curElem, indx) => {
+              {waletDataNew.map((curElem, indx) => {
                 return (
                   <>
                     <tr>
                       <td>
                         <div className="b-date">
-                          <p> {curElem.date} </p>
-                          <span> {curElem.time} </span>
+                          <p> {curElem.DateTime} </p>
+                          {/* <span> {curElem.time} </span> */}
                         </div>
                       </td>
 
@@ -308,41 +348,50 @@ const AdminTransaction = () => {
                           id={curElem.indx}
                         >
                           <div className="b-img">
-                            <img src={curElem.img} alt="" />
+                            <img src={curElem.img2} alt="" />
                           </div>
 
                           <div className="b-info ">
-                            <p>{curElem.username}</p>
+                            <p>{curElem.UserName}</p>
                           </div>
                         </div>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.userid} </span>
+                        <span className="b-span2"> {curElem.UserID} </span>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.usertype} </span>
+                        <span className="b-span2"> {curElem.Usertype} </span>
                       </td>
 
                       <td>
-                        <span className={ curElem.tnxtype == 'Pending' ? 'orange-color b-span2' : "b-span2"} > {curElem.tnxtype} </span>
+                        <span
+                          className={
+                            curElem.tnxtype == "Pending"
+                              ? "orange-color b-span2"
+                              : "b-span2"
+                          }
+                        >
+                          {" "}
+                          {curElem.TxnType}{" "}
+                        </span>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.mode} </span>
+                        <span className="b-span2"> {curElem.PAYMENTMODE} </span>
                       </td>
 
                       <td>
                         <span className="b-span2 b-span4">
                           {" "}
-                          {curElem.ecopoints}{" "}
+                          {curElem.EcoPoints}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 b-span4">
                           {" "}
-                          {curElem.wallet}{" "}
+                          {curElem.Wallet}{" "}
                         </span>
                       </td>
 
@@ -353,53 +402,59 @@ const AdminTransaction = () => {
                       <td className="text-tb-right">
                         <span
                           className={
-                            curElem.status === "Out"
+                            curElem.Staus === "Out"
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.status === "Done" ? "orange" : "green",
+                              curElem.Staus === "Done" ? "orange" : "green",
                           }}
                         >
                           {" "}
-                          {curElem.status}{" "}
+                          {curElem.Staus}{" "}
                         </span>
                       </td>
 
                       <td>
                         <span className=" text-center-align">
                           {" "}
-                          {curElem.walettnxId}{" "}
+                          {curElem.TXNID}{" "}
                         </span>
                       </td>
 
                       <td>
                         <span className="b-span2 text-center-align">
                           {" "}
-                          {curElem.banktnxId}{" "}
+                          {curElem.BANKTXNID}{" "}
                         </span>
                       </td>
 
                       <td>
                         <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {curElem.invoice} </span>
-                         
+                          <span className="b-span"> {curElem.InvoiceId} </span>
                         </div>
                       </td>
 
                       <td>
-                        <span className="b-span2"> {curElem.details} </span>
+                        <span className="b-span2">
+                          {" "}
+                          {curElem.Paymentdetails}{" "}
+                        </span>
                       </td>
-                      {curElem.tnxtype === 'Pending' ? 
+                      {curElem.StatusVal === "Pending" ? (
                         <td>
-
-                          <button onClick={() => setWithDrawl(true)}  className="approve">
+                          <button
+                            // onClick={() => setWithDrawl(true)}
+                            onClick={() => handleApprove(curElem)}
+                            className="approve"
+                          >
                             Approve
-                          </button> 
-                          
-                      </td>: null
-                      }
+                          </button>
+                        </td>
+                      ) : (
+                        "Complete"
+                      )}
                     </tr>
                   </>
                 );
@@ -409,8 +464,30 @@ const AdminTransaction = () => {
         </div>
       </section>
 
-      {withDrawl ? <WithdrawlRequest onClickOpen={() =>{ setReqPopup(true), setWithDrawl(false)}} onClickClose={() => setWithDrawl(false)} /> : null }
-      {reqPopup ?  <RequestWithdrawlpopoup onClickClose={() => {setReqPopup(false) , setWithDrawl(false)}} /> : null }
+      {withDrawl ? (
+        // <WithdrawlRequest
+        //   curElem={withDrawlDataNew}
+        //   onClickOpen={() => {
+        //     setReqPopup(true), setWithDrawl(false);
+        //   }}
+        //   onClickClose={() => setWithDrawl(false)}
+        // />
+        <WithdrawlRequest
+          curElem={withDrawlDataNew}
+          onClickOpen={() => {
+            setReqPopup(true);
+            setWithDrawl(false);
+          }}
+          onClickClose={() => setWithDrawl(false)}
+        />
+      ) : null}
+      {reqPopup ? (
+        <RequestWithdrawlpopoup
+          onClickClose={() => {
+            setReqPopup(false), setWithDrawl(false);
+          }}
+        />
+      ) : null}
 
       {updteWalet ? (
         <UpdateWalet

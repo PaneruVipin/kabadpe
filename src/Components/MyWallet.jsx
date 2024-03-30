@@ -75,6 +75,12 @@ const MyWallet = () => {
     fetchData();
   }, [userInfo]); // useEffect dependency added
 
+  const SucefData = {
+
+    paraone : 'Thank You For Request , We Will Get Back To You Soon.',
+  
+}
+
   return (
     <>
       <section className="user-prof-grid-comp  referearn-comp wallet-comp wallet-comp-rem-spce wallet-comp7 user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
@@ -432,7 +438,7 @@ const MyWallet = () => {
         />
       ) : null}
       {sucesfulyTrnsctin ? (
-        <SucesfulyTran
+        <SucesfulyTran SucefData={SucefData}
           onCloseClick={() => {
             setSucesfulyTrnsctin(false);
           }}

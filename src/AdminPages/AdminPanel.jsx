@@ -180,7 +180,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <Redirect role="superAdmin" path="/adminlogin" />
+      {/* <Redirect role="superAdmin" path="/adminlogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">

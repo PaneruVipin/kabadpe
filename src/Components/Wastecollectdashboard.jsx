@@ -59,7 +59,6 @@ const Wastecollectdashboard = ({}) => {
   const getButtonClassName = (buttonName) => {
     return buttonName === wasteNavBtn ? "u-prf-bx profactive" : "u-prf-bx";
   };
-  // "u-prf-bx profactive" : "u-prf-bx"
 
   const getButonClasnameTwo = (butonIndex) => {
     return butonIndex === wasteNavBtn
@@ -295,7 +294,7 @@ const Wastecollectdashboard = ({}) => {
             My Reviews
           </button>
 
-          <button
+          {/* <button
             onClick={() => filterTab(4)}
             className={profBtn === 4 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
@@ -303,7 +302,7 @@ const Wastecollectdashboard = ({}) => {
               <i class="fa-solid fa-street-view"></i>
             </div>
             My Work Location
-          </button>
+          </button> */}
 
           {/* <button
             onClick={() => filterTab(5)}

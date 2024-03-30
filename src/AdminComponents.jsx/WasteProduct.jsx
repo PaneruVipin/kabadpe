@@ -88,7 +88,7 @@ const WasteProduct = () => {
     const state = getStates(adminArias);
     setStates(state);
   }, [adminArias]);
- 
+
   return (
     <>
       <section className="all-user-data-comp">
@@ -195,6 +195,7 @@ const WasteProduct = () => {
                           id,
                           state,
                           city,
+                          ...rest
                         },
                         i
                       ) => {
@@ -245,6 +246,7 @@ const WasteProduct = () => {
                                         id,
                                         state,
                                         city,
+                                        ...rest,
                                       });
                                     }}
                                   >
@@ -275,6 +277,7 @@ const WasteProduct = () => {
                                         id,
                                         state,
                                         city,
+                                        ...rest,
                                       });
                                     }}
                                   >

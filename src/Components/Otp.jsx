@@ -60,9 +60,7 @@ const Otp = () => {
                 <img src="/images/customImg/logo.png" alt="" />
               </div>
               <div className=" tw-text-green-500">
-                Hey, just an FYI – we're currently testing some updates on DLT.
-                For now, feel free to use this OTP:{" "}
-                <span className="tw-text-yellow-900">{user?.otp}</span>. Cheers!
+                Please check your WhatsApp for the OTP.
               </div>
               <Formik
                 initialValues={initialValues}

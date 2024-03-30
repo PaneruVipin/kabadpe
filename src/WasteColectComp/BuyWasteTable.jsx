@@ -313,7 +313,6 @@ const BuyWasteTable = ({
             Wallet Tranfer
           </button>
 
-
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>
           </div>

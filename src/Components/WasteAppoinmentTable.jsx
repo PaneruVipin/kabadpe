@@ -46,7 +46,7 @@ const WasteAppoinmentTable = ({
                   appointmentPersonName,
                   assigningStatus,
                   rescheduleStatus,
-                  ariaId
+                  ariaId,
                 },
                 i
               ) => (
@@ -125,7 +125,7 @@ const WasteAppoinmentTable = ({
                             phoneNumber: appointmentContactNumber,
                             name: appointmentPersonName,
                             appoinmentId: id,
-                            ariaId
+                            ariaId,
                           });
                           setProfBtn(10);
                         }}

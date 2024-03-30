@@ -435,7 +435,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                                     type="button"
                                     className="login-link-bx login-link-bx2"
                                   >
-                                    <i className="fa-brands fa-google-plus"></i>
+                                   <img className="google-img-i" src="/images/customImg/google-icon.png" alt="" />
                                     Google
                                   </button>
                                 </NavLink>

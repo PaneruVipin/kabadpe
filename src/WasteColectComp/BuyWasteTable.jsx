@@ -6,6 +6,7 @@ import {
   workerBuyWasteCallbackCash,
   workerRateListFetch,
 } from "../apis/worker/buyWaste";
+import SucesfulyTran from "./SucesfulyTran";
 
 const BuyWasteTable = ({
   buyWasteUserInfo,
@@ -14,6 +15,7 @@ const BuyWasteTable = ({
 }) => {
   const [pay, setPay] = useState(false);
   const [waltTranfer, setWaltTranfer] = useState(false);
+  const [ waletSuc , setWaletSuc ] =  useState(false);
   const [tableData, setTableData] = useState([
     {
       id: 1,
@@ -85,6 +87,14 @@ const BuyWasteTable = ({
       closeBuyWaste();
     }
   };
+
+  const SucefData = {
+
+    paraone : 'Total Wallet Tranfer: 200',
+    paratwo : 'KPB Txn ID - 9822307632',
+    
+  }
+  
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -160,6 +170,7 @@ const BuyWasteTable = ({
                                   price: values?.retailPrice,
                                   bulkPrice: values?.bulkPrice,
                                   ammount,
+                                  productId: values?.id,
                                 };
                               } else {
                                 return row;
@@ -289,15 +300,20 @@ const BuyWasteTable = ({
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>
+          {/* <button onClick={() => setWaletSuc(true)}  className="pay-btn">
+            Wallet Transfer
+          </button> */}
 
-          {/* <button
+          <button
             onClick={() => {
               setWaltTranfer(true), setPay(false);
             }}
             className="pay-btn"
           >
             Wallet Tranfer
-          </button> */}
+          </button>
+
+          { waletSuc ? <SucesfulyTran SucefData={SucefData} onClickCloseSucsMesge={() => setWaletSuc(false)} /> : null }
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>
@@ -328,7 +344,7 @@ const BuyWasteTable = ({
             Balance Pay : <span>₹3000.00</span>{" "}
           </p>
 
-          <button className="confirm-btn">Confirm</button>
+          <button onClick={() => {setWaletSuc(true) ,setWaltTranfer(false), setPay(false) }} className="confirm-btn">Confirm</button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
             <i className="fa-solid fa-xmark"></i>

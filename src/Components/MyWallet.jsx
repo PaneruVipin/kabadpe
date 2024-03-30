@@ -91,6 +91,7 @@ const MyWallet = () => {
     fetchData();
   }, [userInfo]); // useEffect dependency added
 
+<<<<<<< HEAD
   //funtion to raise request for paymnet
   const handleClickAddAmount = async (amount) => {
     // Handle the withdrawal request here
@@ -131,6 +132,13 @@ const MyWallet = () => {
       // You may want to handle error states accordingly, such as displaying an error message to the user
     }
   };
+=======
+  const SucefData = {
+
+    paraone : 'Thank You For Request , We Will Get Back To You Soon.',
+  
+}
+>>>>>>> 1600e0c6f361c082250001bd767835303437751d
 
   return (
     <>
@@ -495,7 +503,7 @@ const MyWallet = () => {
         />
       ) : null}
       {sucesfulyTrnsctin ? (
-        <SucesfulyTran
+        <SucesfulyTran SucefData={SucefData}
           onCloseClick={() => {
             setSucesfulyTrnsctin(false);
           }}

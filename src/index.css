@@ -14585,5 +14585,9 @@ Our Review Section CSS code
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  
+
+}
+
+.google-img-i{
+  width: .9rem;
 }

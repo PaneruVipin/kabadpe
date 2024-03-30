@@ -289,6 +289,9 @@ const BuyWasteTable = ({
           <button onClick={handleCashPaidClick} className="pay-btn">
             Cash Paid
           </button>
+          <button  className="pay-btn">
+            Wallet Transfer
+          </button>
 
           {/* <button
             onClick={() => {

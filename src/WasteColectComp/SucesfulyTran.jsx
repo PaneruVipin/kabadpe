@@ -7,7 +7,7 @@ const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , 
   
   return (
     <>
-      <section className="sucesfuly-trnsctin-comp" onClick={onCloseClick}>
+      <section className="sucesfuly-trnsctin-comp" onClick={ () => {onClickCloseSucsMesge(), onCloseClick() }}>
         <div
           className="sucesfuly-trnsctin-box"
           onClick={(e) => e.stopPropagation()}
@@ -27,7 +27,7 @@ const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , 
           >
             View Details
           </button> */}
-          <div onClick={onCloseClick } className="close-otp-btn">
+          <div onClick={ () => {  onClickCloseSucsMesge() , onCloseClick()}  } className="close-otp-btn">
             <i class="fa-solid fa-xmark"></i>
           </div>
           

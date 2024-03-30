@@ -91,54 +91,11 @@ const MyWallet = () => {
     fetchData();
   }, [userInfo]); // useEffect dependency added
 
-<<<<<<< HEAD
-  //funtion to raise request for paymnet
-  const handleClickAddAmount = async (amount) => {
-    // Handle the withdrawal request here
-    console.log("Withdrawal amount:", amount);
-
-    try {
-      if (userInfo) {
-        const p_userId = userInfo.id;
-        const p_userrole = userInfo.role;
-        const p_money = parseFloat(amount);
-
-        // Call the asynchronous function
-        const response = await FuntiontoRaisepaymnetrequest({
-          p_userId,
-          p_userrole,
-          p_money,
-        });
-
-        if (response.ResultStatus === 1) {
-          toast.success(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-          setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
-          setSucesfulyTrnsctin(true);
-          setOtp(false);
-        } else {
-          toast.error(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-          setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
-        }
-      }
-
-      // Once the withdrawal request is successful, update the state to show the successful transaction message
-      //  setSucesfulyTrnsctin(true);
-
-      // Close the OTP modal
-      setOtp(false);
-    } catch (error) {
-      // Handle errors
-      setError(error);
-      // You may want to handle error states accordingly, such as displaying an error message to the user
-    }
-  };
-=======
   const SucefData = {
 
     paraone : 'Thank You For Request , We Will Get Back To You Soon.',
   
 }
->>>>>>> 1600e0c6f361c082250001bd767835303437751d
 
   return (
     <>
@@ -459,9 +416,9 @@ const MyWallet = () => {
         </div>
       </section>
 
-      <section className="product-side-comp product-side-comp-wallet">
+      {/* <section className="product-side-comp product-side-comp-wallet">
         <h4>Products</h4>
-      </section>
+      </section> */}
 
       {otp == true ? (
         <ConfirmOtp

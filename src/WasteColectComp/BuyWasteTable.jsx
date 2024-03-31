@@ -7,15 +7,23 @@ import {
   workerRateListFetch,
 } from "../apis/worker/buyWaste";
 import SucesfulyTran from "./SucesfulyTran";
-
+import {
+  FuntionToUpdateWalletDetailsByRole,
+  GetWalletDetails,
+} from "../apis/wallet/wallet";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 const BuyWasteTable = ({
   buyWasteUserInfo,
   setBuyWasteUserInfo,
   closeBuyWaste,
 }) => {
+  const { userInfo, loading } = useSelector((state) => state.user);
+  const [walletDetails, setWalletDetails] = useState(null);
   const [pay, setPay] = useState(false);
   const [waltTranfer, setWaltTranfer] = useState(false);
-  const [ waletSuc , setWaletSuc ] =  useState(false);
+  const [waletSuc, setWaletSuc] = useState(false);
   const [tableData, setTableData] = useState([
     {
       id: 1,
@@ -89,12 +97,61 @@ const BuyWasteTable = ({
   };
 
   const SucefData = {
+    paraone: "Total Wallet Tranfer: 200",
+    paratwo: "KPB Txn ID - 9822307632",
+  };
+  //calulate wallet data
+  const handleWalletTransferClick = async () => {
+    try {
+      if (userInfo) {
+        const data = await GetWalletDetails(userInfo.id, userInfo.role);
+        setWalletDetails(data);
+      }
+      setWaltTranfer(true);
+      setPay(false);
+    } catch (error) {
+      setError(error);
+    }
+  };
+  //send wallet data
+  const handleConfirmButtonClick = async () => {
+    try {
+      debugger;
+      // Assuming walletCoin is obtained from the input field
+      const AdminId = userInfo.id; // Assuming userData contains user ID
+      const userId = buyWasteUserInfo?.id; // Assuming userData contains user ID
+      const role = "user"; //userInfo.role ||  // Assuming role is fixed as 'user' for this example
+      const walletmoney = totalAmmount || 0;
 
-    paraone : 'Total Wallet Tranfer: 200',
-    paratwo : 'KPB Txn ID - 9822307632',
-    
-  }
-  
+      // Call function to update wallet details
+      var response = await FuntionToUpdateWalletDetailsByRole({
+        AdminId,
+        userId,
+        role,
+        walletmoney,
+      });
+      if (response.ResultStatus === 1) {
+        toast.success(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
+        setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
+        setWaletSuc(true);
+        setWaltTranfer(false);
+        setPay(false);
+      } else {
+        toast.error(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
+        setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
+      }
+    } catch (error) {
+      console.error("Error updating wallet details:", error);
+    }
+  };
+  const handleConfirmButtonClickr = async () => {
+    // Call ApplyClickToSendMoneytouser function
+    // await ApplyClickToSendMoneytouser();
+    // Update states
+    // setWaletSuc(true);
+    // setWaltTranfer(false);
+    // setPay(false);
+  };
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -285,9 +342,9 @@ const BuyWasteTable = ({
           </p>
 
           {/* {+totalAmmount ? ( */}
-            <button onClick={() => setPay(true)} className="paynow-btn">
-              Pay Now
-            </button>
+          <button onClick={() => setPay(true)} className="paynow-btn">
+            Pay Now
+          </button>
           {/* ) : null} */}
         </div>
       </section>
@@ -305,14 +362,14 @@ const BuyWasteTable = ({
           </button> */}
 
           <button
-            onClick={() => {
-              setWaltTranfer(true), setPay(false);
-            }}
+            // onClick={() => {
+            //   setWaltTranfer(true), setPay(false);
+            // }}
+            onClick={handleWalletTransferClick}
             className="pay-btn"
           >
             Wallet Tranfer
           </button>
-
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>
@@ -332,18 +389,30 @@ const BuyWasteTable = ({
 
           <p>
             {" "}
-            Wallet Balance : <span>5000.00</span>{" "}
+            Wallet Balance :{" "}
+            <span>{walletDetails ? walletDetails.walletmoney : 0}</span>{" "}
           </p>
           <p>
             {" "}
-            Payment Value : <span>2000.00</span>{" "}
+            Payment Value : <span> {totalAmmount}</span>{" "}
           </p>
           <p>
             {" "}
-            Balance Pay : <span>3000.00</span>{" "}
+            Balance Pay :{" "}
+            <span>
+              {walletDetails ? walletDetails.walletmoney - totalAmmount : "-"}
+            </span>{" "}
           </p>
 
-          <button onClick={() => {setWaletSuc(true) ,setWaltTranfer(false), setPay(false) }} className="confirm-btn">Confirm</button>
+          <button
+            // onClick={() => {
+            //   setWaletSuc(true), setWaltTranfer(false), setPay(false);
+            // }}
+            onClick={handleConfirmButtonClick}
+            className="confirm-btn"
+          >
+            Confirm
+          </button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
             <i className="fa-solid fa-xmark"></i>
@@ -351,8 +420,12 @@ const BuyWasteTable = ({
         </div>
       </div>
 
-      { waletSuc ? <SucesfulyTran SucefData={SucefData} onClickCloseSucsMesge={() => setWaletSuc(false)} /> : null }
-
+      {waletSuc ? (
+        <SucesfulyTran
+          SucefData={SucefData}
+          onClickCloseSucsMesge={() => setWaletSuc(false)}
+        />
+      ) : null}
     </>
   );
 };

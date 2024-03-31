@@ -14,11 +14,15 @@ import PaymntDet from "../WasteColectComp/PaymntDet";
 import TranferAmnt from "../WasteColectComp/TranferAmnt";
 import TrnferSucesful from "../WasteColectComp/TrnferSucesful";
 import TrnferDet from "../WasteColectComp/TrnferDet";
-import { GetWalletDetails } from "../apis/wallet/wallet";
+import {
+  FuntiontogetDataFromProcedureVar,
+  GetWalletDetails,
+} from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 const WasteWallet = () => {
   const [waletData, setWaletData] = useState(WalletData);
   const [butonActive, setButonActive] = useState(true);
+  const [waletDataNew, setwaletDataNew] = useState([]);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [searchItem, setSearchItem] = useState("");
@@ -59,9 +63,16 @@ const WasteWallet = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        debugger;
         if (userInfo) {
-          const data = await GetWalletDetails(userInfo.id, "user");
-          setWalletDetails(data);
+          const data = await GetWalletDetails(userInfo.id, userInfo.role);
+          //  setWalletDetails(data);
+          const walletdata = await FuntiontogetDataFromProcedureVar(
+            userInfo.id,
+            userInfo.role || "kabadCollector"
+          );
+          //   setWalletDetails(data);
+          setwaletDataNew(walletdata);
         }
       } catch (error) {
         setError(error);
@@ -85,10 +96,7 @@ const WasteWallet = () => {
             >
               Add Money
               <span>Coming Soon</span>
-
             </button>
-
-          
 
             <button onClick={() => setOtp(true)} className="tranfer-btn">
               Withdraw Now
@@ -277,7 +285,7 @@ const WasteWallet = () => {
               </tr>
             </thead>
             <tbody>
-              {waletData.map((curElem, indx) => {
+              {waletDataNew.map((curElem, indx) => {
                 return (
                   <>
                     <tr>
@@ -287,8 +295,8 @@ const WasteWallet = () => {
                       </td>
                       <td>
                         <div className="b-date">
-                          <p> {curElem.date} </p>
-                          <span> {curElem.time} </span>
+                          <p> {curElem.DateTime} </p>
+                          {/* <span> {curElem.time} </span> */}
                         </div>
                       </td>
                       <td>
@@ -298,19 +306,19 @@ const WasteWallet = () => {
                           id={curElem.indx}
                         >
                           <div className="b-img">
-                            <img src={curElem.img} alt="" />
+                            <img src={curElem.img2} alt="" />
                           </div>
 
                           <div className="b-info ">
-                            <p>{curElem.from}</p>
+                            <p>{curElem.UserName}</p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.uniqueID} </span>
+                        <span className="b-span2 "> {curElem.UserID} </span>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.usertype} </span>
+                        <span className="b-span2 "> {curElem.Usertype} </span>
                       </td>
                       {/* <td>
                       <div
@@ -334,21 +342,24 @@ const WasteWallet = () => {
                         </span>
                       </td> */}
                       <td>
-                        <span className="b-span2 "> {curElem.tnxtype} </span>
+                        <span className="b-span2 "> {curElem.TxnType} </span>
                       </td>
                       <td>
-                        <span className="b-span2 "> {curElem.mode} </span>
-                      </td>
-                      <td>
-                        <span className="b-span2  b-span4">
+                        <span className="b-span2 ">
                           {" "}
-                          {curElem.ecopoints}{" "}
+                          {curElem.PAYMENTMODE}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2  b-span4">
                           {" "}
-                          {curElem.wallet}{" "}
+                          {curElem.EcoPoints}{" "}
+                        </span>
+                      </td>
+                      <td>
+                        <span className="b-span2  b-span4">
+                          {" "}
+                          {curElem.Wallet}{" "}
                         </span>
                       </td>
                       {/* <td>
@@ -357,42 +368,45 @@ const WasteWallet = () => {
                       <td className="text-tb-right">
                         <span
                           className={
-                            curElem.status === "Failed" ||
-                            curElem.status === "Out"
+                            curElem.Staus === "Failed" ||
+                            curElem.Staus === "Out"
                               ? "status-g redstatus"
                               : "status_g"
                           }
                           style={{
                             color:
-                              curElem.status === "Paid" ? "orange" : "green",
+                              curElem.Staus === "Paid" ? "orange" : "green",
                           }}
                         >
                           {" "}
-                          {curElem.status}{" "}
+                          {curElem.Staus}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 text-center-align">
                           {" "}
-                          {curElem.walettnxId}{" "}
+                          {curElem.TXNID}{" "}
                         </span>
                       </td>
                       <td>
                         <span className="b-span2 text-center-align">
                           {" "}
-                          {curElem.banktnxId}{" "}
+                          {curElem.BANKTXNID}{" "}
                         </span>
                       </td>
                       <td>
                         <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {curElem.invoice} </span>
+                          <span className="b-span"> {curElem.InvoiceId} </span>
                           {curElem.bolean === true ? (
                             <i class="fa-regular fa-circle-down"></i>
                           ) : null}
                         </div>
                       </td>
                       <td>
-                        <span className="b-span2"> {curElem.details} </span>
+                        <span className="b-span2">
+                          {" "}
+                          {curElem.Paymentdetails}{" "}
+                        </span>
                       </td>
                     </tr>
                   </>

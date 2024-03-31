@@ -33,13 +33,14 @@ const WalletCreditPopup = ({ onclickClosePopup }) => {
   const handleApplyClick = async () => {
     try {
       // Assuming walletCoin is obtained from the input field
-
+      const AdminId = 1;
       const userId = userData.id; // Assuming userData contains user ID
-      const role = "user"; // Assuming role is fixed as 'user' for this example
+      const role = userData.role || "user"; // Assuming role is fixed as 'user' for this example
       const walletmoney = walletCoin;
 
       // Call function to update wallet details
       var response = await FuntionToUpdateWalletDetailsByRole({
+        AdminId,
         userId,
         role,
         walletmoney,

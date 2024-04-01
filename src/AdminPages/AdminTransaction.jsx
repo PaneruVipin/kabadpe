@@ -99,14 +99,14 @@ const AdminTransaction = () => {
           <div className="right-wallet-box">
             <button
               onClick={() => setWaletCredit(true)}
-              className="tranfer-btn add-money-btn"
+              className="tranfer-btn tranfer-btn23 add-money-btn"
             >
               Give Credit
             </button>
 
             <button
               onClick={() => setUpdteWalet(true)}
-              className="tranfer-btn add-money-btn"
+              className="tranfer-btn tranfer-btn23 add-money-btn"
             >
               Wallet Limit
             </button>

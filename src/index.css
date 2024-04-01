@@ -12659,6 +12659,8 @@ Our Review Section CSS code
   /* padding-inline-end: 20rem !important; */
 }
 
+
+
 .product-side-comp-wallet {
   width: 20rem !important;
 }
@@ -14590,4 +14592,8 @@ Our Review Section CSS code
 
 .google-img-i{
   width: .9rem;
+}
+.tranfer-btn23{
+  background-color: #1266e3 !important;
+  border-color: #1266e3 !important;
 }

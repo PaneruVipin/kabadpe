@@ -41,7 +41,7 @@ export const FuntiontoGetUserDetailsByRoleAndUserId = async (userId, role) => {
 };
 
 export const FuntionToUpdateWalletDetailsByRole = resolvePromise(
-  async ({ userId, role, walletmoney }) => {
+  async ({ AdminId, userId, role, walletmoney }) => {
     // Modify function signature to accept an object
     try {
       const apiUrl = ENV_API_BASE_URL + `/FuntionToUpdateWalletDetailsByRole`;
@@ -49,7 +49,7 @@ export const FuntionToUpdateWalletDetailsByRole = resolvePromise(
       const { data: res } = await axios.post(
         // Change to POST method
         apiUrl,
-        { userId, role, walletmoney }, // Pass parameters as an object
+        { AdminId, userId, role, walletmoney }, // Pass parameters as an object
         {
           headers: {
             Authorization: token,
@@ -122,6 +122,26 @@ export const FuntiontoGetTransactionDetails = async (userId, role) => {
     const apiUrl =
       ENV_API_BASE_URL +
       `/api/Wallet/FuntiontoGetTransactionDetails/${userId}/${role}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error("Error fetching wallet details:", error);
+    throw error;
+  }
+};
+
+//TransactionList for user FuntiontogetDataFromProcedureVar
+export const FuntiontogetDataFromProcedureVar = async (userId, role) => {
+  try {
+    // console.log("check " + userId, role);
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/api/Wallet/FuntiontogetDataFromProcedureVar/${userId}/${role}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

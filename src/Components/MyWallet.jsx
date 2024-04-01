@@ -18,6 +18,7 @@ import TrnferDet from "../WasteColectComp/TrnferDet";
 import {
   FuntiontoGetTransactionDetails,
   FuntiontoRaisepaymnetrequest,
+  FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
@@ -76,7 +77,11 @@ const MyWallet = () => {
             userInfo.id,
             userInfo.role || "user"
           );
-          const walletdata = await FuntiontoGetTransactionDetails(
+          // const walletdata = await FuntiontoGetTransactionDetails(
+          //   userInfo.id,
+          //   userInfo.role || "user"
+          // );
+          const walletdata = await FuntiontogetDataFromProcedureVar(
             userInfo.id,
             userInfo.role || "user"
           );
@@ -92,10 +97,8 @@ const MyWallet = () => {
   }, [userInfo]); // useEffect dependency added
 
   const SucefData = {
-
-    paraone : 'Thank You For Request , We Will Get Back To You Soon.',
-  
-}
+    paraone: "Thank You For Request , We Will Get Back To You Soon.",
+  };
 
   return (
     <>
@@ -422,15 +425,14 @@ const MyWallet = () => {
 
       {otp == true ? (
         <ConfirmOtp
-          // onclickcloseOtp={() => setOtp(false)}
-          // onClickOpen={() => {
-          //   setTransaction(true), setOtp(false);
-          // }}
-
-          // onClickAddAmnt={() => {
-          //   setSucesfulyTrnsctin(true), setOtp(false);
-          // }}
-          onClickAddAmount={handleClickAddAmount}
+          onclickcloseOtp={() => setOtp(false)}
+          onClickOpen={() => {
+            setTransaction(true), setOtp(false);
+          }}
+          onClickAddAmnt={() => {
+            setSucesfulyTrnsctin(true), setOtp(false);
+          }}
+          // onClickAddAmount={handleClickAddAmount}
         />
       ) : null}
       {transaction === true ? (
@@ -460,7 +462,8 @@ const MyWallet = () => {
         />
       ) : null}
       {sucesfulyTrnsctin ? (
-        <SucesfulyTran SucefData={SucefData}
+        <SucesfulyTran
+          SucefData={SucefData}
           onCloseClick={() => {
             setSucesfulyTrnsctin(false);
           }}

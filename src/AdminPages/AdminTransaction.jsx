@@ -13,6 +13,7 @@ import WithdrawlRequest from "./WithdrawlRequest";
 import RequestWithdrawlpopoup from "../AdminComponents.jsx/RequestWithdrawlpopoup";
 import {
   FuntiontoGetTransactionDetails,
+  FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
@@ -69,7 +70,11 @@ const AdminTransaction = () => {
             userInfo.id,
             userInfo.role || "Admin"
           );
-          const walletdata = await FuntiontoGetTransactionDetails(
+          // const walletdata = await FuntiontoGetTransactionDetails(
+          //   userInfo.id,
+          //   userInfo.role || "Admin"
+          // );
+          const walletdata = await FuntiontogetDataFromProcedureVar(
             userInfo.id,
             userInfo.role || "Admin"
           );
@@ -368,7 +373,7 @@ const AdminTransaction = () => {
                       <td>
                         <span
                           className={
-                            curElem.tnxtype == "Pending"
+                            curElem.TxnType == "Pending"
                               ? "orange-color b-span2"
                               : "b-span2"
                           }

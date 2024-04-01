@@ -287,7 +287,7 @@ const Wastecolloginregist = () => {
                             type="text"
                             name="phoneNumber"
                             id="phone"
-                            placeholder="Phone No."
+                            placeholder="WhatsApp No."
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values?.phoneNumber}
@@ -656,13 +656,7 @@ const Wastecolloginregist = () => {
                             ) : null}
                             <div className="otp-forgot-bx">
                               <div className=" tw-text-green-500">
-                                Hey, just an FYI – we're currently testing some
-                                updates on DLT. For now, feel free to use this
-                                OTP:{" "}
-                                <span className="tw-text-yellow-900">
-                                  {codes?.tempOTP}
-                                </span>
-                                . Cheers!
+                                Please check your WhatsApp for the OTP.
                               </div>
                               <div className="timer-text">
                                 {timer > 0

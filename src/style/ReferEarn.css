@@ -296,7 +296,8 @@
     font-weight: 700;
     color: #000248;
     letter-spacing: .5px;
-    line-height: 1;
+    line-height: 1.4;
+    text-align: start;
  }
 
  .b-info span{
@@ -1330,7 +1331,7 @@
   
   .b-info p{
     font-size: .87rem;
-    line-height: .1;
+    /* line-height: .1; */
 
   }
 

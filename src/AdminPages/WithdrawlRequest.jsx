@@ -11,7 +11,7 @@ const WithdrawlRequest = ({ curElem, onClickClose, onClickOpen }) => {
     // Call onClickOpen function
     // Call handlePaidClick function
     //sendParameters(param1, param2, param3); // Replace param1, param2, param3 with actual parameters
-    debugger;
+    //debugger;
     try {
       // Assuming walletCoin is obtained from the input field
 

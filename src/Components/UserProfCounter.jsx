@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
-import { GetWalletDetails } from "../apis/wallet/wallet";
+import { GetWalletDetails, walletFetch } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 const UserProfCounter = () => {
-  const { userInfo, loading } = useSelector((state) => state.user);
-  const [walletDetails, setWalletDetails] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (userInfo) {
-          const data = await GetWalletDetails(userInfo.id, "user");
-          setWalletDetails(data);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, [userInfo]); // useEffect dependency added
+  const { data: wallet, refetch } = useQuery({
+    queryKey: ["userWalletFetch2"],
+    queryFn: () => walletFetch(),
+  });
   return (
     <>
       <section className="user-prof-counter-comp user-prof-counter-comp-rem-spce">
@@ -33,7 +20,7 @@ const UserProfCounter = () => {
 
               <div className="u-prf-c-info">
                 <h5>Wallet Balance</h5>
-                <h4>{walletDetails ? walletDetails.walletmoney : 0}</h4>
+                <h4>{wallet?.balance || "0.00"}</h4>
               </div>
             </div>
 

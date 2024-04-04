@@ -20,10 +20,12 @@ import {
   FuntiontoRaisepaymnetrequest,
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
+  walletFetch,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useQuery } from "@tanstack/react-query";
 const MyWallet = () => {
   const [waletDataNew, setwaletDataNew] = useState([]);
   const [waletData, setWaletData] = useState(UserWalletData);
@@ -40,11 +42,11 @@ const MyWallet = () => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
-  const { userInfo, loading } = useSelector((state) => state.user);
-  const [walletDetails, setWalletDetails] = useState(null);
-  const [error, setError] = useState(null);
-  const [PaymentReqAmount, setPaymentReqAmount] = useState(null);
-  const [withdrawalAmount, setWithdrawalAmount] = useState("");
+  // const { userInfo, loading } = useSelector((state) => state.user);
+  // const [walletDetails, setWalletDetails] = useState(null);
+  // const [error, setError] = useState(null);
+  // const [PaymentReqAmount, setPaymentReqAmount] = useState(null);
+  // const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
       return elem.tnxtype === categValue || elem.status === categValue;
@@ -69,37 +71,13 @@ const MyWallet = () => {
     setWaletData(updatedSearchData);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (userInfo) {
-          const data = await GetWalletDetails(
-            userInfo.id,
-            userInfo.role || "user"
-          );
-          // const walletdata = await FuntiontoGetTransactionDetails(
-          //   userInfo.id,
-          //   userInfo.role || "user"
-          // );
-          const walletdata = await FuntiontogetDataFromProcedureVar(
-            userInfo.id,
-            userInfo.role || "user"
-          );
-          setWalletDetails(data);
-          setwaletDataNew(walletdata);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, [userInfo]); // useEffect dependency added
-
   const SucefData = {
     paraone: "Thank You For Request , We Will Get Back To You Soon.",
   };
-
+  const { data: wallet, refetch } = useQuery({
+    queryKey: ["userWalletFetch"],
+    queryFn: () => walletFetch(),
+  });
   return (
     <>
       <section className="user-prof-grid-comp  referearn-comp wallet-comp wallet-comp-rem-spce wallet-comp7 user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
@@ -129,7 +107,7 @@ const MyWallet = () => {
                     <div className="rupes-icon">
                       <i class="fa-solid fa-coins"></i>
                     </div>
-                    <span>{walletDetails ? walletDetails.walletmoney : 0}</span>
+                    <span>{wallet?.balance || "0.00"}</span>
                   </div>
 
                   <div className="rupe-to-coin-bx">

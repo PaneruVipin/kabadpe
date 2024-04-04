@@ -116,7 +116,7 @@ const BuyWasteTable = ({
   //send wallet data
   const handleConfirmButtonClick = async () => {
     try {
-      debugger;
+      //debugger;
       // Assuming walletCoin is obtained from the input field
       const AdminId = userInfo.id; // Assuming userData contains user ID
       const userId = buyWasteUserInfo?.id; // Assuming userData contains user ID

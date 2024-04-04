@@ -1,6 +1,12 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { walletFetch } from "../apis/wallet/wallet";
 
 const FrenchCard = () => {
+  const { data: wallet, refetch } = useQuery({
+    queryKey: ["franchiseWalletFetch"],
+    queryFn: () => walletFetch(),
+  });
   return (
     <>
       <section className="cards-grid-comp">
@@ -40,7 +46,7 @@ const FrenchCard = () => {
 
           <div className="card-box card-box3 french-card-box">
             <div className="left-card-info">
-              <h6>2500</h6>
+              <h6>{wallet?.balance || "0.00"}</h6>
               <p>Wallet Balance</p>
             </div>
 

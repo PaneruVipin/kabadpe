@@ -17,8 +17,10 @@ import TrnferDet from "../WasteColectComp/TrnferDet";
 import {
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
+  walletFetch,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 const WasteWallet = () => {
   const [waletData, setWaletData] = useState(WalletData);
   const [butonActive, setButonActive] = useState(true);
@@ -35,8 +37,6 @@ const WasteWallet = () => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
-  const [walletDetails, setWalletDetails] = useState(null);
-  const { userInfo, loading } = useSelector((state) => state.user);
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
       return elem.tnxtype === categValue || elem.status === categValue;
@@ -60,27 +60,11 @@ const WasteWallet = () => {
 
     setWaletData(updatedSearchData);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        debugger;
-        if (userInfo) {
-          const data = await GetWalletDetails(userInfo.id, userInfo.role);
-          //  setWalletDetails(data);
-          const walletdata = await FuntiontogetDataFromProcedureVar(
-            userInfo.id,
-            userInfo.role || "kabadCollector"
-          );
-          //   setWalletDetails(data);
-          setwaletDataNew(walletdata);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, [userInfo]); // useEffect dependency added
+  const { data: wallet, refetch } = useQuery({
+    queryKey: ["workerWalletFetch"],
+    queryFn: () => walletFetch(),
+  });
+  
   return (
     <>
       <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
@@ -110,7 +94,7 @@ const WasteWallet = () => {
                     <div className="rupes-icon">
                       <i class="fa-solid fa-coins"></i>
                     </div>
-                    <span>{walletDetails ? walletDetails.walletmoney : 0}</span>
+                    <span>{wallet?.balance || "0.00"}</span>
                   </div>
 
                   <div className="rupe-to-coin-bx">

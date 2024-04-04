@@ -12,11 +12,15 @@ import WalletCreditPopup from "../Components/WalletCreditPopup";
 import WithdrawlRequest from "./WithdrawlRequest";
 import RequestWithdrawlpopoup from "../AdminComponents.jsx/RequestWithdrawlpopoup";
 import {
+  AdminTnxHistoryFetch,
   FuntiontoGetTransactionDetails,
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { DateTime } from "luxon";
+import { hashId } from "../lib/array";
 
 const AdminTransaction = () => {
   const [waletData, setWaletData] = useState(AdminWallet);
@@ -61,40 +65,16 @@ const AdminTransaction = () => {
 
     setWaletData(updatedSearchData);
   };
-  useEffect(() => {
-    debugger;
-    const fetchData = async () => {
-      try {
-        if (userInfo) {
-          const data = await GetWalletDetails(
-            userInfo.id,
-            userInfo.role || "Admin"
-          );
-          // const walletdata = await FuntiontoGetTransactionDetails(
-          //   userInfo.id,
-          //   userInfo.role || "Admin"
-          // );
-          const walletdata = await FuntiontogetDataFromProcedureVar(
-            userInfo.id,
-            userInfo.role || "Admin"
-          );
-          //   setWalletDetails(data);
-          setwaletDataNew(walletdata);
-        }
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, [userInfo]);
 
   // Function to handle approval
   const handleApprove = (element) => {
     setWithDrawlDataNew(element); // Set the current element
     setWithDrawl(true); // Set `withDrawl` to true to show the WithdrawlRequest component
   };
-
+  const { data: tnxHistory, refetch } = useQuery({
+    queryKey: ["AdminTnxHistoryFetch"],
+    queryFn: () => AdminTnxHistoryFetch(),
+  });
   return (
     <>
       <section className="user-prof-grid-comp admin-transction  referearn-comp wallet-comp  wallet-comp5">
@@ -318,16 +298,16 @@ const AdminTransaction = () => {
             <thead>
               <tr>
                 <th>Date/Time</th>
-                <th>User Name</th>
-                <th>User ID</th>
-                <th>User Type</th>
+                <th>Sender</th>
+                <th>Sender Wallet</th>
+                <th>Reciver</th>
+                <th>Reciver Wallet</th>
+                <th>Eco Points </th>
                 <th>Tnx Type</th>
                 <th>Mode</th>
-                <th>Eco Points </th>
-                <th>Wallet </th>
                 <th>Income </th>
                 <th>Status </th>
-                <th>Wallet Tnx ID</th>
+                <th>Tnx ID</th>
                 <th>Bank Tnx ID</th>
                 <th>Invoice </th>
                 <th>Details </th>
@@ -335,135 +315,142 @@ const AdminTransaction = () => {
               </tr>
             </thead>
             <tbody>
-              {waletDataNew.map((curElem, indx) => {
-                return (
-                  <>
-                    <tr>
-                      <td>
-                        <div className="b-date">
-                          <p> {curElem.DateTime} </p>
-                          {/* <span> {curElem.time} </span> */}
-                        </div>
-                      </td>
+              {!tnxHistory?.error
+                ? tnxHistory?.history?.map(
+                    ({
+                      id,
+                      addedOn,
+                      txnDetails,
+                      txnStatus,
+                      senderId,
+                      senderType,
+                      receiverId,
+                      receiverType,
+                      ammount,
+                      paymentMethod,
+                      txnType,
+                      receiverWallet,
+                      sendereWallet,
+                      txnId,
+                    }) => {
+                      const userTypes = {
+                        user: "users",
+                        worker: "workers",
+                        franchise: "franchises",
+                      };
+                      const userTyesAsKeys = Object.keys(userTypes);
+                      let sender, reciver;
+                      if (userTyesAsKeys.includes(senderType) && senderId) {
+                        const senderDetail = tnxHistory?.[
+                          userTypes?.[senderType]
+                        ]?.find(({ id }) => id == senderId);
+                        sender = senderDetail;
+                      }
+                      if (userTyesAsKeys.includes(receiverType) && receiverId) {
+                        const receiverDetail = tnxHistory?.[
+                          userTypes?.[receiverType]
+                        ]?.find(({ id }) => id == receiverId);
+                        reciver = receiverDetail;
+                      }
+                      return (
+                        <tr key={id}>
+                          <td>
+                            <div className="b-date">
+                              {DateTime.fromISO(addedOn, {
+                                zone: "utc",
+                              }).toFormat("ccc dd LLL yyyy hh:mm a")}
+                            </div>
+                          </td>
 
-                      <td>
-                        <div
-                          className="bussin-flex-box"
-                          key={indx}
-                          id={curElem.indx}
-                        >
-                          <div className="b-img">
-                            <img src={curElem.img2} alt="" />
-                          </div>
+                          <td>
+                            <div className="b-info ">
+                              <p>{sender?.fullname}</p>
+                              {sender?.id ? (
+                                <p>{hashId(sender?.id, senderType)}</p>
+                              ) : null}
+                              <p>{senderType}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <span className="b-span2 b-span4">
+                              {sendereWallet}
+                              {/* {sender?.UserWallet?.balance}{" "} */}
+                            </span>
+                          </td>
+                          <td>
+                            <div className="b-info ">
+                              <p>{reciver?.fullname}</p>
+                              {reciver?.id ? (
+                                <p>{hashId(reciver?.id, receiverType)}</p>
+                              ) : null}
+                              <p>{receiverType}</p>
+                            </div>
+                          </td>
 
-                          <div className="b-info ">
-                            <p>{curElem.UserName}</p>
-                          </div>
-                        </div>
-                      </td>
+                          <td>
+                            <span className="b-span2 b-span4">
+                              {receiverWallet}
+                              {/* {reciver?.UserWallet?.balance}{" "} */}
+                            </span>
+                          </td>
+                          <td>
+                            <span className="b-span2 b-span4"> {ammount} </span>
+                          </td>
+                          <td>
+                            <span className={"orange-color b-span2"}>
+                              {txnType}
+                            </span>
+                          </td>
 
-                      <td>
-                        <span className="b-span2"> {curElem.UserID} </span>
-                      </td>
+                          <td>
+                            <span className="b-span2"> {paymentMethod} </span>
+                          </td>
 
-                      <td>
-                        <span className="b-span2"> {curElem.Usertype} </span>
-                      </td>
+                          <td>
+                            {/* income */}
+                            <span className="b-span2 b-span4"> </span>
+                          </td>
+                          <td>
+                            <span className="b-span2 b-span4">{txnStatus}</span>
+                          </td>
 
-                      <td>
-                        <span
-                          className={
-                            curElem.TxnType == "Pending"
-                              ? "orange-color b-span2"
-                              : "b-span2"
-                          }
-                        >
-                          {" "}
-                          {curElem.TxnType}{" "}
-                        </span>
-                      </td>
+                          <td>
+                            {/* TXNID */}
+                            <span className="b-span2">{txnId} </span>
+                          </td>
 
-                      <td>
-                        <span className="b-span2"> {curElem.PAYMENTMODE} </span>
-                      </td>
+                          <td>
+                            {/*BANK TXNID */}
+                            <span className=" text-center-align"></span>
+                          </td>
 
-                      <td>
-                        <span className="b-span2 b-span4">
-                          {" "}
-                          {curElem.EcoPoints}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 b-span4">
-                          {" "}
-                          {curElem.Wallet}{" "}
-                        </span>
-                      </td>
+                          <td>
+                            <div className="id-dwld-btn text-center-align">
+                              <span className="b-span"></span>
+                            </div>
+                          </td>
+                          <td>
+                            <span className="b-span2">{txnDetails}</span>
+                          </td>
 
-                      <td>
-                        <span className="b-span2"> {curElem.income} </span>
-                      </td>
-
-                      <td className="text-tb-right">
-                        <span
-                          className={
-                            curElem.Staus === "Out"
-                              ? "status-g redstatus"
-                              : "status_g"
-                          }
-                          style={{
-                            color:
-                              curElem.Staus === "Done" ? "orange" : "green",
-                          }}
-                        >
-                          {" "}
-                          {curElem.Staus}{" "}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className=" text-center-align">
-                          {" "}
-                          {curElem.TXNID}{" "}
-                        </span>
-                      </td>
-
-                      <td>
-                        <span className="b-span2 text-center-align">
-                          {" "}
-                          {curElem.BANKTXNID}{" "}
-                        </span>
-                      </td>
-
-                      <td>
-                        <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {curElem.InvoiceId} </span>
-                        </div>
-                      </td>
-
-                      <td>
-                        <span className="b-span2">
-                          {" "}
-                          {curElem.Paymentdetails}{" "}
-                        </span>
-                      </td>
-                      {curElem.StatusVal === "Pending" ? (
-                        <td>
-                          <button
-                            // onClick={() => setWithDrawl(true)}
-                            onClick={() => handleApprove(curElem)}
-                            className="approve"
-                          >
-                            Approve
-                          </button>
-                        </td>
-                      ) : (
-                        "Complete"
-                      )}
-                    </tr>
-                  </>
-                );
-              })}
+                          {txnStatus == "pending" ? (
+                            <td>
+                              <button
+                                // onClick={() => setWithDrawl(true)}
+                                // onClick={() => handleApprove(curElem)}
+                                className="approve"
+                              >
+                                Approve
+                              </button>
+                            </td>
+                          ) : (
+                            "Complete"
+                          )}
+                        </tr>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>
@@ -506,7 +493,10 @@ const AdminTransaction = () => {
       ) : null}
 
       {waletCredit ? (
-        <WalletCreditPopup onclickClosePopup={() => setWaletCredit(false)} />
+        <WalletCreditPopup
+          refetchHistory={refetch}
+          onclickClosePopup={() => setWaletCredit(false)}
+        />
       ) : null}
     </>
   );

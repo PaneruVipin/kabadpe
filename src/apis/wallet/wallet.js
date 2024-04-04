@@ -95,7 +95,7 @@ export const FuntiontoApproveTransaction = async ({
   p_userrole,
   P_REQUESTID,
 }) => {
-  debugger;
+  //debugger;
   try {
     const apiUrl = `${ENV_API_BASE_URL}/api/Wallet/FuntiontoApproveTransaction`;
     const token = getFromLocalStorage("token");
@@ -154,3 +154,68 @@ export const FuntiontogetDataFromProcedureVar = async (userId, role) => {
     throw error;
   }
 };
+
+export const walletFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/wallet`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.walletDetail;
+});
+
+export const userFetchByIdOrPhone = resolvePromise(async (identifier) => {
+  const apiUrl = ENV_API_BASE_URL + `/user/${identifier}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const adminGiveCreditToUser = resolvePromise(
+  async ({ id, role, balance }) => {
+    const apiUrl = ENV_API_BASE_URL + `/wallet/credit/to/${role}/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { balance },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const AdminTnxHistoryFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/tnx/history`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const walletWithdrawRequest = resolvePromise(async ({ balance }) => {
+  const apiUrl = ENV_API_BASE_URL + `/wallet/withdraw/request`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { balance },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

@@ -1,46 +1,26 @@
 import React, { useState } from "react";
 import WaletBalance from "./WaletBalance";
-import { FuntiontoRaisepaymnetrequest } from "../apis/wallet/wallet";
+import {
+  FuntiontoRaisepaymnetrequest,
+  walletWithdrawRequest,
+} from "../apis/wallet/wallet";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 
 const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
-  const { userInfo, loading } = useSelector((state) => state.user);
-  const [refreshKey, setRefreshKey] = useState(0);
-  // const handleWithdrawalRequest = () => {
-  //   // Call onClickAddAmount with the withdrawalAmount
-  //   withdrawalAmount;
-  // };
-
   const handleWithdrawalRequest = async () => {
-    try {
-      // Assuming walletCoin is obtained from the input field
-
-      const p_userId = userInfo.id; // Assuming userData contains user ID
-      const p_userrole = userInfo.role; // Assuming role is fixed as 'user' for this example
-      const p_money = withdrawalAmount;
-
-      // Call function to update wallet details
-      var response = await FuntiontoRaisepaymnetrequest({
-        p_userId,
-        p_userrole,
-        p_money,
-      });
-      if (response.ResultStatus === 1) {
-        toast.success(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onclickcloseOtp(), 2000); // Close popup after 5 seconds
-        // setRefreshKey((prevKey) => prevKey + 1);
-        // window.location.reload();
-      } else {
-        toast.error(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onclickcloseOtp(), 2000); // Close popup after 5 seconds
-        // setRefreshKey((prevKey) => prevKey + 1);
-      }
-    } catch (error) {
-      console.error("Error updating wallet details:", error);
+    if (!withdrawalAmount) {
+      return;
     }
+    const res = await walletWithdrawRequest({ balance: withdrawalAmount });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    onclickcloseOtp();
   };
   return (
     <>
@@ -50,7 +30,8 @@ const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
 
           <div className="otp-fild">
             <input
-              type="text"
+              type="number"
+              onWheel={(e) => e.currentTarget.blur()}
               name="otp"
               id="otp"
               placeholder="Enter  withdrawl amount"

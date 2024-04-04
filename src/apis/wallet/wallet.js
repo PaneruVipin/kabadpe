@@ -219,3 +219,31 @@ export const walletWithdrawRequest = resolvePromise(async ({ balance }) => {
   );
   return res?.message;
 });
+
+export const adminWalletWithdrawApprove = resolvePromise(
+  async ({ id, paymentMethod, bankTxnId }) => {
+    const apiUrl = ENV_API_BASE_URL + `/wallet/withdraw/approve/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { paymentMethod, bankTxnId },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const AdminWalletForWithdrawFetch = resolvePromise(async (id) => {
+  const apiUrl = ENV_API_BASE_URL + `/wallet/withdraw/txn/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.wallet;
+});

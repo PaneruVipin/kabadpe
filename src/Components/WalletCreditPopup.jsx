@@ -52,7 +52,7 @@ const WalletCreditPopup = ({ onclickClosePopup, refetchHistory }) => {
           className="updte-walet-credit-bx walet-credit-bx"
           onClick={(e) => e.stopPropagation()}
         >
-          <h6 className="text-center">Wallet Credit</h6>
+          <h6 className="text-center">Transfer Ammount</h6>
 
           <div className="amnt-fild-bx mt-4 mb-3">
             <input

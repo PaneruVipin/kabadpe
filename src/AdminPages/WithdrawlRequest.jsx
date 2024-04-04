@@ -1,44 +1,40 @@
 import React, { useState } from "react";
 import RequestWithdrawlpopoup from "../AdminComponents.jsx/RequestWithdrawlpopoup";
-import { FuntiontoApproveTransaction } from "../apis/wallet/wallet";
+import {
+  AdminWalletForWithdrawFetch,
+  FuntiontoApproveTransaction,
+  adminWalletWithdrawApprove,
+} from "../apis/wallet/wallet";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-const WithdrawlRequest = ({ curElem, onClickClose, onClickOpen }) => {
-  const [amount, setAmount] = useState(curElem.EcoPoints || ""); // Initialize amount with curElem.amount or empty string
-  const { userInfo, loading } = useSelector((state) => state.user);
-  const handlePaidClick = async () => {
-    // Call onClickOpen function
-    // Call handlePaidClick function
-    //sendParameters(param1, param2, param3); // Replace param1, param2, param3 with actual parameters
-    //debugger;
-    try {
-      // Assuming walletCoin is obtained from the input field
-
-      const p_userId = curElem.UserID || 20; // Assuming userData contains user ID
-      const p_userrole = curElem.Usertype; // Assuming role is fixed as 'user' for this example
-      const p_money = curElem.EcoPoints;
-      const P_REQUESTID = curElem.RequestId;
-
-      // Call function to update wallet details
-      var response = await FuntiontoApproveTransaction({
-        p_userId,
-        p_userrole,
-        P_REQUESTID,
-      });
-      if (response.ResultStatus === 1) {
-        toast.success(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onClickOpen(), 2000); // Close popup after 5 seconds
-        onClickOpen;
-      } else {
-        toast.error(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onClickOpen(), 2000); // Close popup after 5 seconds
-      }
-    } catch (error) {
-      console.error("Error updating wallet details:", error);
-    }
+import { useQuery } from "@tanstack/react-query";
+const WithdrawlRequest = ({ tnx, onClickClose, refetchTnxHistory }) => {
+  const [amount, setAmount] = useState(tnx?.ammount);
+  const [approvePayload, setApprovePayload] = useState();
+  const handleChange = (e) => {
+    setApprovePayload({ [e.target.name]: e.target.value });
   };
-
+  const handlePaidClick = async () => {
+    if (!approvePayload?.paymentMethod) {
+      return;
+    }
+    const res = await adminWalletWithdrawApprove({
+      id: tnx?.id,
+      ...approvePayload,
+    });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    refetchTnxHistory();
+    onClickClose();
+  };
+  const { data: wallet, refetch } = useQuery({
+    queryKey: ["adminfetcwasteHistory"],
+    queryFn: () => AdminWalletForWithdrawFetch(tnx?.id),
+  });
   return (
     <>
       <section className="withdral-comp" onClick={onClickClose}>
@@ -47,11 +43,22 @@ const WithdrawlRequest = ({ curElem, onClickClose, onClickOpen }) => {
           onClick={(e) => e.stopPropagation()}
         >
           <h6>Withdrawl Request</h6>
-          <div className="withdrawl-inpt-bx">
-            <span>Amount</span>
+          <div style={{ marginTop: "-20px" }} className="two-fild-grid">
+            <div className="admin-login-fild admin-login-fild3">
+              <label htmlFor="#">User Name</label>
+              <input value={tnx?.fullname} disabled />
+            </div>
+            <div className="admin-login-fild admin-login-fild3">
+              <label htmlFor="#">Wallet Balance</label>
+              <input disabled value={wallet?.balance} />
+            </div>
+          </div>
+          <div style={{ marginTop: "20px" }} className="withdrawl-inpt-bx">
+            <span>Request Amount</span>
             <div className="withdral-inpt">
               <input
                 type="text"
+                disabled
                 name="amount"
                 id="amount"
                 placeholder="Enter amount"
@@ -59,31 +66,43 @@ const WithdrawlRequest = ({ curElem, onClickClose, onClickOpen }) => {
               />
             </div>
           </div>
-          <div className="withdrawl-inpt-bx">
-            <span>Transaction ID</span>
-            <div className="withdral-inpt">
-              <input
-                type="text"
-                name="amount"
-                id="amount"
-                placeholder="Enter transaction ID"
-              />
-            </div>
-          </div>
-          <div className="withdrawl-inpt-bx">
+          <div className="withdrawl-inpt-bx ">
             <span>Payment Type</span>
             <div className="withdral-inpt withdral-selct">
-              <select name="Paymenttype" id="Paymenttype">
-                <option value="cash">Choose</option>
+              <select
+                onChange={handleChange}
+                value={approvePayload?.paymentMethod}
+                name="paymentMethod"
+                id="Paymenttype"
+              >
+                <option value="" hidden>
+                  Choose
+                </option>
                 <option value="cash">Cash</option>
-                <option value="NFT">NFT</option>
-                <option value="UPI">UPI</option>
+                <option value="bank">Bank</option>
+                {/* <option value="UPI">UPI</option> */}
               </select>
             </div>
           </div>
 
+          {approvePayload?.paymentMethod == "bank" ? (
+            <div className="withdrawl-inpt-bx">
+              <span>Transaction ID</span>
+              <div className="withdral-inpt">
+                <input
+                  type="text"
+                  name="bankTxnId"
+                  id="amount"
+                  value={approvePayload?.bankTxnId}
+                  onChange={handleChange}
+                  placeholder="Enter transaction ID"
+                />
+              </div>
+            </div>
+          ) : null}
+
           <button onClick={handlePaidClick} className="approve paid-btn">
-            Paid
+            Confirm
           </button>
         </div>
       </section>

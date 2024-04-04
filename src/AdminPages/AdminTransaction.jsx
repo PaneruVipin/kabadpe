@@ -32,14 +32,8 @@ const AdminTransaction = () => {
   const [paymntDet, setPaymntDet] = useState(false);
   const [waletCredit, setWaletCredit] = useState(false);
   const [withDrawl, setWithDrawl] = useState(false);
-  const [withDrawlDataNew, setWithDrawlDataNew] = useState({
-    isOpen: false,
-    curElem: null,
-  });
-
   const [reqPopup, setReqPopup] = useState(false);
-  const [waletDataNew, setwaletDataNew] = useState([]);
-  const { userInfo, loading } = useSelector((state) => state.user);
+  const [selectedTxn, setSelectedTxn] = useState();
   const filterData = (value) => {
     const updatedData = AdminWallet.filter((elem) => {
       return (
@@ -67,8 +61,8 @@ const AdminTransaction = () => {
   };
 
   // Function to handle approval
-  const handleApprove = (element) => {
-    setWithDrawlDataNew(element); // Set the current element
+  const handleApprove = (data) => {
+    setSelectedTxn(data);
     setWithDrawl(true); // Set `withDrawl` to true to show the WithdrawlRequest component
   };
   const { data: tnxHistory, refetch } = useQuery({
@@ -86,7 +80,7 @@ const AdminTransaction = () => {
               onClick={() => setWaletCredit(true)}
               className="tranfer-btn tranfer-btn23 add-money-btn"
             >
-              Give Credit
+              Transfer Ammount
             </button>
 
             <button
@@ -298,10 +292,10 @@ const AdminTransaction = () => {
             <thead>
               <tr>
                 <th>Date/Time</th>
-                <th>Sender</th>
-                <th>Sender Wallet</th>
-                <th>Reciver</th>
-                <th>Reciver Wallet</th>
+                <th>From</th>
+                <th>From Wallet</th>
+                <th>To</th>
+                <th>To Wallet</th>
                 <th>Eco Points </th>
                 <th>Tnx Type</th>
                 <th>Mode</th>
@@ -332,6 +326,7 @@ const AdminTransaction = () => {
                       receiverWallet,
                       sendereWallet,
                       txnId,
+                      updatedOn,
                     }) => {
                       const userTypes = {
                         user: "users",
@@ -356,7 +351,7 @@ const AdminTransaction = () => {
                         <tr key={id}>
                           <td>
                             <div className="b-date">
-                              {DateTime.fromISO(addedOn, {
+                              {DateTime.fromISO(updatedOn, {
                                 zone: "utc",
                               }).toFormat("ccc dd LLL yyyy hh:mm a")}
                             </div>
@@ -397,9 +392,7 @@ const AdminTransaction = () => {
                             <span className="b-span2 b-span4"> {ammount} </span>
                           </td>
                           <td>
-                            <span className={"orange-color b-span2"}>
-                              {txnType}
-                            </span>
+                            <span className={""}>{txnType}</span>
                           </td>
 
                           <td>
@@ -411,7 +404,15 @@ const AdminTransaction = () => {
                             <span className="b-span2 b-span4"> </span>
                           </td>
                           <td>
-                            <span className="b-span2 b-span4">{txnStatus}</span>
+                            <span
+                              className={`b-span2 b-span4 ${
+                                txnStatus == "pending"
+                                  ? "orange-color b-span2"
+                                  : ""
+                              }`}
+                            >
+                              {txnStatus}
+                            </span>
                           </td>
 
                           <td>
@@ -433,11 +434,16 @@ const AdminTransaction = () => {
                             <span className="b-span2">{txnDetails}</span>
                           </td>
 
-                          {txnStatus == "pending" ? (
+                          {txnStatus == "pending" && txnType == "out_wallet" ? (
                             <td>
                               <button
-                                // onClick={() => setWithDrawl(true)}
-                                // onClick={() => handleApprove(curElem)}
+                                onClick={() =>
+                                  handleApprove({
+                                    id,
+                                    ammount,
+                                    fullname: reciver?.fullname,
+                                  })
+                                }
                                 className="approve"
                               >
                                 Approve
@@ -457,15 +463,9 @@ const AdminTransaction = () => {
       </section>
 
       {withDrawl ? (
-        // <WithdrawlRequest
-        //   curElem={withDrawlDataNew}
-        //   onClickOpen={() => {
-        //     setReqPopup(true), setWithDrawl(false);
-        //   }}
-        //   onClickClose={() => setWithDrawl(false)}
-        // />
         <WithdrawlRequest
-          curElem={withDrawlDataNew}
+          refetchTnxHistory={refetch}
+          tnx={selectedTxn}
           onClickOpen={() => {
             setReqPopup(true);
             setWithDrawl(false);

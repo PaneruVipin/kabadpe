@@ -20,7 +20,7 @@ const AdminManageWaste = () => {
     queryFn: () => adminWasteCollectionFetch(),
   });
 
-  const { data: wasteHistory, refetchWasteHistory } = useQuery({
+  const { data: wasteHistory, refetch:refetchWasteHistory } = useQuery({
     queryKey: ["adminfetcwasteHistory"],
     queryFn: () => adminWasteCollectionFetch("history"),
   });

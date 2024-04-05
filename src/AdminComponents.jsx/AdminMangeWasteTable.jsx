@@ -153,7 +153,7 @@ const AdminMangeWasteTable = ({ wasteHistory }) => {
                         w = JSON.parse(waste)?.waste;
                       } catch {}
                       const totalWaste = w?.reduce((a, b) => {
-                        return a + +b?.weight;
+                        return a + +(b?.weight || 0);
                       }, 0);
                       return (
                         <>
@@ -203,7 +203,8 @@ const AdminMangeWasteTable = ({ wasteHistory }) => {
                                 <p>
                                   {" "}
                                   {Franchise?.companyName ||
-                                    KabadCollector?.Franchise?.companyName || "KabadPe"}{" "}
+                                    KabadCollector?.Franchise?.companyName ||
+                                    "KabadPe"}{" "}
                                 </p>
                                 {/* <span> {"elem.userId"} </span>{" "} */}
                               </div>

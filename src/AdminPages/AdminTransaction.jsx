@@ -32,14 +32,8 @@ const AdminTransaction = () => {
   const [paymntDet, setPaymntDet] = useState(false);
   const [waletCredit, setWaletCredit] = useState(false);
   const [withDrawl, setWithDrawl] = useState(false);
-  const [withDrawlDataNew, setWithDrawlDataNew] = useState({
-    isOpen: false,
-    curElem: null,
-  });
-
   const [reqPopup, setReqPopup] = useState(false);
-  const [waletDataNew, setwaletDataNew] = useState([]);
-  const { userInfo, loading } = useSelector((state) => state.user);
+  const [selectedTxn, setSelectedTxn] = useState();
   const filterData = (value) => {
     const updatedData = AdminWallet.filter((elem) => {
       return (
@@ -67,8 +61,8 @@ const AdminTransaction = () => {
   };
 
   // Function to handle approval
-  const handleApprove = (element) => {
-    setWithDrawlDataNew(element); // Set the current element
+  const handleApprove = (data) => {
+    setSelectedTxn(data);
     setWithDrawl(true); // Set `withDrawl` to true to show the WithdrawlRequest component
   };
   const { data: tnxHistory, refetch } = useQuery({
@@ -86,7 +80,7 @@ const AdminTransaction = () => {
               onClick={() => setWaletCredit(true)}
               className="tranfer-btn tranfer-btn23 add-money-btn"
             >
-              Give Credit
+              Transfer Amount
             </button>
 
             <button
@@ -298,10 +292,10 @@ const AdminTransaction = () => {
             <thead>
               <tr>
                 <th>Date/Time</th>
-                <th>Sender</th>
-                <th>Sender Wallet</th>
-                <th>Reciver</th>
-                <th>Reciver Wallet</th>
+                <th>From</th>
+                <th>From Wallet</th>
+                <th>To</th>
+                <th>To Wallet</th>
                 <th>Eco Points </th>
                 <th>Tnx Type</th>
                 <th>Mode</th>
@@ -316,140 +310,163 @@ const AdminTransaction = () => {
             </thead>
             <tbody>
               {!tnxHistory?.error
-                ? tnxHistory?.history?.map(
-                    ({
-                      id,
-                      addedOn,
-                      txnDetails,
-                      txnStatus,
-                      senderId,
-                      senderType,
-                      receiverId,
-                      receiverType,
-                      ammount,
-                      paymentMethod,
-                      txnType,
-                      receiverWallet,
-                      sendereWallet,
-                      txnId,
-                    }) => {
-                      const userTypes = {
-                        user: "users",
-                        worker: "workers",
-                        franchise: "franchises",
-                      };
-                      const userTyesAsKeys = Object.keys(userTypes);
-                      let sender, reciver;
-                      if (userTyesAsKeys.includes(senderType) && senderId) {
-                        const senderDetail = tnxHistory?.[
-                          userTypes?.[senderType]
-                        ]?.find(({ id }) => id == senderId);
-                        sender = senderDetail;
-                      }
-                      if (userTyesAsKeys.includes(receiverType) && receiverId) {
-                        const receiverDetail = tnxHistory?.[
-                          userTypes?.[receiverType]
-                        ]?.find(({ id }) => id == receiverId);
-                        reciver = receiverDetail;
-                      }
-                      return (
-                        <tr key={id}>
-                          <td>
-                            <div className="b-date">
-                              {DateTime.fromISO(addedOn, {
-                                zone: "utc",
-                              }).toFormat("ccc dd LLL yyyy hh:mm a")}
-                            </div>
-                          </td>
-
-                          <td>
-                            <div className="b-info ">
-                              <p>{sender?.fullname}</p>
-                              {sender?.id ? (
-                                <p>{hashId(sender?.id, senderType)}</p>
-                              ) : null}
-                              <p>{senderType}</p>
-                            </div>
-                          </td>
-                          <td>
-                            <span className="b-span2 b-span4">
-                              {sendereWallet}
-                              {/* {sender?.UserWallet?.balance}{" "} */}
-                            </span>
-                          </td>
-                          <td>
-                            <div className="b-info ">
-                              <p>{reciver?.fullname}</p>
-                              {reciver?.id ? (
-                                <p>{hashId(reciver?.id, receiverType)}</p>
-                              ) : null}
-                              <p>{receiverType}</p>
-                            </div>
-                          </td>
-
-                          <td>
-                            <span className="b-span2 b-span4">
-                              {receiverWallet}
-                              {/* {reciver?.UserWallet?.balance}{" "} */}
-                            </span>
-                          </td>
-                          <td>
-                            <span className="b-span2 b-span4"> {ammount} </span>
-                          </td>
-                          <td>
-                            <span className={"orange-color b-span2"}>
-                              {txnType}
-                            </span>
-                          </td>
-
-                          <td>
-                            <span className="b-span2"> {paymentMethod} </span>
-                          </td>
-
-                          <td>
-                            {/* income */}
-                            <span className="b-span2 b-span4"> </span>
-                          </td>
-                          <td>
-                            <span className="b-span2 b-span4">{txnStatus}</span>
-                          </td>
-
-                          <td>
-                            {/* TXNID */}
-                            <span className="b-span2">{txnId} </span>
-                          </td>
-
-                          <td>
-                            {/*BANK TXNID */}
-                            <span className=" text-center-align"></span>
-                          </td>
-
-                          <td>
-                            <div className="id-dwld-btn text-center-align">
-                              <span className="b-span"></span>
-                            </div>
-                          </td>
-                          <td>
-                            <span className="b-span2">{txnDetails}</span>
-                          </td>
-
-                          {txnStatus == "pending" ? (
+                ? tnxHistory?.history
+                    ?.sort(
+                      (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                    )
+                    .map(
+                      ({
+                        id,
+                        addedOn,
+                        txnDetails,
+                        txnStatus,
+                        senderId,
+                        senderType,
+                        receiverId,
+                        receiverType,
+                        ammount,
+                        paymentMethod,
+                        txnType,
+                        receiverWallet,
+                        senderWallet,
+                        txnId,
+                        updatedOn,
+                      }) => {
+                        const userTypes = {
+                          user: "users",
+                          worker: "workers",
+                          franchise: "franchises",
+                        };
+                        const userTyesAsKeys = Object.keys(userTypes);
+                        let sender, reciver;
+                        if (userTyesAsKeys.includes(senderType) && senderId) {
+                          const senderDetail = tnxHistory?.[
+                            userTypes?.[senderType]
+                          ]?.find(({ id }) => id == senderId);
+                          sender = senderDetail;
+                        }
+                        if (
+                          userTyesAsKeys.includes(receiverType) &&
+                          receiverId
+                        ) {
+                          const receiverDetail = tnxHistory?.[
+                            userTypes?.[receiverType]
+                          ]?.find(({ id }) => id == receiverId);
+                          reciver = receiverDetail;
+                        }
+                        return (
+                          <tr key={id}>
                             <td>
-                              <button
-                                // onClick={() => setWithDrawl(true)}
-                                // onClick={() => handleApprove(curElem)}
-                                className="approve"
-                              >
-                                Approve
-                              </button>
+                              <div className="b-date">
+                                {DateTime.fromISO(updatedOn, {
+                                  zone: "utc",
+                                }).toFormat("ccc dd LLL yyyy hh:mm a")}
+                              </div>
                             </td>
-                          ) : (
-                            "Complete"
-                          )}
-                        </tr>
-                      );
-                    }
-                  )
+
+                            <td>
+                              <div className="b-info ">
+                                <p>{sender?.fullname}</p>
+                                {sender?.id ? (
+                                  <p>{hashId(sender?.id, senderType)}</p>
+                                ) : null}
+                                <p>{senderType}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <span className="b-span2 b-span4">
+                                {senderWallet}
+                                {/* {sender?.UserWallet?.balance}{" "} */}
+                              </span>
+                            </td>
+                            <td>
+                              <div className="b-info ">
+                                <p>{reciver?.fullname}</p>
+                                {reciver?.id ? (
+                                  <p>{hashId(reciver?.id, receiverType)}</p>
+                                ) : null}
+                                <p>{receiverType}</p>
+                              </div>
+                            </td>
+
+                            <td>
+                              <span className="b-span2 b-span4">
+                                {receiverWallet}
+                                {/* {reciver?.UserWallet?.balance}{" "} */}
+                              </span>
+                            </td>
+                            <td>
+                              <span className="b-span2 b-span4">
+                                {" "}
+                                {ammount}{" "}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={""}>{txnType}</span>
+                            </td>
+
+                            <td>
+                              <span className="b-span2"> {paymentMethod} </span>
+                            </td>
+
+                            <td>
+                              {/* income */}
+                              <span className="b-span2 b-span4"> </span>
+                            </td>
+                            <td>
+                              <span
+                                className={`b-span2 b-span4 ${
+                                  txnStatus == "pending"
+                                    ? "orange-color b-span2"
+                                    : ""
+                                }`}
+                              >
+                                {txnStatus}
+                              </span>
+                            </td>
+
+                            <td>
+                              {/* TXNID */}
+                              <span className="b-span2">{txnId} </span>
+                            </td>
+
+                            <td>
+                              {/*BANK TXNID */}
+                              <span className=" text-center-align"></span>
+                            </td>
+
+                            <td>
+                              <div className="id-dwld-btn text-center-align">
+                                <span className="b-span"></span>
+                              </div>
+                            </td>
+                            <td>
+                              <span className="b-span2">{txnDetails}</span>
+                            </td>
+
+                            {txnStatus == "pending" &&
+                            txnType == "out_wallet" ? (
+                              <td>
+                                <button
+                                  onClick={() =>
+                                    handleApprove({
+                                      id,
+                                      ammount,
+                                      fullname: reciver?.fullname,
+                                    })
+                                  }
+                                  className="approve"
+                                >
+                                  Approve
+                                </button>
+                              </td>
+                            ) : (
+                              "Complete"
+                            )}
+                          </tr>
+                        );
+                      }
+                    )
                 : null}
             </tbody>
           </table>
@@ -457,15 +474,9 @@ const AdminTransaction = () => {
       </section>
 
       {withDrawl ? (
-        // <WithdrawlRequest
-        //   curElem={withDrawlDataNew}
-        //   onClickOpen={() => {
-        //     setReqPopup(true), setWithDrawl(false);
-        //   }}
-        //   onClickClose={() => setWithDrawl(false)}
-        // />
         <WithdrawlRequest
-          curElem={withDrawlDataNew}
+          refetchTnxHistory={refetch}
+          tnx={selectedTxn}
           onClickOpen={() => {
             setReqPopup(true);
             setWithDrawl(false);

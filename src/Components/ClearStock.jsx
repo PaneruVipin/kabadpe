@@ -31,7 +31,7 @@ const ClearStock = () => {
         w?.forEach(
           ({ name, image, price, bulkPrice, ammount, weight, productId }) => {
             const exist = newData?.find(
-              ({ id, productId }) => id == name || productId == productId
+              ({ id, productId:id2 }) => id == name || id2 == productId
             );
             let newObj = {
               id: name,

@@ -24,7 +24,7 @@ const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
   };
   return (
     <>
-      <section className="confirm-otp" onClick={onClickAddAmount}>
+      <section className="confirm-otp" onClick={onclickcloseOtp}>
         <div className="otp-main-box" onClick={(e) => e.stopPropagation()}>
           <h6>Withdrawl</h6>
 
@@ -47,7 +47,7 @@ const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
           <h6 style={{ color: "red" }}>Note : Not more than Wallet Balance</h6>
 
           <button onClick={handleWithdrawalRequest} className="submit-otp">
-            Withdrawl Request
+            Request
           </button>
 
           <div onClick={onclickcloseOtp} className="close-otp-btn">

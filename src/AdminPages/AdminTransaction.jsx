@@ -80,7 +80,7 @@ const AdminTransaction = () => {
               onClick={() => setWaletCredit(true)}
               className="tranfer-btn tranfer-btn23 add-money-btn"
             >
-              Transfer Ammount
+              Transfer Amount
             </button>
 
             <button
@@ -324,7 +324,7 @@ const AdminTransaction = () => {
                       paymentMethod,
                       txnType,
                       receiverWallet,
-                      sendereWallet,
+                      senderWallet,
                       txnId,
                       updatedOn,
                     }) => {
@@ -368,7 +368,7 @@ const AdminTransaction = () => {
                           </td>
                           <td>
                             <span className="b-span2 b-span4">
-                              {sendereWallet}
+                              {senderWallet}
                               {/* {sender?.UserWallet?.balance}{" "} */}
                             </span>
                           </td>

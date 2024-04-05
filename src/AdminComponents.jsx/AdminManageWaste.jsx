@@ -20,7 +20,7 @@ const AdminManageWaste = () => {
     queryFn: () => adminWasteCollectionFetch(),
   });
 
-  const { data: wasteHistory, refetch:refetchWasteHistory } = useQuery({
+  const { data: wasteHistory, refetch: refetchWasteHistory } = useQuery({
     queryKey: ["adminfetcwasteHistory"],
     queryFn: () => adminWasteCollectionFetch("history"),
   });
@@ -35,8 +35,9 @@ const AdminManageWaste = () => {
         w?.forEach(
           ({ name, image, price, bulkPrice, ammount, weight, productId }) => {
             const exist = newData?.find(
-              ({ id, productId }) => id == name || productId == productId
+              ({ id, productId: id2 }) => id == name || id2 == productId
             );
+            console.log("this is a name and productId", name, productId, exist);
             let newObj = {
               id: name,
               productId,
@@ -96,7 +97,8 @@ const AdminManageWaste = () => {
                         const w = waste?.find(
                           ({ id: wasteId, productId }) =>
                             wasteId?.toLowerCase() ==
-                              productName?.toLowerCase() || productId == id
+                              productName?.toLowerCase() ||
+                            id?.includes(productId)
                         );
                         return (
                           <>

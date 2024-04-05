@@ -2,7 +2,7 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
-export const workerRateListFetch = resolvePromise(async ({ariaId}) => {
+export const workerRateListFetch = resolvePromise(async ({ ariaId }) => {
   const apiUrl = ENV_API_BASE_URL + `/worker/ratelist/${ariaId}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.get(apiUrl, {
@@ -28,17 +28,19 @@ export const workerBuyWasteRequest = resolvePromise(async ({ phoneNumber }) => {
   return res;
 });
 
-export const workerBuyWasteCallbackCash = resolvePromise(async (data) => {
-  const apiUrl = ENV_API_BASE_URL + "/worker/buy/callback/cash";
-  const token = getFromLocalStorage("token");
-  const { data: res } = await axios.put(
-    apiUrl,
-    { ...data },
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-  return res?.message;
-});
+export const workerBuyWasteCallback = resolvePromise(
+  async ({ type = "cash", ...data }) => {
+    const apiUrl = ENV_API_BASE_URL + `/worker/buy/callback/${type}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { ...data },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res;
+  }
+);

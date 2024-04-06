@@ -39,10 +39,9 @@ const ContForm = () => {
                     <div className="cont-field">
                       <select name="contChoose" id="contChoose">
                         <option value="option">Choose</option>
-                        <option value="option">Option1</option>
-                        <option value="option">Option2</option>
-                        <option value="option">Option3</option>
-                        <option value="option">Option4</option>
+                        <option value="option">Registration</option>
+                        <option value="option">Technical Support</option>
+                        <option value="option">Management</option>
                       </select>
                     </div>
                   </div>

@@ -47,6 +47,7 @@ const WasteAppoinmentTable = ({
                   assigningStatus,
                   rescheduleStatus,
                   ariaId,
+                  userId,
                 },
                 i
               ) => (
@@ -122,6 +123,7 @@ const WasteAppoinmentTable = ({
                         to="#"
                         onClick={() => {
                           setBuyWasteUserInfo({
+                            id: userId,
                             phoneNumber: appointmentContactNumber,
                             name: appointmentPersonName,
                             appoinmentId: id,

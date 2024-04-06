@@ -1,13 +1,17 @@
 import React from "react";
 import "../style/ReferEarn.css";
 
-const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , SucefData }) => {
-
-
-  
+const SucesfulyTran = ({
+  txnId,
+  totalAmmount,
+  onCloseClick,
+}) => {
   return (
     <>
-      <section className="sucesfuly-trnsctin-comp" onClick={ () => {onClickCloseSucsMesge(), onCloseClick() }}>
+      <section
+        className="sucesfuly-trnsctin-comp"
+        onClick={onCloseClick}
+      >
         <div
           className="sucesfuly-trnsctin-box"
           onClick={(e) => e.stopPropagation()}
@@ -16,8 +20,8 @@ const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , 
             <i class="fa-solid fa-check fa-fw"></i>
           </div>
 
-          <p> {SucefData.paraone} </p>
-          <p> {SucefData.paratwo} </p>
+          <p> Total Wallet Tranfer: {totalAmmount}</p>
+          <p> Txn ID - {txnId} </p>
 
           {/* <h6>Transaction ID: T230989570970474</h6> */}
 
@@ -27,10 +31,14 @@ const SucesfulyTran = ({ onCloseClick, onClickCloseSucsMesge , onclickViewDet , 
           >
             View Details
           </button> */}
-          <div onClick={ () => {  onClickCloseSucsMesge() , onCloseClick()}  } className="close-otp-btn">
+          <div
+            onClick={() => {
+              onClickCloseSucsMesge(), onCloseClick();
+            }}
+            className="close-otp-btn"
+          >
             <i class="fa-solid fa-xmark"></i>
           </div>
-          
         </div>
       </section>
     </>

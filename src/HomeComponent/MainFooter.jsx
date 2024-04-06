@@ -38,7 +38,7 @@ const MainFooter = () => {
               </div>
 
               <p>
-                Welcome to KabAdPe, a distinguished brand within the ClimStripe
+                Welcome to KabadPe, a distinguished brand within the ClimStripe
                 Pvt. Ltd. portfolio, dedicated to pioneering sustainable living
                 through innovative waste management solutions. At KabAdPe, we
                 are committed to transforming the way society perceives and
@@ -170,7 +170,7 @@ const MainFooter = () => {
                     <div class="cont-i">
                       <i class="fa-solid fa-phone-volume"></i>
                     </div>
-                    <a href="#">+91 98218 61897</a>
+                    <a href="#">+91 88002 09988</a>
                   </div>
                   <div class="cont-bx">
                     <div class="cont-i">
@@ -182,7 +182,7 @@ const MainFooter = () => {
                     <div class="cont-i">
                       <i class="fa-solid fa-location-dot"></i>
                     </div>
-                    <span>88, Kundan Nagar, Laxmi Nagar New Delhi, India</span>
+                    <span>51, Road No 6, Kartarpura Industrial Area, 22 Godam, Jaipur, Rajasthan - 302006</span>
                   </div>
                 </div>
                 <div className="right-download-btns-flex mt-4">

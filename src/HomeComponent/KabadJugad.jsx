@@ -22,8 +22,8 @@ const KabadJugad = () => {
         </div>
         <div className="comon-container-2">
           <div className="apnt-heading">
-            <p>Our Ecosystem</p>
-            <h3>Circular life</h3>
+            <p>Green Eco-system</p>
+            <h3>Our Other Services</h3>
           </div>
 
           <div className="kabad-jugad-grid-bx">

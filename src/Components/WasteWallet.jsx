@@ -17,11 +17,14 @@ import TrnferDet from "../WasteColectComp/TrnferDet";
 import {
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
+  userTnxHistoryFetch,
   walletFetch,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
-const WasteWallet = () => {
+import { DateTime } from "luxon";
+import { hashId } from "../lib/array";
+const WasteWallet = ({ component = "worker" }) => {
   const [waletData, setWaletData] = useState(WalletData);
   const [butonActive, setButonActive] = useState(true);
   const [waletDataNew, setwaletDataNew] = useState([]);
@@ -37,6 +40,7 @@ const WasteWallet = () => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
+  const { userInfo } = useSelector((s) => s.user);
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
       return elem.tnxtype === categValue || elem.status === categValue;
@@ -64,12 +68,16 @@ const WasteWallet = () => {
     queryKey: ["workerWalletFetch"],
     queryFn: () => walletFetch(),
   });
-  
+  const { data: txnHistory, refetch: refetchTnxHistory } = useQuery({
+    queryKey: ["workerWallettxnHistory"],
+    queryFn: () => userTnxHistoryFetch(),
+  });
+
   return (
     <>
       <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
         <div className="top-wallet-box">
-          <h6>Transactions</h6>
+          <h6>Transactions </h6>
 
           <div className="right-wallet-box">
             <button
@@ -249,18 +257,13 @@ const WasteWallet = () => {
               <tr>
                 <th>SN.</th>
                 <th>Date/Time</th>
-                <th>User Name</th>
-                <th>User ID</th>
-                <th>User Type</th>
                 <th>Txn Type</th>
+                <th>Party</th>
                 <th>Mode </th>
                 <th>Eco Points </th>
                 <th>Wallet </th>
-                {/* <th>Income</th> */}
                 <th>Status </th>
-                <th>
-                  Wallet <br /> Txn ID{" "}
-                </th>
+                <th>Txn ID </th>
                 <th>
                   Bank <br /> Txn ID{" "}
                 </th>
@@ -269,133 +272,127 @@ const WasteWallet = () => {
               </tr>
             </thead>
             <tbody>
-              {waletDataNew.map((curElem, indx) => {
-                return (
-                  <>
-                    <tr>
-                      {" "}
-                      <td>
-                        <span className="b-span2"> {indx + 1} </span>
-                      </td>
-                      <td>
-                        <div className="b-date">
-                          <p> {curElem.DateTime} </p>
-                          {/* <span> {curElem.time} </span> */}
-                        </div>
-                      </td>
-                      <td>
-                        <div
-                          className="bussin-flex-box"
-                          key={indx}
-                          id={curElem.indx}
-                        >
-                          <div className="b-img">
-                            <img src={curElem.img2} alt="" />
-                          </div>
-
-                          <div className="b-info ">
-                            <p>{curElem.UserName}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <span className="b-span2 "> {curElem.UserID} </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 "> {curElem.Usertype} </span>
-                      </td>
-                      {/* <td>
-                      <div
-                          className="bussin-flex-box"
-                          key={indx}
-                          id={curElem.indx}
-                        >
-                          <div className="b-img">
-                            <img src={curElem.img2} alt="" />
-                          </div>
-
-                          <div className="b-info b-info2 ">
-                            <p>{curElem.to}</p>
-                          </div>
-                        </div>
-                      </td> */}
-                      {/* <td>
-                        <span className="b-span2 b-span3">
-                          {" "}
-                          {curElem.to}{" "}
-                        </span>
-                      </td> */}
-                      <td>
-                        <span className="b-span2 "> {curElem.TxnType} </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 ">
-                          {" "}
-                          {curElem.PAYMENTMODE}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="b-span2  b-span4">
-                          {" "}
-                          {curElem.EcoPoints}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="b-span2  b-span4">
-                          {" "}
-                          {curElem.Wallet}{" "}
-                        </span>
-                      </td>
-                      {/* <td>
-                        <span className="b-span2 "> {curElem.income} </span>
-                      </td> */}
-                      <td className="text-tb-right">
-                        <span
-                          className={
-                            curElem.Staus === "Failed" ||
-                            curElem.Staus === "Out"
-                              ? "status-g redstatus"
-                              : "status_g"
+              {!txnHistory?.error
+                ? txnHistory?.history
+                    ?.sort(
+                      (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                    )
+                    ?.map(
+                      (
+                        {
+                          id,
+                          updatedOn,
+                          senderId,
+                          senderType,
+                          receiverType,
+                          receiverId,
+                          paymentMethod,
+                          ammount,
+                          senderWallet,
+                          receiverWallet,
+                          txnStatus,
+                          txnDetails,
+                          bankTxnId,
+                          txnId,
+                        },
+                        i
+                      ) => {
+                        let txnType =
+                          receiverType == component &&
+                          receiverId == userInfo?.id
+                            ? "Receive"
+                            : "Paid";
+                        let wallet =
+                          txnType == "Receive" ? receiverWallet : senderWallet;
+                        const party = {};
+                        const labels = {
+                          guest: "Guest User",
+                          admin: "KabadPe",
+                        };
+                        if (txnType == "Receive") {
+                          party.type = labels?.[senderType] || senderType;
+                          if (senderId) {
+                            party.id = hashId(senderId, senderType);
                           }
-                          style={{
-                            color:
-                              curElem.Staus === "Paid" ? "orange" : "green",
-                          }}
-                        >
-                          {" "}
-                          {curElem.Staus}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 text-center-align">
-                          {" "}
-                          {curElem.TXNID}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span className="b-span2 text-center-align">
-                          {" "}
-                          {curElem.BANKTXNID}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="id-dwld-btn text-center-align">
-                          <span className="b-span"> {curElem.InvoiceId} </span>
-                          {curElem.bolean === true ? (
-                            <i class="fa-regular fa-circle-down"></i>
-                          ) : null}
-                        </div>
-                      </td>
-                      <td>
-                        <span className="b-span2">
-                          {" "}
-                          {curElem.Paymentdetails}{" "}
-                        </span>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
+                        } else {
+                          party.type = labels?.[receiverType] || receiverType;
+                          if (receiverId) {
+                            party.id = hashId(receiverId, receiverType);
+                          }
+                        }
+                        return (
+                          <tr key={id}>
+                            {" "}
+                            <td>
+                              <span className="b-span2"> {i + 1} </span>
+                            </td>
+                            <td>
+                              <div className="b-date">
+                                <p>
+                                  {" "}
+                                  {DateTime.fromISO(updatedOn, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy hh:mm a")}
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="bussin-flex-box">
+                                <div className="b-info ">
+                                  <p>{txnType}</p>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <span className="b-span2 ">{party?.id}</span>
+                              <span className="b-span2 ">{party?.type}</span>
+                            </td>
+                            <td>
+                              <span className="b-span2 ">{paymentMethod}</span>
+                            </td>
+                            <td>
+                              <span className="b-span2  b-span4">
+                                {ammount}
+                              </span>
+                            </td>
+                            <td>
+                              <span className="b-span2  b-span4">{wallet}</span>
+                            </td>
+                            <td className="text-tb-right">
+                              <span
+                                className={
+                                  txnStatus == "pending"
+                                    ? "status-g redstatus"
+                                    : "status_g"
+                                }
+                              >
+                                {txnStatus}
+                              </span>
+                            </td>
+                            <td>
+                              <span className="b-span2 text-center-align">
+                                {txnId}
+                              </span>
+                            </td>
+                            <td>
+                              <span className="b-span2 text-center-align">
+                                {bankTxnId}
+                              </span>
+                            </td>
+                            <td>
+                              <div className="id-dwld-btn text-center-align">
+                                <span className="b-span"></span>
+                                <i class="fa-regular fa-circle-down"></i>
+                              </div>
+                            </td>
+                            <td>
+                              <span className="b-span2">{txnDetails}</span>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )
+                : null}
             </tbody>
           </table>
         </div>
@@ -403,6 +400,7 @@ const WasteWallet = () => {
 
       {otp == true ? (
         <ConfirmOtp
+          refetchTnxHistory={refetchTnxHistory}
           onclickcloseOtp={() => setOtp(false)}
           onClickOpen={() => {
             setTransaction(true), setOtp(false);

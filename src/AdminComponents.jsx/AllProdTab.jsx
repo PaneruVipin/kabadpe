@@ -33,7 +33,7 @@ const AllProdTab = () => {
 
   return (
     <>
-      <section className="all-prod-table-comp">
+      <section className="all-prod-table-comp" >
         <table>
           <thead>
             <tr>

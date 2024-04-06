@@ -11,6 +11,7 @@ import { FaWpforms } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaPagelines } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { PiGitlabLogo } from "react-icons/pi";
 import AdminFirstComp from "../AdminComponents.jsx/AdminFirstComp";
 import AdminSecondComp from "../AdminComponents.jsx/AdminSecondComp";
 import BookingReviewComp from "../AdminComponents.jsx/BookingReviewComp";
@@ -40,6 +41,8 @@ import { useQuery } from "@tanstack/react-query";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import AdminTransaction from "./AdminTransaction";
 import AdminManageWaste from "../AdminComponents.jsx/AdminManageWaste";
+import AllBlogPost from "../AdminComponents.jsx/AllBlogPost";
+import CreateBlog from "../AdminComponents.jsx/CreateBlog";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -180,7 +183,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <Redirect role="superAdmin" path="/adminlogin" />
+      {/* <Redirect role="superAdmin" path="/adminlogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -804,6 +807,55 @@ const AdminPanel = () => {
 
           <div className="admin-nv-li">
             <div
+              onClick={() => handleButtonClick(30)}
+              className={getButtonClassName(30)}
+            >
+              <div className="a-nv-i">
+              <PiGitlabLogo />
+
+              </div>
+              <span> Blog Posts</span>
+            </div>
+
+            <div className={getButonClasnameTwo(30)}>
+              <li
+                onClick={() => handleViewComp("allpost")}
+                className={
+                  component === "allpost"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> All Post </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("addpost")}
+                className={
+                  component === "addpost"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Add New Post </NavLink>{" "}
+              </li>
+              <li
+                onClick={() => handleViewComp("categories")}
+                className={
+                  component === "categories"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Categories </NavLink>{" "}
+              </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
               onClick={() => handleButtonClick(5)}
               className={getButtonClassName(5)}
             >
@@ -1358,6 +1410,9 @@ const AdminPanel = () => {
 
         {component === "transaction" ? <AdminTransaction /> : null}
         {component === "managewaste" ? <AdminManageWaste /> : null}
+        {component === "allpost" ? <AllBlogPost /> : null}
+        {component === "addpost" ? <CreateBlog /> : null}
+
 
       </section>
     </>

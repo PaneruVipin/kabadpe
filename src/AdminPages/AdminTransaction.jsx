@@ -314,7 +314,7 @@ const AdminTransaction = () => {
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
-                    .map(
+                    ?.map(
                       ({
                         id,
                         addedOn,

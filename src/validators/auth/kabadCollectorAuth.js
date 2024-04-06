@@ -14,8 +14,8 @@ export const validationSignupCollector = object().shape({
   phoneNumber: string()
     .required("Phone number is required")
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits"),
-  ariaName: string().required("Aria name is required"),
-  subAriaName: string().required("Sub aria name is required"),
+  ariaName: string().required("Area name is required"),
+  subAriaName: string().required("Sub Area name is required"),
 });
 
 export const validationLoginCollector = object().shape({

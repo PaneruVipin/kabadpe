@@ -247,3 +247,14 @@ export const AdminWalletForWithdrawFetch = resolvePromise(async (id) => {
   });
   return res?.wallet;
 });
+
+export const userTnxHistoryFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/tnx/history/user`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});

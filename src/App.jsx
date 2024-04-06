@@ -51,6 +51,9 @@ import CSR from "./Pages/CSR";
 import ZeroDrive from "./Pages/ZeroDrive";
 import IEC from "./Pages/IEC";
 import Material from "./Pages/Material";
+import BlogPage from "./Pages/BlogPage";
+import BlogDet from "./Pages/BlogDet";
+import Header from "./Components/Header";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -73,6 +76,7 @@ function App() {
     }
   }, []);
   return (
+    
     <Routes>
       <Route
         path="/"
@@ -134,6 +138,10 @@ function App() {
       <Route path="/termpolicy" element={<TermPolicy />} />
       <Route path="/vendorlogin" element={<VendorLogin />} />
       <Route path="/vendorpanel" element={<VendorPanel />} />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/blogdet" element={<BlogDet />} />
+
+
       
     </Routes>
   );

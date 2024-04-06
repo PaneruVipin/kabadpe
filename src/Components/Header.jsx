@@ -402,6 +402,16 @@ const Header = ({ userForm, setUserForm }) => {
                           <span>Rate list</span>
                         </NavLink>
                       </li>
+                      <li
+                        onClick={() => setLink("blog")}
+                        className={
+                          link === "blog" ? "nav-li navliactive" : "nav-li"
+                        }
+                      >
+                        <NavLink to="/blog">
+                          <span>Blog</span>
+                        </NavLink>
+                      </li>
                       <Protect reverse>
                         <li
                           onClick={() => setLink("kabadshop")}

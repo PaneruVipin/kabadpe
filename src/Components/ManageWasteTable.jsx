@@ -133,9 +133,8 @@ const ManageWasteTable = ({ wasteData }) => {
                       try {
                         w = JSON.parse(waste)?.waste;
                       } catch {}
-                      console.log("this is w", w);
                       const totalWaste = w?.reduce((a, b) => {
-                        return a + +b?.weight;
+                        return a + +(b?.weight || 0);
                       }, 0);
                       return (
                         <>

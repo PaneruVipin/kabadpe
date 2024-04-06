@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { FaPlaceOfWorship } from "react-icons/fa";
 import { TbPlaceholder } from "react-icons/tb";
 import {
-  workerBuyWasteCallbackCash,
+  workerBuyWasteCallback,
   workerRateListFetch,
 } from "../apis/worker/buyWaste";
 import SucesfulyTran from "./SucesfulyTran";
 import {
   FuntionToUpdateWalletDetailsByRole,
   GetWalletDetails,
+  walletFetch,
 } from "../apis/wallet/wallet";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,6 +31,7 @@ const BuyWasteTable = ({
     },
   ]);
   const [rateListData, setRateListData] = useState([]);
+  const [txnId, setTxnId] = useState("");
   const handleWeightChange = (id, value) => {
     const newTableData = tableData.map((row) => {
       let ammount;
@@ -90,10 +92,13 @@ const BuyWasteTable = ({
       user: buyWasteUserInfo,
       appoinmentId: buyWasteUserInfo?.appoinmentId,
     };
-    const res = await workerBuyWasteCallbackCash(data);
+    const res = await workerBuyWasteCallback({ ...data, type: "cash" });
     if (!res?.error) {
       closeBuyWaste();
+      toast.success(res?.message);
+      return;
     }
+    toast.error(res?.message);
   };
 
   const SucefData = {
@@ -102,56 +107,31 @@ const BuyWasteTable = ({
   };
   //calulate wallet data
   const handleWalletTransferClick = async () => {
-    try {
-      if (userInfo) {
-        const data = await GetWalletDetails(userInfo.id, userInfo.role);
-        setWalletDetails(data);
-      }
-      setWaltTranfer(true);
-      setPay(false);
-    } catch (error) {
-      setError(error);
-    }
+    setWaltTranfer(true);
+    setPay(false);
   };
   //send wallet data
   const handleConfirmButtonClick = async () => {
-    try {
-      debugger;
-      // Assuming walletCoin is obtained from the input field
-      const AdminId = userInfo.id; // Assuming userData contains user ID
-      const userId = buyWasteUserInfo?.id; // Assuming userData contains user ID
-      const role = "user"; //userInfo.role ||  // Assuming role is fixed as 'user' for this example
-      const walletmoney = totalAmmount || 0;
-
-      // Call function to update wallet details
-      var response = await FuntionToUpdateWalletDetailsByRole({
-        AdminId,
-        userId,
-        role,
-        walletmoney,
-      });
-      if (response.ResultStatus === 1) {
-        toast.success(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
-        setWaletSuc(true);
-        setWaltTranfer(false);
-        setPay(false);
-      } else {
-        toast.error(response.ResultMessage, { autoClose: 2000 }); // Display toast for 2 seconds
-        setTimeout(() => onclickClosePopup(), 2000); // Close popup after 5 seconds
-      }
-    } catch (error) {
-      console.error("Error updating wallet details:", error);
+    const data = {
+      orderDetail: { waste: tableData, totalAmmount },
+      user: buyWasteUserInfo,
+      appoinmentId: buyWasteUserInfo?.appoinmentId,
+    };
+    const res = await workerBuyWasteCallback({ ...data, type: "wallet" });
+    if (!res?.error) {
+      setTxnId(res?.tnx?.txnId);
+      setWaletSuc(true);
+      setWaltTranfer(false);
+      setPay(false);
+      return;
     }
+    toast.error(res?.message);
   };
-  const handleConfirmButtonClickr = async () => {
-    // Call ApplyClickToSendMoneytouser function
-    // await ApplyClickToSendMoneytouser();
-    // Update states
-    // setWaletSuc(true);
-    // setWaltTranfer(false);
-    // setPay(false);
-  };
+  const handleConfirmButtonClickr = async () => {};
+  const { data: wallet, refetch: refetchWallet } = useQuery({
+    queryKey: ["workerWalletFetchBuyWaste"],
+    queryFn: () => walletFetch(),
+  });
   return (
     <>
       <section className="buy-waste-table-comp buy-waste-table-comp3">
@@ -341,11 +321,11 @@ const BuyWasteTable = ({
             {totalAmmount} : <span>Total Amount </span>
           </p>
 
-          {/* {+totalAmmount ? ( */}
-          <button onClick={() => setPay(true)} className="paynow-btn">
-            Pay Now
-          </button>
-          {/* ) : null} */}
+          {+totalAmmount ? (
+            <button onClick={() => setPay(true)} className="paynow-btn">
+              Pay Now
+            </button>
+          ) : null}
         </div>
       </section>
 
@@ -361,15 +341,11 @@ const BuyWasteTable = ({
             Wallet Transfer
           </button> */}
 
-          <button
-            // onClick={() => {
-            //   setWaltTranfer(true), setPay(false);
-            // }}
-            onClick={handleWalletTransferClick}
-            className="pay-btn"
-          >
-            Wallet Tranfer
-          </button>
+          {buyWasteUserInfo?.id ? (
+            <button onClick={handleWalletTransferClick} className="pay-btn">
+              Wallet Tranfer
+            </button>
+          ) : null}
 
           <div onClick={() => setPay(false)} className="close-btn ">
             <i className="fa-solid fa-xmark"></i>
@@ -389,8 +365,7 @@ const BuyWasteTable = ({
 
           <p>
             {" "}
-            Wallet Balance :{" "}
-            <span>{walletDetails ? walletDetails.walletmoney : 0}</span>{" "}
+            Wallet Balance : <span>{wallet?.balance}</span>{" "}
           </p>
           <p>
             {" "}
@@ -398,19 +373,10 @@ const BuyWasteTable = ({
           </p>
           <p>
             {" "}
-            Balance Pay :{" "}
-            <span>
-              {walletDetails ? walletDetails.walletmoney - totalAmmount : "-"}
-            </span>{" "}
+            Balance : <span>{wallet?.balance - totalAmmount}</span>{" "}
           </p>
 
-          <button
-            // onClick={() => {
-            //   setWaletSuc(true), setWaltTranfer(false), setPay(false);
-            // }}
-            onClick={handleConfirmButtonClick}
-            className="confirm-btn"
-          >
+          <button onClick={handleConfirmButtonClick} className="confirm-btn">
             Confirm
           </button>
 
@@ -422,8 +388,11 @@ const BuyWasteTable = ({
 
       {waletSuc ? (
         <SucesfulyTran
-          SucefData={SucefData}
-          onClickCloseSucsMesge={() => setWaletSuc(false)}
+          totalAmmount={totalAmmount}
+          txnId={txnId}
+          onCloseClick={() => {
+            setWaletSuc(false), closeBuyWaste();
+          }}
         />
       ) : null}
     </>

@@ -16,6 +16,7 @@ import {
   FuntiontoGetTransactionDetails,
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
+  adminTotalWalletFetch,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
@@ -69,6 +70,10 @@ const AdminTransaction = () => {
     queryKey: ["AdminTnxHistoryFetch"],
     queryFn: () => AdminTnxHistoryFetch(),
   });
+  const { data: totalWallet, refetch: refetchTotalWallet } = useQuery({
+    queryKey: ["adminTotalWalletFetch"],
+    queryFn: () => adminTotalWalletFetch(),
+  });
   return (
     <>
       <section className="user-prof-grid-comp admin-transction  referearn-comp wallet-comp  wallet-comp5">
@@ -117,24 +122,24 @@ const AdminTransaction = () => {
                 <p>Total Wallet</p>
                 <div className="balance-box">
                   <div className="rupes-icon">₹</div>
-                  <span>5000.00</span>
+                  <span>{totalWallet?.total}</span>
                 </div>
               </div>
               <div className="walet-balnce-main-bx">
                 <div className="refrl-balance-box refrl-balance-box2">
-                  <p>Waste Colector</p>
+                  <p>Workers</p>
 
-                  <span>2000.00</span>
+                  <span>{totalWallet?.worker}</span>
                 </div>
                 <div className="refrl-balance-box refrl-balance-box2">
                   <p>Frenchies</p>
 
-                  <span>1000.00</span>
+                  <span>{totalWallet?.franchise}</span>
                 </div>
                 <div className="refrl-balance-box refrl-balance-box2">
                   <p>User</p>
 
-                  <span>2000.00</span>
+                  <span>{totalWallet?.user}</span>
                 </div>
               </div>
             </div>
@@ -292,11 +297,11 @@ const AdminTransaction = () => {
             <thead>
               <tr>
                 <th>Date/Time</th>
-                <th>From</th>
-                <th>From Wallet</th>
-                <th>To</th>
-                <th>To Wallet</th>
-                <th>Eco Points </th>
+                <th>Sender</th>
+                <th>Wallet Balance</th>
+                <th>Receiver</th>
+                <th>Wallet Balance</th>
+                <th>Tnx Amount </th>
                 <th>Tnx Type</th>
                 <th>Mode</th>
                 <th>Income </th>
@@ -370,7 +375,7 @@ const AdminTransaction = () => {
                                 {sender?.id ? (
                                   <p>{hashId(sender?.id, senderType)}</p>
                                 ) : null}
-                                <p>{senderType}</p>
+                                <p style={{ color: "#1266e3" }}>{senderType}</p>
                               </div>
                             </td>
                             <td>
@@ -385,7 +390,9 @@ const AdminTransaction = () => {
                                 {reciver?.id ? (
                                   <p>{hashId(reciver?.id, receiverType)}</p>
                                 ) : null}
-                                <p>{receiverType}</p>
+                                <p style={{ color: "#1266e3" }}>
+                                  {receiverType}
+                                </p>
                               </div>
                             </td>
 

@@ -260,8 +260,8 @@ const WasteWallet = ({ component = "worker" }) => {
                 <th>Txn Type</th>
                 <th>Party</th>
                 <th>Mode </th>
-                <th>Eco Points </th>
-                <th>Wallet </th>
+                <th>Tnx Amount</th>
+                <th>Wallet Balance</th>
                 <th>Status </th>
                 <th>Txn ID </th>
                 <th>
@@ -345,7 +345,7 @@ const WasteWallet = ({ component = "worker" }) => {
                             </td>
                             <td>
                               <span className="b-span2 ">{party?.id}</span>
-                              <span className="b-span2 ">{party?.type}</span>
+                              <span style={{color:"#1266e3"}} className="b-span2 ">{party?.type}</span>
                             </td>
                             <td>
                               <span className="b-span2 ">{paymentMethod}</span>

@@ -29,6 +29,15 @@ const HomeSlider = () => {
         
     // }
 
+    const handleButtonClick = () => {
+      const scrollDistance = window.innerHeight * 0.5; // 20% of the viewport height
+      window.scrollTo({
+        top: scrollDistance,
+        behavior: 'smooth' // Optional smooth scrolling behavior
+      });
+    };
+  
+
   
     
   return (
@@ -39,7 +48,7 @@ const HomeSlider = () => {
           <h1>Faltu ke Kharche <br/>
           Faltu Ke Kabad Se
           </h1>
-          <button>Sell Waste</button>
+          <button onClick={handleButtonClick}>Sell Waste</button>
 
           <div className="arrow-tall-bx">
           <i class="fa-solid fa-angles-down"></i>

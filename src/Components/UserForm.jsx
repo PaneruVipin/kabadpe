@@ -331,7 +331,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                                   type="text"
                                   name="phoneNumber"
                                   id="phone"
-                                  placeholder="Phone No."
+                                  placeholder="WhatsApp No."
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   value={values.phoneNumber}

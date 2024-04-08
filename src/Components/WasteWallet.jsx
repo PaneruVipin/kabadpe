@@ -332,7 +332,7 @@ const WasteWallet = ({ component = "worker" }) => {
                                   {" "}
                                   {DateTime.fromISO(updatedOn, {
                                     zone: "utc",
-                                  }).toFormat("ccc dd LLL yyyy hh:mm a")}
+                                  }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy hh:mm a")}
                                 </p>
                               </div>
                             </td>

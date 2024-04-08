@@ -116,10 +116,10 @@ const AdminMangeWasteTable = ({ wasteHistory }) => {
                         ...w,
                         date: DateTime.fromISO(w?.addedOn, {
                           zone: "utc",
-                        }).toFormat("ccc dd LLL yyyy"),
+                        }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy"),
                         time: DateTime.fromISO(w?.addedOn, {
                           zone: "utc",
-                        }).toFormat("hh:mm a"),
+                        }).setZone("Asia/Kolkata").toFormat("hh:mm a"),
                         u: w?.User?.fullname,
                         k: w?.KabadCollector?.fullname,
                         f:

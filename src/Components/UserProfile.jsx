@@ -17,6 +17,7 @@ import MyOffer from "./MyOffer";
 import { logout } from "../lib/logout";
 import Redirect from "./Auth/RedirectIfLogout";
 import WasteWallet from "./WasteWallet";
+import { hashId } from "../lib/array";
 
 const UserProfile = () => {
   const location = useLocation();
@@ -92,6 +93,7 @@ const UserProfile = () => {
           </div>
 
           <h6>{user?.fullname}</h6>
+          <span className="em-text">{hashId(user?.id, "user")}</span>
           <span className="em-text">
             <i className="fa-regular fa-envelope"></i>
             {user?.email}

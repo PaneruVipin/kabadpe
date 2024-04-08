@@ -29,6 +29,7 @@ import { logout } from "../lib/logout";
 import { useQuery } from "@tanstack/react-query";
 import { workerPlansFetch } from "../apis/worker/plan";
 import { workerFranchiseName } from "../apis/worker/user";
+import { hashId } from "../lib/array";
 
 const Wastecollectdashboard = ({}) => {
   const { userInfo, loading } = useSelector((s) => s.user);
@@ -103,6 +104,9 @@ const Wastecollectdashboard = ({}) => {
           </div>
 
           <h6>{userInfo?.fullname}</h6>
+          <span className="em-text">
+            {hashId(userInfo?.id, "worker")}
+          </span>
           <span className="em-text">
             <i class="fa-regular fa-envelope"></i>
             {userInfo?.email}
@@ -259,7 +263,13 @@ const Wastecollectdashboard = ({}) => {
                     : "waste-nav-li-btn"
                 }
               >
-               <NavLink to="https://drive.google.com/drive/folders/1rWU7sPNXH_Z5-3uMaylUSHIE2-IZ_y7-?usp=sharing" target="_blank"> <span>Resource Material (सिखने का लिंक)</span> </NavLink> 
+                <NavLink
+                  to="https://drive.google.com/drive/folders/1rWU7sPNXH_Z5-3uMaylUSHIE2-IZ_y7-?usp=sharing"
+                  target="_blank"
+                >
+                  {" "}
+                  <span>Resource Material (सिखने का लिंक)</span>{" "}
+                </NavLink>
               </li>
               <li
                 // onClick={() => setProfBtn(25)}
@@ -269,7 +279,13 @@ const Wastecollectdashboard = ({}) => {
                     : "waste-nav-li-btn"
                 }
               >
-               <NavLink to="https://docs.google.com/forms/d/e/1FAIpQLSeq8i1cjVusDUyZK6RldOdR3rcM_1CuctbPXqLO-3pFMeIZRQ/viewform" target="_blank"> <span>Certificate Test  </span> </NavLink>
+                <NavLink
+                  to="https://docs.google.com/forms/d/e/1FAIpQLSeq8i1cjVusDUyZK6RldOdR3rcM_1CuctbPXqLO-3pFMeIZRQ/viewform"
+                  target="_blank"
+                >
+                  {" "}
+                  <span>Certificate Test </span>{" "}
+                </NavLink>
               </li>
             </div>
           </div>

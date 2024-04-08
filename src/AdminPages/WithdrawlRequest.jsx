@@ -13,7 +13,7 @@ const WithdrawlRequest = ({ tnx, onClickClose, refetchTnxHistory }) => {
   const [amount, setAmount] = useState(tnx?.ammount);
   const [approvePayload, setApprovePayload] = useState();
   const handleChange = (e) => {
-    setApprovePayload({ [e.target.name]: e.target.value });
+    setApprovePayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const handlePaidClick = async () => {
     if (!approvePayload?.paymentMethod) {
@@ -80,12 +80,12 @@ const WithdrawlRequest = ({ tnx, onClickClose, refetchTnxHistory }) => {
                 </option>
                 <option value="cash">Cash</option>
                 <option value="bank">Bank</option>
-                {/* <option value="UPI">UPI</option> */}
+                <option value="UPI">UPI</option>
               </select>
             </div>
           </div>
 
-          {approvePayload?.paymentMethod == "bank" ? (
+          {approvePayload?.paymentMethod != "cash" ? (
             <div className="withdrawl-inpt-bx">
               <span>Transaction ID</span>
               <div className="withdral-inpt">

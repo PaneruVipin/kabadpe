@@ -258,3 +258,14 @@ export const userTnxHistoryFetch = resolvePromise(async () => {
   });
   return res;
 });
+
+export const adminTotalWalletFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/kabadpe/wallet/total`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});

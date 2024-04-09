@@ -9,7 +9,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { debounceAsync } from "../lib/debounce";
 
-const WalletCreditPopup = ({ onclickClosePopup, refetchHistory }) => {
+const WalletCreditPopup = ({
+  onclickClosePopup,
+  refetchHistory,
+  component = "admin",
+}) => {
   const [userData, setUserData] = useState(null);
   const [walletCoin, setWalletCoin] = useState(""); // State for wallet coin
   const [otherErrors, setOtherErrors] = useState({});
@@ -92,14 +96,16 @@ const WalletCreditPopup = ({ onclickClosePopup, refetchHistory }) => {
             />
           </div>
 
-          <p>
-            Note :{" "}
-            <span>
-              This will give wallet credit to your users at the time of
-              registration, please check carefully and update as per your
-              convenience or requirements.
-            </span>
-          </p>
+          {component == "admin" ? (
+            <p>
+              Note :{" "}
+              <span>
+                This will give wallet credit to your users at the time of
+                registration, please check carefully and update as per your
+                convenience or requirements.
+              </span>
+            </p>
+          ) : null}
 
           <button
             onClick={handleGiveCredit} // Call handleApplyClick on click

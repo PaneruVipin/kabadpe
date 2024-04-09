@@ -24,8 +24,10 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { DateTime } from "luxon";
 import { hashId } from "../lib/array";
+import WalletCreditPopup from "./WalletCreditPopup";
 const WasteWallet = ({ component = "worker" }) => {
   const [waletData, setWaletData] = useState(WalletData);
+  const [waletCredit, setWaletCredit] = useState(false);
   const [butonActive, setButonActive] = useState(true);
   const [waletDataNew, setwaletDataNew] = useState([]);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -75,6 +77,13 @@ const WasteWallet = ({ component = "worker" }) => {
 
   return (
     <>
+      {waletCredit ? (
+        <WalletCreditPopup
+          component="user"
+          refetchHistory={refetchTnxHistory}
+          onclickClosePopup={() => setWaletCredit(false)}
+        />
+      ) : null}
       <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
         <div className="top-wallet-box">
           <h6>Transactions </h6>
@@ -93,7 +102,12 @@ const WasteWallet = ({ component = "worker" }) => {
             <button onClick={() => setOtp(true)} className="tranfer-btn">
               Withdraw Now
             </button>
-
+            <button
+              onClick={() => setWaletCredit(true)}
+              className="tranfer-btn tranfer-btn23 add-money-btn"
+            >
+              Transfer Amount
+            </button>
             <div className="total-walet-main">
               <div className="refrl-balance-box">
                 <p>Balance Eco Coins</p>
@@ -332,7 +346,9 @@ const WasteWallet = ({ component = "worker" }) => {
                                   {" "}
                                   {DateTime.fromISO(updatedOn, {
                                     zone: "utc",
-                                  }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy hh:mm a")}
+                                  })
+                                    .setZone("Asia/Kolkata")
+                                    .toFormat("ccc dd LLL yyyy hh:mm a")}
                                 </p>
                               </div>
                             </td>
@@ -345,7 +361,12 @@ const WasteWallet = ({ component = "worker" }) => {
                             </td>
                             <td>
                               <span className="b-span2 ">{party?.id}</span>
-                              <span style={{color:"#1266e3"}} className="b-span2 ">{party?.type}</span>
+                              <span
+                                style={{ color: "#1266e3" }}
+                                className="b-span2 "
+                              >
+                                {party?.type}
+                              </span>
                             </td>
                             <td>
                               <span className="b-span2 ">{paymentMethod}</span>

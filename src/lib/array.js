@@ -8,16 +8,6 @@ export const filteredData = (data = [], filter = []) => {
 
 export const search = (dataList, searchValue, keys = []) => {
   const results = [];
-  // let newList;
-  // if (keys?.length) {
-  //   newList = dataList?.map((l) => {
-  //     let v = {};
-  //     keys?.forEach((k) => {
-  //       v[k] = l[k];
-  //     });
-  //     return v;
-  //   });
-  // }
   dataList?.forEach((item) => {
     for (const value of Object?.values(item)) {
       if (
@@ -28,6 +18,12 @@ export const search = (dataList, searchValue, keys = []) => {
       ) {
         results?.push(item);
         break;
+      } else if (
+        JSON.stringify(value)
+          ?.toLowerCase()
+          ?.includes(String(searchValue)?.toLowerCase())
+      ) {
+        results?.push(item);
       }
     }
   });

@@ -315,19 +315,19 @@ const AdminTransaction = () => {
             </thead>
             <tbody>
               {!tnxHistory?.error
-                ? tnxHistory?.history
+                ? tnxHistoryFormmating(tnxHistory)
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
                     ?.map(
                       ({
                         id,
-                        addedOn,
+                        // addedOn,
                         txnDetails,
                         txnStatus,
-                        senderId,
+                        // senderId,
                         senderType,
-                        receiverId,
+                        // receiverId,
                         receiverType,
                         ammount,
                         paymentMethod,
@@ -336,36 +336,18 @@ const AdminTransaction = () => {
                         senderWallet,
                         txnId,
                         updatedOn,
+                        sender,
+                        reciver,
                       }) => {
-                        const userTypes = {
-                          user: "users",
-                          worker: "workers",
-                          franchise: "franchises",
-                        };
-                        const userTyesAsKeys = Object.keys(userTypes);
-                        let sender, reciver;
-                        if (userTyesAsKeys.includes(senderType) && senderId) {
-                          const senderDetail = tnxHistory?.[
-                            userTypes?.[senderType]
-                          ]?.find(({ id }) => id == senderId);
-                          sender = senderDetail;
-                        }
-                        if (
-                          userTyesAsKeys.includes(receiverType) &&
-                          receiverId
-                        ) {
-                          const receiverDetail = tnxHistory?.[
-                            userTypes?.[receiverType]
-                          ]?.find(({ id }) => id == receiverId);
-                          reciver = receiverDetail;
-                        }
                         return (
                           <tr key={id}>
                             <td>
                               <div className="b-date">
                                 {DateTime.fromISO(updatedOn, {
                                   zone: "utc",
-                                }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy hh:mm a")}
+                                })
+                                  .setZone("Asia/Kolkata")
+                                  .toFormat("ccc dd LLL yyyy hh:mm a")}
                               </div>
                             </td>
 
@@ -521,3 +503,45 @@ const AdminTransaction = () => {
 };
 
 export default AdminTransaction;
+
+const tnxHistoryFormmating = (tnxHistory) => {
+  return tnxHistory?.history?.map(
+    ({ senderType, receiverId, receiverType, senderId, ...e }) => {
+      const userTypes = {
+        user: "users",
+        worker: "workers",
+        franchise: "franchises",
+      };
+      const userTyesAsKeys = Object.keys(userTypes);
+      let sender, reciver;
+      if (userTyesAsKeys.includes(senderType) && senderId) {
+        const senderDetail = tnxHistory?.[userTypes?.[senderType]]?.find(
+          ({ id }) => id == senderId
+        );
+        sender = {
+          ...senderDetail,
+          hashId: hashId(senderDetail?.id, senderType),
+        };
+      }
+      if (userTyesAsKeys.includes(receiverType) && receiverId) {
+        const receiverDetail = tnxHistory?.[userTypes?.[receiverType]]?.find(
+          ({ id }) => id == receiverId
+        );
+        reciver = {
+          ...receiverDetail,
+          hashId: hashId(receiverDetail?.id, receiverType),
+        };
+      }
+      const row = {
+        sender,
+        reciver,
+        ...e,
+        senderType,
+        receiverId,
+        receiverType,
+        senderId,
+      };
+      return row;
+    }
+  );
+};

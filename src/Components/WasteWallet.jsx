@@ -23,7 +23,7 @@ import {
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { DateTime } from "luxon";
-import { hashId } from "../lib/array";
+import { hashId, search } from "../lib/array";
 import WalletCreditPopup from "./WalletCreditPopup";
 const WasteWallet = ({ component = "worker" }) => {
   const [waletData, setWaletData] = useState(WalletData);
@@ -42,6 +42,7 @@ const WasteWallet = ({ component = "worker" }) => {
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
   const [trnfrComplte, setTrnfrComplte] = useState(false);
   const [trnferDet, setTrnferDet] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { userInfo } = useSelector((s) => s.user);
   const filterData = (categValue) => {
     const updatedData = WalletData.filter((elem) => {
@@ -287,7 +288,10 @@ const WasteWallet = ({ component = "worker" }) => {
             </thead>
             <tbody>
               {!txnHistory?.error
-                ? txnHistory?.history
+                ? search(
+                    tnxHistoryFormmating(txnHistory, userInfo, component),
+                    searchQuery
+                  )
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
@@ -308,32 +312,12 @@ const WasteWallet = ({ component = "worker" }) => {
                           txnDetails,
                           bankTxnId,
                           txnId,
+                          txnType,
+                          party,
+                          wallet,
                         },
                         i
                       ) => {
-                        let txnType =
-                          receiverType == component &&
-                          receiverId == userInfo?.id
-                            ? "Receive"
-                            : "Paid";
-                        let wallet =
-                          txnType == "Receive" ? receiverWallet : senderWallet;
-                        const party = {};
-                        const labels = {
-                          guest: "Guest User",
-                          admin: "KabadPe",
-                        };
-                        if (txnType == "Receive") {
-                          party.type = labels?.[senderType] || senderType;
-                          if (senderId) {
-                            party.id = hashId(senderId, senderType);
-                          }
-                        } else {
-                          party.type = labels?.[receiverType] || receiverType;
-                          if (receiverId) {
-                            party.id = hashId(receiverId, receiverType);
-                          }
-                        }
                         return (
                           <tr key={id}>
                             {" "}
@@ -497,3 +481,54 @@ const WasteWallet = ({ component = "worker" }) => {
 };
 
 export default WasteWallet;
+
+const tnxHistoryFormmating = (txnHistory, userInfo, component) => {
+  return txnHistory?.history?.map(
+    (
+      {
+        senderId,
+        senderType,
+        receiverType,
+        receiverId,
+        senderWallet,
+        receiverWallet,
+        ...e
+      },
+      i
+    ) => {
+      let txnType =
+        receiverType == component && receiverId == userInfo?.id
+          ? "Receive"
+          : "Paid";
+      let wallet = txnType == "Receive" ? receiverWallet : senderWallet;
+      const party = {};
+      const labels = {
+        guest: "Guest User",
+        admin: "KabadPe",
+      };
+      if (txnType == "Receive") {
+        party.type = labels?.[senderType] || senderType;
+        if (senderId) {
+          party.id = hashId(senderId, senderType);
+        }
+      } else {
+        party.type = labels?.[receiverType] || receiverType;
+        if (receiverId) {
+          party.id = hashId(receiverId, receiverType);
+        }
+      }
+      return {
+        txnType,
+        party,
+        wallet,
+        senderId,
+        senderType,
+        receiverType,
+        receiverId,
+        senderWallet,
+        receiverWallet,
+        ...e,
+      };
+    }
+  );
+};

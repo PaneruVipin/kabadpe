@@ -127,8 +127,8 @@ const AdminTransaction = () => {
           let dateAgo = new Date();
           dateAgo.setDate(dateAgo.getDate() - +value);
           if (value == "custom") {
-            currentDate = new Date(startDate);
-            dateAgo = new Date(endDate);
+            currentDate = new Date(endDate);
+            dateAgo = new Date(startDate);
           }
           filter.fn = ({ updatedOn }) => {
             const updateDate = new Date(updatedOn);

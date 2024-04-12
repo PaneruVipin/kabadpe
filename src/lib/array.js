@@ -24,9 +24,11 @@ export const search = (dataList, searchValue, keys = []) => {
           ?.includes(String(searchValue)?.toLowerCase())
       ) {
         results?.push(item);
+        break;
       }
     }
   });
+  // console.log("this is result",results)
   return results;
 };
 

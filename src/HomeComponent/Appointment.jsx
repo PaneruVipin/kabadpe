@@ -101,6 +101,7 @@ const Appointment = ({ setUserForm }) => {
         date: selectedDate
           ? selectedDate.toISOString()
           : new Date().toISOString(),
+          aria:selectedAddress?.aria
       }),
   });
   const checkAndOpenLoginPage = (fn) => {
@@ -173,6 +174,7 @@ const Appointment = ({ setUserForm }) => {
   useEffect(() => {
     setSelectedSlotData(null);
   }, [selectedAddress, selectedServiceType]);
+  console.log("this is selected address",selectedAddress)
   return (
     <>
       <Response

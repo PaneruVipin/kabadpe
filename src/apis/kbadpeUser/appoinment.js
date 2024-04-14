@@ -136,10 +136,10 @@ export const userFetchAvailableCompanies = resolvePromise(
 );
 
 export const userFetchAvailableSlots = resolvePromise(
-  async ({ franchiseId, date }) => {
+  async ({ franchiseId, date,aria }) => {
     const apiUrl =
       ENV_API_BASE_URL +
-      `/user/service/slotavailable/${franchiseId}?date=${date}`;
+      `/user/service/slotavailable/${franchiseId}?date=${date}&aria=${aria}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

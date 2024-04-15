@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { workerPlansFetch } from "../apis/worker/plan";
 import { DateTime } from "luxon";
+import { workerTodayAvailabilityFetch } from "../apis/worker/availability";
 const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
@@ -22,13 +23,20 @@ const TopFixMenu = ({
   const [holiday, setHoliday] = useState(false);
   const [guest, setGuest] = useState(false);
   const { userInfo } = useSelector((s) => s?.user);
-  const { data: plans, refetchPlan } = useQuery({
+  const { data: plans, refetch: refetchPlan } = useQuery({
     queryKey: ["workerfetcPlans:4"],
     queryFn: () => workerPlansFetch(),
   });
   const demoPlanData = !plans?.error
     ? plans?.find(({ WorkerSub }) => WorkerSub?.planType == "demo")
     : null;
+  const { data: todayAvail, refetch } = useQuery({
+    queryKey: ["workerTodayAvailabilityFetch:1"],
+    queryFn: () => workerTodayAvailabilityFetch(),
+  });
+  // {todayAvail?.availabilityStatus != "leave"
+  // ? "Mark You Are Not Working Today."
+  // : "Mark You Are Working Today."}
   return (
     <>
       <section className="top-user-prof-search-bx top-user-prof-search-bx2">
@@ -77,12 +85,22 @@ const TopFixMenu = ({
 
             <button
               onClick={() => setActToday(true)}
+              style={
+                todayAvail?.availabilityStatus != "leave"
+                  ? { backgroundColor: "green" }
+                  : { backgroundColor: "red" }
+              }
               className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx11 "
             >
               <div className="prf-icon">
                 <i class="fa-regular fa-user"></i>
               </div>
-              <span> Active Today</span>
+              <span>
+                {" "}
+                {todayAvail?.availabilityStatus != "leave"
+                  ? "Active"
+                  : "Not Active"}
+              </span>
             </button>
 
             <button className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx9">
@@ -184,7 +202,10 @@ const TopFixMenu = ({
           </div>
         </div>
         {actToday ? (
-          <ActiveToday onclickClose={() => setActToday(false)} />
+          <ActiveToday
+            refetch={refetch}
+            onclickClose={() => setActToday(false)}
+          />
         ) : null}
         {buyWaste ? (
           <BuyWastePOpup

@@ -1,15 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
 import { DateTime } from "luxon";
 import { downloadFile } from "../lib/file";
 import { FaFileImage } from "react-icons/fa";
 import { adminUsersUpdate } from "../apis/admins/users";
+import { Select } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import { adminAriaFetch } from "../apis/admins/arias";
 
 const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
   const [selectedImage, setSelectedImage] = useState({});
   const [otherErrors, setOtherErrors] = useState({});
-
+  const [arias, setArias] = useState([]);
+  const [subArias, setSubArias] = useState([]);
   const handleImageChange = (object, feild) => (e) => {
     const file = e.target.files[0];
     object[feild] = file;
@@ -44,6 +48,9 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
     fullname,
     id,
     profileImage,
+    pincode,
+    ariaName,
+    subAriaName,
   }) => {
     setOtherErrors({});
     const res = await adminUsersUpdate({
@@ -67,6 +74,9 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
       id,
       role: "worker",
       profileImage,
+      pincode,
+      ariaName,
+      subAriaName,
     });
     if (!res?.error) {
       onClickCloseEditForm();
@@ -75,6 +85,36 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
     }
     setOtherErrors({ update: res?.message });
   };
+  const getArias = (pincode, res) => {
+    return [
+      ...new Set(
+        res.filter((e) => e?.pincode == pincode)?.map((e, i) => e?.ariaName)
+      ),
+    ]?.map((name, i) => ({ id: i, name }));
+  };
+
+  const getSubArias = (pincode, aria, res) => {
+    return [
+      ...new Set(
+        res
+          .filter((e) => e?.pincode == pincode && e?.ariaName == aria)
+          ?.map((e, i) => e?.subAriaName)
+      ),
+    ]?.map((name, i) => ({ id: i, name }));
+  };
+  const { data: adminArias } = useQuery({
+    queryKey: ["adminariafetch-- 1"],
+    queryFn: () => adminAriaFetch(),
+  });
+  useEffect(() => {
+    if (!adminArias?.error && adminArias) {
+      const { pincode, ariaName } = initialValues;
+      const arias = getArias(pincode, adminArias);
+      setArias(arias);
+      const subArias = getSubArias(pincode, ariaName, adminArias);
+      setSubArias(subArias);
+    }
+  }, [adminArias]);
   return (
     <>
       <section className="french-edit-comp" onClick={onClickCloseEditForm}>
@@ -261,6 +301,93 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                         //placeholder="Emergency Contact Person Name"
                         autoComplete="off"
                       />
+                    </div>
+                  </div>
+                  <div className="admin-login-fild">
+                    <label htmlFor="phonenumber">Pincode</label>
+                    <div className="admin-login-input">
+                      <input
+                        type="number"
+                        name="pincode"
+                        id="phonenumber"
+                        value={values?.pincode}
+                        onChange={(e) => {
+                          handleChange(e);
+                          const arias = getArias(e.target.value, adminArias);
+                          setArias(arias);
+                        }}
+                        onBlur={handleBlur}
+                        //placeholder="Emergency Contact Person Name"
+                        autoComplete="off"
+                      />
+                    </div>
+                  </div>
+                  <div className="admin-login-fild">
+                    <label htmlFor="phonenumber">Area</label>
+                    <div className="admin-login-input">
+                      <Select
+                        value={values?.ariaName}
+                        onChange={(v) => {
+                          const cities = getSubArias(
+                            values?.pincode,
+                            v,
+                            adminArias
+                          );
+                          setSubArias(cities);
+                          handleChange({
+                            target: { name: "ariaName", value: v },
+                          });
+                          handleChange({
+                            target: { name: "subAriaName", value: undefined },
+                          });
+                          handleBlur({
+                            target: { name: "subAriaName" },
+                          });
+                        }}
+                        onBlur={(v) => {
+                          handleBlur({
+                            target: { name: "ariaName" },
+                          });
+                        }}
+                        showSearch={true}
+                        optionFilterProp="children"
+                        placeholder="Select State"
+                        className="apnt-inpt-bx-autotype"
+                      >
+                        {arias?.map(({ name, id }) => (
+                          <Select.Option key={id} value={name}>
+                            {name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </div>
+                  </div>
+                  <div className="admin-login-fild">
+                    <label htmlFor="phonenumber">Sub Area</label>
+                    <div className="admin-login-input">
+                      <Select
+                        value={values?.subAriaName}
+                        showSearch={true}
+                        optionFilterProp="children"
+                        placeholder="Select City"
+                        className="apnt-inpt-bx-autotype"
+                        onChange={(v) => {
+                          handleChange({
+                            target: { name: "subAriaName", value: v },
+                          });
+                        }}
+                        onBlur={(v) => {
+                          handleBlur({
+                            target: { name: "subAriaName" },
+                          });
+                        }}
+                      >
+                        {subArias?.map(({ name, id }) => (
+                          <Select.Option key={id} value={name}>
+                            {name}
+                          </Select.Option>
+                        ))}
+                      </Select>
                     </div>
                   </div>
                 </div>

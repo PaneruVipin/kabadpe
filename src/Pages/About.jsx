@@ -12,8 +12,8 @@ import MainFooter from "../HomeComponent/MainFooter";
 const About = () => {
 
   const data = {
-    title : 'Rate List',
-    text : 'Ratelist',
+    title : 'Frienchies',
+    text : 'Frienchies',
   }
   
   return (

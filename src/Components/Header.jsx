@@ -374,8 +374,8 @@ const Header = ({ userForm, setUserForm }) => {
                           <p onClick={() => setLink("about")}>
                             <NavLink to="/about"> About us</NavLink>
                           </p>
-                          <p onClick={() => setLink("about")}>
-                            <NavLink to="#">Franchise</NavLink>
+                          <p onClick={() => setLink("frenchies")}>
+                            <NavLink to="/frenchies">Franchise</NavLink>
                           </p>
                           <p onClick={() => setLink("about")}>
                             <NavLink to="/contact">Contact now</NavLink>

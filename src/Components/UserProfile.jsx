@@ -16,6 +16,8 @@ import { userFetch } from "../features/user/userActions";
 import MyOffer from "./MyOffer";
 import { logout } from "../lib/logout";
 import Redirect from "./Auth/RedirectIfLogout";
+import WasteWallet from "./WasteWallet";
+import { hashId } from "../lib/array";
 
 const UserProfile = () => {
   const location = useLocation();
@@ -68,7 +70,7 @@ const UserProfile = () => {
   }, [location]);
   return (
     <>
-      {/* <Redirect role="user" path="/" /> */}
+      <Redirect role="user" path="/" />
       <div className="user-profile-side-nav-main">
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
@@ -91,6 +93,7 @@ const UserProfile = () => {
           </div>
 
           <h6>{user?.fullname}</h6>
+          <span className="em-text">{hashId(user?.id, "user")}</span>
           <span className="em-text">
             <i className="fa-regular fa-envelope"></i>
             {user?.email}
@@ -260,8 +263,8 @@ const UserProfile = () => {
       {profBtn === 6 ? <Supportticket /> : null};
       {profBtn === 9 ? <UserOrders /> : null};
       {profBtn === 5 ? <ReferEarn /> : null};
-      {profBtn === 7 ? <MyWallet /> : null};{profBtn === 8 ? <MyOffer /> : null}
-      ;
+      {profBtn === 7 ? <WasteWallet component="user" /> : null} {/**MyWallet */}
+      {profBtn === 8 ? <MyOffer /> : null};
     </>
   );
 };

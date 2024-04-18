@@ -179,7 +179,7 @@ export const userFetchByIdOrPhone = resolvePromise(async (identifier) => {
 
 export const adminGiveCreditToUser = resolvePromise(
   async ({ id, role, balance }) => {
-    const apiUrl = ENV_API_BASE_URL + `/wallet/credit/to/${role}/${id}`;
+    const apiUrl = ENV_API_BASE_URL + `/wallet/transfer/to/${role}/${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
@@ -247,3 +247,53 @@ export const AdminWalletForWithdrawFetch = resolvePromise(async (id) => {
   });
   return res?.wallet;
 });
+
+export const userTnxHistoryFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/tnx/history/user`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const adminTotalWalletFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/kabadpe/wallet/total`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const adminWalletLimitFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/wallet/limit`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res;
+});
+
+export const adminWalletLimitUpdate = resolvePromise(
+  async ({ franchise, worker }) => {
+    const apiUrl = ENV_API_BASE_URL + `/wallet/limit`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { franchise, worker },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

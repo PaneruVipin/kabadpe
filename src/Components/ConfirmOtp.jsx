@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 
-const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
+const ConfirmOtp = ({refetchTnxHistory, onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const handleWithdrawalRequest = async () => {
     if (!withdrawalAmount) {
@@ -20,6 +20,7 @@ const ConfirmOtp = ({ onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
       return;
     }
     toast.success(res);
+    refetchTnxHistory()
     onclickcloseOtp();
   };
   return (

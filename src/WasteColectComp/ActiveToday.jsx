@@ -5,11 +5,13 @@ import {
 } from "../apis/worker/availability";
 import { useQuery } from "@tanstack/react-query";
 
-const ActiveToday = ({ onclickClose, todayTrue }) => {
+const ActiveToday = ({ onclickClose, todayTrue, refetch: refetchStatus }) => {
   const handleMarkActiveToday = async () => {
     const res = await workerMarkActiveToday();
     if (!res?.error) {
       onclickClose();
+      refetch();
+      refetchStatus();
     }
   };
   const { data: todayAvail, refetch } = useQuery({
@@ -21,19 +23,14 @@ const ActiveToday = ({ onclickClose, todayTrue }) => {
       <section className="comn-popup-comp" onClick={onclickClose}>
         <div className="comn-popup-bx" onClick={(e) => e.stopPropagation()}>
           <h6>
-            {todayAvail?.availabilityStatus != "active"
-              ? "Mark you are working today."
-              : "Allready Marked working today."}
+            {todayAvail?.availabilityStatus != "leave"
+              ? "Mark You Are Not Working Today."
+              : "Mark You Are Working Today."}
           </h6>
 
-          {todayAvail?.availabilityStatus != "active" ? (
-            <button
-              onClick={handleMarkActiveToday}
-              className="popup-action-btn"
-            >
-              Confirm
-            </button>
-          ) : null}
+          <button onClick={handleMarkActiveToday} className="popup-action-btn">
+            Confirm
+          </button>
 
           <div onClick={onclickClose} className="close-btn">
             <i class="fa-solid fa-xmark"></i>

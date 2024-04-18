@@ -85,12 +85,12 @@ const IndvdualPlan = ({ onSwitch }) => {
                           <span>
                             {DateTime.fromISO(startDate, {
                               zone: "utc",
-                            }).toFormat("ccc dd LLL yyyy")}{" "}
+                            }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy")}{" "}
                             to{" "}
                             {endDate
                               ? DateTime.fromISO(endDate, {
                                   zone: "utc",
-                                }).toFormat("ccc dd LLL yyyy")
+                                }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy")
                               : null}
                           </span>{" "}
                         </td>

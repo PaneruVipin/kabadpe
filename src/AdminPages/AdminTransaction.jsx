@@ -16,17 +16,16 @@ import {
   FuntiontoGetTransactionDetails,
   FuntiontogetDataFromProcedureVar,
   GetWalletDetails,
+  adminTotalWalletFetch,
 } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { DateTime } from "luxon";
-import { hashId } from "../lib/array";
+import { filteredData, hashId, search } from "../lib/array";
 
 const AdminTransaction = () => {
-  const [waletData, setWaletData] = useState(AdminWallet);
-  const [butonActive, setButonActive] = useState(true);
-  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [searchItem, setSearchItem] = useState("");
   const [updteWalet, setUpdteWalet] = useState(false);
   const [paymntDet, setPaymntDet] = useState(false);
@@ -34,32 +33,117 @@ const AdminTransaction = () => {
   const [withDrawl, setWithDrawl] = useState(false);
   const [reqPopup, setReqPopup] = useState(false);
   const [selectedTxn, setSelectedTxn] = useState();
-  const filterData = (value) => {
-    const updatedData = AdminWallet.filter((elem) => {
-      return (
-        elem.tnxtype == value || elem.mode == value || elem.status == value
-      );
+  const [filters, setFilters] = useState([]);
+  const [selectedTopFilter, setSelectedTopFilter] = useState("");
+  const topFilteres = [
+    { id: 1, label: "All", name: "" },
+    // { id: 2, label: "Bank", name: "bank" },
+    // { id: 3, label: "Wallet", name: "wallet" },
+    // { id: 4, label: "Cash", name: "cash" },
+    { id: 5, label: "In", name: "in" },
+    { id: 6, label: "Out", name: "out" },
+    { id: 7, label: "Pending", name: "pending" },
+  ];
+
+  const handleTopFilterChange = (e) => {
+    setSelectedTopFilter(e.target.name);
+    const neFilteres = filters.filter(({ id }) => {
+      id != "topFilter";
     });
-
-    setWaletData(updatedData);
+    setFilters(neFilteres);
+    let neFilter = {
+      id: "topFilter",
+      fn: (e) => {
+        return e;
+      },
+    };
+    switch (e.target.name) {
+      case "":
+        break;
+      // case "bank":
+      //   neFilter.fn = ({ paymentMethod }) => {
+      //     return paymentMethod == "bank";
+      //   };
+      //   break;
+      // case "wallet":
+      //   neFilter.fn = ({ paymentMethod }) => {
+      //     return paymentMethod == "wallet";
+      //   };
+      //   break;
+      // case "cash":
+      // neFilter.fn = ({ paymentMethod }) => {
+      //   return paymentMethod == "cash";
+      // };
+      // break;
+      case "in":
+        neFilter.fn = ({ txnType }) => {
+          return txnType == "in_wallet";
+        };
+        break;
+      case "out":
+        neFilter.fn = ({ txnType }) => {
+          return txnType == "out_wallet";
+        };
+        break;
+      case "pending":
+        neFilter.fn = ({ txnStatus }) => {
+          return txnStatus == "pending";
+        };
+        break;
+      default:
+        break;
+    }
+    setFilters((prev) => [...prev, neFilter]);
   };
 
-  const butonActFunc = (index) => {
-    setButonActive(index);
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    const neWfilteres = filters.filter(({ id }) => id != name);
+    setFilters(neWfilteres);
+    let filter = {
+      id: name,
+      fn: (e) => {
+        return e;
+      },
+    };
+    switch (name) {
+      case "userType":
+        if (value) {
+          filter.fn = ({ receiverType, senderType }) => {
+            return receiverType == value || senderType == value;
+          };
+        }
+        break;
+      case "paymentMode":
+        if (value) {
+          filter.fn = ({ paymentMethod }) => {
+            return paymentMethod == value;
+          };
+        }
+        break;
+      case "timePeriod":
+        if (value) {
+          let currentDate = new Date();
+          let dateAgo = new Date();
+          dateAgo.setDate(dateAgo.getDate() - +value);
+          if (value == "custom") {
+            currentDate = new Date(endDate);
+            dateAgo = new Date(startDate);
+          }
+          filter.fn = ({ updatedOn }) => {
+            const updateDate = new Date(updatedOn);
+            return (
+              updateDate.getTime() >= dateAgo.getTime() &&
+              updateDate.getTime() <= currentDate.getTime()
+            );
+          };
+        }
+        break;
+      default:
+        break;
+    }
+    setFilters((prev) => [...prev, filter]);
   };
-
-  const showSearchItem = (e) => {
-    const updatedSearc = e.target.value;
-
-    setSearchItem(updatedSearc);
-
-    const updatedSearchData = WalletData.filter((curItem) => {
-      return curItem.category.toLowerCase().includes(searchItem.toLowerCase());
-    });
-
-    setWaletData(updatedSearchData);
-  };
-
   // Function to handle approval
   const handleApprove = (data) => {
     setSelectedTxn(data);
@@ -68,6 +152,10 @@ const AdminTransaction = () => {
   const { data: tnxHistory, refetch } = useQuery({
     queryKey: ["AdminTnxHistoryFetch"],
     queryFn: () => AdminTnxHistoryFetch(),
+  });
+  const { data: totalWallet, refetch: refetchTotalWallet } = useQuery({
+    queryKey: ["adminTotalWalletFetch"],
+    queryFn: () => adminTotalWalletFetch(),
   });
   return (
     <>
@@ -117,24 +205,24 @@ const AdminTransaction = () => {
                 <p>Total Wallet</p>
                 <div className="balance-box">
                   <div className="rupes-icon">₹</div>
-                  <span>5000.00</span>
+                  <span>{totalWallet?.total}</span>
                 </div>
               </div>
               <div className="walet-balnce-main-bx">
                 <div className="refrl-balance-box refrl-balance-box2">
-                  <p>Waste Colector</p>
+                  <p>Workers</p>
 
-                  <span>2000.00</span>
+                  <span>{totalWallet?.worker}</span>
                 </div>
                 <div className="refrl-balance-box refrl-balance-box2">
                   <p>Frenchies</p>
 
-                  <span>1000.00</span>
+                  <span>{totalWallet?.franchise}</span>
                 </div>
                 <div className="refrl-balance-box refrl-balance-box2">
                   <p>User</p>
 
-                  <span>2000.00</span>
+                  <span>{totalWallet?.user}</span>
                 </div>
               </div>
             </div>
@@ -143,77 +231,18 @@ const AdminTransaction = () => {
 
         <div className="walet-tabs-filter-flex-box">
           <div className="wallet-tabs-btns-flex-box">
-            <button
-              onClick={() => {
-                setWaletData(AdminWallet), butonActFunc(1);
-              }}
-              className={butonActive == 1 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              All
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Bank"), butonActFunc(2);
-              }}
-              className={butonActive == 2 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Bank
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Wallet"), butonActFunc(3);
-              }}
-              className={butonActive == 3 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Wallet
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Cash"), butonActFunc(4);
-              }}
-              className={butonActive == 4 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Cash
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("In"), butonActFunc(5);
-              }}
-              className={butonActive == 5 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              In
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Out"), butonActFunc(6);
-              }}
-              className={butonActive == 6 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Out
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Received"), butonActFunc(7);
-              }}
-              className={butonActive == 7 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Received
-            </button>
-
-            <button
-              onClick={() => {
-                filterData("Paid"), butonActFunc(8);
-              }}
-              className={butonActive == 8 ? "walt-tab wallactive" : "walt-tab"}
-            >
-              Paid
-            </button>
+            {topFilteres?.map(({ id, name, label }) => (
+              <button
+                key={id}
+                name={name}
+                onClick={handleTopFilterChange}
+                className={
+                  name == selectedTopFilter ? "walt-tab wallactive" : "walt-tab"
+                }
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           <div className="right-fitler-part-box">
@@ -223,7 +252,7 @@ const AdminTransaction = () => {
                 name="search"
                 id="search"
                 value={searchItem}
-                onChange={showSearchItem}
+                onChange={(e) => setSearchItem(e.target.value)}
                 placeholder="Search..."
                 autoComplete="off"
               />
@@ -231,28 +260,42 @@ const AdminTransaction = () => {
 
             <div className="past-days-selec-box">
               <i className="fa-regular fa-calendar-days"></i>
-              <select name="pastdays" id="pastdays">
-                <option value="pastdays">Past 10 days</option>
-                <option value="pastdays">Past 30 days</option>
-                <option value="pastdays">Past 90 days</option>
+              <select
+                name="timePeriod"
+                id="pastdays"
+                onChange={handleFilterChange}
+              >
+                <option value="">All days</option>
+                <option value="10">Past 10 days</option>
+                <option value="30">Past 30 days</option>
+                <option value="90">Past 90 days</option>
               </select>
             </div>
 
             <div className="past-days-selec-box">
-              <select name="pastdays" id="pastdays">
-                <option value="Usertype">User Type</option>
-                <option value="User">User</option>
-                <option value="Frenchies">Frenchies</option>
-                <option value="Worker">Worker</option>
-                <option value="Vendor">Vendor</option>
+              <select
+                name="userType"
+                id="pastdays"
+                onChange={handleFilterChange}
+              >
+                <option value="">All Users</option>
+                <option value="user">User</option>
+                <option value="franchise">Frenchies</option>
+                <option value="worker">Worker</option>
+                <option value="vendor">Vendor</option>
               </select>
             </div>
 
             <div className="past-days-selec-box">
-              <select name="pastdays" id="pastdays">
-                <option value="pastdays">Payment Mode</option>
-                <option value="pastdays">Wallet</option>
-                <option value="pastdays">Cash</option>
+              <select
+                name="paymentMode"
+                id="pastdays"
+                onChange={handleFilterChange}
+              >
+                <option value="">All Payment Modes</option>
+                <option value="wallet">Wallet</option>
+                <option value="cash">Cash</option>
+                <option value="bank">Bank</option>
               </select>
             </div>
 
@@ -281,9 +324,18 @@ const AdminTransaction = () => {
               </div>
             </div>
 
-            <div className="search-btn">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </div>
+            {startDate && endDate ? (
+              <button
+                className="search-btn"
+                onClick={() =>
+                  handleFilterChange({
+                    target: { name: "timePeriod", value: "custom" },
+                  })
+                }
+              >
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            ) : null}
           </div>
         </div>
 
@@ -292,11 +344,11 @@ const AdminTransaction = () => {
             <thead>
               <tr>
                 <th>Date/Time</th>
-                <th>From</th>
-                <th>From Wallet</th>
-                <th>To</th>
-                <th>To Wallet</th>
-                <th>Eco Points </th>
+                <th>Sender</th>
+                <th>Wallet Balance</th>
+                <th>Receiver</th>
+                <th>Wallet Balance</th>
+                <th>Tnx Amount </th>
                 <th>Tnx Type</th>
                 <th>Mode</th>
                 <th>Income </th>
@@ -310,19 +362,22 @@ const AdminTransaction = () => {
             </thead>
             <tbody>
               {!tnxHistory?.error
-                ? tnxHistory?.history
+                ? filteredData(
+                    search(tnxHistoryFormmating(tnxHistory), searchItem),
+                    filters
+                  )
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
-                    .map(
+                    ?.map(
                       ({
                         id,
-                        addedOn,
+                        // addedOn,
                         txnDetails,
                         txnStatus,
-                        senderId,
+                        // senderId,
                         senderType,
-                        receiverId,
+                        // receiverId,
                         receiverType,
                         ammount,
                         paymentMethod,
@@ -331,36 +386,18 @@ const AdminTransaction = () => {
                         senderWallet,
                         txnId,
                         updatedOn,
+                        sender,
+                        reciver,
                       }) => {
-                        const userTypes = {
-                          user: "users",
-                          worker: "workers",
-                          franchise: "franchises",
-                        };
-                        const userTyesAsKeys = Object.keys(userTypes);
-                        let sender, reciver;
-                        if (userTyesAsKeys.includes(senderType) && senderId) {
-                          const senderDetail = tnxHistory?.[
-                            userTypes?.[senderType]
-                          ]?.find(({ id }) => id == senderId);
-                          sender = senderDetail;
-                        }
-                        if (
-                          userTyesAsKeys.includes(receiverType) &&
-                          receiverId
-                        ) {
-                          const receiverDetail = tnxHistory?.[
-                            userTypes?.[receiverType]
-                          ]?.find(({ id }) => id == receiverId);
-                          reciver = receiverDetail;
-                        }
                         return (
                           <tr key={id}>
                             <td>
                               <div className="b-date">
                                 {DateTime.fromISO(updatedOn, {
                                   zone: "utc",
-                                }).toFormat("ccc dd LLL yyyy hh:mm a")}
+                                })
+                                  .setZone("Asia/Kolkata")
+                                  .toFormat("ccc dd LLL yyyy hh:mm a")}
                               </div>
                             </td>
 
@@ -370,7 +407,7 @@ const AdminTransaction = () => {
                                 {sender?.id ? (
                                   <p>{hashId(sender?.id, senderType)}</p>
                                 ) : null}
-                                <p>{senderType}</p>
+                                <p style={{ color: "#1266e3" }}>{senderType}</p>
                               </div>
                             </td>
                             <td>
@@ -385,7 +422,9 @@ const AdminTransaction = () => {
                                 {reciver?.id ? (
                                   <p>{hashId(reciver?.id, receiverType)}</p>
                                 ) : null}
-                                <p>{receiverType}</p>
+                                <p style={{ color: "#1266e3" }}>
+                                  {receiverType}
+                                </p>
                               </div>
                             </td>
 
@@ -514,3 +553,45 @@ const AdminTransaction = () => {
 };
 
 export default AdminTransaction;
+
+const tnxHistoryFormmating = (tnxHistory) => {
+  return tnxHistory?.history?.map(
+    ({ senderType, receiverId, receiverType, senderId, ...e }) => {
+      const userTypes = {
+        user: "users",
+        worker: "workers",
+        franchise: "franchises",
+      };
+      const userTyesAsKeys = Object.keys(userTypes);
+      let sender, reciver;
+      if (userTyesAsKeys.includes(senderType) && senderId) {
+        const senderDetail = tnxHistory?.[userTypes?.[senderType]]?.find(
+          ({ id }) => id == senderId
+        );
+        sender = {
+          ...senderDetail,
+          hashId: hashId(senderDetail?.id, senderType),
+        };
+      }
+      if (userTyesAsKeys.includes(receiverType) && receiverId) {
+        const receiverDetail = tnxHistory?.[userTypes?.[receiverType]]?.find(
+          ({ id }) => id == receiverId
+        );
+        reciver = {
+          ...receiverDetail,
+          hashId: hashId(receiverDetail?.id, receiverType),
+        };
+      }
+      const row = {
+        sender,
+        reciver,
+        ...e,
+        senderType,
+        receiverId,
+        receiverType,
+        senderId,
+      };
+      return row;
+    }
+  );
+};

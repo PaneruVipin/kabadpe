@@ -12,11 +12,10 @@ import { useQuery } from "@tanstack/react-query";
 const FrenchWasteColect = ({ updatedWasteColectData }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-  const [wasteColectData, setWasteColectData] = useState(wastecolectData);
   const [wasteDataBox, setWasteDataBox] = useState(false);
   const [wasteViewData, setWasteViewData] = useState(false);
   const [transctn, setTransctn] = useState(false);
-
+  const [selectedWorker, setSelectedWorker] = useState();
   const subsDataClose = () => {
     setWasteDataBox(false);
   };
@@ -111,8 +110,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                   <th>User Status</th>
                   <th>Zip Code</th>
                   <th>Edit</th>
-                  <th>View</th>
-                  <th>Ledger</th>
+                  {/* <th>Ledger</th> */}
                 </tr>
               </thead>
 
@@ -121,35 +119,15 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                   ? workers?.map(
                       (
                         {
-                          aadharBack,
-                          aadharFront,
                           accountStatus,
-                          address,
                           ariaName,
-                          caste,
-                          dob,
                           email,
-                          emergencyPersonName,
-                          emergencyPhone,
-                          franchiseId,
                           fullname,
-                          gender,
-                          heathCheckupDate,
                           id,
-                          insurance,
-                          otpRef,
-                          panNo,
                           phoneNumber,
                           pincode,
-                          policeVerification,
                           profileImage,
-                          religion,
-                          rememberMe,
-                          saftyTrainingDate,
-                          subAriaName,
-                          username,
-                          workCity,
-                          workerRole,
+                          ...rest
                         },
                         i
                       ) => {
@@ -208,23 +186,26 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
 
                               <td>
                                 <div
-                                  onClick={() => setWasteDataBox(true)}
+                                  onClick={() => {
+                                    setSelectedWorker({
+                                      accountStatus,
+                                      ariaName,
+                                      email,
+                                      fullname,
+                                      id,
+                                      phoneNumber,
+                                      pincode,
+                                      profileImage,
+                                      ...rest,
+                                    });
+                                    setWasteDataBox(true);
+                                  }}
                                   className="edit-user-btn"
                                 >
                                   <i class="fa-regular fa-pen-to-square"></i>
                                 </div>
                               </td>
-
-                              <td>
-                                <div
-                                  onClick={() => setWasteViewData(true)}
-                                  className="edit-user-btn view-btn"
-                                >
-                                  <i class="fa-regular fa-eye"></i>
-                                </div>
-                              </td>
-
-                              <td>
+                              {/* <td>
                                 <div className="icon-flex-box">
                                   <button
                                     onClick={() => setTransctn(true)}
@@ -234,7 +215,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                                     <i class="fa-solid fa-money-bill-transfer"></i>
                                   </button>
                                 </div>
-                              </td>
+                              </td> */}
                             </tr>
                           </>
                         );
@@ -249,7 +230,8 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
 
       {wasteDataBox ? (
         <WasteColectEdit
-          WasteDataTrue={wasteDataBox}
+          initialValues={selectedWorker}
+          refetch={refetch}
           onClickCloseEditForm={subsDataClose}
         />
       ) : null}

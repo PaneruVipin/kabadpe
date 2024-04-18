@@ -20,13 +20,7 @@ const Wastecolect = () => {
   const [addWork, setAddWork] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
-  const data = {
-    cleaner: ["Cleaner"],
-    kabadiwala: ["Kabadiwala"],
-    toiletcleaner: ["Toilet Cleaner"],
-    sweeper: ["Sweeper"],
-    septictankcleaner: ["Septic Tank cleaner"],
-  };
+ 
 
   const subsDataClose = () => {
     setWasteDataBox(false);
@@ -60,8 +54,6 @@ const Wastecolect = () => {
             <h6>Waste Collector </h6>
 
             <div className="right-worker-type-flex-bx right-worker-type-flex-bx5">
-             
-
               {/* <button
                 onClick={() => setAddWork(true)}
                 className="work-type-btn"
@@ -80,17 +72,17 @@ const Wastecolect = () => {
           </div>
 
           <div className="right-user-filter-data-flex-box right-user-filter-data-flex-box6">
-          <div className="user-data-search-box">
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  placeholder="Search..."
-                  autoComplete="off"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
-                />
-              </div>
+            <div className="user-data-search-box">
+              <input
+                type="text"
+                name="search"
+                id="search"
+                placeholder="Search..."
+                autoComplete="off"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value?.trimStart())}
+              />
+            </div>
             <div className="add-work-sel-bx user-type-sel-box user-data-search-box">
               <select
                 name="worktype"
@@ -99,7 +91,7 @@ const Wastecolect = () => {
                 onChange={onWorkChange}
               >
                 <option value="">Choose</option>
-                <option value="cleaner">Cleaner</option>
+                <option value="cleaner">Cleaner 2</option>
                 <option value="kabadiwala">Kabadiwala</option>
                 <option value="toiletcleaner">Toilet Cleaner</option>
                 <option value="septictankcleaner">Septic Tank Cleaner</option>
@@ -168,18 +160,10 @@ const Wastecolect = () => {
 
               <tbody>
                 {!workers?.error
-                  ? search(kabadPeUserIdMapper(workers, "KPW"), searchQuery, [
-                      "id",
-                      "profileImage",
-                      "workerRole",
-                      "fullname",
-                      "phoneNumber",
-                      "email",
-                      "ariaName",
-                      "subAriaName",
-                      "pincode",
-                      "accountStatus",
-                    ])?.map(
+                  ? search(
+                      kabadPeUserIdMapper(workers, "KPW"),
+                      searchQuery
+                    )?.map(
                       (
                         {
                           id,
@@ -331,7 +315,7 @@ const Wastecolect = () => {
 
       {wasteDataBox ? (
         <WasteColectEdit
-        refetch={refetch}
+          refetch={refetch}
           initialValues={selectedUser}
           onClickCloseEditForm={subsDataClose}
         />

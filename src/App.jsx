@@ -54,6 +54,7 @@ import Material from "./Pages/Material";
 import BlogPage from "./Pages/BlogPage";
 import BlogDet from "./Pages/BlogDet";
 import Header from "./Components/Header";
+import AboutPage from "./Pages/AboutPage";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -83,7 +84,9 @@ function App() {
         element={<MainOutLet userForm={userForm} setUserForm={setUserForm} />}
       >
         <Route index element={<Home setUserForm={setUserForm} />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/frenchies" element={<About />} />
+        <Route path="/about" element={<AboutPage />} />
+
         <Route path="/contact" element={<Contact />} />
         <Route path="/account" element={<WastecollectorPage />} />
         <Route path="/service/zero-waste-societies" element={<Zerowastesocieties />} />

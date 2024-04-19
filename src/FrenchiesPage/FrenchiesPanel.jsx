@@ -549,85 +549,20 @@ const FrenchiesPanel = () => {
 
           <div className="admin-nv-li">
             <div
-              onClick={() => handleButtonClick(4)}
-              className={getButtonClassName(4)}
+              onClick={() => {
+                handleButtonClick(4);
+                handleViewComp("appointments"), setApntData(FrenchAppointData);
+              }}
+              className={
+                component === "appointments"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
             >
               <div className="a-nv-i">
                 <CiShop />
               </div>
               <span> Appointments</span>
-            </div>
-
-            <div className={getButonClasnameTwo(4)}>
-              <li
-                onClick={() => {
-                  handleViewComp("appointments"),
-                    setApntData(FrenchAppointData);
-                }}
-                className={
-                  component === "appointments"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> All Appointments </NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("complete")}
-                className={
-                  apntTab === "complete"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Complete Appointment</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("schdule")}
-                className={
-                  apntTab === "schdule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Assign Appointment </NavLink>{" "}
-              </li>
-              {/* <li
-                onClick={() => handleFilterAppoint("today")}
-                className={
-                  apntTab === "today"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Today Appointment</NavLink>{" "}
-              </li> */}
-              <li
-                onClick={() => handleFilterAppoint("underprocess")}
-                className={
-                  apntTab === "underprocess"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Unassigned Appointment </NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("reschedule")}
-                className={
-                  apntTab === "reschedule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Rescheduled Appointment</NavLink>{" "}
-              </li>
             </div>
           </div>
 
@@ -955,7 +890,9 @@ const FrenchiesPanel = () => {
         {component === "buywaste" ? <BuyWasteComp /> : null}
 
         {component === "viewhistory" ? <ViewHistory /> : null}
-        {component === "wasteproduct" ? <WasteProduct /> : null}
+        {component === "wasteproduct" ? (
+          <WasteProduct component="franchise" />
+        ) : null}
         {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
 
         {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}

@@ -9,6 +9,7 @@ import LedgerComp from "./LedgerComp";
 import WorkCapacity from "./WorkCapacity";
 import { franchiseWorkerFetch } from "../apis/franchise/workers";
 import { useQuery } from "@tanstack/react-query";
+import { kabadPeUserIdMapper } from "../lib/array";
 const FrenchWasteColect = ({ updatedWasteColectData }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
@@ -116,7 +117,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
 
               <tbody>
                 {!workers?.error
-                  ? workers?.map(
+                  ? kabadPeUserIdMapper(workers,"KPW")?.map(
                       (
                         {
                           accountStatus,
@@ -127,6 +128,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                           phoneNumber,
                           pincode,
                           profileImage,
+                          hashId,
                           ...rest
                         },
                         i
@@ -144,7 +146,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                               </td>
 
                               <td>
-                                <span> {id} </span>
+                                <span> {hashId} </span>
                               </td>
                               <td>
                                 <span> {fullname} </span>

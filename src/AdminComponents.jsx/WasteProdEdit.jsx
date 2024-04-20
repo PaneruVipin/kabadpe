@@ -8,6 +8,7 @@ import { AutoComplete, Select } from "antd";
 import { adminAriaFetch } from "../apis/admins/arias";
 import { useQuery } from "@tanstack/react-query";
 import { catageories } from "../lib/kabadCatageories";
+import { franchiseRateUpdate } from "../apis/franchise/products";
 
 const WasteProdEdit = ({
   onclickEditClose,
@@ -15,6 +16,7 @@ const WasteProdEdit = ({
   isEdit,
   editFormValues,
   refetch,
+  component,
 }) => {
   const [selectImg, setSelectImg] = useState("");
   const [otherErrors, setOtherErrors] = useState({});
@@ -47,11 +49,10 @@ const WasteProdEdit = ({
   const handleSubmit = async (data) => {
     setOtherErrors({});
     const newData = { ...data };
-    // if (!(newData?.productImage instanceof File) && !newData?.productImage) {
-    //   delete newData?.productImage;
-    // }
     const res = isEdit
-      ? await adminkabadProductUpdate(newData)
+      ? component == "admin"
+        ? await adminkabadProductUpdate(newData)
+        : await franchiseRateUpdate(newData)
       : await adminkabadProductAdd(newData);
     if (!res?.error) {
       refetch();
@@ -119,179 +120,266 @@ const WasteProdEdit = ({
             }) => {
               return (
                 <Form>
-                  <div className="two-fild-grid">
-                    <div className="admin-login-fild admin-login-fild3">
-                      <label htmlFor="#">Product Name</label>
-                      <input
-                        type="text"
-                        name="productName"
-                        id="productname"
-                        autoComplete="off"
-                        placeholder="Enter Product Name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values?.productName}
-                      />
-                    </div>
-                    <div className="admin-login-fild admin-login-fild3">
-                      <label htmlFor="#">Category</label>
-                      <select
-                        type="text"
-                        name="category"
-                        id="productname"
-                        autoComplete="off"
-                        placeholder="Enter Product Name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values?.category}
-                      >
-                        <option value="" hidden>
-                          Select Catageory
-                        </option>
-                        {catageories?.map(({ id, name }) => (
-                          <option key={id} value={name}>
-                            {name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="two-fild-grid">
-                    <div className="prod-image-main mt-3">
-                      <h6>Area</h6>
-
-                      <div className="image-fild-flex-bx">
-                        <Select
-                          value={values?.state}
-                          onChange={(v) => {
-                            const cities = getCities(v, adminArias);
-                            setCites(cities);
-                            handleChange({
-                              target: { name: "state", value: v },
-                            });
-                            handleChange({
-                              target: { name: "city", value: undefined },
-                            });
-                            handleBlur({
-                              target: { name: "city" },
-                            });
-                          }}
-                          onBlur={(v) => {
-                            handleBlur({
-                              target: { name: "state" },
-                            });
-                          }}
-                          showSearch={true}
-                          optionFilterProp="children"
-                          placeholder="Select State"
-                          className="apnt-inpt-bx-autotype"
-                        >
-                          {states?.map(({ name, id }) => (
-                            <Select.Option key={id} value={name}>
-                              {name}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                        <Select
-                          value={values?.city}
-                          showSearch={true}
-                          optionFilterProp="children"
-                          placeholder="Select City"
-                          className="apnt-inpt-bx-autotype"
-                          onChange={(v) => {
-                            handleChange({
-                              target: { name: "city", value: v },
-                            });
-                          }}
-                          onBlur={(v) => {
-                            handleBlur({
-                              target: { name: "city" },
-                            });
-                          }}
-                        >
-                          {cites?.map(({ name, id }) => (
-                            <Select.Option key={id} value={name}>
-                              {name}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </div>
-                    </div>
-                    <div className="prod-image-main mt-3">
-                      <h6>Product Image</h6>
-
-                      <div className="image-fild-flex-bx">
-                        <div className="input-file-btn">
-                          <label htmlFor="Prod_img">Product Image</label>
+                  {component == "admin" ? (
+                    <>
+                      <div className="two-fild-grid">
+                        <div className="admin-login-fild admin-login-fild3">
+                          <label htmlFor="#">Product Name</label>
                           <input
-                            type="file"
-                            accept="image/*"
-                            id="Prod_img"
-                            name="productImage"
-                            onChange={(event) => {
-                              const file = event.target.files[0];
-                              values.productImage = event.target.files[0];
-                              const reader = new FileReader();
-
-                              reader.onload = () => {
-                                setSelectImg(reader.result);
-                              };
-
-                              if (file) {
-                                reader.readAsDataURL(file);
-                              }
-                            }}
+                            type="text"
+                            name="productName"
+                            id="productname"
+                            autoComplete="off"
+                            placeholder="Enter Product Name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.productName}
                           />
                         </div>
-                        {selectImg || values?.productImage ? (
-                          <div className="image-add-bx">
-                            <img
-                              src={selectImg || values?.productImage}
-                              alt=""
+                        <div className="admin-login-fild admin-login-fild3">
+                          <label htmlFor="#">Category</label>
+                          <select
+                            type="text"
+                            name="category"
+                            id="productname"
+                            autoComplete="off"
+                            placeholder="Enter Product Name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.category}
+                          >
+                            <option value="" hidden>
+                              Select Catageory
+                            </option>
+                            {catageories?.map(({ id, name }) => (
+                              <option key={id} value={name}>
+                                {name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="two-fild-grid">
+                        <div className="prod-image-main mt-3">
+                          <h6>Area</h6>
+
+                          <div className="image-fild-flex-bx">
+                            <Select
+                              value={values?.state}
+                              onChange={(v) => {
+                                const cities = getCities(v, adminArias);
+                                setCites(cities);
+                                handleChange({
+                                  target: { name: "state", value: v },
+                                });
+                                handleChange({
+                                  target: { name: "city", value: undefined },
+                                });
+                                handleBlur({
+                                  target: { name: "city" },
+                                });
+                              }}
+                              onBlur={(v) => {
+                                handleBlur({
+                                  target: { name: "state" },
+                                });
+                              }}
+                              showSearch={true}
+                              optionFilterProp="children"
+                              placeholder="Select State"
+                              className="apnt-inpt-bx-autotype"
+                            >
+                              {states?.map(({ name, id }) => (
+                                <Select.Option key={id} value={name}>
+                                  {name}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                            <Select
+                              value={values?.city}
+                              showSearch={true}
+                              optionFilterProp="children"
+                              placeholder="Select City"
+                              className="apnt-inpt-bx-autotype"
+                              onChange={(v) => {
+                                handleChange({
+                                  target: { name: "city", value: v },
+                                });
+                              }}
+                              onBlur={(v) => {
+                                handleBlur({
+                                  target: { name: "city" },
+                                });
+                              }}
+                            >
+                              {cites?.map(({ name, id }) => (
+                                <Select.Option key={id} value={name}>
+                                  {name}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                          </div>
+                        </div>
+                        <div className="prod-image-main mt-3">
+                          <h6>Product Image</h6>
+
+                          <div className="image-fild-flex-bx">
+                            <div className="input-file-btn">
+                              <label htmlFor="Prod_img">Product Image</label>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id="Prod_img"
+                                name="productImage"
+                                onChange={(event) => {
+                                  const file = event.target.files[0];
+                                  values.productImage = event.target.files[0];
+                                  const reader = new FileReader();
+
+                                  reader.onload = () => {
+                                    setSelectImg(reader.result);
+                                  };
+
+                                  if (file) {
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                              />
+                            </div>
+                            {selectImg || values?.productImage ? (
+                              <div className="image-add-bx">
+                                <img
+                                  src={selectImg || values?.productImage}
+                                  alt=""
+                                />
+                              </div>
+                            ) : null}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="three-fild-bx">
+                        {/* <h6>Retail Price</h6> */}
+
+                        <div className="three-fild-grid">
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Retail Price Per Unit</label>
+                            <div className="fild-bx">
+                              <span>₹</span>
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name="retailPrice"
+                                id="Price"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.retailPrice}
+                              />
+                            </div>
+                          </div>
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Bulk Price Per Unit</label>
+                            <div className="fild-bx">
+                              <span>₹</span>
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name="bulkPrice"
+                                id="Price"
+                                autoComplete="off"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.bulkPrice}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Unit</label>
+                            <select
+                              type="text"
+                              name="unit"
+                              id="productname"
+                              autoComplete="off"
+                              placeholder="Enter Product Name"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.unit}
+                            >
+                              <option value="" hidden>
+                                Select Unit
+                              </option>
+                              <option value="kg">Kg</option>
+                              <option value="piece">Piece</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div className="two-fild-grid">
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">CO2 Offset (Kg)</label>
+                            <input
+                              type="number"
+                              onWheel={(e) => e.currentTarget.blur()}
+                              name="co2Offset"
+                              id="productname"
+                              autoComplete="off"
+                              placeholder="CO2 Offset"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.co2Offset}
                             />
                           </div>
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="three-fild-bx">
-                    {/* <h6>Retail Price</h6> */}
-
-                    <div className="three-fild-grid">
-                      {/* <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Start</label>
-                        <div className="fild-bx">
-                          <input
-                            type="number"
-                            onWheel={(e) => e.currentTarget.blur()}
-                            name="retailStartWeight"
-                            id="Startret"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.retailStartWeight}
-                          />
-                          <span>Kg</span>
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Water Saved (Litres)</label>
+                            <input
+                              type="number"
+                              onWheel={(e) => e.currentTarget.blur()}
+                              name="waterSaved"
+                              id="productname"
+                              autoComplete="off"
+                              placeholder="Water Saved"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.waterSaved}
+                            />
+                          </div>
+                        </div>
+                        <div className="two-fild-grid">
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Electricity Saved (KWh)</label>
+                            <input
+                              type="number"
+                              onWheel={(e) => e.currentTarget.blur()}
+                              name="electrictySaved"
+                              id="productname"
+                              autoComplete="off"
+                              placeholder="Electricity Saved"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.electrictySaved}
+                            />
+                          </div>
+                          <div className="admin-login-fild admin-login-fild3">
+                            <label htmlFor="#">Oil Saved (Lakhs Litres)</label>
+                            <input
+                              type="number"
+                              name="oilSaved"
+                              onWheel={(e) => e.currentTarget.blur()}
+                              id="productname"
+                              autoComplete="off"
+                              placeholder="Oil Saved"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.oilSaved}
+                            />
+                          </div>
                         </div>
                       </div>
-
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">End</label>
-                        <div className="fild-bx">
-                          <input
-                            type="number"
-                            onWheel={(e) => e.currentTarget.blur()}
-                            name="retailEndWeight"
-                            id="endret"
-                            autoComplete="off"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.retailEndWeight}
-                          />
-                          <span>Kg</span>
-                        </div>
-                      </div> */}
-
+                    </>
+                  ) : (
+                    <>
+                      {" "}
                       <div className="admin-login-fild admin-login-fild3">
                         <label htmlFor="#">Retail Price Per Unit</label>
                         <div className="fild-bx">
@@ -324,89 +412,68 @@ const WasteProdEdit = ({
                           />
                         </div>
                       </div>
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Unit</label>
-                        <select
-                          type="text"
-                          name="unit"
-                          id="productname"
-                          autoComplete="off"
-                          placeholder="Enter Product Name"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.unit}
-                        >
-                          <option value="" hidden>
-                            Select Unit
-                          </option>
-                          <option value="kg">Kg</option>
-                          <option value="piece">Piece</option>
-                        </select>
-                      </div>
+                    </>
+                  )}
+                  {otherErrors?.insert ? (
+                    <div style={{ color: "red", textAlign: "center" }}>
+                      {otherErrors?.insert}
                     </div>
-                    <div className="two-fild-grid">
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">CO2 Offset (Kg)</label>
-                        <input
-                          type="number"
-                          onWheel={(e) => e.currentTarget.blur()}
-                          name="co2Offset"
-                          id="productname"
-                          autoComplete="off"
-                          placeholder="CO2 Offset"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.co2Offset}
-                        />
-                      </div>
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Water Saved (Litres)</label>
-                        <input
-                          type="number"
-                          onWheel={(e) => e.currentTarget.blur()}
-                          name="waterSaved"
-                          id="productname"
-                          autoComplete="off"
-                          placeholder="Water Saved"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.waterSaved}
-                        />
-                      </div>
-                    </div>
-                    <div className="two-fild-grid">
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Electricity Saved (KWh)</label>
-                        <input
-                          type="number"
-                          onWheel={(e) => e.currentTarget.blur()}
-                          name="electrictySaved"
-                          id="productname"
-                          autoComplete="off"
-                          placeholder="Electricity Saved"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.electrictySaved}
-                        />
-                      </div>
-                      <div className="admin-login-fild admin-login-fild3">
-                        <label htmlFor="#">Oil Saved (Lakhs Litres)</label>
-                        <input
-                          type="number"
-                          name="oilSaved"
-                          onWheel={(e) => e.currentTarget.blur()}
-                          id="productname"
-                          autoComplete="off"
-                          placeholder="Oil Saved"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values?.oilSaved}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  ) : null}
+                  <button type="submit" className="add-prod-btn confirm-btn">
+                    {submitBuutonText}
+                  </button>
+                </Form>
+              );
+            }}
+          </Formik>
 
-                  {/* <div className="three-fild-bx">
+          <div onClick={onclickEditClose} className="close-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default WasteProdEdit;
+{
+  /* <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">Start</label>
+                        <div className="fild-bx">
+                          <input
+                            type="number"
+                            onWheel={(e) => e.currentTarget.blur()}
+                            name="retailStartWeight"
+                            id="Startret"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.retailStartWeight}
+                          />
+                          <span>Kg</span>
+                        </div>
+                      </div>
+
+                      <div className="admin-login-fild admin-login-fild3">
+                        <label htmlFor="#">End</label>
+                        <div className="fild-bx">
+                          <input
+                            type="number"
+                            onWheel={(e) => e.currentTarget.blur()}
+                            name="retailEndWeight"
+                            id="endret"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.retailEndWeight}
+                          />
+                          <span>Kg</span>
+                        </div>
+                      </div> */
+}
+{
+  /* <div className="three-fild-bx">
                     <h6>Bulk Price</h6>
 
                     <div className="three-fild-grid">
@@ -444,27 +511,5 @@ const WasteProdEdit = ({
                         </div>
                       </div>
                     </div>
-                  </div> */}
-                  {otherErrors?.insert ? (
-                    <div style={{ color: "red", textAlign: "center" }}>
-                      {otherErrors?.insert}
-                    </div>
-                  ) : null}
-                  <button type="submit" className="add-prod-btn confirm-btn">
-                    {submitBuutonText}
-                  </button>
-                </Form>
-              );
-            }}
-          </Formik>
-
-          <div onClick={onclickEditClose} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
-
-export default WasteProdEdit;
+                  </div> */
+}

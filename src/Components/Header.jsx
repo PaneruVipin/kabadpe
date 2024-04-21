@@ -10,6 +10,7 @@ const Header = ({ userForm, setUserForm }) => {
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);
   const [link, setLink] = useState("home");
+  const [topMenu , setTopMenu] = useState('kabadpe');
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -34,16 +35,16 @@ const Header = ({ userForm, setUserForm }) => {
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
                 <a href="#"> Climstripe Shift </a>
-                <a href="#" className="linkactive">
+                <NavLink to="/" onClick={() => setTopMenu('kabadpe')} className={topMenu === 'kabadpe' ? "linkactive" : ""}>
                   <span>|</span> Kabadpe
-                </a>
-                <a href="httos://thegreensamanshop.com/" >
+                </NavLink>
+                <NavLink to="httos://thegreensamanshop.com/" onClick={() => setTopMenu('greensaman')} className={topMenu === 'greensaman' ? "linkactive" : ""} >
                   <span>|</span>The Green Saman Shop{" "}
-                </a>
-                <a href="#">
+                </NavLink>
+                <NavLink to="/climconnect" onClick={() => setTopMenu('climconnect')} className={topMenu === 'climconnect' ? "linkactive" : ""}>
                   {" "}
                   <span>|</span> Climconnect{" "}
-                </a>
+                </NavLink>
               </div>
 
               <div className="header-top__left header-top_right">

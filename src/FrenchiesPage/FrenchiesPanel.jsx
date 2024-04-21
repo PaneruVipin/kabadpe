@@ -47,6 +47,8 @@ import {
   franchiseCapacityInsert,
 } from "../apis/franchise/workCapacity";
 import Redirect from "../Components/Auth/RedirectIfLogout";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -67,7 +69,7 @@ const FrenchiesPanel = () => {
   const [paymntHist, setPaymntHist] = useState(false);
   const [guest, setGuest] = useState(false);
   const [bid, setBid] = useState(false);
-
+  const { userInfo } = useSelector((s) => s.user);
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
   };
@@ -446,12 +448,35 @@ const FrenchiesPanel = () => {
             </div>
 
             <button className=" comp-refrl-bx">
-              <div className="comp-icon">
+              <div
+                className="comp-icon"
+                onClick={() => {
+                  navigator.clipboard.writeText(userInfo?.companyCode);
+                  toast("Copied!", {
+                    pauseOnHover: false,
+                    pauseOnFocusLoss: false,
+                    autoClose: 500,
+                  });
+                }}
+              >
                 <i class="fa-regular fa-building"></i>
               </div>
 
               <span>
-                2114504750 <i class="fa-solid fa-share-nodes"></i>
+                {userInfo?.companyCode}{" "}
+                <i
+                  onClick={() => {
+                    const sharedTitle = "KabadPe"; // Add your shared text here
+                    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
+                    const sharedText = `Company Code - ${userInfo?.companyCode}`;
+                    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+                    const shareData = {
+                      text: combinedText,
+                    };
+                    navigator.share(shareData);
+                  }}
+                  class="fa-solid fa-share-nodes"
+                ></i>
               </span>
             </button>
 
@@ -504,158 +529,40 @@ const FrenchiesPanel = () => {
 
           <div className="admin-nv-li">
             <div
-              onClick={() => handleButtonClick(3)}
-              className={getButtonClassName(3)}
+              onClick={() => {
+                handleButtonClick(3);
+                handleViewComp("frenchwastecolect"),
+                  setUserFiltData(wastecolectData);
+              }}
+              className={
+                component === "frenchwastecolect"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
             >
               <div className="a-nv-i">
                 <HiMiniUsers />
               </div>
               <span>Workers</span>
             </div>
-
-            <div className={getButonClasnameTwo(3)}>
-              <li
-                onClick={() => {
-                  handleViewComp("frenchwastecolect"),
-                    setUserFiltData(wastecolectData);
-                }}
-                className={
-                  component === "frenchwastecolect"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">All Workers</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilter("active")}
-                className={
-                  activeTav === "active"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Active Workers</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilter("banned")}
-                className={
-                  activeTav === "banned"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Banned Workers </NavLink>{" "}
-              </li>
-              {/* <li
-                onClick={() => handleFilter("unverified")}
-                className={
-                  activeTav === "unverified"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Unverified Users</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleViewComp("vendor")}
-                className={
-                  component === "vendor"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Vendor</NavLink>{" "}
-              </li> */}
-            </div>
           </div>
 
           <div className="admin-nv-li">
             <div
-              onClick={() => handleButtonClick(4)}
-              className={getButtonClassName(4)}
+              onClick={() => {
+                handleButtonClick(4);
+                handleViewComp("appointments"), setApntData(FrenchAppointData);
+              }}
+              className={
+                component === "appointments"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
             >
               <div className="a-nv-i">
                 <CiShop />
               </div>
               <span> Appointments</span>
-            </div>
-
-            <div className={getButonClasnameTwo(4)}>
-              <li
-                onClick={() => {
-                  handleViewComp("appointments"),
-                    setApntData(FrenchAppointData);
-                }}
-                className={
-                  component === "appointments"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> All Appointments </NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("complete")}
-                className={
-                  apntTab === "complete"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Complete Appointment</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("schdule")}
-                className={
-                  apntTab === "schdule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Assign Appointment </NavLink>{" "}
-              </li>
-              {/* <li
-                onClick={() => handleFilterAppoint("today")}
-                className={
-                  apntTab === "today"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Today Appointment</NavLink>{" "}
-              </li> */}
-              <li
-                onClick={() => handleFilterAppoint("underprocess")}
-                className={
-                  apntTab === "underprocess"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Unassigned Appointment </NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterAppoint("reschedule")}
-                className={
-                  apntTab === "reschedule"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Rescheduled Appointment</NavLink>{" "}
-              </li>
             </div>
           </div>
 
@@ -983,7 +890,9 @@ const FrenchiesPanel = () => {
         {component === "buywaste" ? <BuyWasteComp /> : null}
 
         {component === "viewhistory" ? <ViewHistory /> : null}
-        {component === "wasteproduct" ? <WasteProduct /> : null}
+        {component === "wasteproduct" ? (
+          <WasteProduct component="franchise" />
+        ) : null}
         {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
 
         {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}

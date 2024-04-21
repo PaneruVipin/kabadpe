@@ -9,8 +9,9 @@ import { useQuery } from "@tanstack/react-query";
 import { filteredData, search } from "../lib/array";
 import { IoDuplicate } from "react-icons/io5";
 import { adminAriaFetch } from "../apis/admins/arias";
+import { franchiseratesFetch } from "../apis/franchise/products";
 
-const WasteProduct = () => {
+const WasteProduct = ({ component = "admin" }) => {
   const [wasteProd, setWasteProd] = useState(WasteProdData);
   const [prodEdit, setProdEdit] = useState(false);
   const [isEdit, setisEdit] = useState(false);
@@ -22,7 +23,8 @@ const WasteProduct = () => {
   const [city, setCity] = useState("");
   const { data: products, refetch } = useQuery({
     queryKey: ["adminkabadProductFetch"],
-    queryFn: () => adminkabadProductFetch(),
+    queryFn: () =>
+      component == "admin" ? adminkabadProductFetch() : franchiseratesFetch(),
   });
   const { data: adminArias } = useQuery({
     queryKey: ["adminariafetch--1"],
@@ -154,15 +156,17 @@ const WasteProduct = () => {
               </div>
             </div>
 
-            <div
-              onClick={() => {
-                setProdEdit(true);
-                setisEdit(false);
-              }}
-              className="add-product-btn"
-            >
-              Add Product
-            </div>
+            {component == "admin" ? (
+              <div
+                onClick={() => {
+                  setProdEdit(true);
+                  setisEdit(false);
+                }}
+                className="add-product-btn"
+              >
+                Add Product
+              </div>
+            ) : null}
           </div>
 
           <div className="all-user-table waste-prod-table">
@@ -195,6 +199,7 @@ const WasteProduct = () => {
                           id,
                           state,
                           city,
+                          FranchiseRate,
                           ...rest
                         },
                         i
@@ -221,11 +226,17 @@ const WasteProduct = () => {
                               </td>
                               <td>
                                 {" "}
-                                <span> {retailPrice}</span>{" "}
+                                <span>
+                                  {" "}
+                                  {FranchiseRate?.retailPrice || retailPrice}
+                                </span>{" "}
                               </td>
                               <td>
                                 {" "}
-                                <span> {bulkPrice}</span>{" "}
+                                <span>
+                                  {" "}
+                                  {FranchiseRate?.bulkPrice || bulkPrice}
+                                </span>{" "}
                               </td>
 
                               <td>
@@ -239,8 +250,11 @@ const WasteProduct = () => {
                                         bulkStartWeight,
                                         retailEndWeight,
                                         retailStartWeight,
-                                        bulkPrice,
-                                        retailPrice,
+                                        bulkPrice:
+                                          FranchiseRate?.bulkPrice || bulkPrice,
+                                        retailPrice:
+                                          FranchiseRate?.retailPrice ||
+                                          retailPrice,
                                         productImage,
                                         productName,
                                         id,
@@ -252,37 +266,40 @@ const WasteProduct = () => {
                                   >
                                     <i class="fa-solid fa-pen-to-square"></i>
                                   </button>
-
-                                  <button
-                                    onClick={async () => {
-                                      await adminkabadProductDelete(id);
-                                      refetch();
-                                    }}
-                                  >
-                                    <i class="fa-solid fa-trash"></i>
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      setisEdit(false);
-                                      setProdEdit(true);
-                                      setEditFormValues({
-                                        bulkEndWeight,
-                                        bulkStartWeight,
-                                        retailEndWeight,
-                                        retailStartWeight,
-                                        bulkPrice,
-                                        retailPrice,
-                                        productImage,
-                                        productName,
-                                        id,
-                                        state,
-                                        city,
-                                        ...rest,
-                                      });
-                                    }}
-                                  >
-                                    <IoDuplicate />
-                                  </button>
+                                  {component == "admin" ? (
+                                    <>
+                                      <button
+                                        onClick={async () => {
+                                          await adminkabadProductDelete(id);
+                                          refetch();
+                                        }}
+                                      >
+                                        <i class="fa-solid fa-trash"></i>
+                                      </button>
+                                      <button
+                                        onClick={() => {
+                                          setisEdit(false);
+                                          setProdEdit(true);
+                                          setEditFormValues({
+                                            bulkEndWeight,
+                                            bulkStartWeight,
+                                            retailEndWeight,
+                                            retailStartWeight,
+                                            bulkPrice,
+                                            retailPrice,
+                                            productImage,
+                                            productName,
+                                            id,
+                                            state,
+                                            city,
+                                            ...rest,
+                                          });
+                                        }}
+                                      >
+                                        <IoDuplicate />
+                                      </button>
+                                    </>
+                                  ) : null}
                                 </div>
                               </td>
                             </tr>
@@ -299,6 +316,7 @@ const WasteProduct = () => {
 
       {prodEdit ? (
         <WasteProdEdit
+          component={component}
           isEdit={isEdit}
           editFormValues={editFormValues}
           refetch={refetch}

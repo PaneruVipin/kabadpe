@@ -55,6 +55,7 @@ import BlogPage from "./Pages/BlogPage";
 import BlogDet from "./Pages/BlogDet";
 import Header from "./Components/Header";
 import AboutPage from "./Pages/AboutPage";
+import Clinconnectpage from "./Pages/Clinconnectpage";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -108,6 +109,7 @@ function App() {
         <Route path="/service/zerodrive" element={<ZeroDrive />} />
         <Route path="/service/iec" element={<IEC />} />
         <Route path="/service/recoverymngemt" element={<Material />} />
+        <Route path="/climconnect" element={<Clinconnectpage />} />
 
 
 {/* zerodrive */}

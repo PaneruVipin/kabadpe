@@ -29,8 +29,8 @@ const Climconectfolowerprofile = () => {
         </div>
       </div>
 
-      <div onClick={() => setAddPost(true)} className="share-post-main-box">
-        <div className="share-post-btn">
+      <div  className="share-post-main-box">
+        <div onClick={() => setAddPost(true)} className="share-post-btn">
           <div className="share-post-img">
             <img src="/images/customImg/news-3.jpg" alt="" />
           </div>
@@ -61,21 +61,7 @@ const Climconectfolowerprofile = () => {
             </div>
           </div>
 
-          <div className="categ-cc">
-            <select name="category" id="category">
-              <option value="category">Choose Category</option>
-              <option value="category">Events </option>
-              <option value="category">News</option>
-              <option value="category">Fundraise</option>
-              <option value="category">Sustainability hacks</option>
-              <option value="category">Innovations & Eco-finds</option>
-              <option value="category">Sustainable Living</option>
-              <option value="category">Sustainable Fasion & cosmetics</option>
-              <option value="category">Eco-Tourism</option>
-              <option value="category">Culture, art & food</option>
-              <option value="category">ClimStripe Shift corne</option>
-            </select>
-          </div>
+         
         </div>
       </div>
 

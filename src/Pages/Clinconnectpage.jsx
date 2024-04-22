@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import "../style/Ratelist.css";
+import "../style/MyAccount.css";
 import Climconnectrightpart from '../ClimconnectComp/Climconnectrightpart'
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import {
@@ -11,11 +13,17 @@ import { SiHelpscout } from "react-icons/si";
 import { BiMessageDetail } from "react-icons/bi";
 import { RiUserFollowFill } from "react-icons/ri";
 import ClimconnectFeed from '../ClimconnectComp/ClimconnectFeed';
+import Climconeectproduct from '../ClimconnectComp/Climconectproduct';
+import Chats from '../Components/Chats';
+import ClimconectChat from '../ClimconnectComp/ClimconectChat';
+import Climconectfollowing from '../ClimconnectComp/Climconectfollowing';
+
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
 
   return (
     <>
+
 
     <section className="clim-connect-comp">
 
@@ -97,8 +105,12 @@ const Clinconnectpage = () => {
         
        {climConnectMenu === 'profile' ? <Climconnectrightpart /> : null}
        {climConnectMenu === 'feed' ? <ClimconnectFeed /> : null}
+       {climConnectMenu === 'message' ?  <ClimconectChat /> :  null}
+       {climConnectMenu === 'folowing' ?  <Climconectfollowing /> :  null}
 
+       <Climconeectproduct /> 
 
+        
         </div>
         
 

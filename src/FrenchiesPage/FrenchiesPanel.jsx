@@ -551,7 +551,9 @@ const FrenchiesPanel = () => {
             <div
               onClick={() => {
                 handleButtonClick(4);
-                handleViewComp("appointments"), setApntData(FrenchAppointData);
+                handleViewComp("appointments");
+                setApntData(FrenchAppointData);
+                refetch();
               }}
               className={
                 component === "appointments"
@@ -867,7 +869,10 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments appoinments={appoinments} />
+          <FrenchAppointments
+            appoinments={appoinments}
+            refetchAppoinment={refetch}
+          />
         ) : null}
 
         {component === "orders" ? (

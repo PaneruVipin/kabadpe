@@ -59,7 +59,7 @@ const Addpostpopup = ({onClickClosePost}) => {
                   onChange={handleOptionChange}
                   id="share"
                 >
-                  <option value="A">Globe</option>
+                  <option value="A">Public</option>
                   <option value="B">Friends</option>
                 </select>
               </div>
@@ -104,12 +104,33 @@ const Addpostpopup = ({onClickClosePost}) => {
         </div>
 
         
-            
+          </div>
+
+          <div className="post-categ-grid">
+
+          <div className="categ-cc">
+            <select name="category" id="category">
+              <option value="category">Choose Category</option>
+              <option value="category">Events </option>
+              <option value="category">News</option>
+              <option value="category">Fundraise</option>
+              <option value="category">Sustainability hacks</option>
+              <option value="category">Innovations & Eco-finds</option>
+              <option value="category">Sustainable Living</option>
+              <option value="category">Sustainable Fasion & cosmetics</option>
+              <option value="category">Eco-Tourism</option>
+              <option value="category">Culture, art & food</option>
+              <option value="category">ClimStripe Shift corne</option>
+            </select>
           </div>
 
           <button className="send-post-btn">
             Send Post
         </button>
+            
+          </div>
+
+        
 
 
         <div onClick={onClickClosePost} className="close-post-btn">

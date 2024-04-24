@@ -6,7 +6,7 @@ import {
   franchiseSubscriptionsFetch,
 } from "../apis/franchise/plans";
 
-const FrenchiesSubsPlan = () => {
+const FrenchiesSubsPlan = ({ onclickRedirect }) => {
   const [plan, setPlan] = useState("monthly");
   const [locat, setLocat] = useState(false);
   const [selectedArias, setSelectedArias] = useState([]);
@@ -45,8 +45,9 @@ const FrenchiesSubsPlan = () => {
     if (res?.error) {
       alert(res?.message);
       setErrors(res?.message);
-      return
+      return;
     }
+    onclickRedirect();
   };
   return (
     <>

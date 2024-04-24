@@ -2,18 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { walletFetch } from "../apis/wallet/wallet";
 
-const FrenchCard = () => {
+const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
   const { data: wallet, refetch } = useQuery({
     queryKey: ["franchiseWalletFetch"],
     queryFn: () => walletFetch(),
   });
+
   return (
     <>
       <section className="cards-grid-comp">
         <div className="cards-grid-box">
           <div className="card-box card-box3 french-card-box">
             <div className="left-card-info">
-              <h6>25</h6>
+              <h6>{appoinmentData?.total}</h6>
               <p>Today's Appointments</p>
             </div>
 
@@ -24,7 +25,7 @@ const FrenchCard = () => {
 
           <div className="card-box french-card-box">
             <div className="left-card-info">
-              <h6>12</h6>
+              <h6>{appoinmentData?.pending}</h6>
               <p>Pending Appointments</p>
             </div>
 

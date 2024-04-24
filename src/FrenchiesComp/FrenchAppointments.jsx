@@ -300,17 +300,10 @@ const FrenchAppointments = ({
                 </thead>
                 <tbody>
                   {!appoinments?.error
-                    ? search(filteredData(appoinments, filters), searchQuery, [
-                        "appoinmentAddress",
-                        "appointmentContactNumber",
-                        "appointmentDate",
-                        "appointmentPersonName",
-                        "appointmentTimeSlot",
-                        "estimateWeight",
-                        "frequency",
-                        "orderStatus",
-                        "rescheduleStatus",
-                      ])?.map(
+                    ? search(
+                        filteredData(appoinments, filters),
+                        searchQuery
+                      )?.map(
                         (
                           {
                             appoinmentAddress,

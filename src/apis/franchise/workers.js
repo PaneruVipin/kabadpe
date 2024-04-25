@@ -12,3 +12,16 @@ export const franchiseWorkerFetch = resolvePromise(async () => {
   });
   return res?.workers;
 });
+
+export const franchiseWorkersForAppoinmentFetch = resolvePromise(
+  async ({ date }) => {
+    const apiUrl = ENV_API_BASE_URL + `/franchise/appoinment/workers/${date}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.workers;
+  }
+);

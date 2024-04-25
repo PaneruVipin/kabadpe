@@ -41,3 +41,21 @@ export const adminExtendPlan = resolvePromise(
     return res?.message;
   }
 );
+
+export const adminApproveFranchisePlan = resolvePromise(
+  async ({ id, franchiseId, bankTxnId, paymentMethod }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/franchise/${franchiseId}/plan/${id}/approve`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { bankTxnId, paymentMethod },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

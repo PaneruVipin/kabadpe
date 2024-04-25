@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/Admin.css";
 import { RiTableFill } from "react-icons/ri";
 import { MdTabletAndroid } from "react-icons/md";
@@ -139,9 +139,29 @@ const FrenchiesPanel = () => {
 
   const { data: appoinments, refetch } = useQuery({
     queryKey: ["franchiseAppoinments"],
-    queryFn: () => franchiseAppoinmentFetch(),
+    queryFn: () => franchiseAppoinmentFetch({}),
   });
-
+  const [appoinmentData, setAppoinmentData] = useState({});
+  const { data: todayAppoinments, refetch: refetchTodatAppoinment } = useQuery({
+    queryKey: ["todayfranchiseAppoinments"],
+    queryFn: () => franchiseAppoinmentFetch({ date: new Date() }),
+  });
+  useEffect(() => {
+    if (!appoinments?.error && appoinments) {
+      const total = appoinments?.length;
+      const pending = appoinments?.filter(
+        ({ orderStatus }) => orderStatus == "active"
+      )?.length;
+      const unAssigned = appoinments?.filter(
+        ({ workerId, assigningStatus }) =>
+          assigningStatus == "cancel" || !workerId
+      )?.length;
+      const completed = appoinments?.filter(
+        ({ orderStatus }) => orderStatus == "fullfill"
+      )?.length;
+      setAppoinmentData({ total, pending, unAssigned, completed });
+    }
+  }, [appoinments]);
   return (
     <>
       <Redirect role="franchiseAdmin" path="/frenchieslogin" />
@@ -551,7 +571,9 @@ const FrenchiesPanel = () => {
             <div
               onClick={() => {
                 handleButtonClick(4);
-                handleViewComp("appointments"), setApntData(FrenchAppointData);
+                handleViewComp("appointments");
+                setApntData(FrenchAppointData);
+                refetch();
               }}
               className={
                 component === "appointments"
@@ -852,10 +874,17 @@ const FrenchiesPanel = () => {
             : "right-side-admin-all-comp"
         }
       >
-        {component === "dashboard" ? <FrenchCard /> : null}
+        {component === "dashboard" ? (
+          <FrenchCard
+            appoinments={todayAppoinments}
+            appoinmentData={appoinmentData}
+          />
+        ) : null}
 
         {component === "dashboard" ? (
           <Frenchgraph
+            appoinments={todayAppoinments}
+            appoinmentData={appoinmentData}
             onclickRedirectAllAppointment={() => handleViewComp("appointments")}
             todayData={apntData}
           />
@@ -867,7 +896,10 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments appoinments={appoinments} />
+          <FrenchAppointments
+            appoinments={appoinments}
+            refetchAppoinment={refetch}
+          />
         ) : null}
 
         {component === "orders" ? (
@@ -878,6 +910,7 @@ const FrenchiesPanel = () => {
         {component === "wastecolectr" ? <Wastecolect /> : null}
         {component === "subscriptionplan" ? (
           <FrenchSubscriptionPlanTwo
+            component="franchise"
             onclickRedirect={() => handleViewComp("subsplan")}
           />
         ) : null}
@@ -893,7 +926,11 @@ const FrenchiesPanel = () => {
         {component === "wasteproduct" ? (
           <WasteProduct component="franchise" />
         ) : null}
-        {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
+        {component === "subsplan" ? (
+          <FrenchiesSubsPlan
+            onclickRedirect={() => handleViewComp("subscriptionplan")}
+          />
+        ) : null}
 
         {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}
       </section>
@@ -910,8 +947,6 @@ const FrenchiesPanel = () => {
           }}
         />
       ) : null}
-
-      {/* {guest ? <GuestPopup  onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null} */}
     </>
   );
 };

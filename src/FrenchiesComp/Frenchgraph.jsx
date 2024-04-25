@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,
@@ -8,9 +8,10 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import '../style/Frenchiespanel.css';
+import "../style/Frenchiespanel.css";
 import TodayFrenchAppoint from "./TodayFrenchAppoint";
-
+import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
+import { useQuery } from "@tanstack/react-query";
 
 const data = [
   {
@@ -87,7 +88,7 @@ const data = [
   },
 ];
 
-const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
+const Frenchgraph = ({appoinments,appoinmentData, todayData, onclickRedirectAllAppointment }) => {
   const [editBx, setEditBx] = useState(false);
 
   return (
@@ -105,7 +106,7 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
             </div> */}
 
             <div className="left-ad-progress-bar-main mb-4">
-              <h6>Today's Appointments</h6>
+              <h6>Today's Appointments </h6>
 
               <div className="ad-prog-bar-box">
                 <div className="inner-prog-bar inner-prog-bar1"></div>
@@ -128,7 +129,7 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
                     <div className="prog-dot-det-box"></div>
                     <span>Total</span>
                   </div>
-                  <h6>234</h6>
+                  <h6>{appoinmentData?.total}</h6>
                 </div>
 
                 <div className="prog-info-box">
@@ -136,7 +137,7 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
                     <div className="prog-dot-det-box prog-dot-det-box2 prog-dot-det-box4"></div>
                     <span>Unassigned</span>
                   </div>
-                  <h6>65</h6>
+                  <h6>{appoinmentData?.unAssigned}</h6>
                 </div>
 
                 <div className="prog-info-box">
@@ -144,17 +145,15 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
                     <div className="prog-dot-det-box prog-dot-det-box2"></div>
                     <span>Pending</span>
                   </div>
-                  <h6>85</h6>
+                  <h6>{appoinmentData?.pending}</h6>
                 </div>
-
-                
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
                     <div className="prog-dot-det-box prog-dot-det-box3"></div>
                     <span>Completed</span>
                   </div>
-                  <h6>150</h6>
+                  <h6>{appoinmentData?.completed}</h6>
                 </div>
               </div>
             </div>
@@ -162,14 +161,18 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
             <div className="left-ad-progress-bar-main">
               <h6>Today Appointments</h6>
 
-            <TodayFrenchAppoint onclickRedirectFrenchApnt={onclickRedirectAllAppointment} TodayFrenchData={todayData}   />
-             
+              <TodayFrenchAppoint
+                appoinments={appoinments}
+                onclickRedirectFrenchApnt={onclickRedirectAllAppointment}
+                TodayFrenchData={todayData}
+              />
             </div>
           </div>
 
-          <div className="right-graph-main-box" onClick={() => setEditBx(false)}>
-           
-
+          <div
+            className="right-graph-main-box"
+            onClick={() => setEditBx(false)}
+          >
             <div className="graph-top-flex-box">
               <div className="left-graph-title">
                 <h6> 10 Days Appointments Growth</h6>
@@ -205,15 +208,11 @@ const Frenchgraph = ({todayData , onclickRedirectAllAppointment}) => {
                       <stop offset="95%" stopColor="#96d884" stopOpacity={0} />
                     </linearGradient> */}
                     <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d097ff" stopOpacity={0.2  } />
+                      <stop offset="5%" stopColor="#d097ff" stopOpacity={0.2} />
                       <stop offset="95%" stopColor="#d097ff" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis
-                    dataKey="date"
-                    axisLine={false}
-                    textAnchor="end"
-                  />
+                  <XAxis dataKey="date" axisLine={false} textAnchor="end" />
                   <YAxis dataKey="amt" axisLine={false} offset={0} />
                   <Tooltip />
                   {/* <Area

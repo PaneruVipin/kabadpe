@@ -1401,7 +1401,6 @@ const AdminPanel = () => {
             component="admin"
             refetchAppoinment={refetch}
             appoinments={appoinments}
-            updatedFrenchAppointData={apntData}
           />
         ) : null}
         {component === "otherAppoint" ? (

@@ -5,13 +5,16 @@ import Upgradepopupbx from "./Upgradepopupbx";
 import { adminfranchisePlansFetch } from "../apis/admins/franchisePlans";
 import { useQuery } from "@tanstack/react-query";
 import IndvdualPlan from "./IndvdualPlan";
+import ApproveFranchisePlan from "./ApproveFranchisePlan";
+import { hashId } from "../lib/array";
 
 const SubscriptionPlan = ({ onSwitch }) => {
   const [subsPlan, setSubsPlan] = useState(subsData);
   const [subsDataBox, setSubsDataBox] = useState(false);
   const [upgradeBx, setUpgradeBx] = useState(false);
   const [subsSwtch, setSubsSwtch] = useState("frenchies");
-
+  const [approvePopup, setApprovePopup] = useState(false);
+  const [approveInfo, setApproveInfo] = useState();
   const subsDataClose = () => {
     setSubsDataBox(false);
   };
@@ -57,6 +60,7 @@ const SubscriptionPlan = ({ onSwitch }) => {
               <thead>
                 <tr>
                   <th>SNo.</th>
+                  <th>User ID </th>
                   <th>Plan </th>
                   <th>Frenchies Name</th>
                   <th>Subscription Period</th>
@@ -79,8 +83,9 @@ const SubscriptionPlan = ({ onSwitch }) => {
                           tax,
                           planStatus,
                           KabadpeSub,
-                          Franchise,
                           ariaIds,
+                          Franchise,
+                          ...rest
                         },
                         i
                       ) => {
@@ -90,10 +95,17 @@ const SubscriptionPlan = ({ onSwitch }) => {
                         );
                         return (
                           <>
-                            <tr key={i}>
+                            <tr key={id}>
                               <td>
                                 {" "}
                                 <span> {i + 1} </span>{" "}
+                              </td>
+                              <td>
+                                {" "}
+                                <span>
+                                  {" "}
+                                  {hashId(Franchise?.id, "franchise")}{" "}
+                                </span>{" "}
                               </td>
                               <td>
                                 {" "}
@@ -142,16 +154,26 @@ const SubscriptionPlan = ({ onSwitch }) => {
                               <td>
                                 <div className="btn-ban-del-flex">
                                   <button
-                                  // className={
-                                  //   elem.banbtn === "Ban"
-                                  //     ? "banbtn activebanbtn"
-                                  //     : "banbtn"
-                                  // }
+                                    onClick={() => {
+                                      setApprovePopup(true);
+                                      setApproveInfo({
+                                        id,
+                                        plantType,
+                                        subTotal,
+                                        tax,
+                                        planStatus,
+                                        KabadpeSub,
+                                        ariaIds,
+                                        Franchise,
+                                        ...rest,
+                                      });
+                                    }}
+                                    className={"banbtn activebanbtn"}
                                   >
-                                    {/* {elem.banbtn} */}
+                                    Confirm
                                   </button>
-
-                                  {/* <button className="del-btn">{elem.delbtn}</button> */}
+                                  <button className="del-btn">Reject</button>
+                                  <button className="del-btn">Ban</button>
                                 </div>
                               </td>
                             </tr>
@@ -183,6 +205,14 @@ const SubscriptionPlan = ({ onSwitch }) => {
         />
       ) : null}
       {subsDataBox ? <SubsDetEdit onclickCloseSubsDat={subsDataClose} /> : null}
+      {approvePopup ? (
+        <ApproveFranchisePlan
+          info={approveInfo}
+          onClickClose={() => {
+            setApprovePopup(false);
+          }}
+        />
+      ) : null}
     </>
   );
 };

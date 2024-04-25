@@ -12,7 +12,7 @@ import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
 import { adminChangeAppoinmentStatus } from "../apis/admins/appoinments";
-import { filteredData, search } from "../lib/array";
+import { filteredData, hashId, search } from "../lib/array";
 
 const FrenchAppointments = ({
   refetchAppoinment,
@@ -300,17 +300,10 @@ const FrenchAppointments = ({
                 </thead>
                 <tbody>
                   {!appoinments?.error
-                    ? search(filteredData(appoinments, filters), searchQuery, [
-                        "appoinmentAddress",
-                        "appointmentContactNumber",
-                        "appointmentDate",
-                        "appointmentPersonName",
-                        "appointmentTimeSlot",
-                        "estimateWeight",
-                        "frequency",
-                        "orderStatus",
-                        "rescheduleStatus",
-                      ])?.map(
+                    ? search(
+                        filteredData(appoinments, filters),
+                        searchQuery
+                      )?.map(
                         (
                           {
                             appoinmentAddress,
@@ -367,7 +360,7 @@ const FrenchAppointments = ({
                                     {UserAddress?.locationType}{" "}
                                   </span>{" "}
                                 </td>
-                                <td> {String(userId).padStart(6, "0")} </td>
+                                <td> {hashId(userId, "user")} </td>
                                 <td> {appointmentPersonName} </td>
                                 <td>
                                   {" "}
@@ -509,7 +502,6 @@ const FrenchAppointments = ({
         <AppointSlot
           refetchAppoinment={refetchAppoinment}
           component={component}
-          ApntSlotTrue={apntSlot}
           appoinmentDetails={appoinmentDetails}
           onClickOpenPopup={() => {
             setApntSlot(false);

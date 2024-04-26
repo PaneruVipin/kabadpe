@@ -49,6 +49,7 @@ import {
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import WasteWallet from "../Components/WasteWallet";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -641,7 +642,24 @@ const FrenchiesPanel = () => {
               <span>Bid</span>
             </div>
             </div> */}
-
+          <div className="admin-nv-li admin-nv-li-dashbrd">
+            <div
+              onClick={() => {
+                handleViewComp("tnx");
+              }}
+              // className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
+              className={
+                component === "tnx"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="u-prf-tab-icon a-nv-i">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <span>My Transactions</span>
+            </div>
+          </div>
           <div className="admin-nv-li">
             <div
               onClick={() => handleButtonClick(9)}
@@ -931,6 +949,7 @@ const FrenchiesPanel = () => {
             onclickRedirect={() => handleViewComp("subscriptionplan")}
           />
         ) : null}
+        {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
         {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}
       </section>

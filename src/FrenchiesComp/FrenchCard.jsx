@@ -1,13 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { walletFetch } from "../apis/wallet/wallet";
+import { franchiseWorkersForAppoinmentFetch } from "../apis/franchise/workers";
 
 const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
   const { data: wallet, refetch } = useQuery({
     queryKey: ["franchiseWalletFetch"],
     queryFn: () => walletFetch(),
   });
-
+  const { data: workers, refetch: refetchWorkers } = useQuery({
+    queryKey: ["fetchServicableWorkersToday"],
+    queryFn: () =>
+      franchiseWorkersForAppoinmentFetch({
+        date: new Date(),
+      }),
+  });
+  const allActiveWorkersToday = (workers) => {
+    if (workers?.error || !workers) {
+      return;
+    }
+    const filtered = workers?.filter(({ WorkerAvailabilities }) => {
+      return (
+        WorkerAvailabilities?.find(
+          ({ date }) =>
+            new Date()?.toISOString()?.split("T")?.[0] ==
+            new Date(date)?.toISOString()?.split("T")?.[0]
+        )?.availabilityStatus == "leave"
+      );
+    });
+    return filtered;
+  };
   return (
     <>
       <section className="cards-grid-comp">
@@ -36,7 +58,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
 
           <div className="card-box card-box2 french-card-box">
             <div className="left-card-info">
-              <h6>8</h6>
+              <h6>{allActiveWorkersToday?.length || 0}</h6>
               <p>Active Workers</p>
             </div>
 

@@ -676,7 +676,7 @@ const SelectArea = ({
                             })}
                             className="add-area-btn "
                           >
-                            Add this area
+                            Add 
                           </button>
                         ) : (
                           <p>Added</p>

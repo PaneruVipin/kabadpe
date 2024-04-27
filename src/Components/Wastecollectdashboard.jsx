@@ -74,7 +74,7 @@ const Wastecollectdashboard = ({}) => {
     queryKey: ["workerfetcPlans:2"],
     queryFn: () => workerPlansFetch(),
   });
-  const { data: companyName, refetchCompanyName } = useQuery({
+  const { data: companyName, refetch: refetchCompanyName } = useQuery({
     queryKey: ["companyName"],
     queryFn: () => workerFranchiseName(),
   });
@@ -104,9 +104,7 @@ const Wastecollectdashboard = ({}) => {
           </div>
 
           <h6>{userInfo?.fullname}</h6>
-          <span className="em-text">
-            {hashId(userInfo?.id, "worker")}
-          </span>
+          <span className="em-text">{hashId(userInfo?.id, "worker")}</span>
           <span className="em-text">
             <i class="fa-regular fa-envelope"></i>
             {userInfo?.email}

@@ -25,7 +25,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
           ({ date }) =>
             new Date()?.toISOString()?.split("T")?.[0] ==
             new Date(date)?.toISOString()?.split("T")?.[0]
-        )?.availabilityStatus == "leave"
+        )?.availabilityStatus != "leave"
       );
     });
     return filtered;
@@ -58,7 +58,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
 
           <div className="card-box card-box2 french-card-box">
             <div className="left-card-info">
-              <h6>{allActiveWorkersToday?.length || 0}</h6>
+              <h6>{allActiveWorkersToday(workers)?.length || 0}</h6>
               <p>Active Workers</p>
             </div>
 

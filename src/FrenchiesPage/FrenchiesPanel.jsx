@@ -137,7 +137,16 @@ const FrenchiesPanel = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  const handleShareCompanyCode = () => {
+    const sharedTitle = "KabadPe"; // Add your shared text here
+    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
+    const sharedText = `Company Code - ${userInfo?.companyCode}`;
+    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+    const shareData = {
+      text: combinedText,
+    };
+    navigator.share(shareData);
+  };
   const { data: appoinments, refetch } = useQuery({
     queryKey: ["franchiseAppoinments"],
     queryFn: () => franchiseAppoinmentFetch({}),
@@ -486,16 +495,7 @@ const FrenchiesPanel = () => {
               <span>
                 {userInfo?.companyCode}{" "}
                 <i
-                  onClick={() => {
-                    const sharedTitle = "KabadPe"; // Add your shared text here
-                    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
-                    const sharedText = `Company Code - ${userInfo?.companyCode}`;
-                    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
-                    const shareData = {
-                      text: combinedText,
-                    };
-                    navigator.share(shareData);
-                  }}
+                  onClick={handleShareCompanyCode}
                   class="fa-solid fa-share-nodes"
                 ></i>
               </span>

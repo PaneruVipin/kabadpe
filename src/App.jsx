@@ -56,6 +56,7 @@ import BlogDet from "./Pages/BlogDet";
 import Header from "./Components/Header";
 import AboutPage from "./Pages/AboutPage";
 import Clinconnectpage from "./Pages/Clinconnectpage";
+import BidProdDet from "./FrenchiesPage/BidProdDet";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -110,6 +111,8 @@ function App() {
         <Route path="/service/iec" element={<IEC />} />
         <Route path="/service/recoverymngemt" element={<Material />} />
         <Route path="/climconnect" element={<Clinconnectpage />} />
+        <Route path="/bidproductdetail" element={<BidProdDet />} />
+
 
 
 {/* zerodrive */}

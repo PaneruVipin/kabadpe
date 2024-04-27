@@ -393,19 +393,19 @@ const Ratelistcomp = ({ setUserForm }) => {
                   <div className="waste-saved-main-list-bx">
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.co2} Kg</span>
-                      <p>CO2 Offset</p>
+                      <p> <img src="/images/customImg/CO.png" alt="" /> CO2 Offset</p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.water} Litres</span>
-                      <p>Water</p>
+                      <p><i class="fa-solid fa-droplet"></i>Water</p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.electricty} KWh</span>
-                      <p>Electricity</p>
+                      <p><i class="fa-solid fa-bolt"></i>Electricity</p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.oil} Lakhs Litres </span>
-                      <p>Oil</p>
+                      <p><i class="fa-solid fa-bottle-droplet"></i>Oil</p>
                     </div>
                   </div>
                 </div>

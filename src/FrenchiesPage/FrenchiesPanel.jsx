@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/Admin.css";
 import { RiTableFill } from "react-icons/ri";
 import { MdTabletAndroid } from "react-icons/md";
@@ -49,7 +49,12 @@ import {
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+<<<<<<< HEAD
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
+=======
+import WasteWallet from "../Components/WasteWallet";
+import { workerPlansFetch } from "../apis/worker/plan";
+>>>>>>> cd4f492b1efbaa5f239d912da1043ef42bc38c77
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -137,12 +142,56 @@ const FrenchiesPanel = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  const handleShareCompanyCode = () => {
+    const sharedTitle = "KabadPe"; // Add your shared text here
+    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
+    const sharedText = `Company Code - ${userInfo?.companyCode}`;
+    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+    const shareData = {
+      text: combinedText,
+    };
+    navigator.share(shareData);
+  };
   const { data: appoinments, refetch } = useQuery({
     queryKey: ["franchiseAppoinments"],
-    queryFn: () => franchiseAppoinmentFetch(),
+    queryFn: () => franchiseAppoinmentFetch({}),
   });
-
+  const [appoinmentData, setAppoinmentData] = useState({});
+  const { data: todayAppoinments, refetch: refetchTodatAppoinment } = useQuery({
+    queryKey: ["todayfranchiseAppoinments"],
+    queryFn: () => franchiseAppoinmentFetch({ date: new Date() }),
+  });
+  useEffect(() => {
+    if (!appoinments?.error && appoinments) {
+      const total = appoinments?.length;
+      const pending = appoinments?.filter(
+        ({ orderStatus }) => orderStatus == "active"
+      )?.length;
+      const unAssigned = appoinments?.filter(
+        ({ workerId, assigningStatus }) =>
+          assigningStatus == "cancel" || !workerId
+      )?.length;
+      const completed = appoinments?.filter(
+        ({ orderStatus }) => orderStatus == "fullfill"
+      )?.length;
+      setAppoinmentData({ total, pending, unAssigned, completed });
+    }
+  }, [appoinments]);
+  const { data: plans, refetch: refetchpaln } = useQuery({
+    queryKey: ["franchisefetcPlans"],
+    queryFn: () => workerPlansFetch(),
+  });
+  function findPlanExipryDate(plans) {
+    const trueObjects = plans?.filter(
+      ({ endDate, planStatus }) => endDate && planStatus == "active"
+    );
+    const maxDateObject = trueObjects?.reduce((prev, current) => {
+      return new Date(prev?.endDate) > new Date(current?.endDate)
+        ? prev
+        : current;
+    });
+    return maxDateObject;
+  }
   return (
     <>
       {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
@@ -164,16 +213,24 @@ const FrenchiesPanel = () => {
                 <i class="fa-solid fa-bars-staggered"></i>
               )}
             </button>
-
             <h4 className="admin-top-title">Frenchies Panel</h4>
           </div>
 
           <div className="right-admin-box">
             <div className="subscrip-text">
-              <p>
-                Subscription : <span>20/02/2024</span>{" "}
-              </p>
-              <button className="renew-btn">Renew</button>
+              {!plans?.error && findPlanExipryDate(plans) ? (
+                <p>
+                  Subscription : <span>20/02/2024</span>{" "}
+                </p>
+              ) : null}
+              <button
+                onClick={() => handleViewComp("subscriptionplan")}
+                className="renew-btn"
+              >
+                {!plans?.error && findPlanExipryDate(plans)
+                  ? "Renew"
+                  : "Buy Plan"}
+              </button>
             </div>
 
             <button
@@ -464,16 +521,7 @@ const FrenchiesPanel = () => {
               <span>
                 {userInfo?.companyCode}{" "}
                 <i
-                  onClick={() => {
-                    const sharedTitle = "KabadPe"; // Add your shared text here
-                    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
-                    const sharedText = `Company Code - ${userInfo?.companyCode}`;
-                    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
-                    const shareData = {
-                      text: combinedText,
-                    };
-                    navigator.share(shareData);
-                  }}
+                  onClick={handleShareCompanyCode}
                   class="fa-solid fa-share-nodes"
                 ></i>
               </span>
@@ -550,7 +598,9 @@ const FrenchiesPanel = () => {
             <div
               onClick={() => {
                 handleButtonClick(4);
-                handleViewComp("appointments"), setApntData(FrenchAppointData);
+                handleViewComp("appointments");
+                setApntData(FrenchAppointData);
+                refetch();
               }}
               className={
                 component === "appointments"
@@ -618,7 +668,24 @@ const FrenchiesPanel = () => {
               <span>Bid</span>
             </div>
             </div> */}
-
+          <div className="admin-nv-li admin-nv-li-dashbrd">
+            <div
+              onClick={() => {
+                handleViewComp("tnx");
+              }}
+              // className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
+              className={
+                component === "tnx"
+                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                  : "admin-nv-btn admin-nv-btn2"
+              }
+            >
+              <div className="u-prf-tab-icon a-nv-i">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <span>My Transactions</span>
+            </div>
+          </div>
           <div className="admin-nv-li">
             <div
               onClick={() => handleButtonClick(9)}
@@ -851,10 +918,17 @@ const FrenchiesPanel = () => {
             : "right-side-admin-all-comp"
         }
       >
-        {component === "dashboard" ? <FrenchCard /> : null}
+        {component === "dashboard" ? (
+          <FrenchCard
+            appoinments={todayAppoinments}
+            appoinmentData={appoinmentData}
+          />
+        ) : null}
 
         {component === "dashboard" ? (
           <Frenchgraph
+            appoinments={todayAppoinments}
+            appoinmentData={appoinmentData}
             onclickRedirectAllAppointment={() => handleViewComp("appointments")}
             todayData={apntData}
           />
@@ -866,7 +940,10 @@ const FrenchiesPanel = () => {
           <FrenchWasteColect updatedWasteColectData={userFiltData} />
         ) : null}
         {component === "appointments" ? (
-          <FrenchAppointments appoinments={appoinments} />
+          <FrenchAppointments
+            appoinments={appoinments}
+            refetchAppoinment={refetch}
+          />
         ) : null}
 
         {component === "orders" ? (
@@ -877,6 +954,7 @@ const FrenchiesPanel = () => {
         {component === "wastecolectr" ? <Wastecolect /> : null}
         {component === "subscriptionplan" ? (
           <FrenchSubscriptionPlanTwo
+            component="franchise"
             onclickRedirect={() => handleViewComp("subsplan")}
           />
         ) : null}
@@ -892,7 +970,12 @@ const FrenchiesPanel = () => {
         {component === "wasteproduct" ? (
           <WasteProduct component="franchise" />
         ) : null}
-        {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
+        {component === "subsplan" ? (
+          <FrenchiesSubsPlan
+            onclickRedirect={() => handleViewComp("subscriptionplan")}
+          />
+        ) : null}
+        {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
         {component === "bid" ? <Bidcomp onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
@@ -912,8 +995,6 @@ const FrenchiesPanel = () => {
           }}
         />
       ) : null}
-
-      {/* {guest ? <GuestPopup  onclickCloseGuest={() => { onclickCloseBuyWaste() , setGuest(false)}} /> : null} */}
     </>
   );
 };

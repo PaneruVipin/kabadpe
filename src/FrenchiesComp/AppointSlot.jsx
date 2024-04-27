@@ -11,10 +11,10 @@ import {
 import { slotLabels } from "../lib/slots";
 import { Form, Formik } from "formik";
 import { DateTime } from "luxon";
+import { franchiseWorkersForAppoinmentFetch } from "../apis/franchise/workers";
 
 const AppointSlot = ({
   onclickCloseApntSlot,
-  ApntSlotTrue,
   onClickOpenPopup,
   component,
   appoinmentDetails,
@@ -52,7 +52,9 @@ const AppointSlot = ({
             ariaId: appoinmentDetails?.ariaId,
             date: appoinmentDetails?.appointmentDate,
           })
-        : () => {},
+        : franchiseWorkersForAppoinmentFetch({
+            date: appoinmentDetails?.appointmentDate,
+          }),
   });
 
   const { data: appoinments, refetch: refetchAppoinments } = useQuery({
@@ -314,7 +316,6 @@ const AppointSlot = ({
           <h6>Appointments Slots </h6>
 
           <div className="current-date-bx-flex">
-            {/* toISOString().split('T')[0] */}
             <p>
               {" "}
               Current Date :{" "}
@@ -380,171 +381,139 @@ const AppointSlot = ({
 
                 <tbody>
                   {!workers?.error
-                    ? workers?.map(
-                        ({
-                          aadharBack,
-                          aadharFront,
-                          address,
-                          ariaName,
-                          caste,
-                          email,
-                          fullname,
-                          gender,
-                          id,
-                          panNo,
-                          phoneNumber,
-                          pincode,
-                          profileImage,
-                          subAriaName,
-                          workCity,
-                          workerRole,
-                          WorkerAvailabilities,
-                        }) => {
-                          const futureLeaves = WorkerAvailabilities?.filter(
-                            ({ date, availabilityStatus }) => {
-                              const dateString = new Date(date)
-                                .toISOString()
-                                .split("T")[0];
-                              const currentDate = new Date();
-                              const next10Days = [];
-                              for (let i = 0; i < 10; i++) {
-                                const nextDate = new Date(currentDate);
-                                nextDate.setDate(currentDate.getDate() + i);
-                                next10Days.push(
-                                  nextDate.toISOString().split("T")[0]
-                                );
-                              }
-                              return (
-                                availabilityStatus == "leave" &&
-                                next10Days.includes(dateString)
+                    ? workers?.map(({ fullname, id, WorkerAvailabilities }) => {
+                        const futureLeaves = WorkerAvailabilities?.filter(
+                          ({ date, availabilityStatus }) => {
+                            const dateString = new Date(date)
+                              .toISOString()
+                              .split("T")[0];
+                            const currentDate = new Date();
+                            const next10Days = [];
+                            for (let i = 0; i < 10; i++) {
+                              const nextDate = new Date(currentDate);
+                              nextDate.setDate(currentDate.getDate() + i);
+                              next10Days.push(
+                                nextDate.toISOString().split("T")[0]
                               );
                             }
+                            return (
+                              availabilityStatus == "leave" &&
+                              next10Days.includes(dateString)
+                            );
+                          }
+                        )
+                          ?.sort(
+                            (a, b) => new Date(a?.date) - new Date(b?.date)
                           )
-                            ?.sort(
-                              (a, b) => new Date(a?.date) - new Date(b?.date)
-                            )
-                            ?.reduce((result, current, index, array) => {
-                              if (
-                                index === 0 ||
-                                new Date(current?.date).getDate() ===
-                                  new Date(array[index - 1]?.date).getDate() + 1
-                              ) {
-                                return [...result, current];
-                              } else {
-                                return result;
-                              }
-                            }, []);
-                          return (
-                            <tr>
-                              <td>
-                                <span style={{ lineHeight: 1.4 }}>
-                                  {" "}
-                                  {fullname?.split("")?.map((s, i) => {
-                                    if (!i) {
-                                      return s?.toUpperCase();
-                                    } else {
-                                      return s;
-                                    }
-                                  })}{" "}
-                                  {WorkerAvailabilities?.find(
-                                    ({ date }) =>
-                                      new Date()
-                                        ?.toISOString()
-                                        ?.split("T")?.[0] ==
-                                      new Date(date)
-                                        ?.toISOString()
-                                        ?.split("T")?.[0]
-                                  )?.availabilityStatus == "leave" ? (
-                                    <span style={{ color: "red" }}>
-                                      ( Not Working )
-                                    </span>
-                                  ) : WorkerAvailabilities?.find(
-                                      ({ date }) =>
-                                        new Date()
-                                          ?.toISOString()
-                                          ?.split("T")?.[0] ==
-                                        new Date(date)
-                                          ?.toISOString()
-                                          ?.split("T")?.[0]
-                                    )?.availabilityStatus == "active" ? (
-                                    <span style={{ color: "green" }}>
-                                      ( Working )
-                                    </span>
-                                  ) : (
-                                    <span style={{ color: "red" }}>
-                                      ( Not Working )
-                                    </span>
-                                  )}
-                                </span>
-
-                                {futureLeaves?.length ? (
-                                  <span
-                                    style={{
-                                      display: "block",
-                                      lineHeight: 1.4,
-                                    }}
-                                  >
-                                    Leaves
-                                    <br />
-                                    {DateTime.fromISO(futureLeaves?.[0]?.date, {
-                                      zone: "utc",
-                                    }).toFormat("ccc dd LLL yyyy")}{" "}
-                                    -{" "}
-                                    {DateTime.fromISO(
-                                      futureLeaves?.[futureLeaves?.length - 1]
-                                        ?.date,
-                                      {
-                                        zone: "utc",
-                                      }
-                                    ).toFormat("ccc dd LLL yyyy")}{" "}
+                          ?.reduce((result, current, index, array) => {
+                            if (
+                              index === 0 ||
+                              new Date(current?.date).getDate() ===
+                                new Date(array[index - 1]?.date).getDate() + 1
+                            ) {
+                              return [...result, current];
+                            } else {
+                              return result;
+                            }
+                          }, []);
+                        return (
+                          <tr>
+                            <td>
+                              <span style={{ lineHeight: 1.4 }}>
+                                {" "}
+                                {fullname?.split("")?.map((s, i) => {
+                                  if (!i) {
+                                    return s?.toUpperCase();
+                                  } else {
+                                    return s;
+                                  }
+                                })}{" "}
+                                {WorkerAvailabilities?.find(
+                                  ({ date }) =>
+                                    new Date()
+                                      ?.toISOString()
+                                      ?.split("T")?.[0] ==
+                                    new Date(date)
+                                      ?.toISOString()
+                                      ?.split("T")?.[0]
+                                )?.availabilityStatus == "leave" ? (
+                                  <span style={{ color: "red" }}>
+                                    ( Not Working )
                                   </span>
-                                ) : null}
-                              </td>
-                              {Object.keys(slotLabels)?.map((key, i) => (
-                                <td>
-                                  <div className="assign-flex-bx">
-                                    <div className="slot-data">
-                                      {!appoinments?.error
-                                        ? appoinments
-                                            ?.filter(
-                                              (a) =>
-                                                a?.appointmentTimeSlot == key &&
-                                                a?.workerId == id &&
-                                                a?.id != appoinmentDetails?.id
-                                            )
-                                            ?.map(({ UserAddress }, i) => (
-                                              <span>
-                                                {i + 1}.{" "}
-                                                {UserAddress?.aria +
-                                                  ", " +
-                                                  UserAddress?.subAria}
-                                              </span>
-                                            ))
-                                        : null}
-                                    </div>
+                                ) : (
+                                  <span style={{ color: "green" }}>
+                                    ( Working )
+                                  </span>
+                                )}
+                              </span>
 
-                                    {key ==
-                                    appoinmentDetails?.appointmentTimeSlot ? (
-                                      <button
-                                        className="assign-btn assign-btn3"
-                                        onClick={() => {
-                                          setPopUp(true);
-                                          setSelectedWorker({
-                                            fullname,
-                                            id,
-                                          });
-                                        }}
-                                      >
-                                        Assign
-                                      </button>
-                                    ) : null}
+                              {futureLeaves?.length ? (
+                                <span
+                                  style={{
+                                    display: "block",
+                                    lineHeight: 1.4,
+                                  }}
+                                >
+                                  Leaves
+                                  <br />
+                                  {DateTime.fromISO(futureLeaves?.[0]?.date, {
+                                    zone: "utc",
+                                  }).toFormat("ccc dd LLL yyyy")}{" "}
+                                  -{" "}
+                                  {DateTime.fromISO(
+                                    futureLeaves?.[futureLeaves?.length - 1]
+                                      ?.date,
+                                    {
+                                      zone: "utc",
+                                    }
+                                  ).toFormat("ccc dd LLL yyyy")}{" "}
+                                </span>
+                              ) : null}
+                            </td>
+                            {Object.keys(slotLabels)?.map((key, i) => (
+                              <td>
+                                <div className="assign-flex-bx">
+                                  <div className="slot-data">
+                                    {!appoinments?.error
+                                      ? appoinments
+                                          ?.filter(
+                                            (a) =>
+                                              a?.appointmentTimeSlot == key &&
+                                              a?.workerId == id &&
+                                              a?.id != appoinmentDetails?.id
+                                          )
+                                          ?.map(({ UserAddress }, i) => (
+                                            <span>
+                                              {i + 1}.{" "}
+                                              {UserAddress?.aria +
+                                                ", " +
+                                                UserAddress?.subAria}
+                                            </span>
+                                          ))
+                                      : null}
                                   </div>
-                                </td>
-                              ))}
-                            </tr>
-                          );
-                        }
-                      )
+
+                                  {key ==
+                                  appoinmentDetails?.appointmentTimeSlot ? (
+                                    <button
+                                      className="assign-btn assign-btn3"
+                                      onClick={() => {
+                                        setPopUp(true);
+                                        setSelectedWorker({
+                                          fullname,
+                                          id,
+                                        });
+                                      }}
+                                    >
+                                      Assign
+                                    </button>
+                                  ) : null}
+                                </div>
+                              </td>
+                            ))}
+                          </tr>
+                        );
+                      })
                     : null}
                 </tbody>
               </table>

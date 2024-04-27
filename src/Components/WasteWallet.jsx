@@ -173,11 +173,20 @@ const WasteWallet = ({ component = "worker" }) => {
       {waletCredit ? (
         <WalletCreditPopup
           component="user"
-          refetchHistory={refetchTnxHistory}
+          refetchHistory={() => {
+            refetchTnxHistory();
+            refetch();
+          }}
           onclickClosePopup={() => setWaletCredit(false)}
         />
       ) : null}
-      <section className="user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5">
+      <section
+        className={`${
+          component == "franchise"
+            ? ""
+            : "user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5"
+        }`}
+      >
         <div className="top-wallet-box">
           <h6>Transactions </h6>
 

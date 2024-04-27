@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "../style/Frenchiespanel.css";
 import { NavLink } from "react-router-dom";
 import AppointSlot from "./AppointSlot";
-const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => {
+import { useQuery } from "@tanstack/react-query";
+import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
+import { slotLabels } from "../lib/slots";
+const TodayFrenchAppoint = ({appoinments, TodayFrenchData, onclickRedirectFrenchApnt }) => {
   const [fiveData, setFiveData] = useState(TodayFrenchData.slice(0, 5));
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
@@ -10,9 +13,11 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
   const [cancelPopup, setCancelPopupPopup] = useState(false);
   const [addressPopup, setAddressPopup] = useState(false);
   const [apntSlot, setApntSlot] = useState(false);
+  const [appoinmentDetails, setAppoinmentDetails] = useState({});
   const confirmPopupfunc = () => {
     setPopUp(true);
   };
+
   return (
     <>
       <section
@@ -20,9 +25,13 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
           popUp === true
             ? "appoint-popup-main popupactive"
             : "appoint-popup-main"
-        } onClick={()=> setPopUp(false)}
+        }
+        onClick={() => setPopUp(false)}
       >
-        <div className="appoint-popup-bx appoint-popup-bx2" onClick={(e)=> e.stopPropagation()}>
+        <div
+          className="appoint-popup-bx appoint-popup-bx2"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="appoint-popup-info appoint-popup-info2">
             <h3>Assign</h3>
             <h6>Assign Appointment to your waste collector</h6>
@@ -164,9 +173,13 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
           addressPopup === true
             ? "cust-add-comp cust-add-comp2 addrssactive"
             : "cust-add-comp cust-add-comp2"
-        } onClick={() => setAddressPopup(false)}
+        }
+        onClick={() => setAddressPopup(false)}
       >
-        <div className="cust-add-bx cust-add-bx3" onClick={(e)=>e.stopPropagation()}>
+        <div
+          className="cust-add-bx cust-add-bx3"
+          onClick={(e) => e.stopPropagation()}
+        >
           <h3>Customer Address</h3>
 
           <p>
@@ -193,8 +206,8 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
         </div>
       </section>
 
-      <div className="today-appoint-data" >
-        <div className=" wasteappoint-prof-table-main-bx french-appoint-table-box today-french-appnt-data" >
+      <div className="today-appoint-data">
+        <div className=" wasteappoint-prof-table-main-bx french-appoint-table-box today-french-appnt-data">
           <table>
             <thead>
               <tr>
@@ -208,38 +221,63 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
             </thead>
 
             <tbody>
-              {fiveData.map((elem, id) => {
-                return (
-                  <>
-                    <tr>
-                      <td> {elem.id} </td>
-                      <td> {elem.timeslot} </td>
-                      <td> {elem.subarea} </td>
-                      <td> {elem.locationtype} </td>
-                      <td> {elem.custname} </td>
+              {!appoinments?.error
+                ? appoinments?.map(
+                    (
+                      {
+                        appointmentPersonName,
+                        appointmentTimeSlot,
+                        id,
+                        UserAddress,
+                        assigningStatus,
+                        addedOn,
+                        rescheduleStatus,
+                        ...rest
+                      },
+                      i
+                    ) => {
+                      return (
+                        <>
+                          <tr key={id}>
+                            <td> {i + 1} </td>
+                            <td> {slotLabels?.[appointmentTimeSlot]} </td>
+                            <td> {UserAddress?.subAria} </td>
+                            <td> {UserAddress?.locationType} </td>
+                            <td> {appointmentPersonName} </td>
 
-                      <td>
-                        <button
-                          onClick={() => setApntSlot(true)}
-                          className="assign-btn assign-btn2"
-                        >
-                          Assign
-                        </button>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
+                            <td>
+                              <button
+                                onClick={() => {
+                                  setApntSlot(true);
+                                  setAppoinmentDetails({
+                                    appointmentPersonName,
+                                    appointmentTimeSlot,
+                                    id,
+                                    UserAddress,
+                                    assigningStatus,
+                                    addedOn,
+                                    rescheduleStatus,
+                                    ...rest,
+                                  });
+                                }}
+                                className="assign-btn assign-btn2"
+                              >
+                                Assign
+                              </button>
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>
 
         <button onClick={onclickRedirectFrenchApnt} className="view-all-bx">
-        <i class="fa-solid fa-arrow-down"></i>
+          <i class="fa-solid fa-arrow-down"></i>
         </button>
-
-
-        
       </div>
 
       {apntSlot ? (
@@ -247,6 +285,7 @@ const TodayFrenchAppoint = ({ TodayFrenchData , onclickRedirectFrenchApnt }) => 
           onClickOpenPopup={() => {
             confirmPopupfunc(), setApntSlot(false);
           }}
+          appoinmentDetails={appoinmentDetails}
           onclickCloseApntSlot={() => setApntSlot(false)}
         />
       ) : null}

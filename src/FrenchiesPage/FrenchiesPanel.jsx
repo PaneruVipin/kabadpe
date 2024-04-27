@@ -49,6 +49,7 @@ import {
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import BidProductDetail from "../FrenchiesComp/BidProductDetail";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -144,7 +145,7 @@ const FrenchiesPanel = () => {
 
   return (
     <>
-      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -176,9 +177,7 @@ const FrenchiesPanel = () => {
             </div>
 
             <button
-              onClick={() => {
-                setBid(true);
-              }}
+              onClick={() => setComponent('bid')}
               className=" comp-refrl-bx comp-refrl-bx4"
             >
               <div className="comp-icon">
@@ -895,7 +894,10 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "subsplan" ? <FrenchiesSubsPlan /> : null}
 
-        {bid ? <Bidcomp onclickCloseBid={() => setBid(false)} /> : null}
+        {component === "bid" ? <Bidcomp onClickDetPage={() => setComponent('bidproddet')} /> : null}
+        {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
+
+        
       </section>
 
       {buyWasteBx ? (

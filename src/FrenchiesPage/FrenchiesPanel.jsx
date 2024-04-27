@@ -50,6 +50,7 @@ import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import WasteWallet from "../Components/WasteWallet";
+import { workerPlansFetch } from "../apis/worker/plan";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -137,7 +138,16 @@ const FrenchiesPanel = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  const handleShareCompanyCode = () => {
+    const sharedTitle = "KabadPe"; // Add your shared text here
+    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
+    const sharedText = `Company Code - ${userInfo?.companyCode}`;
+    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+    const shareData = {
+      text: combinedText,
+    };
+    navigator.share(shareData);
+  };
   const { data: appoinments, refetch } = useQuery({
     queryKey: ["franchiseAppoinments"],
     queryFn: () => franchiseAppoinmentFetch({}),
@@ -163,6 +173,21 @@ const FrenchiesPanel = () => {
       setAppoinmentData({ total, pending, unAssigned, completed });
     }
   }, [appoinments]);
+  const { data: plans, refetch: refetchpaln } = useQuery({
+    queryKey: ["franchisefetcPlans"],
+    queryFn: () => workerPlansFetch(),
+  });
+  function findPlanExipryDate(plans) {
+    const trueObjects = plans?.filter(
+      ({ endDate, planStatus }) => endDate && planStatus == "active"
+    );
+    const maxDateObject = trueObjects?.reduce((prev, current) => {
+      return new Date(prev?.endDate) > new Date(current?.endDate)
+        ? prev
+        : current;
+    });
+    return maxDateObject;
+  }
   return (
     <>
       <Redirect role="franchiseAdmin" path="/frenchieslogin" />
@@ -184,16 +209,24 @@ const FrenchiesPanel = () => {
                 <i class="fa-solid fa-bars-staggered"></i>
               )}
             </button>
-
             <h4 className="admin-top-title">Frenchies Panel</h4>
           </div>
 
           <div className="right-admin-box">
             <div className="subscrip-text">
-              <p>
-                Subscription : <span>20/02/2024</span>{" "}
-              </p>
-              <button className="renew-btn">Renew</button>
+              {!plans?.error && findPlanExipryDate(plans) ? (
+                <p>
+                  Subscription : <span>20/02/2024</span>{" "}
+                </p>
+              ) : null}
+              <button
+                onClick={() => handleViewComp("subscriptionplan")}
+                className="renew-btn"
+              >
+                {!plans?.error && findPlanExipryDate(plans)
+                  ? "Renew"
+                  : "Buy Plan"}
+              </button>
             </div>
 
             <button
@@ -486,16 +519,7 @@ const FrenchiesPanel = () => {
               <span>
                 {userInfo?.companyCode}{" "}
                 <i
-                  onClick={() => {
-                    const sharedTitle = "KabadPe"; // Add your shared text here
-                    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
-                    const sharedText = `Company Code - ${userInfo?.companyCode}`;
-                    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
-                    const shareData = {
-                      text: combinedText,
-                    };
-                    navigator.share(shareData);
-                  }}
+                  onClick={handleShareCompanyCode}
                   class="fa-solid fa-share-nodes"
                 ></i>
               </span>

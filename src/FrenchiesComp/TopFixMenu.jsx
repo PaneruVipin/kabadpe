@@ -24,9 +24,11 @@ const TopFixMenu = ({
   const [guest, setGuest] = useState(false);
   const { userInfo } = useSelector((s) => s?.user);
   const { data: plans, refetch: refetchPlan } = useQuery({
-    queryKey: ["workerfetcPlans:4"],
+    queryKey: ["franchisefetcPlans:4"],
     queryFn: () => workerPlansFetch(),
   });
+ 
+
   const demoPlanData = !plans?.error
     ? plans?.find(({ WorkerSub }) => WorkerSub?.planType == "demo")
     : null;
@@ -34,9 +36,7 @@ const TopFixMenu = ({
     queryKey: ["workerTodayAvailabilityFetch:1"],
     queryFn: () => workerTodayAvailabilityFetch(),
   });
-  // {todayAvail?.availabilityStatus != "leave"
-  // ? "Mark You Are Not Working Today."
-  // : "Mark You Are Working Today."}
+
   return (
     <>
       <section className="top-user-prof-search-bx top-user-prof-search-bx2">

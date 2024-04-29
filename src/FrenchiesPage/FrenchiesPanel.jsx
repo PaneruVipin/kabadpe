@@ -49,12 +49,9 @@ import {
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
-=======
 import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
->>>>>>> cd4f492b1efbaa5f239d912da1043ef42bc38c77
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -185,6 +182,9 @@ const FrenchiesPanel = () => {
     const trueObjects = plans?.filter(
       ({ endDate, planStatus }) => endDate && planStatus == "active"
     );
+    if (!trueObjects?.length) {
+      return null; // No true objects found
+    }
     const maxDateObject = trueObjects?.reduce((prev, current) => {
       return new Date(prev?.endDate) > new Date(current?.endDate)
         ? prev

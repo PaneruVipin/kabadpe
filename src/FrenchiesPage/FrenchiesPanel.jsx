@@ -194,7 +194,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -234,7 +234,7 @@ const FrenchiesPanel = () => {
             </div>
 
             <button
-              onClick={() => setComponent('bid')}
+              onClick={() => setComponent("bid")}
               className=" comp-refrl-bx comp-refrl-bx4"
             >
               <div className="comp-icon">
@@ -977,10 +977,12 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-        {component === "bid" ? <Bidcomp onClickDetPage={() => setComponent('bidproddet')} /> : null}
-        {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
-
-        
+        {component === "bid" ? (
+          <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+        {component === "bidproddet" ? (
+          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
       </section>
 
       {buyWasteBx ? (

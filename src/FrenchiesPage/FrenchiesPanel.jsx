@@ -181,6 +181,9 @@ const FrenchiesPanel = () => {
     const trueObjects = plans?.filter(
       ({ endDate, planStatus }) => endDate && planStatus == "active"
     );
+    if (trueObjects.length === 0) {
+      return null; // No true objects found
+    }
     const maxDateObject = trueObjects?.reduce((prev, current) => {
       return new Date(prev?.endDate) > new Date(current?.endDate)
         ? prev

@@ -3084,3 +3084,510 @@ input[type="number"]::-webkit-inner-spin-button{
     color: #1362fc !important;
     margin-right: 1rem;
 }
+
+/* _________________________________
+ Our Bid Product Comp CSS code
+ ----------------------------- */
+
+ .bid-product-listing-comp{
+    position: relative;
+    width: 100%;
+    padding-inline-end: 1rem;
+
+ }
+
+ .top-bid-header-flex{
+    position: relative;
+    width: 100%;
+    padding: 0 1.45rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+
+ .left-bid-header-bx{
+    display: flex;
+    align-items: center;
+    gap: 1.45rem;
+
+ }
+
+ .left-bid-header-bx a , 
+ .left-bid-header-bx span{
+    display: inline-block;
+    position: relative;
+    font-size: 1.2rem;
+    color: #000000;
+    font-weight: 600;
+
+ }
+
+ .left-bid-header-bx span:before{
+    content: "";
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%) rotate(30deg);
+    left: -.76rem;
+    width: .15rem;
+    height: 70%;
+    background-color: #000000;
+    
+ }
+
+ 
+ .left-bid-header-bx a:hover{
+    color: #0ea5e9;
+ }
+
+ .right-unit-flex-bx{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+ }
+
+ .unit-select-main-bx{
+    position: relative;
+    width: 6rem;
+ }
+
+ .select-bx{
+    position: relative;
+    width: 100%;
+    height: 2.67rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: .76rem;
+    background-color: #fff;
+    border-radius: .4rem;
+    font-size: 1rem;
+    letter-spacing: .45px;
+    color: #7f7c7c;
+    border: .1rem solid #0ea5e9;
+    margin-bottom: .3rem;
+    cursor: pointer;
+ }
+
+ .s-arw{
+    font-size: .95rem;
+    transform: translateY(1px);
+    transition: 500ms ease;
+
+ }
+
+ .unit-options-bx{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.03);
+    border-radius: .4rem;
+    display: block;
+    transform: scale(0.9) translateY(10px) ;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 90;
+    transition: 300ms ease;
+
+
+ }
+
+ .unit-options-bx.selectactive{
+    transform: scale(1) translateY(0) ;
+    opacity: 1;
+    visibility: visible;
+ }
+
+ .unit-options-bx span{
+    position: relative;
+    display: block;
+    padding: .67rem .5rem;
+    font-size: 1rem;
+    line-height: 1;
+    color: #7f7c7c;
+    letter-spacing: .45px;
+    transition: 500ms ease;
+    cursor: pointer;
+ }
+
+ .unit-options-bx span:hover{
+    background-color: #eee;
+ }
+
+ .create-post-btn{
+    position: relative;
+    width: 7rem;
+    height: 2.67rem;
+    background-color: #fff;
+    border: .1rem solid #0ea5e9;
+    font-size: 1rem;
+    margin-bottom:.3rem;
+    color: #6c6c6c;
+    border-radius: .4rem;
+ }
+
+ .bid-prod-grid-bx{
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+    padding-inline: 1.5rem;
+
+ }
+
+ .bid-prod-bx{
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    border-radius: .4rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    overflow: hidden;
+    transition: 500ms ease;
+    cursor: pointer;
+
+ }
+
+ .bid-prod-img{
+    position: relative;
+    width: 100%;
+    height: 15rem;
+    overflow: hidden;
+ }
+
+ .bid-prod-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 500ms ease;
+
+
+ }
+
+ .bid-prod-info{
+    position: relative;
+    width: 100%;
+    padding: 0 1rem;
+ }
+
+ .bid-prod-info h6{
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+    max-width: 12rem;
+    line-height: 1;
+    margin-bottom: .5rem;
+
+ }
+
+ .bid-prod-info span{
+    font-size: 1.1rem;
+    letter-spacing: .4px;
+ }
+
+
+ .bid-prod-bx:hover{
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+ }
+
+
+ .bid-prod-bx:hover .bid-prod-img img{
+    transform: scale(1.1);
+ }
+
+ /* ____________________________ detail page */
+
+ .bid-product-detail-comp{
+    position: relative;
+    width: 100%;
+    padding: 1.45rem 1rem;
+
+ }
+
+ .bid-prod-det-grid-bx{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    column-gap: 2.5rem;
+    row-gap: 2.5rem;
+    margin-top: 2rem;
+
+ }
+
+ .left-bid-prod-img-bx{
+    position: relative;
+    max-width: 100%;
+ }
+
+ .bid-prod-big-img{
+    position: relative;
+    width: 100%;
+    height: 25rem;
+    
+ }
+
+ .bid-prod-big-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .4rem;
+ }
+
+ .prod-sm-img-grid-bx{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .76rem;
+    flex-wrap: wrap;
+    scroll-snap-type: inline mandatory ;
+    overflow-x: auto ;
+    margin-top: 2rem;
+
+ }
+
+ .prod-sm-img-bx{
+    position: relative;
+    max-width: 5rem;
+    width: 100%;
+    height: 5rem;
+    cursor: pointer;
+    transition: 400ms ease;
+    border: .1rem solid transparent;
+    border-radius: .4rem;
+    scroll-snap-align: start;
+
+ }
+
+ .prod-sm-img-bx.imgactive{
+    border-color: #969393;
+ }  
+
+ .prod-sm-img-bx img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .4rem;
+    overflow: hidden;
+    transition: 400ms ease;}
+
+ 
+ .prod-sm-img-bx.imgactive img{
+    transform: scale(0.9);
+ }
+
+ .right-bid-prod-det-bx{
+    position: relative;
+    width: 100%;
+ }
+
+ .right-bid-prod-det-bx > span{
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: #343434;
+    display: inline-block;
+    margin-bottom: .45rem;
+ }
+
+ .right-bid-prod-det-bx > h6{
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #454444;
+    letter-spacing: .4px;
+    margin-bottom: .4rem;
+ }
+
+ .right-bid-prod-det-bx > p{
+    font-size: 1.2rem;
+    color: #2f2f2f;
+    color: #0ea5e9;
+    font-weight: 600;
+    letter-spacing: .45px;
+    margin-bottom: .5rem;
+
+ }
+
+ .prod-id-bx p{
+    font-size: 1.1rem;
+    color: #1f1f1f;
+    font-weight: 600;
+    letter-spacing: .4px;
+    margin-bottom: .5rem;
+ }
+
+
+ .prod-id-bx p span{
+    font-weight: 500;
+    color: #2f2f2f;
+ }
+
+ .bid-btn{
+    position: relative;
+    width: max-content;
+    padding-inline: 1.56rem;
+    height: 2.56rem;
+    text-align: center;
+    background-color: #0ea5e9;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .4px;
+    border-radius: .4rem;
+
+ }
+
+ .prod-des-flex-bx{
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+
+
+ }
+
+ .des-title{
+    margin-bottom: 1rem;
+ }
+
+ .des-title > h6{
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .4px;
+ }
+
+ .des-title > span{
+    font-size: 1rem;
+ }
+
+ .bid-des-bx{
+    position: relative;
+    width: 100%;
+    padding-block: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 1rem;
+    background-color: #ffffff;
+    margin-bottom: .7rem;
+    border-radius: .4rem;
+    border: .1rem solid #f5f1f1;
+    
+ }
+
+ .bid-prod-info{
+    position: relative;
+    width: max-content;
+ }
+
+ .bid-des-bx h5{
+    font-size: 1.1rem;
+    font-weight: 600;
+ }
+
+ .bid-des-bx span{
+    font-size: 1rem;
+ }
+
+ .bid-prod-user{
+    position: absolute;
+    top: .5rem;
+    right: 0;
+    width: max-content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: .8rem;
+ }
+
+ .bid-user-img{
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+ }
+
+ .bid-user-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+ }
+
+ .bid-prod-user-det h6{
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+    line-height: 1;
+ }
+
+ .bid-prod-user-det span{
+    font-size: .9rem;
+    display: inline-block;
+ }
+
+ .loct-flex{
+    display: flex;
+    align-items: flex-start;
+    gap: .4rem;
+    margin-top: -.1rem;
+    
+ }
+
+ .loct-flex i{
+    transform: translateY(-5px);
+    color: #0ea5e9;
+ }
+
+ .loct-flex span{
+    display: inline-block;
+    max-width: 8rem;
+    line-height: 1.3;
+ }
+
+ .more-offer-main{
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+ }
+ .more-offer-main h5{
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+ }
+
+ .more-offer-flex-bx{
+    position: relative;
+    width: 100%;   
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    scroll-snap-type: inline mandatory ;
+    overflow-x: auto;
+    gap: .98rem;
+ }
+
+ .more-offer-flex-bx::-webkit-scrollbar{
+    height: .345rem;
+ }
+
+ .more-offer-flex-bx::-webkit-scrollbar-thumb{
+    background-color: #e7f6d1;
+ }
+
+ .bid-prod-bx2{
+    min-width: 20rem ;
+    width: 100%;
+    scroll-snap-align: start;
+    position: relative;
+
+ }
+
+ .bid-prod-info{
+    padding-block: 1rem;
+ }

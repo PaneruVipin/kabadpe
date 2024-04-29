@@ -1,28 +1,160 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import BidProductData from './BidProductData';
 
-const Bidcomp = ({onclickCloseBid}) => {
+const Bidcomp = ({onClickDetPage}) => {
+  const [unit , setUnit] = useState('Unit');
+  const [showOption , setShowOption] = useState(false);
+
+  const Options = [ 'KG' , 'PICS' ]; 
+
+
+  const handleOptionChange = (selectOption) => {
+
+    setUnit(selectOption);
+    setShowOption(false);
+    
+  }
+
+  const BidProdData = [
+
+    {
+      id : 1,
+      bidImg : '/images/customImg/serv-img-1.jpg',
+      ProdName : 'Bid Product One',
+      prodPrice : 699.00,
+    },
+    {
+      id : 2,
+      bidImg : '/images/customImg/serv-img-2.jpg',
+      ProdName : 'Bid Product Two',
+      prodPrice : 699.00,
+    },
+    {
+      id : 3,
+      bidImg : '/images/customImg/serv-img-3.jpg',
+      ProdName : 'Bid Product Three',
+      prodPrice : 699.00,
+    },
+    {
+      id : 4,
+      bidImg : '/images/customImg/serv-img-4.jpg',
+      ProdName : 'Bid Product Four',
+      prodPrice : 699.00,
+    },
+    {
+      id : 5,
+      bidImg : '/images/customImg/instagram-1.jpg',
+      ProdName : 'Bid Product Five',
+      prodPrice : 699.00,
+    },
+    {
+      id : 6,
+      bidImg : '/images/customImg/instagram-2.jpg',
+      ProdName : 'Bid Product Six',
+      prodPrice : 699.00,
+    },
+    {
+      id : 7,
+      bidImg : '/images/customImg/instagram-3.jpg',
+      ProdName : 'Bid Product Seven',
+      prodPrice : 699.00,
+    },
+    {
+      id : 8,
+      bidImg : '/images/customImg/instagram-4.jpg',
+      ProdName : 'Bid Product Eight',
+      prodPrice : 699.00,
+    },
+    {
+      id : 9,
+      bidImg : '/images/customImg/instagram-5.jpg',
+      ProdName : 'Bid Product Nine',
+      prodPrice : 699.00,
+    },
+    {
+      id : 10,
+      bidImg : '/images/customImg/instagram-6.jpg',
+      ProdName : 'Bid Product Ten',
+      prodPrice : 699.00,
+    },
+    {
+      id : 11,
+      bidImg : '/images/customImg/gall-img-4.jpg',
+      ProdName : 'Bid Product Eleven',
+      prodPrice : 699.00,
+    },
+    {
+      id : 12,
+      bidImg : '/images/customImg/gall-img-3.jpg',
+      ProdName : 'Bid Product Twelve',
+      prodPrice : 699.00,
+    },
+    
+  ]
+  
+  
   return (
     <>
 
-<div  className= "pay-now-btn-sec payactive">
+    <section className="bid-product-listing-comp">
+      <div className="common-container">
 
-<div className="paynow-btn-flex">
+        <div className="top-bid-header-flex">
 
-<button className="pay-btn">
-  Prepaid Plan
-</button>
+          <div className="left-bid-header-bx">
 
-<button  className="pay-btn">
-Comission Based Plan
-</button>
+            <NavLink to="/">
+              Home
+            </NavLink>
+            <span>Products</span>
+            
+          </div>
 
-<div onClick={onclickCloseBid}  className="close-btn ">
-<i class="fa-solid fa-xmark"></i>
-</div>
-  
-</div>
+
+          <div className="right-unit-flex-bx">
+
+           <div className="unit-select-main-bx">
+
+            <div onClick={() => setShowOption(!showOption)} className="select-bx">
+          {unit}
+          <div className="s-arw">
+          <i class="fa-solid fa-angle-down"></i>
+          </div>
+            </div>
+
+            <div className={ showOption ? "unit-options-bx selectactive" : "unit-options-bx"}>
+
+              {Options.map((option) => {
+                return (
+                  <>
+                  <span key={option} onClick={() => handleOptionChange(option)}> {option} </span>
+                  </>
+                )
+              })}
               
-</div>
+            </div>
+                  
+
+              
+            
+           </div>
+
+           <button className="create-post-btn">
+            Create Post
+           </button>
+
+            
+          </div>
+          
+        </div>
+
+        <BidProductData onClickRedirect={onClickDetPage}  bidData={BidProdData}/>
+
+        
+      </div>
+    </section>
+
       
     </>
   )

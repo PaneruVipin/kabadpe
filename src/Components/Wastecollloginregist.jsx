@@ -25,6 +25,7 @@ import { number, object, string } from "yup";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
   const { userInfo } = useSelector((s) => s.user);
   const [formBox, setFormBox] = useState(false);
@@ -118,9 +119,9 @@ const Wastecolloginregist = () => {
     ]?.map((name, i) => ({ id: i, name }));
   };
 
-  const initialValues =
+  const [initialValues, setInitialValues] =
     formBox === true
-      ? {
+      ? useState({
           fullname: "",
           email: "",
           password: "",
@@ -131,11 +132,11 @@ const Wastecolloginregist = () => {
           ariaName: "",
           subAriaName: "",
           emergencyPhone: "",
-        }
-      : {
+        })
+      : useState({
           phoneNumber: "",
           password: "",
-        };
+        });
   const validationSchema =
     formBox === true ? validationSignupCollector : validationLoginCollector;
   const handleSubmit =
@@ -210,6 +211,16 @@ const Wastecolloginregist = () => {
     setTimer(60);
     setButtonText("");
   };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const query = searchParams.get("cc");
+    setQuery(query || "");
+    if (query) {
+      setFormBox(true);
+      setInitialValues((prev) => ({ ...prev, companyRef: query, }));
+    }
+  }, []);
   return (
     <>
       {userInfo?.role == "kabadCollector" ? (

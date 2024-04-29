@@ -239,28 +239,6 @@ const Ratelistcomp = ({ setUserForm }) => {
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
               <button className="sorting-btn sorting-btn1">
-                {selectedOptionOne || "Choose Your Seller"}
-
-                <i class="fa-solid fa-angle-down"></i>
-                <div className="dropdwn-tab-box dropdwn-tab-box1">
-                  {optionOne.map((curData, indx) => {
-                    return (
-                      <>
-                        <button
-                          className="prod-tab-btn"
-                          key={indx}
-                          onClick={() => seSelectedOptionOne(curData)}
-                        >
-                          {" "}
-                          {curData}{" "}
-                        </button>
-                      </>
-                    );
-                  })}
-                </div>
-              </button>
-
-              <button className="sorting-btn sorting-btn1">
                 {selection?.state || states?.[0]?.name}
 
                 <i class="fa-solid fa-angle-down"></i>
@@ -295,6 +273,28 @@ const Ratelistcomp = ({ setUserForm }) => {
                           onClick={handleFilter("city", name)}
                         >
                           {name}
+                        </button>
+                      </>
+                    );
+                  })}
+                </div>
+              </button>
+
+              <button className="sorting-btn sorting-btn1">
+                {selectedOptionOne || "Choose Your Seller"}
+
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box dropdwn-tab-box1">
+                  {optionOne.map((curData, indx) => {
+                    return (
+                      <>
+                        <button
+                          className="prod-tab-btn"
+                          key={indx}
+                          onClick={() => seSelectedOptionOne(curData)}
+                        >
+                          {" "}
+                          {curData}{" "}
                         </button>
                       </>
                     );
@@ -393,19 +393,28 @@ const Ratelistcomp = ({ setUserForm }) => {
                   <div className="waste-saved-main-list-bx">
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.co2} Kg</span>
-                      <p> <img src="/images/customImg/CO.png" alt="" /> CO2 Offset</p>
+                      <p>
+                        {" "}
+                        <img src="/images/customImg/CO.png" alt="" /> CO2 Offset
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.water} Litres</span>
-                      <p><i class="fa-solid fa-droplet"></i>Water</p>
+                      <p>
+                        <i class="fa-solid fa-droplet"></i>Water
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.electricty} KWh</span>
-                      <p><i class="fa-solid fa-bolt"></i>Electricity</p>
+                      <p>
+                        <i class="fa-solid fa-bolt"></i>Electricity
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.oil} Lakhs Litres </span>
-                      <p><i class="fa-solid fa-bottle-droplet"></i>Oil</p>
+                      <p>
+                        <i class="fa-solid fa-bottle-droplet"></i>Oil
+                      </p>
                     </div>
                   </div>
                 </div>

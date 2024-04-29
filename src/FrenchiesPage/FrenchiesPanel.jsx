@@ -52,6 +52,7 @@ import { toast } from "react-toastify";
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
 import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
+import { MdContentCopy } from "react-icons/md";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -505,25 +506,39 @@ const FrenchiesPanel = () => {
 
             <button className=" comp-refrl-bx">
               <div
+                // style={{
+                //   display: "flex",
+                //   justifyItems: "between",
+                //   alignItems: "center",
+                // }}
                 className="comp-icon"
-                onClick={() => {
-                  navigator.clipboard.writeText(userInfo?.companyCode);
-                  toast("Copied!", {
-                    pauseOnHover: false,
-                    pauseOnFocusLoss: false,
-                    autoClose: 500,
-                  });
-                }}
               >
                 <i class="fa-regular fa-building"></i>
               </div>
 
-              <span>
+              <span
+                style={{
+                  display: "flex",
+                  justifyItems: "between",
+                  alignItems: "start",
+                }}
+              >
                 {userInfo?.companyCode}{" "}
                 <i
                   onClick={handleShareCompanyCode}
                   class="fa-solid fa-share-nodes"
                 ></i>
+                <MdContentCopy
+                  onClick={() => {
+                    navigator.clipboard.writeText(userInfo?.companyCode);
+                    toast("Copied!", {
+                      pauseOnHover: false,
+                      pauseOnFocusLoss: false,
+                      autoClose: 500,
+                    });
+                  }}
+                  style={{ width: "20px", height: "20px" }}
+                />
               </span>
             </button>
 

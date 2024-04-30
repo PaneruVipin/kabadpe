@@ -52,7 +52,11 @@ import { toast } from "react-toastify";
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
 import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
+<<<<<<< HEAD
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
+=======
+import { MdContentCopy } from "react-icons/md";
+>>>>>>> 252c781000ba37e91d2274f77cdce5dd5d081792
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -142,9 +146,8 @@ const FrenchiesPanel = () => {
   };
   const handleShareCompanyCode = () => {
     const sharedTitle = "KabadPe"; // Add your shared text here
-    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
-    const sharedText = `Company Code - ${userInfo?.companyCode}`;
-    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+    const sharedUrl = `https://kabadpe.com/auth/collector?cc=${userInfo?.companyCode}`;
+    const combinedText = `${sharedTitle}\n\n${sharedUrl}`;
     const shareData = {
       text: combinedText,
     };
@@ -183,6 +186,9 @@ const FrenchiesPanel = () => {
     const trueObjects = plans?.filter(
       ({ endDate, planStatus }) => endDate && planStatus == "active"
     );
+    if (!trueObjects?.length) {
+      return null; // No true objects found
+    }
     const maxDateObject = trueObjects?.reduce((prev, current) => {
       return new Date(prev?.endDate) > new Date(current?.endDate)
         ? prev
@@ -192,7 +198,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -232,7 +238,7 @@ const FrenchiesPanel = () => {
             </div>
 
             <button
-              onClick={() => setComponent('bid')}
+              onClick={() => setComponent("bid")}
               className=" comp-refrl-bx comp-refrl-bx4"
             >
               <div className="comp-icon">
@@ -503,25 +509,39 @@ const FrenchiesPanel = () => {
 
             <button className=" comp-refrl-bx">
               <div
+                // style={{
+                //   display: "flex",
+                //   justifyItems: "between",
+                //   alignItems: "center",
+                // }}
                 className="comp-icon"
-                onClick={() => {
-                  navigator.clipboard.writeText(userInfo?.companyCode);
-                  toast("Copied!", {
-                    pauseOnHover: false,
-                    pauseOnFocusLoss: false,
-                    autoClose: 500,
-                  });
-                }}
               >
                 <i class="fa-regular fa-building"></i>
               </div>
 
-              <span>
+              <span
+                style={{
+                  display: "flex",
+                  justifyItems: "between",
+                  alignItems: "start",
+                }}
+              >
                 {userInfo?.companyCode}{" "}
                 <i
                   onClick={handleShareCompanyCode}
                   class="fa-solid fa-share-nodes"
                 ></i>
+                <MdContentCopy
+                  onClick={() => {
+                    navigator.clipboard.writeText(userInfo?.companyCode);
+                    toast("Copied!", {
+                      pauseOnHover: false,
+                      pauseOnFocusLoss: false,
+                      autoClose: 500,
+                    });
+                  }}
+                  style={{ width: "20px", height: "20px" }}
+                />
               </span>
             </button>
 
@@ -975,11 +995,20 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
+<<<<<<< HEAD
         {component === "bid" ? <Bidcomp onClickCreatePost={() => setComponent('createbidpost')} onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "createbidpost" ? <CreateBidPost  /> : null}
 
         
+=======
+        {component === "bid" ? (
+          <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+        {component === "bidproddet" ? (
+          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+>>>>>>> 252c781000ba37e91d2274f77cdce5dd5d081792
       </section>
 
       {buyWasteBx ? (

@@ -52,11 +52,8 @@ import { toast } from "react-toastify";
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
 import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
-<<<<<<< HEAD
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
-=======
 import { MdContentCopy } from "react-icons/md";
->>>>>>> 252c781000ba37e91d2274f77cdce5dd5d081792
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -198,7 +195,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -237,8 +234,8 @@ const FrenchiesPanel = () => {
               </button>
             </div>
 
-            <button
-              onClick={() => setComponent("bid")}
+            {/* <button
+          
               className=" comp-refrl-bx comp-refrl-bx4"
             >
               <div className="comp-icon">
@@ -246,7 +243,7 @@ const FrenchiesPanel = () => {
               </div>
 
               <span>Bid </span>
-            </button>
+            </button> */}
 
             <button
               onClick={() => {
@@ -744,6 +741,57 @@ const FrenchiesPanel = () => {
 
           <div className="admin-nv-li">
             <div
+              onClick={() => handleButtonClick(17)}
+              className={getButtonClassName(17)}
+            >
+              <div className="a-nv-i">
+                <CiShop />
+              </div>
+              <span> Bid</span>
+            </div>
+
+            <div className={getButonClasnameTwo(17)}>
+              <li
+                // onClick={() => handleViewComp("subsplan")}
+                onClick={() => handleViewComp("bid")}
+                className={
+                  component === "bid"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#">Bid Products </NavLink>{" "}
+              </li>
+
+              <li
+                onClick={() => handleViewComp("")}
+                className={
+                  component === ""
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> My Bid Listing </NavLink>{" "}
+              </li>
+
+              <li
+                onClick={() => handleViewComp("")}
+                className={
+                  component === ""
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Bid Completed </NavLink>{" "}
+              </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
               onClick={() => handleButtonClick(5)}
               className={getButtonClassName(5)}
             >
@@ -995,20 +1043,17 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-<<<<<<< HEAD
         {component === "bid" ? <Bidcomp onClickCreatePost={() => setComponent('createbidpost')} onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "createbidpost" ? <CreateBidPost  /> : null}
 
         
-=======
         {component === "bid" ? (
           <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
         ) : null}
         {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
         ) : null}
->>>>>>> 252c781000ba37e91d2274f77cdce5dd5d081792
       </section>
 
       {buyWasteBx ? (

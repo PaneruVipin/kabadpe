@@ -23,72 +23,95 @@ const Bidcomp = ({onClickDetPage , onClickCreatePost}) => {
       bidImg : '/images/customImg/serv-img-1.jpg',
       ProdName : 'Bid Product One',
       prodPrice : 699.00,
+      pertext : '/Kg'
     },
     {
       id : 2,
       bidImg : '/images/customImg/serv-img-2.jpg',
       ProdName : 'Bid Product Two',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 3,
       bidImg : '/images/customImg/serv-img-3.jpg',
       ProdName : 'Bid Product Three',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 4,
       bidImg : '/images/customImg/serv-img-4.jpg',
       ProdName : 'Bid Product Four',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 5,
       bidImg : '/images/customImg/instagram-1.jpg',
       ProdName : 'Bid Product Five',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 6,
       bidImg : '/images/customImg/instagram-2.jpg',
       ProdName : 'Bid Product Six',
       prodPrice : 699.00,
+      pertext : '/piece'
+
     },
     {
       id : 7,
       bidImg : '/images/customImg/instagram-3.jpg',
       ProdName : 'Bid Product Seven',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 8,
       bidImg : '/images/customImg/instagram-4.jpg',
       ProdName : 'Bid Product Eight',
       prodPrice : 699.00,
+      pertext : '/piece'
+
     },
     {
       id : 9,
       bidImg : '/images/customImg/instagram-5.jpg',
       ProdName : 'Bid Product Nine',
       prodPrice : 699.00,
+      pertext : '/piece'
+
     },
     {
       id : 10,
       bidImg : '/images/customImg/instagram-6.jpg',
       ProdName : 'Bid Product Ten',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 11,
       bidImg : '/images/customImg/gall-img-4.jpg',
       ProdName : 'Bid Product Eleven',
       prodPrice : 699.00,
+      pertext : '/Kg'
+
     },
     {
       id : 12,
       bidImg : '/images/customImg/gall-img-3.jpg',
       ProdName : 'Bid Product Twelve',
       prodPrice : 699.00,
+      pertext : '/piece'
+
     },
     
   ]

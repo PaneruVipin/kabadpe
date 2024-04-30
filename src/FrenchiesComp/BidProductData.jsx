@@ -14,7 +14,10 @@ const BidProductData = ({ bidData ,onClickRedirect }) => {
                 </div>
                 <div className="bid-prod-info">
                     <h6> {curData.ProdName} </h6>
+                    <div className="prod-price-per-text-flex">
                     <span> ₹{curData.prodPrice} </span>
+                    <span className="pert"> {curData.pertext} </span>
+                    </div>
                 </div>
               </div>
             </>

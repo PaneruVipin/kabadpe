@@ -3828,3 +3828,14 @@ input[type="number"]::-webkit-inner-spin-button{
     background-color: transparent;
     color: #0ea5e9;
  }
+
+ .prod-price-per-text-flex{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .2rem;
+ }
+
+ .prod-price-per-text-flex .pert{
+    font-size: .95rem !important;
+ }

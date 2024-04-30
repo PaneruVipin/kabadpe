@@ -49,12 +49,10 @@ import {
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
 import BidProductDetail from "../FrenchiesComp/BidProductDetail";
-=======
 import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
->>>>>>> cd4f492b1efbaa5f239d912da1043ef42bc38c77
+import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -977,8 +975,9 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-        {component === "bid" ? <Bidcomp onClickDetPage={() => setComponent('bidproddet')} /> : null}
+        {component === "bid" ? <Bidcomp onClickCreatePost={() => setComponent('createbidpost')} onClickDetPage={() => setComponent('bidproddet')} /> : null}
         {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
+        {component === "createbidpost" ? <CreateBidPost  /> : null}
 
         
       </section>

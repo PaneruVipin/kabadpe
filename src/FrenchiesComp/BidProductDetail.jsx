@@ -69,9 +69,19 @@ const BidProductDetail = ({onClickDetPage}) => {
                     <p>Product Id: <span>S-24D154</span> </p>
                 </div>
 
+                <div className="bid-prod-btn-flex check-flex-bxx">
                 <button className="bid-btn">
                     Bid Now
                 </button>
+                <button className="bid-btn bid-btn2">
+                    GST 18%
+                </button>
+                <button className="bid-btn bid-btn2">
+                    Transportation Included
+                </button>
+                </div>
+
+            
 
                 </div>
 

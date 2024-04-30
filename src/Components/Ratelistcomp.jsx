@@ -23,6 +23,10 @@ import { adminkabadProductFetch } from "../apis/admins/kabadProducts";
 import { adminAriaFetch } from "../apis/admins/arias";
 import { filteredData } from "../lib/array";
 import AppoinmentPopup from "../HomeComponent/AppoinmentPopup";
+import {
+  kabadpeFranchisesFetch,
+  kabadpeRatelistFetch,
+} from "../apis/kbadpeUser/ratelist";
 
 const Ratelistcomp = ({ setUserForm }) => {
   const data = {
@@ -148,7 +152,11 @@ const Ratelistcomp = ({ setUserForm }) => {
 
   const { data: rateListData, refetch } = useQuery({
     queryKey: ["userRateListFetch"],
-    queryFn: () => adminkabadProductFetch(),
+    queryFn: () => kabadpeRatelistFetch(),
+  });
+  const { data: franchises } = useQuery({
+    queryKey: ["kabadpefranchisesfetch"],
+    queryFn: () => kabadpeFranchisesFetch(),
   });
   const { data: arias } = useQuery({
     queryKey: ["ratelistArias"],
@@ -165,8 +173,17 @@ const Ratelistcomp = ({ setUserForm }) => {
     ].map((name, i) => ({ id: i, name }));
   };
   const totalRate = filteredData(selectedRates, filters)?.reduce((a, b) => {
+    let rate = b?.retailPrice;
+    if (selectedOptionOne?.id) {
+      const row = b?.FranchiseRates?.find(
+        ({ franchiseId }) => franchiseId == selectedOptionOne?.id
+      );
+      if (row?.retailPrice) {
+        rate = row?.retailPrice;
+      }
+    }
     const weight = +b?.weight ? +b?.weight : 0;
-    const value = +b?.retailPrice * weight;
+    const value = +rate * weight;
     return a + value;
   }, 0);
   const enviournmentSaving = filteredData(selectedRates, filters)?.reduce(
@@ -239,28 +256,6 @@ const Ratelistcomp = ({ setUserForm }) => {
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
               <button className="sorting-btn sorting-btn1">
-                {selectedOptionOne || "Choose Your Seller"}
-
-                <i class="fa-solid fa-angle-down"></i>
-                <div className="dropdwn-tab-box dropdwn-tab-box1">
-                  {optionOne.map((curData, indx) => {
-                    return (
-                      <>
-                        <button
-                          className="prod-tab-btn"
-                          key={indx}
-                          onClick={() => seSelectedOptionOne(curData)}
-                        >
-                          {" "}
-                          {curData}{" "}
-                        </button>
-                      </>
-                    );
-                  })}
-                </div>
-              </button>
-
-              <button className="sorting-btn sorting-btn1">
                 {selection?.state || states?.[0]?.name}
 
                 <i class="fa-solid fa-angle-down"></i>
@@ -301,6 +296,32 @@ const Ratelistcomp = ({ setUserForm }) => {
                   })}
                 </div>
               </button>
+
+              <button className="sorting-btn sorting-btn1">
+                {selectedOptionOne?.companyName || "KabadPe"}
+
+                <i class="fa-solid fa-angle-down"></i>
+                <div className="dropdwn-tab-box dropdwn-tab-box1">
+                  {!franchises?.error
+                    ? [{ companyName: "KabadPe" }, ...franchises]?.map(
+                        ({ companyName, id }) => {
+                          return (
+                            <button
+                              className="prod-tab-btn"
+                              key={id}
+                              onClick={() =>
+                                seSelectedOptionOne({ companyName, id })
+                              }
+                            >
+                              {" "}
+                              {companyName}{" "}
+                            </button>
+                          );
+                        }
+                      )
+                    : null}
+                </div>
+              </button>
             </div>
           </div>
           <div
@@ -333,48 +354,62 @@ const Ratelistcomp = ({ setUserForm }) => {
                               productName,
                               bulkPrice,
                               retailPrice,
+                              FranchiseRates,
                               unit,
                               ...rest
-                            }) => (
-                              <div key={id} className="rate-list-prod-bx">
-                                <div className="ratelist-img">
-                                  <img src={productImage} alt="" />
-                                </div>
-                                <div className="ratelist-info">
-                                  <h6>
-                                    {" "}
-                                    {productName?.replace(
-                                      /\b\w/g,
-                                      function (char) {
-                                        return char.toUpperCase();
-                                      }
-                                    )}{" "}
-                                  </h6>
-                                  {/* <span> {"curElem.text"} </span> */}
-                                  <div className="check">
-                                    <p> {`${retailPrice} (${unit})`} </p>
-                                    <div className="tick-bx">
-                                      <input
-                                        type="checkbox"
-                                        name={id}
-                                        checked={selectedRates?.some(
-                                          (e) => e?.id == id
-                                        )}
-                                        onChange={handleCheckboxChange({
-                                          id,
-                                          productImage,
-                                          productName,
-                                          bulkPrice,
-                                          retailPrice,
-                                          unit,
-                                          ...rest,
-                                        })}
-                                      />
+                            }) => {
+                              let rate = retailPrice;
+                              if (selectedOptionOne?.id) {
+                                const row = FranchiseRates?.find(
+                                  ({ franchiseId }) =>
+                                    franchiseId == selectedOptionOne?.id
+                                );
+                                if (row?.retailPrice) {
+                                  rate = row?.retailPrice;
+                                }
+                              }
+                              return (
+                                <div key={id} className="rate-list-prod-bx">
+                                  <div className="ratelist-img">
+                                    <img src={productImage} alt="" />
+                                  </div>
+                                  <div className="ratelist-info">
+                                    <h6>
+                                      {" "}
+                                      {productName?.replace(
+                                        /\b\w/g,
+                                        function (char) {
+                                          return char.toUpperCase();
+                                        }
+                                      )}{" "}
+                                    </h6>
+                                    {/* <span> {"curElem.text"} </span> */}
+                                    <div className="check">
+                                      <p> {`${rate} (${unit})`} </p>
+                                      <div className="tick-bx">
+                                        <input
+                                          type="checkbox"
+                                          name={id}
+                                          checked={selectedRates?.some(
+                                            (e) => e?.id == id
+                                          )}
+                                          onChange={handleCheckboxChange({
+                                            id,
+                                            productImage,
+                                            productName,
+                                            bulkPrice,
+                                            retailPrice,
+                                            FranchiseRates,
+                                            unit,
+                                            ...rest,
+                                          })}
+                                        />
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                            )
+                              );
+                            }
                           )}
                         </div>
                       </div>
@@ -393,19 +428,28 @@ const Ratelistcomp = ({ setUserForm }) => {
                   <div className="waste-saved-main-list-bx">
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.co2} Kg</span>
-                      <p> <img src="/images/customImg/CO.png" alt="" /> CO2 Offset</p>
+                      <p>
+                        {" "}
+                        <img src="/images/customImg/CO.png" alt="" /> CO2 Offset
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.water} Litres</span>
-                      <p><i class="fa-solid fa-droplet"></i>Water</p>
+                      <p>
+                        <i class="fa-solid fa-droplet"></i>Water
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.electricty} KWh</span>
-                      <p><i class="fa-solid fa-bolt"></i>Electricity</p>
+                      <p>
+                        <i class="fa-solid fa-bolt"></i>Electricity
+                      </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.oil} Lakhs Litres </span>
-                      <p><i class="fa-solid fa-bottle-droplet"></i>Oil</p>
+                      <p>
+                        <i class="fa-solid fa-bottle-droplet"></i>Oil
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -433,32 +477,45 @@ const Ratelistcomp = ({ setUserForm }) => {
                               productName,
                               bulkPrice,
                               retailPrice,
+                              FranchiseRates,
                               unit,
                               weight,
-                            }) => (
-                              <tr>
-                                <td>
-                                  <span> {productName}</span>
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    value={weight}
-                                    onChange={handleWeightChange(id)}
-                                    placeholder={`Enter Quantity`}
-                                  />
-                                  <span>{unit}</span>
-                                </td>
-                                <td>
-                                  <span>
-                                    {retailPrice}/{unit}{" "}
-                                  </span>
-                                </td>
-                                <td>
-                                  <span> {retailPrice * weight || 0} </span>
-                                </td>
-                              </tr>
-                            )
+                            }) => {
+                              let rate = retailPrice;
+                              if (selectedOptionOne?.id) {
+                                const row = FranchiseRates?.find(
+                                  ({ franchiseId }) =>
+                                    franchiseId == selectedOptionOne?.id
+                                );
+                                if (row?.retailPrice) {
+                                  rate = row?.retailPrice;
+                                }
+                              }
+                              return (
+                                <tr>
+                                  <td>
+                                    <span> {productName}</span>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      value={weight}
+                                      onChange={handleWeightChange(id)}
+                                      placeholder={`Enter Quantity`}
+                                    />
+                                    <span>{unit}</span>
+                                  </td>
+                                  <td>
+                                    <span>
+                                      {rate}/{unit}{" "}
+                                    </span>
+                                  </td>
+                                  <td>
+                                    <span> {rate * weight || 0} </span>
+                                  </td>
+                                </tr>
+                              );
+                            }
                           )}
                         </tbody>
                       </table>

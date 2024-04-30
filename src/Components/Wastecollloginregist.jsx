@@ -25,6 +25,7 @@ import { number, object, string } from "yup";
 
 const Wastecolloginregist = () => {
   const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
   const { errors: errorsInAuth } = useSelector((s) => s?.auth);
   const { userInfo } = useSelector((s) => s.user);
   const [formBox, setFormBox] = useState(false);
@@ -44,6 +45,7 @@ const Wastecolloginregist = () => {
   const [otherErrors, setOtherErrors] = useState({});
   const [timer, setTimer] = useState(60);
   const [buttonText, setButtonText] = useState("");
+  const [pageLoading, setPageLoading] = useState(false);
   useEffect(() => {
     let intervalId;
 
@@ -118,9 +120,9 @@ const Wastecolloginregist = () => {
     ]?.map((name, i) => ({ id: i, name }));
   };
 
-  const initialValues =
+  const [initialValues, setInitialValues] =
     formBox === true
-      ? {
+      ? useState({
           fullname: "",
           email: "",
           password: "",
@@ -131,11 +133,11 @@ const Wastecolloginregist = () => {
           ariaName: "",
           subAriaName: "",
           emergencyPhone: "",
-        }
-      : {
+        })
+      : useState({
           phoneNumber: "",
           password: "",
-        };
+        });
   const validationSchema =
     formBox === true ? validationSignupCollector : validationLoginCollector;
   const handleSubmit =
@@ -210,408 +212,52 @@ const Wastecolloginregist = () => {
     setTimer(60);
     setButtonText("");
   };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const query = searchParams.get("cc");
+    setQuery(query || "");
+    if (query) {
+      setPageLoading(true);
+      setFormBox(true);
+      setInitialValues((prev) => ({
+        ...prev,
+        workerRole: "kabadi",
+        companyRef: query,
+      }));
+      userValidateKabadPeRefrral(query).then((res) => {
+        setRefrralValidation(res);
+      });
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 100);
+    }
+  }, []);
+
   return (
     <>
       {userInfo?.role == "kabadCollector" ? (
         <Redirect path="/wastecolectdashboard" />
       ) : null}
       <SignUpToVerify />
-      <section
-        className={
-          formComp === true
-            ? "log-regist-comp maincompactive"
-            : "log-regist-comp"
-        }
-      >
-        <div className="log-reg-grid">
-          <div className="left-log-reg-form-grid-bx">
-            <div className="login-form-bx">
-              <div className="login-logo">
-                <img src="/images/customImg/logo.png" alt="" />
-              </div>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({
-                  handleBlur,
-                  handleChange,
-                  values,
-                  errors,
-                  touched,
-                  ...rest
-                }) => {
-                  return (
-                    <Form
-                      className={
-                        formBox === true
-                          ? "log-regst-form registformactive"
-                          : "log-regst-form"
-                      }
-                    >
-                      <input
-                        style={{ height: 0, width: 0 }}
-                        type="text"
-                        name="fakeusernameremembered"
-                      />
-                      <input
-                        style={{ height: 0, width: 0 }}
-                        type="password"
-                        name="fakepasswordremembered"
-                      />
-                      <div className="register-form-height-box">
-                        {formBox === true ? (
-                          <>
-                            <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="fullname"
-                                id="name"
-                                placeholder="Full Name"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.fullname}
-                              />
-                              {touched?.fullname && errors?.fullname ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.fullname}
-                                </div>
-                              ) : null}
-                            </div>
-                          </>
-                        ) : null}
-                        <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
-                          <input
-                            type="text"
-                            name="phoneNumber"
-                            id="phone"
-                            placeholder="WhatsApp No."
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.phoneNumber}
-                          />
-                          {touched?.phoneNumber && errors?.phoneNumber ? (
-                            <div style={{ color: "red" }}>
-                              {errors?.phoneNumber}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        {formBox === true ? (
-                          <>
-                            <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
-                              <input
-                                type="text"
-                                name="pincode"
-                                id="pincode"
-                                placeholder="Work Area Pincode"
-                                autoComplete="off"
-                                onChange={(e) => {
-                                  setPincode(e?.target?.value);
-                                  const arias = getArias(
-                                    e?.target?.value,
-                                    servicableAddresses
-                                  );
-                                  setArias(
-                                    arias?.map(({ name }) => ({
-                                      value: name,
-                                      lable: name,
-                                    }))
-                                  );
-                                  handleChange(e);
-                                }}
-                                onBlur={handleBlur}
-                                value={values?.pincode}
-                              />
-                              {touched?.pincode && errors?.pincode ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.pincode}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="log-inpt-bx  reg-inpt-bx reg-inpt-bx5">
-                              <AutoComplete
-                                //  optionSelectedColor={"#050505"}
-                                className="apnt-inpt-bx-autotype reg-inpt"
-                                onChange={(v) => {
-                                  values.ariaName = v;
-                                  const subArias = getSubArias(
-                                    pincode,
-                                    v,
-                                    servicableAddresses
-                                  );
-                                  setSubArias(
-                                    subArias?.map(({ name }) => ({
-                                      value: name,
-                                      lable: name,
-                                    }))
-                                  );
-                                  handleBlur({
-                                    target: { name: "ariaName" },
-                                  });
-                                }}
-                                onBlur={(e) => (
-                                  (e.target.name = "ariaName"), handleBlur(e)
-                                )}
-                                options={arias}
-                                filterOption={true}
-                                placeholder="Enter Area"
-                              />
-                              {touched?.ariaName && errors?.ariaName ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.ariaName}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            <div className="log-inpt-bx   reg-inpt-bx reg-inpt-bx5">
-                              <AutoComplete
-                                //  optionSelectedColor={"#050505"}
-                                className="apnt-inpt-bx-autotype reg-inpt"
-                                options={subArias}
-                                filterOption={true}
-                                onChange={(v) => {
-                                  values.subAriaName = v;
-                                  handleBlur({
-                                    target: { name: "subAriaName" },
-                                  });
-                                }}
-                                onBlur={(e) => (
-                                  (e.target.name = "subAriaName"), handleBlur(e)
-                                )}
-                                placeholder="Enter SubArea"
-                              />
-                              {touched?.subAriaName && errors?.subAriaName ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.subAriaName}
-                                </div>
-                              ) : null}
-                            </div>
-                            <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
-                              <select
-                                name="workerRole"
-                                id="workertype"
-                                onChange={(e) => {
-                                  setSelectedRole(e?.target.value);
-                                  handleChange(e);
-                                }}
-                                onBlur={handleBlur}
-                                value={values?.workerRole}
-                                defaultValue={values?.workerRole}
-                              >
-                                <option value="" hidden>
-                                  Choose Worker Type
-                                </option>
-                                {workers.map(
-                                  ({ label, hindiLable, value, id }) => (
-                                    <option key={id} value={value}>
-                                      {hindiLable}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                              {touched?.workerRole && errors?.workerRole ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.workerRole}
-                                </div>
-                              ) : null}
-                            </div>
-
-                            {selectedRole == "kabadi" ? (
-                              <>
-                                {" "}
-                                <span className="soc-sec-text">
-                                  Company Referral Code Optional
-                                </span>
-                                <div className="log-inpt-bx  reg-inpt-bx">
-                                  <input
-                                    type="text"
-                                    name="companyRef"
-                                    id="companyRef"
-                                    placeholder="Company Referral Code"
-                                    autoComplete="off"
-                                    onChange={async (e) => {
-                                      values.companyRef = e.target.value;
-                                      const result = e.target.value.trim()
-                                        ? await userValidateKabadPeRefrral(
-                                            e.target.value?.trim()
-                                          )
-                                        : "";
-                                      document.getElementById("email").focus();
-                                      document
-                                        .getElementById("companyRef")
-                                        .focus();
-                                      setRefrralValidation(result);
-                                    }}
-                                    onBlur={handleBlur}
-                                    value={values?.companyRef}
-                                  />
-                                </div>
-                                {touched.companyRef && errors?.companyRef ? (
-                                  <div style={{ color: "red" }}>
-                                    {errors?.companyRef}
-                                  </div>
-                                ) : null}
-                                {refrralValidation?.error ? (
-                                  <div style={{ color: "red" }}>
-                                    {refrralValidation?.message}
-                                  </div>
-                                ) : (
-                                  <div style={{ color: "green" }}>
-                                    {refrralValidation?.name}
-                                  </div>
-                                )}
-                              </>
-                            ) : null}
-                            <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
-                              <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Email. "
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.email}
-                              />
-                              {touched?.email && errors?.email ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.email}
-                                </div>
-                              ) : null}
-                            </div>
-                          </>
-                        ) : null}
-                        <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
-                          <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="Password"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.password}
-                          />
-                          {touched?.password && errors?.password ? (
-                            <div style={{ color: "red" }}>
-                              {errors?.password}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        {formBox === true ? (
-                          <>
-                            <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
-                              <input
-                                type="text"
-                                name="emergencyPhone"
-                                id="emergencynumber"
-                                placeholder="Emergency Number"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.emergencyPhone}
-                              />
-                              {touched?.emergencyPhone &&
-                              errors?.emergencyPhone ? (
-                                <div style={{ color: "red" }}>
-                                  {errors?.emergencyPhone}
-                                </div>
-                              ) : null}
-                            </div>
-                          </>
-                        ) : null}
-                      </div>
-
-                      <div className="forgt-passwrd-check-bx-flex  mt-3">
-                        <div className="form-check ">
-                          <input
-                            checked={termsChecked}
-                            onChange={(e) => setTermsChecked(e.target.checked)}
-                            className="form-check-input"
-                            type="checkbox"
-                            id="flexCheckDefault"
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor="flexCheckDefault"
-                          >
-                            Please Read "Team & Conditions" for Waste Collectors
-                            and Confirm before Clicking the Request Button
-                          </label>
-                        </div>
-
-                        <p
-                          onClick={() => setFormComp(true)}
-                          className="forgot-pass-btn"
-                        >
-                          Forgot Password!
-                        </p>
-                      </div>
-
-                      <button
-                        // onClick={() => thanksBtn()}
-                        className="form-submit-btn"
-                      >
-                        {formText}
-                      </button>
-                      <div>
-                        {formBox === true ? (
-                          errorsInAuth?.signup ? (
-                            <p style={{ color: "red" }}>
-                              {errorsInAuth?.signup}
-                            </p>
-                          ) : null
-                        ) : errorsInAuth.login ? (
-                          <p style={{ color: "red" }}>{errorsInAuth.login}</p>
-                        ) : null}
-                      </div>
-
-                      <div className="thanks_para">
-                        {/* {thanksText && (
-                          <p>
-                            Thank You For Your Intertest, Admin will check and
-                            Confirm Your Registration, You Will Be Notify On
-                            Your Mail/Mobile Number Soon.
-                          </p>
-                        )} */}
-                      </div>
-                    </Form>
-                  );
-                }}
-              </Formik>
-
-              <div className="switch-form-btn">
-                <p>New to Kabadpe? </p>
-                <button
-                  onClick={() => {
-                    toggleForm(), TextContent();
-                  }}
-                >
-                  {changeText}!
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="right-forgot-password-form-bx ">
-            <div className="login-form-bx">
-              <div className="login-logo">
-                <img src="/images/customImg/logo.png" alt="" />
-              </div>
-              {formComp ? (
+      {!pageLoading ? (
+        <section
+          className={
+            formComp === true
+              ? "log-regist-comp maincompactive"
+              : "log-regist-comp"
+          }
+        >
+          <div className="log-reg-grid">
+            <div className="left-log-reg-form-grid-bx">
+              <div className="login-form-bx">
+                <div className="login-logo">
+                  <img src="/images/customImg/logo.png" alt="" />
+                </div>
                 <Formik
-                  initialValues={{
-                    otp: "",
-                    phoneNumber: "",
-                    newPassword: "",
-                    confirmNewPassword: "",
-                  }}
-                  onSubmit={handleForgetPassword}
-                  validationSchema={forgetPassValidation}
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
                 >
                   {({
                     handleBlur,
@@ -622,176 +268,559 @@ const Wastecolloginregist = () => {
                     ...rest
                   }) => {
                     return (
-                      <Form>
-                        <div
-                          className={
-                            forgotResetPassword
-                              ? "forgot-reset-paswrd-main forgotpasswordactive"
-                              : "forgot-reset-paswrd-main"
-                          }
-                        >
-                          <div
-                            className={
-                              forgotOtp
-                                ? "forgot-OTP-main forgototpactive"
-                                : "forgot-OTP-main"
-                            }
-                          >
-                            <div className="log-inpt-bx forgotpassword-inpt  log-forgot-passwrd-inpt-bx">
-                              <input
-                                type="text"
-                                name="phoneNumber"
-                                id="mobemail"
-                                placeholder="Mobile No."
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.phoneNumber}
-                              />
-                            </div>
+                      <Form
+                        className={
+                          formBox === true
+                            ? "log-regst-form registformactive"
+                            : "log-regst-form"
+                        }
+                      >
+                        <input
+                          style={{ height: 0, width: 0 }}
+                          type="text"
+                          name="fakeusernameremembered"
+                        />
+                        <input
+                          style={{ height: 0, width: 0 }}
+                          type="password"
+                          name="fakepasswordremembered"
+                        />
+                        <div className="register-form-height-box">
+                          {formBox === true ? (
+                            <>
+                              <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
+                                <input
+                                  type="text"
+                                  name="fullname"
+                                  id="name"
+                                  placeholder="Full Name"
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.fullname}
+                                />
+                                {touched?.fullname && errors?.fullname ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.fullname}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </>
+                          ) : null}
+                          <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
+                            <input
+                              type="text"
+                              name="phoneNumber"
+                              id="phone"
+                              placeholder="WhatsApp No."
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.phoneNumber}
+                            />
                             {touched?.phoneNumber && errors?.phoneNumber ? (
                               <div style={{ color: "red" }}>
                                 {errors?.phoneNumber}
                               </div>
                             ) : null}
-                            <div className="otp-forgot-bx">
-                              <div className=" tw-text-green-500">
-                                Please check your WhatsApp for the OTP.
-                              </div>
-                              <div className="timer-text">
-                                {timer > 0
-                                  ? `Resend OTP in ${timer} seconds`
-                                  : ""}
-                                {buttonText ? (
-                                  <button
-                                    type="button"
-                                    onClick={handleButtonClick}
-                                  >
-                                    {buttonText}{" "}
-                                  </button>
-                                ) : null}
-                              </div>
-                              <div className="log-inpt-bx   log-forgot-passwrd-inpt-bx">
+                          </div>
+
+                          {formBox === true ? (
+                            <>
+                              <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
                                 <input
                                   type="text"
-                                  name="otp"
-                                  id="Otp"
-                                  placeholder="Enter here OTP"
+                                  name="pincode"
+                                  id="pincode"
+                                  placeholder="Work Area Pincode"
+                                  autoComplete="off"
+                                  onChange={(e) => {
+                                    setPincode(e?.target?.value);
+                                    const arias = getArias(
+                                      e?.target?.value,
+                                      servicableAddresses
+                                    );
+                                    setArias(
+                                      arias?.map(({ name }) => ({
+                                        value: name,
+                                        lable: name,
+                                      }))
+                                    );
+                                    handleChange(e);
+                                  }}
+                                  onBlur={handleBlur}
+                                  value={values?.pincode}
+                                />
+                                {touched?.pincode && errors?.pincode ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.pincode}
+                                  </div>
+                                ) : null}
+                              </div>
+
+                              <div className="log-inpt-bx  reg-inpt-bx reg-inpt-bx5">
+                                <AutoComplete
+                                  //  optionSelectedColor={"#050505"}
+                                  className="apnt-inpt-bx-autotype reg-inpt"
+                                  onChange={(v) => {
+                                    values.ariaName = v;
+                                    const subArias = getSubArias(
+                                      pincode,
+                                      v,
+                                      servicableAddresses
+                                    );
+                                    setSubArias(
+                                      subArias?.map(({ name }) => ({
+                                        value: name,
+                                        lable: name,
+                                      }))
+                                    );
+                                    handleBlur({
+                                      target: { name: "ariaName" },
+                                    });
+                                  }}
+                                  onBlur={(e) => (
+                                    (e.target.name = "ariaName"), handleBlur(e)
+                                  )}
+                                  options={arias}
+                                  filterOption={true}
+                                  placeholder="Enter Area"
+                                />
+                                {touched?.ariaName && errors?.ariaName ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.ariaName}
+                                  </div>
+                                ) : null}
+                              </div>
+
+                              <div className="log-inpt-bx   reg-inpt-bx reg-inpt-bx5">
+                                <AutoComplete
+                                  //  optionSelectedColor={"#050505"}
+                                  className="apnt-inpt-bx-autotype reg-inpt"
+                                  options={subArias}
+                                  filterOption={true}
+                                  onChange={(v) => {
+                                    values.subAriaName = v;
+                                    handleBlur({
+                                      target: { name: "subAriaName" },
+                                    });
+                                  }}
+                                  onBlur={(e) => (
+                                    (e.target.name = "subAriaName"),
+                                    handleBlur(e)
+                                  )}
+                                  placeholder="Enter SubArea"
+                                />
+                                {touched?.subAriaName && errors?.subAriaName ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.subAriaName}
+                                  </div>
+                                ) : null}
+                              </div>
+                              <div className="log-inpt-bx log-reg-inpt-bx reg-inpt-bx">
+                                <select
+                                  name="workerRole"
+                                  id="workertype"
+                                  onChange={(e) => {
+                                    setSelectedRole(e?.target.value);
+                                    handleChange(e);
+                                  }}
+                                  onBlur={handleBlur}
+                                  value={values?.workerRole}
+                                  defaultValue={values?.workerRole}
+                                >
+                                  <option value="" hidden>
+                                    Choose Worker Type
+                                  </option>
+                                  {workers.map(
+                                    ({ label, hindiLable, value, id }) => (
+                                      <option key={id} value={value}>
+                                        {hindiLable}
+                                      </option>
+                                    )
+                                  )}
+                                </select>
+                                {touched?.workerRole && errors?.workerRole ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.workerRole}
+                                  </div>
+                                ) : null}
+                              </div>
+
+                              {values?.workerRole == "kabadi" ? (
+                                <>
+                                  {" "}
+                                  <span className="soc-sec-text">
+                                    Company Referral Code Optional
+                                  </span>
+                                  <div className="log-inpt-bx  reg-inpt-bx">
+                                    <input
+                                      type="text"
+                                      name="companyRef"
+                                      id="companyRefNo"
+                                      placeholder="Company Referral Code"
+                                      autoComplete="off"
+                                      onChange={async (e) => {
+                                        values.companyRef = e.target.value;
+                                        const result = e.target.value.trim()
+                                          ? await userValidateKabadPeRefrral(
+                                              e.target.value?.trim()
+                                            )
+                                          : "";
+                                        setRefrralValidation(result);
+                                        // handleChange(e);
+                                      }}
+                                      onBlur={handleBlur}
+                                      value={values?.companyRef}
+                                    />
+                                  </div>
+                                  {touched.companyRef && errors?.companyRef ? (
+                                    <div style={{ color: "red" }}>
+                                      {errors?.companyRef}
+                                    </div>
+                                  ) : null}
+                                  {refrralValidation?.error ? (
+                                    <div style={{ color: "red" }}>
+                                      {refrralValidation?.message}
+                                    </div>
+                                  ) : (
+                                    <div style={{ color: "green" }}>
+                                      {refrralValidation?.name}
+                                    </div>
+                                  )}
+                                </>
+                              ) : null}
+                              <div className="log-inpt-bx log-reg-inpt-bx  reg-inpt-bx">
+                                <input
+                                  type="email"
+                                  name="email"
+                                  id="email"
+                                  placeholder="Email. "
                                   autoComplete="off"
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  value={values?.otp}
+                                  value={values?.email}
                                 />
+                                {touched?.email && errors?.email ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.email}
+                                  </div>
+                                ) : null}
                               </div>
-                            </div>
-                            {touched?.otp && errors?.otp ? (
-                              <div style={{ color: "red" }}>{errors?.otp}</div>
-                            ) : null}
-                            {otherErrors?.forget && otherErrors?.forget ? (
+                            </>
+                          ) : null}
+                          <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
+                            <input
+                              type="password"
+                              name="password"
+                              id="password"
+                              placeholder="Password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.password}
+                            />
+                            {touched?.password && errors?.password ? (
                               <div style={{ color: "red" }}>
-                                {otherErrors?.forget}
+                                {errors?.password}
                               </div>
-                            ) : null}
-                            {forgotOtp ? (
-                              <button
-                                type="submit"
-                                className="form-submit-btn forgot-passwrd-btn-send-rquest "
-                              >
-                                Verify OTP
-                              </button>
                             ) : null}
                           </div>
 
-                          <div className="forgot-reset-passwrd-bx">
-                            <div className="log-inpt-bx f-new-paswrd   log-forgot-passwrd-inpt-bx">
-                              <input
-                                type="text"
-                                name="newPassword"
-                                id="newPassword"
-                                placeholder="Enter New Password"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.newPassword}
-                              />
-                            </div>
-                            {touched?.newPassword && errors?.newPassword ? (
-                              <div style={{ color: "red" }}>
-                                {errors?.newPassword}
+                          {formBox === true ? (
+                            <>
+                              <div className="log-inpt-bx log-reg-inpt-bx  log-inpt-bx-login">
+                                <input
+                                  type="text"
+                                  name="emergencyPhone"
+                                  id="emergencynumber"
+                                  placeholder="Emergency Number"
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.emergencyPhone}
+                                />
+                                {touched?.emergencyPhone &&
+                                errors?.emergencyPhone ? (
+                                  <div style={{ color: "red" }}>
+                                    {errors?.emergencyPhone}
+                                  </div>
+                                ) : null}
                               </div>
-                            ) : null}
-
-                            <div className="log-inpt-bx f-confrm-paswrd   log-forgot-passwrd-inpt-bx">
-                              <input
-                                type="text"
-                                name="confirmNewPassword"
-                                id="confrmPassword"
-                                placeholder="Enter New Confirm Password"
-                                autoComplete="off"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values?.confirmNewPassword}
-                              />
-                            </div>
-                            {touched?.confirmNewPassword &&
-                            errors?.confirmNewPassword ? (
-                              <div style={{ color: "red" }}>
-                                {errors?.confirmNewPassword}
-                              </div>
-                            ) : null}
-                            {forgotResetPassword ? (
-                              <button
-                                type="submit"
-                                className="form-submit-btn forgot-passwrd-btn-send-rquest "
-                              >
-                                Save Password
-                              </button>
-                            ) : null}
-                          </div>
-
-                          {forgotOtp === false ? (
-                            <button
-                              type="submit"
-                              className="form-submit-btn forgot-passwrd-btn-send-rquest otp-Forgot-Btn"
-                            >
-                              Send Request
-                            </button>
+                            </>
                           ) : null}
                         </div>
 
-                        <div className="forgot-text">
-                          {forgotPara && (
-                            <p>
-                              {/* Password Reset Link Has Been Sent To Your Register
-                            Email and Mobile! */}
-                            </p>
-                          )}
-                        </div>
+                        <div className="forgt-passwrd-check-bx-flex  mt-3">
+                          <div className="form-check ">
+                            <input
+                              checked={termsChecked}
+                              onChange={(e) =>
+                                setTermsChecked(e.target.checked)
+                              }
+                              className="form-check-input"
+                              type="checkbox"
+                              id="flexCheckDefault"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="flexCheckDefault"
+                            >
+                              Please Read "Team & Conditions" for Waste
+                              Collectors and Confirm before Clicking the Request
+                              Button
+                            </label>
+                          </div>
 
-                        {/* {forgotOtp === false ? ( */}
-                        <div className="switch-form-btn">
-                          {/* <p>New to Kabadpe? </p> */}
                           <p
-                            onClick={() => {
-                              setFormComp(false);
-                              setForgotOtp(false);
-                              setForgotResetPassword(false);
-                              setOtherErrors({ forget: "" });
-                            }}
+                            onClick={() => setFormComp(true)}
+                            className="forgot-pass-btn"
                           >
-                            Log In
+                            Forgot Password!
                           </p>
                         </div>
-                        {/* ) : null} */}
+
+                        <button
+                          // onClick={() => thanksBtn()}
+                          className="form-submit-btn"
+                        >
+                          {formText}
+                        </button>
+                        <div>
+                          {formBox === true ? (
+                            errorsInAuth?.signup ? (
+                              <p style={{ color: "red" }}>
+                                {errorsInAuth?.signup}
+                              </p>
+                            ) : null
+                          ) : errorsInAuth.login ? (
+                            <p style={{ color: "red" }}>{errorsInAuth.login}</p>
+                          ) : null}
+                        </div>
+
+                        <div className="thanks_para">
+                          {/* {thanksText && (
+                          <p>
+                            Thank You For Your Intertest, Admin will check and
+                            Confirm Your Registration, You Will Be Notify On
+                            Your Mail/Mobile Number Soon.
+                          </p>
+                        )} */}
+                        </div>
                       </Form>
                     );
                   }}
                 </Formik>
-              ) : null}
+
+                <div className="switch-form-btn">
+                  <p>New to Kabadpe? </p>
+                  <button
+                    onClick={() => {
+                      toggleForm(), TextContent();
+                    }}
+                  >
+                    {changeText}!
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="right-forgot-password-form-bx ">
+              <div className="login-form-bx">
+                <div className="login-logo">
+                  <img src="/images/customImg/logo.png" alt="" />
+                </div>
+                {formComp ? (
+                  <Formik
+                    initialValues={{
+                      otp: "",
+                      phoneNumber: "",
+                      newPassword: "",
+                      confirmNewPassword: "",
+                    }}
+                    onSubmit={handleForgetPassword}
+                    validationSchema={forgetPassValidation}
+                  >
+                    {({
+                      handleBlur,
+                      handleChange,
+                      values,
+                      errors,
+                      touched,
+                      ...rest
+                    }) => {
+                      return (
+                        <Form>
+                          <div
+                            className={
+                              forgotResetPassword
+                                ? "forgot-reset-paswrd-main forgotpasswordactive"
+                                : "forgot-reset-paswrd-main"
+                            }
+                          >
+                            <div
+                              className={
+                                forgotOtp
+                                  ? "forgot-OTP-main forgototpactive"
+                                  : "forgot-OTP-main"
+                              }
+                            >
+                              <div className="log-inpt-bx forgotpassword-inpt  log-forgot-passwrd-inpt-bx">
+                                <input
+                                  type="text"
+                                  name="phoneNumber"
+                                  id="mobemail"
+                                  placeholder="Mobile No."
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.phoneNumber}
+                                />
+                              </div>
+                              {touched?.phoneNumber && errors?.phoneNumber ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.phoneNumber}
+                                </div>
+                              ) : null}
+                              <div className="otp-forgot-bx">
+                                <div className=" tw-text-green-500">
+                                  Please check your WhatsApp for the OTP.
+                                </div>
+                                <div className="timer-text">
+                                  {timer > 0
+                                    ? `Resend OTP in ${timer} seconds`
+                                    : ""}
+                                  {buttonText ? (
+                                    <button
+                                      type="button"
+                                      onClick={handleButtonClick}
+                                    >
+                                      {buttonText}{" "}
+                                    </button>
+                                  ) : null}
+                                </div>
+                                <div className="log-inpt-bx   log-forgot-passwrd-inpt-bx">
+                                  <input
+                                    type="text"
+                                    name="otp"
+                                    id="Otp"
+                                    placeholder="Enter here OTP"
+                                    autoComplete="off"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values?.otp}
+                                  />
+                                </div>
+                              </div>
+                              {touched?.otp && errors?.otp ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.otp}
+                                </div>
+                              ) : null}
+                              {otherErrors?.forget && otherErrors?.forget ? (
+                                <div style={{ color: "red" }}>
+                                  {otherErrors?.forget}
+                                </div>
+                              ) : null}
+                              {forgotOtp ? (
+                                <button
+                                  type="submit"
+                                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
+                                >
+                                  Verify OTP
+                                </button>
+                              ) : null}
+                            </div>
+
+                            <div className="forgot-reset-passwrd-bx">
+                              <div className="log-inpt-bx f-new-paswrd   log-forgot-passwrd-inpt-bx">
+                                <input
+                                  type="text"
+                                  name="newPassword"
+                                  id="newPassword"
+                                  placeholder="Enter New Password"
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.newPassword}
+                                />
+                              </div>
+                              {touched?.newPassword && errors?.newPassword ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.newPassword}
+                                </div>
+                              ) : null}
+
+                              <div className="log-inpt-bx f-confrm-paswrd   log-forgot-passwrd-inpt-bx">
+                                <input
+                                  type="text"
+                                  name="confirmNewPassword"
+                                  id="confrmPassword"
+                                  placeholder="Enter New Confirm Password"
+                                  autoComplete="off"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.confirmNewPassword}
+                                />
+                              </div>
+                              {touched?.confirmNewPassword &&
+                              errors?.confirmNewPassword ? (
+                                <div style={{ color: "red" }}>
+                                  {errors?.confirmNewPassword}
+                                </div>
+                              ) : null}
+                              {forgotResetPassword ? (
+                                <button
+                                  type="submit"
+                                  className="form-submit-btn forgot-passwrd-btn-send-rquest "
+                                >
+                                  Save Password
+                                </button>
+                              ) : null}
+                            </div>
+
+                            {forgotOtp === false ? (
+                              <button
+                                type="submit"
+                                className="form-submit-btn forgot-passwrd-btn-send-rquest otp-Forgot-Btn"
+                              >
+                                Send Request
+                              </button>
+                            ) : null}
+                          </div>
+
+                          <div className="forgot-text">
+                            {forgotPara && (
+                              <p>
+                                {/* Password Reset Link Has Been Sent To Your Register
+                            Email and Mobile! */}
+                              </p>
+                            )}
+                          </div>
+
+                          {/* {forgotOtp === false ? ( */}
+                          <div className="switch-form-btn">
+                            {/* <p>New to Kabadpe? </p> */}
+                            <p
+                              onClick={() => {
+                                setFormComp(false);
+                                setForgotOtp(false);
+                                setForgotResetPassword(false);
+                                setOtherErrors({ forget: "" });
+                              }}
+                            >
+                              Log In
+                            </p>
+                          </div>
+                          {/* ) : null} */}
+                        </Form>
+                      );
+                    }}
+                  </Formik>
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 };

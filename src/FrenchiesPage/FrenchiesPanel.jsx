@@ -142,9 +142,8 @@ const FrenchiesPanel = () => {
   };
   const handleShareCompanyCode = () => {
     const sharedTitle = "KabadPe"; // Add your shared text here
-    const sharedUrl = "https://kabadpe.com/auth/collector"; // Add your shared URL here
-    const sharedText = `Company Code - ${userInfo?.companyCode}`;
-    const combinedText = `${sharedTitle}\n\n${sharedUrl}\n${sharedText}`;
+    const sharedUrl = `https://kabadpe.com/auth/collector?cc=${userInfo?.companyCode}`;
+    const combinedText = `${sharedTitle}\n\n${sharedUrl}`;
     const shareData = {
       text: combinedText,
     };

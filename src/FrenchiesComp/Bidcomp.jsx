@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import BidProductData from './BidProductData';
 
-const Bidcomp = ({onClickDetPage}) => {
+const Bidcomp = ({onClickDetPage , onClickCreatePost}) => {
   const [unit , setUnit] = useState('Unit');
   const [showOption , setShowOption] = useState(false);
 
@@ -140,7 +140,7 @@ const Bidcomp = ({onClickDetPage}) => {
             
            </div>
 
-           <button className="create-post-btn">
+           <button onClick={onClickCreatePost} className="create-post-btn">
             Create Post
            </button>
 

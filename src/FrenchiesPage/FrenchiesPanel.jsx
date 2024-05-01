@@ -54,6 +54,7 @@ import WasteWallet from "../Components/WasteWallet";
 import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
+import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -741,6 +742,44 @@ const FrenchiesPanel = () => {
 
           <div className="admin-nv-li">
             <div
+              onClick={() => handleButtonClick(20)}
+              className={getButtonClassName(20)}
+            >
+              <div className="a-nv-i">
+                <CiShop />
+              </div>
+              <span> Manage Waste</span>
+            </div>
+
+            <div className={getButonClasnameTwo(20)}>
+              <li
+                onClick={() => handleViewComp("wastepickup")}
+                className={
+                  component === "wastepickup"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#">All Waste Pickups </NavLink>{" "}
+              </li>
+
+              <li
+                onClick={() => handleViewComp("curentwaste")}
+                className={
+                  component === "curentwaste"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> Current Waste </NavLink>{" "}
+              </li>
+            </div>
+          </div>
+
+          <div className="admin-nv-li">
+            <div
               onClick={() => handleButtonClick(17)}
               className={getButtonClassName(17)}
             >
@@ -1053,6 +1092,9 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+         {component === "wastepickup" ? (
+          <FrenchiesWastePcikup />
         ) : null}
       </section>
 

@@ -302,7 +302,7 @@ const Ratelistcomp = ({ setUserForm }) => {
 
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
-                  {!franchises?.error
+                  {!franchises?.error && franchises
                     ? [{ companyName: "KabadPe" }, ...franchises]?.map(
                         ({ companyName, id }) => {
                           return (

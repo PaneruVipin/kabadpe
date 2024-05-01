@@ -3,7 +3,12 @@ import JoditEditor from "jodit-react";
 import { Form, Formik } from "formik";
 import { adminUsersUpdate } from "../apis/admins/users";
 
-const FrenchEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
+const FrenchEdit = ({
+  onClickCloseEditForm,
+  initialValues,
+  refetch,
+  comp = "franchise",
+}) => {
   const [selectedImg, setSelectedImg] = useState("");
   const editor = useRef(null);
   const [content, setContent] = useState("");
@@ -105,6 +110,22 @@ const FrenchEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                   </div>
 
                   <div className="admin-login-fild">
+                    <label htmlFor="companyname">Brand Name </label>
+                    <div className="admin-login-input">
+                      <input
+                        type="text"
+                        name="brandname"
+                        id="managername"
+                        placeholder="Brand Name"
+                        autoComplete="off"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.brandname}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="admin-login-fild">
                     <label htmlFor="companyname">Manager Name / POC </label>
                     <div className="admin-login-input">
                       <input
@@ -119,39 +140,41 @@ const FrenchEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                       />
                     </div>
                   </div>
+                  {comp != "admin" ? (
+                    <>
+                      <div className="admin-login-fild">
+                        <label htmlFor="Email">Email </label>
+                        <div className="admin-login-input">
+                          <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.email}
+                            placeholder="Email ID"
+                            autoComplete="off"
+                          />
+                        </div>
+                      </div>
 
-                  <div className="admin-login-fild">
-                    <label htmlFor="Email">Email </label>
-                    <div className="admin-login-input">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values?.email}
-                        placeholder="Email ID"
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="admin-login-fild">
-                    <label htmlFor="mobilenumber">Phone Number </label>
-                    <div className="admin-login-input">
-                      <input
-                        type="text"
-                        name="phone"
-                        id="mobilenumber"
-                        placeholder="Mobile number"
-                        autoComplete="off"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values?.phone}
-                      />
-                    </div>
-                  </div>
-
+                      <div className="admin-login-fild">
+                        <label htmlFor="mobilenumber">Phone Number </label>
+                        <div className="admin-login-input">
+                          <input
+                            type="text"
+                            name="phone"
+                            id="mobilenumber"
+                            placeholder="Mobile number"
+                            autoComplete="off"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values?.phone}
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
                   <div className="admin-login-fild">
                     <label htmlFor="gstnumber">GST Number </label>
                     <div className="admin-login-input">
@@ -250,23 +273,55 @@ const FrenchEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
                       />
                     </div>
                   </div> */}
-
-                  <div className="admin-login-fild ">
-                    <label htmlFor="zipcode">Franchise Status</label>
+                  <div className="admin-login-fild">
+                    <label htmlFor="mobilenumber">Alternative Contact Person Name</label>
                     <div className="admin-login-input">
-                      <select
-                        name="franchiseStatus"
+                      <input
+                        type="text"
+                        name="contactPersonName"
+                        id="mobilenumber"
+                        placeholder="Contact Person number"
+                        autoComplete="off"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values?.franchiseStatus}
-                        id="subscriptiontype"
-                      >
-                        <option value="inactive">Unverified</option>
-                        <option value="active">Active</option>
-                        <option value="ban">Ban</option>
-                      </select>
+                        value={values?.contactPersonName}
+                      />
                     </div>
                   </div>
+                  <div className="admin-login-fild">
+                    <label htmlFor="mobilenumber">Alternative Phone Number</label>
+                    <div className="admin-login-input">
+                      <input
+                        type="text"
+                        name="contactNumber"
+                        id="mobilenumber"
+                        placeholder="Contact number"
+                        autoComplete="off"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.contactNumber}
+                      />
+                    </div>
+                  </div>
+
+                  {comp == "admin" ? (
+                    <div className="admin-login-fild ">
+                      <label htmlFor="zipcode">Franchise Status</label>
+                      <div className="admin-login-input">
+                        <select
+                          name="franchiseStatus"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values?.franchiseStatus}
+                          id="subscriptiontype"
+                        >
+                          <option value="inactive">Unverified</option>
+                          <option value="active">Active</option>
+                          <option value="ban">Ban</option>
+                        </select>
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
                 {/* <div className="text-editor-bx">
                   <JoditEditor

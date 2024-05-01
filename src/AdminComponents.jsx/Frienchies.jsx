@@ -281,6 +281,7 @@ const Frienchies = () => {
 
       {editForm ? (
         <FrenchEdit
+          comp="admin"
           initialValues={selectedUser}
           onClickCloseEditForm={frencDetClose}
           refetch={refetch}

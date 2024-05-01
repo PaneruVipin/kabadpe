@@ -549,12 +549,15 @@ const FrenchiesPanel = () => {
                 className="admin-top-prof-box"
               >
                 <div className="left-admin-prof-img">
-                  <img src="/images/customImg/team-3.jpg" alt="" />
+                  <img
+                    src={userInfo?.profileImage || "images/customImg/836.jpg"}
+                    alt=""
+                  />
                 </div>
 
                 <div className="right-prof-info-admin">
-                  <h6>John Due</h6>
-                  <span>FrenchiesManager</span>
+                  <h6>{userInfo?.fullname}</h6>
+                  <span>Manager</span>
                 </div>
               </div>
             </div>
@@ -1082,11 +1085,17 @@ const FrenchiesPanel = () => {
         ) : null}
         {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-        {component === "bid" ? <Bidcomp onClickCreatePost={() => setComponent('createbidpost')} onClickDetPage={() => setComponent('bidproddet')} /> : null}
-        {component === "bidproddet" ? <BidProductDetail onClickDetPage={() => setComponent('bidproddet')} /> : null}
-        {component === "createbidpost" ? <CreateBidPost  /> : null}
+        {component === "bid" ? (
+          <Bidcomp
+            onClickCreatePost={() => setComponent("createbidpost")}
+            onClickDetPage={() => setComponent("bidproddet")}
+          />
+        ) : null}
+        {component === "bidproddet" ? (
+          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+        {component === "createbidpost" ? <CreateBidPost /> : null}
 
-        
         {component === "bid" ? (
           <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
         ) : null}

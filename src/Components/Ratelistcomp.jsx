@@ -216,11 +216,11 @@ const Ratelistcomp = ({ setUserForm }) => {
     }
     const state = getStates(arias);
     setStates(state);
-    const cities = getCities(state?.[0]?.name, arias);
+    const cities = getCities(state?.[1]?.name, arias);
     setCites(cities);
     setSelection({
       ...selection,
-      state: state?.[0]?.name,
+      state: state?.[1]?.name,
       city: cities?.[0]?.name,
     });
   }, [arias]);
@@ -256,7 +256,7 @@ const Ratelistcomp = ({ setUserForm }) => {
           <div className="rate-list-filt-main">
             <div className="rate-list-filter-bx">
               <button className="sorting-btn sorting-btn1">
-                {selection?.state || states?.[0]?.name}
+                {selection?.state || states?.[1]?.name}
 
                 <i class="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">

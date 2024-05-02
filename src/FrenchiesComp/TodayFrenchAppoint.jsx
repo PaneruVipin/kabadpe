@@ -5,7 +5,11 @@ import AppointSlot from "./AppointSlot";
 import { useQuery } from "@tanstack/react-query";
 import { franchiseAppoinmentFetch } from "../apis/franchise/appoinment";
 import { slotLabels } from "../lib/slots";
-const TodayFrenchAppoint = ({appoinments, TodayFrenchData, onclickRedirectFrenchApnt }) => {
+const TodayFrenchAppoint = ({
+  appoinments,
+  TodayFrenchData,
+  onclickRedirectFrenchApnt,
+}) => {
   const [fiveData, setFiveData] = useState(TodayFrenchData.slice(0, 5));
   const [popUp, setPopUp] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
@@ -246,24 +250,26 @@ const TodayFrenchAppoint = ({appoinments, TodayFrenchData, onclickRedirectFrench
                             <td> {appointmentPersonName} </td>
 
                             <td>
-                              <button
-                                onClick={() => {
-                                  setApntSlot(true);
-                                  setAppoinmentDetails({
-                                    appointmentPersonName,
-                                    appointmentTimeSlot,
-                                    id,
-                                    UserAddress,
-                                    assigningStatus,
-                                    addedOn,
-                                    rescheduleStatus,
-                                    ...rest,
-                                  });
-                                }}
-                                className="assign-btn assign-btn2"
-                              >
-                                Assign
-                              </button>
+                              {rest?.orderStatus == "active" ? (
+                                <button
+                                  onClick={() => {
+                                    setApntSlot(true);
+                                    setAppoinmentDetails({
+                                      appointmentPersonName,
+                                      appointmentTimeSlot,
+                                      id,
+                                      UserAddress,
+                                      assigningStatus,
+                                      addedOn,
+                                      rescheduleStatus,
+                                      ...rest,
+                                    });
+                                  }}
+                                  className="assign-btn assign-btn2"
+                                >
+                                  Assign
+                                </button>
+                              ) : null}
                             </td>
                           </tr>
                         </>

@@ -55,6 +55,7 @@ import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
+import BidListing from "../FrenchiesComp/BidListing";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -807,9 +808,9 @@ const FrenchiesPanel = () => {
               </li>
 
               <li
-                onClick={() => handleViewComp("")}
+                onClick={() => handleViewComp("bidlisting")}
                 className={
-                  component === ""
+                  component === "bidlisting"
                     ? "page-link-btn pagelinkactive"
                     : "page-link-btn"
                 }
@@ -818,17 +819,7 @@ const FrenchiesPanel = () => {
                 <NavLink to="#"> My Bid Listing </NavLink>{" "}
               </li>
 
-              <li
-                onClick={() => handleViewComp("")}
-                className={
-                  component === ""
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> Bid Completed </NavLink>{" "}
-              </li>
+            
             </div>
           </div>
 
@@ -1095,13 +1086,15 @@ const FrenchiesPanel = () => {
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
         ) : null}
         {component === "createbidpost" ? <CreateBidPost /> : null}
+        {component === "bidlisting" ? <BidListing   onClickCreatePost={() => setComponent("createbidpost")} /> : null}
 
-        {component === "bid" ? (
+
+        {/* {component === "bid" ? (
           <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null}
-        {component === "bidproddet" ? (
+        ) : null} */}
+        {/* {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null}
+        ) : null} */}
          {component === "wastepickup" ? (
           <FrenchiesWastePcikup />
         ) : null}

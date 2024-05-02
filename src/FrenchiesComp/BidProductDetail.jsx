@@ -57,11 +57,11 @@ const BidProductDetail = ({ onClickDetPage }) => {
             <div className="right-bid-prod-det-bx">
               <div className="bid-prod-info">
                 <span>PP Granules</span>
-                <h6>Plastic/Polypropylene (PP)</h6>
+                <h6>Plastic/Polypropylene </h6>
 
-                <p> ₹699 </p>
+                <p> ₹699/kg </p>
                 <div className="prod-id-bx">
-                  <p>
+                  <p> 
                     Product Id: <span>S-24D154</span>{" "}
                   </p>
                 </div>
@@ -77,16 +77,16 @@ const BidProductDetail = ({ onClickDetPage }) => {
 
               <div className="bid-prod-user">
                 <div className="bid-user-img">
-                  <img src="/images/customImg/c-1.jpg" alt="" />
+                  <img src="/images/customImg/cmp-3.jpg" alt="" />
                 </div>
                 <div className="bid-prod-user-det">
-                  <h6>Jitin Jain</h6>
+                  <h6>Brand Orbitor</h6>
                   <span>Trader</span>
                   <div className="loct-flex">
                     <div className="loct-icon">
                       <i class="fa-solid fa-location-dot"></i>
                     </div>
-                    <span>New Delhi, Delhi, India.</span>
+                    <span>New Delhi.</span>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
               <div className="prod-des-flex-bx">
                 <div className="des-title">
                   <h6>Description</h6>
-                  <span>PP Granules</span>
+                  <span>Offer 40,000 lbs PP film with PET laminate on rolls available. Ongoing</span>
                 </div>
 
                 <div className="bid-des-bx">
@@ -114,7 +114,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                   <span>1000 KG</span>
                 </div>
                 <div className="bid-des-bx">
-                  <h5>MTQ</h5>
+                  <h5>Minimu Order Quantity</h5>
                   <span>300 KG</span>
                 </div>
                 <div className="bid-des-bx">
@@ -146,6 +146,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -156,6 +159,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -166,6 +172,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -176,6 +185,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -186,6 +198,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
           </div>
         </div>
@@ -202,6 +217,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -212,6 +230,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -222,6 +243,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -232,6 +256,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -242,6 +269,9 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
+              <button  className="bid-btn bid-btn32">
+                  Details
+                </button>
             </div>
           </div>
         </div>

@@ -175,29 +175,33 @@ const Wastecollectdashboard = ({}) => {
             </div>
             My Appointments
           </button>
+          {!userInfo?.franchiseId ? (
+            <>
+              {!plans?.error && !plans?.length ? (
+                <button
+                  onClick={() => filterTab(14)}
+                  className={
+                    profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"
+                  }
+                >
+                  <div className="u-prf-tab-icon">
+                    <i class="fa-solid fa-seedling"></i>
+                  </div>
+                  My Plans
+                </button>
+              ) : null}
 
-          {!plans?.error && !plans?.length ? (
-            <button
-              onClick={() => filterTab(14)}
-              className={profBtn === 14 ? "u-prf-bx profactive" : "u-prf-bx"}
-            >
-              <div className="u-prf-tab-icon">
-                <i class="fa-solid fa-seedling"></i>
-              </div>
-              My Plans
-            </button>
+              <button
+                onClick={() => filterTab(13)}
+                className={profBtn === 13 ? "u-prf-bx profactive" : "u-prf-bx"}
+              >
+                <div className="u-prf-tab-icon">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
+                Subscriptions
+              </button>
+            </>
           ) : null}
-
-          <button
-            onClick={() => filterTab(13)}
-            className={profBtn === 13 ? "u-prf-bx profactive" : "u-prf-bx"}
-          >
-            <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-layer-group"></i>
-            </div>
-            Subscriptions
-          </button>
-
           <button
             onClick={() => filterTab(3)}
             className={profBtn === 3 ? "u-prf-bx profactive" : "u-prf-bx"}

@@ -55,6 +55,7 @@ import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
+import { DateTime } from "luxon";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -222,7 +223,14 @@ const FrenchiesPanel = () => {
             <div className="subscrip-text">
               {!plans?.error && findPlanExipryDate(plans) ? (
                 <p>
-                  Subscription : <span>20/02/2024</span>{" "}
+                  Subscription :{" "}
+                  <span>
+                    {DateTime.fromISO(findPlanExipryDate(plans)?.endDate, {
+                      zone: "utc",
+                    })
+                      .setZone("Asia/Kolkata")
+                      .toFormat("ccc dd LLL yyyy")}
+                  </span>{" "}
                 </p>
               ) : null}
               <button
@@ -550,7 +558,7 @@ const FrenchiesPanel = () => {
               >
                 <div className="left-admin-prof-img">
                   <img
-                    src={userInfo?.profileImage || "images/customImg/836.jpg"}
+                    src={userInfo?.profileImage || "/images/customImg/836.jpg"}
                     alt=""
                   />
                 </div>
@@ -579,6 +587,7 @@ const FrenchiesPanel = () => {
             <div
               onClick={() => {
                 handleButtonClick(1), handleViewComp("dashboard");
+                refetchTodatAppoinment();
               }}
               className={
                 component === "dashboard"
@@ -1102,9 +1111,7 @@ const FrenchiesPanel = () => {
         {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
         ) : null}
-         {component === "wastepickup" ? (
-          <FrenchiesWastePcikup />
-        ) : null}
+        {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
       </section>
 
       {buyWasteBx ? (

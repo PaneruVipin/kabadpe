@@ -29,15 +29,15 @@ const Appointment = ({ setUserForm }) => {
   const [initialFormValues, setInitialFormValues] = useState({
     appointmentContactNumber: "",
     appointmentPersonName: "",
-    frequency: "",
-    estimateWeight: "",
-    serviceType: "",
+    frequency: "once",
+    estimateWeight: "unweighed",
+    serviceType: "kabadi",
   });
   const [addressError, setAddressError] = useState("");
   const [servicableAriaId, setServicableAriaId] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
   const [selectedSlotData, setSelectedSlotData] = useState();
-  const [selectedServiceType, setSelectedServiceType] = useState();
+  const [selectedServiceType, setSelectedServiceType] = useState("kabadi");
   const [otherErrors, setOtherErrors] = useState({});
   const [showResponse, setShowResponse] = useState(false);
   const handleDateChange = (date) => {
@@ -101,7 +101,7 @@ const Appointment = ({ setUserForm }) => {
         date: selectedDate
           ? selectedDate.toISOString()
           : new Date().toISOString(),
-          aria:selectedAddress?.aria
+        aria: selectedAddress?.aria,
       }),
   });
   const checkAndOpenLoginPage = (fn) => {
@@ -174,7 +174,7 @@ const Appointment = ({ setUserForm }) => {
   useEffect(() => {
     setSelectedSlotData(null);
   }, [selectedAddress, selectedServiceType]);
-  console.log("this is selected address",selectedAddress)
+  console.log("this is selected address", selectedAddress);
   return (
     <>
       <Response
@@ -504,12 +504,10 @@ const Appointment = ({ setUserForm }) => {
                           availableCompanies.map(
                             (
                               {
-                                Franchise: {
-                                  companyName,
-                                  franchiseAddress,
-                                  id,
-                                  franchiseLogo,
-                                },
+                                companyName,
+                                franchiseAddress,
+                                id,
+                                franchiseLogo,
                               },
                               i
                             ) => {
@@ -531,46 +529,6 @@ const Appointment = ({ setUserForm }) => {
                                         </div>
                                         <div className="cmpnies-info">
                                           <h6> {companyName} </h6>
-
-                                          {/* <div className="waste-prodts-flex">
-                                    <div className="w-prodts-bx">
-                                      <h6> {curelem.wasteProdtext} </h6>
-                                      <span>{curelem.wasteProd}</span>
-                                    </div>
-
-                                    <div className="w-prodts-bx">
-                                      <h6>{curelem.wasteProdtexttwo}</h6>
-                                      <span>{curelem.wasteProdtwo}</span>
-                                    </div>
-
-                                    <div className="w-prodts-bx">
-                                      <h6>{curelem.wasteProdtextthree}</h6>
-                                      <span> {curelem.wasteProdthree} </span>
-                                    </div>
-                                  </div>
-
-                                  <div className="rating-flex-bx">
-                                    <div className="stars">
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-solid fa-star"></i>
-                                      <i class="fa-regular fa-star"></i>
-                                    </div>
-
-                                    <span> More products</span>
-
-                                    <div
-                                      onClick={() => handlebutton(curelem.id)}
-                                      className={
-                                        itemPrice
-                                          ? "round-arrow : arrowactive"
-                                          : "round-arrow"
-                                      }
-                                    >
-                                      <i class="fa-solid fa-angle-down"></i>
-                                    </div>
-                                  </div> */}
                                         </div>
                                       </div>
 

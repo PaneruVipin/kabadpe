@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import { Form, Formik } from "formik";
 import { adminUsersUpdate } from "../apis/admins/users";
+import { franchiseProfileUpdate } from "../apis/franchise/user";
+import { useDispatch } from "react-redux";
 
 const FrenchEdit = ({
   onClickCloseEditForm,
@@ -13,7 +15,6 @@ const FrenchEdit = ({
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [otherError, setOtherError] = useState({});
-
   const handleImageChange = (object, feild) => (e) => {
     const file = e.target.files[0];
     object[feild] = file;
@@ -35,19 +36,36 @@ const FrenchEdit = ({
     companyName,
     franchiseLogo,
     id,
+    brandname,
+    contactPersonName,
+    contactNumber,
   }) => {
-    const res = await adminUsersUpdate({
-      franchiseStatus,
-      franchiseAddress,
-      gst,
-      phone,
-      email,
-      fullname,
-      companyName,
-      franchiseLogo,
-      id,
-      role: "franchise",
-    });
+    const res =
+      comp == "admin"
+        ? await adminUsersUpdate({
+            franchiseStatus,
+            franchiseAddress,
+            gst,
+            phone,
+            email,
+            fullname,
+            companyName,
+            franchiseLogo,
+            brandname,
+            contactPersonName,
+            contactNumber,
+            id,
+            role: "franchise",
+          })
+        : await franchiseProfileUpdate({
+            fullname,
+            gst,
+            franchiseAddress,
+            franchiseLogo,
+            brandname,
+            contactPersonName,
+            contactNumber,
+          });
     if (!res?.error) {
       onClickCloseEditForm();
       refetch();
@@ -274,7 +292,9 @@ const FrenchEdit = ({
                     </div>
                   </div> */}
                   <div className="admin-login-fild">
-                    <label htmlFor="mobilenumber">Alternative Contact Person Name</label>
+                    <label htmlFor="mobilenumber">
+                      Alternative Contact Person Name
+                    </label>
                     <div className="admin-login-input">
                       <input
                         type="text"
@@ -289,7 +309,9 @@ const FrenchEdit = ({
                     </div>
                   </div>
                   <div className="admin-login-fild">
-                    <label htmlFor="mobilenumber">Alternative Phone Number</label>
+                    <label htmlFor="mobilenumber">
+                      Alternative Phone Number
+                    </label>
                     <div className="admin-login-input">
                       <input
                         type="text"

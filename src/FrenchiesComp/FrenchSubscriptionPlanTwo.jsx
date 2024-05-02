@@ -231,7 +231,7 @@ const FrenchSubscriptionPlanTwo = ({
                                     ? DateTime.fromISO(endDate, {
                                         zone: "utc",
                                       }).toFormat("ccc dd LLL yyyy")
-                                    : ""}{" "}
+                                    : "Pending..."}{" "}
                                 </span>{" "}
                               </td>
                               <td>

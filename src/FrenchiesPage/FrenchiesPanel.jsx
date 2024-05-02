@@ -55,7 +55,11 @@ import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
+<<<<<<< HEAD
 import BidListing from "../FrenchiesComp/BidListing";
+=======
+import { DateTime } from "luxon";
+>>>>>>> fd8d764a2b5df23fe47863cca634e1e0d91a53ab
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -197,7 +201,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -223,7 +227,14 @@ const FrenchiesPanel = () => {
             <div className="subscrip-text">
               {!plans?.error && findPlanExipryDate(plans) ? (
                 <p>
-                  Subscription : <span>20/02/2024</span>{" "}
+                  Subscription :{" "}
+                  <span>
+                    {DateTime.fromISO(findPlanExipryDate(plans)?.endDate, {
+                      zone: "utc",
+                    })
+                      .setZone("Asia/Kolkata")
+                      .toFormat("ccc dd LLL yyyy")}
+                  </span>{" "}
                 </p>
               ) : null}
               <button
@@ -551,7 +562,7 @@ const FrenchiesPanel = () => {
               >
                 <div className="left-admin-prof-img">
                   <img
-                    src={userInfo?.profileImage || "images/customImg/836.jpg"}
+                    src={userInfo?.profileImage || "/images/customImg/836.jpg"}
                     alt=""
                   />
                 </div>
@@ -580,6 +591,7 @@ const FrenchiesPanel = () => {
             <div
               onClick={() => {
                 handleButtonClick(1), handleViewComp("dashboard");
+                refetchTodatAppoinment();
               }}
               className={
                 component === "dashboard"
@@ -1094,10 +1106,15 @@ const FrenchiesPanel = () => {
         ) : null} */}
         {/* {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+<<<<<<< HEAD
         ) : null} */}
          {component === "wastepickup" ? (
           <FrenchiesWastePcikup />
         ) : null}
+=======
+        ) : null}
+        {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
+>>>>>>> fd8d764a2b5df23fe47863cca634e1e0d91a53ab
       </section>
 
       {buyWasteBx ? (

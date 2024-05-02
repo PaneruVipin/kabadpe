@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "../style/Frenchiespanel.css";
 import FrenchEdit from "../AdminComponents.jsx/FrenchEdit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userFetch } from "../features/user/userActions";
 
 const FrenchiesProfile = () => {
   const [editForm, setEditForm] = useState(false);
 
+  const dispatch = useDispatch();
   const frencDetClose = () => {
     setEditForm(false);
   };
@@ -26,7 +28,7 @@ const FrenchiesProfile = () => {
           <div className="french-det-logo-box">
             <div className="f-logo">
               <img
-                src={userInfo?.profileimage || "images/customImg/836.jpg"}
+                src={userInfo?.profileimage || "/images/customImg/836.jpg"}
                 alt=""
               />
             </div>
@@ -117,6 +119,9 @@ const FrenchiesProfile = () => {
 
         {editForm ? (
           <FrenchEdit
+            refetch={() => {
+              dispatch(userFetch());
+            }}
             initialValues={userInfo}
             onClickCloseEditForm={frencDetClose}
           />

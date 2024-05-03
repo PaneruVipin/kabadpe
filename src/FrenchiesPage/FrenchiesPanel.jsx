@@ -55,11 +55,8 @@ import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
-<<<<<<< HEAD
 import BidListing from "../FrenchiesComp/BidListing";
-=======
 import { DateTime } from "luxon";
->>>>>>> fd8d764a2b5df23fe47863cca634e1e0d91a53ab
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -73,7 +70,6 @@ const FrenchiesPanel = () => {
   const [orderActive, setOrderActive] = useState(Orders);
   const [orderTab, setOrderTab] = useState(null);
   const [apntTab, setApntTab] = useState(null);
-
   const [notifActive, setNotifActive] = useState(false);
   const [apntData, setApntData] = useState(FrenchAppointData);
   const [buyWasteBx, setBuyWasteBx] = useState(false);
@@ -201,7 +197,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
       <section className="top-admin-header-comp">
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
@@ -1106,15 +1102,10 @@ const FrenchiesPanel = () => {
         ) : null} */}
         {/* {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-<<<<<<< HEAD
         ) : null} */}
          {component === "wastepickup" ? (
           <FrenchiesWastePcikup />
         ) : null}
-=======
-        ) : null}
-        {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
->>>>>>> fd8d764a2b5df23fe47863cca634e1e0d91a53ab
       </section>
 
       {buyWasteBx ? (

@@ -5,7 +5,10 @@ import frienchiesData from "../frienchiesData";
 import FrenchEdit from "./FrenchEdit";
 import FrenchDetPopup from "./FrenchDetPopup";
 import { useQuery } from "@tanstack/react-query";
-import { adminGetFranchises } from "../apis/admins/users";
+import {
+  adminFranchiseStatusUpdate,
+  adminGetFranchises,
+} from "../apis/admins/users";
 import { kabadPeUserIdMapper, search } from "../lib/array";
 
 const Frienchies = () => {
@@ -35,7 +38,11 @@ const Frienchies = () => {
     queryKey: ["adminfetcfranchise"],
     queryFn: () => adminGetFranchises(),
   });
-
+  const handleChaneStatus = (id) => async (e) => {
+    const status = e.target.value;
+    await adminFranchiseStatusUpdate({ id, status });
+    refetch();
+  };
   return (
     <>
       <section className="all-user-data-comp">
@@ -197,27 +204,25 @@ const Frienchies = () => {
                               </td> */}
 
                               <td>
-                                <span
-                                // style={{
-                                //   color:
-                                //     curElem.categoryStatus === "banned"
-                                //       ? "red"
-                                //       : "green",
-                                // }}
-                                // className={
-                                //   curElem.categoryStatus === "Banned"
-                                //     ? "status-t statColor"
-                                //     : "status-t"
-                                // }
-                                >
-                                  {" "}
-                                  {franchiseStatus}{" "}
+                                <span>
+                                  <select
+                                    // name="franchiseStatus"
+                                    onChange={handleChaneStatus(id)}
+                                    // onBlur={handleBlur}
+                                    defaultValue={franchiseStatus}
+                                    id="subscriptiontype"
+                                  >
+                                    <option value="inactive">Unverified</option>
+                                    <option value="active">Unapproved</option>
+                                    <option value="approve">Approved</option>
+                                    <option value="ban">Ban</option>
+                                  </select>
                                 </span>
                               </td>
                               {/* <td> <span> {curElem.City} </span> </td>
                               <td> <span> {curElem.Zip} </span> </td> */}
 
-                              <td>
+                              <td style={{ display: "flex", gap: "5px" }}>
                                 <div
                                   onClick={() => {
                                     setSelectedUser({

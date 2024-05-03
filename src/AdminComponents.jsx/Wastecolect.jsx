@@ -315,6 +315,7 @@ const Wastecolect = () => {
 
       {wasteDataBox ? (
         <WasteColectEdit
+        comp="admin"
           refetch={refetch}
           initialValues={selectedUser}
           onClickCloseEditForm={subsDataClose}

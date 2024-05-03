@@ -63,3 +63,21 @@ export const adminUsersUpdate = resolvePromise(
     return res?.users;
   }
 );
+
+export const adminFranchiseStatusUpdate = resolvePromise(
+  async ({ id, status }) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/franchise/${id}/status/${status}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {},
+      {
+        headers: {
+          Authorization: token,
+          // "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res?.message;
+  }
+);

@@ -8,8 +8,14 @@ import { adminUsersUpdate } from "../apis/admins/users";
 import { Select } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { adminAriaFetch } from "../apis/admins/arias";
+import { workerPlansFetch } from "../apis/worker/plan";
 
-const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
+const WasteColectEdit = ({
+  onClickCloseEditForm,
+  initialValues,
+  refetch,
+  comp = "franchise",
+}) => {
   const [selectedImage, setSelectedImage] = useState({});
   const [otherErrors, setOtherErrors] = useState({});
   const [arias, setArias] = useState([]);
@@ -115,6 +121,7 @@ const WasteColectEdit = ({ onClickCloseEditForm, initialValues, refetch }) => {
       setSubArias(subArias);
     }
   }, [adminArias]);
+
   return (
     <>
       <section className="french-edit-comp" onClick={onClickCloseEditForm}>

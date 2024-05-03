@@ -21,9 +21,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
               <span>My Bid Listing</span>
             </div>
 
-            <div className="right-unit-flex-bx">
-
-                <div className="bid-filt-btn-flex">
+            <div className="right-unit-flex-bx">                <div className="bid-filt-btn-flex">
 
                     <button className="filt-bid-btn bidactive">
                         All

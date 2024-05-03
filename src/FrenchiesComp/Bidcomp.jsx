@@ -6,7 +6,7 @@ const Bidcomp = ({onClickDetPage , onClickCreatePost}) => {
   const [unit , setUnit] = useState('Unit');
   const [showOption , setShowOption] = useState(false);
 
-  const Options = [ 'KG' , 'PICS' ]; 
+  const Options = [ 'KG' , 'PCS' ]; 
 
 
   const handleOptionChange = (selectOption) => {

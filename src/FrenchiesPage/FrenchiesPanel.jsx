@@ -55,6 +55,7 @@ import { workerPlansFetch } from "../apis/worker/plan";
 import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
+import BidListing from "../FrenchiesComp/BidListing";
 import { DateTime } from "luxon";
 import Thanks from "../Components/Popups/Thanks";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
@@ -70,7 +71,6 @@ const FrenchiesPanel = () => {
   const [orderActive, setOrderActive] = useState(Orders);
   const [orderTab, setOrderTab] = useState(null);
   const [apntTab, setApntTab] = useState(null);
-
   const [notifActive, setNotifActive] = useState(false);
   const [apntData, setApntData] = useState(FrenchAppointData);
   const [buyWasteBx, setBuyWasteBx] = useState(false);
@@ -819,31 +819,21 @@ const FrenchiesPanel = () => {
                     <NavLink to="#">Bid Products </NavLink>{" "}
                   </li>
 
-                  <li
-                    onClick={() => handleViewComp("")}
-                    className={
-                      component === ""
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#"> My Bid Listing </NavLink>{" "}
-                  </li>
+              <li
+                onClick={() => handleViewComp("bidlisting")}
+                className={
+                  component === "bidlisting"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
+                {" "}
+                <NavLink to="#"> My Bid Listing </NavLink>{" "}
+              </li>
 
-                  <li
-                    onClick={() => handleViewComp("")}
-                    className={
-                      component === ""
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#"> Bid Completed </NavLink>{" "}
-                  </li>
-                </div>
-              </div>
+            
+            </div>
+          </div>
 
               <div className="admin-nv-li">
                 <div
@@ -1100,33 +1090,29 @@ const FrenchiesPanel = () => {
             ) : null}
             {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-            {component === "bid" ? (
-              <Bidcomp
-                onClickCreatePost={() => setComponent("createbidpost")}
-                onClickDetPage={() => setComponent("bidproddet")}
-              />
-            ) : null}
-            {component === "bidproddet" ? (
-              <BidProductDetail
-                onClickDetPage={() => setComponent("bidproddet")}
-              />
-            ) : null}
-            {component === "createbidpost" ? <CreateBidPost /> : null}
+        {component === "bid" ? (
+          <Bidcomp
+            onClickCreatePost={() => setComponent("createbidpost")}
+            onClickDetPage={() => setComponent("bidproddet")}
+          />
+        ) : null}
+        {component === "bidproddet" ? (
+          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null}
+        {component === "createbidpost" ? <CreateBidPost /> : null}
+        {component === "bidlisting" ? <BidListing   onClickCreatePost={() => setComponent("createbidpost")} /> : null}
 
-            {component === "bid" ? (
-              <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
-            ) : null}
-            {component === "bidproddet" ? (
-              <BidProductDetail
-                onClickDetPage={() => setComponent("bidproddet")}
-              />
-            ) : null}
-            {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
-          </section>
-        </>
-      )}
 
-      {/* side admin navbar component ---  */}
+        {/* {component === "bid" ? (
+          <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null} */}
+        {/* {component === "bidproddet" ? (
+          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
+        ) : null} */}
+         {component === "wastepickup" ? (
+          <FrenchiesWastePcikup />
+        ) : null}
+      </section>
 
       {buyWasteBx ? (
         <BuyWastePOpup

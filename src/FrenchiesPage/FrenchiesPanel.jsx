@@ -57,6 +57,7 @@ import { MdContentCopy } from "react-icons/md";
 import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
 import BidListing from "../FrenchiesComp/BidListing";
 import { DateTime } from "luxon";
+import Thanks from "../Components/Popups/Thanks";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -197,53 +198,57 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
-      <section className="top-admin-header-comp">
-        <div className="admin-head-flex-box">
-          <div className="left-admin-logo-box">
-            <div className="admin-logo">
-              <img src="/images/customImg/nav-logo.png" alt="" />
-            </div>
-            <button
-              onClick={() => {
-                setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
-              }}
-              className="side-admin-nav-btn-box admin-top-comn-btn"
-            >
-              {barClick ? (
-                <i class="fa-solid fa-arrow-right-long"></i>
-              ) : (
-                <i class="fa-solid fa-bars-staggered"></i>
-              )}
-            </button>
-            <h4 className="admin-top-title">Frenchies Panel</h4>
-          </div>
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {userInfo && userInfo?.franchiseStatus != "approve" ? (
+        <Thanks show={true} />
+      ) : (
+        <>
+          <section className="top-admin-header-comp">
+            <div className="admin-head-flex-box">
+              <div className="left-admin-logo-box">
+                <div className="admin-logo">
+                  <img src="/images/customImg/nav-logo.png" alt="" />
+                </div>
+                <button
+                  onClick={() => {
+                    setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
+                  }}
+                  className="side-admin-nav-btn-box admin-top-comn-btn"
+                >
+                  {barClick ? (
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                  ) : (
+                    <i class="fa-solid fa-bars-staggered"></i>
+                  )}
+                </button>
+                <h4 className="admin-top-title">{userInfo?.companyName}</h4>
+              </div>
 
-          <div className="right-admin-box">
-            <div className="subscrip-text">
-              {!plans?.error && findPlanExipryDate(plans) ? (
-                <p>
-                  Subscription :{" "}
-                  <span>
-                    {DateTime.fromISO(findPlanExipryDate(plans)?.endDate, {
-                      zone: "utc",
-                    })
-                      .setZone("Asia/Kolkata")
-                      .toFormat("ccc dd LLL yyyy")}
-                  </span>{" "}
-                </p>
-              ) : null}
-              <button
-                onClick={() => handleViewComp("subscriptionplan")}
-                className="renew-btn"
-              >
-                {!plans?.error && findPlanExipryDate(plans)
-                  ? "Renew"
-                  : "Buy Plan"}
-              </button>
-            </div>
+              <div className="right-admin-box">
+                <div className="subscrip-text">
+                  {!plans?.error && findPlanExipryDate(plans) ? (
+                    <p>
+                      Subscription :{" "}
+                      <span>
+                        {DateTime.fromISO(findPlanExipryDate(plans)?.endDate, {
+                          zone: "utc",
+                        })
+                          .setZone("Asia/Kolkata")
+                          .toFormat("ccc dd LLL yyyy")}
+                      </span>{" "}
+                    </p>
+                  ) : null}
+                  <button
+                    onClick={() => handleViewComp("subscriptionplan")}
+                    className="renew-btn"
+                  >
+                    {!plans?.error && findPlanExipryDate(plans)
+                      ? "Renew"
+                      : "Buy Plan"}
+                  </button>
+                </div>
 
-            {/* <button
+                {/* <button
           
               className=" comp-refrl-bx comp-refrl-bx4"
             >
@@ -254,19 +259,19 @@ const FrenchiesPanel = () => {
               <span>Bid </span>
             </button> */}
 
-            <button
-              onClick={() => {
-                setBuyWasteBx(true);
-              }}
-              className=" comp-refrl-bx comp-refrl-bx3"
-            >
-              <div className="comp-icon">
-                <i class="fa-solid fa-bag-shopping"></i>
-              </div>
+                <button
+                  onClick={() => {
+                    setBuyWasteBx(true);
+                  }}
+                  className=" comp-refrl-bx comp-refrl-bx3"
+                >
+                  <div className="comp-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                  </div>
 
-              <span>Buy Waste </span>
-            </button>
-            {/* 
+                  <span>Buy Waste </span>
+                </button>
+                {/* 
             <button
              
               className="buy-waste-btn"
@@ -274,376 +279,375 @@ const FrenchiesPanel = () => {
               Buy Waste
             </button> */}
 
-            <div className="notif-main-box wallet-main-bx">
-              <button
-                onClick={() => {
-                  setPaymntHist(!paymntHist), setNotifActive(false);
-                }}
-                className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
-              >
-                <i class="fa-solid fa-wallet"></i>
-              </button>
+                <div className="notif-main-box wallet-main-bx">
+                  <button
+                    onClick={() => {
+                      setPaymntHist(!paymntHist), setNotifActive(false);
+                    }}
+                    className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
+                  >
+                    <i class="fa-solid fa-wallet"></i>
+                  </button>
 
-              <div
-                className={
-                  paymntHist
-                    ? "wallet-dropdown-main-bx waletactive"
-                    : "wallet-dropdown-main-bx"
-                }
-              >
-                <h5>Payment History</h5>
+                  <div
+                    className={
+                      paymntHist
+                        ? "wallet-dropdown-main-bx waletactive"
+                        : "wallet-dropdown-main-bx"
+                    }
+                  >
+                    <h5>Payment History</h5>
 
-                <div className="wallet-search-bx">
-                  <input
-                    type="text"
-                    name="waletsearch"
-                    id="waletsearch"
-                    placeholder="Search or filter payments"
-                  />
+                    <div className="wallet-search-bx">
+                      <input
+                        type="text"
+                        name="waletsearch"
+                        id="waletsearch"
+                        placeholder="Search or filter payments"
+                      />
+                    </div>
+
+                    <div className="al-walt-hist-list">
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx">
+                          <span>FA</span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx">
+                            <h6>Faiz Alam</h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-plus"></i> ₹450.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx left-name-alpha-bx2">
+                          <span>FA</span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx wallet-info-top-bx2">
+                            <h6>Khushi Mehta</h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-plus"></i> ₹560.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
+                          <span>
+                            <i class="fa-solid fa-wallet"></i>
+                          </span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
+                            <h6>Harsh Mehta</h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-plus"></i> ₹880.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx left-name-alpha-bx3">
+                          <span>FK</span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx wallet-info-top-bx3">
+                            <h6>Faruk</h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-minus"></i> ₹200.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx left-name-alpha-bx4">
+                          <span>AH</span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx wallet-info-top-bx4">
+                            <h6>Ahmad Hasan</h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-minus"></i> ₹450.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pyment-info-main">
+                        <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
+                          <span>
+                            <i class="fa-solid fa-wallet"></i>
+                          </span>
+                        </div>
+                        <div className="right-payment-bx">
+                          <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
+                            <h6> Fahad Alam </h6>
+                            <span>
+                              {" "}
+                              <i class="fa-solid fa-plus"></i> ₹880.00
+                            </span>
+                          </div>
+                          <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
+                            <p>Sent on 08 Dec, 08:30 PM</p>
+                            <span>
+                              From <i class="fa-solid fa-wallet"></i>{" "}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="view-all-btn">
+                      View All <i class="fa-solid fa-angle-down"></i>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="al-walt-hist-list">
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx">
-                      <span>FA</span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx">
-                        <h6>Faiz Alam</h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-plus"></i> ₹450.00
-                        </span>
-                      </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                <div className="notif-main-box">
+                  <button
+                    onClick={() => {
+                      setNotifActive(!notifActive), setPaymntHist(false);
+                    }}
+                    className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
+                  >
+                    <i class="fa-regular fa-bell"></i>
+                  </button>
 
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx left-name-alpha-bx2">
-                      <span>FA</span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx wallet-info-top-bx2">
-                        <h6>Khushi Mehta</h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-plus"></i> ₹560.00
-                        </span>
+                  <div
+                    className={
+                      notifActive
+                        ? "noti-dropdown-box notisactive"
+                        : "noti-dropdown-box"
+                    }
+                  >
+                    <div className="noti-li-box">
+                      <div className="not-img">
+                        <img src="/images/customImg/c-3.jpg" alt="" />
                       </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
+                      <div className="not-info">
+                        <h6>New Order Request</h6>
+                        <span>Id : 2114504750</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
-                      <span>
-                        <i class="fa-solid fa-wallet"></i>
-                      </span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
-                        <h6>Harsh Mehta</h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-plus"></i> ₹880.00
-                        </span>
+                    <div className="noti-li-box">
+                      <div className="not-img">
+                        <img src="/images/customImg/c-2.jpg" alt="" />
                       </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
+                      <div className="not-info">
+                        <h6>New User Assign</h6>
+                        <span>Id : 2114504750</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx left-name-alpha-bx3">
-                      <span>FK</span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx wallet-info-top-bx3">
-                        <h6>Faruk</h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-minus"></i> ₹200.00
-                        </span>
+                    <div className="noti-li-box">
+                      <div className="not-img">
+                        <img src="/images/customImg/c-1.jpg" alt="" />
                       </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
+                      <div className="not-info">
+                        <h6>New Appointment Scheduled</h6>
+                        <span>Id : 2114504750</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx left-name-alpha-bx4">
-                      <span>AH</span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx wallet-info-top-bx4">
-                        <h6>Ahmad Hasan</h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-minus"></i> ₹450.00
-                        </span>
+                    <div className="noti-li-box">
+                      <div className="not-img">
+                        <img src="/images/customImg/c-2.jpg" alt="" />
                       </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
+                      <div className="not-info">
+                        <h6>New User Assign</h6>
+                        <span>Id : 2114504750</span>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="pyment-info-main">
-                    <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
-                      <span>
-                        <i class="fa-solid fa-wallet"></i>
-                      </span>
-                    </div>
-                    <div className="right-payment-bx">
-                      <div className="wallet-info-top-bx wallet-info-top-bx2 walet-bx-right">
-                        <h6> Fahad Alam </h6>
-                        <span>
-                          {" "}
-                          <i class="fa-solid fa-plus"></i> ₹880.00
-                        </span>
+                    <div className="noti-li-box">
+                      <div className="not-img">
+                        <img src="/images/customImg/c-4.jpg" alt="" />
                       </div>
-                      <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
-                        <p>Sent on 08 Dec, 08:30 PM</p>
-                        <span>
-                          From <i class="fa-solid fa-wallet"></i>{" "}
-                        </span>
+                      <div className="not-info">
+                        <h6>New Order Dispatched</h6>
+                        <span>Id : 2114504750</span>
                       </div>
                     </div>
+
+                    <NavLink to="#" className={"view-not-btn"}>
+                      View All
+                    </NavLink>
                   </div>
                 </div>
 
-                <div className="view-all-btn">
-                  View All <i class="fa-solid fa-angle-down"></i>
+                <button className=" comp-refrl-bx">
+                  <div
+                    // style={{
+                    //   display: "flex",
+                    //   justifyItems: "between",
+                    //   alignItems: "center",
+                    // }}
+                    className="comp-icon"
+                  >
+                    <i class="fa-regular fa-building"></i>
+                  </div>
+
+                  <span
+                    style={{
+                      display: "flex",
+                      justifyItems: "between",
+                      alignItems: "start",
+                    }}
+                  >
+                    {userInfo?.companyCode}{" "}
+                    <i
+                      onClick={handleShareCompanyCode}
+                      class="fa-solid fa-share-nodes"
+                    ></i>
+                    <MdContentCopy
+                      onClick={() => {
+                        navigator.clipboard.writeText(userInfo?.companyCode);
+                        toast("Copied!", {
+                          pauseOnHover: false,
+                          pauseOnFocusLoss: false,
+                          autoClose: 500,
+                        });
+                      }}
+                      style={{ width: "20px", height: "20px" }}
+                    />
+                  </span>
+                </button>
+
+                <div className="admin-top-prof-main admin-top-prof-main2 ">
+                  <div
+                    onClick={() => handleViewComp("frenchiesprofile")}
+                    className="admin-top-prof-box"
+                  >
+                    <div className="left-admin-prof-img">
+                      <img
+                        src={
+                          userInfo?.profileImage || "/images/customImg/836.jpg"
+                        }
+                        alt=""
+                      />
+                    </div>
+
+                    <div className="right-prof-info-admin">
+                      <h6>{userInfo?.fullname}</h6>
+                      <span>Manager</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className="notif-main-box">
-              <button
-                onClick={() => {
-                  setNotifActive(!notifActive), setPaymntHist(false);
-                }}
-                className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
-              >
-                <i class="fa-regular fa-bell"></i>
-              </button>
-
-              <div
-                className={
-                  notifActive
-                    ? "noti-dropdown-box notisactive"
-                    : "noti-dropdown-box"
-                }
-              >
-                <div className="noti-li-box">
-                  <div className="not-img">
-                    <img src="/images/customImg/c-3.jpg" alt="" />
-                  </div>
-                  <div className="not-info">
-                    <h6>New Order Request</h6>
-                    <span>Id : 2114504750</span>
-                  </div>
-                </div>
-
-                <div className="noti-li-box">
-                  <div className="not-img">
-                    <img src="/images/customImg/c-2.jpg" alt="" />
-                  </div>
-                  <div className="not-info">
-                    <h6>New User Assign</h6>
-                    <span>Id : 2114504750</span>
-                  </div>
-                </div>
-
-                <div className="noti-li-box">
-                  <div className="not-img">
-                    <img src="/images/customImg/c-1.jpg" alt="" />
-                  </div>
-                  <div className="not-info">
-                    <h6>New Appointment Scheduled</h6>
-                    <span>Id : 2114504750</span>
-                  </div>
-                </div>
-
-                <div className="noti-li-box">
-                  <div className="not-img">
-                    <img src="/images/customImg/c-2.jpg" alt="" />
-                  </div>
-                  <div className="not-info">
-                    <h6>New User Assign</h6>
-                    <span>Id : 2114504750</span>
-                  </div>
-                </div>
-
-                <div className="noti-li-box">
-                  <div className="not-img">
-                    <img src="/images/customImg/c-4.jpg" alt="" />
-                  </div>
-                  <div className="not-info">
-                    <h6>New Order Dispatched</h6>
-                    <span>Id : 2114504750</span>
-                  </div>
-                </div>
-
-                <NavLink to="#" className={"view-not-btn"}>
-                  View All
-                </NavLink>
-              </div>
-            </div>
-
-            <button className=" comp-refrl-bx">
-              <div
-                // style={{
-                //   display: "flex",
-                //   justifyItems: "between",
-                //   alignItems: "center",
-                // }}
-                className="comp-icon"
-              >
-                <i class="fa-regular fa-building"></i>
-              </div>
-
-              <span
-                style={{
-                  display: "flex",
-                  justifyItems: "between",
-                  alignItems: "start",
-                }}
-              >
-                {userInfo?.companyCode}{" "}
-                <i
-                  onClick={handleShareCompanyCode}
-                  class="fa-solid fa-share-nodes"
-                ></i>
-                <MdContentCopy
+          </section>
+          <section
+            className={
+              sideAdminNav
+                ? "side-admin-navbar-comp sideAdminNavActive"
+                : "side-admin-navbar-comp"
+            }
+          >
+            <div className="side-admin-nav-list-box">
+              <div className="admin-nv-li admin-nv-li-dashbrd">
+                <div
                   onClick={() => {
-                    navigator.clipboard.writeText(userInfo?.companyCode);
-                    toast("Copied!", {
-                      pauseOnHover: false,
-                      pauseOnFocusLoss: false,
-                      autoClose: 500,
-                    });
+                    handleButtonClick(1), handleViewComp("dashboard");
+                    refetchTodatAppoinment();
                   }}
-                  style={{ width: "20px", height: "20px" }}
-                />
-              </span>
-            </button>
-
-            <div className="admin-top-prof-main admin-top-prof-main2 ">
-              <div
-                onClick={() => handleViewComp("frenchiesprofile")}
-                className="admin-top-prof-box"
-              >
-                <div className="left-admin-prof-img">
-                  <img
-                    src={userInfo?.profileImage || "/images/customImg/836.jpg"}
-                    alt=""
-                  />
-                </div>
-
-                <div className="right-prof-info-admin">
-                  <h6>{userInfo?.fullname}</h6>
-                  <span>Manager</span>
+                  className={
+                    component === "dashboard"
+                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn admin-nv-btn2"
+                  }
+                >
+                  <div className="a-nv-i">
+                    <RiTableFill />
+                  </div>
+                  <span>Dashboard</span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* side admin navbar component ---  */}
-
-      <section
-        className={
-          sideAdminNav
-            ? "side-admin-navbar-comp sideAdminNavActive"
-            : "side-admin-navbar-comp"
-        }
-      >
-        <div className="side-admin-nav-list-box">
-          <div className="admin-nv-li admin-nv-li-dashbrd">
-            <div
-              onClick={() => {
-                handleButtonClick(1), handleViewComp("dashboard");
-                refetchTodatAppoinment();
-              }}
-              className={
-                component === "dashboard"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="a-nv-i">
-                <RiTableFill />
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => {
+                    handleButtonClick(3);
+                    handleViewComp("frenchwastecolect"),
+                      setUserFiltData(wastecolectData);
+                  }}
+                  className={
+                    component === "frenchwastecolect"
+                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn admin-nv-btn2"
+                  }
+                >
+                  <div className="a-nv-i">
+                    <HiMiniUsers />
+                  </div>
+                  <span>Workers</span>
+                </div>
               </div>
-              <span>Dashboard</span>
-            </div>
-          </div>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => {
-                handleButtonClick(3);
-                handleViewComp("frenchwastecolect"),
-                  setUserFiltData(wastecolectData);
-              }}
-              className={
-                component === "frenchwastecolect"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="a-nv-i">
-                <HiMiniUsers />
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => {
+                    handleButtonClick(4);
+                    handleViewComp("appointments");
+                    setApntData(FrenchAppointData);
+                    refetch();
+                  }}
+                  className={
+                    component === "appointments"
+                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn admin-nv-btn2"
+                  }
+                >
+                  <div className="a-nv-i">
+                    <CiShop />
+                  </div>
+                  <span> Appointments</span>
+                </div>
               </div>
-              <span>Workers</span>
-            </div>
-          </div>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => {
-                handleButtonClick(4);
-                handleViewComp("appointments");
-                setApntData(FrenchAppointData);
-                refetch();
-              }}
-              className={
-                component === "appointments"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="a-nv-i">
-                <CiShop />
-              </div>
-              <span> Appointments</span>
-            </div>
-          </div>
-
-          {/* <div className="admin-nv-li admin-nv-li-dashbrd">
+              {/* <div className="admin-nv-li admin-nv-li-dashbrd">
             <div
               onClick={() => {
                 handleButtonClick(1), handleViewComp("subsplan");
@@ -661,24 +665,24 @@ const FrenchiesPanel = () => {
             </div>
           </div> */}
 
-          <div className="admin-nv-li admin-nv-li-dashbrd">
-            <div
-              onClick={() => {
-                handleButtonClick(12), handleViewComp("wasteproduct");
-              }}
-              className={
-                component === "wasteproduct"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="a-nv-i">
-                <CiShop />
+              <div className="admin-nv-li admin-nv-li-dashbrd">
+                <div
+                  onClick={() => {
+                    handleButtonClick(12), handleViewComp("wasteproduct");
+                  }}
+                  className={
+                    component === "wasteproduct"
+                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn admin-nv-btn2"
+                  }
+                >
+                  <div className="a-nv-i">
+                    <CiShop />
+                  </div>
+                  <span>Waste Products</span>
+                </div>
               </div>
-              <span>Waste Products</span>
-            </div>
-          </div>
-          {/* 
+              {/* 
                 <div className="admin-nv-li admin-nv-li-dashbrd">
             <div
               onClick={() => {
@@ -696,418 +700,386 @@ const FrenchiesPanel = () => {
               <span>Bid</span>
             </div>
             </div> */}
-          <div className="admin-nv-li admin-nv-li-dashbrd">
-            <div
-              onClick={() => {
-                handleViewComp("tnx");
-              }}
-              // className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
-              className={
-                component === "tnx"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="u-prf-tab-icon a-nv-i">
-                <i class="fa-solid fa-wallet"></i>
+              <div className="admin-nv-li admin-nv-li-dashbrd">
+                <div
+                  onClick={() => {
+                    handleViewComp("tnx");
+                  }}
+                  // className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
+                  className={
+                    component === "tnx"
+                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn admin-nv-btn2"
+                  }
+                >
+                  <div className="u-prf-tab-icon a-nv-i">
+                    <i class="fa-solid fa-wallet"></i>
+                  </div>
+                  <span>My Transactions</span>
+                </div>
               </div>
-              <span>My Transactions</span>
-            </div>
-          </div>
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(9)}
-              className={getButtonClassName(9)}
-            >
-              <div className="a-nv-i">
-                <CiShop />
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => handleButtonClick(9)}
+                  className={getButtonClassName(9)}
+                >
+                  <div className="a-nv-i">
+                    <CiShop />
+                  </div>
+                  <span> Subscriptions</span>
+                </div>
+
+                <div className={getButonClasnameTwo(9)}>
+                  <li
+                    onClick={() => handleViewComp("subsplan")}
+                    className={
+                      component === "subsplan"
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#">My Plans </NavLink>{" "}
+                  </li>
+
+                  <li
+                    onClick={() => handleViewComp("subscriptionplan")}
+                    className={
+                      component === "subscriptionplan"
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> Subscriptions </NavLink>{" "}
+                  </li>
+                </div>
               </div>
-              <span> Subscriptions</span>
-            </div>
 
-            <div className={getButonClasnameTwo(9)}>
-              <li
-                onClick={() => handleViewComp("subsplan")}
-                className={
-                  component === "subsplan"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">My Plans </NavLink>{" "}
-              </li>
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => handleButtonClick(20)}
+                  className={getButtonClassName(20)}
+                >
+                  <div className="a-nv-i">
+                    <CiShop />
+                  </div>
+                  <span> Manage Waste</span>
+                </div>
 
-              <li
-                onClick={() => handleViewComp("subscriptionplan")}
-                className={
-                  component === "subscriptionplan"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> Subscriptions </NavLink>{" "}
-              </li>
-            </div>
-          </div>
+                <div className={getButonClasnameTwo(20)}>
+                  <li
+                    onClick={() => handleViewComp("wastepickup")}
+                    className={
+                      component === "wastepickup"
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#">All Waste Pickups </NavLink>{" "}
+                  </li>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(20)}
-              className={getButtonClassName(20)}
-            >
-              <div className="a-nv-i">
-                <CiShop />
+                  <li
+                    onClick={() => handleViewComp("curentwaste")}
+                    className={
+                      component === "curentwaste"
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> Current Waste </NavLink>{" "}
+                  </li>
+                </div>
               </div>
-              <span> Manage Waste</span>
-            </div>
 
-            <div className={getButonClasnameTwo(20)}>
-              <li
-                onClick={() => handleViewComp("wastepickup")}
-                className={
-                  component === "wastepickup"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">All Waste Pickups </NavLink>{" "}
-              </li>
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => handleButtonClick(17)}
+                  className={getButtonClassName(17)}
+                >
+                  <div className="a-nv-i">
+                    <CiShop />
+                  </div>
+                  <span> Bid</span>
+                </div>
 
-              <li
-                onClick={() => handleViewComp("curentwaste")}
-                className={
-                  component === "curentwaste"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> Current Waste </NavLink>{" "}
-              </li>
-            </div>
-          </div>
+                <div className={getButonClasnameTwo(17)}>
+                  <li
+                    // onClick={() => handleViewComp("subsplan")}
+                    onClick={() => handleViewComp("bid")}
+                    className={
+                      component === "bid"
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#">Bid Products </NavLink>{" "}
+                  </li>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(17)}
-              className={getButtonClassName(17)}
-            >
-              <div className="a-nv-i">
-                <CiShop />
+                  <li
+                    onClick={() => handleViewComp("")}
+                    className={
+                      component === ""
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> My Bid Listing </NavLink>{" "}
+                  </li>
+
+                  <li
+                    onClick={() => handleViewComp("")}
+                    className={
+                      component === ""
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> Bid Completed </NavLink>{" "}
+                  </li>
+                </div>
               </div>
-              <span> Bid</span>
-            </div>
 
-            <div className={getButonClasnameTwo(17)}>
-              <li
-                // onClick={() => handleViewComp("subsplan")}
-                onClick={() => handleViewComp("bid")}
-                className={
-                  component === "bid"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Bid Products </NavLink>{" "}
-              </li>
+              <div className="admin-nv-li">
+                <div
+                  onClick={() => handleButtonClick(5)}
+                  className={getButtonClassName(5)}
+                >
+                  <div className="a-nv-i">
+                    <TbTruckDelivery />
+                  </div>
+                  <span>Orders</span>
+                </div>
 
-              <li
-                onClick={() => handleViewComp("bidlisting")}
-                className={
-                  component === "bidlisting"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> My Bid Listing </NavLink>{" "}
-              </li>
-
-            
-            </div>
-          </div>
-
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(5)}
-              className={getButtonClassName(5)}
-            >
-              <div className="a-nv-i">
-                <TbTruckDelivery />
+                <li
+                  onClick={() => handleViewComp("bidlisting")}
+                  className={
+                    component === "bidlisting"
+                      ? "page-link-btn pagelinkactive"
+                      : "page-link-btn"
+                  }
+                >
+                  {" "}
+                  <NavLink to="#"> My Bid Listing </NavLink>{" "}
+                </li>
               </div>
-              <span>Orders</span>
             </div>
 
-            <div className={getButonClasnameTwo(5)}>
-              <li
-                onClick={() => {
-                  handleViewComp("orders"), setOrderActive(Orders);
-                }}
-                className={
-                  component === "orders"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
+            <div className="admin-nv-li">
+              <div
+                onClick={() => handleButtonClick(5)}
+                className={getButtonClassName(5)}
               >
-                {" "}
-                <NavLink to="#">All Orders</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterTwo("underprocess")}
-                className={
-                  orderActive === "underprocess"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Under Process</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterTwo("readyship")}
-                className={
-                  orderTab === "readyship"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Ready to Ship </NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterTwo("shipped")}
-                className={
-                  orderTab === "shipped"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Shipment</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterTwo("delivered")}
-                className={
-                  orderTab === "delivered"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Delivered</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleFilterTwo("return")}
-                className={
-                  orderTab === "return"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Return</NavLink>{" "}
-              </li>
-            </div>
-          </div>
+                <div className="a-nv-i">
+                  <TbTruckDelivery />
+                </div>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => {
-                handleViewComp("reviews");
-              }}
-              className={
-                component === "reviews"
-                  ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                  : "admin-nv-btn admin-nv-btn2"
-              }
-            >
-              <div className="a-nv-i">
-                <FaWpforms />
-              </div>
-              <span>Reviews</span>
-            </div>
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => {
+                      handleViewComp("reviews");
+                    }}
+                    className={
+                      component === "reviews"
+                        ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                        : "admin-nv-btn admin-nv-btn2"
+                    }
+                  >
+                    <div className="a-nv-i">
+                      <FaWpforms />
+                    </div>
+                    <span>Reviews</span>
+                  </div>
 
-            <div className={getButonClasnameTwo(6)}>
-              {/* <li> <NavLink to="#">Profile</NavLink> </li>
+                  <div className={getButonClasnameTwo(6)}>
+                    {/* <li> <NavLink to="#">Profile</NavLink> </li>
                     <li> <NavLink to="#">Post Details</NavLink> </li>
                     <li> <NavLink to="#">Email </NavLink> </li>
                     <li> <NavLink to="#">Calendar</NavLink> </li>
                     <li> <NavLink to="#">Shop</NavLink> </li> */}
-            </div>
-          </div>
+                  </div>
+                </div>
 
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(8)}
-              className={getButtonClassName(8)}
-            >
-              <div className="a-nv-i">
-                <FaPagelines />
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => handleButtonClick(8)}
+                    className={getButtonClassName(8)}
+                  >
+                    <div className="a-nv-i">
+                      <FaPagelines />
+                    </div>
+                    <span>Pages</span>
+                  </div>
+
+                  <div className={getButonClasnameTwo(8)}>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Profile</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Post Details</NavLink>{" "}
+                    </li>
+                    <li
+                      onClick={() => handleViewComp("login")}
+                      className={
+                        component === "login"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
+                      {" "}
+                      <NavLink to="#">Log-in </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Calendar</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Shop</NavLink>{" "}
+                    </li>
+                  </div>
+                </div>
+
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => handleButtonClick(7)}
+                    className={getButtonClassName(7)}
+                  >
+                    <div className="a-nv-i">
+                      <MdOutlineContactSupport />
+                    </div>
+                    <span>Support</span>
+                  </div>
+
+                  <div className={getButonClasnameTwo(7)}>
+                    <li>
+                      {" "}
+                      <NavLink to="#">All Tickets</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Pending Tickets</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Close Tickets </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Processing Tickets</NavLink>{" "}
+                    </li>
+                  </div>
+                </div>
               </div>
-              <span>Pages</span>
             </div>
+          </section>
 
-            <div className={getButonClasnameTwo(8)}>
-              <li>
-                {" "}
-                <NavLink to="#">Profile</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Post Details</NavLink>{" "}
-              </li>
-              <li
-                onClick={() => handleViewComp("login")}
-                className={
-                  component === "login"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">Log-in </NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Calendar</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Shop</NavLink>{" "}
-              </li>
-            </div>
-          </div>
-
-          <div className="admin-nv-li">
-            <div
-              onClick={() => handleButtonClick(7)}
-              className={getButtonClassName(7)}
-            >
-              <div className="a-nv-i">
-                <MdOutlineContactSupport />
-              </div>
-              <span>Support</span>
-            </div>
-
-            <div className={getButonClasnameTwo(7)}>
-              <li>
-                {" "}
-                <NavLink to="#">All Tickets</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Pending Tickets</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Close Tickets </NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">Processing Tickets</NavLink>{" "}
-              </li>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ____________________ 
+          {/* ____________________ 
     our first component  */}
 
-      <section
-        className={
-          sideAdminNav
-            ? "right-side-admin-all-comp rightsideActive"
-            : "right-side-admin-all-comp"
-        }
-      >
-        {component === "dashboard" ? (
-          <FrenchCard
-            appoinments={todayAppoinments}
-            appoinmentData={appoinmentData}
-          />
-        ) : null}
+          <section
+            className={
+              sideAdminNav
+                ? "right-side-admin-all-comp rightsideActive"
+                : "right-side-admin-all-comp"
+            }
+          >
+            {component === "dashboard" ? (
+              <FrenchCard
+                appoinments={todayAppoinments}
+                appoinmentData={appoinmentData}
+              />
+            ) : null}
 
-        {component === "dashboard" ? (
-          <Frenchgraph
-            appoinments={todayAppoinments}
-            appoinmentData={appoinmentData}
-            onclickRedirectAllAppointment={() => handleViewComp("appointments")}
-            todayData={apntData}
-          />
-        ) : null}
+            {component === "dashboard" ? (
+              <Frenchgraph
+                appoinments={todayAppoinments}
+                appoinmentData={appoinmentData}
+                onclickRedirectAllAppointment={() =>
+                  handleViewComp("appointments")
+                }
+                todayData={apntData}
+              />
+            ) : null}
 
-        {component === "dashboard" ? <FrenchReview /> : null}
+            {component === "dashboard" ? <FrenchReview /> : null}
 
-        {component === "frenchwastecolect" ? (
-          <FrenchWasteColect updatedWasteColectData={userFiltData} />
-        ) : null}
-        {component === "appointments" ? (
-          <FrenchAppointments
-            appoinments={appoinments}
-            refetchAppoinment={refetch}
-          />
-        ) : null}
+            {component === "frenchwastecolect" ? (
+              <FrenchWasteColect updatedWasteColectData={userFiltData} />
+            ) : null}
+            {component === "appointments" ? (
+              <FrenchAppointments
+                appoinments={appoinments}
+                refetchAppoinment={refetch}
+              />
+            ) : null}
 
-        {component === "orders" ? (
-          <AdminOrder orderUpdatedData={orderActive} />
-        ) : null}
+            {component === "orders" ? (
+              <AdminOrder orderUpdatedData={orderActive} />
+            ) : null}
 
-        {component === "frenchies" ? <Frienchies /> : null}
-        {component === "wastecolectr" ? <Wastecolect /> : null}
-        {component === "subscriptionplan" ? (
-          <FrenchSubscriptionPlanTwo
-            component="franchise"
-            onclickRedirect={() => handleViewComp("subsplan")}
-          />
-        ) : null}
+            {component === "frenchies" ? <Frienchies /> : null}
+            {component === "wastecolectr" ? <Wastecolect /> : null}
+            {component === "subscriptionplan" ? (
+              <FrenchSubscriptionPlanTwo
+                component="franchise"
+                onclickRedirect={() => handleViewComp("subsplan")}
+              />
+            ) : null}
 
-        {component === "frenchiesprofile" ? <FrenchiesProfile /> : null}
+            {component === "frenchiesprofile" ? <FrenchiesProfile /> : null}
 
-        {component === "addworkarea" ? <AddWorkArea /> : null}
-        {component === "addsubscription" ? <Addsubscription /> : null}
+            {component === "addworkarea" ? <AddWorkArea /> : null}
+            {component === "addsubscription" ? <Addsubscription /> : null}
 
-        {component === "buywaste" ? <BuyWasteComp /> : null}
+            {component === "buywaste" ? <BuyWasteComp /> : null}
 
-        {component === "viewhistory" ? <ViewHistory /> : null}
-        {component === "wasteproduct" ? (
-          <WasteProduct component="franchise" />
-        ) : null}
-        {component === "subsplan" ? (
-          <FrenchiesSubsPlan
-            onclickRedirect={() => handleViewComp("subscriptionplan")}
-          />
-        ) : null}
-        {component === "tnx" ? <WasteWallet component="franchise" /> : null}
+            {component === "viewhistory" ? <ViewHistory /> : null}
+            {component === "wasteproduct" ? (
+              <WasteProduct component="franchise" />
+            ) : null}
+            {component === "subsplan" ? (
+              <FrenchiesSubsPlan
+                onclickRedirect={() => handleViewComp("subscriptionplan")}
+              />
+            ) : null}
+            {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-        {component === "bid" ? (
-          <Bidcomp
-            onClickCreatePost={() => setComponent("createbidpost")}
-            onClickDetPage={() => setComponent("bidproddet")}
-          />
-        ) : null}
-        {component === "bidproddet" ? (
-          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null}
-        {component === "createbidpost" ? <CreateBidPost /> : null}
-        {component === "bidlisting" ? <BidListing   onClickCreatePost={() => setComponent("createbidpost")} /> : null}
+            {component === "bid" ? (
+              <Bidcomp
+                onClickCreatePost={() => setComponent("createbidpost")}
+                onClickDetPage={() => setComponent("bidproddet")}
+              />
+            ) : null}
+            {component === "bidproddet" ? (
+              <BidProductDetail
+                onClickDetPage={() => setComponent("bidproddet")}
+              />
+            ) : null}
+            {component === "createbidpost" ? <CreateBidPost /> : null}
+            {component === "bidlisting" ? (
+              <BidListing
+                onClickCreatePost={() => setComponent("createbidpost")}
+              />
+            ) : null}
 
-
-        {/* {component === "bid" ? (
+            {/* {component === "bid" ? (
           <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
         ) : null} */}
-        {/* {component === "bidproddet" ? (
+            {/* {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
         ) : null} */}
-         {component === "wastepickup" ? (
-          <FrenchiesWastePcikup />
-        ) : null}
-      </section>
-
+            {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
+          </section>
+        </>
+      )}
       {buyWasteBx ? (
         <BuyWastePOpup
           buyWaste={buyWasteBx}

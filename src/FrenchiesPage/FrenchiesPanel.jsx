@@ -819,21 +819,31 @@ const FrenchiesPanel = () => {
                     <NavLink to="#">Bid Products </NavLink>{" "}
                   </li>
 
-              <li
-                onClick={() => handleViewComp("bidlisting")}
-                className={
-                  component === "bidlisting"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#"> My Bid Listing </NavLink>{" "}
-              </li>
+                  <li
+                    onClick={() => handleViewComp("")}
+                    className={
+                      component === ""
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> My Bid Listing </NavLink>{" "}
+                  </li>
 
-            
-            </div>
-          </div>
+                  <li
+                    onClick={() => handleViewComp("")}
+                    className={
+                      component === ""
+                        ? "page-link-btn pagelinkactive"
+                        : "page-link-btn"
+                    }
+                  >
+                    {" "}
+                    <NavLink to="#"> Bid Completed </NavLink>{" "}
+                  </li>
+                </div>
+              </div>
 
               <div className="admin-nv-li">
                 <div
@@ -846,174 +856,126 @@ const FrenchiesPanel = () => {
                   <span>Orders</span>
                 </div>
 
-                <div className={getButonClasnameTwo(5)}>
-                  <li
-                    onClick={() => {
-                      handleViewComp("orders"), setOrderActive(Orders);
-                    }}
-                    className={
-                      component === "orders"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">All Orders</NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleFilterTwo("underprocess")}
-                    className={
-                      orderActive === "underprocess"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">Under Process</NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleFilterTwo("readyship")}
-                    className={
-                      orderTab === "readyship"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">Ready to Ship </NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleFilterTwo("shipped")}
-                    className={
-                      orderTab === "shipped"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">Shipment</NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleFilterTwo("delivered")}
-                    className={
-                      orderTab === "delivered"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">Delivered</NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleFilterTwo("return")}
-                    className={
-                      orderTab === "return"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
-                  >
-                    {" "}
-                    <NavLink to="#">Return</NavLink>{" "}
-                  </li>
-                </div>
-              </div>
-
-              <div className="admin-nv-li">
-                <div
-                  onClick={() => {
-                    handleViewComp("reviews");
-                  }}
+                <li
+                  onClick={() => handleViewComp("bidlisting")}
                   className={
-                    component === "reviews"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                    component === "bidlisting"
+                      ? "page-link-btn pagelinkactive"
+                      : "page-link-btn"
                   }
                 >
-                  <div className="a-nv-i">
-                    <FaWpforms />
-                  </div>
-                  <span>Reviews</span>
+                  {" "}
+                  <NavLink to="#"> My Bid Listing </NavLink>{" "}
+                </li>
+              </div>
+            </div>
+
+            <div className="admin-nv-li">
+              <div
+                onClick={() => handleButtonClick(5)}
+                className={getButtonClassName(5)}
+              >
+                <div className="a-nv-i">
+                  <TbTruckDelivery />
                 </div>
 
-                <div className={getButonClasnameTwo(6)}>
-                  {/* <li> <NavLink to="#">Profile</NavLink> </li>
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => {
+                      handleViewComp("reviews");
+                    }}
+                    className={
+                      component === "reviews"
+                        ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
+                        : "admin-nv-btn admin-nv-btn2"
+                    }
+                  >
+                    <div className="a-nv-i">
+                      <FaWpforms />
+                    </div>
+                    <span>Reviews</span>
+                  </div>
+
+                  <div className={getButonClasnameTwo(6)}>
+                    {/* <li> <NavLink to="#">Profile</NavLink> </li>
                     <li> <NavLink to="#">Post Details</NavLink> </li>
                     <li> <NavLink to="#">Email </NavLink> </li>
                     <li> <NavLink to="#">Calendar</NavLink> </li>
                     <li> <NavLink to="#">Shop</NavLink> </li> */}
-                </div>
-              </div>
-
-              <div className="admin-nv-li">
-                <div
-                  onClick={() => handleButtonClick(8)}
-                  className={getButtonClassName(8)}
-                >
-                  <div className="a-nv-i">
-                    <FaPagelines />
                   </div>
-                  <span>Pages</span>
                 </div>
 
-                <div className={getButonClasnameTwo(8)}>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Profile</NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Post Details</NavLink>{" "}
-                  </li>
-                  <li
-                    onClick={() => handleViewComp("login")}
-                    className={
-                      component === "login"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
-                    }
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => handleButtonClick(8)}
+                    className={getButtonClassName(8)}
                   >
-                    {" "}
-                    <NavLink to="#">Log-in </NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Calendar</NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Shop</NavLink>{" "}
-                  </li>
-                </div>
-              </div>
-
-              <div className="admin-nv-li">
-                <div
-                  onClick={() => handleButtonClick(7)}
-                  className={getButtonClassName(7)}
-                >
-                  <div className="a-nv-i">
-                    <MdOutlineContactSupport />
+                    <div className="a-nv-i">
+                      <FaPagelines />
+                    </div>
+                    <span>Pages</span>
                   </div>
-                  <span>Support</span>
+
+                  <div className={getButonClasnameTwo(8)}>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Profile</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Post Details</NavLink>{" "}
+                    </li>
+                    <li
+                      onClick={() => handleViewComp("login")}
+                      className={
+                        component === "login"
+                          ? "page-link-btn pagelinkactive"
+                          : "page-link-btn"
+                      }
+                    >
+                      {" "}
+                      <NavLink to="#">Log-in </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Calendar</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Shop</NavLink>{" "}
+                    </li>
+                  </div>
                 </div>
 
-                <div className={getButonClasnameTwo(7)}>
-                  <li>
-                    {" "}
-                    <NavLink to="#">All Tickets</NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Pending Tickets</NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Close Tickets </NavLink>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <NavLink to="#">Processing Tickets</NavLink>{" "}
-                  </li>
+                <div className="admin-nv-li">
+                  <div
+                    onClick={() => handleButtonClick(7)}
+                    className={getButtonClassName(7)}
+                  >
+                    <div className="a-nv-i">
+                      <MdOutlineContactSupport />
+                    </div>
+                    <span>Support</span>
+                  </div>
+
+                  <div className={getButonClasnameTwo(7)}>
+                    <li>
+                      {" "}
+                      <NavLink to="#">All Tickets</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Pending Tickets</NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Close Tickets </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink to="#">Processing Tickets</NavLink>{" "}
+                    </li>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1090,30 +1052,34 @@ const FrenchiesPanel = () => {
             ) : null}
             {component === "tnx" ? <WasteWallet component="franchise" /> : null}
 
-        {component === "bid" ? (
-          <Bidcomp
-            onClickCreatePost={() => setComponent("createbidpost")}
-            onClickDetPage={() => setComponent("bidproddet")}
-          />
-        ) : null}
-        {component === "bidproddet" ? (
-          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null}
-        {component === "createbidpost" ? <CreateBidPost /> : null}
-        {component === "bidlisting" ? <BidListing   onClickCreatePost={() => setComponent("createbidpost")} /> : null}
+            {component === "bid" ? (
+              <Bidcomp
+                onClickCreatePost={() => setComponent("createbidpost")}
+                onClickDetPage={() => setComponent("bidproddet")}
+              />
+            ) : null}
+            {component === "bidproddet" ? (
+              <BidProductDetail
+                onClickDetPage={() => setComponent("bidproddet")}
+              />
+            ) : null}
+            {component === "createbidpost" ? <CreateBidPost /> : null}
+            {component === "bidlisting" ? (
+              <BidListing
+                onClickCreatePost={() => setComponent("createbidpost")}
+              />
+            ) : null}
 
-
-        {/* {component === "bid" ? (
+            {/* {component === "bid" ? (
           <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
         ) : null} */}
-        {/* {component === "bidproddet" ? (
+            {/* {component === "bidproddet" ? (
           <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
         ) : null} */}
-         {component === "wastepickup" ? (
-          <FrenchiesWastePcikup />
-        ) : null}
-      </section>
-
+            {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
+          </section>
+        </>
+      )}
       {buyWasteBx ? (
         <BuyWastePOpup
           buyWaste={buyWasteBx}

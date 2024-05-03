@@ -10,6 +10,7 @@ import WorkCapacity from "./WorkCapacity";
 import { franchiseWorkerFetch } from "../apis/franchise/workers";
 import { useQuery } from "@tanstack/react-query";
 import { kabadPeUserIdMapper } from "../lib/array";
+import AssignArea from "./AssignArea";
 const FrenchWasteColect = ({ updatedWasteColectData }) => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
@@ -17,6 +18,8 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
   const [wasteViewData, setWasteViewData] = useState(false);
   const [transctn, setTransctn] = useState(false);
   const [selectedWorker, setSelectedWorker] = useState();
+  const [vwArea, setVwArea] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({});
   const subsDataClose = () => {
     setWasteDataBox(false);
   };
@@ -117,7 +120,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
 
               <tbody>
                 {!workers?.error
-                  ? kabadPeUserIdMapper(workers,"KPW")?.map(
+                  ? kabadPeUserIdMapper(workers, "KPW")?.map(
                       (
                         {
                           accountStatus,
@@ -186,7 +189,33 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                                 <span> {pincode} </span>
                               </td>
 
-                              <td>
+                              <td
+                                style={{
+                                  display: "flex",
+                                  gap: "6px",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <button
+                                  onClick={() => {
+                                    setSelectedUser({
+                                      accountStatus,
+                                      ariaName,
+                                      email,
+                                      fullname,
+                                      id,
+                                      phoneNumber,
+                                      pincode,
+                                      profileImage,
+                                      hashId,
+                                      ...rest,
+                                    });
+                                    setVwArea(true);
+                                  }}
+                                  className="work-area-btn"
+                                >
+                                  Assign Areas
+                                </button>
                                 <div
                                   onClick={() => {
                                     setSelectedWorker({
@@ -246,6 +275,13 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
       ) : null}
 
       {transctn ? <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
+      {vwArea ? (
+        <AssignArea
+        refetch={refetch}
+          user={selectedUser}
+          onclickCloseBx={() => setVwArea(false)}
+        />
+      ) : null}
     </>
   );
 };

@@ -25,3 +25,20 @@ export const franchiseWorkersForAppoinmentFetch = resolvePromise(
     return res?.workers;
   }
 );
+
+export const franchiseWorkersAssignArea = resolvePromise(
+  async ({ id, assignedAreas }) => {
+    const apiUrl = ENV_API_BASE_URL + `/franchise/assignarea/worker/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { assignedAreas },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.workers;
+  }
+);

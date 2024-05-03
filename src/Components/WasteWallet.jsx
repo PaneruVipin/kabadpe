@@ -191,25 +191,29 @@ const WasteWallet = ({ component = "worker" }) => {
           <h6>Transactions </h6>
 
           <div className="right-wallet-box">
-            <button
-              // onClick={
-              //   () => setAddAmount(true)
-              // }
-              className="tranfer-btn add-money-btn"
-            >
-              Add Money
-              <span>Coming Soon</span>
-            </button>
+            {userInfo?.role !== "KabadCollector" && !userInfo?.franchiseId ? (
+              <>
+                <button
+                  // onClick={
+                  //   () => setAddAmount(true)
+                  // }
+                  className="tranfer-btn add-money-btn"
+                >
+                  Add Money
+                  <span>Coming Soon</span>
+                </button>
 
-            <button onClick={() => setOtp(true)} className="tranfer-btn">
-              Withdraw Now
-            </button>
-            <button
-              onClick={() => setWaletCredit(true)}
-              className="tranfer-btn tranfer-btn23 add-money-btn"
-            >
-              Transfer Amount
-            </button>
+                <button onClick={() => setOtp(true)} className="tranfer-btn">
+                  Withdraw Now
+                </button>
+                <button
+                  onClick={() => setWaletCredit(true)}
+                  className="tranfer-btn tranfer-btn23 add-money-btn"
+                >
+                  Transfer Amount
+                </button>
+              </>
+            ) : null}
             <div className="total-walet-main">
               <div className="refrl-balance-box">
                 <p>Balance Eco Coins</p>

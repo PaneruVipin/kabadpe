@@ -19,6 +19,11 @@ const BidProductData = ({ bidData ,onClickRedirect }) => {
                     <span className="pert"> {curData.pertext} </span>
                     </div>
                 </div>
+
+                <button onClick={onClickRedirect} className="bid-btn bid-btn32">
+                  Details
+                </button>
+                
               </div>
             </>
           );

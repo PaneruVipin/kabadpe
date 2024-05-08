@@ -11,9 +11,6 @@ import {
 } from "../apis/worker/manageWaste";
 
 const AdminManageWaste = () => {
-  const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-  const [endDate, setEndDate] = useState(new Date("2014/02/10"));
-  const [stock, setStock] = useState(stockData);
   const [waste, setWaste] = useState([]);
   const { data: wasteData, refetch } = useQuery({
     queryKey: ["adminfetcwasteData"],
@@ -37,7 +34,6 @@ const AdminManageWaste = () => {
             const exist = newData?.find(
               ({ id, productId: id2 }) => id == name || id2 == productId
             );
-            console.log("this is a name and productId", name, productId, exist);
             let newObj = {
               id: name,
               productId,

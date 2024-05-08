@@ -199,7 +199,7 @@ const FrenchiesPanel = () => {
   return (
     <>
       <Redirect role="franchiseAdmin" path="/frenchieslogin" />
-      {userInfo && userInfo?.franchiseStatus != "approve" ? (
+      {userInfo && userInfo?.franchiseStatus != "active" ? (
         <Thanks show={true} />
       ) : (
         <>

@@ -23,7 +23,7 @@ const UseProfRightbx = () => {
 
   return (
     <>
-      <section className="user-prf-parent-soc-post-chat-gpt-bx">
+    {/* {  <section className="user-prf-parent-soc-post-chat-gpt-bx">
         <section className="user-prof-right-main-bx">
           <div className="chat-message-btn-flex-bx">
             <div className="soc-logo">
@@ -75,7 +75,7 @@ const UseProfRightbx = () => {
         >
           <Socialpost onclickShowSocPost={() => setSocPostOne(true)} />
         </div>
-      </section>
+      </section>} */}
 
       {socPostOne === true ? (
         <CenterSocialPost onClickCloseSocPost={() => setSocPostOne(false)} />

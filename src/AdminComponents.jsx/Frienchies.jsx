@@ -9,7 +9,7 @@ import {
   adminFranchiseStatusUpdate,
   adminGetFranchises,
 } from "../apis/admins/users";
-import { kabadPeUserIdMapper, search } from "../lib/array";
+import { filteredData, kabadPeUserIdMapper, search } from "../lib/array";
 
 const Frienchies = () => {
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
@@ -19,6 +19,7 @@ const Frienchies = () => {
   const [frenchDet, setFrenchDet] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUser, setSelectedUser] = useState();
+  const [filters, setFilters] = useState([]);
   const frencDetOpen = () => {
     setEditForm(true);
   };
@@ -43,6 +44,27 @@ const Frienchies = () => {
     await adminFranchiseStatusUpdate({ id, status });
     refetch();
   };
+  const handleFilterChange = (e) => {
+    const { name, value } = e?.target;
+    let newFilters = filters.filter(({ id }) => id != name);
+    setFilters(newFilters);
+    if (!value) {
+      return;
+    }
+    let filter;
+    switch (name) {
+      case "status":
+        filter = {
+          id: "status",
+          fn: ({ franchiseStatus }) => franchiseStatus == value,
+        };
+        break;
+      default:
+        break;
+    }
+    newFilters.push(filter);
+    setFilters(newFilters);
+  };
   return (
     <>
       <section className="all-user-data-comp">
@@ -64,12 +86,16 @@ const Frienchies = () => {
               </div>
 
               <div className="user-type-sel-box user-data-search-box">
-                <select name="user-type-data" id="user-type-data">
-                  {/* <option value="1">User</option>
-                        <option value="1">Vendor</option>
-                        <option value="1">Staff (Manager)</option>
-                        <option value="1">Staff (Sales Team)</option>
-                        <option value="1">Staff (Support Team)</option> */}
+                <select
+                  onChange={handleFilterChange}
+                  name="status"
+                  id="user-type-data"
+                >
+                  <option value="">All Status</option>
+                  <option value="inactive">Unverified</option>
+                  <option value="unapprove">Unapproved</option>
+                  <option value="active">Active</option>
+                  <option value="ban">Ban</option>
                 </select>
               </div>
 
@@ -136,15 +162,13 @@ const Frienchies = () => {
 
               <tbody>
                 {!franchise?.error
-                  ? search(kabadPeUserIdMapper(franchise, "KPF"), searchQuery, [
-                      "id",
-                      "companyName",
-                      "fullname",
-                      "franchiseAddress",
-                      "phone",
-                      "email",
-                      "franchiseStatus",
-                    ])?.map(
+                  ? filteredData(
+                      search(
+                        kabadPeUserIdMapper(franchise, "KPF"),
+                        searchQuery
+                      ),
+                      filters
+                    )?.map(
                       (
                         {
                           id,
@@ -204,20 +228,7 @@ const Frienchies = () => {
                               </td> */}
 
                               <td>
-                                <span>
-                                  <select
-                                    // name="franchiseStatus"
-                                    onChange={handleChaneStatus(id)}
-                                    // onBlur={handleBlur}
-                                    defaultValue={franchiseStatus}
-                                    id="subscriptiontype"
-                                  >
-                                    <option value="inactive">Unverified</option>
-                                    <option value="active">Unapproved</option>
-                                    <option value="approve">Approved</option>
-                                    <option value="ban">Ban</option>
-                                  </select>
-                                </span>
+                                <span>{franchiseStatus}</span>
                               </td>
                               {/* <td> <span> {curElem.City} </span> </td>
                               <td> <span> {curElem.Zip} </span> </td> */}

@@ -57,6 +57,9 @@ import Header from "./Components/Header";
 import AboutPage from "./Pages/AboutPage";
 import Clinconnectpage from "./Pages/Clinconnectpage";
 import BidProdDet from "./FrenchiesPage/BidProdDet";
+import Refundpolicy from "./Pages/Refundpolicy";
+import Privacypolicies from "./Pages/Privacypolicies";
+import Termscondition from "./Pages/Termscondition";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -112,6 +115,9 @@ function App() {
         <Route path="/service/recoverymngemt" element={<Material />} />
         <Route path="/climconnect" element={<Clinconnectpage />} />
         <Route path="/bidproductdetail" element={<BidProdDet />} />
+        <Route path="/refundpolicy" element={<Refundpolicy />} />
+        <Route path="/privacypolicy" element={<Privacypolicies />} />
+        <Route path="/termscondition" element={<Termscondition />} />
 
 
 

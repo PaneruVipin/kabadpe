@@ -156,9 +156,9 @@ const UserProfile = () => {
             My Appointments
           </button>
 
-          <button
-            onClick={() => filterTab(8)}
-            className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}
+          {/* <button
+            // onClick={() => filterTab(8)}
+            className={profBtn === 8 ? "u-prf-bx profactive " : "u-prf-bx "}
           >
             <div className="u-prf-tab-icon">
               <i class="fa-solid fa-piggy-bank"></i>
@@ -204,7 +204,7 @@ const UserProfile = () => {
               <i className="fa-solid fa-hands-holding-child"></i>
             </div>
             Support
-          </button>
+          </button> */}
         </div>
 
         <div className="profile-log-out-btn" onClick={logout}>

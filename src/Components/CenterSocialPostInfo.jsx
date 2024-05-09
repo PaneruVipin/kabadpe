@@ -125,7 +125,7 @@ nesciunt nulla natus ex, qui
   return (
     <>
       <div className="social-post-main-bx social-post-main-bx2">
-        <h4>Social Post</h4>
+        <h4>Social Post </h4>
 
         <div className="soc-post-max-height soc-post-max-height2">
           {galleryData.map(

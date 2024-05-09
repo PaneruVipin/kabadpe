@@ -338,6 +338,7 @@ const FrenchEdit = ({
                           id="subscriptiontype"
                         >
                           <option value="inactive">Unverified</option>
+                          <option value="unApprove">Unapproved</option>
                           <option value="active">Active</option>
                           <option value="ban">Ban</option>
                         </select>

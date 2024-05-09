@@ -85,7 +85,7 @@ const MainFooter = () => {
                     <a href="#">Rate calculator</a>
                   </li>
                   <li>
-                    <a href="#">Terms and conditions</a>
+                    <a href="/termscondition">Terms and conditions</a>
                   </li>
                   <li>
                     <a href="#">Site Info</a>
@@ -94,10 +94,10 @@ const MainFooter = () => {
                     <a href="#">Disclaimer</a>
                   </li>
                   <li>
-                    <a href="#">Privacy Policy</a>
+                    <a href="/privacypolicy">Privacy Policy</a>
                   </li>
                   <li>
-                    <a href="#">Terms Of Use</a>
+                    <a href="/refundpolicy">Refund Policies</a>
                   </li>
                   <li>
                     <a href="#">Cookie Policy</a>

@@ -17210,3 +17210,27 @@ video {
   margin-bottom: 0;
   line-height: .5;
 }
+
+.nested-li li{
+  list-style-type: lower-alpha !important;
+}
+
+.nested-li li p:before{
+  display: none ;
+}
+
+.nested-li li{
+  margin-left: 5rem;
+}
+
+.nested-li li p{
+  padding-inline:0;
+  margin-bottom: 0;
+}
+
+.full-text p{
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-align: justify;
+  font-size: 1.2rem;
+}

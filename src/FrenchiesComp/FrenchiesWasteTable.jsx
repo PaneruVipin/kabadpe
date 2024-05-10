@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import ManageWasteData from "../Components/ManageWasteData";
 import { DateTime } from "luxon";
 import { search } from "../lib/array";
 const FrenchiesWasteTable = ({ wasteHistory }) => {
+  const [workerWiseWaste, setWorkerWiseWaste] = useState([]);
   const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   const [endDate, setEndDate] = useState(new Date("2014/02/10"));
   const [searchItem, setSearchItem] = useState("");
@@ -19,50 +20,47 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
   const handleTableActive = (value) => {
     setIsTableActive(value);
   };
-  const getColetionByWorker = () => {
-    if (wasteHistory?.error || !wasteHistory) {
-      return [];
+
+  useEffect(() => {
+    if (!wasteHistory || wasteHistory?.error) {
+      return;
     }
-    const waste = wasteHistory?.collection?.reduce((a, b) => {
+    const workerWiseWaste = wasteHistory?.collection?.reduce((a, b) => {
       let newData = [...a];
+      const exist = newData?.find(
+        (e) => e?.buyerType == b?.buyerType || e?.buyerId == b?.buyerId
+      );
+      newData = newData.filter(
+        (e) => e?.buyerType != exist?.buyerType || e?.buyerId != exist?.buyerId
+      );
+      let waste;
       try {
-        const w = JSON.parse(b?.waste)?.waste;
-        w?.forEach(
-          ({ name, image, price, bulkPrice, ammount, weight, productId }) => {
-            const exist = newData?.find(
-              ({ id, productId: id2 }) => id == name || id2 == productId
-            );
-            let newObj = {
-              id: name,
-              productId,
-              image,
-              price,
-              bulkPrice,
-              ammount: +ammount,
-              weight: +weight,
-            };
-            if (exist) {
-              newObj = {
-                ...exist,
-                ammount: +(exist?.ammount || 0) + +(ammount || 0),
-                weight: +(exist?.weight || 0) + +(weight || 0),
-              };
-              newData = newData?.map((d) => {
-                if (d?.id == name) {
-                  return newObj;
-                } else {
-                  return d;
-                }
-              });
-              return;
-            }
-            newData?.push(newObj);
-          }
-        );
+        waste = JSON.parse(b?.waste)?.waste;
       } catch {}
+      waste = [...(exist?.waste || []), ...waste];
+      waste = waste?.reduce((a, b) => {
+        let newData = [...a];
+        const exist = newData?.find(
+          (e) => b?.name == e?.name || b?.productId == e?.productId
+        );
+        newData = newData.filter(
+          (e) => b?.name != e?.name || b?.productId != e?.productId
+        );
+        const newObj = {
+          ...b,
+          weight: (+b?.weight || 0) + (+exist?.weight || 0),
+          ammount: (+b?.ammount || 0) + (+exist?.ammount || 0),
+        };
+        newData.push(newObj);
+        return newData;
+      }, []);
+      let ammount = (+exist?.ammount || 0) + (+b?.ammount || 0);
+      const newObj = { ...b, waste, ammount };
+      newData.push(newObj);
       return newData;
     }, []);
-  };
+    setWorkerWiseWaste(workerWiseWaste);
+  }, [wasteHistory]);
   return (
     <>
       <div>
@@ -307,66 +305,106 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
                     <th>
                       Value (<i class="fa-solid fa-indian-rupee-sign"></i>)
                     </th>
-
-                    <th>
-                      <span> Newspaper,Magazine,Office Paper (kg) </span>
-                    </th>
-                    <th>
-                      <span> Copy,Books (kg) </span>
-                    </th>
-                    <th>
-                      <span> Cardboard,boxes,packaging Material (kg) </span>
-                    </th>
-                    <th>
-                      <span> PET </span>
-                    </th>
-
-                    <th>
-                      {" "}
-                      <span> LDPE </span>
-                    </th>
-
-                    <th>
-                      {" "}
-                      <span> Aluminium Heavy (kg) </span>
-                    </th>
-                    <th>
-                      {" "}
-                      <span> Monitor Big (piece) </span>
-                    </th>
+                    {!wasteHistory?.error
+                      ? wasteHistory?.products?.map(
+                          ({ id, productName, unit }) => (
+                            <th key={id}>
+                              {productName?.replace(/\b\w/g, function (char) {
+                                return char?.toUpperCase();
+                              })}{" "}
+                              <br /> ({unit})
+                            </th>
+                          )
+                        )
+                      : null}
                     <th>Invoice</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <span>1</span>
-                    </td>
-                    <td>
-                      <span>Aditya Jain</span>
-                    </td>
-                    <td>
-                      <span>10</span>
-                    </td>
-                    <td>
-                      <span>120.00</span>
-                    </td>
+                {search(
+                  workerWiseWaste?.map((w) => {
+                    return {
+                      ...w,
+                      date: DateTime.fromISO(w?.addedOn, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("ccc dd LLL yyyy"),
+                      time: DateTime.fromISO(w?.addedOn, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("hh:mm a"),
+                      u: w?.User?.fullname,
+                      k: w?.KabadCollector?.fullname,
+                      f:
+                        w?.Franchise?.companyName ||
+                        w?.KabadCollector?.Franchise?.companyName,
+                    };
+                  }),
+                  searchItem
+                )?.map(
+                  (
+                    {
+                      addedOn,
+                      ammount,
+                      appoinmentId,
+                      buyerId,
+                      buyerType,
+                      collectionStatus,
+                      id,
+                      paymentMode,
+                      sellerId,
+                      sellerType,
+                      waste,
+                      User,
+                      KabadCollector,
+                      Franchise,
+                      ...rest
+                    },
+                    i
+                  ) => {
+                    const totalWaste = waste?.reduce((a, b) => {
+                      return a + +(b?.weight || 0);
+                    }, 0);
+                    return (
+                      <tbody>
+                        <tr>
+                          <td>
+                            <span>{i + 1}</span>
+                          </td>
+                          <td>
+                            <span>{KabadCollector?.fullname}</span>
+                          </td>
+                          <td>
+                            <span>{totalWaste}</span>
+                          </td>
+                          <td>
+                            <span>{ammount}</span>
+                          </td>
 
-                    <td>10</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>5</td>
-                    <td></td>
-                    <td></td>
-                    <td>7</td>
+                          {!wasteHistory?.error
+                            ? wasteHistory?.products?.map(
+                                ({ id, productName }) => {
+                                  const w = waste?.find(
+                                    ({ productId, name }) =>
+                                      productName == name ||
+                                      id?.includes(productId)
+                                  )?.weight;
+                                  return <td>{w}</td>;
+                                }
+                              )
+                            : null}
 
-                    <td>
-                      <div className="id-dwld-btn text-center-align">
-                        <i class="fa-regular fa-circle-down"></i>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
+                          <td>
+                            <div className="id-dwld-btn text-center-align">
+                              <i class="fa-regular fa-circle-down"></i>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    );
+                  }
+                )}
               </table>
             </div>
           )}

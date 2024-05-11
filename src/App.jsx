@@ -60,7 +60,12 @@ import BidProdDet from "./FrenchiesPage/BidProdDet";
 import Refundpolicy from "./Pages/Refundpolicy";
 import Privacypolicies from "./Pages/Privacypolicies";
 import Termscondition from "./Pages/Termscondition";
+import BidProductDetail from "./FrenchiesComp/BidProductDetail";
+import CreateBidPost from "./FrenchiesComp/CreateBidPost";
+import CreateBidPostPage from "./Pages/CreateBidPostPage";
 function App() {
+  const [component, setComponent] = useState("");
+
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -81,6 +86,10 @@ function App() {
       window.location.reload();
     }
   }, []);
+
+  const handleViewComp = (compName) => {
+    setComponent(compName);
+  };
   return (
     
     <Routes>
@@ -127,9 +136,11 @@ function App() {
 
 
         <Route path="/ratelist" element={<RateList setUserForm={setUserForm} />} />
-        <Route path="/kabadshop" element={<KabadShop />} />
+        <Route path="/kabadshop" element={<KabadShop  />} />
         <Route path="/wastegept" element={<Wastgept />} />
         <Route path="/resetpasswrd" element={<ResetPassword />} />
+        {/* <Route path="/createbidpost" element={<CreateBidPostPage />} /> */}
+
       </Route>
 
       {/* <Route path="/useraccounts" element={<WastecollectorPage />} /> */}
@@ -155,10 +166,16 @@ function App() {
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/blogdet" element={<BlogDet />} />
 
-
+   
       
     </Routes>
+
+
+
+
   );
+
+
 }
 
 export default App;

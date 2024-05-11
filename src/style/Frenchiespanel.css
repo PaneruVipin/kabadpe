@@ -4033,6 +4033,7 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #141b1e;
     font-weight: 700;
     max-width: 20rem;
+    line-height: 1;
 }
 
 .bid-li-info p{
@@ -4047,6 +4048,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .bid-li-info p span{
     color: #0ea5e9;
+}
+
+.bid-li-info h6{
+    line-height: 1;
+    font-weight: 500;
+    font-size: .9rem;
 }
 
 .bid-list-flex-btn{
@@ -4379,4 +4386,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .bider-text span{
     color: #161616 !important;
+}
+
+.bx-span-orangee{
+    background-color: orange ;
+}
+
+.view-bid-btn-orange{
+    border-color: orange;
+    color: orange;
 }

@@ -17243,3 +17243,15 @@ video {
   max-width: 85rem ;
 
 }
+
+.water{
+  color: #007dbc;
+}
+
+.electric{
+  color: #FFA500;
+}
+
+.oil{
+  color: #cdce5a;
+}

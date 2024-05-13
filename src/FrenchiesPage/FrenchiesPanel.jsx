@@ -58,6 +58,7 @@ import FrenchiesWastePcikup from "../FrenchiesComp/FrenchiesWastePcikup";
 import BidListing from "../FrenchiesComp/BidListing";
 import { DateTime } from "luxon";
 import Thanks from "../Components/Popups/Thanks";
+import MyBidComp from "../FrenchiesComp/MyBidComp";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -198,7 +199,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
+      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
       {userInfo && userInfo?.franchiseStatus != "active" ? (
         <Thanks show={true} />
       ) : (
@@ -828,19 +829,19 @@ const FrenchiesPanel = () => {
                     }
                   >
                     {" "}
-                    <NavLink to="#"> My Bid Listing </NavLink>{" "}
+                    <NavLink to="#"> My Listing </NavLink>{" "}
                   </li>
 
                   <li
-                    onClick={() => handleViewComp("")}
+                    onClick={() => handleViewComp("myBid")}
                     className={
-                      component === ""
+                      component === "myBid"
                         ? "page-link-btn pagelinkactive"
                         : "page-link-btn"
                     }
                   >
                     {" "}
-                    <NavLink to="#"> Bid Completed </NavLink>{" "}
+                    <NavLink to="#">My Bid  </NavLink>{" "}
                   </li>
                 </div>
               </div>
@@ -1114,6 +1115,11 @@ const FrenchiesPanel = () => {
             {component === "bidlisting" ? (
               <BidListing
                 onClickCreatePost={() => setComponent("createbidpost")}
+              />
+            ) : null}
+             {component === "myBid" ? (
+              <MyBidComp
+              onClickCreatePost={() => setComponent("createbidpost")}
               />
             ) : null}
 

@@ -17234,3 +17234,24 @@ video {
   text-align: justify;
   font-size: 1.2rem;
 }
+
+.bid-product-listing-comp2{
+  padding-block-start: 3rem;
+}
+
+.bid-product-listing-comp2 .common-container{
+  max-width: 85rem ;
+
+}
+
+.water{
+  color: #007dbc;
+}
+
+.electric{
+  color: #FFA500;
+}
+
+.oil{
+  color: #cdce5a;
+}

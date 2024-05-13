@@ -430,25 +430,25 @@ const Ratelistcomp = ({ setUserForm }) => {
                       <span>{enviournmentSaving?.co2} Kg</span>
                       <p>
                         {" "}
-                        <img src="/images/customImg/CO.png" alt="" /> CO2 Offset
+                        <img src="/images/customImg/co2-cloud.png" alt="" /> CO2 Offset
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.water} Litres</span>
                       <p>
-                        <i class="fa-solid fa-droplet"></i>Water
+                        <i class="fa-solid fa-droplet water"></i>Water
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.electricty} KWh</span>
                       <p>
-                        <i class="fa-solid fa-bolt"></i>Electricity
+                        <i class="fa-solid fa-bolt electric"></i>Electricity
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.oil} Lakhs Litres </span>
                       <p>
-                        <i class="fa-solid fa-bottle-droplet"></i>Oil
+                        <i class="fa-solid fa-bottle-droplet oil"></i>Oil
                       </p>
                     </div>
                   </div>
@@ -457,7 +457,7 @@ const Ratelistcomp = ({ setUserForm }) => {
 
               {totlWaste === false ? (
                 <div className="waste-calcult-bx">
-                  <h4>Waste Calculator</h4>
+                  <h4>Climate Calculator</h4>
                   <div className="product-list-box">
                     <div className=" added-prod-table">
                       <table>

@@ -3240,3 +3240,108 @@ side nav icon Btn on hover show list box
 .banbtn.activebanbtn{
   background-color: #1362fc;
 }
+
+/* ______________________________________
+ admin bid
+ --------------- */
+
+ .admin-bids-comp{
+  position: relative;
+  width: 100%;
+  padding-block: 1rem;
+  padding-inline-end: 1.2rem;
+ }
+
+ .bids-card-grid{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4 , 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+ }
+
+ .admin-bid-filter-flex-bx{
+  position: relative;
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+ }
+
+ .admn-bid-left-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+
+ }
+
+ .admn-bid-right-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+ }
+
+ .all-bid-status-box{
+  width: 10rem !important;
+ }
+
+
+
+ .bid-filt-btns-flex{
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+ }
+
+ .bid-filt-btn{
+  position: relative;
+  width: max-content;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: #3f3f3f;
+ }
+
+ .bid-filt-btn.bidactive{
+  color: #ffa500;
+ }
+
+ .search-prod-btn2{
+  border-color: #ffa500 !important;
+  color: #ffa500 !important;
+ }
+
+ .bid-table table thead tr th{
+  padding-block: 1rem !important;
+ }
+
+ .trnfr-btn{
+  position: relative;
+  width: max-content;
+  padding-block: .2rem;
+  padding-inline: 1.2rem;
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: .1px;
+  color: #fff;
+  background-color: #ffa500;
+  border-radius: .4rem;
+ }
+.bid-popup-bx2{
+  width: 35rem !important;
+}
+ 
+.b-inpt input{
+  text-align: center;
+}

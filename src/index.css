@@ -16437,6 +16437,14 @@ video {
   height: auto;
 }
 
+@media (min-width: 768px) {
+      .navbar-expand-md .navbar-collapse {
+          display: block !important;
+          flex-basis: auto;
+      }
+
+    }
+
 @media all and (min-width: 1024px) and (max-width: 1125px) {
 
   .slide-itm {
@@ -17475,6 +17483,21 @@ video {
   html {
     font-size: 70%;
   }
+/* userprofilenavactive */
+  .user-profile-side-nav-main {
+    transition: 500ms ease;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .user-profile-side-nav-main.userprofilenavactive{
+    transform: translateX(0%);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 
   .buy-waste-table-comp{
     padding-inline-start: 1rem;
@@ -17618,6 +17641,39 @@ video {
     font-size: 68%;
   }
 
+  /* userprofilenavactive */
+  .user-profile-side-nav-main {
+    transition: 500ms ease;
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .user-profile-side-nav-main.userprofilenavactive{
+    transform: translateX(0%);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .user-prof-count-grid-bx{
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 2.5rem;
+  }
+
+  .main-menu{
+    width: 22rem !important;
+  }
+
+  .main-logo-box img{
+    height: auto;
+  }
+
+  .scrollbar-item{
+    min-width: 25rem;
+  }
+
   .waste-manage-prod-grid-main{
     display: flex;
     align-items: center;
@@ -17755,8 +17811,51 @@ video {
   .right-wallet-box,
   .right-fitler-part-box {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1.5rem;
+  }
+
+  .user-prof-form-grid , 
+  .prf-passwrd-form form{
+    
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .appoint-search-supp-btn-flex-bx{
+    flex-direction: column;
+    margin-top: 2rem;
+    gap: 1.5rem;
+  }
+
+  .user-bank-comp , 
+  .prof-passwrd-comp{
+    padding: 1.5rem 1rem 1.5rem 1rem;
+  }
+
+  table thead tr th{
+    min-width: 13rem;
+  }
+
+  table tbody tr td{
+    min-width: 13rem;
+  }
+
+  .search-supp-flex-bx{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+
+  .bank-inpt-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .bank-card-table table thead tr th{
+    font-size: 1rem;
+  }
+
+  .table-card-add-data-btn{
+    font-size: 1rem;
   }
 
   .updte-walet-credit-bx,

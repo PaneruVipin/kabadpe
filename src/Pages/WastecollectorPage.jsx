@@ -2,10 +2,10 @@ import React from "react";
 import UserProfile from "../Components/UserProfile";
 import UserProfGridComp from "../Components/UserProfGridComp";
 
-const WastecollectorPage = () => {
+const WastecollectorPage = ({onProfileNav}) => {
   return (
     <>
-      <UserProfile />
+      <UserProfile onProfileNav={onProfileNav} />
       {/* <UserProfGridComp /> */}
     </>
   );

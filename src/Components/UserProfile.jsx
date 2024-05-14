@@ -19,7 +19,7 @@ import Redirect from "./Auth/RedirectIfLogout";
 import WasteWallet from "./WasteWallet";
 import { hashId } from "../lib/array";
 
-const UserProfile = () => {
+const UserProfile = ({onProfileNav}) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { userInfo: user, loading } = useSelector((s) => s.user);
@@ -71,7 +71,7 @@ const UserProfile = () => {
   return (
     <>
       {/* <Redirect role="user" path="/" /> */}
-      <div className="user-profile-side-nav-main">
+      <div className={ onProfileNav ?  "user-profile-side-nav-main userprofilenavactive" : "user-profile-side-nav-main"}>
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
             {loading ? null : (
@@ -212,6 +212,7 @@ const UserProfile = () => {
           <span>Log Out</span>
         </div>
       </div>
+
       <div
         className={
           profChange
@@ -253,18 +254,18 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      {profBtn === 1 ? <UserProfGridComp /> : null};
-      {profBtn === 2 ? <UserProfForm /> : null};
-      {profBtn === 4 ? <SalesHistoryComp /> : null};
+      {profBtn === 1 ? <UserProfGridComp /> : null}
+      {profBtn === 2 ? <UserProfForm /> : null}
+      {profBtn === 4 ? <SalesHistoryComp /> : null}
       {profBtn === 3 ? (
         <AppointmentComp onSupportClick={() => setProfBtn(6)} />
       ) : null}
-      ;//
-      {profBtn === 6 ? <Supportticket /> : null};
-      {profBtn === 9 ? <UserOrders /> : null};
-      {profBtn === 5 ? <ReferEarn /> : null};
+  
+      {profBtn === 6 ? <Supportticket /> : null}
+      {profBtn === 9 ? <UserOrders /> : null}
+      {profBtn === 5 ? <ReferEarn /> : null}
       {profBtn === 7 ? <WasteWallet component="user" /> : null} {/**MyWallet */}
-      {profBtn === 8 ? <MyOffer /> : null};
+      {profBtn === 8 ? <MyOffer /> : null}
     </>
   );
 };

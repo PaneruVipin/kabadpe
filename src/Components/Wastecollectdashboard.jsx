@@ -37,6 +37,7 @@ const Wastecollectdashboard = ({}) => {
   const [profChange, setProfChange] = useState(false);
   const [buyWasteUserInfo, setBuyWasteUserInfo] = useState({});
   const [wasteNavBtn, setWasteNavBtn] = useState(0);
+  const [sideMenu, setSideMenu] = useState(true);
 
   const filterTab = (index) => {
     setProfBtn(index);
@@ -85,9 +86,17 @@ const Wastecollectdashboard = ({}) => {
         buyWasteUserInfo={buyWasteUserInfo}
         setBuyWasteUserInfo={setBuyWasteUserInfo}
         onclickRedirectBuyWasteTable={() => filterTab(10)}
+        onClickSide={() => setSideMenu(!sideMenu)}
+        onSideMenu={sideMenu}
       />
-      <Redirect role="kabadCollector" path="/auth/collector" />
-      <div className="user-profile-side-nav-main waste-colect-db-side-nav-main">
+     
+      <div
+        className={
+          sideMenu
+            ? "user-profile-side-nav-main waste-colect-db-side-nav-main wastesidenavactive"
+            : "user-profile-side-nav-main waste-colect-db-side-nav-main"
+        }
+      >
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
             <img

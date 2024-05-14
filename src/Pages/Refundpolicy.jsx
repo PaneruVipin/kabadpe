@@ -63,9 +63,16 @@ const Refundpolicy = () => {
 product availability.
                 </p>
               </li>
+           
               </ul>
               
             </li>
+
+            <li>
+                <p>
+                Incase of any dispute, we will refund in 7-14 working days.
+                </p>
+              </li>
 
           
           </div>

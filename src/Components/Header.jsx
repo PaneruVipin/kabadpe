@@ -4,8 +4,11 @@ import { NavLink } from "react-router-dom";
 import Protect from "../Components/Auth/ProtectComp";
 import "../style/HeaderStyle.css";
 import { scrollToSection } from "../lib/scroll";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { HiMenuAlt3 } from "react-icons/hi";
+
 import { logout } from "../lib/logout";
-const Header = ({ userForm, setUserForm }) => {
+const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileNav }) => {
   const [navlink, setNavLink] = useState("");
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);
@@ -75,6 +78,15 @@ const Header = ({ userForm, setUserForm }) => {
                       <img src="/images/customImg/logo.png" alt="" />
                     </NavLink>
                   </div>
+
+                  <button onClick={onClickProfileNavHideShow} className="w-menu-bar-btn profile-nav-bar-btn">
+            {onProfileNav ? <HiMenuAlt3 className="menu-icon" /> :
+            <FaArrowLeftLong className="menu-icon arrow-icon"  />  
+            }
+            </button>
+
+                {/* onClickProfileNavHideShow */}
+                  
                 </div>
               </div>
               <div

@@ -65,6 +65,7 @@ import CreateBidPost from "./FrenchiesComp/CreateBidPost";
 import CreateBidPostPage from "./Pages/CreateBidPostPage";
 function App() {
   const [component, setComponent] = useState("");
+  const [profileNav , setProfileNav] = useState(true);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -95,14 +96,14 @@ function App() {
     <Routes>
       <Route
         path="/"
-        element={<MainOutLet userForm={userForm} setUserForm={setUserForm} />}
+        element={<MainOutLet userForm={userForm} setUserForm={setUserForm} onProfileNav={profileNav} onClickProfileNavHideShow={() => setProfileNav(!profileNav)} />}
       >
         <Route index element={<Home setUserForm={setUserForm} />} />
         <Route path="/frenchies" element={<About />} />
         <Route path="/about" element={<AboutPage />} />
 
         <Route path="/contact" element={<Contact />} />
-        <Route path="/account" element={<WastecollectorPage />} />
+        <Route path="/account" element={<WastecollectorPage onProfileNav={profileNav}   />} />
         <Route path="/service/zero-waste-societies" element={<Zerowastesocieties />} />
         <Route path="/service/waste-sip" element={<WasteSip />} />
         <Route path="/service/Green-life" element={<GreenLife />} />

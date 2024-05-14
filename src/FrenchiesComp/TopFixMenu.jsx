@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { workerPlansFetch } from "../apis/worker/plan";
 import { DateTime } from "luxon";
 import { workerTodayAvailabilityFetch } from "../apis/worker/availability";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { FaArrowLeftLong } from "react-icons/fa6";
 const TopFixMenu = ({
   onclickShowDetail,
   onclickRedirectPage,
@@ -16,12 +18,17 @@ const TopFixMenu = ({
   buyWasteUserInfo,
   setBuyWasteUserInfo,
   setProfBtn,
+  onClickSide,
+  onSideMenu
 }) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday, setActToday] = useState(false);
   const [buyWaste, setBuyWaste] = useState(false);
   const [holiday, setHoliday] = useState(false);
   const [guest, setGuest] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
+  const [mobSearch, setMobSearch] = useState(false);
+
   const { userInfo } = useSelector((s) => s?.user);
   const { data: plans, refetch: refetchPlan } = useQuery({
     queryKey: ["franchisefetcPlans:4"],
@@ -45,6 +52,13 @@ const TopFixMenu = ({
             <h5>
               Hi, <span>{userInfo?.fullname}</span>
             </h5>
+
+            <button onClick={onClickSide} className="w-menu-bar-btn">
+            {onSideMenu ? <HiMenuAlt3 className="menu-icon" /> :
+            <FaArrowLeftLong className="menu-icon arrow-icon"  />  
+            }
+            </button>
+            
           </div>
 
           <div className="right-user-prof-search-flex-bx">
@@ -130,6 +144,24 @@ const TopFixMenu = ({
               <span> Leave Request</span>
             </button>
 
+              <div onClick={() => setSideBar(!sideBar)} className="notif-main-box notif-main-box2">
+            <div
+               
+                className="bell-icon bell-icon2"
+              >
+                <i class="fa-solid fa-bars-staggered"></i>
+              </div>
+              </div>
+
+              <div onClick={() => setMobSearch(!mobSearch)}  className="notif-main-box notif-main-box2">
+            <div 
+               
+                className="bell-icon bell-icon2"
+              >
+               <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              </div>
+
             <div className="notif-main-box">
               <div
                 onClick={() => setNotBox(!notBox)}
@@ -199,8 +231,12 @@ const TopFixMenu = ({
                 </button>
               </div>
             </div>
+            
           </div>
         </div>
+
+     
+        
         {actToday ? (
           <ActiveToday
             refetch={refetch}
@@ -221,7 +257,53 @@ const TopFixMenu = ({
         {guest ? (
           <GuestPopup onclickCloseGuest={() => setGuest(false)} />
         ) : null}
+
+
       </section>
+
+     {mobSearch && (
+      <div className="w-search-bar-main">
+      <div className="search-w-bar-bx">
+            <input type="text" name="search" id="search" placeholder="Search here..." />
+            <div className="w-serch-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+      </div>
+     ) }
+
+      <div className={sideBar ? "side-bar-bx sidebaractive" : "side-bar-bx"}>
+
+<div className="side-bar-list">
+
+    <li  onClick={onclickShowDetail} className="side-bar-item">
+    <i class="fa-regular fa-pen-to-square s-i"></i>
+    <span>Edit Profile</span>
+    </li>
+    <li onClick={() => setActToday(true)}  className="side-bar-item">
+    <i class="fa-regular fa-user"></i>
+    <span>
+                {" "}
+                {todayAvail?.availabilityStatus != "leave"
+                  ? "Active"
+                  : "Not Active"}
+              </span>
+    </li>
+    <li   className="side-bar-item">
+    <i class="fa-solid fa-coins s-i"></i>
+    <span>Sale Waste</span>
+    </li>
+    <li    onClick={() => setBuyWaste(true)} className="side-bar-item">
+    <i class="fa-solid fa-cart-arrow-down s-i"></i>
+    <span>Buy Waste</span>
+    </li>
+    <li  onClick={() => setHoliday(true)} className="side-bar-item">
+    <i class="fa-solid fa-snowman s-i"></i>
+    <span>Leave Request</span>
+    </li>
+</div>
+
+</div>
     </>
   );
 };

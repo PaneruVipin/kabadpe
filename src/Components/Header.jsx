@@ -376,13 +376,47 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
                         onClick={() => setLink("about")}
                         className={
                           link === "about"
-                            ? "aboutdrpdwn nav-li navliactive"
-                            : "aboutdrpdwn nav-li"
+                            ? "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2 navliactive"
+                            : "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"
                         }
                       >
-                        <NavLink to="/about">
+                        <NavLink to="/about" className="dropdown-s-lik">
                           <span>About Us</span>
                         </NavLink>
+
+                        <div className="dropdown-bx-serv dropdown-bx-serv-main">
+                          <li
+                             onClick={() => setLink("about")}
+                            className="drodpwon-s hover-drop"
+                          >
+                            {" "}
+                          
+                            <NavLink to="/about"> About us</NavLink>
+                           
+                          </li>
+
+                          <li
+                            onClick={() => setLink("frenchies")}
+                            className="drodpwon-s hover-drop"
+                          >
+                            {" "}
+                          
+                            <NavLink to="/frenchies"> Franchise</NavLink>
+                           
+                          </li>
+
+                          <li
+                             onClick={() => setLink("contact")}
+                            className="drodpwon-s hover-drop"
+                          >
+                            {" "}
+                          
+                            <NavLink to="/contact"> Contact now</NavLink>
+                           
+                          </li>
+
+                        </div>
+                        
                         <div className="about-drpdwn-bx">
                           <p onClick={() => setLink("about")}>
                             <NavLink to="/about"> About us</NavLink>

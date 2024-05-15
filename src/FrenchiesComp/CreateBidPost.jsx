@@ -1,13 +1,17 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { franchiseBidPost } from "../apis/franchise/bid";
+import { useSelector } from "react-redux";
 
 const CreateBidPost = () => {
   const [images, setImages] = useState([]);
+  const [files, setFiles] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-
+  const user = useSelector((s) => s?.user?.userInfo);
   const handleImageUpload = (event) => {
     const fileList = event.target.files;
+    setFiles((prev) => [...prev, ...fileList]);
     const newImages = [...images];
 
     for (let i = 0; i < fileList.length; i++) {
@@ -16,7 +20,7 @@ const CreateBidPost = () => {
 
       reader.onloadend = () => {
         newImages.push(reader.result);
-        setImages(newImages.slice());
+        setImages(newImages);
       };
 
       if (file) {
@@ -34,7 +38,11 @@ const CreateBidPost = () => {
   const handleCheckBox = () => {
     setIsChecked(!isChecked);
   };
-
+  const initialValues = { unit: "kg" };
+  const handleSubmit = async (data) => {
+    const newData = { ...data, productimages: files };
+    await franchiseBidPost(newData);
+  };
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -45,9 +53,7 @@ const CreateBidPost = () => {
               <span>Create post/Sell post</span>
             </div>
           </div>
-          <Formik
-          // initialValues={initialValues} onSubmit={handleSubmit}
-          >
+          <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({
               handleBlur,
               handleChange,
@@ -65,8 +71,15 @@ const CreateBidPost = () => {
                       <div className="product-det-comn-bx">
                         <div className="prod-det-comn-grid-form-bx">
                           <div className="prod-det-form-bx  prod-det-form-bx2">
-                            <select name="category" id="bidcategory">
-                              <option value="bidcategory">Category</option>
+                            <select
+                              name="category"
+                              id="bidcategory"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.category}
+                            >
+                              <option value="">Choose Category</option>
                               <option value="bidcategory">Category1</option>
                               <option value="bidcategory">Category2</option>
                               <option value="bidcategory">Category3</option>
@@ -75,8 +88,15 @@ const CreateBidPost = () => {
                           </div>
 
                           <div className="prod-det-form-bx  prod-det-form-bx2">
-                            <select name="subCategory" id="bidcategory">
-                              <option value="bidcategory">Sub-category</option>
+                            <select
+                              name="subCategory"
+                              id="bidcategory"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.subCategory}
+                            >
+                              <option value="">Choose Sub-category</option>
                               <option value="bidcategory">Sub-category1</option>
                               <option value="bidcategory">Sub-category2</option>
                               <option value="bidcategory">Sub-category3</option>
@@ -87,8 +107,15 @@ const CreateBidPost = () => {
 
                         <div className="prod-det-comn-grid-form-bx">
                           <div className="prod-det-form-bx  prod-det-form-bx2">
-                            <select name="condition" id="bidcategory">
-                              <option value="bidcategory">Condition</option>
+                            <select
+                              name="condition"
+                              id="bidcategory"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.condition}
+                            >
+                              <option value="">Choose Condition</option>
                               <option value="bidcategory">condition1</option>
                               <option value="bidcategory">condition2</option>
                               <option value="bidcategory">condition3</option>
@@ -100,6 +127,10 @@ const CreateBidPost = () => {
                               type="text"
                               name="productName"
                               id="productname"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.productName}
                               placeholder="Product name"
                             />
                           </div>
@@ -111,6 +142,10 @@ const CreateBidPost = () => {
                             id="desc"
                             cols="30"
                             rows="5"
+                            onChange={handleChange}
+                            required
+                            onBlur={handleBlur}
+                            value={values?.description}
                             placeholder="Product Description"
                           ></textarea>
                         </div>
@@ -125,14 +160,26 @@ const CreateBidPost = () => {
                           <div className="prod-det-form-bx">
                             <input
                               type="number"
+                              onWheel={(e) => e.currentTarget.blur()}
                               name="productQuantity"
                               id="productname"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.productQuantity}
                               placeholder="Product Quantity"
                             />
                           </div>
 
                           <div className="prod-det-form-bx  prod-det-form-bx2">
-                            <select name="unit" id="unit">
+                            <select
+                              name="unit"
+                              id="unit"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.unit}
+                            >
                               <option value="kg">KG</option>
                               <option value="piece">PIECE</option>
                             </select>
@@ -161,24 +208,44 @@ const CreateBidPost = () => {
                               class="form-check-input"
                               type="checkbox"
                               value=""
-                              id="flexCheckDefault"
-                              defaultChecked
+                              onChange={(e) => {
+                                const checked = e.target.checked;
+                                if (checked) {
+                                  handleChange({
+                                    target: {
+                                      value: user?.franchiseAddress,
+                                      name: "companyAddress",
+                                    },
+                                  });
+                                } else {
+                                  handleChange({
+                                    target: {
+                                      value: "",
+                                      name: "companyAddress",
+                                    },
+                                  });
+                                }
+                              }}
                             />
                           </div>
                           <span>Same as company address</span>
                         </div>
 
                         {/* <div className="prod-det-comn-grid-form-bx"> */}
-                          <div className="prod-det-form-bx">
-                            <input
-                              type="test"
-                              name="companyAddress"
-                              id="productname"
-                              placeholder="Company Address"
-                            />
-                          </div>
+                        <div className="prod-det-form-bx">
+                          <input
+                            type="test"
+                            name="companyAddress"
+                            id="productname"
+                            onChange={handleChange}
+                            required
+                            onBlur={handleBlur}
+                            value={values?.companyAddress}
+                            placeholder="Company Address"
+                          />
+                        </div>
 
-                          {/* <div className="prod-det-form-bx  prod-det-form-bx2">
+                        {/* <div className="prod-det-form-bx  prod-det-form-bx2">
                             <select name="unit" id="unit">
                               <option value="unit">KG</option>
                               <option value="unit">PICS</option>
@@ -206,24 +273,36 @@ const CreateBidPost = () => {
                           <div className="prod-det-form-bx prod-det-form-bx-unitprice">
                             <input
                               type="number"
+                              onWheel={(e) => e.currentTarget.blur()}
                               name="price"
                               id="price"
+                              onChange={handleChange}
+                              required
+                              onBlur={handleBlur}
+                              value={values?.price}
                               placeholder="Per unit price"
                             />
                           </div>
 
-                          {isChecked && (
+                          {values.includeGst ? (
                             <div className="prod-det-form-bx  prod-det-form-bx2">
-                              <select name="gstRate" id="unit">
+                              <select
+                                name="gstRate"
+                                id="unit"
+                                onChange={handleChange}
+                                required
+                                onBlur={handleBlur}
+                                value={values?.companyName}
+                              >
                                 <option value="">Choose GST %</option>
-                                <option value="">0</option>
-                                <option value="">5</option>
-                                <option value="">12</option>
-                                <option value="">18</option>
-                                <option value="">28</option>
+                                <option value="0">0</option>
+                                <option value="5">5</option>
+                                <option value="12">12</option>
+                                <option value="18">18</option>
+                                <option value="28">28</option>
                               </select>
                             </div>
-                          )}
+                          ) : null}
                         </div>
 
                         <div className="check-flex-bxx">
@@ -242,12 +321,15 @@ const CreateBidPost = () => {
                           <div className="same-com-add-bx mt-3">
                             <div className="check-bxx">
                               <input
+                                name="includeGst"
                                 class="form-check-input"
-                                checked={isChecked}
-                                onChange={handleCheckBox}
+                                onChange={(e) => {
+                                  values.includeGst = e.target.checked;
+                                  handleChange(e);
+                                }}
+                                onBlur={handleBlur}
+                                checked={values?.includeGst}
                                 type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
                               />
                             </div>
                             <span>GST Included</span>
@@ -258,12 +340,25 @@ const CreateBidPost = () => {
                               <input
                                 class="form-check-input"
                                 type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
+                                onChange={(e) => {
+                                  values.includeTransport = e.target.checked;
+                                  handleChange(e);
+                                }}
+                                onBlur={handleBlur}
+                                checked={values?.includeTransport}
+                                name="includeTransport"
                               />
                             </div>
                             <span>Transportation Support</span>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="left-product-bid-det-bx">
+                      <div className="product-det-comn-bx">
+                        <div className="prod-det-form-bx">
+                          <button type="submit">Save</button>
                         </div>
                       </div>
                     </div>
@@ -319,10 +414,13 @@ const CreateBidPost = () => {
                           {/*  */}
                         </div>
 
-                        {images.map((image, index) => (
+                        {images?.map((image, index) => (
                           <div key={index} className="post_imges">
                             <img src={image} alt={`Image ${index}`} />
-                            <button type="button" onClick={() => handleDeleteImage(index)}>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteImage(index)}
+                            >
                               <ion-icon name="close-outline"></ion-icon>
                             </button>
                           </div>

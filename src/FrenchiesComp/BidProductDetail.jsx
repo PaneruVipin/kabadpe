@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import QuateOfferPopup from "./QuateOfferPopup";
 
-const BidProductDetail = ({ onClickDetPage }) => {
-  const [selectImg, setSelectImg] = useState("/images/customImg/post-1.jpg");
-  const [bidPopup , setBidPopup] = useState(false);
+const BidProductDetail = ({ data, onClickDetPage }) => {
+  const [selectImg, setSelectImg] = useState("");
+  const [bidPopup, setBidPopup] = useState(false);
 
-  const ProdImg = [
-    "/images/customImg/post-1.jpg",
-    "/images/customImg/post-2.jpg",
-    "/images/customImg/post-3.jpg",
-    "/images/customImg/post-4.jpg",
-  ];
+  const ProdImg = JSON.parse(data?.productimage || "[]");
 
   const handleSelectImg = (selectedImg) => {
     setSelectImg(selectedImg);
   };
-
   return (
     <>
       <section className="bid-product-detail-comp">
@@ -31,11 +25,14 @@ const BidProductDetail = ({ onClickDetPage }) => {
           <div className="bid-prod-det-grid-bx">
             <div className="left-bid-prod-img-bx">
               <div className="bid-prod-big-img">
-                <img src={selectImg} alt="prod-img" />
+                <img
+                  src={selectImg || ProdImg?.[0] || "/images/noImg.png"}
+                  alt="prod-img"
+                />
               </div>
 
               <div className="prod-sm-img-grid-bx">
-                {ProdImg.map((curImg) => {
+                {ProdImg?.map((curImg) => {
                   return (
                     <>
                       <div
@@ -57,22 +54,33 @@ const BidProductDetail = ({ onClickDetPage }) => {
 
             <div className="right-bid-prod-det-bx">
               <div className="bid-prod-info">
-                <span>PP Granules</span>
-                <h6>Plastic/Polypropylene </h6>
+                {/* <span>PP Granules</span> */}
+                <h6>{data?.productName} </h6>
 
-                <p> ₹699/kg </p>
+                <p>
+                  {" "}
+                  ₹{data?.pricePerUnit}/{data?.unit}{" "}
+                </p>
                 <div className="prod-id-bx">
-                  <p> 
+                  {/* <p>
                     Product Id: <span>S-24D154</span>{" "}
-                  </p>
+                  </p> */}
                 </div>
 
                 <div className="bid-prod-btn-flex check-flex-bxx">
-                  <button onClick={() => setBidPopup(true)} className="bid-btn">Bid Now</button>
-                  <button className="bid-btn bid-btn2">GST 18%</button>
-                  <button className="bid-btn bid-btn2">
-                    Transportation Included
+                  <button onClick={() => setBidPopup(true)} className="bid-btn">
+                    Bid Now
                   </button>
+                  {data?.includeGst ? (
+                    <button className="bid-btn bid-btn2">
+                      GST Included {data?.gstRate}
+                    </button>
+                  ) : null}
+                  {data?.includeTransport ? (
+                    <button className="bid-btn bid-btn2">
+                      Transportation Included
+                    </button>
+                  ) : null}
                 </div>
               </div>
 
@@ -81,13 +89,13 @@ const BidProductDetail = ({ onClickDetPage }) => {
                   <img src="/images/customImg/cmp-3.jpg" alt="" />
                 </div>
                 <div className="bid-prod-user-det">
-                  <h6>Brand Orbitor</h6>
+                  <h6>{data?.Franchise?.companyName}</h6>
                   <span>Trader</span>
                   <div className="loct-flex">
                     <div className="loct-icon">
                       <i class="fa-solid fa-location-dot"></i>
                     </div>
-                    <span>New Delhi.</span>
+                    <span>{data?.Franchise?.franchiseAddress}</span>
                   </div>
                 </div>
               </div>
@@ -95,37 +103,39 @@ const BidProductDetail = ({ onClickDetPage }) => {
               <div className="prod-des-flex-bx">
                 <div className="des-title">
                   <h6>Description</h6>
-                  <span>Offer 40,000 lbs PP film with PET laminate on rolls available. Ongoing</span>
+                  <span>{data?.description}</span>
                 </div>
 
                 <div className="bid-des-bx">
                   <h5>Category</h5>
-                  <span>Plastic</span>
+                  <span>{data?.category}</span>
                 </div>
                 <div className="bid-des-bx">
                   <h5>Sub-category</h5>
-                  <span>Polypropylene (PP)</span>
+                  <span>{data?.subCategory}</span>
                 </div>
                 <div className="bid-des-bx">
                   <h5>Condition</h5>
-                  <span>Granules</span>
+                  <span>{data?.condition}</span>
                 </div>
                 <div className="bid-des-bx">
                   <h5>Quantity</h5>
-                  <span>1000 KG</span>
+                  <span>
+                    {data?.productQuantity} {data?.unit}
+                  </span>
                 </div>
-                <div className="bid-des-bx">
+                {/* <div className="bid-des-bx">
                   <h5>Minimu Order Quantity</h5>
                   <span>300 KG</span>
-                </div>
-                <div className="bid-des-bx">
+                </div> */}
+                {/* <div className="bid-des-bx">
                   <h5>Supply</h5>
                   <span>One time</span>
-                </div>
-                <div className="bid-des-bx">
+                </div> */}
+                {/* <div className="bid-des-bx">
                   <h5>Pricing terms</h5>
                   <span>-</span>
-                </div>
+                </div> */}
                 <div className="bid-des-bx">
                   <h5>Location</h5>
                   <span>India</span>
@@ -147,9 +157,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -160,9 +168,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -173,9 +179,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -186,9 +190,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -199,9 +201,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
           </div>
         </div>
@@ -218,9 +218,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -231,9 +229,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -244,9 +240,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -257,9 +251,7 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
 
             <div className="bid-prod-bx bid-prod-bx2">
@@ -270,17 +262,13 @@ const BidProductDetail = ({ onClickDetPage }) => {
                 <h6> Bid Product Title </h6>
                 <span> ₹700 </span>
               </div>
-              <button  className="bid-btn bid-btn32">
-                  Details
-                </button>
+              <button className="bid-btn bid-btn32">Details</button>
             </div>
           </div>
         </div>
       </section>
 
-     { bidPopup && ( 
-      <QuateOfferPopup onClickClose={() => setBidPopup(false)}   />
-     )}
+      {bidPopup && <QuateOfferPopup onClickClose={() => setBidPopup(false)} />}
     </>
   );
 };

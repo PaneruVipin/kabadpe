@@ -274,12 +274,12 @@ const CreateBidPost = () => {
                             <input
                               type="number"
                               onWheel={(e) => e.currentTarget.blur()}
-                              name="price"
+                              name="pricePerUnit"
                               id="price"
                               onChange={handleChange}
                               required
                               onBlur={handleBlur}
-                              value={values?.price}
+                              value={values?.pricePerUnit}
                               placeholder="Per unit price"
                             />
                           </div>

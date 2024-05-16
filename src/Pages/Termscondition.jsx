@@ -1,5 +1,6 @@
 import React from "react";
 import ServBanner from "../ServComps/ServBanner";
+import MainFooter from "../HomeComponent/MainFooter";
 
 const Termscondition = () => {
   const data = {
@@ -1155,6 +1156,8 @@ Management Rules
           </div>
         </div>
       </section>
+      
+      <MainFooter />
     </>
   );
 };

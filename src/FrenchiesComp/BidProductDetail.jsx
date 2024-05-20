@@ -268,7 +268,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
         </div>
       </section>
 
-      {bidPopup && <QuateOfferPopup onClickClose={() => setBidPopup(false)} />}
+      {bidPopup && <QuateOfferPopup data={data} onClickClose={() => setBidPopup(false)} />}
     </>
   );
 };

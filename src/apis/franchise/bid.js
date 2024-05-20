@@ -43,3 +43,40 @@ export const franchiseAllListingsFetch = resolvePromise(
     return res?.bids;
   }
 );
+
+export const franchiseBidOffersFetch = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/${id}/offers`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.offers;
+});
+
+export const franchiseBidOfferPost = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/${id}/offer`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.bids;
+});
+
+export const franchiseBidOfferAccept = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/offer/${id}/accept`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

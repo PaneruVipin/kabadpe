@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { franchiseBidOfferPost } from "../apis/franchise/bid";
+import { toast } from "react-toastify";
 
 const QuateOfferPopup = ({ data, onClickClose }) => {
   const [offerData, setOfferData] = useState({});
@@ -16,10 +18,14 @@ const QuateOfferPopup = ({ data, onClickClose }) => {
     : 0;
   const offerTotal = offerSubTotal + offerGst;
   const handleSubmitOffer = async () => {
-    if (!+offerData?.pricePerUnit || +offerData?.productQuantity) {
+    if (!+offerData?.pricePerUnit || !+offerData?.productQuantity) {
       return;
     }
-    
+    const res = await franchiseBidOfferPost({ id: data?.id, ...offerData });
+    if (res?.error) {
+      toast.error(res?.message);
+    }
+    onClickClose();
   };
   return (
     <>

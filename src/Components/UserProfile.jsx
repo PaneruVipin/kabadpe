@@ -70,7 +70,7 @@ const UserProfile = ({onProfileNav}) => {
   }, [location]);
   return (
     <>
-      {/* <Redirect role="user" path="/" /> */}
+      <Redirect role="user" path="/" />
       <div className={ onProfileNav ?  "user-profile-side-nav-main userprofilenavactive" : "user-profile-side-nav-main"}>
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">

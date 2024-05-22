@@ -5,7 +5,7 @@ const QuateOfferPopupTwo = ({onClickClose}) => {
     <>
       <div onClick={onClickClose} className="bid-popup-sec">
         <div onClick={(e) => e.stopPropagation()} className="bid-popup-bx">
-          <h6>Quate your offer</h6>
+          <h6>Quate your offer </h6>
 
           <div className="all-user-table stock-tble mnge-waste-table bid-popup-table mt-3 bid-table">
             <table>

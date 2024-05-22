@@ -1,8 +1,14 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { franchiseBidPost } from "../apis/franchise/bid";
+import {
+  franchiseBidPost,
+  franchiseBidSubCategoriesFetch,
+} from "../apis/franchise/bid";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { catageories } from "../lib/kabadCatageories";
+import { useQuery } from "@tanstack/react-query";
 
 const CreateBidPost = () => {
   const [images, setImages] = useState([]);
@@ -40,9 +46,22 @@ const CreateBidPost = () => {
   };
   const initialValues = { unit: "kg" };
   const handleSubmit = async (data) => {
+    if (!files.length) {
+      toast.error("Please upload atleast one image");
+      return;
+    }
     const newData = { ...data, productimages: files };
-    await franchiseBidPost(newData);
+    const res = await franchiseBidPost(newData);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
   };
+  const { data: subCategories, refetch } = useQuery({
+    queryKey: ["franchiseBidSubCategoriesFetch"],
+    queryFn: () => franchiseBidSubCategoriesFetch(),
+  });
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -74,16 +93,24 @@ const CreateBidPost = () => {
                             <select
                               name="category"
                               id="bidcategory"
-                              onChange={handleChange}
+                              onChange={(e) => {
+                                values.subCategory = "";
+                                handleChange(e);
+                              }}
                               required
                               onBlur={handleBlur}
                               value={values?.category}
                             >
-                              <option value="">Choose Category</option>
-                              <option value="bidcategory">Category1</option>
-                              <option value="bidcategory">Category2</option>
-                              <option value="bidcategory">Category3</option>
-                              <option value="bidcategory">Category4</option>
+                              <option value="" hidden>
+                                Choose Category
+                              </option>
+                              {catageories?.map(({ id, name }) => {
+                                return (
+                                  <option key={id} value={name}>
+                                    {name}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </div>
 
@@ -96,11 +123,29 @@ const CreateBidPost = () => {
                               onBlur={handleBlur}
                               value={values?.subCategory}
                             >
-                              <option value="">Choose Sub-category</option>
-                              <option value="bidcategory">Sub-category1</option>
-                              <option value="bidcategory">Sub-category2</option>
-                              <option value="bidcategory">Sub-category3</option>
-                              <option value="bidcategory">Sub-category4</option>
+                              <option value="" hidden>
+                                Choose Sub-category
+                              </option>
+                              {!subCategories?.error
+                                ? subCategories
+                                    ?.filter(({ category }) => {
+                                      if (values?.category == "Others") {
+                                        return (
+                                          category == values?.category ||
+                                          !category
+                                        );
+                                      } else {
+                                        return category == values?.category;
+                                      }
+                                    })
+                                    .map(({ id, productName }) => {
+                                      return (
+                                        <option key={id} value={productName}>
+                                          {productName}
+                                        </option>
+                                      );
+                                    })
+                                : null}
                             </select>
                           </div>
                         </div>
@@ -115,10 +160,12 @@ const CreateBidPost = () => {
                               onBlur={handleBlur}
                               value={values?.condition}
                             >
-                              <option value="">Choose Condition</option>
-                              <option value="bidcategory">condition1</option>
-                              <option value="bidcategory">condition2</option>
-                              <option value="bidcategory">condition3</option>
+                              <option value="" hidden>
+                                Choose Condition
+                              </option>
+                              <option value="new">New</option>
+                              <option value="old">Old</option>
+                              <option value="refurbished">Refurbished</option>
                             </select>
                           </div>
 

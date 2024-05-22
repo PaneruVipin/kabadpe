@@ -1116,7 +1116,7 @@ const FrenchiesPanel = () => {
                 onClickDetPage={() => setComponent("bidproddet")}
               />
             ) : null}
-            {component === "createbidpost" ? <CreateBidPost /> : null}
+            {component === "createbidpost" ? <CreateBidPost  /> : null}
             {component === "bidlisting" ? (
               <BidListing
                 onClickCreatePost={() => setComponent("createbidpost")}

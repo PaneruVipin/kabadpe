@@ -5,12 +5,14 @@ import QuateOfferPopup from "./QuateOfferPopup";
 const BidProductDetail = ({ data, onClickDetPage }) => {
   const [selectImg, setSelectImg] = useState("");
   const [bidPopup, setBidPopup] = useState(false);
-
-  const ProdImg = JSON.parse(data?.productimage || "[]");
+  const [ProdImg, setProdImg] = useState([]);
 
   const handleSelectImg = (selectedImg) => {
     setSelectImg(selectedImg);
   };
+  useEffect(() => {
+    setProdImg(JSON.parse(data?.productimages || "[]"));
+  }, [data]);
   return (
     <>
       <section className="bid-product-detail-comp">
@@ -145,7 +147,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
           </div>
         </div>
 
-        <div className="more-offer-main">
+        {/* <div className="more-offer-main">
           <h5>More offers by Jitin Jain</h5>
 
           <div className="more-offer-flex-bx">
@@ -265,10 +267,12 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
               <button className="bid-btn bid-btn32">Details</button>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
 
-      {bidPopup && <QuateOfferPopup data={data} onClickClose={() => setBidPopup(false)} />}
+      {bidPopup && (
+        <QuateOfferPopup data={data} onClickClose={() => setBidPopup(false)} />
+      )}
     </>
   );
 };

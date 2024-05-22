@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import BidDeal from "./BidDeal";
 import BidDealTwo from "./BidDealTwo";
 import { useQuery } from "@tanstack/react-query";
-import { franchiseMyListingsFetch } from "../apis/franchise/bid";
+import {
+  franchiseBidOffersFetch,
+  franchiseMyListingsFetch,
+} from "../apis/franchise/bid";
 import { DateTime } from "luxon";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
@@ -13,7 +16,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [isBidder, setIsBidder] = useState(false);
   const [isDeal, setIsDeal] = useState(false);
   const [isDealTwo, setIsDealTwo] = useState(false);
-
+  const [selectedData, setSelectedData] = useState({});
+  const [selectedOffer, setSelectedOffer] = useState({});
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -24,6 +28,14 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
     queryKey: ["franchiseMyListingsFetch"],
     queryFn: () => franchiseMyListingsFetch(),
   });
+
+  const { data: offers, refetch: refetchOffers } = useQuery({
+    queryKey: ["franchiseBidOffersFetch"],
+    queryFn: () => franchiseBidOffersFetch({ id: selectedData?.id }),
+  });
+  useEffect(() => {
+    refetchOffers();
+  }, [selectedData]);
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -51,23 +63,11 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
             {!bids?.error
               ? bids?.map(
                   ({
-                    category,
-                    companyAddress,
-                    condition,
-                    description,
-                    franchiseId,
-                    gstRate,
-                    id,
-                    includeGst,
-                    includeTransport,
                     postStatus,
-                    pricePerUnit,
                     productName,
-                    productQuantity,
                     productimages,
-                    subCategory,
-                    unit,
                     addedOn,
+                    ...rest
                   }) => {
                     const img =
                       JSON.parse(productimages || "[]")?.[0] ||
@@ -95,7 +95,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                           </div>
                         </div>
 
-                        <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
+                        {/* { <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
                           <div className="bidder-bx">
                             <h6>Starting Bid</h6>
                             <span>₹50,000</span>
@@ -110,22 +110,37 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                             <h6>Starting Bid</h6>
                             <span>10</span>
                           </div>
-                        </div>
+                        </div>} */}
 
                         <div className="view-bid-btn-flex">
                           <button
+                            onClick={() => {
+                              setIsBidder(true);
+                              setSelectedData({
+                                postStatus,
+                                productName,
+                                productimages,
+                                addedOn,
+                                ...rest,
+                              });
+                            }}
+                            className="bid-btn bid-btn32 view-bid-btn"
+                          >
+                            View Bids
+                          </button>
+                          {/* <button
                             onClick={() => setIsDealTwo(true)}
                             className="bid-btn bid-btn32 view-bid-btn-green  view-bid-btn"
                           >
                             View Bids
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     );
                   }
                 )
               : null}
-            <div className="bid-list-bx">
+            {/* <div className="bid-list-bx">
               <div className="left-bid-li-bx">
                 <div className="bid-li-img">
                   <img src="/images/customImg/about-img-3.png" alt="" />
@@ -295,7 +310,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                   View Bids
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -317,166 +332,99 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <span>1</span>
-                    </td>
-                    <td>
-                      <div className="left-bidr-bx">
-                        <div className="bidr-img">
-                          <img src="/images/customImg/cmp-4.jpg" alt="" />
-                        </div>
-                        <div className="bidr-info">
-                          <h6>Extra Frames</h6>
-                          <span>4 hr ago</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span>₹10/kg</span>
-                    </td>
-                    <td>
-                      <span>200 (kg)</span>
-                    </td>
-                    <td>
-                      <div className="tick-delt-btn">
-                        <button
-                          onClick={() => setIsDeal(true)}
-                          title="Accept"
-                          className="accept-btn"
-                        >
-                          <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <button
-                          onClick={() => setIsCloseView(true)}
-                          title="Not Accepted"
-                          className="accept-btn accept-btn2"
-                        >
-                          <i class="fa-regular fa-circle-xmark"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>2</span>
-                    </td>
-                    <td>
-                      <div className="left-bidr-bx">
-                        <div className="bidr-img">
-                          <img src="/images/customImg/cmp-2.jpg" alt="" />
-                        </div>
-                        <div className="bidr-info">
-                          <h6>Digital Dezire</h6>
-                          <span>3 days ago</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span>₹20/kg</span>
-                    </td>
-                    <td>
-                      <span>300 (kg)</span>
-                    </td>
-                    <td>
-                      <div className="tick-delt-btn">
-                        <button
-                          onClick={() => setIsDeal(true)}
-                          title="Accept"
-                          className="accept-btn"
-                        >
-                          <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <button
-                          onClick={() => setIsCloseView(true)}
-                          title="Not Accepted"
-                          className="accept-btn accept-btn2"
-                        >
-                          <i class="fa-regular fa-circle-xmark"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>3</span>
-                    </td>
-                    <td>
-                      <div className="left-bidr-bx">
-                        <div className="bidr-img">
-                          <img src="/images/customImg/cmp-3.jpg" alt="" />
-                        </div>
-                        <div className="bidr-info">
-                          <h6> Brand Orbitor</h6>
-                          <span>6 hr ago</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span>₹10/kg</span>
-                    </td>
-                    <td>
-                      <span>200 (kg)</span>
-                    </td>
-                    <td>
-                      <div className="tick-delt-btn">
-                        <button
-                          onClick={() => setIsDeal(true)}
-                          title="Accept"
-                          className="accept-btn"
-                        >
-                          <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <button
-                          onClick={() => setIsCloseView(true)}
-                          title="Not Accepted"
-                          className="accept-btn accept-btn2"
-                        >
-                          <i class="fa-regular fa-circle-xmark"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span>1</span>
-                    </td>
-                    <td>
-                      <div className="left-bidr-bx">
-                        <div className="bidr-img">
-                          <img src="/images/customImg/cmp-4.jpg" alt="" />
-                        </div>
-                        <div className="bidr-info">
-                          <h6>Extra Frames</h6>
-                          <span>4 hr ago</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <span>₹10/kg</span>
-                    </td>
-                    <td>
-                      <span>200 (kg)</span>
-                    </td>
-                    <td>
-                      <div className="tick-delt-btn">
-                        <button
-                          onClick={() => setIsDeal(true)}
-                          title="Accept"
-                          className="accept-btn"
-                        >
-                          <i class="fa-regular fa-square-check"></i>
-                        </button>
-                        <button
-                          onClick={() => setIsCloseView(true)}
-                          title="Not Accepted"
-                          className="accept-btn accept-btn2"
-                        >
-                          <i class="fa-regular fa-circle-xmark"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  {!offers?.error ? (
+                    offers?.map(
+                      (
+                        {
+                          id,
+                          Franchise,
+                          addedOn,
+                          pricePerUnit,
+                          productQuantity,
+                          ...rest
+                        },
+                        i
+                      ) => {
+                        return (
+                          <tr key={id}>
+                            <td>
+                              <span>{i + 1}</span>
+                            </td>
+                            <td>
+                              <div className="left-bidr-bx">
+                                <div className="bidr-img">
+                                  <img
+                                    src="/images/customImg/cmp-4.jpg"
+                                    alt=""
+                                  />
+                                </div>
+                                <div className="bidr-info">
+                                  <h6>{Franchise?.companyName}</h6>
+                                  <span>
+                                    {DateTime.fromISO(addedOn, {
+                                      zone: "utc",
+                                    })
+                                      .setZone("Asia/Kolkata")
+                                      .toFormat("ccc dd LLL yyyy")}
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <span>
+                                ₹{pricePerUnit}/{selectedData?.unit}
+                              </span>
+                            </td>
+                            <td>
+                              <span>
+                                {productQuantity} ({selectedData?.unit})
+                              </span>
+                            </td>
+                            <td>
+                              <div className="tick-delt-btn">
+                                <button
+                                  onClick={() => {
+                                    setIsDeal(true);
+                                    setSelectedOffer({
+                                      id,
+                                      Franchise,
+                                      addedOn,
+                                      pricePerUnit,
+                                      productQuantity,
+                                      ...rest,
+                                    });
+                                  }}
+                                  title="Accept"
+                                  className="accept-btn"
+                                >
+                                  <i class="fa-regular fa-square-check"></i>
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setIsCloseView(true);
+                                    setSelectedOffer({
+                                      id,
+                                      Franchise,
+                                      addedOn,
+                                      pricePerUnit,
+                                      productQuantity,
+                                      ...rest,
+                                    });
+                                  }}
+                                  title="Not Accepted"
+                                  className="accept-btn accept-btn2"
+                                >
+                                  <i class="fa-regular fa-circle-xmark"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )
+                  ) : (
+                    <div>No Bid Offers</div>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -507,7 +455,11 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
         </div>
       )}
 
-      <BidDeal isDeal={isDeal} onClickCloseDeal={() => setIsDeal(false)} />
+      <BidDeal
+        isDeal={isDeal}
+        data={{ bid: selectedData, offer: selectedOffer }}
+        onClickCloseDeal={() => setIsDeal(false)}
+      />
       <BidDealTwo
         isDealTwo={isDealTwo}
         onClickCloseDeal={() => setIsDealTwo(false)}

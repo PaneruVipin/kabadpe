@@ -9,7 +9,6 @@ const BidProductData = ({ bidData, onClickRedirect }) => {
     queryKey: ["franchiseAllListingsFetch"],
     queryFn: () => franchiseAllListingsFetch({}),
   });
-  console.log("this is bids bids",bids)
   return (
     <>
       <div className="bid-prod-grid-bx">
@@ -63,7 +62,7 @@ const BidProductData = ({ bidData, onClickRedirect }) => {
               }
             )
           : null}
-        {bidData.map((curData, indx) => {
+        {/* {bidData.map((curData, indx) => {
           return (
             <>
               <div
@@ -88,7 +87,7 @@ const BidProductData = ({ bidData, onClickRedirect }) => {
               </div>
             </>
           );
-        })}
+        })} */}
       </div>
     </>
   );

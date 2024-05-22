@@ -72,17 +72,41 @@ export const franchiseBidOfferPost = resolvePromise(
   }
 );
 
-export const franchiseBidOfferAccept = resolvePromise(async ({ id }) => {
-  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/offer/${id}/accept`;
+export const franchiseBidOfferAction = resolvePromise(
+  async ({ id, action }) => {
+    const apiUrl = ENV_API_BASE_URL + `/franchise/bid/offer/${id}/${action}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const franchiseMyBidOfferFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/offers`;
   const token = getFromLocalStorage("token");
-  const { data: res } = await axios.put(
-    apiUrl,
-    {},
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-  return res?.message;
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.offers;
+});
+
+export const franchiseBidSubCategoriesFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/subcategories`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.categories;
 });

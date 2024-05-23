@@ -110,3 +110,14 @@ export const franchiseBidSubCategoriesFetch = resolvePromise(async () => {
   });
   return res?.categories;
 });
+
+export const franchiseMyBidStatusFetch = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/franchise/bid/${id}/biddingstatus`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.offerCount;
+});

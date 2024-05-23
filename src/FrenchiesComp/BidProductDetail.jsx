@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import QuateOfferPopup from "./QuateOfferPopup";
+import { useQuery } from "@tanstack/react-query";
+import { franchiseMyBidStatusFetch } from "../apis/franchise/bid";
 
 const BidProductDetail = ({ data, onClickDetPage }) => {
   const [selectImg, setSelectImg] = useState("");
@@ -13,6 +15,10 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
   useEffect(() => {
     setProdImg(JSON.parse(data?.productimages || "[]"));
   }, [data]);
+  const { data: status, refetch } = useQuery({
+    queryKey: ["franchiseMyBidStatusFetch"],
+    queryFn: () => franchiseMyBidStatusFetch({ id: data?.id }),
+  });
   return (
     <>
       <section className="bid-product-detail-comp">
@@ -70,9 +76,16 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
                 </div>
 
                 <div className="bid-prod-btn-flex check-flex-bxx">
-                  <button onClick={() => setBidPopup(true)} className="bid-btn">
-                    Bid Now
-                  </button>
+                  {!status?.error && !status ? (
+                    <button
+                      onClick={() => setBidPopup(true)}
+                      className="bid-btn"
+                    >
+                      Bid Now
+                    </button>
+                  ) : (
+                    <div>Bid Sent</div>
+                  )}
                   {data?.includeGst ? (
                     <button className="bid-btn bid-btn2">
                       GST Included {data?.gstRate}
@@ -271,7 +284,11 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
       </section>
 
       {bidPopup && (
-        <QuateOfferPopup data={data} onClickClose={() => setBidPopup(false)} />
+        <QuateOfferPopup
+          refetch={refetch}
+          data={data}
+          onClickClose={() => setBidPopup(false)}
+        />
       )}
     </>
   );

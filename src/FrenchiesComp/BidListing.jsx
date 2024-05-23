@@ -356,7 +356,10 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               <div className="left-bidr-bx">
                                 <div className="bidr-img">
                                   <img
-                                    src="/images/customImg/cmp-4.jpg"
+                                    src={
+                                      Franchise?.franchiseLogo ||
+                                      "/images/noImg.png"
+                                    }
                                     alt=""
                                   />
                                 </div>

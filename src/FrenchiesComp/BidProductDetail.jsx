@@ -101,7 +101,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
 
               <div className="bid-prod-user">
                 <div className="bid-user-img">
-                  <img src="/images/customImg/cmp-3.jpg" alt="" />
+                  <img src={data?.Franchise?.franchiseLogo || "/images/noImg.png"} alt="" />
                 </div>
                 <div className="bid-prod-user-det">
                   <h6>{data?.Franchise?.companyName}</h6>

@@ -1127,13 +1127,6 @@ const FrenchiesPanel = () => {
                 onClickCreatePost={() => setComponent("createbidpost")}
               />
             ) : null}
-
-            {/* {component === "bid" ? (
-          <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null} */}
-            {/* {component === "bidproddet" ? (
-          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null} */}
             {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
           </section>
         </>

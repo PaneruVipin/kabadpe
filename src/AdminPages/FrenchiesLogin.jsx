@@ -14,7 +14,7 @@ import {
 import { useEffect } from "react";
 import { number, object, string } from "yup";
 
-const FrenchiesLogin = () => {
+const FrenchiesLogin = ({}) => {
   const navigate = useNavigate();
   const [apiTouched, setApiTouched] = useState({});
   const dispatch = useDispatch();

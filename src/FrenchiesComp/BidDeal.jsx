@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { franchiseBidOfferAction } from "../apis/franchise/bid";
+import { toast } from "react-toastify";
 
-const BidDeal = ({ onClickCloseDeal, isDeal, data }) => {
+const BidDeal = ({ onClickCloseDeal, isDeal, data, refetch }) => {
   const [biderText, setBiderText] = useState(false);
 
   const handleClickText = () => {
@@ -13,6 +15,19 @@ const BidDeal = ({ onClickCloseDeal, isDeal, data }) => {
   const subTotal = +offer?.pricePerUnit * +offer?.productQuantity;
   const gst = bid?.includeGst ? ((+bid?.gstRate || 0) * subTotal) / 100 : 0;
   const total = subTotal + gst;
+  const handeConfirmClick = async () => {
+    const res = await franchiseBidOfferAction({
+      id: offer?.id,
+      action: "accept",
+    });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success("Succesfuly our products has been sold ");
+    refetch();
+    onClickCloseDeal();
+  };
   return (
     <>
       {isDeal ? (
@@ -63,7 +78,7 @@ const BidDeal = ({ onClickCloseDeal, isDeal, data }) => {
               confirm button , this will close your deal .{" "}
             </p>
 
-            <button onClick={handleClickText} className="confirm-btn">
+            <button onClick={handeConfirmClick} className="confirm-btn">
               Confirm
             </button>
 

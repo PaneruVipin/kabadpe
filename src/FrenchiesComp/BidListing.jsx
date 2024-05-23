@@ -8,6 +8,7 @@ import {
   franchiseMyListingsFetch,
 } from "../apis/franchise/bid";
 import { DateTime } from "luxon";
+import RejectBidOffer from "./RejectBidOffer";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -341,6 +342,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                           addedOn,
                           pricePerUnit,
                           productQuantity,
+                          bidStatus,
                           ...rest
                         },
                         i
@@ -381,42 +383,46 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               </span>
                             </td>
                             <td>
-                              <div className="tick-delt-btn">
-                                <button
-                                  onClick={() => {
-                                    setIsDeal(true);
-                                    setSelectedOffer({
-                                      id,
-                                      Franchise,
-                                      addedOn,
-                                      pricePerUnit,
-                                      productQuantity,
-                                      ...rest,
-                                    });
-                                  }}
-                                  title="Accept"
-                                  className="accept-btn"
-                                >
-                                  <i class="fa-regular fa-square-check"></i>
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    setIsCloseView(true);
-                                    setSelectedOffer({
-                                      id,
-                                      Franchise,
-                                      addedOn,
-                                      pricePerUnit,
-                                      productQuantity,
-                                      ...rest,
-                                    });
-                                  }}
-                                  title="Not Accepted"
-                                  className="accept-btn accept-btn2"
-                                >
-                                  <i class="fa-regular fa-circle-xmark"></i>
-                                </button>
-                              </div>
+                              {bidStatus != "accept" ? (
+                                <div className="tick-delt-btn">
+                                  <button
+                                    onClick={() => {
+                                      setIsDeal(true);
+                                      setSelectedOffer({
+                                        id,
+                                        Franchise,
+                                        addedOn,
+                                        pricePerUnit,
+                                        productQuantity,
+                                        ...rest,
+                                      });
+                                    }}
+                                    title="Accept"
+                                    className="accept-btn"
+                                  >
+                                    <i class="fa-regular fa-square-check"></i>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      setIsCloseView(true);
+                                      setSelectedOffer({
+                                        id,
+                                        Franchise,
+                                        addedOn,
+                                        pricePerUnit,
+                                        productQuantity,
+                                        ...rest,
+                                      });
+                                    }}
+                                    title="Not Accepted"
+                                    className="accept-btn accept-btn2"
+                                  >
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                  </button>
+                                </div>
+                              ) : (
+                                <div>Accepted</div>
+                              )}
                             </td>
                           </tr>
                         );
@@ -433,29 +439,21 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
       )}
 
       {isCloseView && (
-        <div
-          onClick={() => setIsCloseView(false)}
-          className="view-bid-main close-message-main"
-        >
-          <div onClick={(e) => e.stopPropagation()} className="close-mesge-bx">
-            <span>
-              {" "}
-              onClick={() => setIsCloseView(true)}
-              This bidder's current offer is not accepted, the Bidder is open to
-              offer again. Confirm You are not accepting this offer
-            </span>
-
-            <button
-              onClick={() => setIsCloseView(false)}
-              className="confirm-btn"
-            >
-              Confirm
-            </button>
-          </div>
-        </div>
+        <RejectBidOffer
+          refetch={() => {
+            refetch();
+            refetchOffers();
+          }}
+          data={selectedOffer}
+          closePodpup={() => setIsCloseView(false)}
+        />
       )}
 
       <BidDeal
+        refetch={() => {
+          refetch();
+          refetchOffers();
+        }}
         isDeal={isDeal}
         data={{ bid: selectedData, offer: selectedOffer }}
         onClickCloseDeal={() => setIsDeal(false)}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { franchiseBidOfferPost } from "../apis/franchise/bid";
 import { toast } from "react-toastify";
 
-const QuateOfferPopup = ({ data, onClickClose }) => {
+const QuateOfferPopup = ({ data, onClickClose, refetch }) => {
   const [offerData, setOfferData] = useState({});
   const subTotal = +data?.pricePerUnit * +data?.productQuantity;
   const gst = data?.includeGst ? ((+data?.gstRate || 0) * subTotal) / 100 : 0;
@@ -26,6 +26,7 @@ const QuateOfferPopup = ({ data, onClickClose }) => {
       toast.error(res?.message);
     }
     onClickClose();
+    refetch();
   };
   return (
     <>

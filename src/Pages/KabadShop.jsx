@@ -24,8 +24,12 @@ const KabadShop = () => {
             }
           }}
           onClickDetPage={(data) => {
-            setData(data);
-            setComponent("bidproddet");
+            if (user?.role == "franchiseAdmin") {
+              setData(data);
+              setComponent("bidproddet");
+            } else {
+              setLogin(true);
+            }
           }}
         />
       ) : null}

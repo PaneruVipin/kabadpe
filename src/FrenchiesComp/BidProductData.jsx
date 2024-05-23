@@ -9,6 +9,7 @@ const BidProductData = ({ bidData, onClickRedirect }) => {
     queryKey: ["franchiseAllListingsFetch"],
     queryFn: () => franchiseAllListingsFetch({}),
   });
+  
   return (
     <>
       <div className="bid-prod-grid-bx">

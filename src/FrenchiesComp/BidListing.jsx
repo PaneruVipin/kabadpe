@@ -73,8 +73,17 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                     const img =
                       JSON.parse(productimages || "[]")?.[0] ||
                       "/images/noImg.png";
+                    const acceptedOffer = rest?.Bids?.find(
+                      ({ bidStatus }) => bidStatus == "accept"
+                    );
+                    let remining;
+                    if (acceptedOffer) {
+                      remining =
+                        +rest?.productQuantity -
+                        +acceptedOffer?.productQuantity;
+                    }
                     return (
-                      <div className="bid-list-bx">
+                      <div key={rest?.id} className="bid-list-bx">
                         <div className="left-bid-li-bx">
                           <div className="bid-li-img">
                             <img src={img} alt="" />
@@ -93,9 +102,26 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               </span>
                             </div>
                             <h5>{productName}</h5>
+                            <p
+                              style={{ marginTop: "5px" }}
+                              className="bid-date"
+                            >
+                              {rest?.productQuantity + rest?.unit}
+                            </p>
+                            <p
+                              style={{ marginTop: "10px" }}
+                              className="bid-date"
+                            >
+                              ₹{rest?.pricePerUnit}/{rest?.unit}
+                            </p>
                           </div>
                         </div>
-
+                        {remining ? (
+                          <div className=" ">
+                            After this deal, {remining + rest?.unit} is
+                            remaining
+                          </div>
+                        ) : null}
                         {/* { <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
                           <div className="bidder-bx">
                             <h6>Starting Bid</h6>

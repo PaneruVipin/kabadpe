@@ -14,11 +14,11 @@ const IndvdualPlan = ({ onSwitch }) => {
   const [upgrade, setUpgrade] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState({});
 
-  const handleCalendarChange =  (date) => {
+  const handleCalendarChange = (date) => {
     setSelectedDate(date);
   };
 
-  const handleCalendarSubmit =async () => {
+  const handleCalendarSubmit = async () => {
     await adminExtendPlan({ endDate: selectedDate, id: selectedPlan?.id });
     refetch();
     setShowCalendar(false);
@@ -85,12 +85,16 @@ const IndvdualPlan = ({ onSwitch }) => {
                           <span>
                             {DateTime.fromISO(startDate, {
                               zone: "utc",
-                            }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy")}{" "}
+                            })
+                              .setZone("Asia/Kolkata")
+                              .toFormat("ccc dd LLL yyyy")}{" "}
                             to{" "}
                             {endDate
                               ? DateTime.fromISO(endDate, {
                                   zone: "utc",
-                                }).setZone("Asia/Kolkata").toFormat("ccc dd LLL yyyy")
+                                })
+                                  .setZone("Asia/Kolkata")
+                                  .toFormat("ccc dd LLL yyyy")
                               : null}
                           </span>{" "}
                         </td>

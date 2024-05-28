@@ -18211,5 +18211,17 @@ video {
   display: block;
 }
 
+.apnt-inpt-bx input, .apnt-inpt-bx select{
+  font-size: 1.3rem;
+}
+
+.default-add-bx p{
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+}
+
+.apnt-form-submit-btn{
+  font-size: 1.3rem;
+}
 
 }

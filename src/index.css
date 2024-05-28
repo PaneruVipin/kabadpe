@@ -18173,15 +18173,15 @@ video {
 }
 
 .time-slot-list{
-  position: fixed ;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 30rem;
-  background: #fff;
-  height: 35rem;
-  overflow-y: auto;
-  padding: 2rem 1rem;
+  position: fixed  !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 30rem !important;
+  background: #fff !important;
+  height: 35rem !important;
+  overflow-y: auto !important;
+  padding: 2rem 1rem !important;
 }
 
 .book-apnt{
@@ -18194,11 +18194,11 @@ video {
 }
 
 .addrs-popup-bx{
-  height: 24rem;
+  height: 24rem !important;
 }
 
 .infinte-slider-waste-comp .home-container{
-  max-width: 33rem;
+  max-width: 33rem !important;
 }
 
 .time-slot-close-btn{
@@ -18222,6 +18222,39 @@ video {
 
 .apnt-form-submit-btn{
   font-size: 1.3rem;
+}
+
+.imp-flexx-bx{
+  gap: 3.87rem !important;
+  padding: 1rem 0 !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+}
+
+.imp-flexx-bx::-webkit-scrollbar{
+  height: .2rem !important;
+  background-color: transparent !important;
+}
+
+.imp-flexx-bx::-webkit-scrollbar-thumb{
+  background-color: #f3f7ff !important;
+}
+
+.imp-bx .imp-icon{
+  width: 8rem;
+  height: 8rem !important;
+}
+
+.imp-icon img{
+  width: 4rem !important;
+}
+
+.imp-info p{
+  font-size: .87rem !important;
+}
+
+.imp-icon-i-font{
+  font-size: 3.25rem ;
 }
 
 }

@@ -62,6 +62,7 @@ import MyBidComp from "../FrenchiesComp/MyBidComp";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
+  const [selectedPost, setSelectedPost] = useState({});
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
   const [sideAdminNav, setSideAdminNav] = useState(false);
@@ -199,7 +200,7 @@ const FrenchiesPanel = () => {
   }
   return (
     <>
-      {/* <Redirect role="franchiseAdmin" path="/frenchieslogin" /> */}
+      <Redirect role="franchiseAdmin" path="/frenchieslogin" />
       {userInfo && userInfo?.franchiseStatus != "active" ? (
         <Thanks show={true} />
       ) : (
@@ -841,7 +842,7 @@ const FrenchiesPanel = () => {
                     }
                   >
                     {" "}
-                    <NavLink to="#">My Bid  </NavLink>{" "}
+                    <NavLink to="#">My Bid </NavLink>{" "}
                   </li>
                 </div>
               </div>
@@ -1103,32 +1104,29 @@ const FrenchiesPanel = () => {
             {component === "bid" ? (
               <Bidcomp
                 onClickCreatePost={() => setComponent("createbidpost")}
-                onClickDetPage={() => setComponent("bidproddet")}
+                onClickDetPage={(data) => {
+                  setSelectedPost(data);
+                  setComponent("bidproddet");
+                }}
               />
             ) : null}
             {component === "bidproddet" ? (
               <BidProductDetail
+                data={selectedPost}
                 onClickDetPage={() => setComponent("bidproddet")}
               />
             ) : null}
-            {component === "createbidpost" ? <CreateBidPost /> : null}
+            {component === "createbidpost" ? <CreateBidPost  /> : null}
             {component === "bidlisting" ? (
               <BidListing
                 onClickCreatePost={() => setComponent("createbidpost")}
               />
             ) : null}
-             {component === "myBid" ? (
+            {component === "myBid" ? (
               <MyBidComp
-              onClickCreatePost={() => setComponent("createbidpost")}
+                onClickCreatePost={() => setComponent("createbidpost")}
               />
             ) : null}
-
-            {/* {component === "bid" ? (
-          <Bidcomp onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null} */}
-            {/* {component === "bidproddet" ? (
-          <BidProductDetail onClickDetPage={() => setComponent("bidproddet")} />
-        ) : null} */}
             {component === "wastepickup" ? <FrenchiesWastePcikup /> : null}
           </section>
         </>

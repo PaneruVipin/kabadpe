@@ -17481,6 +17481,13 @@ video {
   justify-content: center;
 }
 
+.apnt-inpt-bx-text{
+  line-height: 1.5;
+}
+
+.time-slot-close-btn{
+  display: none;
+}
 
 /* ____________________________________
  Our Media queries for responsive designs 
@@ -17667,6 +17674,9 @@ video {
   html {
     font-size: 68%;
   }
+
+ 
+  
 
   .added-prod-table table thead tr th , 
   .added-prod-table table tbody tr td{
@@ -18157,5 +18167,49 @@ video {
 .rate-list-grid-left-active{
   grid-template-columns: repeat(1, 1fr);
 }
+
+.date-time-main-bx{
+  height: 28rem !important;
+}
+
+.time-slot-list{
+  position: fixed ;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30rem;
+  background: #fff;
+  height: 35rem;
+  overflow-y: auto;
+  padding: 2rem 1rem;
+}
+
+.book-apnt{
+  width: 10rem;
+  font-size: .8rem;
+}
+
+.left-time-date-bx p{
+  font-size: 1.2rem;
+}
+
+.addrs-popup-bx{
+  height: 24rem;
+}
+
+.infinte-slider-waste-comp .home-container{
+  max-width: 33rem;
+}
+
+.time-slot-close-btn{
+  position: absolute;
+  top: .76rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #ff0000;
+  cursor: pointer;
+  display: block;
+}
+
 
 }

@@ -17481,6 +17481,13 @@ video {
   justify-content: center;
 }
 
+.apnt-inpt-bx-text{
+  line-height: 1.5;
+}
+
+.time-slot-close-btn{
+  display: none;
+}
 
 /* ____________________________________
  Our Media queries for responsive designs 
@@ -17667,6 +17674,9 @@ video {
   html {
     font-size: 68%;
   }
+
+ 
+  
 
   .added-prod-table table thead tr th , 
   .added-prod-table table tbody tr td{
@@ -18156,6 +18166,95 @@ video {
 
 .rate-list-grid-left-active{
   grid-template-columns: repeat(1, 1fr);
+}
+
+.date-time-main-bx{
+  height: 28rem !important;
+}
+
+.time-slot-list{
+  position: fixed  !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 30rem !important;
+  background: #fff !important;
+  height: 35rem !important;
+  overflow-y: auto !important;
+  padding: 2rem 1rem !important;
+}
+
+.book-apnt{
+  width: 10rem;
+  font-size: .8rem;
+}
+
+.left-time-date-bx p{
+  font-size: 1.2rem;
+}
+
+.addrs-popup-bx{
+  height: 24rem !important;
+}
+
+.infinte-slider-waste-comp .home-container{
+  max-width: 33rem !important;
+}
+
+.time-slot-close-btn{
+  position: absolute;
+  top: .76rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #ff0000;
+  cursor: pointer;
+  display: block;
+}
+
+.apnt-inpt-bx input, .apnt-inpt-bx select{
+  font-size: 1.3rem;
+}
+
+.default-add-bx p{
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+}
+
+.apnt-form-submit-btn{
+  font-size: 1.3rem;
+}
+
+.imp-flexx-bx{
+  gap: 3.87rem !important;
+  padding: 1rem 0 !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+}
+
+.imp-flexx-bx::-webkit-scrollbar{
+  height: .2rem !important;
+  background-color: transparent !important;
+}
+
+.imp-flexx-bx::-webkit-scrollbar-thumb{
+  background-color: #f3f7ff !important;
+}
+
+.imp-bx .imp-icon{
+  width: 8rem;
+  height: 8rem !important;
+}
+
+.imp-icon img{
+  width: 4rem !important;
+}
+
+.imp-info p{
+  font-size: .87rem !important;
+}
+
+.imp-icon-i-font{
+  font-size: 3.25rem ;
 }
 
 }

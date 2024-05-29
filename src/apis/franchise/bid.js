@@ -123,3 +123,14 @@ export const franchiseMyBidStatusFetch = resolvePromise(async ({ id }) => {
   });
   return res?.offerCount;
 });
+
+export const adminBidsFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/bids`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.bids;
+});

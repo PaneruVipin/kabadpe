@@ -18257,4 +18257,37 @@ video {
   font-size: 3.25rem ;
 }
 
+.user-form-comp {
+  padding-inline: 1rem;
+}
+
+.user-form-main-bx{
+  width: 100%;
+  height: 44rem;
+}
+.use-form-heading h3{
+  font-size: 2rem;
+}
+
+.use-form-heading p{
+  font-size: 1.3rem;
+}
+
+.user-inpt-bxx input{
+  height: 3.5rem;
+  font-size: 1.2rem;
+}
+
+.user-form-login-btn{
+  font-size: 1.1rem;
+}
+
+.user-form-forgot-passwd-btn{
+  font-size: 1.2rem;
+}
+
+.login-link-bx{
+  font-size: 1rem;
+}
+
 }

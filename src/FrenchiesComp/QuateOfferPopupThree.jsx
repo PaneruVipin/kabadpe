@@ -9,8 +9,8 @@ const QuateOfferPopupThree = ({ data, onClickClose }) => {
   const total = subTotal + gst;
   const offerSubTotal =
     (+rest?.pricePerUnit || 0) * (+rest?.productQuantity || 0);
-  const offerGst = data?.includeGst
-    ? ((+data?.gstRate || 0) * offerSubTotal) / 100
+  const offerGst = BidPost?.includeGst
+    ? ((+BidPost?.gstRate || 0) * offerSubTotal) / 100
     : 0;
   const offerTotal = offerSubTotal + offerGst;
   return (
@@ -66,10 +66,10 @@ const QuateOfferPopupThree = ({ data, onClickClose }) => {
                       <span>GST</span>
                     </td>
                     <td>
-                      <span>{BidPost?.gstRate}</span>
+                      <span>{BidPost?.gstRate} %</span>
                     </td>
                     <td>
-                      <span>{BidPost?.gstRate}</span>
+                      <span>{BidPost?.gstRate} %</span>
                     </td>
                   </tr>
                 ) : null}
@@ -78,10 +78,10 @@ const QuateOfferPopupThree = ({ data, onClickClose }) => {
                     <span> Total Value</span>
                   </td>
                   <td>
-                    <span> {total}</span>
+                    <span> ₹{total}</span>
                   </td>
                   <td>
-                    <span> {offerTotal}</span>
+                    <span> ₹{offerTotal}</span>
                   </td>
                 </tr>
               </tbody>

@@ -9,74 +9,13 @@ const AdminBid = () => {
   const [bidders, setBidders] = useState(false);
   const [selectedOffers, setSelectedOffers] = useState([]);
   const [selectedData, setSelectedData] = useState({});
-  const bidData = [
-    {
-      id: 1,
-      productName: "Plastic",
-      sellerName: "Brand Orbitor",
-      totalBid: 45,
-      productValue: 25000,
-      comission: 200,
-      status: "Ongoing",
-    },
-    {
-      id: 2,
-      productName: "Iron",
-      sellerName: "Digital Dezire",
-      totalBid: 30,
-      productValue: 30000,
-      comission: 300,
-      status: "Offered",
-    },
-    {
-      id: 3,
-      productName: "Cardboard",
-      sellerName: "Brand Orbitor",
-      totalBid: 30,
-      productValue: 15000,
-      comission: 200,
-      status: "Deal By Seller",
-    },
-    {
-      id: 4,
-      productName: "Paper",
-      sellerName: "Brand Orbitor",
-      totalBid: 26,
-      productValue: 17000,
-      comission: 80,
-      status: "Payment Received",
-    },
-    {
-      id: 5,
-      productName: "Tablet",
-      sellerName: "Extra Frames",
-      totalBid: 25,
-      productValue: 30000,
-      comission: 250,
-      status: "Dispatched",
-    },
-    {
-      id: 6,
-      productName: "tyre",
-      sellerName: "Digital Dezire",
-      totalBid: 45,
-      productValue: 25000,
-      comission: 170,
-      status: "Delivered",
-    },
-    {
-      id: 7,
-      productName: "Monitor Big",
-      sellerName: "Brand Orbitor",
-      totalBid: 50,
-      productValue: 28000,
-      comission: 350,
-      status: "Completed",
-    },
-  ];
   const { data: bids, refetch } = useQuery({
     queryKey: ["adminBidsFetch"],
     queryFn: () => adminBidsFetch(),
+  });
+  const { data: commission, refetch: refetchCommission } = useQuery({
+    queryKey: ["bidsCommissionFetch"],
+    queryFn: () => bidsCommissionFetch(),
   });
   return (
     <>

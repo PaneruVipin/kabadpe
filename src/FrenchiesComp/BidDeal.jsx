@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { franchiseBidOfferAction } from "../apis/franchise/bid";
+import {
+  bidsCommissionFetch,
+  franchiseBidOfferAction,
+} from "../apis/franchise/bid";
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 
 const BidDeal = ({ onClickCloseDeal, isDeal, data, refetch }) => {
   const [biderText, setBiderText] = useState(false);
-
+  const { data: commission, refetch: refetchCommsn } = useQuery({
+    queryKey: ["bidsCommissionFetch"],
+    queryFn: () => bidsCommissionFetch(),
+  });
   const handleClickText = () => {
     setBiderText(true);
     setTimeout(() => {
@@ -34,6 +41,17 @@ const BidDeal = ({ onClickCloseDeal, isDeal, data, refetch }) => {
     onClickCloseDeal();
   };
   const remaining = +bid?.productQuantity - +offer?.productQuantity;
+  const getCommission = (total) => {
+    let commsn = 0;
+    if (total < 500) {
+      commsn = commission?.find(({ level }) => level == 1)?.commission || 0;
+    } else if (1000 > total >= 500) {
+      commsn = commission?.find(({ level }) => level == 2)?.commission || 0;
+    } else {
+      commsn = commission?.find(({ level }) => level == 3)?.commission || 0;
+    }
+    return commsn;
+  };
   return (
     <>
       {isDeal ? (
@@ -69,12 +87,12 @@ const BidDeal = ({ onClickCloseDeal, isDeal, data, refetch }) => {
             <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx2 start-latest-bidder-grid-bx3">
               <div className="bidder-bx">
                 <h6>Platform Charges</h6>
-                <span>₹50</span>
+                <span>₹{getCommission()}</span>
               </div>
 
               <div className="bidder-bx">
                 <h6>Final Amount</h6>
-                <span>₹{total - 50}</span>
+                <span>₹{total - getCommission()}</span>
               </div>
             </div>
 

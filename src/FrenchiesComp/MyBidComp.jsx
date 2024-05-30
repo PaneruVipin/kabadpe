@@ -64,7 +64,7 @@ const MyBidComp = ({ onClickCreatePost }) => {
                     ...rest
                   }) => {
                     const img =
-                      JSON.parse(productimages || "[]")?.[0] ||
+                      JSON.parse(BidPost?.productimages || "[]")?.[0] ||
                       "/images/noImg.png";
                     return (
                       <div key={id} className="bid-list-bx">
@@ -302,7 +302,10 @@ const MyBidComp = ({ onClickCreatePost }) => {
       )}
 
       {bidPopupTwo && (
-        <QuateOfferPopupThree data={selectedData} onClickClose={() => setBidPopupTwo(false)} />
+        <QuateOfferPopupThree
+          data={selectedData}
+          onClickClose={() => setBidPopupTwo(false)}
+        />
       )}
 
       {isCloseView && (

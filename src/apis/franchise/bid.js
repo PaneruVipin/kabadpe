@@ -73,8 +73,10 @@ export const franchiseBidOfferPost = resolvePromise(
 );
 
 export const franchiseBidOfferAction = resolvePromise(
-  async ({ id, action }) => {
-    const apiUrl = ENV_API_BASE_URL + `/franchise/bid/offer/${id}/${action}`;
+  async ({ id, action, reCreate }) => {
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/franchise/bid/offer/${id}/${action}?reCreate=${reCreate}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
@@ -120,4 +122,41 @@ export const franchiseMyBidStatusFetch = resolvePromise(async ({ id }) => {
     },
   });
   return res?.offerCount;
+});
+
+export const adminBidsFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/bids`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.bids;
+});
+
+export const bidsCommissionFetch = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/bid/commission`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.commision;
+});
+
+export const bidsCommissionUpdate = resolvePromise(async (data) => {
+  const apiUrl = ENV_API_BASE_URL + `/bid/commission`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { ...data },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
 });

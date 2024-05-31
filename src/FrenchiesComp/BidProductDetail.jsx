@@ -80,7 +80,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
                     </div>
 
                     <div className="bid-prod-btn-flex check-flex-bxx">
-                      {status !== 0 ? (
+                      {status == 0 ? (
                         <button
                           onClick={() => {
                             if (user?.role == "franchiseAdmin") {

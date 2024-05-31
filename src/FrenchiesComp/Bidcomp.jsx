@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import BidProductData from "./BidProductData";
+import { catageories } from "../lib/kabadCatageories";
 
 const Bidcomp = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -111,40 +112,20 @@ const Bidcomp = ({ onClickDetPage, onClickCreatePost }) => {
             </div>
 
             <div className="right-unit-flex-bx">
-              <div className="unit-select-main-bx">
-                <div
-                  onClick={() => setShowOption(!showOption)}
-                  className="select-bx"
-                >
-                  {unit}
-                  <div className="s-arw">
-                    <i class="fa-solid fa-angle-down"></i>
-                  </div>
-                </div>
-
-                <div
-                  className={
-                    showOption
-                      ? "unit-options-bx selectactive"
-                      : "unit-options-bx"
-                  }
-                >
-                  {Options.map((option) => {
+              <div className="all-prod-sel-filt-box all-prod-sel-filt-box2">
+                <select name="product" id="product">
+                  <option value="" hidden>
+                    Choose Category
+                  </option>
+                  {catageories?.map(({ id, name }) => {
                     return (
-                      <>
-                        <span
-                          key={option}
-                          onClick={() => handleOptionChange(option)}
-                        >
-                          {" "}
-                          {option}{" "}
-                        </span>
-                      </>
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
                     );
                   })}
-                </div>
+                </select>
               </div>
-
               <button onClick={onClickCreatePost} className="create-post-btn">
                 Create Post
               </button>

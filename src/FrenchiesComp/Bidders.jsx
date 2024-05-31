@@ -81,7 +81,11 @@ const Bidders = ({
                         </td>
                         {component != "admin" ? (
                           <td>
-                            {bidStatus != "accept" ? (
+                            {bidStatus == "accept" ? (
+                              <div style={{ color: "green" }}>Accepted</div>
+                            ) : bidStatus == "reject" ? (
+                              <div style={{ color: "red" }}>Rejected</div>
+                            ) : (
                               <div className="tick-delt-btn">
                                 <button
                                   onClick={() => {
@@ -96,11 +100,18 @@ const Bidders = ({
                                     });
                                   }}
                                   title="Accept"
-                                  className="accept-btn"
+                                  // className="accept-btn"
+                                  style={{
+                                    background: "green",
+                                    color: "white",
+                                    borderRadius:"10px",
+                                    paddingInline:"20px"
+                                  }}
                                 >
-                                  <i class="fa-regular fa-square-check"></i>
+                                  {/* <i class="fa-regular fa-square-check"></i> */}
+                                  Action
                                 </button>
-                                <button
+                                {/* <button
                                   onClick={() => {
                                     setIsCloseView(true);
                                     setSelectedOffer({
@@ -116,10 +127,8 @@ const Bidders = ({
                                   className="accept-btn accept-btn2"
                                 >
                                   <i class="fa-regular fa-circle-xmark"></i>
-                                </button>
+                                </button> */}
                               </div>
-                            ) : (
-                              <div>Accepted</div>
                             )}
                           </td>
                         ) : (

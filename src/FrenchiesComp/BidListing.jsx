@@ -10,6 +10,7 @@ import {
 import { DateTime } from "luxon";
 import RejectBidOffer from "./RejectBidOffer";
 import Bidders from "./Bidders";
+import { filteredData } from "../lib/array";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -20,6 +21,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [isDealTwo, setIsDealTwo] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [selectedOffer, setSelectedOffer] = useState({});
+  const [filters, setFilters] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState("all");
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -35,9 +38,52 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
     queryKey: ["franchiseBidOffersFetch"],
     queryFn: () => franchiseBidOffersFetch({ id: selectedData?.id }),
   });
+  const handleFilterClick = (e) => {
+    const { name } = e.target;
+    setCurrentFilter(name);
+    let filters = [];
+    switch (name) {
+      case "all":
+        break;
+      case "going":
+        filters = [
+          {
+            id: "status",
+            fn: (bid) => {
+              const acceptedOffer = bid?.Bids?.find(
+                ({ bidStatus }) => bidStatus == "accept"
+              );
+              return bid?.postStatus == "close" && acceptedOffer;
+            },
+          },
+        ];
+        break;
+      case "active":
+        filters = [
+          {
+            id: "status",
+            fn: (bid) => {
+              return bid?.postStatus == "active";
+            },
+          },
+        ];
+        break;
+      case "completed":
+      default:
+        break;
+    }
+    setFilters(filters);
+  };
   useEffect(() => {
     refetchOffers();
   }, [selectedData]);
+  const filterButtons = [
+    { name: "all", Label: "All" },
+    { name: "active", Label: "Active" },
+    { name: "going", Label: "On Going" },
+    { name: "complete", Label: "Completed" },
+  ];
+  const order = ["active", "close"];
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -50,9 +96,17 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
 
             <div className="right-unit-flex-bx">
               <div className="bid-filt-btn-flex">
-                <button className="filt-bid-btn bidactive">All</button>
-                <button className="filt-bid-btn">On Going</button>
-                <button className="filt-bid-btn">Complete</button>
+                {filterButtons?.map(({ name, Label }) => (
+                  <button
+                    onClick={handleFilterClick}
+                    name={name}
+                    className={`filt-bid-btn  ${
+                      name == currentFilter ? "bidactive" : ""
+                    }`}
+                  >
+                    {Label}
+                  </button>
+                ))}
               </div>
 
               <button onClick={onClickCreatePost} className="create-post-btn">
@@ -63,67 +117,80 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
 
           <div className="bid-list-main">
             {!bids?.error
-              ? bids?.map(
-                  ({
-                    postStatus,
-                    productName,
-                    productimages,
-                    addedOn,
-                    ...rest
-                  }) => {
-                    const img =
-                      JSON.parse(productimages || "[]")?.[0] ||
-                      "/images/noImg.png";
-                    const acceptedOffer = rest?.Bids?.find(
-                      ({ bidStatus }) => bidStatus == "accept"
-                    );
-                    let remining;
-                    if (acceptedOffer) {
-                      remining =
-                        +rest?.productQuantity -
-                        +acceptedOffer?.productQuantity;
-                    }
+              ? filteredData(bids, filters)
+                  ?.sort((a, b) => {
                     return (
-                      <div key={rest?.id} className="bid-list-bx">
-                        <div className="left-bid-li-bx">
-                          <div className="bid-li-img">
-                            <img src={img} alt="" />
-                          </div>
-                          <div className="bid-li-info">
-                            <div className="bid-det-top-flex">
-                              <span className="bx-span bx-span-green">
-                                {postStatus}
-                              </span>
-                              <span className="bid-date">
-                                {DateTime.fromISO(addedOn, {
-                                  zone: "utc",
-                                })
-                                  .setZone("Asia/Kolkata")
-                                  .toFormat("ccc dd LLL yyyy")}
-                              </span>
+                      order.indexOf(a?.postStatus) -
+                      order.indexOf(b?.postStatus)
+                    );
+                  })
+                  ?.map(
+                    ({
+                      postStatus,
+                      productName,
+                      productimages,
+                      addedOn,
+                      ...rest
+                    }) => {
+                      const img =
+                        JSON.parse(productimages || "[]")?.[0] ||
+                        "/images/noImg.png";
+                      const acceptedOffer = rest?.Bids?.find(
+                        ({ bidStatus }) => bidStatus == "accept"
+                      );
+                      let remining;
+                      if (acceptedOffer) {
+                        remining =
+                          +rest?.productQuantity -
+                          +acceptedOffer?.productQuantity;
+                      }
+                      return (
+                        <div key={rest?.id} className="bid-list-bx">
+                          <div className="left-bid-li-bx">
+                            <div className="bid-li-img">
+                              <img src={img} alt="" />
                             </div>
-                            <h5>{productName}</h5>
-                            <p
-                              style={{ marginTop: "5px" }}
-                              className="bid-date"
-                            >
-                              {rest?.productQuantity + rest?.unit}
-                            </p>
-                            <p
-                              style={{ marginTop: "10px" }}
-                              className="bid-date"
-                            >
-                              ₹{rest?.pricePerUnit}/{rest?.unit}
-                            </p>
+                            <div className="bid-li-info">
+                              <div className="bid-det-top-flex">
+                                <span
+                                  className={
+                                    postStatus == "close"
+                                      ? "bx-span bx-span-green"
+                                      : "bx-span"
+                                  }
+                                >
+                                  {postStatus}
+                                </span>
+                                <span className="bid-date">
+                                  {DateTime.fromISO(addedOn, {
+                                    zone: "utc",
+                                  })
+                                    .setZone("Asia/Kolkata")
+                                    .toFormat("ccc dd LLL yyyy")}
+                                </span>
+                              </div>
+                              <h5>{productName}</h5>
+                              <p
+                                style={{ marginTop: "5px" }}
+                                className="bid-date"
+                              >
+                                {rest?.productQuantity + rest?.unit}
+                              </p>
+                              <p
+                                style={{ marginTop: "10px" }}
+                                className="bid-date"
+                              >
+                                ₹{rest?.pricePerUnit}/{rest?.unit}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        {remining ? (
-                          <div className=" ">
-                            After this deal, {remining + rest?.unit} is
-                            remaining
-                          </div>
-                        ) : null}
-                        {/* { <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
+                          {remining ? (
+                            <div className=" ">
+                              After this deal, {remining + rest?.unit} is
+                              remaining
+                            </div>
+                          ) : null}
+                          {/* { <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
                           <div className="bidder-bx">
                             <h6>Starting Bid</h6>
                             <span>₹50,000</span>
@@ -140,33 +207,33 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                           </div>
                         </div>} */}
 
-                        <div className="view-bid-btn-flex">
-                          <button
-                            onClick={() => {
-                              setIsBidder(true);
-                              setSelectedData({
-                                postStatus,
-                                productName,
-                                productimages,
-                                addedOn,
-                                ...rest,
-                              });
-                            }}
-                            className="bid-btn bid-btn32 view-bid-btn"
-                          >
-                            View Bids
-                          </button>
-                          {/* <button
+                          <div className="view-bid-btn-flex">
+                            <button
+                              onClick={() => {
+                                setIsBidder(true);
+                                setSelectedData({
+                                  postStatus,
+                                  productName,
+                                  productimages,
+                                  addedOn,
+                                  ...rest,
+                                });
+                              }}
+                              className="bid-btn bid-btn32 view-bid-btn"
+                            >
+                              View Bids
+                            </button>
+                            {/* <button
                             onClick={() => setIsDealTwo(true)}
                             className="bid-btn bid-btn32 view-bid-btn-green  view-bid-btn"
                           >
                             View Bids
                           </button> */}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  }
-                )
+                      );
+                    }
+                  )
               : null}
             {/* <div className="bid-list-bx">
               <div className="left-bid-li-bx">
@@ -364,15 +431,16 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
         />
       )}
 
-      <BidDeal
-        refetch={() => {
-          refetch();
-          refetchOffers();
-        }}
-        isDeal={isDeal}
-        data={{ bid: selectedData, offer: selectedOffer }}
-        onClickCloseDeal={() => setIsDeal(false)}
-      />
+      {isDeal ? (
+        <BidDeal
+          refetch={() => {
+            refetch();
+            refetchOffers();
+          }}
+          data={{ bid: selectedData, offer: selectedOffer }}
+          onClickCloseDeal={() => setIsDeal(false)}
+        />
+      ) : null}
       <BidDealTwo
         isDealTwo={isDealTwo}
         onClickCloseDeal={() => setIsDealTwo(false)}

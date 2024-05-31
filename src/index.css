@@ -8838,7 +8838,14 @@ __________ */
 
 }
 
+.right-prof-info-admin h6{
+  font-size: .87rem;
+}
 
+.close-popup-btn{
+  width: auto;
+  height: auto;
+}
 
 /*** 
 =============================================
@@ -18375,8 +18382,6 @@ video {
   height: 1.5rem;
 }
 
-
-
 .admin-login-fild input{
   font-size: 1.2rem;
 }
@@ -18403,6 +18408,67 @@ video {
 .frenchies-signup-grid{
   grid-template-columns: repeat(1, 1fr);
   row-gap: 1rem;
+}
+
+.frenchies-thanks-main{
+  width: 32rem;
+}
+
+.hero-text-info-bx button{
+  padding: .65rem 2.87rem;
+  font-size: 1.4rem;
+}
+
+.arrow-tall-bx i{
+  font-size: 1.55rem;
+}
+
+.other-pltofrm-login-link-flex-bx{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
+}
+
+.login-link-bx{
+  font-size: 1.3rem;
+}
+
+.login-link-bx i{
+  font-size: 2rem;
+}
+
+.login-link-bx img{
+  width: 2rem;
+}
+
+.userform-register-btn{
+  margin-top: 3rem;
+  font-size: 1.3rem;
+  width: 14rem;
+}
+
+.user-form-inpt-bx input{
+  height: 3.87rem !important;
+  font-size: 1.3rem;
+}
+
+.use-form-heading{
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-form span{
+  text-align: center;
+}
+
+.user-form .user-form-login-btn{
+  font-size: 1.3rem;
+}
+
+.user-form-main-bx{
+  height: 46.87rem;
 }
 
 }

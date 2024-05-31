@@ -18471,4 +18471,136 @@ video {
   height: 46.87rem;
 }
 
+.apnt-form-text5 {
+  font-size: 1.4rem;
+}
+
+.check-rate-btn{
+  font-size: 1rem;
+}
+
+.apnt-heading p{
+  font-size: 1.3rem;
+}
+
+.apnt-heading h3{
+  font-size: 2.2rem !important;
+  letter-spacing: .1px;
+  line-height: 1.2 !important;
+}
+
+.revw-left-img{
+  height: 25rem;
+}
+
+.revw-box{
+  row-gap: 0;
+}
+
+.revw-info-bx p{
+  font-size: 1.1rem;
+  max-width: 100%;
+}
+
+.revw-info-bx{
+  width: 85%;
+  padding-block: 2rem;
+
+}
+
+.revw-name-info{
+  margin-top: 1rem;
+}
+
+.revw-name-info h6{
+  font-size: 1.4rem;
+  letter-spacing: .1px;
+  margin-bottom: .4rem;
+}
+
+.quote-flex-bx>h5{
+  font-size: 1.5rem;
+}
+
+.fot-list li a{
+  font-size: 1.55rem !important;
+  font-weight: 400;
+}
+
+
+
+.cont-bx a, .cont-bx span{
+  font-size: 1.3rem ;
+  letter-spacing: .2px;
+}
+.cont-bx a{
+  font-size: 1.4rem !important;
+}
+
+.cont-i{
+  font-size: 1.5rem;
+}
+
+.learm-mre-btn{
+  width: 50%;
+  height: 4rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: .2px;
+}
+
+.last-text-bx{
+  padding: 2rem 1.2rem;
+}
+
+.fot-soc-icons-flex a{
+  font-size: 1.4rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.last-text-bx h6{
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.cont-bx{
+  padding: 2.5rem 0;
+}
+
+.quest-text h6{
+  font-size: 2.3rem;
+}
+
+.right-tab-info p{
+  font-size: 1.1rem;
+}
+
+.right-tab-info h6{
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+
+.right-quest-bx p{
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.right-tab-info-bx p{
+  line-height: 1.7;
+  font-size: 1.4rem;
+}
+
+.center-text-cont-bx h3{
+  font-size: 1.65rem !important;
+}
+
+.disc-btn{
+  font-size: 1.3rem;
+}
+
+.revw-name-info span{
+  font-size: 1.15rem;
+}
+
 }

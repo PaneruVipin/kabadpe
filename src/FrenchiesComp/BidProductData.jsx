@@ -2,19 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { franchiseAllListingsFetch } from "../apis/franchise/bid";
+import { filteredData, search } from "../lib/array";
 
-const BidProductData = ({ bidData, onClickRedirect }) => {
-
+const BidProductData = ({
+  bidData,
+  onClickRedirect,
+  productSearchQuery = "",
+  filters = [],
+}) => {
   const { data: bids, refetch } = useQuery({
     queryKey: ["franchiseAllListingsFetch"],
     queryFn: () => franchiseAllListingsFetch({}),
   });
-  
+
   return (
     <>
       <div className="bid-prod-grid-bx">
         {!bids?.error
-          ? bids?.map(
+          ? search(filteredData(bids, filters), productSearchQuery)?.map(
               ({
                 id,
                 pricePerUnit,

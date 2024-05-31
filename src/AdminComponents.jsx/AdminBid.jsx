@@ -121,41 +121,6 @@ const AdminBid = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {bidData.map((curData, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>
-                          <span> {curData.id} </span>
-                        </td>
-                        <td>
-                          <span> {curData.productName} </span>
-                        </td>
-                        <td>
-                          <span> {curData.sellerName} </span>
-                        </td>
-                        <td>
-                          <span> {curData.totalBid} </span>
-                        </td>
-                        <td>
-                          <span> {curData.productValue} </span>
-                        </td>
-                        <td>
-                          <span> {curData.comission} </span>
-                        </td>
-                        <td>
-                          <span> {curData.status} </span>
-                        </td>
-                        <td>
-                          {" "}
-                          <button className="trnfr-btn">Tranfer</button>{" "}
-                        </td>
-
-                        <td>
-                          <span> C1124509385 </span>
-                        </td>
-                      </tr>
-                    );
-                  })} */}
                   {!bids?.error
                     ? bids?.map(
                         (
@@ -215,7 +180,7 @@ const AdminBid = () => {
                                 <span> {total} </span>
                               </td>
                               <td>
-                                <span> </span>
+                                <span>{acceptedBid?.commission} </span>
                               </td>
                               <td>
                                 <button

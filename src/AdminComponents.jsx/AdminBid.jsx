@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import Updatecharge from "./Updatecharge";
 import { useQuery } from "@tanstack/react-query";
-import { adminBidsFetch } from "../apis/franchise/bid";
+import {
+  adminBidTransportStatusChange,
+  adminBidsFetch,
+} from "../apis/franchise/bid";
 import Bidders from "../FrenchiesComp/Bidders";
 import AdminBidPaymentPopup from "./AdminBidPaymentPopup";
+import { toast } from "react-toastify";
 
 const AdminBid = () => {
   const [charge, setCharge] = useState(false);
@@ -19,6 +23,16 @@ const AdminBid = () => {
     queryKey: ["bidsCommissionFetch"],
     queryFn: () => bidsCommissionFetch(),
   });
+
+  const handleTransportStatusChange = async (data) => {
+    const res = await adminBidTransportStatusChange(data);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    refetch();
+    toast.success(res);
+  };
   return (
     <>
       <section className="admin-bids-comp">
@@ -187,12 +201,33 @@ const AdminBid = () => {
                               </td>
                               <td>
                                 {acceptedBid ? (
-                                  <span>
-                                    {" "}
-                                    {acceptedBid?.transportStatus
-                                      ? acceptedBid?.transportStatus
-                                      : "Pending..."}{" "}
-                                  </span>
+                                  // <span>
+                                  //   {" "}
+                                  //   {acceptedBid?.transportStatus
+                                  //     ? acceptedBid?.transportStatus
+                                  //     : "Pending..."}{" "}
+                                  // </span>
+                                  <div className="all-prod-sel-filt-box">
+                                    <select
+                                      onChange={(e) =>
+                                        handleTransportStatusChange({
+                                          id: acceptedBid?.id,
+                                          status: e.target.value,
+                                        })
+                                      }
+                                      defaultValue={
+                                        acceptedBid?.transportStatus
+                                      }
+                                      name="product"
+                                      id="product"
+                                    >
+                                      <option value="">Pending...</option>
+                                      <option value="dispatch">
+                                        Dispatched
+                                      </option>
+                                      <option value="deliver">Delivered</option>
+                                    </select>
+                                  </div>
                                 ) : (
                                   <span>Not accepted any bid</span>
                                 )}

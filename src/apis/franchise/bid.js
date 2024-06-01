@@ -177,3 +177,37 @@ export const franchiseReCreateBidPost = resolvePromise(
     return res?.message;
   }
 );
+
+export const adminBidpaymentStatusChange = resolvePromise(
+  async ({ id, ...data }) => {
+    const apiUrl = ENV_API_BASE_URL + `/admin/bid/${id}/payment`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { ...data },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const adminBidTransportStatusChange = resolvePromise(
+  async ({ id, ...data }) => {
+    const apiUrl = ENV_API_BASE_URL + `/bid/${id}/transport`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { ...data },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

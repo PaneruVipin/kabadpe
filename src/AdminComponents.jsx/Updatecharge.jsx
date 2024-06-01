@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const Updatecharge = ({ onClickClose }) => {
   const [charges, setCharges] = useState({});
   const { data: commission, refetch } = useQuery({
-    queryKey: ["bidsCommissionFetch"],
+    queryKey: ["bidsCommissionFetch1"],
     queryFn: () => bidsCommissionFetch(),
   });
   const handleInputChange = (e) => {
@@ -34,9 +34,16 @@ const Updatecharge = ({ onClickClose }) => {
       1: commission?.find(({ level }) => level == 1)?.commission,
       2: commission?.find(({ level }) => level == 2)?.commission,
       3: commission?.find(({ level }) => level == 3)?.commission,
+      4: commission?.find(({ level }) => level == 4)?.commission,
     };
     setCharges(charges);
   }, [commission]);
+  const chargesLabel = [
+    { id: 1, label: 1, priceRange: "1 - 10,000" },
+    { id: 2, label: 2, priceRange: "10,001 - 50,000" },
+    { id: 3, label: 3, priceRange: "50001 - 2,00,000" },
+    { id: 4, label: 4, priceRange: "2,00,000+" },
+  ];
   return (
     <>
       <div onClick={onClickClose} className="bid-popup-sec">
@@ -51,84 +58,34 @@ const Updatecharge = ({ onClickClose }) => {
               <thead>
                 <tr>
                   <th>Level</th>
-                  <th>Weight (kg)</th>
-                  <th>Quantity</th>
+                  <th>Price Range</th>
                   <th>Charges</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <span>Level 1</span>
-                  </td>
-                  <td>
-                    <span>0 - 500</span>
-                  </td>
-                  <td>
-                    <span>0 - 500</span>
-                  </td>
+                {chargesLabel?.map(({ id, label, priceRange }) => (
+                  <tr key={id}>
+                    <td>
+                      <span>Level {label}</span>
+                    </td>
+                    <td>
+                      <span>{priceRange}</span>
+                    </td>
 
-                  <td>
-                    {" "}
-                    <div className="b-inpt">
-                      <input
-                        type="number"
-                        name="1"
-                        id="charge"
-                        value={charges?.[1]}
-                        onChange={handleInputChange}
-                      />
-                    </div>{" "}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>Level 2</span>
-                  </td>
-                  <td>
-                    <span>500 - 1000</span>
-                  </td>
-                  <td>
-                    <span>500 - 1000</span>
-                  </td>
-
-                  <td>
-                    {" "}
-                    <div className="b-inpt">
-                      <input
-                        type="number"
-                        name="2"
-                        id="charge"
-                        value={charges?.[2]}
-                        onChange={handleInputChange}
-                      />
-                    </div>{" "}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span>Level 3</span>
-                  </td>
-                  <td>
-                    <span> More than 1000 </span>
-                  </td>
-                  <td>
-                    <span> More than 1000 </span>
-                  </td>
-
-                  <td>
-                    {" "}
-                    <div className="b-inpt">
-                      <input
-                        type="number"
-                        name="3"
-                        id="charge"
-                        value={charges?.[3]}
-                        onChange={handleInputChange}
-                      />
-                    </div>{" "}
-                  </td>
-                </tr>
+                    <td>
+                      {" "}
+                      <div className="b-inpt">
+                        <input
+                          type="number"
+                          name={label}
+                          id="charge"
+                          value={charges?.[label]}
+                          onChange={handleInputChange}
+                        />
+                      </div>{" "}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

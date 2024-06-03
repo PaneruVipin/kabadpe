@@ -11,6 +11,7 @@ import { DateTime } from "luxon";
 import RejectBidOffer from "./RejectBidOffer";
 import Bidders from "./Bidders";
 import { filteredData } from "../lib/array";
+import TransportStatus from "./tranportStatus/TransportStatus";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -184,12 +185,56 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               </p>
                             </div>
                           </div>
-                          {remining ? (
-                            <div className=" ">
-                              After this deal, {remining + rest?.unit} is
-                              remaining
-                            </div>
-                          ) : null}
+                          <div>
+                            {/* {remining ? (
+                              <div className=" ">
+                                After this deal, {remining + rest?.unit} is
+                                remaining
+                              </div>
+                            ) : null} */}
+                            {acceptedOffer ? (
+                              acceptedOffer?.paymentStatus == "receive" ? (
+                                <div>
+                                  We have received payment from the bidder.{" "}
+                                  <br />
+                                  Please proceed with the transport.
+                                </div>
+                              ) : acceptedOffer?.paymentStatus == "paid" ? (
+                                <div
+                                  style={{
+                                    background: "green",
+                                    color: "white",
+                                    textAlign: "center",
+                                    width: "200px",
+                                    padding: "2px",
+                                    margin: "10px 0px",
+                                  }}
+                                >
+                                  Payment Completed
+                                </div>
+                              ) : (
+                                <div>
+                                  Bidder's payment is in process.
+                                  <br /> Once received, you can proceed with the
+                                  transport
+                                </div>
+                              )
+                            ) : null}
+                            {acceptedOffer ? (
+                              <TransportStatus
+                              currentStatus={acceptedOffer?.transportStatus}
+                                data={acceptedOffer}
+                                refetch={() => {
+                                  refetch();
+                                  refetchOffers();
+                                }}
+                                disabled={
+                                  acceptedOffer?.paymentStatus != "receive"
+                                }
+                              />
+                            ) : null}
+                          </div>
+
                           {/* { <div className="start-latest-bidder-grid-bx start-latest-bidder-grid-bx-green">
                           <div className="bidder-bx">
                             <h6>Starting Bid</h6>
@@ -222,6 +267,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               className="bid-btn bid-btn32 view-bid-btn"
                             >
                               View Bids
+                              {/* {rest?.Bids?.length} */}
                             </button>
                             {/* <button
                             onClick={() => setIsDealTwo(true)}

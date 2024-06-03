@@ -24,7 +24,7 @@ const ReminingPopup = ({ data, refetch, handleCloseClick }) => {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", rowGap: "10px" }}>
-        <h6>Create Remining Post</h6>
+        <h6>Create listing for remaining items</h6>
         <p>
           {" "}
           <span>Note </span> You will have {data?.productQuantity} {data?.unit}{" "}

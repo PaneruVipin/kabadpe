@@ -2,6 +2,7 @@ import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { IoIosArrowRoundBack } from "react-icons/io";
 import {
   userLogin,
   userSignup,
@@ -150,7 +151,10 @@ const FrenchiesLogin = ({}) => {
 
   useEffect(() => {
     if (franchise?.role == "franchiseAdmin") {
-      if (franchise?.franchiseStatus == "active") {
+      if (
+        franchise?.franchiseStatus == "active" ||
+        franchise?.franchiseStatus == "unapprove"
+      ) {
         navigate("/frenchiespanel");
       }
     }
@@ -187,11 +191,23 @@ const FrenchiesLogin = ({}) => {
               }
             >
               <div className="verify-otp-box">
+                <IoIosArrowRoundBack
+                  onClick={() => setOtp(false)}
+                  style={{
+                    width: "30px",
+                    height: "40px",
+                    color: "black",
+                    cursor: "pointer",
+                  }}
+                />
                 <div className="admin-login-img">
+                  {" "}
                   <img src="/images/customImg/nav-logo.png" alt="" />
                 </div>
-
-                <p> {frenHead} </p>
+                <p> {frenHead}</p>
+                <p>
+                 
+                </p>
                 <Formik
                   initialValues={{ otp: "" }}
                   onSubmit={handleOTPSubmit}
@@ -210,7 +226,7 @@ const FrenchiesLogin = ({}) => {
                     return (
                       <Form>
                         <div className="admin-login-fild">
-                          <label htmlFor="Company_Name">OTP Verification</label>
+                          <label htmlFor="Company_Name"> OTP sent to XXXXXX{user?.phoneNumber?.slice(-4)}</label>
                           <div className="admin-login-input">
                             <input
                               type="text"
@@ -231,14 +247,14 @@ const FrenchiesLogin = ({}) => {
                           Verify OTP
                         </button>
                         <button
-                        type="button"
-                        onClick={() => {
-                          window.location.reload();
-                        }}
-                        className="userform-register-btn"
-                      >
-                        Login / Signup
-                      </button>
+                          type="button"
+                          onClick={() => {
+                            window.location.reload();
+                          }}
+                          className="userform-register-btn"
+                        >
+                          Login / Signup
+                        </button>
                       </Form>
                     );
                   }}

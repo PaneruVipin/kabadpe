@@ -10678,7 +10678,14 @@ __________ */
   border-radius: .5rem;
 
 
+
 }
+
+.switch-btn3{
+  width: max-content;
+}
+
+
 
 .switch-btn:hover,
 .switch-btn.switchactive {
@@ -12150,7 +12157,11 @@ Our footer comp
   line-height: 1.5;
 }
 
-
+.submit-btn-save-chng{
+  width: max-content;
+  padding-inline: 1.7rem;
+  height: max-content;
+}
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
 
@@ -17496,6 +17507,11 @@ video {
   display: none;
 }
 
+
+.bid-prod-grid-bx{
+  margin-bottom: 3rem;
+}
+
 /* ____________________________________
  Our Media queries for responsive designs 
  --------------------------- */
@@ -18601,6 +18617,11 @@ video {
 
 .revw-name-info span{
   font-size: 1.15rem;
+}
+
+.k-icon2{
+  max-width: 3.2rem;
+  height: 3.3rem;
 }
 
 }

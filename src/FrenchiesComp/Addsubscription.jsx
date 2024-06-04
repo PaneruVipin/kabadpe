@@ -23,8 +23,8 @@ const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
             <button
               className={
                 onactive === "addsubscription" ||      onactive === "createplan"
-                  ? "switch-btn switchactive"
-                  : "switch-btn "
+                  ? "switch-btn switch-btn3 switchactive"
+                  : "switch-btn switch-btn3 "
               } onClick={onSwitchPrev}
             
             >
@@ -34,8 +34,8 @@ const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
             <button
               className={
                 onactive === "individuals"
-                  ? "switch-btn switchactive"
-                  : "switch-btn "
+                  ? "switch-btn switch-btn3 switchactive"
+                  : "switch-btn switch-btn3 "
               }
               onClick={onSwitch}
             >

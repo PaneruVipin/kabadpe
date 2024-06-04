@@ -650,7 +650,7 @@ const WasteColectEdit = ({
                 <p style={{ textAlign: "center", color: "red", lineHeight: 0 }}>
                   {otherErrors?.update}
                 </p>
-                <button className="submit-btn submit-btn5">Save Changes</button>
+                <button className="submit-btn submit-btn-save-chng submit-btn5">Save Changes</button>
               </Form>
             );
           }}

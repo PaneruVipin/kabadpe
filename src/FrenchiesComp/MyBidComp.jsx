@@ -8,6 +8,8 @@ import QuateOfferPopupThree from "./QuateOfferPopupThree";
 import { useQuery } from "@tanstack/react-query";
 import { franchiseMyBidOfferFetch } from "../apis/franchise/bid";
 import { DateTime } from "luxon";
+import { filteredData } from "../lib/array";
+import { Label } from "recharts";
 
 const MyBidComp = ({ onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -19,6 +21,8 @@ const MyBidComp = ({ onClickCreatePost }) => {
   const [bidPopup, setBidPopup] = useState(false);
   const [bidPopupTwo, setBidPopupTwo] = useState(false);
   const [selectedData, setSelectedData] = useState({});
+  const [filters, setFilters] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState("all");
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -29,6 +33,57 @@ const MyBidComp = ({ onClickCreatePost }) => {
     queryKey: ["franchiseMyBidOfferFetch"],
     queryFn: () => franchiseMyBidOfferFetch(),
   });
+  const handleFilterClick = (e) => {
+    const { name } = e.target;
+    setCurrentFilter(name);
+    let filters = [];
+    switch (name) {
+      case "all":
+        break;
+      case "going":
+        filters = [
+          {
+            id: "status",
+            fn: (bid) => {
+              return bid?.bidStatus == "accept";
+            },
+          },
+        ];
+        break;
+      case "pending":
+        filters = [
+          {
+            id: "status",
+            fn: (bid) => {
+              return bid?.bidStatus == "active";
+            },
+          },
+        ];
+        break;
+      case "reject":
+        filters = [
+          {
+            id: "status",
+            fn: (bid) => {
+              return bid?.bidStatus == "reject";
+            },
+          },
+        ];
+        break;
+      case "completed":
+      default:
+        break;
+    }
+    setFilters(filters);
+  };
+  const filterButtons = [
+    { name: "all", Label: "All" },
+    { name: "pending", Label: "Pending" },
+    { name: "reject", Label: "Rejected" },
+    { name: "going", Label: "On Going" },
+    { name: "complete", Label: "Completed" },
+  ];
+  const order = ["active", "accept", "reject"];
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -41,9 +96,17 @@ const MyBidComp = ({ onClickCreatePost }) => {
 
             <div className="right-unit-flex-bx">
               <div className="bid-filt-btn-flex">
-                <button className="filt-bid-btn bidactive">All</button>
-                <button className="filt-bid-btn">On Going</button>
-                <button className="filt-bid-btn">Complete</button>
+                {filterButtons?.map(({ name, Label }) => (
+                  <button
+                    onClick={handleFilterClick}
+                    name={name}
+                    className={`filt-bid-btn  ${
+                      name == currentFilter ? "bidactive" : ""
+                    }`}
+                  >
+                    {Label}
+                  </button>
+                ))}
               </div>
 
               <button onClick={onClickCreatePost} className="create-post-btn">
@@ -54,41 +117,57 @@ const MyBidComp = ({ onClickCreatePost }) => {
 
           <div className="bid-list-main">
             {!bids?.error
-              ? bids?.map(
-                  ({
-                    id,
-                    bidStatus,
-                    BidPost,
-                    productimages,
-                    addedOn,
-                    ...rest
-                  }) => {
-                    const img =
-                      JSON.parse(BidPost?.productimages || "[]")?.[0] ||
-                      "/images/noImg.png";
+              ? filteredData(bids, filters)
+                  ?.sort((a, b) => {
                     return (
-                      <div key={id} className="bid-list-bx">
-                        <div className="left-bid-li-bx">
-                          <div className="bid-li-img">
-                            <img src={img} alt="" />
-                          </div>
-                          <div className="bid-li-info">
-                            <div className="bid-det-top-flex">
-                              <span className="bx-span">{bidStatus}</span>
-                              <span className="bid-date">
-                                {DateTime.fromISO(addedOn, {
-                                  zone: "utc",
-                                })
-                                  .setZone("Asia/Kolkata")
-                                  .toFormat("ccc dd LLL yyyy")}
-                              </span>
+                      order.indexOf(a?.bidStatus) - order.indexOf(b?.bidStatus)
+                    );
+                  })
+                  ?.map(
+                    ({
+                      id,
+                      bidStatus,
+                      BidPost,
+                      productimages,
+                      addedOn,
+                      ...rest
+                    }) => {
+                      const img =
+                        JSON.parse(BidPost?.productimages || "[]")?.[0] ||
+                        "/images/noImg.png";
+                      return (
+                        <div key={id} className="bid-list-bx">
+                          <div className="left-bid-li-bx">
+                            <div className="bid-li-img">
+                              <img src={img} alt="" />
                             </div>
-                            <h5>{BidPost?.productName}</h5>
-                            <h6>Seller: {BidPost?.Franchise?.companyName}</h6>
+                            <div className="bid-li-info">
+                              <div className="bid-det-top-flex">
+                                <span
+                                  className={
+                                    bidStatus == "complete"
+                                      ? "bx-span bx-span-green"
+                                      : bidStatus == "reject"
+                                      ? "bx-span bx-span-orangee"
+                                      : "bx-span"
+                                  }
+                                >
+                                  {bidStatus}
+                                </span>
+                                <span className="bid-date">
+                                  {DateTime.fromISO(addedOn, {
+                                    zone: "utc",
+                                  })
+                                    .setZone("Asia/Kolkata")
+                                    .toFormat("ccc dd LLL yyyy")}
+                                </span>
+                              </div>
+                              <h5>{BidPost?.productName}</h5>
+                              <h6>Seller: {BidPost?.Franchise?.companyName}</h6>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* { <div className="start-latest-bidder-grid-bx">
+                          {/* { <div className="start-latest-bidder-grid-bx">
                           <div className="bidder-bx">
                             <h6>Sellers Bid</h6>
                             <span>₹50,000</span>
@@ -105,28 +184,28 @@ const MyBidComp = ({ onClickCreatePost }) => {
                           </div>
                         </div>} */}
 
-                        <div className="view-bid-btn-flex">
-                          <button
-                            onClick={() => {
-                              setSelectedData({
-                                id,
-                                bidStatus,
-                                BidPost,
-                                productimages,
-                                addedOn,
-                                ...rest,
-                              });
-                              setBidPopupTwo(true);
-                            }}
-                            className="bid-btn bid-btn32 view-bid-btn"
-                          >
-                            Current Status
-                          </button>
+                          <div className="view-bid-btn-flex">
+                            <button
+                              onClick={() => {
+                                setSelectedData({
+                                  id,
+                                  bidStatus,
+                                  BidPost,
+                                  productimages,
+                                  addedOn,
+                                  ...rest,
+                                });
+                                setBidPopupTwo(true);
+                              }}
+                              className="bid-btn bid-btn32 view-bid-btn"
+                            >
+                              Current Status
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  }
-                )
+                      );
+                    }
+                  )
               : null}
             {/* { <>
               <div className="bid-list-bx">

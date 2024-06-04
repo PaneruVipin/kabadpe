@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import Updatecharge from "./Updatecharge";
 import { useQuery } from "@tanstack/react-query";
-import { adminBidsFetch } from "../apis/franchise/bid";
+import {
+  adminBidTransportStatusChange,
+  adminBidsFetch,
+} from "../apis/franchise/bid";
 import Bidders from "../FrenchiesComp/Bidders";
+import AdminBidPaymentPopup from "./AdminBidPaymentPopup";
+import { toast } from "react-toastify";
 
 const AdminBid = () => {
   const [charge, setCharge] = useState(false);
   const [bidders, setBidders] = useState(false);
   const [selectedOffers, setSelectedOffers] = useState([]);
   const [selectedData, setSelectedData] = useState({});
+  const [paymentPopup, setPaymentPopup] = useState(false);
   const { data: bids, refetch } = useQuery({
     queryKey: ["adminBidsFetch"],
     queryFn: () => adminBidsFetch(),
@@ -17,6 +23,16 @@ const AdminBid = () => {
     queryKey: ["bidsCommissionFetch"],
     queryFn: () => bidsCommissionFetch(),
   });
+
+  const handleTransportStatusChange = async (data) => {
+    const res = await adminBidTransportStatusChange(data);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    refetch();
+    toast.success(res);
+  };
   return (
     <>
       <section className="admin-bids-comp">
@@ -114,48 +130,14 @@ const AdminBid = () => {
                     <th>Accepted Bid</th>
                     <th>Total Value</th>
                     <th>Platform Comision</th>
-                    <th>All Offers</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>Post Status</th>
+                    <th>Transport Status</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
                     <th>Invoice</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {bidData.map((curData, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>
-                          <span> {curData.id} </span>
-                        </td>
-                        <td>
-                          <span> {curData.productName} </span>
-                        </td>
-                        <td>
-                          <span> {curData.sellerName} </span>
-                        </td>
-                        <td>
-                          <span> {curData.totalBid} </span>
-                        </td>
-                        <td>
-                          <span> {curData.productValue} </span>
-                        </td>
-                        <td>
-                          <span> {curData.comission} </span>
-                        </td>
-                        <td>
-                          <span> {curData.status} </span>
-                        </td>
-                        <td>
-                          {" "}
-                          <button className="trnfr-btn">Tranfer</button>{" "}
-                        </td>
-
-                        <td>
-                          <span> C1124509385 </span>
-                        </td>
-                      </tr>
-                    );
-                  })} */}
                   {!bids?.error
                     ? bids?.map(
                         (
@@ -196,7 +178,6 @@ const AdminBid = () => {
                               <td>
                                 {" "}
                                 <span>
-                                  {/* Quantity:  */}
                                   {productQuantity + unit} <br /> ₹
                                   {pricePerUnit}/{unit}
                                 </span>
@@ -204,10 +185,8 @@ const AdminBid = () => {
                               <td>
                                 {acceptedBid ? (
                                   <span>
-                                    {/* Quantity:{" "} */}
-                                    {acceptedBid?.productQuantity +
-                                      unit} <br /> ₹{acceptedBid?.pricePerUnit}/
-                                    {unit}
+                                    {acceptedBid?.productQuantity + unit} <br />{" "}
+                                    ₹{acceptedBid?.pricePerUnit}/{unit}
                                   </span>
                                 ) : null}
                               </td>
@@ -215,10 +194,86 @@ const AdminBid = () => {
                                 <span> {total} </span>
                               </td>
                               <td>
-                                <span> </span>
+                                <span>{acceptedBid?.commission} </span>
+                              </td>
+                              <td>
+                                <span> {rest?.postStatus} </span>
+                              </td>
+                              <td>
+                                {acceptedBid ? (
+                                  // <span>
+                                  //   {" "}
+                                  //   {acceptedBid?.transportStatus
+                                  //     ? acceptedBid?.transportStatus
+                                  //     : "Pending..."}{" "}
+                                  // </span>
+                                  <div className="all-prod-sel-filt-box">
+                                    <select
+                                      onChange={(e) =>
+                                        handleTransportStatusChange({
+                                          id: acceptedBid?.id,
+                                          status: e.target.value,
+                                        })
+                                      }
+                                      defaultValue={
+                                        acceptedBid?.transportStatus
+                                      }
+                                      name="product"
+                                      id="product"
+                                    >
+                                      <option value="">Pending...</option>
+                                      <option value="dispatch">
+                                        Dispatched
+                                      </option>
+                                      <option value="deliver">Delivered</option>
+                                    </select>
+                                  </div>
+                                ) : (
+                                  <span>Not accepted any bid</span>
+                                )}
+                              </td>
+                              <td>
+                                {acceptedBid ? (
+                                  <>
+                                    <span>
+                                      {" "}
+                                      {acceptedBid?.paymentStatus
+                                        ? acceptedBid?.paymentStatus
+                                        : "Pending..."}{" "}
+                                    </span>
+
+                                    {acceptedBid?.paymentStatus != "paid" ? (
+                                      <button
+                                        onClick={() => {
+                                          setPaymentPopup(true);
+                                          setSelectedData({
+                                            Bids,
+                                            Franchise,
+                                            id,
+                                            pricePerUnit,
+                                            productName,
+                                            productQuantity,
+                                            unit,
+                                            acceptedBid,
+                                            ...rest,
+                                          });
+                                        }}
+                                        className="trnfr-btn"
+                                      >
+                                        Update
+                                      </button>
+                                    ) : null}
+                                  </>
+                                ) : (
+                                  "...."
+                                )}
                               </td>
                               <td>
                                 <button
+                                  style={{
+                                    background: "green",
+                                    marginRight: "6px",
+                                  }}
                                   onClick={() => {
                                     setSelectedOffers(Bids);
                                     setSelectedData({
@@ -235,18 +290,8 @@ const AdminBid = () => {
                                   }}
                                   className="trnfr-btn"
                                 >
-                                  View Offers
+                                  Offers
                                 </button>
-                              </td>
-                              <td>
-                                <span> {"curData.status"} </span>
-                              </td>
-
-                              <td>
-                                {" "}
-                                <button className="trnfr-btn">
-                                  Tranfer
-                                </button>{" "}
                               </td>
 
                               <td>
@@ -271,6 +316,13 @@ const AdminBid = () => {
           offers={selectedOffers}
           selectedData={selectedData}
           onClickClose={() => setBidders(false)}
+        />
+      ) : null}
+      {paymentPopup ? (
+        <AdminBidPaymentPopup
+          data={selectedData}
+          refetch={refetch}
+          onClickClose={() => setPaymentPopup(false)}
         />
       ) : null}
     </>

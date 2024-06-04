@@ -4,11 +4,17 @@ import "./transportStatus.css";
 import { adminBidTransportStatusChange } from "../../apis/franchise/bid";
 import { toast } from "react-toastify";
 
-const TransportStatus = ({ currentStatus = "", disabled, data, refetch }) => {
+const TransportStatus = ({
+  currentStatus = "",
+  disabled,
+  data,
+  refetch,
+  comp = "listing",
+}) => {
   const statuses = [
-    { id: 1, value: "", label: "Pending...", css: "pending" },
-    { id: 2, value: "dispatch", label: "Dispatch", css: "Dispatch" },
-    { id: 3, value: "deliver", label: "Deliver", css: "Deliver" },
+    { id: 1, value: "", label: "Processing..." },
+    { id: 2, value: "dispatch", label: "Dispatch" },
+    { id: 3, value: "deliver", label: "Deliver" },
   ];
   const handleChangeStatusClick = async (value) => {
     if (disabled) {
@@ -31,10 +37,11 @@ const TransportStatus = ({ currentStatus = "", disabled, data, refetch }) => {
         <div key={id} className="status-wrapper">
           <div
             onClick={() => handleChangeStatusClick(value)}
-            className={`status  ${statuses.findIndex(({ value }) => currentStatus == value) >=
-            index ? "active" : ""} ${
-              disabled ? "disabled" : ""
-            }`}
+            className={`status  ${
+              statuses.findIndex(({ value }) => currentStatus == value) >= index
+                ? "active"
+                : ""
+            } ${disabled ? "disabled" : ""}`}
           >
             {label}
           </div>

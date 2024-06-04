@@ -19,7 +19,7 @@ const FrenchiesProfile = () => {
 
         <button
           onClick={() => setEditForm(true)}
-          className="french-prof-edit-btn"
+          className="french-prof-edit-btn french-prof-edit-btn545"
         >
           <i class="fa-solid fa-user-pen"></i>
         </button>

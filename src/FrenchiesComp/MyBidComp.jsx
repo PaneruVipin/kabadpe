@@ -10,6 +10,7 @@ import { franchiseMyBidOfferFetch } from "../apis/franchise/bid";
 import { DateTime } from "luxon";
 import { filteredData } from "../lib/array";
 import { Label } from "recharts";
+import TransportStatus from "./tranportStatus/TransportStatus";
 
 const MyBidComp = ({ onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -183,7 +184,53 @@ const MyBidComp = ({ onClickCreatePost }) => {
                             <span>10</span>
                           </div>
                         </div>} */}
-
+                          <div>
+                            {/* {remining ? (
+                              <div className=" ">
+                                After this deal, {remining + rest?.unit} is
+                                remaining
+                              </div>
+                            ) : null} */}
+                            {bidStatus == "accept" ? (
+                              rest?.paymentStatus == "receive" ||
+                              rest?.paymentStatus == "paid" ? (
+                                <div
+                                  style={{
+                                    background: "green",
+                                    color: "white",
+                                    textAlign: "center",
+                                    width: "200px",
+                                    padding: "2px",
+                                    margin: "10px 0px",
+                                  }}
+                                >
+                                  Payment Received
+                                </div>
+                              ) : (
+                                <div>
+                                  Payment not received.
+                                  <br /> Transport will proceed upon receipt.
+                                </div>
+                              )
+                            ) : null}
+                            {bidStatus == "accept" ? (
+                              <TransportStatus
+                                currentStatus={rest?.transportStatus}
+                                data={{
+                                  id,
+                                  bidStatus,
+                                  BidPost,
+                                  productimages,
+                                  addedOn,
+                                  ...rest,
+                                }}
+                                refetch={() => {
+                                  refetch();
+                                }}
+                                disabled={rest?.paymentStatus != "receive"}
+                              />
+                            ) : null}
+                          </div>
                           <div className="view-bid-btn-flex">
                             <button
                               onClick={() => {

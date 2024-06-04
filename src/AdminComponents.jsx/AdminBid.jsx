@@ -221,7 +221,7 @@ const AdminBid = () => {
                                       name="product"
                                       id="product"
                                     >
-                                      <option value="">Pending...</option>
+                                      <option value="">Processing...</option>
                                       <option value="dispatch">
                                         Dispatched
                                       </option>

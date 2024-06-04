@@ -3,106 +3,40 @@ import { NavLink } from "react-router-dom";
 import BidProductData from "../FrenchiesComp/BidProductData";
 import { useQuery } from "@tanstack/react-query";
 import { franchiseAllListingsFetch } from "../apis/franchise/bid";
+import { catageories } from "../lib/kabadCatageories";
 
 const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
   const [showOption, setShowOption] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState([]);
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
     setUnit(selectOption);
     setShowOption(false);
   };
-
-  const BidProdData = [
-    {
-      id: 1,
-      bidImg: "/images/customImg/serv-img-1.jpg",
-      ProdName: "Bid Product One",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 2,
-      bidImg: "/images/customImg/serv-img-2.jpg",
-      ProdName: "Bid Product Two",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 3,
-      bidImg: "/images/customImg/serv-img-3.jpg",
-      ProdName: "Bid Product Three",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 4,
-      bidImg: "/images/customImg/serv-img-4.jpg",
-      ProdName: "Bid Product Four",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 5,
-      bidImg: "/images/customImg/instagram-1.jpg",
-      ProdName: "Bid Product Five",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 6,
-      bidImg: "/images/customImg/instagram-2.jpg",
-      ProdName: "Bid Product Six",
-      prodPrice: 699.0,
-      pertext: "/piece",
-    },
-    {
-      id: 7,
-      bidImg: "/images/customImg/instagram-3.jpg",
-      ProdName: "Bid Product Seven",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 8,
-      bidImg: "/images/customImg/instagram-4.jpg",
-      ProdName: "Bid Product Eight",
-      prodPrice: 699.0,
-      pertext: "/piece",
-    },
-    {
-      id: 9,
-      bidImg: "/images/customImg/instagram-5.jpg",
-      ProdName: "Bid Product Nine",
-      prodPrice: 699.0,
-      pertext: "/piece",
-    },
-    {
-      id: 10,
-      bidImg: "/images/customImg/instagram-6.jpg",
-      ProdName: "Bid Product Ten",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 11,
-      bidImg: "/images/customImg/gall-img-4.jpg",
-      ProdName: "Bid Product Eleven",
-      prodPrice: 699.0,
-      pertext: "/Kg",
-    },
-    {
-      id: 12,
-      bidImg: "/images/customImg/gall-img-3.jpg",
-      ProdName: "Bid Product Twelve",
-      prodPrice: 699.0,
-      pertext: "/piece",
-    },
-  ];
- 
-
+  const handleFilterChange = (e) => {
+    const { name, value } = e?.target;
+    let newFilters = filters?.filter(({ id }) => id != name);
+    if (value == "all") {
+      setFilters(newFilters);
+      return;
+    }
+    switch (name) {
+      case "category":
+        const filter = {
+          id: "category",
+          fn: ({ category }) => category == value,
+        };
+        newFilters.push(filter);
+        break;
+      default:
+        break;
+    }
+    console.log("tis is filters", filters);
+    setFilters(newFilters);
+  };
   return (
     <>
       <section className="bid-product-listing-comp bid-product-listing-comp2">
@@ -114,38 +48,31 @@ const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
             </div>
 
             <div className="right-unit-flex-bx">
-              <div className="unit-select-main-bx">
-                <div
-                  onClick={() => setShowOption(!showOption)}
-                  className="select-bx"
+              <div className="right-all-prod-search-box">
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  autoComplete="off"
+                  placeholder="Search..."
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <div className="all-prod-sel-filt-box all-prod-sel-filt-box2">
+                <select
+                  onChange={handleFilterChange}
+                  name="category"
+                  id="product"
                 >
-                  {unit}
-                  <div className="s-arw">
-                    <i class="fa-solid fa-angle-down"></i>
-                  </div>
-                </div>
-
-                <div
-                  className={
-                    showOption
-                      ? "unit-options-bx selectactive"
-                      : "unit-options-bx"
-                  }
-                >
-                  {Options.map((option) => {
+                  <option value="all">All</option>
+                  {catageories?.map(({ id, name }) => {
                     return (
-                      <>
-                        <span
-                          key={option}
-                          onClick={() => handleOptionChange(option)}
-                        >
-                          {" "}
-                          {option}{" "}
-                        </span>
-                      </>
+                      <option key={id} value={name}>
+                        {name}
+                      </option>
                     );
                   })}
-                </div>
+                </select>
               </div>
 
               <button onClick={onClickCreatePost} className="create-post-btn">
@@ -156,7 +83,9 @@ const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
 
           <BidProductData
             onClickRedirect={onClickDetPage}
-            bidData={BidProdData}
+            productSearchQuery={searchQuery}
+            filters={filters}
+            // bidData={BidProdData}
           />
         </div>
       </section>

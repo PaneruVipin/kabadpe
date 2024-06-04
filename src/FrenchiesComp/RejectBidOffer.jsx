@@ -23,7 +23,7 @@ const RejectBidOffer = ({ data, closePodpup, refetch }) => {
         </span>
 
         <button onClick={handleConfirmClick} className="confirm-btn">
-          Confirm
+          Confirm 2
         </button>
       </div>
     </div>

@@ -8,12 +8,17 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 import { logout } from "../lib/logout";
-const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileNav }) => {
+const Header = ({
+  userForm,
+  setUserForm,
+  onClickProfileNavHideShow,
+  onProfileNav,
+}) => {
   const [navlink, setNavLink] = useState("");
   const [menu, setMenu] = useState(false);
   const [nav, setNav] = useState(false);
   const [link, setLink] = useState("home");
-  const [topMenu , setTopMenu] = useState('kabadpe');
+  const [topMenu, setTopMenu] = useState("kabadpe");
 
   const linkActive = (getlinkvalue) => {
     setNavLink(getlinkvalue);
@@ -29,7 +34,8 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
   };
 
   window.addEventListener("scroll", scrollShow, true);
-
+  console.log(window.location.pathname);
+  const path = window.location.pathname;
   return (
     <>
       <header className="main-header header-style-one">
@@ -38,13 +44,25 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
                 <a href="#"> Climstripe Shift </a>
-                <NavLink to="/" onClick={() => setTopMenu('kabadpe')} className={topMenu === 'kabadpe' ? "linkactive" : ""}>
+                <NavLink
+                  to="/"
+                  onClick={() => setTopMenu("kabadpe")}
+                  className={topMenu === "kabadpe" ? "linkactive" : ""}
+                >
                   <span>|</span> Kabadpe
                 </NavLink>
-                <NavLink to="httos://thegreensamanshop.com/" onClick={() => setTopMenu('greensaman')} className={topMenu === 'greensaman' ? "linkactive" : ""} >
+                <NavLink
+                  to="httos://thegreensamanshop.com/"
+                  onClick={() => setTopMenu("greensaman")}
+                  className={topMenu === "greensaman" ? "linkactive" : ""}
+                >
                   <span>|</span>The Green Saman Shop{" "}
                 </NavLink>
-                <NavLink to="/climconnect" onClick={() => setTopMenu('climconnect')} className={topMenu === 'climconnect' ? "linkactive" : ""}>
+                <NavLink
+                  to="/climconnect"
+                  onClick={() => setTopMenu("climconnect")}
+                  className={topMenu === "climconnect" ? "linkactive" : ""}
+                >
                   {" "}
                   <span>|</span> Climconnect{" "}
                 </NavLink>
@@ -73,22 +91,28 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
             <div className="outer-box">
               <div className="header-left-nav-bx">
                 <div className="header-left">
+                  {path?.startsWith("/account") ? (
+                    <button
+                      onClick={onClickProfileNavHideShow}
+                      className="w-menu-bar-btn profile-nav-bar-btn"
+                    >
+                      {onProfileNav ? (
+                        <HiMenuAlt3 className="menu-icon" />
+                      ) : (
+                        <FaArrowLeftLong className="menu-icon arrow-icon" />
+                      )}
+                    </button>
+                  ) : null}
                   <div className="main-logo-box">
                     <NavLink to="/">
                       <img src="/images/customImg/logo.png" alt="" />
                     </NavLink>
                   </div>
 
-                  <button onClick={onClickProfileNavHideShow} className="w-menu-bar-btn profile-nav-bar-btn">
-            {onProfileNav ? <HiMenuAlt3 className="menu-icon" /> :
-            <FaArrowLeftLong className="menu-icon arrow-icon"  />  
-            }
-            </button>
-
-                {/* onClickProfileNavHideShow */}
-                  
+                  {/* onClickProfileNavHideShow */}
                 </div>
               </div>
+
               <div
                 className={
                   menu
@@ -240,26 +264,26 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
                               <h6>For Individuals</h6>
                               <div className="s-drpdwn-lists s-drpdwn-submenu-grid2">
                                 <div className="s-dpdwn-sb-menu-bx">
-                                  <p onClick={() => setLink("service")} >
-                                    <NavLink  to="/service/zero-waste-societies" >
+                                  <p onClick={() => setLink("service")}>
+                                    <NavLink to="/service/zero-waste-societies">
                                       Zero Waste Societies
                                     </NavLink>
                                   </p>
 
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/waste-sip" >
+                                    <NavLink to="/service/waste-sip">
                                       Waste SIP
                                     </NavLink>
                                   </p>
 
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/Green-life" >
+                                    <NavLink to="/service/Green-life">
                                       Green Life
                                     </NavLink>
                                   </p>
 
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/climconnect" >
+                                    <NavLink to="/service/climconnect">
                                       Clim Connect
                                     </NavLink>
                                   </p>
@@ -267,33 +291,29 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
 
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/blog" >
-                                      Blog
-                                    </NavLink>
+                                    <NavLink to="/service/blog">Blog</NavLink>
                                   </p>
 
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/household" >
+                                    <NavLink to="/service/household">
                                       Household Scrap Collection
                                     </NavLink>
                                   </p>
 
-                                  
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/bulkwastepickup" >
+                                    <NavLink to="/service/bulkwastepickup">
                                       Bulk Waste Pickup
                                     </NavLink>
                                   </p>
 
-                                  
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/electwaste" >
+                                    <NavLink to="/service/electwaste">
                                       Electronic Waste Pickup
                                     </NavLink>
                                   </p>
 
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/vehiclescrap" >
+                                    <NavLink to="/service/vehiclescrap">
                                       Vehicle Scrapping
                                     </NavLink>
                                   </p>
@@ -311,7 +331,9 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
                                     </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/eprservice">EPR services</NavLink>
+                                    <NavLink to="/service/eprservice">
+                                      EPR services
+                                    </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
                                     <NavLink to="/service/dismantling">
@@ -319,7 +341,9 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
                                     </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/circulareconomy">Circular Economy</NavLink>
+                                    <NavLink to="/service/circulareconomy">
+                                      Circular Economy
+                                    </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
                                     <NavLink to="/service/zerowaste">
@@ -330,10 +354,14 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
 
                                 <div className="s-dpdwn-sb-menu-bx">
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/csr">CSR Services</NavLink>
+                                    <NavLink to="/service/csr">
+                                      CSR Services
+                                    </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
-                                    <NavLink to="/service/zerodrive">Zero Waste Drives</NavLink>
+                                    <NavLink to="/service/zerodrive">
+                                      Zero Waste Drives
+                                    </NavLink>
                                   </p>
                                   <p onClick={() => setLink("service")}>
                                     <NavLink to="/service/iec">
@@ -386,13 +414,11 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
 
                         <div className="dropdown-bx-serv dropdown-bx-serv-main">
                           <li
-                             onClick={() => setLink("about")}
+                            onClick={() => setLink("about")}
                             className="drodpwon-s hover-drop"
                           >
                             {" "}
-                          
                             <NavLink to="/about"> About us</NavLink>
-                           
                           </li>
 
                           <li
@@ -400,23 +426,18 @@ const Header = ({ userForm, setUserForm , onClickProfileNavHideShow , onProfileN
                             className="drodpwon-s hover-drop"
                           >
                             {" "}
-                          
                             <NavLink to="/frenchies"> Franchise</NavLink>
-                           
                           </li>
 
                           <li
-                             onClick={() => setLink("contact")}
+                            onClick={() => setLink("contact")}
                             className="drodpwon-s hover-drop"
                           >
                             {" "}
-                          
                             <NavLink to="/contact"> Contact now</NavLink>
-                           
                           </li>
-
                         </div>
-                        
+
                         <div className="about-drpdwn-bx">
                           <p onClick={() => setLink("about")}>
                             <NavLink to="/about"> About us</NavLink>

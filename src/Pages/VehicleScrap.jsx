@@ -6,12 +6,12 @@ import VehCompTwo from '../ServComps/VehCompTwo'
 import VehCompThree from '../ServComps/VehCompThree'
 
 const VehicleScrap = () => {
-    const data = {
-        title : "Vehicle Scrapping",
-    }
+    // const data = {
+    //     title : "Vehicle Scrapping",
+    // }
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
       <VehScrapCompOne />
       <VehScrapOne />
       <VehCompTwo />

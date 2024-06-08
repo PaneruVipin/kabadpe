@@ -10,7 +10,7 @@ import GreenLifeFive from '../ServComps/GreenLifeFive'
 const GreenLife = () => {
   return (
     <>
-      <ServBanner />
+      {/* <ServBanner /> */}
       <GreenLifeCompOne />
       <GreenLifeCompTwo />
       <GreenLifeCompThree />

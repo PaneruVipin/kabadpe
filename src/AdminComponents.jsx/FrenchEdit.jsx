@@ -365,7 +365,7 @@ const FrenchEdit = ({
                 <p style={{ color: "red", textAlign: "center", lineHeight: 0 }}>
                   {otherError?.update}
                 </p>
-                <button type="submit" className="submit-btn submit-btn5">
+                <button type="submit" className="submit-btn submit-btn5 submit-btn33">
                   Save Changes
                 </button>
               </Form>

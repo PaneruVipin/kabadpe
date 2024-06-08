@@ -8,9 +8,9 @@ import ZeroDriveTwo from '../ServComps/ZeroDriveTwo'
 
 const ZeroDrive = () => {
 
-    const data = {
-        title : "Zero Waste Drives",
-    }
+    // const data = {
+    //     title : "Zero Waste Drives",
+    // }
 
     const comnData = {
 
@@ -32,7 +32,7 @@ const ZeroDrive = () => {
     
   return (
     <>
-       <BulkWasteBanner data={data} />
+       {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <ZeroDriveTwo />
     <EprCompThree lastData={lastData} />

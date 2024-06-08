@@ -8,7 +8,7 @@ import HouseholdCompTwo from '../ServComps/HouseholdCompTwo'
 const Household = () => {
   return (
     <>
-      <ServBanner />
+      {/* <ServBanner /> */}
       <HouseholdCompOne />
       <HouseholdCompTwo />
 

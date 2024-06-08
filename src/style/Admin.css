@@ -71,6 +71,10 @@
     font-size: 1.2rem;
  }
 
+ #side-frenchies-navbar-comp .admin-top-comn-btn{
+  color: #2bc2c6 ;
+ }
+
  .admin-top-title{
     position: relative;
     font-size: 1.78rem;
@@ -280,6 +284,16 @@
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover{
   background-color: #0ea5e9;
 }
+
+
+.side-fren-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover{
+  background-color: #2bc2c6 !important;
+}
+
+/* .side-fren-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover{
+  background-color: #2bc2c6 !important;
+
+} */
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .admin-nv-btn:hover .a-nv-i{
   color: #fff;
 
@@ -303,7 +317,6 @@
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list li{
   padding-left: 0;
 }
-
 
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list li:before{
   display: none;
@@ -365,17 +378,23 @@
 
 }
 
+.fren-nv-btn.adminnavbtnActive{
+  background-color: #2bc2c6;
+  /* box-shadow: 0 8px 24px #1361fc4f; */
+
+}
+
 
 .a-nv-i{
     font-size: 1.5rem;
-    color: #bfbfbf;
+    color: #949393;
     transition: 500ms ease;
 
 }
 
 .admin-nv-btn span{
     display: block;
-    color: #bfbfbf;
+    color: #949393;
     letter-spacing: .66px;
     font-size: 1.1rem;
     font-weight: 600;
@@ -385,6 +404,10 @@
 
 .admin-nv-btn:hover span{
     color: #0ea5e9;
+}
+
+.fren-nv-btn:hover span{
+  color: #2bc2c6;
 }
 
 .admin-nv-btn.adminnavbtnActive .a-nv-i , .admin-nv-btn.adminnavbtnActive  span {
@@ -410,6 +433,11 @@
 .admin-nv-btn:hover:before{
     color: #0ea5e9;
 }
+
+.fren-nv-btn:hover:before{
+  color: #2bc2c6;
+}
+
 
 .adminnavbtnActive.admin-nv-btn:before{
     transform: translateY(-50%) rotate(90deg);
@@ -470,9 +498,18 @@
     color: #0ea5e9;
 }
 
+.page-link-btn2:hover a{
+  color: #2bc2c6 !important;
+}
+
 .ad-list li:hover:before{
     width: 1rem;
     background-color: #0ea5e9;
+}
+
+.page-link-btn2:hover:before{
+  width: 1rem;
+  background-color: #2bc2c6 !important ;
 }
 
 .ad-list li:hover{
@@ -1330,10 +1367,21 @@ side nav icon Btn on hover show list box
     
   }
 
+  .page-link-btn2.pagelinkactive a{
+    color: #2bc2c6;
+    
+  }
+
   .page-link-btn.pagelinkactive:before{
     width: 1.2rem;
     background-color: #0ea5e9;
   }
+
+  .page-link-btn2.pagelinkactive:before{
+    width: 1.2rem;
+    background-color: #2bc2c6;
+  }
+
 
   /* _______________________________________________
    Our Admin Login css code

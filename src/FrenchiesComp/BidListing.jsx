@@ -12,6 +12,7 @@ import RejectBidOffer from "./RejectBidOffer";
 import Bidders from "./Bidders";
 import { filteredData } from "../lib/array";
 import TransportStatus from "./tranportStatus/TransportStatus";
+import Howitwork from "./Howitwork";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -24,6 +25,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [selectedOffer, setSelectedOffer] = useState({});
   const [filters, setFilters] = useState([]);
   const [currentFilter, setCurrentFilter] = useState("all");
+  const [howItWrk , setHowItWrk] = useState(false);
+
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -110,8 +113,11 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                 ))}
               </div>
 
-              <button onClick={onClickCreatePost} className="create-post-btn">
+              <button onClick={onClickCreatePost} className="create-post-btn create-post-btn1">
                 Create Post
+              </button>
+              <button onClick={() => setHowItWrk(true)} className="create-post-btn create-post-btn1">
+                How it work
               </button>
             </div>
           </div>
@@ -455,6 +461,10 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
           </div>
         </div>
       </section>
+
+
+{ howItWrk ? <Howitwork onClickClose={() => setHowItWrk(false)} /> : ""}
+
 
       {isBidder && (
         <Bidders

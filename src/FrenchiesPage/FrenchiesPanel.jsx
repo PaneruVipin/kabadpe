@@ -12,6 +12,12 @@ import { FaWpforms } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaPagelines } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
+import { FaCalendarCheck } from "react-icons/fa";
+import { MdRecycling } from "react-icons/md";
+import { BsPersonCheckFill } from "react-icons/bs";
+import { MdManageAccounts } from "react-icons/md";
+import { BsClipboard2DataFill } from "react-icons/bs";
+import { MdReviews } from "react-icons/md";
 import AdminFirstComp from "../AdminComponents.jsx/AdminFirstComp";
 import AdminSecondComp from "../AdminComponents.jsx/AdminSecondComp";
 import BookingReviewComp from "../AdminComponents.jsx/BookingReviewComp";
@@ -86,8 +92,8 @@ const FrenchiesPanel = () => {
 
   const getButtonClassName = (buttonName) => {
     return buttonName === adminNavBtn
-      ? "admin-nv-btn adminnavbtnActive"
-      : "admin-nv-btn";
+      ? "admin-nv-btn fren-nv-btn adminnavbtnActive"
+      : "admin-nv-btn fren-nv-btn";
   };
 
   const getButonClasnameTwo = (butonIndex) => {
@@ -205,11 +211,11 @@ const FrenchiesPanel = () => {
         <Thanks show={true} />
       ) : (
         <>
-          <section className="top-admin-header-comp">
+          <section id="side-frenchies-navbar-comp" className="top-admin-header-comp">
             <div className="admin-head-flex-box">
               <div className="left-admin-logo-box">
                 <div className="admin-logo">
-                  <img src="/images/customImg/nav-logo.png" alt="" />
+                  <img src="/images/customImg/logo.png" alt="" />
                 </div>
                 <button
                   onClick={() => {
@@ -265,7 +271,7 @@ const FrenchiesPanel = () => {
                   onClick={() => {
                     setBuyWasteBx(true);
                   }}
-                  className=" comp-refrl-bx comp-refrl-bx3"
+                  className=" comp-refrl-bx comp-refrl-bx3 comp-refrl-bx32"
                 >
                   <div className="comp-icon">
                     <i class="fa-solid fa-bag-shopping"></i>
@@ -520,7 +526,7 @@ const FrenchiesPanel = () => {
                   </div>
                 </div>
 
-                <button className=" comp-refrl-bx">
+                <button className=" comp-refrl-bx comp-refrl-bx32 comp-refrl-bx20">
                   <div
                     // style={{
                     //   display: "flex",
@@ -553,7 +559,7 @@ const FrenchiesPanel = () => {
                           autoClose: 500,
                         });
                       }}
-                      style={{ width: "20px", height: "20px" }}
+                      style={{ width: "20px", height: "20px", marginTop : "4px" }}
                     />
                   </span>
                 </button>
@@ -582,10 +588,11 @@ const FrenchiesPanel = () => {
             </div>
           </section>
           <section
+          id="side-frenchies-navbar-comp"
             className={
               sideAdminNav
-                ? "side-admin-navbar-comp sideAdminNavActive"
-                : "side-admin-navbar-comp"
+                ? "side-admin-navbar-comp side-fren-navbar-comp  sideAdminNavActive"
+                : "side-admin-navbar-comp side-fren-navbar-comp "
             }
           >
             <div className="side-admin-nav-list-box">
@@ -597,8 +604,8 @@ const FrenchiesPanel = () => {
                   }}
                   className={
                     component === "dashboard"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="a-nv-i">
@@ -617,8 +624,8 @@ const FrenchiesPanel = () => {
                   }}
                   className={
                     component === "frenchwastecolect"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="a-nv-i">
@@ -638,12 +645,12 @@ const FrenchiesPanel = () => {
                   }}
                   className={
                     component === "appointments"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="a-nv-i">
-                    <CiShop />
+                    <FaCalendarCheck />
                   </div>
                   <span> Appointments</span>
                 </div>
@@ -674,12 +681,12 @@ const FrenchiesPanel = () => {
                   }}
                   className={
                     component === "wasteproduct"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="a-nv-i">
-                    <CiShop />
+                    <MdRecycling />
                   </div>
                   <span>Waste Products</span>
                 </div>
@@ -710,8 +717,8 @@ const FrenchiesPanel = () => {
                   // className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
                   className={
                     component === "tnx"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="u-prf-tab-icon a-nv-i">
@@ -726,7 +733,7 @@ const FrenchiesPanel = () => {
                   className={getButtonClassName(9)}
                 >
                   <div className="a-nv-i">
-                    <CiShop />
+                    <BsPersonCheckFill />
                   </div>
                   <span> Subscriptions</span>
                 </div>
@@ -736,8 +743,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("subsplan")}
                     className={
                       component === "subsplan"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -748,8 +755,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("subscriptionplan")}
                     className={
                       component === "subscriptionplan"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -764,7 +771,7 @@ const FrenchiesPanel = () => {
                   className={getButtonClassName(20)}
                 >
                   <div className="a-nv-i">
-                    <CiShop />
+                    <MdManageAccounts />
                   </div>
                   <span> Manage Waste</span>
                 </div>
@@ -774,8 +781,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("wastepickup")}
                     className={
                       component === "wastepickup"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -786,8 +793,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("curentwaste")}
                     className={
                       component === "curentwaste"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -802,7 +809,7 @@ const FrenchiesPanel = () => {
                   className={getButtonClassName(17)}
                 >
                   <div className="a-nv-i">
-                    <CiShop />
+                    <BsClipboard2DataFill />
                   </div>
                   <span> Bid</span>
                 </div>
@@ -813,8 +820,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("bid")}
                     className={
                       component === "bid"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -825,8 +832,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("bidlisting")}
                     className={
                       component === "bidlisting"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -837,8 +844,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleViewComp("myBid")}
                     className={
                       component === "myBid"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -864,8 +871,8 @@ const FrenchiesPanel = () => {
                     }}
                     className={
                       component === "orders"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -875,8 +882,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleFilterTwo("underprocess")}
                     className={
                       orderActive === "underprocess"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -886,8 +893,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleFilterTwo("readyship")}
                     className={
                       orderTab === "readyship"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -897,8 +904,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleFilterTwo("shipped")}
                     className={
                       orderTab === "shipped"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -908,8 +915,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleFilterTwo("delivered")}
                     className={
                       orderTab === "delivered"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -919,8 +926,8 @@ const FrenchiesPanel = () => {
                     onClick={() => handleFilterTwo("return")}
                     className={
                       orderTab === "return"
-                        ? "page-link-btn pagelinkactive"
-                        : "page-link-btn"
+                        ? "page-link-btn page-link-btn2 pagelinkactive"
+                        : "page-link-btn page-link-btn2"
                     }
                   >
                     {" "}
@@ -936,12 +943,12 @@ const FrenchiesPanel = () => {
                   }}
                   className={
                     component === "reviews"
-                      ? "admin-nv-btn admin-nv-btn2 adminnavbtnActive"
-                      : "admin-nv-btn admin-nv-btn2"
+                      ? "admin-nv-btn fren-nv-btn admin-nv-btn2 adminnavbtnActive"
+                      : "admin-nv-btn fren-nv-btn admin-nv-btn2"
                   }
                 >
                   <div className="a-nv-i">
-                    <FaWpforms />
+                    <MdReviews />
                   </div>
                   <span>Reviews</span>
                 </div>

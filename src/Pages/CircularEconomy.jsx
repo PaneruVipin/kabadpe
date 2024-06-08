@@ -7,9 +7,9 @@ import CirEcoTwo from '../ServComps/CirEcoTwo'
 import EprCompThree from '../ServComps/EprCompThree'
 
 const CircularEconomy = () => {
-    const data = {
-        title : "Circular Economy Services",
-    }
+    // const data = {
+    //     title : "Circular Economy Services",
+    // }
 
     const comnData = {
 
@@ -30,7 +30,7 @@ const CircularEconomy = () => {
     
   return (
     <>
-      <BulkWasteBanner data={data} />
+      {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <CirEcoTwo />
     <EprCompThree lastData={lastData} />

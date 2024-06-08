@@ -7,12 +7,12 @@ import Discover from '../HomeComponent/Discover'
 import MainFooter from '../HomeComponent/MainFooter'
 
 const CorporateWaste = () => {
-    const data = {
-        title : "Corporate Waste Management",
-    }
+    // const data = {
+    //     title : "Corporate Waste Management",
+    // }
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
       <CorpWasteCompOne />
       <CorpWasteCompTwo />
       <CorpWasteCompThree />

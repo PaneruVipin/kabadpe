@@ -7,9 +7,9 @@ import MainFooter from '../HomeComponent/MainFooter'
 import EprCompThree from '../ServComps/EprCompThree'
 
 const Epr = () => {
-    const data = {
-        title : "EPR Services",
-    }
+    // const data = {
+    //     title : "EPR Services",
+    // }
 
     const comnData = {
 
@@ -31,7 +31,7 @@ const Epr = () => {
     
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <EprCompTwo />
     <EprCompThree lastData={lastData}  />

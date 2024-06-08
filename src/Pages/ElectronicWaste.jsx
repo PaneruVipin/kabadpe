@@ -9,13 +9,13 @@ import ElectWasteCompFour from '../ServComps/ElectWasteCompFour'
 
 const ElectronicWaste = () => {
 
-    const data = {
-        title : "Electronic Waste",
-    }
+    // const data = {
+    //     title : "Electronic Waste",
+    // }
     
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
       <ElectWasteCompOne />
       <ElectWasteCompTwo />
       <ElectWasteCompThree />

@@ -10,7 +10,7 @@ import ClimconnectFour from '../ServComps/ClimconnectFour'
 const Climconnect = () => {
   return (
     <>
-      <ServBanner />
+      {/* <ServBanner /> */}
       <ClimconnectCompOne />
       <ClimconnectCompTwo />
       <ClimconnectCompThree />

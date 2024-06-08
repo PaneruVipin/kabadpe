@@ -202,7 +202,7 @@ const FrenchiesLogin = ({}) => {
                 />
                 <div className="admin-login-img">
                   {" "}
-                  <img src="/images/customImg/nav-logo.png" alt="" />
+                  <img src="/images/customImg/logo.png" alt="" />
                 </div>
                 <p> {frenHead}</p>
                 <p>

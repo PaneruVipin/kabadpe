@@ -311,7 +311,7 @@ const Appointment = ({ setUserForm }) => {
                                 <option value="" hidden>
                                   Select Your Service
                                 </option>
-                                {[workers?.[0]].map(({ label, value, id }) => (
+                                {workers?.map(({ label, value, id }) => (
                                   <option key={id} value={value}>
                                     {label}
                                   </option>
@@ -481,8 +481,6 @@ const Appointment = ({ setUserForm }) => {
               className="date-time-main-bx"
               onClick={(e) => e.stopPropagation()}
             >
-
-              
               <div className="calendar-popup">
                 <Calendar
                   minDate={new Date()}
@@ -493,11 +491,10 @@ const Appointment = ({ setUserForm }) => {
 
               {selectedDate && (
                 <div className="time-slot-list">
-
                   <div className="time-slot-close-btn">
-                  <i class="fa-solid fa-xmark"></i>
+                    <i class="fa-solid fa-xmark"></i>
                   </div>
-                  
+
                   <h3>
                     Available Companies{" "}
                     <span> {selectedDate?.toDateString()} </span>

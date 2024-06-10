@@ -11,6 +11,7 @@ import { DateTime } from "luxon";
 import { filteredData } from "../lib/array";
 import { Label } from "recharts";
 import TransportStatus from "./tranportStatus/TransportStatus";
+import AdminBidPaymentPopup from "../AdminComponents.jsx/AdminBidPaymentPopup";
 
 const MyBidComp = ({ onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -24,6 +25,7 @@ const MyBidComp = ({ onClickCreatePost }) => {
   const [selectedData, setSelectedData] = useState({});
   const [filters, setFilters] = useState([]);
   const [currentFilter, setCurrentFilter] = useState("all");
+  const [paymentPopup, setPaymentPopup] = useState(false);
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -208,8 +210,34 @@ const MyBidComp = ({ onClickCreatePost }) => {
                                 </div>
                               ) : (
                                 <div>
-                                  Payment not received.
-                                  <br /> Transport will proceed upon receipt.
+                                  <button
+                                    onClick={() => {
+                                      setSelectedData({
+                                        acceptedBid: {
+                                          id,
+                                          bidStatus,
+                                          productimages,
+                                          addedOn,
+                                          ...rest,
+                                        },
+                                        ...BidPost,
+                                      });
+                                      setPaymentPopup(true);
+                                    }}
+                                    style={{
+                                      background: "yellow",
+                                      color: "white",
+                                      textAlign: "center",
+                                      width: "150px",
+                                      padding: "2px 4px",
+                                      margin: "10px 0px",
+                                      borderRadius: "10px",
+                                      color: "gray",
+                                    }}
+                                  >
+                                    Make Payment
+                                  </button>{" "}
+                                  Transport will proceed upon receipt.
                                 </div>
                               )
                             ) : null}
@@ -462,6 +490,14 @@ const MyBidComp = ({ onClickCreatePost }) => {
         isDealTwo={isDealTwo}
         onClickCloseDeal={() => setIsDealTwo(false)}
       />
+      {paymentPopup ? (
+        <AdminBidPaymentPopup
+          component="franchise"
+          onClickClose={() => setPaymentPopup(false)}
+          refetch={refetch}
+          data={selectedData}
+        />
+      ) : null}
     </>
   );
 };

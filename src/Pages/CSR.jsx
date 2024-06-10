@@ -8,9 +8,9 @@ import CsrTwo from '../ServComps/CsrTwo'
 
 const CSR = () => {
 
-    const data = {
-        title : "CSR Services",
-    }
+    // const data = {
+    //     title : "CSR Services",
+    // }
 
     const comnData = {
 
@@ -32,7 +32,7 @@ const CSR = () => {
     
   return (
     <>
-      <BulkWasteBanner data={data} />
+      {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <CsrTwo />
     <EprCompThree lastData={lastData} />

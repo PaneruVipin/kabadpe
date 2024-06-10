@@ -193,7 +193,7 @@ const FrenchAppointments = ({
 
             <button
               onClick={() => setWrkcpcity(true)}
-              className="work-capacity-btn"
+              className="work-capacity-btn work-capacity-btn2"
             >
               Work Capacity
             </button>

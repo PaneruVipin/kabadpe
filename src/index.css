@@ -17512,6 +17512,24 @@ video {
   margin-bottom: 3rem;
 }
 
+.submit-btn33{
+  height: max-content;
+}
+
+.work-capacity-btn2{
+  width: max-content;
+}
+
+
+.comn-appoint-btn43{
+  width: max-content;
+}
+
+.create-post-btn1:hover{
+  background-color: #0ea5e9;
+  color: #fff;
+}
+
 /* ____________________________________
  Our Media queries for responsive designs 
  --------------------------- */

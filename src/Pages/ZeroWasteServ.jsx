@@ -7,9 +7,9 @@ import MainFooter from '../HomeComponent/MainFooter'
 
 const ZeroWasteServ = () => {
 
-    const data = {
-        title : "Zero Waste Services",
-    }
+    // const data = {
+    //     title : "Zero Waste Services",
+    // }
 
     const comnData = {
 
@@ -33,7 +33,7 @@ const ZeroWasteServ = () => {
     
   return (
     <>
-        <BulkWasteBanner data={data} />
+        {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
 
     <EprCompThree lastData={lastData} />

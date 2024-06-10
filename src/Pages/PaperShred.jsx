@@ -7,9 +7,9 @@ import MainFooter from '../HomeComponent/MainFooter'
 import EprCompThree from '../ServComps/EprCompThree'
 
 const PaperShred = () => {
-    const data = {
-        title : "Paper Shredding Services",
-    }
+    // const data = {
+    //     title : "Paper Shredding Services",
+    // }
 
     const comnData = {
 
@@ -30,7 +30,7 @@ const PaperShred = () => {
     
   return (
     <>
-      <BulkWasteBanner data={data} />
+      {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <PaperShredTwo />
     <EprCompThree lastData={lastData} />

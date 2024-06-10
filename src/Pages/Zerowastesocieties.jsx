@@ -8,9 +8,14 @@ import ServCompThree from "../ServComps/ServCompThree";
 import Discover from "../HomeComponent/Discover";
 import MainFooter from "../HomeComponent/MainFooter";
 const Zerowastesocieties = () => {
+  
+//   const data = {
+//     title : "Zero Waste",
+// }
+
   return (
     <>
-      <ServBanner />
+      {/* <ServBanner data={data} /> */}
     <ServCompOne />
     <ServCompTwo />
     <ServCompThree />

@@ -2086,6 +2086,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
 }
 
+.comp-refrl-bx32 .comp-icon ,
+    .comp-refrl-bx32 span {
+    color: #2bc2c6;
+
+}
+
 .comp-refrl-bx3:hover {
     width: 9rem;
 }
@@ -2098,6 +2104,10 @@ input[type="number"]::-webkit-inner-spin-button {
 .comp-refrl-bx4:hover {
     width: 6rem;
 
+}
+
+.comp-refrl-bx20:hover{
+    width: 10rem;
 }
 
 .wallet-info-second-bx span {
@@ -4403,4 +4413,40 @@ input[type="number"]::-webkit-inner-spin-button {
 .view-bid-btn-orange{
     border-color: orange;
     color: orange;
+}
+
+.how-it-work-comp{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.how-it-work-comp:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1f1f1f;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.howit-work-img-bx{
+    position: relative;
+    width: 25rem;
+    height: 35rem;
+}
+
+.howit-work-img-bx img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

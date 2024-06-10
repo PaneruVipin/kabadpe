@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import BidProductData from "./BidProductData";
 import { catageories } from "../lib/kabadCatageories";
+import Howitwork from "./Howitwork";
 
 const Bidcomp = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
   const [showOption, setShowOption] = useState(false);
+  const [howItWrk , setHowItWrk] = useState(false);
 
   const Options = ["KG", "PCS"];
 
@@ -126,8 +128,11 @@ const Bidcomp = ({ onClickDetPage, onClickCreatePost }) => {
                   })}
                 </select>
               </div>
-              <button onClick={onClickCreatePost} className="create-post-btn">
+              <button onClick={onClickCreatePost} className="create-post-btn create-post-btn1">
                 Create Post
+              </button>
+              <button onClick={() => setHowItWrk(true)} className="create-post-btn create-post-btn1">
+                How it work
               </button>
             </div>
           </div>
@@ -136,8 +141,15 @@ const Bidcomp = ({ onClickDetPage, onClickCreatePost }) => {
             onClickRedirect={onClickDetPage}
             bidData={BidProdData}
           />
+
+
+          
         </div>
       </section>
+
+{ howItWrk ? <Howitwork onClickClose={() => setHowItWrk(false)} /> : ""}
+
+
     </>
   );
 };

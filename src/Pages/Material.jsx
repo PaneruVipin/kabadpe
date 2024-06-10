@@ -8,9 +8,9 @@ import MaterialTwo from '../ServComps/MaterialTwo'
 
 const Material = () => {
 
-    const data = {
-        title : "Material Recovery Center Management",
-    }
+    // const data = {
+    //     title : "Material Recovery Center Management",
+    // }
 
     const comnData = {
 
@@ -31,7 +31,7 @@ const Material = () => {
     
   return (
     <>
-      <BulkWasteBanner data={data} />
+      {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <MaterialTwo />
     <EprCompThree lastData={lastData} />

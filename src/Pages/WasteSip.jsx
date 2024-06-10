@@ -10,16 +10,16 @@ import WasteSipCompFour from '../ServComps/WasteSipCompFour'
 
 const WasteSip = () => {
 
-  const data = {
+  // const data = {
 
-    title : "Services",
-    link : 'Service'
+  //   title : "Services",
+  //   link : 'Service'
     
-  }
+  // }
   
   return (
     <>
-      <ServBanner  data={data}/>
+      {/* <ServBanner  data={data}/> */}
       <WasteSipCompOne />
       <WasteSipCompFour />
       <WastesipCompTwo />

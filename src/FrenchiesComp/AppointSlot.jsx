@@ -174,7 +174,7 @@ const AppointSlot = ({
                   setConfirmPopup(false),
                   setCancelPopupPopup(false);
               }}
-              className="comn-appoint-btn comn-appoint-btn2"
+              className="comn-appoint-btn comn-appoint-btn43 comn-appoint-btn2"
             >
               Reshedule Appointment
             </button>

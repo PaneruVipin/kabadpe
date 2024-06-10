@@ -7,9 +7,9 @@ import Discover from '../HomeComponent/Discover'
 import MainFooter from '../HomeComponent/MainFooter'
 
 const Dismant = () => {
-    const data = {
-        title : "Dismantling Services",
-    }
+    // const data = {
+    //     title : "Dismantling Services",
+    // }
 
     const comnData = {
 
@@ -30,7 +30,7 @@ const Dismant = () => {
     
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <EprCompTwo />
     <EprCompThree lastData={lastData} />

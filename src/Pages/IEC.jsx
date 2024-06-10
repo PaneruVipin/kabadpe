@@ -7,9 +7,9 @@ import EprCompOne from '../ServComps/EprCompOne'
 import IEcTwo from '../ServComps/IEcTwo'
 
 const IEC = () => {
-    const data = {
-        title : "IEC Development and Consulting",
-    }
+    // const data = {
+    //     title : "IEC Development and Consulting",
+    // }
 
     const comnData = {
 
@@ -30,7 +30,7 @@ const IEC = () => {
     
   return (
     <>
-      <BulkWasteBanner data={data} />
+      {/* <BulkWasteBanner data={data} /> */}
     <EprCompOne comnData={comnData} />
     <IEcTwo />
     <EprCompThree lastData={lastData} />

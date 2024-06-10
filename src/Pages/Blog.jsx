@@ -10,7 +10,7 @@ import BlogFour from '../ServComps/BlogFour'
 const Blog = () => {
   return (
     <>
-    <ServBanner />
+    {/* <ServBanner /> */}
       <BlogCompOne />
       <BlogTwo />
       <BlogThre />

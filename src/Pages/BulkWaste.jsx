@@ -9,13 +9,13 @@ import BulkWasteBanner from '../ServComps/BulkWasteBanner'
 
 const BulkWaste = () => {
 
-    const data = {
-        title : "Bulk Waste",
-    }
+    // const data = {
+    //     title : "Bulk Waste",
+    // }
     
   return (
     <>
-    <BulkWasteBanner data={data} />
+    {/* <BulkWasteBanner data={data} /> */}
       <BulkWasteCompOne />
       <BulkWasteCompTwo />
       <BulkWasteCompThree />

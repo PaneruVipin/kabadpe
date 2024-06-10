@@ -241,28 +241,6 @@ const AdminBid = () => {
                                         ? acceptedBid?.paymentStatus
                                         : "Pending..."}{" "}
                                     </span>
-
-                                    {acceptedBid?.paymentStatus != "paid" ? (
-                                      <button
-                                        onClick={() => {
-                                          setPaymentPopup(true);
-                                          setSelectedData({
-                                            Bids,
-                                            Franchise,
-                                            id,
-                                            pricePerUnit,
-                                            productName,
-                                            productQuantity,
-                                            unit,
-                                            acceptedBid,
-                                            ...rest,
-                                          });
-                                        }}
-                                        className="trnfr-btn"
-                                      >
-                                        Update
-                                      </button>
-                                    ) : null}
                                   </>
                                 ) : (
                                   "...."
@@ -292,6 +270,27 @@ const AdminBid = () => {
                                 >
                                   Offers
                                 </button>
+                                {acceptedBid?.paymentStatus == "receive" ? (
+                                  <button
+                                    onClick={() => {
+                                      setPaymentPopup(true);
+                                      setSelectedData({
+                                        Bids,
+                                        Franchise,
+                                        id,
+                                        pricePerUnit,
+                                        productName,
+                                        productQuantity,
+                                        unit,
+                                        acceptedBid,
+                                        ...rest,
+                                      });
+                                    }}
+                                    className="trnfr-btn"
+                                  >
+                                    Transfer
+                                  </button>
+                                ) : null}
                               </td>
 
                               <td>

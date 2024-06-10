@@ -16,12 +16,13 @@ import { workers } from "../lib/worker";
 import { slotLabels } from "../lib/slots";
 import { userAddressesFetch } from "../apis/user";
 import Response from "../Components/Popups/Response";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const Appointment = ({ setUserForm }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
   const [addAddress, setAddAddress] = useState(false);
   const [bookApnt, setBookApnt] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -491,8 +492,14 @@ const Appointment = ({ setUserForm }) => {
 
               {selectedDate && (
                 <div className="time-slot-list">
-                  <div className="time-slot-close-btn">
-                    <i class="fa-solid fa-xmark"></i>
+                  <div
+                    className="time-slot-close-btn"
+                    onClick={() => setSelectedDate(null)}
+                  >
+                    <IoIosArrowRoundBack
+                      style={{ color: "green", width: "30px", height: "20px" }}
+                    />
+                    {/* <i class="fa-solid fa-xmark"></i> */}
                   </div>
 
                   <h3>
@@ -544,7 +551,6 @@ const Appointment = ({ setUserForm }) => {
                                             franchiseAddress,
                                             id,
                                           });
-                                          //   handleCompName(curelem.name);
                                         }}
                                         className="Select-apnt"
                                       >

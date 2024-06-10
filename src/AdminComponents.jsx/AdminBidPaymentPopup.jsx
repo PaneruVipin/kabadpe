@@ -1,42 +1,35 @@
 import { useState } from "react";
 import { hashId } from "../lib/array";
 import { toast } from "react-toastify";
-import { adminBidpaymentStatusChange } from "../apis/franchise/bid";
+import { adminBidpaymentStatusChange, makeBidPayment } from "../apis/franchise/bid";
 
-const AdminBidPaymentPopup = ({ onClickClose, data, refetch }) => {
+const AdminBidPaymentPopup = ({
+  onClickClose,
+  data,
+  refetch,
+  component = "admin",
+}) => {
   const [approvePayload, setApprovePayload] = useState();
   const handleChange = (e) => {
     setApprovePayload((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   const bid = data?.acceptedBid;
-  const component = !bid?.paymentStatus ? "buyer" : "saller";
   const heading =
-    component == "buyer"
-      ? "Confirm Receipt of Payment from Buyer"
-      : "Confirm You Paid the Seller";
-  const user = component == "buyer" ? bid?.Franchise : data?.Franchise;
+    component == "franchise"
+      ? "Pay Amount To Admin"
+      : "Pay Amount in Seller Wallet";
+  const user = component == "franchise" ? bid?.Franchise : data?.Franchise;
   const subTotal = (+bid?.pricePerUnit || 0) * (+bid?.productQuantity || 0);
   const gst = data?.includeGst ? ((+data?.gstRate || 0) * subTotal) / 100 : 0;
   const total = subTotal + gst;
   const commission = +bid?.commission || 0;
   const finalAmmount = total - commission;
   const handleConfirmClick = async () => {
-    if (
-      !approvePayload?.paymentMethod ||
-      (approvePayload?.paymentMethod != "cash" && !approvePayload?.bankTxnId)
-    ) {
-      return;
-    }
     const payload = {
-      id: data?.id,
-      amount: component == "buyer" ? total : finalAmmount,
-      paymentMethod: approvePayload?.paymentMethod,
-      status: component == "buyer" ? "receive" : "paid",
+      id: bid?.id,
+      type: component,
     };
-    if (approvePayload?.paymentMethod != "cash") {
-      payload.bankTxnId = approvePayload?.bankTxnId;
-    }
-    const res = await adminBidpaymentStatusChange(payload);
+    const res = await makeBidPayment(payload);
     if (res?.error) {
       toast?.error(res?.message);
       return;
@@ -54,14 +47,18 @@ const AdminBidPaymentPopup = ({ onClickClose, data, refetch }) => {
         >
           <h6>{heading}</h6>
           <div style={{ marginTop: "-20px" }} className="two-fild-grid">
-            <div className="admin-login-fild admin-login-fild3">
-              <label htmlFor="#">User Name</label>
-              <input value={user?.companyName} disabled />
-            </div>
-            <div className="admin-login-fild admin-login-fild3">
-              <label htmlFor="#">UserId</label>
-              <input disabled value={hashId(user?.id, "franchise")} />
-            </div>
+            {component == "admin" ? (
+              <>
+                <div className="admin-login-fild admin-login-fild3">
+                  <label htmlFor="#">User Name</label>
+                  <input value={user?.companyName} disabled />
+                </div>
+                <div className="admin-login-fild admin-login-fild3">
+                  <label htmlFor="#">UserId</label>
+                  <input disabled value={hashId(user?.id, "franchise")} />
+                </div>
+              </>
+            ) : null}
           </div>
           <div className="all-user-table stock-tble mnge-waste-table bid-popup-table mt-3 bid-table">
             <table>
@@ -123,7 +120,7 @@ const AdminBidPaymentPopup = ({ onClickClose, data, refetch }) => {
                     <span> ₹{total}</span>
                   </td>
                 </tr>
-                {component == "saller" ? (
+                {component == "admin" ? (
                   <>
                     <tr>
                       <td>
@@ -148,40 +145,6 @@ const AdminBidPaymentPopup = ({ onClickClose, data, refetch }) => {
               </tbody>
             </table>
           </div>
-          <div style={{ marginTop: "20px" }} className="withdrawl-inpt-bx ">
-            <span>Payment Type</span>
-            <div className="withdral-inpt withdral-selct">
-              <select
-                onChange={handleChange}
-                value={approvePayload?.paymentMethod}
-                name="paymentMethod"
-                id="Paymenttype"
-              >
-                <option value="" hidden>
-                  Choose
-                </option>
-                <option value="cash">Cash</option>
-                <option value="bank">Bank</option>
-                <option value="UPI">UPI</option>
-              </select>
-            </div>
-          </div>
-
-          {approvePayload?.paymentMethod != "cash" ? (
-            <div className="withdrawl-inpt-bx">
-              <span>Transaction ID</span>
-              <div className="withdral-inpt">
-                <input
-                  type="text"
-                  name="bankTxnId"
-                  id="amount"
-                  value={approvePayload?.bankTxnId}
-                  onChange={handleChange}
-                  placeholder="Enter transaction ID"
-                />
-              </div>
-            </div>
-          ) : null}
 
           <button onClick={handleConfirmClick} className="approve paid-btn">
             Confirm

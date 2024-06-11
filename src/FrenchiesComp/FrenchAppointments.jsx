@@ -189,7 +189,7 @@ const FrenchAppointments = ({
         <div className="tab-main-bx tab-main-bx3 ">
           {/* <h3 className="title">Appointments</h3> */}
           <div className="work-capacity-flex-bx">
-            <h3 className="title">Appointments</h3>
+            <h3 className="title">Appointments </h3>
 
             <button
               onClick={() => setWrkcpcity(true)}
@@ -300,117 +300,119 @@ const FrenchAppointments = ({
                 </thead>
                 <tbody>
                   {!appoinments?.error
-                    ? search(
-                        filteredData(appoinments, filters),
-                        searchQuery
-                      )?.map(
-                        (
-                          {
-                            appoinmentAddress,
-                            appointmentContactNumber,
-                            appointmentDate,
-                            appointmentPersonName,
-                            appointmentTimeSlot,
-                            estimateWeight,
-                            franchiseId,
-                            frequency,
-                            id,
-                            orderDetail,
-                            orderStatus,
-                            userId,
-                            workerId,
-                            serviceType,
-                            UserAddress,
-                            assigningStatus,
-                            KabadCollector,
-                            ariaId,
-                            addedOn,
-                            rescheduleStatus,
-                          },
-                          i
-                        ) => {
-                          return (
-                            <>
-                              <tr key={id}>
-                                <td> {i + 1} </td>
-                                <td>
-                                  {" "}
-                                  {DateTime.fromISO(appointmentDate, {
-                                    zone: "utc",
-                                  }).toFormat("ccc dd LLL yyyy")}
-                                </td>
-                                <td> {slotLabels?.[appointmentTimeSlot]} </td>
-                                <td> {UserAddress?.subAria} </td>
-                                <td>
-                                  {" "}
-                                  <span
-                                  // style={{
-                                  //   color:
-                                  //     elem.locationtype === "Home"
-                                  //       ? "#1362fc"
-                                  //       : "#43cf7f",
-                                  // }}
-                                  // className={
-                                  //   elem.locationtype === "Shop"
-                                  //     ? "locntext locntextdark"
-                                  //     : "locntext"
-                                  // }
-                                  >
+                    ? search(filteredData(appoinments, filters), searchQuery)
+                        ?.sort(
+                          (a, b) =>
+                            new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                        )
+                        .map(
+                          (
+                            {
+                              appoinmentAddress,
+                              appointmentContactNumber,
+                              appointmentDate,
+                              appointmentPersonName,
+                              appointmentTimeSlot,
+                              estimateWeight,
+                              franchiseId,
+                              frequency,
+                              id,
+                              orderDetail,
+                              orderStatus,
+                              userId,
+                              workerId,
+                              serviceType,
+                              UserAddress,
+                              assigningStatus,
+                              KabadCollector,
+                              ariaId,
+                              addedOn,
+                              rescheduleStatus,
+                            },
+                            i
+                          ) => {
+                            return (
+                              <>
+                                <tr key={id}>
+                                  <td> {i + 1} </td>
+                                  <td>
                                     {" "}
-                                    {UserAddress?.locationType}{" "}
-                                  </span>{" "}
-                                </td>
-                                <td> {hashId(userId, "user")} </td>
-                                <td> {appointmentPersonName} </td>
-                                <td>
-                                  {" "}
-                                  {
-                                    workers?.find(
-                                      ({ value }) => value == serviceType
-                                    )?.label
-                                  }{" "}
-                                </td>
-                                <td> {frequency} </td>
-                                <td> {estimateWeight} </td>
-                                <td>
-                                  <button
-                                    onClick={() => {
-                                      setAddressdetails({
-                                        appoinmentAddress,
-                                        city: UserAddress?.city,
-                                        zipCode: UserAddress?.zipCode,
-                                        addedOn,
-                                      });
-                                      setAddressPopup(true);
-                                    }}
-                                    className="status-btn status-btn-changed status-btn-changed3"
-                                  >
-                                    Details
-                                  </button>
-                                </td>
-                                <td>{KabadCollector?.fullname}</td>
-                                <td>
-                                  {rescheduleStatus == "confirm" &&
-                                  orderStatus == "active"
-                                    ? "Re-scheduled "
-                                    : null}
-                                  {orderStatus != "active" ? (
-                                    <span>
-                                      {orderStatus == "cancel"
-                                        ? "Cancelled"
-                                        : orderStatus == "fullfill"
-                                        ? "Completed"
-                                        : null}
-                                    </span>
-                                  ) : assigningStatus == "request" &&
-                                    workerId ? (
-                                    <span>Assign - Requested</span>
-                                  ) : assigningStatus == "confirm" ? (
-                                    <span>Assigned</span>
-                                  ) : assigningStatus == "cancel" ? (
-                                    <span>Assign - Rejected</span>
-                                  ) : null}{" "}
-                                  {/* <span
+                                    {DateTime.fromISO(appointmentDate, {
+                                      zone: "utc",
+                                    }).toFormat("ccc dd LLL yyyy")}
+                                  </td>
+                                  <td> {slotLabels?.[appointmentTimeSlot]} </td>
+                                  <td> {UserAddress?.subAria} </td>
+                                  <td>
+                                    {" "}
+                                    <span
+                                    // style={{
+                                    //   color:
+                                    //     elem.locationtype === "Home"
+                                    //       ? "#1362fc"
+                                    //       : "#43cf7f",
+                                    // }}
+                                    // className={
+                                    //   elem.locationtype === "Shop"
+                                    //     ? "locntext locntextdark"
+                                    //     : "locntext"
+                                    // }
+                                    >
+                                      {" "}
+                                      {UserAddress?.locationType}{" "}
+                                    </span>{" "}
+                                  </td>
+                                  <td> {hashId(userId, "user")} </td>
+                                  <td> {appointmentPersonName} </td>
+                                  <td>
+                                    {" "}
+                                    {
+                                      workers?.find(
+                                        ({ value }) => value == serviceType
+                                      )?.label
+                                    }{" "}
+                                  </td>
+                                  <td> {frequency} </td>
+                                  <td> {estimateWeight} </td>
+                                  <td>
+                                    <button
+                                      onClick={() => {
+                                        setAddressdetails({
+                                          appoinmentAddress,
+                                          city: UserAddress?.city,
+                                          zipCode: UserAddress?.zipCode,
+                                          addedOn,
+                                        });
+                                        setAddressPopup(true);
+                                      }}
+                                      className="status-btn status-btn-changed status-btn-changed3"
+                                    >
+                                      Details
+                                    </button>
+                                  </td>
+                                  <td>{KabadCollector?.fullname}</td>
+                                  <td>
+                                    {rescheduleStatus == "confirm" &&
+                                    orderStatus == "active"
+                                      ? "Re-scheduled "
+                                      : null}
+                                    {orderStatus != "active" ? (
+                                      <span>
+                                        {orderStatus == "cancel"
+                                          ? "Cancelled"
+                                          : orderStatus == "fullfill"
+                                          ? "Completed"
+                                          : null}
+                                      </span>
+                                    ) : assigningStatus == "request" &&
+                                      workerId ? (
+                                      <span>Assign - Requested</span>
+                                    ) : assigningStatus == "confirm" ? (
+                                      <span>Assigned</span>
+                                    ) : assigningStatus == "cancel" ? (
+                                      <span>Assign - Rejected</span>
+                                    ) : null}{" "}
+                                    {/* <span
                                   // className={
                                   //   elem.statustype === "reschedule" ||
                                   //   elem.statustype === "schdule"
@@ -428,16 +430,18 @@ const FrenchAppointments = ({
                                     {" "}
                                     {orderStatus}{" "}
                                   </span>{" "} */}
-                                </td>
-                                <td>
-                                  <div
-                                    style={{ justifyContent: "space-between" }}
-                                    className="appoint-flex-btns"
-                                  >
-                                    {/* <button onClick={() => confirmPopupfunc()}>
+                                  </td>
+                                  <td>
+                                    <div
+                                      style={{
+                                        justifyContent: "space-between",
+                                      }}
+                                      className="appoint-flex-btns"
+                                    >
+                                      {/* <button onClick={() => confirmPopupfunc()}>
                                       <i class="fa-regular fa-circle-check"></i>
                                     </button> */}
-                                    {/* <button
+                                      {/* <button
                                       onClick={() => reschedulePopupfunc()}
                                     >
                                       <i class="fa-solid fa-calendar-days"></i>
@@ -446,50 +450,55 @@ const FrenchAppointments = ({
                                       <i class="fa-regular fa-circle-xmark"></i>
                                     </button> */}
 
-                                    {/* onClick={() => confirmPopupfunc()} */}
+                                      {/* onClick={() => confirmPopupfunc()} */}
 
-                                    {/* {(!assigningStatus ||
+                                      {/* {(!assigningStatus ||
                                       assigningStatus == "cancel") &&*/}
-                                    {orderStatus == "active" ? (
-                                      <button
-                                        onClick={() => {
-                                          setApntSlot(true);
-                                          setAppoinmentDetails({
-                                            id,
-                                            serviceType,
-                                            appointmentTimeSlot,
-                                            appointmentDate,
-                                            appoinmentAddress,
-                                            UserAddress,
-                                            ariaId,
-                                          });
+                                      {orderStatus == "active" ? (
+                                        <button
+                                          onClick={() => {
+                                            setApntSlot(true);
+                                            setAppoinmentDetails({
+                                              id,
+                                              serviceType,
+                                              appointmentTimeSlot,
+                                              appointmentDate,
+                                              appoinmentAddress,
+                                              UserAddress,
+                                              ariaId,
+                                            });
+                                          }}
+                                          className="assign-btn"
+                                        >
+                                          Assign
+                                        </button>
+                                      ) : (
+                                        <span></span>
+                                      )}
+                                      <select
+                                        defaultValue={orderStatus}
+                                        onClick={changeAppoinmentStatus(id)}
+                                        style={{
+                                          width: "120px",
+                                          height: "40px",
                                         }}
-                                        className="assign-btn"
                                       >
-                                        Assign
-                                      </button>
-                                    ) : (
-                                      <span></span>
-                                    )}
-                                    <select
-                                      defaultValue={orderStatus}
-                                      onClick={changeAppoinmentStatus(id)}
-                                      style={{ width: "120px", height: "40px" }}
-                                    >
-                                      <option value="" hidden>
-                                        Status
-                                      </option>
-                                      <option value="fullfill">Complete</option>
-                                      <option value="cancel">Cancel</option>
-                                      <option value="active">Active</option>
-                                    </select>
-                                  </div>
-                                </td>
-                              </tr>
-                            </>
-                          );
-                        }
-                      )
+                                        <option value="" hidden>
+                                          Status
+                                        </option>
+                                        <option value="fullfill">
+                                          Complete
+                                        </option>
+                                        <option value="cancel">Cancel</option>
+                                        <option value="active">Active</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </>
+                            );
+                          }
+                        )
                     : null}
                 </tbody>
               </table>

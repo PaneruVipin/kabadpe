@@ -511,54 +511,74 @@ const Header = ({
                           </NavLink>
                         </li>
                       </Protect>
-                      <Protect>
+                      {path.startsWith("/kabadshop") ? (
                         <li
-                          onClick={() => setLink("account")}
+                          onClick={() => setLink("frenchiespanel")}
                           className={
-                            link === "account"
-                              ? "nav-li acnt-link navliactive"
-                              : "nav-li acnt-link"
+                            link === "frenchiespanel"
+                              ? "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2 navliactive"
+                              : "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"
                           }
                         >
-                          <NavLink to="/account">
-                            <span>My Account</span>
-                          </NavLink>
-
-                          <div className="account-dropdown-links">
-                            <p onClick={() => setLink("account")}>
-                              <NavLink to="/account?sec=dashboard">
-                                {" "}
-                                Dashboard
-                              </NavLink>
-                            </p>
-                            <p onClick={() => setLink("account")}>
-                              <NavLink to="/account?sec=appoinment">
-                                {" "}
-                                My Appointments
-                              </NavLink>
-                            </p>
-                            <p onClick={() => setLink("account")}>
-                              <NavLink to="/account?sec=details">
-                                {" "}
-                                My Details
-                              </NavLink>
-                            </p>
-                            <p>
-                              <NavLink onClick={logout}> LogOut </NavLink>
-                            </p>
-                          </div>
-                        </li>
-                      </Protect>
-                      <Protect reverse>
-                        <li>
-                          <button
-                            className="UserLoginBtn55"
-                            onClick={popUpUserForm}
+                          <NavLink
+                            to="/frenchiespanel"
+                            className="dropdown-s-lik"
                           >
-                            <span>Login</span>
-                          </button>
+                            <span>Account</span>
+                          </NavLink>
                         </li>
-                      </Protect>
+                      ) : (
+                        <>
+                          <Protect>
+                            <li
+                              onClick={() => setLink("account")}
+                              className={
+                                link === "account"
+                                  ? "nav-li acnt-link navliactive"
+                                  : "nav-li acnt-link"
+                              }
+                            >
+                              <NavLink to="/account">
+                                <span>My Account</span>
+                              </NavLink>
+
+                              <div className="account-dropdown-links">
+                                <p onClick={() => setLink("account")}>
+                                  <NavLink to="/account?sec=dashboard">
+                                    {" "}
+                                    Dashboard
+                                  </NavLink>
+                                </p>
+                                <p onClick={() => setLink("account")}>
+                                  <NavLink to="/account?sec=appoinment">
+                                    {" "}
+                                    My Appointments
+                                  </NavLink>
+                                </p>
+                                <p onClick={() => setLink("account")}>
+                                  <NavLink to="/account?sec=details">
+                                    {" "}
+                                    My Details
+                                  </NavLink>
+                                </p>
+                                <p>
+                                  <NavLink onClick={logout}> LogOut </NavLink>
+                                </p>
+                              </div>
+                            </li>
+                          </Protect>
+                          <Protect reverse>
+                            <li>
+                              <button
+                                className="UserLoginBtn55"
+                                onClick={popUpUserForm}
+                              >
+                                <span>Login</span>
+                              </button>
+                            </li>
+                          </Protect>
+                        </>
+                      )}
                       {/* <Protect> */}
                       <li>
                         <div className="wallet-icon">

@@ -86,6 +86,7 @@ const FrenchiesPanel = () => {
   const [guest, setGuest] = useState(false);
   const [bid, setBid] = useState(false);
   const { userInfo } = useSelector((s) => s.user);
+  const [createBidData,setCreateBidData]=useState()
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
   };
@@ -1123,7 +1124,7 @@ const FrenchiesPanel = () => {
                 onClickDetPage={() => setComponent("bidproddet")}
               />
             ) : null}
-            {component === "createbidpost" ? <CreateBidPost  /> : null}
+            {component === "createbidpost" ? <CreateBidPost   /> : null}
             {component === "bidlisting" ? (
               <BidListing
                 onClickCreatePost={() => setComponent("createbidpost")}

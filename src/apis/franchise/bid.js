@@ -211,3 +211,18 @@ export const adminBidTransportStatusChange = resolvePromise(
     return res?.message;
   }
 );
+
+export const makeBidPayment = resolvePromise(async ({ id, type }) => {
+  const apiUrl = ENV_API_BASE_URL + `/${type}/bid/${id}/payment`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

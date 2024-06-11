@@ -8,6 +8,7 @@ import {
 import Bidders from "../FrenchiesComp/Bidders";
 import AdminBidPaymentPopup from "./AdminBidPaymentPopup";
 import { toast } from "react-toastify";
+import { walletFetch } from "../apis/wallet/wallet";
 
 const AdminBid = () => {
   const [charge, setCharge] = useState(false);
@@ -23,7 +24,10 @@ const AdminBid = () => {
     queryKey: ["bidsCommissionFetch"],
     queryFn: () => bidsCommissionFetch(),
   });
-
+  const { data: wallet, refetch: refetchwallet } = useQuery({
+    queryKey: ["adminWalletFetch"],
+    queryFn: () => walletFetch(),
+  });
   const handleTransportStatusChange = async (data) => {
     const res = await adminBidTransportStatusChange(data);
     if (res?.error) {
@@ -72,6 +76,17 @@ const AdminBid = () => {
               </div>
               <div class="right-card-icon">
                 <i class="fa-solid fa-arrow-up-from-bracket"></i>
+              </div>
+            </div>
+
+            <div class="card-box card-box7">
+              <div className="left-card-info">
+                <h6>{wallet?.balance || "0.00"}</h6>
+                <p>Wallet Balance</p>
+              </div>
+
+              <div className="right-card-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
               </div>
             </div>
           </div>

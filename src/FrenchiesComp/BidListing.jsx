@@ -13,6 +13,7 @@ import Bidders from "./Bidders";
 import { filteredData } from "../lib/array";
 import TransportStatus from "./tranportStatus/TransportStatus";
 import Howitwork from "./Howitwork";
+import CreateBidPost from "./CreateBidPost";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -25,8 +26,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [selectedOffer, setSelectedOffer] = useState({});
   const [filters, setFilters] = useState([]);
   const [currentFilter, setCurrentFilter] = useState("all");
-  const [howItWrk , setHowItWrk] = useState(false);
-
+  const [howItWrk, setHowItWrk] = useState(false);
+  const [updateBid, setUpdateBid] = useState(false);
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -88,7 +89,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
     { name: "complete", Label: "Completed" },
   ];
   const order = ["active", "close"];
-  return (
+  return !updateBid ? (
     <>
       <section className="bid-product-listing-comp">
         <div className="common-container">
@@ -113,10 +114,16 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                 ))}
               </div>
 
-              <button onClick={onClickCreatePost} className="create-post-btn create-post-btn1">
+              <button
+                onClick={onClickCreatePost}
+                className="create-post-btn create-post-btn1"
+              >
                 Create Post
               </button>
-              <button onClick={() => setHowItWrk(true)} className="create-post-btn create-post-btn1">
+              <button
+                onClick={() => setHowItWrk(true)}
+                className="create-post-btn create-post-btn1"
+              >
                 How it work
               </button>
             </div>
@@ -228,7 +235,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                             ) : null}
                             {acceptedOffer ? (
                               <TransportStatus
-                              currentStatus={acceptedOffer?.transportStatus}
+                                currentStatus={acceptedOffer?.transportStatus}
                                 data={acceptedOffer}
                                 refetch={() => {
                                   refetch();
@@ -275,12 +282,21 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               View Bids
                               {/* {rest?.Bids?.length} */}
                             </button>
-                            {/* <button
-                            onClick={() => setIsDealTwo(true)}
-                            className="bid-btn bid-btn32 view-bid-btn-green  view-bid-btn"
-                          >
-                            View Bids
-                          </button> */}
+                            <div
+                              onClick={() => {
+                                setUpdateBid(true);
+                                setSelectedData({
+                                  postStatus,
+                                  productName,
+                                  productimages,
+                                  addedOn,
+                                  ...rest,
+                                });
+                              }}
+                              className="edit-bid-btn"
+                            >
+                              <i class="fa-regular fa-pen-to-square"></i>
+                            </div>
                           </div>
                         </div>
                       );
@@ -330,9 +346,9 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
               <div onClick={onClickCreatePost} className="edit-bid-btn">
                 <i class="fa-regular fa-pen-to-square"></i>
               </div>
-            </div>
+            </div> */}
 
-            <div className="bid-list-bx">
+            {/* <div className="bid-list-bx">
               <div className="left-bid-li-bx">
                 <div className="bid-li-img">
                   <img src="/images/customImg/about-img-2.jpg" alt="" />
@@ -462,9 +478,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
         </div>
       </section>
 
-
-{ howItWrk ? <Howitwork onClickClose={() => setHowItWrk(false)} /> : ""}
-
+      {howItWrk ? <Howitwork onClickClose={() => setHowItWrk(false)} /> : ""}
 
       {isBidder && (
         <Bidders
@@ -502,6 +516,16 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
         onClickCloseDeal={() => setIsDealTwo(false)}
       />
     </>
+  ) : (
+    <CreateBidPost
+      type="edit"
+      onClose={() => setUpdateBid(false)}
+      data={selectedData}
+      refetch={() => {
+        refetch();
+        refetchOffers();
+      }}
+    />
   );
 };
 

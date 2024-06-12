@@ -226,3 +226,21 @@ export const makeBidPayment = resolvePromise(async ({ id, type }) => {
   );
   return res?.message;
 });
+
+export const franchiseBidPostUpdate = resolvePromise(
+  async ({ id, ...data }) => {
+    const apiUrl = ENV_API_BASE_URL + `/franchise/bid/${id}/list`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { ...data },
+      {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return res?.message;
+  }
+);

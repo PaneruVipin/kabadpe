@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   franchiseBidPost,
+  franchiseBidPostUpdate,
   franchiseBidSubCategoriesFetch,
 } from "../apis/franchise/bid";
 import { useSelector } from "react-redux";
@@ -10,11 +11,19 @@ import { toast } from "react-toastify";
 import { catageories } from "../lib/kabadCatageories";
 import { useQuery } from "@tanstack/react-query";
 
-const CreateBidPost = () => {
+const CreateBidPost = ({
+  data = {},
+  type = "add",
+  onClose = () => {},
+  refetch = () => {},
+}) => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const user = useSelector((s) => s?.user?.userInfo);
+  const [initialImages, setInitialImages] = useState(
+    JSON.parse(data?.productimages || "[]")
+  );
   const handleImageUpload = (event) => {
     const fileList = event.target.files;
     setFiles((prev) => [...prev, ...fileList]);
@@ -44,21 +53,29 @@ const CreateBidPost = () => {
   const handleCheckBox = () => {
     setIsChecked(!isChecked);
   };
-  const initialValues = { unit: "kg" };
+  const initialValues = { unit: "kg", ...data };
   const handleSubmit = async (data) => {
-    if (!files.length) {
+    if (!files.length && !initialImages?.length) {
       toast.error("Please upload atleast one image");
       return;
     }
     const newData = { ...data, productimages: files };
-    const res = await franchiseBidPost(newData);
+    const res =
+      type == "add"
+        ? await franchiseBidPost(newData)
+        : await franchiseBidPostUpdate({
+            ...newData,
+            images: JSON.stringify(initialImages),
+          });
     if (res?.error) {
       toast.error(res?.message);
       return;
     }
     toast.success(res);
+    onClose();
+    refetch();
   };
-  const { data: subCategories, refetch } = useQuery({
+  const { data: subCategories, refetch: r } = useQuery({
     queryKey: ["franchiseBidSubCategoriesFetch"],
     queryFn: () => franchiseBidSubCategoriesFetch(),
   });
@@ -467,6 +484,21 @@ const CreateBidPost = () => {
                             <button
                               type="button"
                               onClick={() => handleDeleteImage(index)}
+                            >
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </div>
+                        ))}
+                        {initialImages?.map((image, index) => (
+                          <div key={index} className="post_imges">
+                            <img src={image} alt={`Image ${index}`} />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setInitialImages((prev) =>
+                                  prev?.filter((_, i) => i != index)
+                                )
+                              }
                             >
                               <ion-icon name="close-outline"></ion-icon>
                             </button>

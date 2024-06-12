@@ -5,6 +5,7 @@ import CreateBidPost from "../FrenchiesComp/CreateBidPost";
 import { useSelector } from "react-redux";
 import Login from "../../src/AdminPages/FrenchiesLogin";
 import MainFooter from "../HomeComponent/MainFooter";
+import Howitwork from "../FrenchiesComp/Howitwork";
 const KabadShop = () => {
   const [component, setComponent] = useState("bid");
   const [data, setData] = useState({});
@@ -52,6 +53,8 @@ const KabadShop = () => {
         )}
       </div>
       <MainFooter />
+
+
     </>
   );
 };

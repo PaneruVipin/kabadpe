@@ -4,6 +4,7 @@ import BidProductData from "../FrenchiesComp/BidProductData";
 import { useQuery } from "@tanstack/react-query";
 import { franchiseAllListingsFetch } from "../apis/franchise/bid";
 import { catageories } from "../lib/kabadCatageories";
+import Howitwork from "../FrenchiesComp/Howitwork";
 
 const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -11,6 +12,8 @@ const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState([]);
   const Options = ["KG", "PCS"];
+  const [howItWrk , setHowItWrk] = useState(false);
+
 
   const handleOptionChange = (selectOption) => {
     setUnit(selectOption);
@@ -78,6 +81,10 @@ const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
               <button onClick={onClickCreatePost} className="create-post-btn">
                 Create Post
               </button>
+
+              <button onClick={() => setHowItWrk(true)} className="create-post-btn create-post-btn1">
+                How it work
+              </button>
             </div>
           </div>
 
@@ -89,6 +96,8 @@ const KabadShopComp = ({ onClickDetPage, onClickCreatePost }) => {
           />
         </div>
       </section>
+{ howItWrk ? <Howitwork onClickClose={() => setHowItWrk(false)} /> : ""}
+
     </>
   );
 };

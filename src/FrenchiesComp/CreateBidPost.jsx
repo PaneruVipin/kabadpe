@@ -8,7 +8,7 @@ import {
 } from "../apis/franchise/bid";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { catageories } from "../lib/kabadCatageories";
+import { bidproductcategories, catageories } from "../lib/kabadCatageories";
 import { useQuery } from "@tanstack/react-query";
 
 const CreateBidPost = ({
@@ -75,10 +75,28 @@ const CreateBidPost = ({
     onClose();
     refetch();
   };
-  const { data: subCategories, refetch: r } = useQuery({
-    queryKey: ["franchiseBidSubCategoriesFetch"],
-    queryFn: () => franchiseBidSubCategoriesFetch(),
-  });
+  const conditions = [
+    "Scrap",
+    "Sheets",
+    "New Old",
+    "Old",
+    "New",
+    "Compound",
+    "Grist",
+    "Granules",
+    "Other Condition",
+    "Wide Space/Off-Grade",
+    "Rolls",
+    "Repro Pellets",
+    "Regrind",
+    "Mixed Recycled",
+    "Lump",
+    "Excellent",
+    "Scratches",
+    "Poor",
+    "Good",
+  ];
+
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -121,9 +139,9 @@ const CreateBidPost = ({
                               <option value="" hidden>
                                 Choose Category
                               </option>
-                              {catageories?.map(({ id, name }) => {
+                              {bidproductcategories?.map(({ name }) => {
                                 return (
-                                  <option key={id} value={name}>
+                                  <option key={name} value={name}>
                                     {name}
                                   </option>
                                 );
@@ -143,26 +161,15 @@ const CreateBidPost = ({
                               <option value="" hidden>
                                 Choose Sub-category
                               </option>
-                              {!subCategories?.error
-                                ? subCategories
-                                    ?.filter(({ category }) => {
-                                      if (values?.category == "Others") {
-                                        return (
-                                          category == values?.category ||
-                                          !category
-                                        );
-                                      } else {
-                                        return category == values?.category;
-                                      }
-                                    })
-                                    .map(({ id, productName }) => {
-                                      return (
-                                        <option key={id} value={productName}>
-                                          {productName}
-                                        </option>
-                                      );
-                                    })
-                                : null}
+                              {bidproductcategories
+                                ?.find(({ name }) => name == values?.category)
+                                ?.sub?.map(({ name }) => {
+                                  return (
+                                    <option key={name} value={name}>
+                                      {name}
+                                    </option>
+                                  );
+                                })}
                             </select>
                           </div>
                         </div>
@@ -180,9 +187,11 @@ const CreateBidPost = ({
                               <option value="" hidden>
                                 Choose Condition
                               </option>
-                              <option value="new">New</option>
-                              <option value="old">Old</option>
-                              <option value="refurbished">Refurbished</option>
+                              {conditions?.map((name) => (
+                                <option key={name} value={name}>
+                                  {name}
+                                </option>
+                              ))}
                             </select>
                           </div>
 

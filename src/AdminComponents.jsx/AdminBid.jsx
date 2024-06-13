@@ -154,141 +154,128 @@ const AdminBid = () => {
                 </thead>
                 <tbody>
                   {!bids?.error
-                    ? bids?.map(
-                        (
-                          {
-                            Bids,
-                            Franchise,
-                            id,
-                            pricePerUnit,
-                            productName,
-                            productQuantity,
-                            unit,
-                            ...rest
-                          },
-                          i
-                        ) => {
-                          const acceptedBid = Bids?.find(
-                            ({ bidStatus }) => bidStatus == "accept"
-                          );
-                          const subTotal = acceptedBid
-                            ? +acceptedBid?.productQuantity *
-                              +acceptedBid?.pricePerUnit
-                            : 0;
-                          const gst = rest?.includeGst
-                            ? (+(rest?.gst || 0) * +(subTotal || 0)) / 100
-                            : 0;
-                          const total = subTotal + gst;
-                          return (
-                            <tr key={id}>
-                              <td>
-                                <span> {i + 1} </span>
-                              </td>
-                              <td>
-                                <span> {productName} </span>
-                              </td>
-                              <td>
-                                <span> {Franchise?.companyName} </span>
-                              </td>
-                              <td>
-                                {" "}
-                                <span>
-                                  {productQuantity + unit} <br /> ₹
-                                  {pricePerUnit}/{unit}
-                                </span>
-                              </td>
-                              <td>
-                                {acceptedBid ? (
+                    ? bids
+                        ?.sort(
+                          (a, b) =>
+                            new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                        )
+                        ?.map(
+                          (
+                            {
+                              Bids,
+                              Franchise,
+                              id,
+                              pricePerUnit,
+                              productName,
+                              productQuantity,
+                              unit,
+                              ...rest
+                            },
+                            i
+                          ) => {
+                            const acceptedBid = Bids?.find(
+                              ({ bidStatus }) => bidStatus == "accept"
+                            );
+                            const subTotal = acceptedBid
+                              ? +acceptedBid?.productQuantity *
+                                +acceptedBid?.pricePerUnit
+                              : 0;
+                            const gst = rest?.includeGst
+                              ? (+(rest?.gst || 0) * +(subTotal || 0)) / 100
+                              : 0;
+                            const total = subTotal + gst;
+                            return (
+                              <tr key={id}>
+                                <td>
+                                  <span> {i + 1} </span>
+                                </td>
+                                <td>
+                                  <span> {productName} </span>
+                                </td>
+                                <td>
+                                  <span> {Franchise?.companyName} </span>
+                                </td>
+                                <td>
+                                  {" "}
                                   <span>
-                                    {acceptedBid?.productQuantity + unit} <br />{" "}
-                                    ₹{acceptedBid?.pricePerUnit}/{unit}
+                                    {productQuantity + unit} <br /> ₹
+                                    {pricePerUnit}/{unit}
                                   </span>
-                                ) : null}
-                              </td>
-                              <td>
-                                <span> {total} </span>
-                              </td>
-                              <td>
-                                <span>{acceptedBid?.commission} </span>
-                              </td>
-                              <td>
-                                <span> {rest?.postStatus} </span>
-                              </td>
-                              <td>
-                                {acceptedBid ? (
-                                  // <span>
-                                  //   {" "}
-                                  //   {acceptedBid?.transportStatus
-                                  //     ? acceptedBid?.transportStatus
-                                  //     : "Pending..."}{" "}
-                                  // </span>
-                                  <div className="all-prod-sel-filt-box">
-                                    <select
-                                      onChange={(e) =>
-                                        handleTransportStatusChange({
-                                          id: acceptedBid?.id,
-                                          status: e.target.value,
-                                        })
-                                      }
-                                      defaultValue={
-                                        acceptedBid?.transportStatus
-                                      }
-                                      name="product"
-                                      id="product"
-                                    >
-                                      <option value="">Processing...</option>
-                                      <option value="dispatch">
-                                        Dispatched
-                                      </option>
-                                      <option value="deliver">Delivered</option>
-                                    </select>
-                                  </div>
-                                ) : (
-                                  <span>Not accepted any bid</span>
-                                )}
-                              </td>
-                              <td>
-                                {acceptedBid ? (
-                                  <>
+                                </td>
+                                <td>
+                                  {acceptedBid ? (
                                     <span>
-                                      {" "}
-                                      {acceptedBid?.paymentStatus
-                                        ? acceptedBid?.paymentStatus
-                                        : "Pending..."}{" "}
+                                      {acceptedBid?.productQuantity + unit}{" "}
+                                      <br /> ₹{acceptedBid?.pricePerUnit}/{unit}
                                     </span>
-                                  </>
-                                ) : (
-                                  "...."
-                                )}
-                              </td>
-                              <td>
-                                <button
-                                  style={{
-                                    background: "green",
-                                    marginRight: "6px",
-                                  }}
-                                  onClick={() => {
-                                    setSelectedOffers(Bids);
-                                    setSelectedData({
-                                      Bids,
-                                      Franchise,
-                                      id,
-                                      pricePerUnit,
-                                      productName,
-                                      productQuantity,
-                                      unit,
-                                      ...rest,
-                                    });
-                                    setBidders(true);
-                                  }}
-                                  className="trnfr-btn"
-                                >
-                                  Offers
-                                </button>
-                                {acceptedBid?.paymentStatus == "receive" ? (
+                                  ) : null}
+                                </td>
+                                <td>
+                                  <span> {total} </span>
+                                </td>
+                                <td>
+                                  <span>{acceptedBid?.commission} </span>
+                                </td>
+                                <td>
+                                  <span> {rest?.postStatus} </span>
+                                </td>
+                                <td>
+                                  {acceptedBid ? (
+                                    // <span>
+                                    //   {" "}
+                                    //   {acceptedBid?.transportStatus
+                                    //     ? acceptedBid?.transportStatus
+                                    //     : "Pending..."}{" "}
+                                    // </span>
+                                    <div className="all-prod-sel-filt-box">
+                                      <select
+                                        onChange={(e) =>
+                                          handleTransportStatusChange({
+                                            id: acceptedBid?.id,
+                                            status: e.target.value,
+                                          })
+                                        }
+                                        defaultValue={
+                                          acceptedBid?.transportStatus
+                                        }
+                                        name="product"
+                                        id="product"
+                                      >
+                                        <option value="">Processing...</option>
+                                        <option value="dispatch">
+                                          Dispatched
+                                        </option>
+                                        <option value="deliver">
+                                          Delivered
+                                        </option>
+                                      </select>
+                                    </div>
+                                  ) : (
+                                    <span>Not accepted any bid</span>
+                                  )}
+                                </td>
+                                <td>
+                                  {acceptedBid ? (
+                                    <>
+                                      <span>
+                                        {" "}
+                                        {acceptedBid?.paymentStatus
+                                          ? acceptedBid?.paymentStatus
+                                          : "Pending..."}{" "}
+                                      </span>
+                                    </>
+                                  ) : (
+                                    "...."
+                                  )}
+                                </td>
+                                <td>
                                   <button
+                                    style={{
+                                      background: "green",
+                                      marginRight: "6px",
+                                    }}
                                     onClick={() => {
-                                      setPaymentPopup(true);
+                                      setSelectedOffers(Bids);
                                       setSelectedData({
                                         Bids,
                                         Franchise,
@@ -297,24 +284,44 @@ const AdminBid = () => {
                                         productName,
                                         productQuantity,
                                         unit,
-                                        acceptedBid,
                                         ...rest,
                                       });
+                                      setBidders(true);
                                     }}
                                     className="trnfr-btn"
                                   >
-                                    Transfer
+                                    Offers
                                   </button>
-                                ) : null}
-                              </td>
+                                  {acceptedBid?.paymentStatus == "receive" ? (
+                                    <button
+                                      onClick={() => {
+                                        setPaymentPopup(true);
+                                        setSelectedData({
+                                          Bids,
+                                          Franchise,
+                                          id,
+                                          pricePerUnit,
+                                          productName,
+                                          productQuantity,
+                                          unit,
+                                          acceptedBid,
+                                          ...rest,
+                                        });
+                                      }}
+                                      className="trnfr-btn"
+                                    >
+                                      Transfer
+                                    </button>
+                                  ) : null}
+                                </td>
 
-                              <td>
-                                <span> </span>
-                              </td>
-                            </tr>
-                          );
-                        }
-                      )
+                                <td>
+                                  <span> </span>
+                                </td>
+                              </tr>
+                            );
+                          }
+                        )
                     : null}
                 </tbody>
               </table>

@@ -5,6 +5,7 @@ import BidDealTwo from "./BidDealTwo";
 import { useQuery } from "@tanstack/react-query";
 import {
   franchiseBidOffersFetch,
+  franchiseBidPostStatusChange,
   franchiseMyListingsFetch,
 } from "../apis/franchise/bid";
 import { DateTime } from "luxon";
@@ -89,6 +90,11 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
     { name: "complete", Label: "Completed" },
   ];
   const order = ["active", "close"];
+  const handleStopClick = async (id, postStatus) => {
+    const res = await franchiseBidPostStatusChange({ id, postStatus });
+    refetch();
+    refetchOffers();
+  };
   return !updateBid ? (
     <>
       <section className="bid-product-listing-comp">
@@ -170,6 +176,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                   className={
                                     postStatus == "close"
                                       ? "bx-span bx-span-green"
+                                      : postStatus == "stop"
+                                      ? "bx-span bx-span-red"
                                       : "bx-span"
                                   }
                                 >
@@ -267,7 +275,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
 
                           <div className="view-bid-btn-flex">
                             <button
-                              style={{ borderColor:"red", color: "red" }}
+                              style={{ borderColor: "red", color: "red" }}
                               onClick={() => {
                                 setIsBidder(true);
                                 setSelectedData({
@@ -281,8 +289,56 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               className="bid-btn bid-btn32 view-bid-btn"
                             >
                               View Bids
-                              {/* {rest?.Bids?.length} */}
+                              {rest?.Bids?.length ? (
+                                <span
+                                  style={{
+                                    borderColor: "green",
+                                    color: "white",
+                                    marginRight: "-20px",
+                                    borderRadius: "100%",
+                                    border: "2px",
+                                    backgroundColor: "green",
+                                    marginTop: "-20px",
+                                    padding: "5px 10px",
+                                  }}
+                                  className="  "
+                                >
+                                  {rest?.Bids?.length}
+                                </span>
+                              ) : null}
                             </button>
+                            <div className="statuschange-bid-btn">
+                              {" "}
+                              {postStatus == "active" ||
+                              postStatus == "stop" ? (
+                                <button
+                                  style={
+                                    postStatus == "stop"
+                                      ? {
+                                          backgroundColor: "green",
+                                          borderColor: "green",
+                                          color: "white",
+                                        }
+                                      : {
+                                          backgroundColor: "red",
+                                          borderColor: "red",
+                                          color: "white",
+                                        }
+                                  }
+                                  onClick={() =>
+                                    handleStopClick(
+                                      rest?.id,
+                                      postStatus == "stop" ? "active" : "stop"
+                                    )
+                                  }
+                                  className="bid-btn bid-btn32 view-bid-btn "
+                                >
+                                  {postStatus == "stop"
+                                    ? "Re-active Post"
+                                    : "Stop Post"}
+                                </button>
+                              ) : null}
+                            </div>
                             <div
                               onClick={() => {
                                 setUpdateBid(true);

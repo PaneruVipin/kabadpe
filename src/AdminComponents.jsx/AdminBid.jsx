@@ -273,6 +273,8 @@ const AdminBid = () => {
                                     style={{
                                       background: "green",
                                       marginRight: "6px",
+                                      display: "block",
+                                      
                                     }}
                                     onClick={() => {
                                       setSelectedOffers(Bids);
@@ -291,6 +293,23 @@ const AdminBid = () => {
                                     className="trnfr-btn"
                                   >
                                     Offers
+                                    {Bids?.length ? (
+                                      <span
+                                        style={{
+                                          borderColor: "red",
+                                          color: "white",
+                                          marginRight: "-20px",
+                                          borderRadius: "100%",
+                                          border: "2px",
+                                          backgroundColor: "red",
+                                          marginTop: "-10px",
+                                          padding: "5px 10px",
+                                        }}
+                                        className="  "
+                                      >
+                                        {Bids?.length}
+                                      </span>
+                                    ) : null}
                                   </button>
                                   {acceptedBid?.paymentStatus == "receive" ? (
                                     <button

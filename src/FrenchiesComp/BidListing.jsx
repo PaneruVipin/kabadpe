@@ -267,6 +267,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
 
                           <div className="view-bid-btn-flex">
                             <button
+                              style={{ borderColor:"red", color: "red" }}
                               onClick={() => {
                                 setIsBidder(true);
                                 setSelectedData({

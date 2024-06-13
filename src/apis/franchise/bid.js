@@ -244,3 +244,20 @@ export const franchiseBidPostUpdate = resolvePromise(
     return res?.message;
   }
 );
+
+export const franchiseBidPostStatusChange = resolvePromise(
+  async ({ id, postStatus }) => {
+    const apiUrl = ENV_API_BASE_URL + `/bidpost/${id}/statuschange/${postStatus}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      {  },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);

@@ -3,18 +3,27 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   franchiseBidPost,
+  franchiseBidPostUpdate,
   franchiseBidSubCategoriesFetch,
 } from "../apis/franchise/bid";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { catageories } from "../lib/kabadCatageories";
+import { bidproductcategories, catageories } from "../lib/kabadCatageories";
 import { useQuery } from "@tanstack/react-query";
 
-const CreateBidPost = () => {
+const CreateBidPost = ({
+  data = {},
+  type = "add",
+  onClose = () => {},
+  refetch = () => {},
+}) => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const user = useSelector((s) => s?.user?.userInfo);
+  const [initialImages, setInitialImages] = useState(
+    JSON.parse(data?.productimages || "[]")
+  );
   const handleImageUpload = (event) => {
     const fileList = event.target.files;
     setFiles((prev) => [...prev, ...fileList]);
@@ -44,24 +53,50 @@ const CreateBidPost = () => {
   const handleCheckBox = () => {
     setIsChecked(!isChecked);
   };
-  const initialValues = { unit: "kg" };
+  const initialValues = { unit: "kg", ...data };
   const handleSubmit = async (data) => {
-    if (!files.length) {
+    if (!files.length && !initialImages?.length) {
       toast.error("Please upload atleast one image");
       return;
     }
     const newData = { ...data, productimages: files };
-    const res = await franchiseBidPost(newData);
+    const res =
+      type == "add"
+        ? await franchiseBidPost(newData)
+        : await franchiseBidPostUpdate({
+            ...newData,
+            images: JSON.stringify(initialImages),
+          });
     if (res?.error) {
       toast.error(res?.message);
       return;
     }
     toast.success(res);
+    onClose();
+    refetch();
   };
-  const { data: subCategories, refetch } = useQuery({
-    queryKey: ["franchiseBidSubCategoriesFetch"],
-    queryFn: () => franchiseBidSubCategoriesFetch(),
-  });
+  const conditions = [
+    "Scrap",
+    "Sheets",
+    "New Old",
+    "Old",
+    "New",
+    "Compound",
+    "Grist",
+    "Granules",
+    "Other Condition",
+    "Wide Space/Off-Grade",
+    "Rolls",
+    "Repro Pellets",
+    "Regrind",
+    "Mixed Recycled",
+    "Lump",
+    "Excellent",
+    "Scratches",
+    "Poor",
+    "Good",
+  ];
+
   return (
     <>
       <section className="bid-product-listing-comp">
@@ -104,9 +139,9 @@ const CreateBidPost = () => {
                               <option value="" hidden>
                                 Choose Category
                               </option>
-                              {catageories?.map(({ id, name }) => {
+                              {bidproductcategories?.map(({ name }) => {
                                 return (
-                                  <option key={id} value={name}>
+                                  <option key={name} value={name}>
                                     {name}
                                   </option>
                                 );
@@ -126,26 +161,15 @@ const CreateBidPost = () => {
                               <option value="" hidden>
                                 Choose Sub-category
                               </option>
-                              {!subCategories?.error
-                                ? subCategories
-                                    ?.filter(({ category }) => {
-                                      if (values?.category == "Others") {
-                                        return (
-                                          category == values?.category ||
-                                          !category
-                                        );
-                                      } else {
-                                        return category == values?.category;
-                                      }
-                                    })
-                                    .map(({ id, productName }) => {
-                                      return (
-                                        <option key={id} value={productName}>
-                                          {productName}
-                                        </option>
-                                      );
-                                    })
-                                : null}
+                              {bidproductcategories
+                                ?.find(({ name }) => name == values?.category)
+                                ?.sub?.map(({ name }) => {
+                                  return (
+                                    <option key={name} value={name}>
+                                      {name}
+                                    </option>
+                                  );
+                                })}
                             </select>
                           </div>
                         </div>
@@ -163,9 +187,11 @@ const CreateBidPost = () => {
                               <option value="" hidden>
                                 Choose Condition
                               </option>
-                              <option value="new">New</option>
-                              <option value="old">Old</option>
-                              <option value="refurbished">Refurbished</option>
+                              {conditions?.map((name) => (
+                                <option key={name} value={name}>
+                                  {name}
+                                </option>
+                              ))}
                             </select>
                           </div>
 
@@ -467,6 +493,21 @@ const CreateBidPost = () => {
                             <button
                               type="button"
                               onClick={() => handleDeleteImage(index)}
+                            >
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </div>
+                        ))}
+                        {initialImages?.map((image, index) => (
+                          <div key={index} className="post_imges">
+                            <img src={image} alt={`Image ${index}`} />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setInitialImages((prev) =>
+                                  prev?.filter((_, i) => i != index)
+                                )
+                              }
                             >
                               <ion-icon name="close-outline"></ion-icon>
                             </button>

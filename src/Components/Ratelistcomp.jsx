@@ -446,7 +446,7 @@ const Ratelistcomp = ({ setUserForm }) => {
                       </p>
                     </div>
                     <div className="waste-saved-bx">
-                      <span>{enviournmentSaving?.oil} Lakhs Litres </span>
+                      <span>{enviournmentSaving?.oil} No. of trees </span>
                       <p>
                       <i class="fa-solid fa-tree"></i>Tree
                       </p>

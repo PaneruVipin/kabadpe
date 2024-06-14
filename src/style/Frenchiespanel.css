@@ -4098,7 +4098,10 @@ input[type="number"]::-webkit-inner-spin-button {
 .bx-span-green{
     background-color: #2da14f;
 }
-  
+
+.bx-span-red{
+    background-color: red;
+}
 .start-latest-bidder-grid-bx{
     position: relative;
     max-width: 22rem;
@@ -4155,6 +4158,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .view-bid-btn-flex{
     padding-inline-end: 1rem;
+
 }
 
 .view-bid-btn{
@@ -4176,6 +4180,12 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 2.1rem;
     display: grid;
     place-items: center;
+}
+
+.statuschange-bid-btn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 .start-latest-bidder-grid-bx-green{

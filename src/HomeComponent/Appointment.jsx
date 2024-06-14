@@ -18,7 +18,7 @@ import { userAddressesFetch } from "../apis/user";
 import Response from "../Components/Popups/Response";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
-const Appointment = ({ setUserForm }) => {
+const Appointment = ({ setUserForm, component = "user" }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -210,7 +210,10 @@ const Appointment = ({ setUserForm }) => {
                     touched,
                     ...rest
                   }) => {
-                    const handleClick = checkAndOpenLoginPage(() => {});
+                    const handleClick =
+                      component == "user"
+                        ? checkAndOpenLoginPage(() => {})
+                        : () => {};
                     return (
                       <Form className="apnt-slot-form-bx">
                         <div className="form-grid">

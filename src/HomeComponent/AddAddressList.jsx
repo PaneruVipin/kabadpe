@@ -14,13 +14,15 @@ const AddAddressList = ({
   onclickClose,
   setSelectedAddress,
   selectedAddress,
+  component = "user",
+  userData = {},
 }) => {
   const [addrsForm, setAddrsForm] = useState(false);
   const [isEditForm, setIsEditForm] = useState(false);
   const [initialFormValues, setInitialFormValues] = useState({});
   const { data: addresses, refetch } = useQuery({
     queryKey: ["userAddress:appoinment"],
-    queryFn: () => userAddressesFetch(),
+    queryFn: () => userAddressesFetch({ id: userData?.id }),
   });
 
   return (
@@ -182,6 +184,8 @@ const AddAddressList = ({
               }
             >
               <AddressForm
+                component={component}
+                userData={userData}
                 setAddrsForm={setAddrsForm}
                 initialFormValues={initialFormValues}
                 isEditForm={isEditForm}
@@ -200,6 +204,8 @@ export const AddressForm = ({
   isEditForm,
   setAddrsForm,
   refetch,
+  userData,
+  component,
 }) => {
   const [states, setStates] = useState([]);
   const [city, setCity] = useState([]);
@@ -252,9 +258,9 @@ export const AddressForm = ({
 
   const handleAddressSubmit = async (data) => {
     if (isEditForm) {
-      await userAddressesUpdate(data);
+      await userAddressesUpdate({ ...data, userId: userData?.id });
     } else {
-      await userAddressesAdd(data);
+      await userAddressesAdd({ ...data, userId: userData?.id });
     }
     setAddrsForm(false);
     refetch();

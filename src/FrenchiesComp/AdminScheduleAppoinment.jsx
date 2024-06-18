@@ -27,7 +27,7 @@ const AdminScheduleAppoinment = ({ onclickClose }) => {
         <div className="wrk-cap-bx" onClick={(e) => e.stopPropagation()}>
           <div className="all-user-table wrk-table ">
             <div className="admin-login-fild">
-              <label htmlFor="name">Phone Number</label>
+              <label htmlFor="name">User Id</label>
               <div className="admin-login-input">
                 <input
                   type="text"

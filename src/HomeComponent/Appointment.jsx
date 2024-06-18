@@ -18,7 +18,7 @@ import { userAddressesFetch } from "../apis/user";
 import Response from "../Components/Popups/Response";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
-const Appointment = ({ setUserForm, component = "user" }) => {
+const Appointment = ({ setUserForm, component = "user", userData }) => {
   const { success, userInfo, loading } = useSelector((s) => s.user);
   const [formLoading, setFormLoading] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -27,13 +27,24 @@ const Appointment = ({ setUserForm, component = "user" }) => {
   const [bookApnt, setBookApnt] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [selectAddesQuery, setSelectAddesQuery] = useState("");
-  const [initialFormValues, setInitialFormValues] = useState({
-    appointmentContactNumber: "",
-    appointmentPersonName: "",
+  const adminInitialValues = {
+    appointmentContactNumber: userData?.phoneNumber,
+    appointmentPersonName: userData?.fullname,
     frequency: "once",
     estimateWeight: "unweighed",
     serviceType: "kabadi",
-  });
+  };
+  const [initialFormValues, setInitialFormValues] = useState(
+    component == "admin"
+      ? adminInitialValues
+      : {
+          appointmentContactNumber: "",
+          appointmentPersonName: "",
+          frequency: "once",
+          estimateWeight: "unweighed",
+          serviceType: "kabadi",
+        }
+  );
   const [addressError, setAddressError] = useState("");
   const [servicableAriaId, setServicableAriaId] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
@@ -69,6 +80,7 @@ const Appointment = ({ setUserForm, component = "user" }) => {
       appointmentTimeSlot: selectedSlotData?.slotName,
       appoinmentAria: selectedAddress?.id,
       ariaId: servicableAriaId,
+      userId: userData?.id,
     };
     const res = await userScheduleAppoinment(newData);
     setShowResponse(true);
@@ -80,7 +92,7 @@ const Appointment = ({ setUserForm, component = "user" }) => {
   };
   const { data: addresses, refetchAddress } = useQuery({
     queryKey: ["userAddress:appoinment:default"],
-    queryFn: () => userAddressesFetch(),
+    queryFn: () => userAddressesFetch({ id: userData?.id }),
   });
 
   const { data: availableCompanies, refetch } = useQuery({
@@ -92,6 +104,7 @@ const Appointment = ({ setUserForm, component = "user" }) => {
           ? selectedDate.toISOString()
           : new Date().toISOString(),
         service: selectedServiceType || "kabadi",
+        userId: userData?.id,
       }),
   });
   const { data: timeSlots, refetch: refetchSlot } = useQuery({
@@ -103,11 +116,12 @@ const Appointment = ({ setUserForm, component = "user" }) => {
           ? selectedDate.toISOString()
           : new Date().toISOString(),
         aria: selectedAddress?.aria,
+        userId: userData?.id,
       }),
   });
   const checkAndOpenLoginPage = (fn) => {
     return (e) => {
-      if (userInfo?.role == "user") {
+      if (userInfo?.role == "user" || component == "admin") {
         fn(e);
         return;
       }
@@ -115,7 +129,11 @@ const Appointment = ({ setUserForm, component = "user" }) => {
     };
   };
   useEffect(() => {
-    if (!addresses?.error && addresses?.length && userInfo?.role == "user") {
+    if (
+      !addresses?.error &&
+      addresses?.length &&
+      (userInfo?.role == "user" || component == "admin")
+    ) {
       setSelectedAddress(addresses?.[0]);
     }
   }, [addresses]);
@@ -469,6 +487,8 @@ const Appointment = ({ setUserForm, component = "user" }) => {
 
       {addAddress ? (
         <AddAddressList
+          userData={userData}
+          component={component}
           selectedAddress={selectedAddress}
           setSelectedAddress={setSelectedAddress}
           onclickClose={() => setAddAddress(false)}

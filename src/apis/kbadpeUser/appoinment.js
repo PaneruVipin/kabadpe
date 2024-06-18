@@ -15,8 +15,10 @@ export const userScheduleAppoinment = resolvePromise(
     appointmentDate,
     appoinmentAria,
     ariaId,
+    userId,
   }) => {
-    const apiUrl = ENV_API_BASE_URL + "/user/kabadPe/schedualPickup";
+    const apiUrl =
+      ENV_API_BASE_URL + `/user/kabadPe/schedualPickup?userId=${userId}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
@@ -121,7 +123,7 @@ export const userValidateServicability = resolvePromise(
 );
 
 export const userFetchAvailableCompanies = resolvePromise(
-  async ({ ariaId, date, service }) => {
+  async ({ ariaId, date, service, userId }) => {
     const apiUrl =
       ENV_API_BASE_URL +
       `/user/${service}/availablecompanies/${ariaId}?date=${date}`;
@@ -136,7 +138,7 @@ export const userFetchAvailableCompanies = resolvePromise(
 );
 
 export const userFetchAvailableSlots = resolvePromise(
-  async ({ franchiseId, date,aria }) => {
+  async ({ franchiseId, date, aria }) => {
     const apiUrl =
       ENV_API_BASE_URL +
       `/user/service/slotavailable/${franchiseId}?date=${date}&aria=${aria}`;

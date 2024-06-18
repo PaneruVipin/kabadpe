@@ -13,8 +13,8 @@ export const getUser = async () => {
   return res;
 };
 
-export const userAddressesFetch = resolvePromise(async (id) => {
-  const apiUrl = ENV_API_BASE_URL + `/user/address?id=${id}`;
+export const userAddressesFetch = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/user/address?id=${id}}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.get(apiUrl, {
     headers: {
@@ -34,8 +34,9 @@ export const userAddressesAdd = resolvePromise(
     landmark,
     aria,
     subAria,
+    userId,
   }) => {
-    const apiUrl = ENV_API_BASE_URL + `/user/address`;
+    const apiUrl = ENV_API_BASE_URL + `/user/address?userId=${userId}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
@@ -61,8 +62,9 @@ export const userAddressesUpdate = resolvePromise(
     id,
     aria,
     subAria,
+    userId,
   }) => {
-    const apiUrl = ENV_API_BASE_URL + `/user/address/${id}`;
+    const apiUrl = ENV_API_BASE_URL + `/user/address/${id}?userId=${userId}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,

@@ -5,6 +5,8 @@ const AppoinmentPopup = ({
   setAppoinmentForm,
   appoinmentForm,
   setUserForm,
+  component,
+  userData
 }) => {
   return (
     <>
@@ -26,7 +28,7 @@ const AppoinmentPopup = ({
               position: "relative",
             }}
           >
-            <Appointment setUserForm={setUserForm} />
+            <Appointment userData={userData} component={component} setUserForm={setUserForm} />
             <div
               style={{ zIndex: 1000, marginTop: "-15rem" }}
               onClick={() => setAppoinmentForm(false)}

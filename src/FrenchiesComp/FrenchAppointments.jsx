@@ -13,6 +13,7 @@ import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
 import { adminChangeAppoinmentStatus } from "../apis/admins/appoinments";
 import { filteredData, hashId, search } from "../lib/array";
+import AdminScheduleAppoinment from "./AdminScheduleAppoinment"
 
 const FrenchAppointments = ({
   refetchAppoinment,
@@ -20,6 +21,7 @@ const FrenchAppointments = ({
   component = "franchise",
 }) => {
   const [popUp, setPopUp] = useState(false);
+  const [schedulePopup, setSchedulePopup] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
   const [reshedPopup, setReshedPopup] = useState(false);
   const [cancelPopup, setCancelPopupPopup] = useState(false);
@@ -190,7 +192,12 @@ const FrenchAppointments = ({
           {/* <h3 className="title">Appointments</h3> */}
           <div className="work-capacity-flex-bx">
             <h3 className="title">Appointments </h3>
-
+            <button
+              onClick={() => setSchedulePopup(true)}
+              className="work-capacity-btn work-capacity-btn2"
+            >
+              Schedule
+            </button>
             <button
               onClick={() => setWrkcpcity(true)}
               className="work-capacity-btn work-capacity-btn2"
@@ -523,6 +530,9 @@ const FrenchAppointments = ({
           component={component}
           onclickClose={() => setWrkcpcity(false)}
         />
+      ) : null}
+      {schedulePopup ? (
+        <AdminScheduleAppoinment onclickClose={() => setSchedulePopup(false)} />
       ) : null}
     </>
   );

@@ -124,3 +124,21 @@ export const adminChangeAppoinmentStatus = resolvePromise(
     return res?.message;
   }
 );
+
+
+export const adminGetUserForAppoinment = resolvePromise(
+  async ({ id }) => {
+    const apiUrl =
+      ENV_API_BASE_URL + `/admin/user/${id}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(
+      apiUrl,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.user;
+  }
+);

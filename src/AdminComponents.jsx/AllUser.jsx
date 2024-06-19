@@ -2,12 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import "../style/AllUserData.css";
 import DatePicker from "react-datepicker";
 import alluserData from "../AlluserData";
-import { adminGetAllUsers, adminUsersUpdate } from "../apis/admins/users";
+import {
+  adminGetAllUsers,
+  adminUserAdd,
+  adminUsersUpdate,
+} from "../apis/admins/users";
 import { useQuery } from "@tanstack/react-query";
 import { kabadPeUserIdMapper, search } from "../lib/array";
 import { Form, Formik } from "formik";
 import { userAddressesFetch } from "../apis/user";
 const AllUser = ({ updatedFilterData }) => {
+  const [formType, setFormType] = useState("edit");
   const [userData, setUserData] = useState(alluserData);
   const [selectImg, setSelectImg] = useState("/images/customImg/c-1.jpg");
   const [editableForm, setEditableForm] = useState(false);
@@ -70,17 +75,27 @@ const AllUser = ({ updatedFilterData }) => {
     accountStatus,
     id,
     profileImage,
+    password,
   }) => {
     setOtherErrors({});
-    const res = await adminUsersUpdate({
-      fullname,
-      email,
-      phoneNumber,
-      accountStatus,
-      role: "user",
-      id,
-      profileImage,
-    });
+    const res =
+      formType == "edit"
+        ? await adminUsersUpdate({
+            fullname,
+            email,
+            phoneNumber,
+            accountStatus,
+            role: "user",
+            id,
+            profileImage,
+          })
+        : await adminUserAdd({
+            fullname,
+            email,
+            phoneNumber,
+            password,
+            profileImage,
+          });
     if (!res?.error) {
       setEditableForm(false);
       refetch();
@@ -100,14 +115,32 @@ const AllUser = ({ updatedFilterData }) => {
   useEffect(() => {
     refetchAddress();
   }, [selectedUser]);
-  console.log("this is errors", otherErrors);
   return (
     <>
       <section className="all-user-data-comp">
         <div className="all-user-data-main-box">
           <div className="user-det-top-flex-box user-det-top-flex-box4">
-            <h6>All User Details</h6>
-
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <h6>All User Details</h6>
+              <button
+                onClick={() => {
+                  setFormType("add");
+                  setEditableForm(true);
+                  setSelectedUser({});
+                }}
+                style={{ marginTop: "-1px", marginRight: "-20px" }}
+                type="submit"
+                className="sqave-chang-btn"
+              >
+                Add User
+              </button>
+            </div>
             <div className="right-user-filter-data-flex-box">
               <div className="user-data-search-box">
                 <input
@@ -268,6 +301,7 @@ const AllUser = ({ updatedFilterData }) => {
                               <td>
                                 <div
                                   onClick={() => {
+                                    setFormType("edit");
                                     setSelectedUser({
                                       id,
                                       profileImage,
@@ -458,24 +492,41 @@ const AllUser = ({ updatedFilterData }) => {
                               />
                             </div>
                           </div>
-                          <div className="user-edit-inpt-box">
-                            <label htmlFor="status">Status</label>
-                            <div className="user-edit-inpt">
-                              <select
-                                type="text"
-                                name="accountStatus"
-                                value={values?.accountStatus}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                id="status"
-                                autoComplete="off"
-                              >
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                                <option value="ban">Ban</option>
-                              </select>
+                          {formType == "edit" ? (
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="status">Status</label>
+                              <div className="user-edit-inpt">
+                                <select
+                                  type="text"
+                                  name="accountStatus"
+                                  value={values?.accountStatus}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  id="status"
+                                  autoComplete="off"
+                                >
+                                  <option value="active">Active</option>
+                                  <option value="inactive">Inactive</option>
+                                  <option value="ban">Ban</option>
+                                </select>
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            <div className="user-edit-inpt-box">
+                              <label htmlFor="Email ">Password</label>
+                              <div className="user-edit-inpt">
+                                <input
+                                  type="text"
+                                  name="password"
+                                  id="email"
+                                  value={values?.password}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  autoComplete="off"
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <p
@@ -495,65 +546,67 @@ const AllUser = ({ updatedFilterData }) => {
                 }}
               </Formik>
 
-              <div className="user-prof-table-data-box">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>S-No.</th>
-                      <th>Address</th>
-                      <th>Add. Type</th>
-                      <th>City</th>
-                      <th>Pin</th>
-                      <th>State</th>
-                      {/* <th>Action</th> */}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {!useAddress?.error && useAddress
-                      ? useAddress?.map(
-                          (
-                            {
-                              id,
-                              street,
-                              city,
-                              state,
-                              zipCode,
-                              landmark,
-                              locationType,
-                              aria,
-                              subAria,
-                            },
-                            i
-                          ) => (
-                            <tr>
-                              <td>
-                                <span>{i + 1}</span>
-                              </td>
-                              <td>
-                                <span>{street}</span>
-                              </td>
-                              <td>
-                                <span>{locationType}</span>
-                              </td>
-                              <td>
-                                <span>{city} </span>
-                              </td>
-                              <td>
-                                <span> {zipCode} </span>
-                              </td>
-                              <td>
-                                <span> {state} </span>
-                              </td>
-                              {/* <td>
+              {formType == "edit" ? (
+                <div className="user-prof-table-data-box">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>S-No.</th>
+                        <th>Address</th>
+                        <th>Add. Type</th>
+                        <th>City</th>
+                        <th>Pin</th>
+                        <th>State</th>
+                        {/* <th>Action</th> */}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {!useAddress?.error && useAddress
+                        ? useAddress?.map(
+                            (
+                              {
+                                id,
+                                street,
+                                city,
+                                state,
+                                zipCode,
+                                landmark,
+                                locationType,
+                                aria,
+                                subAria,
+                              },
+                              i
+                            ) => (
+                              <tr>
+                                <td>
+                                  <span>{i + 1}</span>
+                                </td>
+                                <td>
+                                  <span>{street}</span>
+                                </td>
+                                <td>
+                                  <span>{locationType}</span>
+                                </td>
+                                <td>
+                                  <span>{city} </span>
+                                </td>
+                                <td>
+                                  <span> {zipCode} </span>
+                                </td>
+                                <td>
+                                  <span> {state} </span>
+                                </td>
+                                {/* <td>
                                 <button className="actin-btn"> primary </button>
                               </td> */}
-                            </tr>
+                              </tr>
+                            )
                           )
-                        )
-                      : null}
-                  </tbody>
-                </table>
-              </div>
+                        : null}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
             </div>
 
             <div

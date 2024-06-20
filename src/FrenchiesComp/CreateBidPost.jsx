@@ -16,6 +16,7 @@ const CreateBidPost = ({
   type = "add",
   onClose = () => {},
   refetch = () => {},
+  redirect,
 }) => {
   const [images, setImages] = useState([]);
   const [files, setFiles] = useState([]);
@@ -74,6 +75,9 @@ const CreateBidPost = ({
     toast.success(res);
     onClose();
     refetch();
+    if (type == "add") {
+      redirect();
+    }
   };
   const conditions = [
     "Scrap",

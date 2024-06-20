@@ -149,7 +149,7 @@ const ImpactComp = () => {
 
             
 
-              <div className="imp-bx imp-bx4">
+              {/* <div className="imp-bx imp-bx4">
                 <div className="imp-icon imp-icon-i-font2 imp-icon-i-font3 imp-icon5">
                   <i class="fa-solid fa-bottle-droplet"></i>
                 </div>
@@ -157,7 +157,7 @@ const ImpactComp = () => {
                 <h5>2.5</h5>
                 <p> Lakhs Litres of Oil Saved</p>
               </div>
-              </div>
+              </div> */}
 
               <div className="imp-bx imp-bx4">
                 <div className="imp-icon imp-icon-i-font2 imp-icon-i-font4 imp-icon-i-font3 imp-icon5">

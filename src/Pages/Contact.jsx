@@ -8,7 +8,7 @@ import MainFooter from '../HomeComponent/MainFooter'
 const Contact = () => {
   return (
     <>
-      <ContactBreadCrum />
+      {/* <ContactBreadCrum /> */}
       <ContInform />
       <ContForm />
       <Discover />

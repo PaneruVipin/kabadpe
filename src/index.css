@@ -4753,7 +4753,7 @@ Our contributon sec Css
   border-radius: .3rem;
   /* border: .1rem solid #ffffffc4; */
   width: 14rem;
-  z-index: 999;
+  z-index:100000;
   transform: translateY(80px);
   opacity: 0;
   visibility: hidden;
@@ -12315,7 +12315,7 @@ Our footer comp
 
 .imp-bx {
   position: relative;
-  width: 12rem;
+  width: 14rem;
   height: initial;
   display: flex;
   flex-direction: column;
@@ -17526,8 +17526,63 @@ video {
 }
 
 .create-post-btn1:hover{
+  background-color: transparent;
+  color: #0ea5e9;
+}
+
+.search-prod-btn , .prod-filt-btn{
   background-color: #0ea5e9;
   color: #fff;
+}
+
+.search-prod-btn:hover , .prod-filt-btn:hover{
+  background-color: transparent;
+  color: #0ea5e9;
+}
+
+
+
+.apnt-buton-flex{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.work-capacity-flex-bx{
+  flex-wrap:wrap;
+}
+
+
+.french-toggle-side-nav-btn{
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 1rem;
+}
+
+
+/* .french-toggle-side-nav-btn:hover{
+  background-color: #2bc2c6;
+} */
+
+.french-toggle-side-nav-btn i{
+  transition: 400ms ease;
+
+}
+
+/* .french-toggle-side-nav-btn:hover i , 
+  .french-toggle-side-nav-btn:hover span{
+  color: #fff;
+} */
+
+.french-toggle-side-nav-btn span{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  font-size: .87rem;
 }
 
 /* ____________________________________

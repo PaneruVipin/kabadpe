@@ -218,18 +218,7 @@ const FrenchiesPanel = () => {
                 <div className="admin-logo">
                   <img src="/images/customImg/logo.png" alt="" />
                 </div>
-                <button
-                  onClick={() => {
-                    setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
-                  }}
-                  className="side-admin-nav-btn-box admin-top-comn-btn"
-                >
-                  {barClick ? (
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                  ) : (
-                    <i class="fa-solid fa-bars-staggered"></i>
-                  )}
-                </button>
+               
                 <h4 className="admin-top-title">{userInfo?.companyName}</h4>
               </div>
 
@@ -597,6 +586,19 @@ const FrenchiesPanel = () => {
             }
           >
             <div className="side-admin-nav-list-box">
+            <button
+                  onClick={() => {
+                    setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
+                  }}
+                  className="side-admin-nav-btn-box french-toggle-side-nav-btn admin-top-comn-btn"
+                >
+                  {barClick ? (
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                  ) : (
+                    <span>Collapse Now</span>
+                  )}
+                </button>
+
               <div className="admin-nv-li admin-nv-li-dashbrd">
                 <div
                   onClick={() => {

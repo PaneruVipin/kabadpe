@@ -8,6 +8,7 @@ import { IoIosStar } from "react-icons/io";
 import { CiShop } from "react-icons/ci";
 import { FiAnchor } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
+import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { FaWpforms } from "react-icons/fa6";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { FaPagelines } from "react-icons/fa";
@@ -602,7 +603,7 @@ const FrenchiesPanel = () => {
                   {barClick ? (
                     <i class="fa-solid fa-arrow-right-long"></i>
                   ) : (
-                    <span>Collapse Now</span>
+                    <span> <BsFillGrid3X3GapFill className="grid-icon"  /> Collapse Now</span>
                   )}
                 </button>
 

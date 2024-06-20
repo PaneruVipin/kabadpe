@@ -286,7 +286,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                   ...rest,
                                 });
                               }}
-                              className="bid-btn bid-btn32 view-bid-btn"
+                              className="bid-btn bid-btn-red bid-btn32 view-bid-btn"
                             >
                               View Bids
                               {rest?.Bids?.length ? (

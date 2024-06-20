@@ -183,7 +183,7 @@ const WasteWallet = ({ component = "worker" }) => {
       <section
         className={`${
           component == "franchise"
-            ? ""
+            ? "trn-sec"
             : "user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5"
         }`}
       >

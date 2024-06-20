@@ -17527,7 +17527,7 @@ video {
 
 .create-post-btn1:hover{
   background-color: transparent;
-  color: #0ea5e9;
+  color: #2bc2c6;
 }
 
 .search-prod-btn , .prod-filt-btn{
@@ -17535,11 +17535,15 @@ video {
   color: #fff;
 }
 
+
+
 .search-prod-btn:hover , .prod-filt-btn:hover{
   background-color: transparent;
   color: #0ea5e9;
 }
-
+.trn-sec{
+  padding-inline-end: 1rem ;
+}
 
 
 .apnt-buton-flex{
@@ -17559,30 +17563,53 @@ video {
   background-color: transparent;
   border: none;
   box-shadow: none;
-  border-radius: 1rem;
 }
 
 
-/* .french-toggle-side-nav-btn:hover{
+.french-toggle-side-nav-btn:hover{
   background-color: #2bc2c6;
-} */
+}
 
 .french-toggle-side-nav-btn i{
   transition: 400ms ease;
 
 }
 
-/* .french-toggle-side-nav-btn:hover i , 
+.french-toggle-side-nav-btn:hover i , 
   .french-toggle-side-nav-btn:hover span{
   color: #fff;
-} */
+}
+
+.bid-btn-red{
+  background-color: #ff0000;
+  color: #fff !important;
+}
+
+.bid-btn-red:hover{
+  background-color: transparent ;
+  color: #ff0000 !important;
+}
+
+.french-toggle-side-nav-btn{
+  justify-content: flex-start;
+  padding: 1rem 1rem;
+}
+
+.french-toggle-side-nav-btn i{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
 
 .french-toggle-side-nav-btn span{
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
   display: inline-block;
-  font-size: .87rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
 }
 
 /* ____________________________________

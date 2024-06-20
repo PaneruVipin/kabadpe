@@ -479,7 +479,8 @@
     display: block;
     color: #262626;
     font-size: .87rem;
-    transition: 500ms cubic-bezier(0.575, 0.885, 0.662, 1.775);
+    transition: 500ms ease;
+
 
 }
 
@@ -493,19 +494,17 @@
     height: .12rem;
     border-radius: 1rem;
     background-color: #bfbfbf;
-    transition: 500ms cubic-bezier(0.575, 0.885, 0.662, 1.775);
+    transition: 500ms ease;
 }
 
 
 
 
 
-.ad-list li:hover a{
-  color: #0ea5e9;
-}
 
 .page-link-btn2:hover a{
   color: #2bc2c6 !important;
+  background-color: #f5eeee;
 }
 
 .ad-list li:hover:before{

@@ -73,7 +73,7 @@ const MainFooter = () => {
                     <a href="#">Our Impact</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
+                    <a href="/contact">Contact Us</a>
                   </li>
                   <li>
                     <a href="#">FAQ</a>
@@ -158,7 +158,7 @@ const MainFooter = () => {
                     <a href="#">Our Impact</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
+                    <a href="/contact">Contact Us</a>
                   </li>
                   <li>
                     <a href="#">FAQ</a>

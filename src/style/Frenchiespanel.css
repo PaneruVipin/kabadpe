@@ -221,21 +221,21 @@
 }
 
 .comn-appoint-btn1 {
-    background-color: transparent;
-    color: #43cf7f;
+    background-color: #43cf7f;
+    color: #fff;
     border: .1rem solid #43cf7f;
 }
 
 .comn-appoint-btn2 {
-    background-color: transparent;
-    color: #0ea5e9;
+    background-color: #0ea5e9;
+    color: #fff;
     border: .1rem solid #0ea5e9;
 }
 
 .comn-appoint-btn3 {
-    background-color: transparent;
+    background-color: #ffa500;
     border: .1rem solid #ffa500;
-    color: #ffa500;
+    color: #fff;
 }
 
 
@@ -245,14 +245,20 @@
     color: #fff;
 }
 
+.comn-appoint-btn1:hover{
+    background-color: transparent;
+    color: #43cf7f;
+
+}
+
 .comn-appoint-btn2:hover {
-    background-color: #0ea5e9;
-    color: #fff;
+    background-color: transparent;
+    color: #0ea5e9;
 }
 
 .comn-appoint-btn3:hover {
-    background-color: #ffa500;
-    color: #fff;
+    background-color: transparent;
+    color: #ffa500;
 }
 
 .navigate-link-btn5 {
@@ -1318,7 +1324,8 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: .01rem 1.2rem;
     border-radius: .2rem;
     border: .1rem solid #54be73;
-    color: #54be73;
+    color: #fff;
+    background-color: #54be73;
     font-size: .87rem;
     margin: 0 auto;
     display: flex;
@@ -1327,7 +1334,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .assign-btn3:hover {
-    background-color: #54be73;
+    background-color: transparent;
+    color: #54be73;
 }
 
 .slot-text-flex {
@@ -3003,9 +3011,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .work-capacity-btn {
     position: relative;
     padding: .35rem 1.5rem;
-    background-color: transparent;
+    background-color: #ff0000;
     border-radius: .5rem;
-    color: #ff0000;
+    color: #fff;
     font-weight: 500;
     font-size: 1rem;
     border: .1rem solid #ff0000;
@@ -3013,8 +3021,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .work-capacity-btn:hover {
-    color: #fff;
-    background-color: #ff0000;
+    color: #ff0000;
+    background-color: transparent;
 }
 
 .wrk-cpacity-comp {
@@ -3241,11 +3249,11 @@ input[type="number"]::-webkit-inner-spin-button {
     position: relative;
     width: 7rem;
     height: 2.67rem;
-    background-color: #fff;
+    background-color: #0ea5e9;
     border: .1rem solid #0ea5e9;
     font-size: 1rem;
     margin-bottom: .3rem;
-    color: #6c6c6c;
+    color: #fff;
     border-radius: .4rem;
 }
 

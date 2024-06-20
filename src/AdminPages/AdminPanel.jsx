@@ -1439,7 +1439,7 @@ const AdminPanel = () => {
 
         {component === "transaction" ? <AdminTransaction /> : null}
         {component === "managewaste" ? <AdminManageWaste /> : null}
-        {component === "allpost" ? <AllBlogPost /> : null}
+        {component === "allpost" ? <AllBlogPost /> : null} 
         {component === "addpost" ? <CreateBlog /> : null}
         {component === "adminbid" ? <AdminBid /> : null}
 

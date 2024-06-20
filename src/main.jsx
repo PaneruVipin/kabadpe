@@ -16,7 +16,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <ToastContainer />
+          <ToastContainer
+            style={{
+              whiteSpace: "normal",
+              "max-width": "40vw",
+              display: "inline-block",
+              width: "auto",
+            }}
+          />
           <App />
         </BrowserRouter>
       </QueryClientProvider>

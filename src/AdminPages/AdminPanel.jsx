@@ -45,6 +45,7 @@ import AdminManageWaste from "../AdminComponents.jsx/AdminManageWaste";
 import AllBlogPost from "../AdminComponents.jsx/AllBlogPost";
 import CreateBlog from "../AdminComponents.jsx/CreateBlog";
 import AdminBid from "../AdminComponents.jsx/AdminBid";
+import { toast } from "react-toastify";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -206,7 +207,11 @@ const AdminPanel = () => {
               )}
             </button>
 
-            <h4 className="admin-top-title">Dashboard</h4>
+            <h4
+              className="admin-top-title"
+            >
+              Dashboard
+            </h4>
           </div>
 
           <div className="right-admin-box">
@@ -577,7 +582,7 @@ const AdminPanel = () => {
                   <span> All Appointments</span>
                 </div> */}
 
-                <div 
+                <div
                 // className={getContentPageClassNameTwo(16)}
                 >
                   <li
@@ -589,7 +594,10 @@ const AdminPanel = () => {
                     className="page-link-btn"
                     // className={DropdownButtonTwo(16)}
                   >
-                    <NavLink to='#'className="active"> Kabadpe Appointments</NavLink>
+                    <NavLink to="#" className="active">
+                      {" "}
+                      Kabadpe Appointments
+                    </NavLink>
                   </li>
 
                   {/* <div className="inner-page-list ">
@@ -655,7 +663,7 @@ const AdminPanel = () => {
                   </div> */}
                 </div>
 
-                <div 
+                <div
                 // className={getContentPageClassNameTwo(17)}
                 >
                   <li
@@ -666,7 +674,10 @@ const AdminPanel = () => {
                     className="page-link-btn"
                     // className={DropdownButtonTwo(17)}
                   >
-                    <NavLink to='#'className="active"> Other Appointments</NavLink>
+                    <NavLink to="#" className="active">
+                      {" "}
+                      Other Appointments
+                    </NavLink>
                   </li>
 
                   {/* <div className="inner-page-list ">
@@ -740,7 +751,7 @@ const AdminPanel = () => {
               className={getButtonClassName(23)}
             >
               <div className="a-nv-i">
-                <GiHammerBreak  />
+                <GiHammerBreak />
               </div>
               <span> Bids </span>
             </div>
@@ -757,10 +768,8 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#"> All Bids </NavLink>{" "}
               </li>
-            
             </div>
           </div>
-
 
           <div className="admin-nv-li admin-nv-li-dashbrd">
             <div
@@ -841,8 +850,7 @@ const AdminPanel = () => {
               className={getButtonClassName(30)}
             >
               <div className="a-nv-i">
-              <PiGitlabLogo />
-
+                <PiGitlabLogo />
               </div>
               <span> Blog Posts</span>
             </div>
@@ -1442,8 +1450,6 @@ const AdminPanel = () => {
         {component === "allpost" ? <AllBlogPost /> : null} 
         {component === "addpost" ? <CreateBlog /> : null}
         {component === "adminbid" ? <AdminBid /> : null}
-
-
       </section>
     </>
   );

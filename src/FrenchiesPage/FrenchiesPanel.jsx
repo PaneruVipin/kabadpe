@@ -86,7 +86,7 @@ const FrenchiesPanel = () => {
   const [guest, setGuest] = useState(false);
   const [bid, setBid] = useState(false);
   const { userInfo } = useSelector((s) => s.user);
-  const [createBidData,setCreateBidData]=useState()
+  const [createBidData, setCreateBidData] = useState();
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
   };
@@ -212,7 +212,10 @@ const FrenchiesPanel = () => {
         <Thanks show={true} />
       ) : (
         <>
-          <section id="side-frenchies-navbar-comp" className="top-admin-header-comp">
+          <section
+            id="side-frenchies-navbar-comp"
+            className="top-admin-header-comp"
+          >
             <div className="admin-head-flex-box">
               <div className="left-admin-logo-box">
                 <div className="admin-logo">
@@ -549,7 +552,11 @@ const FrenchiesPanel = () => {
                           autoClose: 500,
                         });
                       }}
-                      style={{ width: "20px", height: "20px", marginTop : "4px" }}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginTop: "4px",
+                      }}
                     />
                   </span>
                 </button>
@@ -578,7 +585,7 @@ const FrenchiesPanel = () => {
             </div>
           </section>
           <section
-          id="side-frenchies-navbar-comp"
+            id="side-frenchies-navbar-comp"
             className={
               sideAdminNav
                 ? "side-admin-navbar-comp side-fren-navbar-comp  sideAdminNavActive"
@@ -1126,7 +1133,9 @@ const FrenchiesPanel = () => {
                 onClickDetPage={() => setComponent("bidproddet")}
               />
             ) : null}
-            {component === "createbidpost" ? <CreateBidPost   /> : null}
+            {component === "createbidpost" ? (
+              <CreateBidPost redirect={() => setComponent("createbidpost")} />
+            ) : null}
             {component === "bidlisting" ? (
               <BidListing
                 onClickCreatePost={() => setComponent("createbidpost")}

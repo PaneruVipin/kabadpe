@@ -98,7 +98,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
                       )}
                       {data?.includeGst ? (
                         <button className="bid-btn bid-btn2">
-                          GST Included {data?.gstRate}
+                          GST Extra {data?.gstRate}
                         </button>
                       ) : null}
                       {data?.includeTransport ? (

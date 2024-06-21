@@ -65,6 +65,7 @@ import BidListing from "../FrenchiesComp/BidListing";
 import { DateTime } from "luxon";
 import Thanks from "../Components/Popups/Thanks";
 import MyBidComp from "../FrenchiesComp/MyBidComp";
+import { logout } from "../lib/logout";
 // import BuyWaste from "../WasteColectComp/BuyWaste";
 
 const FrenchiesPanel = () => {
@@ -1042,6 +1043,10 @@ const FrenchiesPanel = () => {
                   </li>
                 </div>
               </div> */}
+              <div className="profile-log-out-btn" onClick={logout}>
+                <i className="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </div>
             </div>
           </section>
 
@@ -1132,7 +1137,7 @@ const FrenchiesPanel = () => {
               />
             ) : null}
             {component === "createbidpost" ? (
-              <CreateBidPost redirect={() => setComponent("createbidpost")} />
+              <CreateBidPost redirect={() => setComponent("bidlisting")} />
             ) : null}
             {component === "bidlisting" ? (
               <BidListing

@@ -191,7 +191,10 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                     .toFormat("ccc dd LLL yyyy")}
                                 </span>
                               </div>
-                              <h5>{productName}</h5>
+                              <h5>
+                                {rest?.category} - {rest?.subCategory} -{" "}
+                                {rest?.condition}
+                              </h5>
                               <p
                                 style={{ marginTop: "5px" }}
                                 className="bid-date"

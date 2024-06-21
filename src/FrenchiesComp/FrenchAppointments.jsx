@@ -192,6 +192,7 @@ const FrenchAppointments = ({
           {/* <h3 className="title">Appointments</h3> */}
           <div className="work-capacity-flex-bx">
             <h3 className="title">Appointments </h3>
+            <div className="apnt-buton-flex  ">
             <button
               onClick={() => setSchedulePopup(true)}
               className="work-capacity-btn work-capacity-btn2"
@@ -204,6 +205,7 @@ const FrenchAppointments = ({
             >
               Work Capacity
             </button>
+            </div>
           </div>
           <div className="waste-appoint-main-bx french-appoint-box">
             <div className="appointment-flex-box">

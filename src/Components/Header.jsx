@@ -404,8 +404,8 @@ const Header = ({
                         onClick={() => setLink("about")}
                         className={
                           link === "about"
-                            ? "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2 navliactive"
-                            : "dropdown nav-li servicemenu drodpwon-s hover-drop-dwn2"
+                            ? "dropdown nav-li servicemenu drodpwon-s aboutdrpdwn hover-drop-dwn2 navliactive"
+                            : "dropdown nav-li servicemenu drodpwon-s  aboutdrpdwn hover-drop-dwn2"
                         }
                       >
                         <NavLink to="/about" className="dropdown-s-lik">

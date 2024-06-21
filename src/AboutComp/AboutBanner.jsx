@@ -5,7 +5,7 @@ const AboutBanner = ({data}) => {
   return (
     <>
 
-    <section className="banner-comp">
+    {/* <section className="banner-comp">
     <div className="comon-container-2">
         <div className="banner-main-bx">
 
@@ -26,7 +26,7 @@ const AboutBanner = ({data}) => {
             
         </div>
         </div>
-    </section>
+    </section> */}
       
     </>
   )

@@ -165,7 +165,10 @@ const MyBidComp = ({ onClickCreatePost }) => {
                                     .toFormat("ccc dd LLL yyyy")}
                                 </span>
                               </div>
-                              <h5>{BidPost?.productName}</h5>
+                              <h5>
+                                {BidPost?.category} - {BidPost?.subCategory} -{" "}
+                                {BidPost?.condition}
+                              </h5>
                               <h6>Seller: {BidPost?.Franchise?.companyName}</h6>
                             </div>
                           </div>

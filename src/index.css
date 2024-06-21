@@ -4747,13 +4747,13 @@ Our contributon sec Css
 
 .about-drpdwn-bx {
   position: absolute;
-  top: 4rem;
+  top: 2.5rem;
   left: 0;
   background-color: #2BC2C6;
   border-radius: .3rem;
   /* border: .1rem solid #ffffffc4; */
   width: 14rem;
-  z-index: 999;
+  z-index:100000;
   transform: translateY(80px);
   opacity: 0;
   visibility: hidden;
@@ -4783,7 +4783,7 @@ Our contributon sec Css
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #00224f;
+  background-color: #1d9a9e;
   transform: translateX(-100%);
   transition: 500ms ease;
   z-index: -1;
@@ -12315,7 +12315,7 @@ Our footer comp
 
 .imp-bx {
   position: relative;
-  width: 12rem;
+  width: 14rem;
   height: initial;
   display: flex;
   flex-direction: column;
@@ -17526,8 +17526,90 @@ video {
 }
 
 .create-post-btn1:hover{
+  background-color: transparent;
+  color: #2bc2c6;
+}
+
+.search-prod-btn , .prod-filt-btn{
   background-color: #0ea5e9;
   color: #fff;
+}
+
+
+
+.search-prod-btn:hover , .prod-filt-btn:hover{
+  background-color: transparent;
+  color: #0ea5e9;
+}
+.trn-sec{
+  padding-inline-end: 1rem ;
+}
+
+
+.apnt-buton-flex{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.work-capacity-flex-bx{
+  flex-wrap:wrap;
+}
+
+
+.french-toggle-side-nav-btn{
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+
+.french-toggle-side-nav-btn:hover{
+  background-color: #2bc2c6;
+}
+
+.french-toggle-side-nav-btn i{
+  transition: 400ms ease;
+
+}
+
+.french-toggle-side-nav-btn:hover i , 
+  .french-toggle-side-nav-btn:hover span{
+  color: #fff;
+}
+
+.bid-btn-red{
+  background-color: #ff0000;
+  color: #fff !important;
+}
+
+.bid-btn-red:hover{
+  background-color: transparent ;
+  color: #ff0000 !important;
+}
+
+.french-toggle-side-nav-btn{
+  justify-content: flex-start;
+  padding: 1rem 1rem;
+}
+
+.french-toggle-side-nav-btn i{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.french-toggle-side-nav-btn span{
+  position: relative;
+  display: inline-block;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start;
 }
 
 /* ____________________________________

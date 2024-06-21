@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Discover = () => {
 
@@ -23,9 +24,11 @@ const Discover = () => {
               Have a specific query? Contact us through the form
               </p>
 
+        <NavLink to="/contact">
               <button className="disc-btn">
-                Discover More
+                Contact Us
               </button>
+              </NavLink>
               
             </div>
           </div>

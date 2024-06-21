@@ -215,7 +215,7 @@
     overflow-y: auto;
     background-color: #fcfcfc;
     z-index: 100;
-    padding: 7rem 2rem;
+    padding: 7rem .1rem;
     transition: 300ms ease;
 }
 
@@ -255,7 +255,7 @@
 }
 
 .side-admin-navbar-comp.sideAdminNavActive{
-    width: 6rem;
+    width: 5rem;
     overflow: visible;
 }
 
@@ -266,7 +266,7 @@
 } */
 
 .side-admin-navbar-comp.sideAdminNavActive{
-  padding: 7rem .87rem;
+  padding: 7rem .1rem;
 }
 
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li span{
@@ -306,11 +306,12 @@
 .side-admin-navbar-comp.sideAdminNavActive .side-admin-nav-list-box .admin-nv-li .ad-list{
   position: absolute;
   top: 0;
-  right: -12rem;
+  right: -11.3rem;
   background-color: #fff;
   width: 10rem;
-  border-radius: .45rem;
-  box-shadow: rgb(189, 209, 226) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  border-radius: .1rem;
+  /* box-shadow: rgb(189, 209, 226) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 
@@ -367,7 +368,6 @@
     align-items: center;
     gap: 1rem;
     padding: .67rem 1rem;
-    border-radius: 1.3rem;
     transition: 500ms ease;
     cursor: pointer;
 }
@@ -477,8 +477,11 @@
     position: relative;
     width: 100%;
     display: block;
-    color: #bfbfbf;
+    color: #262626;
     font-size: .87rem;
+    transition: 500ms ease;
+
+
 }
 
 .ad-list li:before{
@@ -491,15 +494,17 @@
     height: .12rem;
     border-radius: 1rem;
     background-color: #bfbfbf;
-    transition: 500ms cubic-bezier(0.575, 0.885, 0.662, 1.775);
+    transition: 500ms ease;
 }
 
-.ad-list li:hover a{
-    color: #0ea5e9;
-}
+
+
+
+
 
 .page-link-btn2:hover a{
   color: #2bc2c6 !important;
+  background-color: #f5eeee;
 }
 
 .ad-list li:hover:before{
@@ -2346,9 +2351,9 @@ side nav icon Btn on hover show list box
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background-color: #1362fc;
   border: .1rem solid #1362fc;
-  color: #1362fc;
+  color: #fff;
   cursor: pointer;
   font-weight: 500;
   letter-spacing: .45px;
@@ -2357,8 +2362,8 @@ side nav icon Btn on hover show list box
  }
 
  .upgrade-btn:hover{
-  background-color: #1362fc;
-  color: #fff;
+  background-color: transparent;
+  color: #1362fc;
  }
 
  .upgrade-popup-comp{

@@ -2,8 +2,8 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
-export const adminAppoinmentsFetch = resolvePromise(async () => {
-  const apiUrl = ENV_API_BASE_URL + `/admin/appoinments`;
+export const adminAppoinmentsFetch = resolvePromise(async ({ type }) => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/appoinments?type=${type}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.get(apiUrl, {
     headers: {
@@ -125,20 +125,13 @@ export const adminChangeAppoinmentStatus = resolvePromise(
   }
 );
 
-
-export const adminGetUserForAppoinment = resolvePromise(
-  async ({ id }) => {
-    const apiUrl =
-      ENV_API_BASE_URL + `/admin/user/${id}`;
-    const token = getFromLocalStorage("token");
-    const { data: res } = await axios.get(
-      apiUrl,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    return res?.user;
-  }
-);
+export const adminGetUserForAppoinment = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/user/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.user;
+});

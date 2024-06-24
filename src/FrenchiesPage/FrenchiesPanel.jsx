@@ -1088,8 +1088,6 @@ const FrenchiesPanel = () => {
             ) : null}
             {component === "appointments" ? (
               <FrenchAppointments
-                appoinments={appoinments}
-                refetchAppoinment={refetch}
               />
             ) : null}
 

@@ -192,8 +192,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                 </span>
                               </div>
                               <h5>
-                                {rest?.category} - {rest?.subCategory} -{" "}
-                                {rest?.condition}
+                                {rest?.subCategory} - {rest?.condition}
                               </h5>
                               <p
                                 style={{ marginTop: "5px" }}
@@ -221,7 +220,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                 <div>
                                   We have received payment from the bidder.{" "}
                                   <br />
-                                  Please proceed with the transport.
+                                  While making changes, update transport status
+                                  by clicking the related button
                                 </div>
                               ) : acceptedOffer?.paymentStatus == "paid" ? (
                                 <div
@@ -237,10 +237,19 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                   Payment Completed
                                 </div>
                               ) : (
-                                <div>
-                                  Bidder's payment is in process.
-                                  <br /> Once received, you can proceed with the
-                                  transport
+                                <div style={{ lineHeight: "1.2" }}>
+                                  <p
+                                    style={{
+                                      color: "black",
+                                      lineHeight: ".7",
+                                    }}
+                                  >
+                                    {" "}
+                                    Bidder's payment is in process.
+                                  </p>
+                                  Once received,
+                                  <br /> update transport status by clicking the
+                                  related button
                                 </div>
                               )
                             ) : null}
@@ -252,6 +261,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                   refetch();
                                   refetchOffers();
                                 }}
+                                comp="listing"
                                 disabled={
                                   acceptedOffer?.paymentStatus != "receive"
                                 }
@@ -276,9 +286,12 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                           </div>
                         </div>} */}
 
-                          <div className="view-bid-btn-flex">
+                          <div className="view-bid-btn-flex ">
                             <button
-                              style={{ borderColor: "red", color: "red" }}
+                              style={{
+                                borderColor: "red",
+                                color: "red",
+                              }}
                               onClick={() => {
                                 setIsBidder(true);
                                 setSelectedData({

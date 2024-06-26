@@ -27,6 +27,7 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
   const [bookApnt, setBookApnt] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState({});
   const [selectAddesQuery, setSelectAddesQuery] = useState("");
+  const [expededItemPriceRows, setExpendedItemPriceRow] = useState([]);
   const adminInitialValues = {
     appointmentContactNumber: userData?.phoneNumber,
     appointmentPersonName: userData?.fullname,
@@ -542,9 +543,15 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                                 franchiseAddress,
                                 id,
                                 franchiseLogo,
+                                FranchiseRate,
                               },
                               i
                             ) => {
+                              const mid = Math.floor(
+                                FranchiseRate?.length / 2 + 0.5
+                              );
+                              const part1 = FranchiseRate?.slice(0, mid);
+                              const part2 = FranchiseRate?.slice(mid);
                               return (
                                 <>
                                   <div key={i} className="avalbe-cmpnies-bx">
@@ -563,6 +570,35 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                                         </div>
                                         <div className="cmpnies-info">
                                           <h6> {companyName} </h6>
+
+                                          <div
+                                            onClick={() => {
+                                              let newRows;
+                                              if (
+                                                expededItemPriceRows?.includes(
+                                                  id
+                                                )
+                                              ) {
+                                                newRows =
+                                                  expededItemPriceRows?.filter(
+                                                    (e) => e != id
+                                                  );
+                                              } else {
+                                                newRows = [
+                                                  ...expededItemPriceRows,
+                                                  id,
+                                                ];
+                                              }
+                                              setExpendedItemPriceRow(newRows);
+                                            }}
+                                            className={
+                                              expededItemPriceRows?.includes(id)
+                                                ? "round-arrow : arrowactive"
+                                                : "round-arrow"
+                                            }
+                                          >
+                                            <i class="fa-solid fa-angle-down"></i>
+                                          </div>
                                         </div>
                                       </div>
 
@@ -580,94 +616,55 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                                         Select
                                       </button>
                                     </div>
+                                    {expededItemPriceRows?.includes(id) ? (
+                                      <div className="item-price-grid-main-bx">
+                                        <div className="all-user-table item-price-box">
+                                          <table>
+                                            <thead>
+                                              <tr>
+                                                <th>Item</th>
+                                                <th>Price</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {part1?.map((e) => (
+                                                <tr>
+                                                  <td>
+                                                    {e?.KabadCategory
+                                                      ?.productName ||
+                                                      e?.productName}
+                                                  </td>
+                                                  <td>₹{e?.retailPrice}</td>
+                                                </tr>
+                                              ))}
+                                            </tbody>
+                                          </table>
+                                        </div>
 
-                                    {/* {itemPrice === curelem.id && (
-                              <div className="item-price-grid-main-bx">
-                                <div className="all-user-table item-price-box">
-                                  <table>
-                                    <thead>
-                                      <tr>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>Iron</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Plastic</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Aluminium</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Copper</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Magazine</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Wheel</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-
-                                <div className="all-user-table item-price-box">
-                                  <table>
-                                    <thead>
-                                      <tr>
-                                        <th>Item</th>
-                                        <th>Price</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>Iron</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Plastic</td>
-                                        <td>₹60.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Aluminium</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Copper</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Magazine</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Wheel</td>
-                                        <td>₹70.00</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            )} */}
+                                        <div className="all-user-table item-price-box">
+                                          <table>
+                                            <thead>
+                                              <tr>
+                                                <th>Item</th>
+                                                <th>Price</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              {part2?.map((e) => (
+                                                <tr>
+                                                  <td>
+                                                    {e?.KabadCategory
+                                                      ?.productName ||
+                                                      e?.productName}
+                                                  </td>
+                                                  <td>₹{e?.retailPrice}</td>
+                                                </tr>
+                                              ))}
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                    ) : null}
                                   </div>
                                 </>
                               );

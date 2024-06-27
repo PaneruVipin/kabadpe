@@ -264,25 +264,32 @@ const MyBidComp = ({ onClickCreatePost }) => {
                               )
                             ) : null}
                             {bidStatus == "accept" ? (
-                              <TransportStatus
-                                currentStatus={rest?.transportStatus}
-                                data={{
-                                  id,
-                                  bidStatus,
-                                  BidPost,
-                                  productimages,
-                                  addedOn,
-                                  ...rest,
-                                }}
-                                refetch={() => {
-                                  refetch();
-                                }}
-                                comp="bid"
-                                disabled={
-                                  rest?.paymentStatus != "receive" &&
-                                  rest?.paymentStatus != "paid"
-                                }
-                              />
+                              <>
+                                <TransportStatus
+                                  currentStatus={rest?.transportStatus}
+                                  data={{
+                                    id,
+                                    bidStatus,
+                                    BidPost,
+                                    productimages,
+                                    addedOn,
+                                    ...rest,
+                                  }}
+                                  refetch={() => {
+                                    refetch();
+                                  }}
+                                  comp="bid"
+                                  disabled={
+                                    rest?.paymentStatus != "receive" &&
+                                    rest?.paymentStatus != "paid"
+                                  }
+                                />
+                                {rest?.deliveryDetails ? (
+                                  <span>
+                                    Delivery Details: {rest?.deliveryDetails}
+                                  </span>
+                                ) : null}
+                              </>
                             ) : null}
                           </div>
                           <div className="view-bid-btn-flex">

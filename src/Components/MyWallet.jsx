@@ -86,13 +86,13 @@ const MyWallet = () => {
 
           <div className="right-wallet-box">
             <button
-              // onClick={() => {
-              //   setAddAmount(true), setAddMoneyOtp(false);
-              // }}
+              onClick={() => {
+                setAddAmount(true), setAddMoneyOtp(false);
+              }}
               className="tranfer-btn add-money-btn"
             >
               Add Money
-              <span>Coming Soon</span>
+              {/* <span>Coming Soon</span> */}
             </button>
 
             <button onClick={() => setOtp(true)} className="tranfer-btn">

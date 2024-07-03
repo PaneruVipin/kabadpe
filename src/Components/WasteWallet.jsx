@@ -194,13 +194,12 @@ const WasteWallet = ({ component = "worker" }) => {
             {userInfo?.role !== "KabadCollector" && !userInfo?.franchiseId ? (
               <>
                 <button
-                  // onClick={
-                  //   () => setAddAmount(true)
-                  // }
+                  onClick={
+                    () => setAddAmount(true)
+                  }
                   className="tranfer-btn add-money-btn"
                 >
                   Add Money
-                  <span>Coming Soon</span>
                 </button>
 
                 <button onClick={() => setOtp(true)} className="tranfer-btn">
@@ -511,9 +510,6 @@ const WasteWallet = ({ component = "worker" }) => {
       {addAmount ? (
         <AddMoneyAmount
           onclickCloseAmount={() => setAddAmount(false)}
-          onClickAddAmnt={() => {
-            setSucesfulyTrnsctin(true), setAddAmount(false);
-          }}
         />
       ) : null}
       {sucesfulyTrnsctin ? (

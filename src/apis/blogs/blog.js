@@ -1,14 +1,44 @@
-// import { resolvePromise } from "../../lib/http";
+import axios from "axios";
+import { resolvePromise } from "../../lib/http";
+import { getFromLocalStorage } from "../../lib/localStorage";
 
-// export const createBlogPost = resolvePromise(async ({ amount, path }) => {
-//   const apiUrl =
-//     ENV_API_BASE_URL +
-//     `/wallet/addMoney/request?amount=${amount}&callbackPath=${path}`;
-//   const token = getFromLocalStorage("token");
-//   const { data: res } = await axios.get(apiUrl, {
-//     headers: {
-//       Authorization: token,
-//     },
-//   });
-//   return res?.url;
-// });
+export const blogPostFetch = resolvePromise(async ({}) => {
+  const apiUrl = ENV_API_BASE_URL + `/blog/posts`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.blogs;
+});
+
+export const blogPostCreate = resolvePromise(async (data) => {
+  const apiUrl = ENV_API_BASE_URL + `/blog/post`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.post(
+    apiUrl,
+    { ...data },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});
+
+export const blogPostEdit = resolvePromise(async ({ id, ...data }) => {
+  const apiUrl = ENV_API_BASE_URL + `/blog/post/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { ...data },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

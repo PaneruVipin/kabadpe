@@ -2,16 +2,20 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
-export const blogPostFetch = resolvePromise(async ({}) => {
-  const apiUrl = ENV_API_BASE_URL + `/blog/posts`;
-  const token = getFromLocalStorage("token");
-  const { data: res } = await axios.get(apiUrl, {
-    headers: {
-      Authorization: token,
-    },
-  });
-  return res?.blogs;
-});
+export const blogPostFetch = resolvePromise(
+  async ({ postScope, includeOnly }) => {
+    const apiUrl =
+      ENV_API_BASE_URL +
+      `/blog/posts?postScope=${postScope}&includeOnly=${includeOnly}`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.get(apiUrl, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return res?.blogs;
+  }
+);
 
 export const blogPostCreate = resolvePromise(async (data) => {
   const apiUrl = ENV_API_BASE_URL + `/blog/post`;
@@ -22,6 +26,7 @@ export const blogPostCreate = resolvePromise(async (data) => {
     {
       headers: {
         Authorization: token,
+        "Content-Type": "multipart/form-data",
       },
     }
   );
@@ -37,6 +42,7 @@ export const blogPostEdit = resolvePromise(async ({ id, ...data }) => {
     {
       headers: {
         Authorization: token,
+        "Content-Type": "multipart/form-data",
       },
     }
   );

@@ -874,7 +874,7 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#"> Add New Post </NavLink>{" "}
               </li>
-              <li
+              {/* <li
                 onClick={() => handleViewComp("categories")}
                 className={
                   component === "categories"
@@ -884,7 +884,7 @@ const AdminPanel = () => {
               >
                 {" "}
                 <NavLink to="#"> Categories </NavLink>{" "}
-              </li>
+              </li> */}
             </div>
           </div>
 
@@ -1440,7 +1440,9 @@ const AdminPanel = () => {
         {component === "transaction" ? <AdminTransaction /> : null}
         {component === "managewaste" ? <AdminManageWaste /> : null}
         {component === "allpost" ? <AllBlogPost /> : null}
-        {component === "addpost" ? <CreateBlog /> : null}
+        {component === "addpost" ? (
+          <CreateBlog onClose={() => setComponent("allpost")} />
+        ) : null}
         {component === "adminbid" ? <AdminBid /> : null}
       </section>
     </>

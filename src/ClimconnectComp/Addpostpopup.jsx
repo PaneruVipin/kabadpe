@@ -1,26 +1,16 @@
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { climeCategories } from "../lib/climeCategories";
+import { blogPostCreate } from "../apis/blogs/blog";
+import { toast } from "react-toastify";
 
-const Addpostpopup = ({onClickClosePost}) => {
-  const [selectedOption, setSelectedOption] = useState("A");
+const Addpostpopup = ({ onClickClosePost }) => {
+  const [selectedOption, setSelectedOption] = useState("");
   const [images, setImages] = useState([]);
-
-  const handleImageUpload = (event) => {
-    const fileList = event.target.files;
-    const newImages = [...images];
-
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        newImages.push(reader.result);
-        setImages(newImages.slice());
-      };
-
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    }
+  const handleImageUpload = (e) => {
+    const selectedImage = Array.from(e.target.files);
+    setImages([...images, ...selectedImage]);
   };
 
   const handleDeleteImage = (index) => {
@@ -29,114 +19,155 @@ const Addpostpopup = ({onClickClosePost}) => {
     setImages(newImages.slice());
   };
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
+  const { userInfo } = useSelector((s) => s.user);
+  const handleSubmit = async (data) => {
+    const newData = { ...data, image: images };
+    const res = await blogPostCreate(newData);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    onClickClosePost();
   };
-
   return (
     <>
       <section className="add-post-comp" onClick={onClickClosePost}>
         <div className="add-post-bx" onClick={(e) => e.stopPropagation()}>
-          <h3>Create Post</h3>
+          <Formik initialValues={{}} onSubmit={handleSubmit}>
+            {({
+              handleBlur,
+              handleChange,
+              values,
+              errors,
+              touched,
+              ...rest
+            }) => {
+              return (
+                <Form>
+                  <h3>Create Post</h3>
 
-          <div className="add-post-user-info-bx">
-            <div className="add-post-user-img">
-              <img src="/images/customImg/team-3.jpg" alt="" />
-            </div>
-            <div className="add-post-user-det">
-              <span>Faiz Alam</span>
+                  <div className="add-post-user-info-bx">
+                    <div className="add-post-user-img">
+                      <img src={userInfo?.profileImage} alt="" />
+                    </div>
+                    <div className="add-post-user-det">
+                      <span>{userInfo?.fullname}</span>
 
-              <div className="add-post-select-bx">
-                {selectedOption === "A" ? (
-                  <img src="/images/chats/globe.png" alt="" />
-                ) : (
-                  <img src="/images/chats/friends.png" alt="" />
-                )}
+                      <div className="add-post-select-bx">
+                        {!selectedOption ? (
+                          <img src="/images/chats/globe.png" alt="" />
+                        ) : (
+                          <img src="/images/chats/friends.png" alt="" />
+                        )}
 
-                <select
-                  name="share"
-                  value={selectedOption}
-                  onChange={handleOptionChange}
-                  id="share"
-                >
-                  <option value="A">Public</option>
-                  <option value="B">Friends</option>
-                </select>
-              </div>
-            </div>
-          </div>
+                        <select
+                          name="isPrivate"
+                          value={values?.isPrivate}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          id="share"
+                        >
+                          <option value="">Public</option>
+                          <option value="true">Friends</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="blog-inpt-bx">
+                    {/* <span>Blog Title</span> */}
+                    <div className="blog-inpt">
+                      <input
+                        type="text"
+                        name="title"
+                        id="blogtitle"
+                        required
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values?.title}
+                        placeholder="Blog Title"
+                      />
+                    </div>
+                  </div>
+                  <div className="add-post-text-bx">
+                    <textarea
+                      name="content"
+                      id="postmessage"
+                      cols="30"
+                      rows="5"
+                      placeholder="Whats on your mind, Faiz ?"
+                      value={values?.content}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      required
+                    ></textarea>
+                  </div>
 
-          <div className="add-post-text-bx">
-            <textarea
-              name="postmessage"
-              id="postmessage"
-              cols="30"
-              rows="5"
-              placeholder="Whats on your mind, Faiz ?"
-            ></textarea>
-          </div>
+                  <div className="add-post-img-bx-2">
+                    <label htmlFor="input_file">
+                      <span>Add Post</span>
 
-          <div className="add-post-img-bx-2">
-            <label htmlFor="input_file">
-                <span>Add Post</span>
+                      <div className="add-post-imge">
+                        <i class="fa-regular fa-image"></i>
+                      </div>
+                    </label>
+                    <input
+                      type="file"
+                      id="input_file"
+                      style={{ display: "none" }}
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                    />
 
-                <div className="add-post-imge">
-                <i class="fa-regular fa-image"></i>
-                </div>
-                
-            </label>
-          <input type="file" id="input_file" style={{display : "none"}} accept="image/*" multiple onChange={handleImageUpload} />
+                    <div className="post-img-grid-bx">
+                      {images.map((image, index) => (
+                        <div key={index} className="post_img">
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt={`Image ${index}`}
+                          />
+                          <button onClick={() => handleDeleteImage(index)}>
+                            <ion-icon name="close-outline"></ion-icon>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-        <div className="post-img-grid-bx">
+                  <div className="post-categ-grid">
+                    <div className="categ-cc">
+                      <select
+                        name="categoryName"
+                        id="category"
+                        value={values?.categoryName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        required
+                      >
+                        <option value="" hidden>
+                          Choose Category
+                        </option>
+                        {climeCategories?.map(({ name }) => (
+                          <option key={name} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-        {images.map((image, index) => (
-          <div key={index} className="post_img" >
-            <img src={image} alt={`Image ${index}`}  />
-            <button
-              onClick={() => handleDeleteImage(index)}
-             
-            >
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-          </div>
-        ))}
-            
-        </div>
+                    <button type="submit" className="send-post-btn">
+                      Send Post
+                    </button>
+                  </div>
 
-        
-          </div>
-
-          <div className="post-categ-grid">
-
-          <div className="categ-cc">
-            <select name="category" id="category">
-              <option value="category">Choose Category</option>
-              <option value="category">Events </option>
-              <option value="category">News</option>
-              <option value="category">Fundraise</option>
-              <option value="category">Sustainability hacks</option>
-              <option value="category">Innovations & Eco-finds</option>
-              <option value="category">Sustainable Living</option>
-              <option value="category">Sustainable Fasion & cosmetics</option>
-              <option value="category">Eco-Tourism</option>
-              <option value="category">Culture, art & food</option>
-              <option value="category">ClimStripe Shift corne</option>
-            </select>
-          </div>
-
-          <button className="send-post-btn">
-            Send Post
-        </button>
-            
-          </div>
-
-        
-
-
-        <div onClick={onClickClosePost} className="close-post-btn">
-        <ion-icon name="close-outline"></ion-icon>
-        </div>
-          
+                  <div onClick={onClickClosePost} className="close-post-btn">
+                    <ion-icon name="close-outline"></ion-icon>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
         </div>
       </section>
     </>

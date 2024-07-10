@@ -1,347 +1,372 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import SEOSetting from "./BlogTags";
 import BlogTags from "./BlogTags";
 import Keyphrase from "./Keyphrase";
 import ShortText from "./ShortText";
 import { Form, Formik } from "formik";
-
-const CreateBlog = () => {
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
+import { climeCategories } from "../lib/climeCategories";
+import { toast } from "react-toastify";
+import {
+  blogPostCreate,
+  blogPostEdit,
+  blogPostFetch,
+} from "../apis/blogs/blog";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
+import { DateTime } from "luxon";
+const CreateBlog = ({ data, onClose }) => {
+  const [loading, setLoading] = useState(false);
+  const [edit, setEdit] = useState(data);
   const [images, setImages] = useState([]);
-  const [blogValue, setBlogValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [showCategory, setShowCategory] = useState(false);
-  const category = ["Beauty", "Fashion", "health", "Nature", "Foods", "Sports"];
-
-  const handleBlogChange = (e) => {
-    const value = e.target.value;
-    setBlogValue(value);
-    const filterSuggestions = category.filter((name) =>
-      name.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filterSuggestions);
-  };
-
-  const handleSuggestionClick = (name) => {
-    setBlogValue(name);
-    setSuggestions([]);
-  };
-
+  const [seoTags, setTags] = useState([]);
+  const [seoKeyphrase, setKeys] = useState([]);
   const handleImageChange = (e) => {
     const selectedImage = Array.from(e.target.files);
 
     setImages([...images, ...selectedImage]);
   };
+  const handleSubmit = async (data) => {
+    const newData = {
+      seoTags: seoTags?.join(""),
+      seoKeyphrase: seoKeyphrase?.join(""),
+      ...data,
+      image: images,
+    };
+    if (edit) {
+      newData.images = data?.image || "[]";
+    }
+    const res = edit
+      ? await blogPostEdit(newData)
+      : await blogPostCreate(newData);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    onClose();
+    data.isDraft = false;
+  };
   const longText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-
+  useEffect(() => {
+    if (edit?.seoTags) {
+      setTags(edit?.seoTags?.split(","));
+    }
+    if (edit?.seoKeyphrase) {
+      setKeys(edit?.seoKeyphrase?.split(","));
+    }
+  }, [edit]);
+  const { data: posts, refetch } = useQuery({
+    queryKey: ["blogposts"],
+    queryFn: () => blogPostFetch({}),
+  });
   return (
     <>
       <section className="create-blog-comp">
         <div className="common-container">
-          <div className="blog-title-flex">
-            <h3>Create Blog</h3>
+          <div
+            style={{ display: "flex", justifyContent: "space-between" }}
+            className="blog-title-flex"
+          >
+            <h3>{edit ? "Edit Blog" : "Create Blog"}</h3>
+            {data ? (
+              <button
+                onClick={onClose}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "5px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  width: "200px",
+                }}
+              >
+                <IoIosArrowRoundBack
+                  style={{ marginRight: "8px", fontSize: "24px" }}
+                />
+                <span style={{ fontWeight: "bold" }}>Back</span>
+              </button>
+            ) : null}
           </div>
 
           <div className="create-blog-grid-main">
-            <Formik
-            // initialValues={{ appointmentTimeSlot: "", appointmentDate: "" }}
-            // onSubmit={handleReschedule}
-            // validationSchema={validationLoginAdmin}
-            >
-              {({
-                handleBlur,
-                handleChange,
-                values,
-                errors,
-                touched,
-                ...rest
-              }) => {
-                return (
-                  <Form className="add-blog-info-main">
-                    <div className="left-add-blog-post-main">
-                      <h6>New Blog</h6>
+            {!loading ? (
+              <Formik
+                initialValues={edit ? edit : {}}
+                onSubmit={handleSubmit}
+                // validationSchema={validationLoginAdmin}
+              >
+                {({
+                  handleBlur,
+                  handleChange,
+                  values,
+                  errors,
+                  touched,
+                  submitForm,
+                  ...rest
+                }) => {
+                  return (
+                    <Form className="add-blog-info-main">
+                      <div className="left-add-blog-post-main">
+                        <h6>{edit ? "Edit Blog" : "New Blog"}</h6>
 
-                      <div className="add-blog-form">
-                        <div className="blog-inpt-bx">
-                          <span>Blog Title</span>
-                          <div className="blog-inpt">
-                            <input
-                              type="text"
-                              name="blogtitle"
-                              id="blogtitle"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values?.appointmentDate}
-                              placeholder="Blog Title"
-                            />
-                          </div>
-                        </div>
-
-                        {/* <div className="blog-inpt-bx">
-                    <span>Blog Category</span>
-                    <div className="blog-cate-flex">
-                    <div className="blog-inpt">
-                      <input
-                        type="text"
-                        name="blogcategory"
-                        id="blogcategory"
-                        value={blogValue}
-                        onChange={handleBlogChange}
-                      />
-                    </div>
-
-                    <button className="create-btn">
-                      Create
-                    </button>
-                    
-                    </div>
-                    {suggestions.map((elem,indx)=> {
-                        return(
-                          <>
-
-                    <div className="categ-list-sug">
-
-                          <li key={indx} onClick={ () => handleSuggestionClick(elem)}>{elem}</li>
-                          
-                    </div>
-                    </>
-                        )
-
-                      })}
-                    
-                  </div> */}
-
-                        <div className="blog-form-grid">
+                        <div className="add-blog-form">
                           <div className="blog-inpt-bx">
-                            <span>Blog Author</span>
+                            <span>Blog Title</span>
                             <div className="blog-inpt">
                               <input
                                 type="text"
-                                name="blogauthor"
-                                id="blogauthor"
-                                placeholder="Enter Name"
+                                name="title"
+                                id="blogtitle"
+                                required
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={values?.appointmentDate}
+                                value={values?.title}
+                                placeholder="Blog Title"
                               />
                             </div>
                           </div>
 
-                          <div className="blog-inpt-bx">
-                            <span>Blog Category</span>
-                            <div
-                              className="blog-inpt blog-selct"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values?.appointmentDate}
-                            >
-                              <select name="blogcategory" id="blogcategory">
-                                <option value="blogcategory">Select</option>
-                                <option value="blogcategory">Draft</option>
-                                <option value="blogcategory">Published</option>
-                              </select>
+                          <div className="blog-form-grid">
+                            <div className="blog-inpt-bx">
+                              <span>Blog Author</span>
+                              <div className="blog-inpt">
+                                <input
+                                  type="text"
+                                  name="author"
+                                  id="blogauthor"
+                                  required
+                                  placeholder="Enter Name"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.author}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="blog-inpt-bx">
+                              <span>Blog Category</span>
+                              <div className="blog-inpt blog-selct">
+                                <select
+                                  name="categoryName"
+                                  required
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values?.categoryName}
+                                  id="blogcategory"
+                                >
+                                  <option value="" hidden>
+                                    Select
+                                  </option>
+
+                                  {climeCategories.map(({ name }) => (
+                                    <option key={name} value={name}>
+                                      {name}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="blog-inpt-bx content-text add-title-bx mb-5">
-                          <span>Blog Content</span>
-                          <JoditEditor
-                            // ref={editor}
-                            // value={content}
-                            // onChange={(newContent) => {
-                            //   setContent(newContent);
-                            // }}
-                          />
-                        </div>
-
-                        <h6>Blog Images</h6>
-
-                        <div className="blog-images-main-bx">
-                          <div className="blog-image-span-bx">
-                            <label htmlFor="image-upload">
-                              Drag & Drop your files
-                            </label>
-                            <input
-                              id="image-upload"
-                              type="file"
-                              accept="image/*"
-                              multiple
-                              onChange={handleImageChange}
+                          <div className="blog-inpt-bx content-text add-title-bx mb-5">
+                            <span>Blog Content</span>
+                            <JoditEditor
+                              value={values?.content}
+                              onChange={(newContent) => {
+                                handleChange({
+                                  target: {
+                                    name: "content",
+                                    value: newContent,
+                                  },
+                                });
+                              }}
                             />
                           </div>
 
-                          <div className="post-image-flex-bx">
-                            {images.map((curImage, indx) => {
-                              return (
-                                <>
+                          <h6>Blog Images</h6>
+
+                          <div className="blog-images-main-bx">
+                            <div className="blog-image-span-bx">
+                              <label htmlFor="image-upload">
+                                Drag & Drop your files
+                              </label>
+                              <input
+                                id="image-upload"
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                onChange={handleImageChange}
+                              />
+                            </div>
+
+                            <div className="post-image-flex-bx">
+                              {images.map((curImage, indx) => {
+                                return (
                                   <img
                                     key={indx}
                                     src={URL.createObjectURL(curImage)}
                                     alt=""
                                   />
-                                </>
-                              );
-                            })}
+                                );
+                              })}
+                            </div>
+                            <div className="post-image-flex-bx">
+                              {JSON.parse(values?.image || "[]").map(
+                                (curImage, indx) => {
+                                  return (
+                                    <img key={indx} src={curImage} alt="" />
+                                  );
+                                }
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* <div className="post-btn-flex-bxx">
+                        {/* <div className="post-btn-flex-bxx">
                   <button className="post-btn-b">Save As Draft</button>
 
                   <button className="post-btn-b">Post Blog</button>
                 </div> */}
-                    </div>
+                      </div>
 
-                    <div className="SEO-setting-bx">
-                      <h6>SEO Setting</h6>
+                      <div className="SEO-setting-bx">
+                        <h6>SEO Setting</h6>
 
-                      <div className="blog-inpt-bx mt-4">
-                        <span>Post Title</span>
-                        <div className="blog-inpt">
-                          <input
-                            type="text"
-                            name="posttitle"
-                            id="posttitle"
-                            placeholder="Post Title"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.appointmentDate}
-                          />
+                        <div className="blog-inpt-bx mt-4">
+                          <span>Post Title</span>
+                          <div className="blog-inpt">
+                            <input
+                              type="text"
+                              name="seoTitle"
+                              id="posttitle"
+                              placeholder="Post Title"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.seoTitle}
+                            />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="blog-inpt-bx">
-                        <span>Meta Description</span>
-                        <div className="blog-inpt blog-des">
-                          <textarea
-                            name="description"
-                            id="description"
-                            cols="30"
-                            rows="5"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.appointmentDate}
-                          ></textarea>
+                        <div className="blog-inpt-bx">
+                          <span>Meta Description</span>
+                          <div className="blog-inpt blog-des">
+                            <textarea
+                              name="seoDescription"
+                              id="description"
+                              cols="30"
+                              rows="5"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.seoDescription}
+                            ></textarea>
+                          </div>
                         </div>
-                      </div>
 
-                      <BlogTags />
-                      <Keyphrase />
+                        <BlogTags
+                          state={[seoTags, setTags]}
+                          label={"Blog Tags"}
+                        />
+                        <BlogTags
+                          state={[seoKeyphrase, setKeys]}
+                          label={"Keyphrase"}
+                        />
+                        {/* <Keyphrase /> */}
 
-                      <div className="blog-inpt-bx mt-4 mb-5">
-                        <span>G Meta Keywords</span>
-                        <div className="blog-inpt">
-                          <input
-                            type="text"
-                            name="keywords"
-                            id="keywords"
-                            placeholder="Keywords"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values?.appointmentDate}
-                          />
+                        <div className="blog-inpt-bx mt-4 mb-5">
+                          <span>G Meta Keywords</span>
+                          <div className="blog-inpt">
+                            <input
+                              type="text"
+                              name="seoKeywords"
+                              id="keywords"
+                              placeholder="Keywords"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.seoKeywords}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="post-btn-flex-bxx">
-                        <button className="post-btn-b">Save As Draft</button>
-                        <button className="post-btn-b">Post Blog</button>
-                      </div>
-                      {/* <div className="post-btn-flex-bxx">
+                        <div className="post-btn-flex-bxx">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              // handleSubmit({ isDraft: true, ...values })
+                              values.isDraft = true;
+                              submitForm();
+                            }}
+                            className="post-btn-b"
+                          >
+                            Save As Draft
+                          </button>
+                          <button type="submit" className="post-btn-b">
+                            Post Blog
+                          </button>
+                        </div>
+                        {/* <div className="post-btn-flex-bxx">
                   <button className="post-btn-b">Update</button>
                 </div> */}
-                    </div>
-                  </Form>
-                );
-              }}
-            </Formik>
+                      </div>
+                    </Form>
+                  );
+                }}
+              </Formik>
+            ) : null}
 
             <div className="left-add-blog-post-main right-recent-blog-main">
               <h6>Recent Posts</h6>
 
               <div className="recent-post-flex-bx">
-                <div className="recent-post">
-                  <div className="recent-post-img">
-                    <img src="/images/customImg/post-1.jpg" alt="" />
-                  </div>
+                {!posts?.error
+                  ? posts?.map(
+                      ({ categoryName, title, updatedOn, ...rest }) => {
+                        let img = JSON.parse(rest?.image || "[]")?.[0];
+                        return (
+                          <div className="recent-post">
+                            <div className="recent-post-img">
+                              <img src={img} alt="" />
+                            </div>
 
-                  <div className="recent-post-info">
-                    <h5>Fashion</h5>
-                    <ShortText text={longText} maxLength={20} />
-                    <span>24,Nov 2023 - 18:27</span>
-                  </div>
+                            <div className="recent-post-info">
+                              <h5>{categoryName}</h5>
+                              <ShortText text={title} maxLength={20} />
+                              <span>
+                                {DateTime.fromISO(updatedOn, {
+                                  zone: "utc",
+                                }).toFormat("ccc dd LLL yyyy")}
+                                -{" "}
+                                {DateTime.fromISO(updatedOn, {
+                                  zone: "utc",
+                                }).toFormat("hh:mm a")}
+                              </span>
+                            </div>
 
-                  <div className="edit-btn-post">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </div>
-                </div>
-
-                <div className="recent-post">
-                  <div className="recent-post-img">
-                    <img src="/images/customImg/post-2.jpg" alt="" />
-                  </div>
-
-                  <div className="recent-post-info">
-                    <h5>Fashion</h5>
-                    <ShortText text={longText} maxLength={20} />
-                    <span>24,Nov 2023 - 18:27</span>
-                  </div>
-
-                  <div className="edit-btn-post">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </div>
-                </div>
-
-                <div className="recent-post">
-                  <div className="recent-post-img">
-                    <img src="/images/customImg/post-3.jpg" alt="" />
-                  </div>
-
-                  <div className="recent-post-info">
-                    <h5>Fashion</h5>
-                    <ShortText text={longText} maxLength={20} />
-                    <span>24,Nov 2023 - 18:27</span>
-                  </div>
-
-                  <div className="edit-btn-post">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </div>
-                </div>
-
-                <div className="recent-post">
-                  <div className="recent-post-img">
-                    <img src="/images/customImg/post-4.jpg" alt="" />
-                  </div>
-
-                  <div className="recent-post-info">
-                    <h5>Fashion</h5>
-                    <ShortText text={longText} maxLength={20} />
-                    <span>24,Nov 2023 - 18:27</span>
-                  </div>
-
-                  <div className="edit-btn-post">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </div>
-                </div>
-
-                <div className="recent-post">
-                  <div className="recent-post-img">
-                    <img src="/images/customImg/post-5.jpg" alt="" />
-                  </div>
-
-                  <div className="recent-post-info">
-                    <h5>Fashion</h5>
-                    <ShortText text={longText} maxLength={20} />
-                    <span>24,Nov 2023 - 18:27</span>
-                  </div>
-
-                  <div className="edit-btn-post">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </div>
-                </div>
+                            <div
+                              onClick={() => {
+                                setLoading(true);
+                                setEdit({
+                                  categoryName,
+                                  title,
+                                  updatedOn,
+                                  ...rest,
+                                });
+                                setTimeout(() => {
+                                  setLoading(false);
+                                }, 200);
+                              }}
+                              className="edit-btn-post"
+                            >
+                              <i class="fa-regular fa-pen-to-square"></i>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )
+                  : null}
               </div>
 
               <button className="load-more-btn b-post-load-btn mt-0">

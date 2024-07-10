@@ -1,67 +1,49 @@
 import React, { useState } from "react";
 import { ClimconnectPostData } from "./climconnectpost.js";
-
-const Climconnectpost = () => {
-    const [showBoxes, setShowBoxes] = useState(4);
-
-    const handleLoadMore = () => {
-        setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
-      };
-
+import { climeCategories } from "../lib/climeCategories.js";
+import { useSelector } from "react-redux";
+const Climconnectpost = ({ data, comp = "profile" }) => {
+  const [showBoxes, setShowBoxes] = useState(4);
+  const handleLoadMore = () => {
+    setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
+  };
+  const { userInfo } = useSelector((s) => s.user);
   return (
     <>
       <div className="clim-conect-post-grid-bx">
-        {ClimconnectPostData.slice(0, showBoxes).map(
-          ({ id, profName, profImg, postImg, category, title, para }) => {
+        {data
+          ?.slice(0, showBoxes)
+          ?.map(({ id, image, categoryName, title, content, User, author }) => {
+            const ctg = climeCategories.find(
+              ({ name }) => name == categoryName
+            );
+            const img = JSON.parse(image || "[]");
             return (
               <>
                 <div
-                  className={
-                    category === "Events"
-                      ? "cc-post-bx cc-post-bx1"
-                      : category === "News"
-                      ? "cc-post-bx cc-post-bx2"
-                      : category === "Fundraise"
-                      ? "cc-post-bx cc-post-bx3"
-                      : category === "Sustainability hacks"
-                      ? "cc-post-bx cc-post-bx4"
-                      : category === "Innovations & Eco-finds"
-                      ? "cc-post-bx cc-post-bx5"
-                      :  category === "Sustainable Living" ?
-                      "cc-post-bx cc-post-bx6" 
-                      : category === "Sustainable Fasion & cosmetics" ?
-                      "cc-post-bx cc-post-bx7" 
-                      : category === "Eco-Tourism" ?
-                      "cc-post-bx cc-post-bx8" 
-                      : category === "Culture, art & food" ?
-                      "cc-post-bx cc-post-bx3" 
-                      : category === "ClimStripe Shift corne" ?
-                      "cc-post-bx cc-post-bx5" 
-                      : ""
-
-
-
-                  }
+                  style={{ backgroundColor: ctg?.colorCode }}
+                  className={"cc-post-bx"}
                   key={id}
                 >
                   <div className="cc-post-img-flex">
-                    {postImg.map((curImg) => {
-                      return (
-                        <img
-                          style={{ width: postImg.length > 1 ? "49%" : "100%" }}
-                          src={curImg}
-                          alt=""
-                        />
-                      );
-                    })}
+                    <img
+                      style={{
+                        width: "100%",
+                      }}
+                      src={img?.[0]}
+                      alt=""
+                    />
                   </div>
 
                   <div className="cc-post-info-data">
                     <div className="cc-post-img-prof">
-                      <img src={profImg} alt="" />
+                      <img
+                        src={User ? User?.profileImage : "./favicon.jpg"}
+                        alt=""
+                      />
                       <div className="cc-post-det">
                         <div className="post-name-flex">
-                          <h6>{profName}</h6>
+                          <h6>{User?.fullname || author}</h6>
                           <button className="follow-btn">Follow</button>
                         </div>
                         <div className="like-share-comment-flex-bx">
@@ -91,23 +73,20 @@ const Climconnectpost = () => {
                     <div className="post-infor-cc">
                       <h5> {title} </h5>
 
-                      <p> {para} </p>
+                      <div dangerouslySetInnerHTML={{ __html: content }} />
 
-                      <span> {category} </span>
+                      <span> {categoryName} </span>
                     </div>
                   </div>
                 </div>
               </>
             );
-          }
-        )}
+          })}
       </div>
 
       <button onClick={handleLoadMore} className="load-more-btn">
         Load More
       </button>
-
-      
     </>
   );
 };

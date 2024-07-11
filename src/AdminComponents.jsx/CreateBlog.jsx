@@ -21,6 +21,7 @@ const CreateBlog = ({ data, onClose }) => {
   const [images, setImages] = useState([]);
   const [seoTags, setTags] = useState([]);
   const [seoKeyphrase, setKeys] = useState([]);
+  const [recentPostSize, setRecentPostSize] = useState(4);
   const handleImageChange = (e) => {
     const selectedImage = Array.from(e.target.files);
 
@@ -238,7 +239,7 @@ const CreateBlog = ({ data, onClose }) => {
                         <h6>SEO Setting</h6>
 
                         <div className="blog-inpt-bx mt-4">
-                          <span>Post Title</span>
+                          <span>Meta Title</span>
                           <div className="blog-inpt">
                             <input
                               type="text"
@@ -271,10 +272,10 @@ const CreateBlog = ({ data, onClose }) => {
                           state={[seoTags, setTags]}
                           label={"Blog Tags"}
                         />
-                        <BlogTags
+                        {/* <BlogTags
                           state={[seoKeyphrase, setKeys]}
                           label={"Keyphrase"}
-                        />
+                        /> */}
                         {/* <Keyphrase /> */}
 
                         <div className="blog-inpt-bx mt-4 mb-5">
@@ -322,8 +323,9 @@ const CreateBlog = ({ data, onClose }) => {
 
               <div className="recent-post-flex-bx">
                 {!posts?.error
-                  ? posts?.map(
-                      ({ categoryName, title, updatedOn, ...rest }) => {
+                  ? posts
+                      ?.slice(0, recentPostSize)
+                      ?.map(({ categoryName, title, updatedOn, ...rest }) => {
                         let img = JSON.parse(rest?.image || "[]")?.[0];
                         return (
                           <div className="recent-post">
@@ -364,12 +366,14 @@ const CreateBlog = ({ data, onClose }) => {
                             </div>
                           </div>
                         );
-                      }
-                    )
+                      })
                   : null}
               </div>
 
-              <button className="load-more-btn b-post-load-btn mt-0">
+              <button
+                onClick={() => setRecentPostSize((prev) => prev + 4)}
+                className="load-more-btn b-post-load-btn mt-0"
+              >
                 Load More
               </button>
             </div>

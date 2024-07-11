@@ -34,7 +34,6 @@ const Header = ({
   };
 
   window.addEventListener("scroll", scrollShow, true);
-  console.log(window.location.pathname);
   const path = window.location.pathname;
   return (
     <>
@@ -86,7 +85,7 @@ const Header = ({
             </div>
           </div>
         </div>
-        {path != "/climconnect" ? (
+        {!path?.startsWith("/climconnect") ? (
           <div className={nav === true ? "header sticky" : "header"}>
             <div className="header-container">
               <div className="outer-box">

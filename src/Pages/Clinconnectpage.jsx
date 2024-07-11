@@ -25,7 +25,6 @@ const Clinconnectpage = () => {
 
   return (
     <>
-      <Protect>
         <section className="clim-connect-comp">
           <div className="clim-connect-logo-search-flex-bx">
             <div className="clim-connect-logo">
@@ -154,10 +153,6 @@ const Clinconnectpage = () => {
             <Climconeectproduct />
           </div>
         </section>
-      </Protect>
-      <Protect reverse>
-        <UserForm />
-      </Protect>
     </>
   );
 };

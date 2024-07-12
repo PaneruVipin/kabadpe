@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import InstaFeed from "../HomeComponent/InstaFeed";
@@ -7,26 +7,58 @@ import { useQuery } from "@tanstack/react-query";
 import { blogPostFetchOne } from "../apis/blogs/blog";
 import { FaShareAlt } from "react-icons/fa";
 import { DateTime } from "luxon";
+import { commentBlogPost } from "../apis/blogs/comment";
+import { toast } from "react-toastify";
+import UserForm from "../Components/UserForm";
+import { useSelector } from "react-redux";
 
 const BlogDet = () => {
+  const { id } = useParams();
   return (
     <>
       <Header />
-      <BlogDetail />
+      <BlogDetail id={id} />
       <InstaFeed />
       <MainFooter />
     </>
   );
 };
 
-export const BlogDetail = () => {
-  const { id } = useParams();
+export const BlogDetail = ({ id }) => {
+  const [comment, setComment] = useState("");
+  const { userInfo } = useSelector((s) => s?.user);
+  const [loginForm, setLoginForm] = useState(false);
+  const [showBoxes, setShowBoxes] = useState(4);
+  const handleLoadMore = () => {
+    setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
+  };
   const { data: post, refetch } = useQuery({
     queryKey: ["blogPostFetchOne"],
     queryFn: () => blogPostFetchOne({ id }),
   });
   const image = JSON.parse(post?.image || "[]");
   const path = window.location;
+  const commentProtectClick = (fn = () => {}) => {
+    if (userInfo?.role == "user") {
+      return fn;
+    } else {
+      return () => setLoginForm(true);
+    }
+  };
+  const handleSubmitComment = commentProtectClick(async () => {
+    if (!comment) {
+      return;
+    }
+    const data = { id: +atob(id), comment };
+    const res = await commentBlogPost(data);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    refetch();
+    setComment("");
+    toast.success(res);
+  });
   return (
     <section className="blog-front-comp">
       <div className="common-container">
@@ -48,12 +80,12 @@ export const BlogDetail = () => {
                         .toFormat("ccc dd LLL yyyy")}
                     </span>
                     {!post?.userId ? <span>by admin</span> : null}
-                    <span>05 Comments</span>
+                    <span>{post?.BlogComments?.length} Comments</span>
                   </div>
 
                   <h6>{post?.title}</h6>
 
-                  <div dangerouslySetInnerHTML={{ __html: post?.content }} />
+                  <div style={{color:"black"}} dangerouslySetInnerHTML={{ __html: post?.content }} />
                 </div>
 
                 {/* <div className="blog-det-img-grid">
@@ -138,38 +170,30 @@ export const BlogDetail = () => {
               </div>
 
               <div className=" comment-main show-commnets-box">
-                <h5> 10 Comments</h5>
+                <h5> {post?.BlogComments?.length} Comments</h5>
 
                 <div className="user-comn-list mt-4">
-                  <div className="user-comnt-bx ">
-                    <div className="user-comnt-img">
-                      <img src="/images/customImg/client-01.png" alt="" />
-                    </div>
-                    <div className="user-comnt-det">
-                      <h6>Khushi Mehta</h6>
-                      <span>khushi124@gmail.com</span>
-                      <p>
-                        Excepteur sint occaecat cupidatat non proident sunt in
-                        culpa qui officia deserunt mollit anim est laborum. Sed
-                        perspiciatis unde omnis.
-                      </p>
-                    </div>
-                  </div>
+                  {!post?.error
+                    ? post?.BlogComments?.slice(0, showBoxes).map(
+                        ({ id, comment, User }) => (
+                          <div className="user-comnt-bx " key={id}>
+                            <div className="user-comnt-img">
+                              <img src={User?.profileImage} alt="" />
+                            </div>
+                            <div className="user-comnt-det">
+                              <h6>{User?.fullname}</h6>
+                              <span></span>
+                              {/* khushi124@gmail.com */}
+                              <p>{comment}</p>
+                            </div>
+                          </div>
+                        )
+                      )
+                    : null}
 
-                  <div className="user-comnt-bx ">
-                    <div className="user-comnt-img">
-                      <img src="/images/customImg/client-01.png" alt="" />
-                    </div>
-                    <div className="user-comnt-det">
-                      <h6>Khushi Mehta</h6>
-                      <span>khushi124@gmail.com</span>
-                      <p>
-                        Excepteur sint occaecat cupidatat non proident sunt in
-                        culpa qui officia deserunt mollit anim est laborum. Sed
-                        perspiciatis unde omnis.
-                      </p>
-                    </div>
-                  </div>
+                  <button onClick={handleLoadMore} className="load-more-btn">
+                    Load More
+                  </button>
                 </div>
               </div>
 
@@ -177,6 +201,10 @@ export const BlogDetail = () => {
                 <h5>Leave A Comments</h5>
                 <div className="comnt-messge comnt-inpt">
                   <textarea
+                    onChange={commentProtectClick((e) =>
+                      setComment(e.target.value)
+                    )}
+                    value={comment}
                     name="message"
                     id="message"
                     cols="30"
@@ -184,7 +212,10 @@ export const BlogDetail = () => {
                     placeholder="Message"
                   ></textarea>
                 </div>
-                <button className="tag-btn comnt-btn-m mt-4">
+                <button
+                  onClick={handleSubmitComment}
+                  className="tag-btn comnt-btn-m mt-4"
+                >
                   Submit Comment
                 </button>
               </div>
@@ -275,6 +306,9 @@ export const BlogDetail = () => {
           </div>
         </div>
       </div>
+      {loginForm ? (
+        <UserForm closepopUpUserForm={() => setLoginForm(false)} />
+      ) : null}
     </section>
   );
 };

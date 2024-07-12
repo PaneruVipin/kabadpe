@@ -46,7 +46,9 @@ const Header = ({
                 <NavLink
                   to="/"
                   onClick={() => setTopMenu("kabadpe")}
-                  className={topMenu === "kabadpe" ? "linkactive" : ""}
+                  className={
+                    !path?.startsWith("/climconnect") ? "linkactive" : ""
+                  }
                 >
                   <span>|</span> Kabadpe
                 </NavLink>
@@ -60,7 +62,9 @@ const Header = ({
                 <NavLink
                   to="/climconnect"
                   onClick={() => setTopMenu("climconnect")}
-                  className={topMenu === "climconnect" ? "linkactive" : ""}
+                  className={
+                    path?.startsWith("/climconnect") ? "linkactive" : ""
+                  }
                 >
                   {" "}
                   <span>|</span> Climconnect{" "}

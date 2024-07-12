@@ -91,6 +91,7 @@ const Climconnectpost = ({ data, comp = "profile" }) => {
 
                       <div
                         style={{
+                          color: "black",
                           width: "300px",
                           height: "200px",
                           overflow: "hidden",

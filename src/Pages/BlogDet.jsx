@@ -85,7 +85,7 @@ export const BlogDetail = ({ id }) => {
 
                   <h6>{post?.title}</h6>
 
-                  <div dangerouslySetInnerHTML={{ __html: post?.content }} />
+                  <div style={{color:"black"}} dangerouslySetInnerHTML={{ __html: post?.content }} />
                 </div>
 
                 {/* <div className="blog-det-img-grid">

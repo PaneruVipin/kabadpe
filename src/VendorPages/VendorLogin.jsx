@@ -105,8 +105,8 @@ const VendorLogin = () => {
                     </div>
                   </div>
 
-                  <div className="vend-check-bx">
-                    <div className="check-bx cehck-bx-v">
+                  <div className="vend-check-bx vend-check-bx2">
+                    <div className="check-bx cehck-bx-v check-bx-v2">
                       <input
                         class="form-check-input"
                         type="checkbox"

@@ -1,17 +1,21 @@
-import React from 'react'
-import Climconnectpost from './Climconnectpost.jsx'
+import React from "react";
+import Climconnectpost from "./Climconnectpost.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { blogPostFetch } from "../apis/blogs/blog.js";
 const ClimconnectFeed = () => {
+  const { data: posts, refetch } = useQuery({
+    queryKey: ["blogPostFetch3"],
+    queryFn: () => blogPostFetch({ includeOnly: "noDraft" }),
+  });
   return (
     <>
-          <section className="clim-connect-right-side-box">
+      <section className="clim-connect-right-side-box">
         <div className="comon-container">
-
-          <Climconnectpost />
-            
+          <Climconnectpost data={!posts?.error ? posts : []} />
         </div>
-    </section>
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ClimconnectFeed
+export default ClimconnectFeed;

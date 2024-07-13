@@ -15,6 +15,7 @@ import { filteredData } from "../lib/array";
 import TransportStatus from "./tranportStatus/TransportStatus";
 import Howitwork from "./Howitwork";
 import CreateBidPost from "./CreateBidPost";
+import AddDeliveryDetail from "../Components/Popups/AddDeliveryDetail";
 
 const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [unit, setUnit] = useState("Unit");
@@ -29,6 +30,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
   const [currentFilter, setCurrentFilter] = useState("all");
   const [howItWrk, setHowItWrk] = useState(false);
   const [updateBid, setUpdateBid] = useState(false);
+  const [deliveryDetailsPopup, setDeliveryDetailsPopup] = useState(false);
   const Options = ["KG", "PCS"];
 
   const handleOptionChange = (selectOption) => {
@@ -191,7 +193,9 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                     .toFormat("ccc dd LLL yyyy")}
                                 </span>
                               </div>
-                              <h5>{productName}</h5>
+                              <h5>
+                                {rest?.subCategory} - {rest?.condition}
+                              </h5>
                               <p
                                 style={{ marginTop: "5px" }}
                                 className="bid-date"
@@ -218,7 +222,8 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                 <div>
                                   We have received payment from the bidder.{" "}
                                   <br />
-                                  Please proceed with the transport.
+                                  While making changes, update transport status
+                                  by clicking the related button
                                 </div>
                               ) : acceptedOffer?.paymentStatus == "paid" ? (
                                 <div
@@ -234,25 +239,111 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                                   Payment Completed
                                 </div>
                               ) : (
-                                <div>
-                                  Bidder's payment is in process.
-                                  <br /> Once received, you can proceed with the
-                                  transport
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "0px",
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      color: "black",
+                                      lineHeight: "1.4",
+                                    }}
+                                  >
+                                    {" "}
+                                    Bidder's payment is in process.
+                                  </span>
+                                  <span
+                                    style={{
+                                      // color: "black",
+                                      lineHeight: "1.1",
+                                    }}
+                                  >
+                                    Once received,
+                                    <br /> update transport status by clicking
+                                    the related button
+                                  </span>
                                 </div>
                               )
                             ) : null}
                             {acceptedOffer ? (
-                              <TransportStatus
-                                currentStatus={acceptedOffer?.transportStatus}
-                                data={acceptedOffer}
-                                refetch={() => {
-                                  refetch();
-                                  refetchOffers();
-                                }}
-                                disabled={
-                                  acceptedOffer?.paymentStatus != "receive"
-                                }
-                              />
+                              <>
+                                <TransportStatus
+                                  currentStatus={acceptedOffer?.transportStatus}
+                                  data={acceptedOffer}
+                                  refetch={() => {
+                                    refetch();
+                                    refetchOffers();
+                                  }}
+                                  comp="listing"
+                                  disabled={
+                                    acceptedOffer?.paymentStatus != "receive"
+                                  }
+                                />
+                                {acceptedOffer?.deliveryDetails ? (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "flex-start",
+                                      alignItems: "center",
+                                      gap: "10px",
+                                      marginTop: "8px",
+                                    }}
+                                  >
+                                    <p style={{ marginBottom: "0px" }}>
+                                      {acceptedOffer?.deliveryDetails}
+                                    </p>
+                                    <button
+                                      onClick={() => {
+                                        setDeliveryDetailsPopup(true);
+                                        setSelectedOffer(acceptedOffer);
+                                      }}
+                                      style={{
+                                        backgroundColor: "#007bff",
+                                        color: "white",
+                                        padding: "1px 20px",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
+                                        borderRadius: "5px",
+                                        width: "100px",
+                                      }}
+                                      // onClick={onEdit}
+                                    >
+                                      Edit
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      setDeliveryDetailsPopup(true);
+                                      setSelectedOffer(acceptedOffer);
+                                    }}
+                                    style={{
+                                      backgroundColor: "#4CAF50",
+                                      color: "white",
+                                      padding: "2px 20px",
+                                      fontSize: "16px",
+                                      cursor: "pointer",
+                                      borderRadius: "5px",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      marginTop: "5px",
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        marginRight: "10px",
+                                        fontWeight: "bold",
+                                      }}
+                                    >
+                                      +
+                                    </span>
+                                    Add Delivery Details
+                                  </button>
+                                )}
+                              </>
                             ) : null}
                           </div>
 
@@ -273,9 +364,12 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                           </div>
                         </div>} */}
 
-                          <div className="view-bid-btn-flex">
+                          <div className="view-bid-btn-flex ">
                             <button
-                              style={{ borderColor: "red", color: "red" }}
+                              style={{
+                                borderColor: "red",
+                                color: "red",
+                              }}
                               onClick={() => {
                                 setIsBidder(true);
                                 setSelectedData({
@@ -557,7 +651,16 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
           closePodpup={() => setIsCloseView(false)}
         />
       )}
-
+      {deliveryDetailsPopup ? (
+        <AddDeliveryDetail
+          refetch={() => {
+            refetch();
+            refetchOffers();
+          }}
+          data={selectedOffer}
+          onClose={() => setDeliveryDetailsPopup(false)}
+        />
+      ) : null}
       {isDeal ? (
         <BidDeal
           refetch={() => {

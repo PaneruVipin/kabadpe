@@ -165,7 +165,9 @@ const MyBidComp = ({ onClickCreatePost }) => {
                                     .toFormat("ccc dd LLL yyyy")}
                                 </span>
                               </div>
-                              <h5>{BidPost?.productName}</h5>
+                              <h5>
+                                {BidPost?.subCategory} - {BidPost?.condition}
+                              </h5>
                               <h6>Seller: {BidPost?.Franchise?.companyName}</h6>
                             </div>
                           </div>
@@ -196,20 +198,40 @@ const MyBidComp = ({ onClickCreatePost }) => {
                             {bidStatus == "accept" ? (
                               rest?.paymentStatus == "receive" ||
                               rest?.paymentStatus == "paid" ? (
-                                <div
-                                  style={{
-                                    background: "green",
-                                    color: "white",
-                                    textAlign: "center",
-                                    width: "200px",
-                                    padding: "2px",
-                                    margin: "10px 0px",
-                                  }}
-                                >
-                                  Payment Received
+                                <div>
+                                  <div
+                                    style={{
+                                      background: "green",
+                                      color: "white",
+                                      textAlign: "center",
+                                      width: "200px",
+                                      padding: "2px",
+                                      margin: "10px 0px",
+                                    }}
+                                  >
+                                    Payment Received
+                                  </div>
+                                  <p
+                                    style={{
+                                      lineHeight: "0.7",
+                                      marginTop: "12px",
+                                    }}
+                                  >
+                                    When you receive the package, click
+                                    'Receive' to update the status
+                                  </p>
                                 </div>
                               ) : (
                                 <div>
+                                  <p
+                                    style={{
+                                      lineHeight: "0.7",
+                                      marginTop: "12px",
+                                    }}
+                                  >
+                                    Transport starts after you pay the bid
+                                    amount to the admin
+                                  </p>
                                   <button
                                     onClick={() => {
                                       setSelectedData({
@@ -230,33 +252,44 @@ const MyBidComp = ({ onClickCreatePost }) => {
                                       textAlign: "center",
                                       width: "150px",
                                       padding: "2px 4px",
-                                      margin: "10px 0px",
+                                      // margin: "10px 0px",
+                                      marginBottom: "10px",
                                       borderRadius: "10px",
                                       color: "gray",
                                     }}
                                   >
                                     Make Payment
                                   </button>{" "}
-                                  Transport will proceed upon receipt.
                                 </div>
                               )
                             ) : null}
                             {bidStatus == "accept" ? (
-                              <TransportStatus
-                                currentStatus={rest?.transportStatus}
-                                data={{
-                                  id,
-                                  bidStatus,
-                                  BidPost,
-                                  productimages,
-                                  addedOn,
-                                  ...rest,
-                                }}
-                                refetch={() => {
-                                  refetch();
-                                }}
-                                disabled={rest?.paymentStatus != "receive"}
-                              />
+                              <>
+                                <TransportStatus
+                                  currentStatus={rest?.transportStatus}
+                                  data={{
+                                    id,
+                                    bidStatus,
+                                    BidPost,
+                                    productimages,
+                                    addedOn,
+                                    ...rest,
+                                  }}
+                                  refetch={() => {
+                                    refetch();
+                                  }}
+                                  comp="bid"
+                                  disabled={
+                                    rest?.paymentStatus != "receive" &&
+                                    rest?.paymentStatus != "paid"
+                                  }
+                                />
+                                {rest?.deliveryDetails ? (
+                                  <span>
+                                    Delivery Details: {rest?.deliveryDetails}
+                                  </span>
+                                ) : null}
+                              </>
                             ) : null}
                           </div>
                           <div className="view-bid-btn-flex">

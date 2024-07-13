@@ -11,7 +11,10 @@ const ClimconnectFeed = () => {
     <>
       <section className="clim-connect-right-side-box">
         <div className="comon-container">
-          <Climconnectpost data={!posts?.error ? posts : []} />
+          <Climconnectpost
+            refetch={refetch}
+            data={!posts?.error ? posts : []}
+          />
         </div>
       </section>
     </>

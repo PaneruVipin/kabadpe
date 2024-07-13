@@ -1,14 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ClimconnectPostData } from "./climconnectpost.js";
 import { climeCategories } from "../lib/climeCategories.js";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-const Climconnectpost = ({ data, comp = "profile" }) => {
+import UserForm from "../Components/UserForm.jsx";
+import {
+  climeFollowUnfollow,
+  climeconnectionsFetch,
+  followingStatusFetch,
+} from "../apis/blogs/followers.js";
+import { likeUnlikeBlog } from "../apis/blogs/like.js";
+import { useQuery } from "@tanstack/react-query";
+const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
   const [showBoxes, setShowBoxes] = useState(4);
+  const [loginForm, setLoginForm] = useState(false);
+  const [follows, setFollows] = useState({});
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
   };
   const { userInfo } = useSelector((s) => s.user);
+  const protectClick = (fn = () => {}) => {
+    if (userInfo?.role == "user") {
+      return fn;
+    } else {
+      return () => setLoginForm(true);
+    }
+  };
+  const { data: connections, refetch } = useQuery({
+    queryKey: ["climeconnectionsFetch"],
+    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+  });
+  const handleFollowUnfollowClick = async (id, followingStatus) => {
+    const res = await climeFollowUnfollow({ id, followingStatus });
+    refetch();
+  };
+  const handleLikeUnlikeClick = async (id, status) => {
+    const res = await likeUnlikeBlog({ id, status });
+    refetch();
+    refetchData();
+  };
   return (
     <>
       <div className="clim-conect-post-grid-bx">
@@ -24,11 +54,22 @@ const Climconnectpost = ({ data, comp = "profile" }) => {
               User,
               author,
               BlogComments,
+              BlogLikes,
             }) => {
               const ctg = climeCategories.find(
                 ({ name }) => name == categoryName
               );
               const img = JSON.parse(image || "[]");
+              const followingStatus = !connections?.error
+                ? connections?.find(
+                    ({ followingId }) => followingId == User?.id
+                  )
+                : false;
+              const newFollowingStatus = followingStatus ? "delete" : "active";
+              const likeStatus = BlogLikes?.find(
+                ({ userId }) => userId == userInfo?.id
+              );
+              const newLikeStatus = likeStatus ? "delete" : "active";
               return (
                 <div
                   style={{ backgroundColor: ctg?.colorCode }}
@@ -54,14 +95,39 @@ const Climconnectpost = ({ data, comp = "profile" }) => {
                       <div className="cc-post-det">
                         <div className="post-name-flex">
                           <h6>{User?.fullname || author}</h6>
-                          <button className="follow-btn">Follow</button>
+                          {userInfo?.id != User?.id && User?.id ? (
+                            <button
+                              onClick={protectClick(() =>
+                                handleFollowUnfollowClick(
+                                  User?.id,
+                                  newFollowingStatus
+                                )
+                              )}
+                              className="follow-btn"
+                            >
+                              {followingStatus ? "Unfollow" : "Follow"}
+                            </button>
+                          ) : (
+                            <button className="follow-btn">
+                              {!User?.id ? "Admin" : "You"}
+                            </button>
+                          )}
                         </div>
-                        <div className="like-share-comment-flex-bx">
+                        <div
+                          style={{ marginTop: "10px" }}
+                          className="like-share-comment-flex-bx"
+                        >
                           <div className="post-twit-bx">
-                            <div className="p-t-icon">
+                            <div
+                              style={{ cursor: "pointer" }}
+                              className="p-t-icon"
+                              onClick={protectClick(() =>
+                                handleLikeUnlikeClick(id, newLikeStatus)
+                              )}
+                            >
                               <i class="fa-solid fa-heart"></i>
                             </div>
-                            <span>2</span>
+                            <span>{BlogLikes?.length}</span>
                           </div>
 
                           <div className="post-twit-bx">
@@ -120,6 +186,9 @@ const Climconnectpost = ({ data, comp = "profile" }) => {
       <button onClick={handleLoadMore} className="load-more-btn">
         Load More
       </button>
+      {loginForm ? (
+        <UserForm closepopUpUserForm={() => setLoginForm(false)} />
+      ) : null}
     </>
   );
 };

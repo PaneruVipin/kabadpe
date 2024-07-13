@@ -180,8 +180,8 @@ const AdminPanel = () => {
   };
 
   const { data: appoinments, refetch } = useQuery({
-    queryKey: ["adminAppoinments"],
-    queryFn: () => adminAppoinmentsFetch(),
+    queryKey: ["adminAppoinments1"],
+    queryFn: () => adminAppoinmentsFetch({}),
   });
 
   return (
@@ -207,11 +207,7 @@ const AdminPanel = () => {
               )}
             </button>
 
-            <h4
-              className="admin-top-title"
-            >
-              Dashboard
-            </h4>
+            <h4 className="admin-top-title">Dashboard</h4>
           </div>
 
           <div className="right-admin-box">
@@ -878,7 +874,7 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#"> Add New Post </NavLink>{" "}
               </li>
-              <li
+              {/* <li
                 onClick={() => handleViewComp("categories")}
                 className={
                   component === "categories"
@@ -888,7 +884,7 @@ const AdminPanel = () => {
               >
                 {" "}
                 <NavLink to="#"> Categories </NavLink>{" "}
-              </li>
+              </li> */}
             </div>
           </div>
 
@@ -1435,20 +1431,18 @@ const AdminPanel = () => {
         ) : null}
 
         {component === "AllAppointment" ? (
-          <FrenchAppointments
-            component="admin"
-            refetchAppoinment={refetch}
-            appoinments={appoinments}
-          />
+          <FrenchAppointments component="admin" />
         ) : null}
         {component === "otherAppoint" ? (
-          <FrenchAppointTwo updatedFrenchAppointData={apntDataTwo} />
+          <FrenchAppointments component="admin" type="other" />
         ) : null}
 
         {component === "transaction" ? <AdminTransaction /> : null}
         {component === "managewaste" ? <AdminManageWaste /> : null}
-        {component === "allpost" ? <AllBlogPost /> : null} 
-        {component === "addpost" ? <CreateBlog /> : null}
+        {component === "allpost" ? <AllBlogPost /> : null}
+        {component === "addpost" ? (
+          <CreateBlog onClose={() => setComponent("allpost")} />
+        ) : null}
         {component === "adminbid" ? <AdminBid /> : null}
       </section>
     </>

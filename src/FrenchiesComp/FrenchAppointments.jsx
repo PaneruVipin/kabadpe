@@ -11,15 +11,14 @@ import { slotLabels } from "../lib/slots";
 import { DateTime } from "luxon";
 import { workers } from "../lib/worker";
 import { Form, Formik } from "formik";
-import { adminChangeAppoinmentStatus } from "../apis/admins/appoinments";
+import {
+  adminAppoinmentsFetch,
+  adminChangeAppoinmentStatus,
+} from "../apis/admins/appoinments";
 import { filteredData, hashId, search } from "../lib/array";
-import AdminScheduleAppoinment from "./AdminScheduleAppoinment"
+import AdminScheduleAppoinment from "./AdminScheduleAppoinment";
 
-const FrenchAppointments = ({
-  refetchAppoinment,
-  appoinments,
-  component = "franchise",
-}) => {
+const FrenchAppointments = ({ component = "franchise", type = "all" }) => {
   const [popUp, setPopUp] = useState(false);
   const [schedulePopup, setSchedulePopup] = useState(false);
   const [confirmPopup, setConfirmPopup] = useState(false);
@@ -141,6 +140,14 @@ const FrenchAppointments = ({
       }
     }
   };
+  const { data: appoinments, refetch: refetchAppoinment } = useQuery({
+    queryKey: ["adminAppoinments"],
+    queryFn: () =>
+      component == "admin"
+        ? adminAppoinmentsFetch({ type })
+        : franchiseAppoinmentFetch({}),
+  });
+  console.log("this is data dara", appoinments);
   return (
     <>
       <section
@@ -193,18 +200,22 @@ const FrenchAppointments = ({
           <div className="work-capacity-flex-bx">
             <h3 className="title">Appointments </h3>
             <div className="apnt-buton-flex  ">
-            <button
-              onClick={() => setSchedulePopup(true)}
-              className="work-capacity-btn work-capacity-btn2"
-            >
-              Schedule
-            </button>
-            <button
-              onClick={() => setWrkcpcity(true)}
-              className="work-capacity-btn work-capacity-btn2"
-            >
-              Work Capacity
-            </button>
+              {component == "admin" && type != "other" ? (
+                <button
+                  onClick={() => setSchedulePopup(true)}
+                  className="work-capacity-btn work-capacity-btn2"
+                >
+                  Schedule
+                </button>
+              ) : null}
+              {type != "other" ? (
+                <button
+                  onClick={() => setWrkcpcity(true)}
+                  className="work-capacity-btn work-capacity-btn2"
+                >
+                  Work Capacity
+                </button>
+              ) : null}
             </div>
           </div>
           <div className="waste-appoint-main-bx french-appoint-box">
@@ -304,7 +315,7 @@ const FrenchAppointments = ({
                     <th>Customer Address</th>
                     <th>Worker Name</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    {type != "other" ? <th>Action</th> : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -440,17 +451,18 @@ const FrenchAppointments = ({
                                     {orderStatus}{" "}
                                   </span>{" "} */}
                                   </td>
-                                  <td>
-                                    <div
-                                      style={{
-                                        justifyContent: "space-between",
-                                      }}
-                                      className="appoint-flex-btns"
-                                    >
-                                      {/* <button onClick={() => confirmPopupfunc()}>
+                                  {type != "other" ? (
+                                    <td>
+                                      <div
+                                        style={{
+                                          justifyContent: "space-between",
+                                        }}
+                                        className="appoint-flex-btns"
+                                      >
+                                        {/* <button onClick={() => confirmPopupfunc()}>
                                       <i class="fa-regular fa-circle-check"></i>
                                     </button> */}
-                                      {/* <button
+                                        {/* <button
                                       onClick={() => reschedulePopupfunc()}
                                     >
                                       <i class="fa-solid fa-calendar-days"></i>
@@ -459,50 +471,51 @@ const FrenchAppointments = ({
                                       <i class="fa-regular fa-circle-xmark"></i>
                                     </button> */}
 
-                                      {/* onClick={() => confirmPopupfunc()} */}
+                                        {/* onClick={() => confirmPopupfunc()} */}
 
-                                      {/* {(!assigningStatus ||
+                                        {/* {(!assigningStatus ||
                                       assigningStatus == "cancel") &&*/}
-                                      {orderStatus == "active" ? (
-                                        <button
-                                          onClick={() => {
-                                            setApntSlot(true);
-                                            setAppoinmentDetails({
-                                              id,
-                                              serviceType,
-                                              appointmentTimeSlot,
-                                              appointmentDate,
-                                              appoinmentAddress,
-                                              UserAddress,
-                                              ariaId,
-                                            });
+                                        {orderStatus == "active" ? (
+                                          <button
+                                            onClick={() => {
+                                              setApntSlot(true);
+                                              setAppoinmentDetails({
+                                                id,
+                                                serviceType,
+                                                appointmentTimeSlot,
+                                                appointmentDate,
+                                                appoinmentAddress,
+                                                UserAddress,
+                                                ariaId,
+                                              });
+                                            }}
+                                            className="assign-btn"
+                                          >
+                                            Assign
+                                          </button>
+                                        ) : (
+                                          <span></span>
+                                        )}
+                                        <select
+                                          defaultValue={orderStatus}
+                                          onClick={changeAppoinmentStatus(id)}
+                                          style={{
+                                            width: "120px",
+                                            height: "40px",
                                           }}
-                                          className="assign-btn"
                                         >
-                                          Assign
-                                        </button>
-                                      ) : (
-                                        <span></span>
-                                      )}
-                                      <select
-                                        defaultValue={orderStatus}
-                                        onClick={changeAppoinmentStatus(id)}
-                                        style={{
-                                          width: "120px",
-                                          height: "40px",
-                                        }}
-                                      >
-                                        <option value="" hidden>
-                                          Status
-                                        </option>
-                                        <option value="fullfill">
-                                          Complete
-                                        </option>
-                                        <option value="cancel">Cancel</option>
-                                        <option value="active">Active</option>
-                                      </select>
-                                    </div>
-                                  </td>
+                                          <option value="" hidden>
+                                            Status
+                                          </option>
+                                          <option value="fullfill">
+                                            Complete
+                                          </option>
+                                          <option value="cancel">Cancel</option>
+                                          <option value="active">Active</option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                  ) : null}
                                 </tr>
                               </>
                             );

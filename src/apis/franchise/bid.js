@@ -247,11 +247,29 @@ export const franchiseBidPostUpdate = resolvePromise(
 
 export const franchiseBidPostStatusChange = resolvePromise(
   async ({ id, postStatus }) => {
-    const apiUrl = ENV_API_BASE_URL + `/bidpost/${id}/statuschange/${postStatus}`;
+    const apiUrl =
+      ENV_API_BASE_URL + `/bidpost/${id}/statuschange/${postStatus}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
-      {  },
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return res?.message;
+  }
+);
+
+export const franchiseBidDeliveryDetailsUpdate = resolvePromise(
+  async ({ id, deliveryDetails }) => {
+    const apiUrl = ENV_API_BASE_URL + `/bid/${id}/deliveryDetails`;
+    const token = getFromLocalStorage("token");
+    const { data: res } = await axios.put(
+      apiUrl,
+      { deliveryDetails },
       {
         headers: {
           Authorization: token,

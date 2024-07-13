@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import chatData from "../chatData";
 import "../style/ChatSoclPost.css";
+import ProtectClimeConnect from "./ProtectClimeConnect";
 
 const ClimconectChat = () => {
   const [message, setMessage] = useState(false);
@@ -11,7 +12,7 @@ const ClimconectChat = () => {
     setMessage(true);
   };
   return (
-    <>
+    <ProtectClimeConnect>
       <div className="max-height-chat-bx max-height-chat-bx2">
         <div className="chat-list-main-bx">
           {chatData.map((curElem, index) => {
@@ -165,7 +166,7 @@ const ClimconectChat = () => {
         </div>
       </div>
       </div>
-    </>
+      </ProtectClimeConnect>
   );
 };
 

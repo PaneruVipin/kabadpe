@@ -248,6 +248,9 @@ const AdminBid = () => {
                                         <option value="deliver">
                                           Delivered
                                         </option>
+                                        <option value="receive">
+                                          Received
+                                        </option>
                                       </select>
                                     </div>
                                   ) : (
@@ -274,7 +277,6 @@ const AdminBid = () => {
                                       background: "green",
                                       marginRight: "6px",
                                       display: "block",
-                                      
                                     }}
                                     onClick={() => {
                                       setSelectedOffers(Bids);

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { bidproductcategories, catageories } from "../lib/kabadCatageories";
 import { useQuery } from "@tanstack/react-query";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 const CreateBidPost = ({
   data = {},
@@ -105,11 +106,33 @@ const CreateBidPost = ({
     <>
       <section className="bid-product-listing-comp">
         <div className="common-container">
-          <div className="top-bid-header-flex">
+          <div style={{ alignItems: "start" }} className="top-bid-header-flex">
             <div className="left-bid-header-bx">
               <NavLink to="/">Home</NavLink>
               <span>Create post/Sell post</span>
             </div>
+            <button
+              onClick={() => {
+                type =="add" ? redirect() : onClose();
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "#007bff",
+                color: "white",
+                border: "none",
+                borderRadius: "5px",
+                padding: "10px 20px",
+                cursor: "pointer",
+                fontSize: "16px",
+                width: "200px",
+              }}
+            >
+              <IoIosArrowRoundBack
+                style={{ marginRight: "8px", fontSize: "24px" }}
+              />
+              <span style={{ fontWeight: "bold" }}>Back</span>
+            </button>
           </div>
           <Formik initialValues={initialValues} onSubmit={handleSubmit}>
             {({
@@ -409,7 +432,7 @@ const CreateBidPost = ({
                                 type="checkbox"
                               />
                             </div>
-                            <span>GST Included</span>
+                            <span>GST Extra </span>
                           </div>
 
                           <div className="same-com-add-bx mt-3">

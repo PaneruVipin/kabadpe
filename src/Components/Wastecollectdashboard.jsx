@@ -81,6 +81,7 @@ const Wastecollectdashboard = ({}) => {
   });
   return (
     <>
+     <Redirect role="kabadCollector" path="/auth/collector" />
       <TopFixMenu
         setProfBtn={setProfBtn}
         buyWasteUserInfo={buyWasteUserInfo}

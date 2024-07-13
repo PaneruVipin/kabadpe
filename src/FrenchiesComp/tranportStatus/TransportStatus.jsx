@@ -15,8 +15,9 @@ const TransportStatus = ({
     { id: 1, value: "", label: "Processing..." },
     { id: 2, value: "dispatch", label: "Dispatch" },
     { id: 3, value: "deliver", label: "Deliver" },
+    { id: 4, value: "recieve", label: "Receive" },
   ];
-  const handleChangeStatusClick = async (value) => {
+  const handleChangeStatusClick = async (value, disabled) => {
     if (disabled) {
       return;
     }
@@ -31,32 +32,38 @@ const TransportStatus = ({
     toast.success(res);
     refetch();
   };
+
   return (
     <div className="status-container">
-      {statuses.map(({ id, value, label }, index) => (
-        <div key={id} className="status-wrapper">
-          <div
-            onClick={() => handleChangeStatusClick(value)}
-            className={`status  ${
-              statuses.findIndex(({ value }) => currentStatus == value) >= index
-                ? "active"
-                : ""
-            } ${disabled ? "disabled" : ""}`}
-          >
-            {label}
-          </div>
-          {index < statuses.length - 1 && (
+      {statuses.map(({ id, value, label }, index) => {
+        const dsbld = disabled || (id == 4 ? comp != "bid" : comp != "listing");
+        return (
+          <div key={id} className="status-wrapper">
             <div
-              className={`line ${
-                statuses.findIndex(({ value }) => currentStatus == value) >
-                index
+              onClick={() => handleChangeStatusClick(value, dsbld)}
+              className={`status  ${
+                statuses.findIndex(({ value }) =>
+                  currentStatus ? currentStatus == value : value == ""
+                ) >= index
                   ? "active"
                   : ""
-              }`}
-            ></div>
-          )}
-        </div>
-      ))}
+              } ${dsbld ? "disabled" : ""}`}
+            >
+              {label}
+            </div>
+            {index < statuses.length - 1 && (
+              <div
+                className={`line ${
+                  statuses.findIndex(({ value }) => currentStatus == value) >
+                  index
+                    ? "active"
+                    : ""
+                }`}
+              ></div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

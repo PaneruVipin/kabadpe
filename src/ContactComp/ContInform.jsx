@@ -24,12 +24,12 @@ const ContInform = () => {
 
             <div className="cont-info-bx">
               <div className="cont-info-i">
-              <ion-icon name="mail-open-outline"></ion-icon>
+                <ion-icon name="mail-open-outline"></ion-icon>
               </div>
 
               <div className="right-cont-info right-cont-info2">
                 <h6>Email ID</h6>
-                <p>support@thekabadshop.com</p>
+                <p>support@kabadpe.com</p>
               </div>
             </div>
 
@@ -40,12 +40,13 @@ const ContInform = () => {
 
               <div className="right-cont-info right-cont-info2">
                 <h6>Office Address</h6>
-                <p>51, Road No 6, Kartarpura Industrial Area, 22 Godam, Jaipur, Rajasthan - 302006</p>
+                <p>
+                  51, Road No 6, Kartarpura Industrial Area, 22 Godam, Jaipur,
+                  Rajasthan - 302006
+                </p>
               </div>
             </div>
           </div>
-
-         
         </div>
       </section>
     </>

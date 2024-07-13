@@ -4,9 +4,12 @@ import { FaLeaf } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa6";
 import Addpostpopup from "./Addpostpopup";
 import { useSelector } from "react-redux";
-const Climconectfolowerprofile = ({ refetch }) => {
+import { useQuery } from "@tanstack/react-query";
+import { climeconnectionsFetch } from "../apis/blogs/followers";
+const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
   const [addPost, setAddPost] = useState(false);
   const { userInfo } = useSelector((s) => s.user);
+
   return (
     <>
       <div className="clim-conect-prof-box">
@@ -18,13 +21,13 @@ const Climconectfolowerprofile = ({ refetch }) => {
           <h4>{userInfo?.fullname}</h4>
           <div className="post-folow-flex">
             <h6>
-              10 <span>Post</span>{" "}
+              {post?.length || 0} <span>Post</span>{" "}
             </h6>
             <h6>
-              50 <span>Follower</span>{" "}
+              {followers?.length || 0} <span>Follower</span>{" "}
             </h6>
             <h6>
-              35 <span>Following</span>{" "}
+              {followings?.length || 0} <span>Following</span>{" "}
             </h6>
           </div>
         </div>

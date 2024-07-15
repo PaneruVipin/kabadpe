@@ -6,8 +6,9 @@ import Addpostpopup from "./Addpostpopup";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { climeconnectionsFetch } from "../apis/blogs/followers";
+import SharePost from "./SharePost";
 const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
-  const [addPost, setAddPost] = useState(false);
+
   const { userInfo } = useSelector((s) => s.user);
 
   return (
@@ -33,48 +34,7 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
         </div>
       </div>
 
-      <div className="share-post-main-box">
-        <div onClick={() => setAddPost(true)} className="share-post-btn">
-          <div className="share-post-img">
-            <img src={userInfo?.profileImage} alt="" />
-          </div>
-          <span>Share something</span>
-        </div>
-
-        <div className="img-tag-fund-cate-main-flex">
-          <div className="img-tag-fund-flex-bx">
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <GrGallery />
-              </div>
-              <span>Image</span>
-            </div>
-
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <FaUserTag />
-              </div>
-              <span>Tag friend</span>
-            </div>
-
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <FaLeaf />
-              </div>
-              <span>Fund raise</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {addPost ? (
-        <Addpostpopup
-          onClickClosePost={() => {
-            refetch();
-            setAddPost(false);
-          }}
-        />
-      ) : null}
+      <SharePost refetch={refetch} />
     </>
   );
 };

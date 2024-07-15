@@ -11,10 +11,17 @@ import {
 } from "../apis/blogs/followers.js";
 import { likeUnlikeBlog } from "../apis/blogs/like.js";
 import { useQuery } from "@tanstack/react-query";
-const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
+import Addpostpopup from "./Addpostpopup.jsx";
+const Climconnectpost = ({
+  data,
+  comp = "profile",
+  refetch: refetchData,
+  sortFn = () => {},
+}) => {
   const [showBoxes, setShowBoxes] = useState(4);
   const [loginForm, setLoginForm] = useState(false);
-  const [follows, setFollows] = useState({});
+  const [editPost, setEditPost] = useState(false);
+  const [selectedValues, setSelectedValues] = useState({});
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
   };
@@ -43,6 +50,7 @@ const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
     <>
       <div className="clim-conect-post-grid-bx">
         {data
+          ?.sort(sortFn)
           ?.slice(0, showBoxes)
           ?.map(
             ({
@@ -55,6 +63,8 @@ const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
               author,
               BlogComments,
               BlogLikes,
+              BlogViews,
+              ...rest
             }) => {
               const ctg = climeCategories.find(
                 ({ name }) => name == categoryName
@@ -72,10 +82,31 @@ const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
               const newLikeStatus = likeStatus ? "delete" : "active";
               return (
                 <div
-                  style={{ backgroundColor: ctg?.colorCode }}
+                  style={{ backgroundColor: ctg?.colorCode, paddingTop: "0px" }}
                   className={"cc-post-bx"}
                   key={id}
                 >
+                  {comp == "profile" ? (
+                    <div style={{ display: "flex", justifyContent: "end" }}>
+                      <button
+                        className="edit-button"
+                        onClick={() => {
+                          setSelectedValues({
+                            id,
+                            image,
+                            categoryName,
+                            title,
+                            content,
+                            author,
+                            ...rest,
+                          });
+                          setEditPost(true);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  ) : null}
                   <div className="cc-post-img-flex">
                     <img
                       style={{
@@ -188,6 +219,16 @@ const Climconnectpost = ({ data, comp = "profile", refetch: refetchData }) => {
       </button>
       {loginForm ? (
         <UserForm closepopUpUserForm={() => setLoginForm(false)} />
+      ) : null}
+      {editPost ? (
+        <Addpostpopup
+          initialValues={selectedValues}
+          onClickClosePost={() => {
+            refetch();
+            refetchData()
+            setEditPost(false);
+          }}
+        />
       ) : null}
     </>
   );

@@ -34,7 +34,7 @@ export const BlogDetail = ({ id }) => {
   };
   const { data: post, refetch } = useQuery({
     queryKey: ["blogPostFetchOne"],
-    queryFn: () => blogPostFetchOne({ id }),
+    queryFn: () => blogPostFetchOne({ id, views: "yes" }),
   });
   const image = JSON.parse(post?.image || "[]");
   const path = window.location;
@@ -85,7 +85,10 @@ export const BlogDetail = ({ id }) => {
 
                   <h6>{post?.title}</h6>
 
-                  <div style={{color:"black"}} dangerouslySetInnerHTML={{ __html: post?.content }} />
+                  <div
+                    style={{ color: "black" }}
+                    dangerouslySetInnerHTML={{ __html: post?.content }}
+                  />
                 </div>
 
                 {/* <div className="blog-det-img-grid">

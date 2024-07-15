@@ -28,7 +28,7 @@ const Clinconnectpage = () => {
         <section className="clim-connect-comp">
           <div className="clim-connect-logo-search-flex-bx">
             <div className="clim-connect-logo">
-              <img src="/images/customImg/logo.png" alt="" />
+              <img src="/climconnect-logo.png" alt="" />
             </div>
 
             <div className="clim-conect-search">

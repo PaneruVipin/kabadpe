@@ -1,5 +1,4 @@
 export const filteredData = (data = [], filter = []) => {
-  console.log("this is data and fltr", data, filter);
   let newData = data;
   filter?.forEach(({ fn }) => {
     newData = newData?.filter(fn);

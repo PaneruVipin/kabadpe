@@ -3,10 +3,10 @@ import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
 export const blogPostFetch = resolvePromise(
-  async ({ postScope, includeOnly }) => {
+  async ({ postScope, includeOnly, search = "" }) => {
     const apiUrl =
       ENV_API_BASE_URL +
-      `/blog/posts?postScope=${postScope}&includeOnly=${includeOnly}`;
+      `/blog/posts?postScope=${postScope}&includeOnly=${includeOnly}&search=${search}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

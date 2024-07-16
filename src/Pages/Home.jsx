@@ -21,7 +21,7 @@ import InfiniteSliderWaste from "../AdminComponents.jsx/InfiniteSliderWaste";
 import DownloadApp from "../HomeComponent/DownloadApp";
 // import AdsBanner from "../HomeComponent/AdsBanner";
 
-const Home = ({ setUserForm }) => {
+const Home = ({ setUserForm,}) => {
   const location = useLocation();
   const [counter, setCounter] = useState(0);
 

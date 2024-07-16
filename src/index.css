@@ -14887,7 +14887,7 @@ video {
 .blog-front-comp {
   position: relative;
   width: 100%;
-  padding: 5rem 1.76rem;
+  /* padding: 5rem 1.76rem; */
 }
 
 .blog-front-grid-main {
@@ -15083,6 +15083,9 @@ video {
 }
 
 .categ-btn:hover {
+  color: #2ac4c8;
+}
+.categ-btn.active {
   color: #2ac4c8;
 }
 
@@ -18772,4 +18775,12 @@ video {
 
 .edit-button:hover::after {
   transform: scaleX(1); /* Show underline on hover */
+}
+
+.edit-button.remove::after{
+  background-color: red;
+}
+
+.edit-button.remove{
+  color: red;
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ClimconnectPostData } from "./climconnectpost.js";
 import { climeCategories } from "../lib/climeCategories.js";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -12,6 +11,7 @@ import {
 import { likeUnlikeBlog } from "../apis/blogs/like.js";
 import { useQuery } from "@tanstack/react-query";
 import Addpostpopup from "./Addpostpopup.jsx";
+import { blogPostEdit } from "../apis/blogs/blog.js";
 const Climconnectpost = ({
   data,
   comp = "profile",
@@ -87,7 +87,13 @@ const Climconnectpost = ({
                   key={id}
                 >
                   {comp == "profile" ? (
-                    <div style={{ display: "flex", justifyContent: "end" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "end",
+                        columnGap: "20px",
+                      }}
+                    >
                       <button
                         className="edit-button"
                         onClick={() => {
@@ -105,6 +111,15 @@ const Climconnectpost = ({
                       >
                         Edit
                       </button>
+                      <button
+                        className="edit-button remove"
+                        onClick={async () => {
+                          await blogPostEdit({ id, blogStatus: "delete" });
+                          refetchData();
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   ) : null}
                   <div className="cc-post-img-flex">
@@ -120,7 +135,7 @@ const Climconnectpost = ({
                   <div className="cc-post-info-data">
                     <div className="cc-post-img-prof">
                       <img
-                        src={User ? User?.profileImage : "./favicon.jpg"}
+                        src={User ? User?.profileImage : "/favicon.jpg"}
                         alt=""
                       />
                       <div className="cc-post-det">
@@ -225,7 +240,7 @@ const Climconnectpost = ({
           initialValues={selectedValues}
           onClickClosePost={() => {
             refetch();
-            refetchData()
+            refetchData();
             setEditPost(false);
           }}
         />

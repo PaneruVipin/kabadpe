@@ -1,34 +1,49 @@
-import React, { useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import InstaFeed from "../HomeComponent/InstaFeed";
 import MainFooter from "../HomeComponent/MainFooter";
 import { useQuery } from "@tanstack/react-query";
-import { blogPostFetchOne } from "../apis/blogs/blog";
+import { blogPostFetch, blogPostFetchOne } from "../apis/blogs/blog";
 import { FaShareAlt } from "react-icons/fa";
 import { DateTime } from "luxon";
 import { commentBlogPost } from "../apis/blogs/comment";
 import { toast } from "react-toastify";
 import UserForm from "../Components/UserForm";
 import { useSelector } from "react-redux";
+import { debounceAsync } from "../lib/debounce";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  FacebookShareCount,
+  LinkedinShareButton,
+} from "react-share";
+import ClimeOutlet from "./ClimeOutLet";
+import { climeCategories } from "../lib/climeCategories";
+import Climconnectpost from "../ClimconnectComp/Climconnectpost.jsx";
 
 const BlogDet = () => {
   const { id } = useParams();
+  const state = useState("");
   return (
     <>
       <Header />
-      <BlogDetail id={id} />
-      <InstaFeed />
-      <MainFooter />
+      <ClimeOutlet state={state}>
+        <BlogDetail state={state} id={id} />
+        <InstaFeed />
+        <MainFooter />
+      </ClimeOutlet>
     </>
   );
 };
 
-export const BlogDetail = ({ id }) => {
+export const BlogDetail = ({ id, state }) => {
+  const hello = useLocation();
   const [comment, setComment] = useState("");
   const { userInfo } = useSelector((s) => s?.user);
   const [loginForm, setLoginForm] = useState(false);
   const [showBoxes, setShowBoxes] = useState(4);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
   };
@@ -59,39 +74,63 @@ export const BlogDetail = ({ id }) => {
     setComment("");
     toast.success(res);
   });
+  const { data: posts, refetch: refetchAllPost } = useQuery({
+    queryKey: ["blogpostssearch"],
+    queryFn: () => blogPostFetch({ search: selectedCategory || state?.[0] }),
+  });
+  useEffect(() => {
+    setSelectedCategory("");
+    debounceAsync(refetchAllPost, 300)();
+  }, [state?.[0]]);
+  useEffect(() => {
+    refetchAllPost();
+  }, [selectedCategory]);
+  useEffect(() => {
+    setSelectedCategory("");
+    refetch();
+    state[1]("");
+  }, [id, hello.key]);
+
   return (
     <section className="blog-front-comp">
       <div className="common-container">
         <div className="blog-front-grid-main">
-          {!post?.error ? (
-            <div className="blog-det-left-box">
-              <div className="blog-det-bx">
-                <div className="blog-det-img">
-                  <img src={image?.[0]} alt="" />
-                </div>
-
-                <div className="blog-det-info">
-                  <div className="blog-date-admin-com-flex">
-                    <span>
-                      {DateTime.fromISO(post?.addedOn, {
-                        zone: "utc",
-                      })
-                        .setZone("Asia/Kolkata")
-                        .toFormat("ccc dd LLL yyyy")}
-                    </span>
-                    {!post?.userId ? <span>by admin</span> : null}
-                    <span>{post?.BlogComments?.length} Comments</span>
+          <div className="blog-det-left-box">
+            {selectedCategory || state?.[0] ? (
+              <Climconnectpost
+                comp="search"
+                refetch={refetchAllPost}
+                data={!posts?.error ? posts : []}
+              />
+            ) : !post?.error ? (
+              <>
+                <div className="blog-det-bx">
+                  <div className="blog-det-img">
+                    <img src={image?.[0]} alt="" />
                   </div>
 
-                  <h6>{post?.title}</h6>
+                  <div className="blog-det-info">
+                    <div className="blog-date-admin-com-flex">
+                      <span>
+                        {DateTime.fromISO(post?.addedOn, {
+                          zone: "utc",
+                        })
+                          .setZone("Asia/Kolkata")
+                          .toFormat("ccc dd LLL yyyy")}
+                      </span>
+                      {!post?.userId ? <span>by admin</span> : null}
+                      <span>{post?.BlogComments?.length} Comments</span>
+                    </div>
 
-                  <div
-                    style={{ color: "black" }}
-                    dangerouslySetInnerHTML={{ __html: post?.content }}
-                  />
-                </div>
+                    <h6>{post?.title}</h6>
 
-                {/* <div className="blog-det-img-grid">
+                    <div
+                      style={{ color: "black" }}
+                      dangerouslySetInnerHTML={{ __html: post?.content }}
+                    />
+                  </div>
+
+                  {/* <div className="blog-det-img-grid">
                   <div className="blog-det-img-bx">
                     <img src="/images/customImg/post-7.jpg" alt="" />
                   </div>
@@ -127,184 +166,159 @@ export const BlogDetail = ({ id }) => {
                   </p>
                 </div> */}
 
-                <div className="tag-follow-flex-main">
-                  {post?.seoTags ? (
-                    <div className="tag-follow-flex-bx">
-                      <h5>Tags:</h5>
+                  <div className="tag-follow-flex-main">
+                    {post?.seoTags ? (
+                      <div className="tag-follow-flex-bx">
+                        <h5>Tags:</h5>
+                        <div className="tag-flex-bx">
+                          {post?.seoTags?.split(",")?.map((t) => (
+                            <button key={t} className="tag-btn">
+                              {t}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    <div className="tag-follow-flex-bx tag-soc-flex-bx">
+                      <h5>Share Post:</h5>
                       <div className="tag-flex-bx">
-                        {post?.seoTags?.split(",")?.map((t) => (
-                          <button key={t} className="tag-btn">
-                            {t}
-                          </button>
-                        ))}
+                        <NavLink to="#">
+                          <FacebookShareButton url={path?.href}>
+                            <i class="fa-brands fa-facebook"></i>
+                          </FacebookShareButton>
+                        </NavLink>
+
+                        <NavLink to="#">
+                          <FacebookShareButton url={path?.href}>
+                            <i class="fa-brands fa-twitter"></i>
+                          </FacebookShareButton>
+                        </NavLink>
+
+                        <NavLink to="#">
+                          <LinkedinShareButton
+                            url={"https://kabadpe.com" || path?.href}
+                          >
+                            <i class="fa-brands fa-linkedin"></i>
+                          </LinkedinShareButton>
+                        </NavLink>
+                        <NavLink
+                          to="#"
+                          onClick={() => {
+                            navigator.share({
+                              title: post?.title || "hello",
+                              text: path?.href,
+                            });
+                          }}
+                        >
+                          <FaShareAlt />
+                        </NavLink>
                       </div>
                     </div>
-                  ) : null}
+                  </div>
+                </div>{" "}
+                <div className=" comment-main show-commnets-box">
+                  <h5> {post?.BlogComments?.length} Comments</h5>
 
-                  <div className="tag-follow-flex-bx tag-soc-flex-bx">
-                    <h5>Share Post:</h5>
-                    <div className="tag-flex-bx">
-                      <NavLink
-                        to="#"
-                        onClick={() => {
-                          navigator.share({
-                            title: post?.title || "hello",
-                            text: path?.href,
-                          });
-                        }}
-                      >
-                        <FaShareAlt />
-                      </NavLink>
+                  <div className="user-comn-list mt-4">
+                    {!post?.error
+                      ? post?.BlogComments?.slice(0, showBoxes).map(
+                          ({ id, comment, User }) => (
+                            <div className="user-comnt-bx " key={id}>
+                              <div className="user-comnt-img">
+                                <img src={User?.profileImage} alt="" />
+                              </div>
+                              <div className="user-comnt-det">
+                                <h6>{User?.fullname}</h6>
+                                <span></span>
+                                {/* khushi124@gmail.com */}
+                                <p>{comment}</p>
+                              </div>
+                            </div>
+                          )
+                        )
+                      : null}
 
-                      {/* <NavLink to="#"> 
-                        <i class="fa-brands fa-facebook"></i>
-                      </NavLink>
-
-                      <NavLink to="#">
-                        <i class="fa-brands fa-instagram"></i>
-                      </NavLink>
-
-                      <NavLink to="#">
-                        <i class="fa-brands fa-linkedin"></i>
-                      </NavLink> */}
-                    </div>
+                    <button onClick={handleLoadMore} className="load-more-btn">
+                      Load More
+                    </button>
                   </div>
                 </div>
-              </div>
-
-              <div className=" comment-main show-commnets-box">
-                <h5> {post?.BlogComments?.length} Comments</h5>
-
-                <div className="user-comn-list mt-4">
-                  {!post?.error
-                    ? post?.BlogComments?.slice(0, showBoxes).map(
-                        ({ id, comment, User }) => (
-                          <div className="user-comnt-bx " key={id}>
-                            <div className="user-comnt-img">
-                              <img src={User?.profileImage} alt="" />
-                            </div>
-                            <div className="user-comnt-det">
-                              <h6>{User?.fullname}</h6>
-                              <span></span>
-                              {/* khushi124@gmail.com */}
-                              <p>{comment}</p>
-                            </div>
-                          </div>
-                        )
-                      )
-                    : null}
-
-                  <button onClick={handleLoadMore} className="load-more-btn">
-                    Load More
+                <div className="comment-main">
+                  <h5>Leave A Comments</h5>
+                  <div className="comnt-messge comnt-inpt">
+                    <textarea
+                      onChange={commentProtectClick((e) =>
+                        setComment(e.target.value)
+                      )}
+                      value={comment}
+                      name="message"
+                      id="message"
+                      cols="30"
+                      rows="5"
+                      placeholder="Message"
+                    ></textarea>
+                  </div>
+                  <button
+                    onClick={handleSubmitComment}
+                    className="tag-btn comnt-btn-m mt-4"
+                  >
+                    Submit Comment
                   </button>
                 </div>
-              </div>
-
-              <div className="comment-main">
-                <h5>Leave A Comments</h5>
-                <div className="comnt-messge comnt-inpt">
-                  <textarea
-                    onChange={commentProtectClick((e) =>
-                      setComment(e.target.value)
-                    )}
-                    value={comment}
-                    name="message"
-                    id="message"
-                    cols="30"
-                    rows="5"
-                    placeholder="Message"
-                  ></textarea>
-                </div>
-                <button
-                  onClick={handleSubmitComment}
-                  className="tag-btn comnt-btn-m mt-4"
-                >
-                  Submit Comment
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div>post not found</div>
-          )}
+              </>
+            ) : (
+              <div>Post Not Found</div>
+            )}
+          </div>
           <div className="blog-right-main">
-            <h5>Search</h5>
-
-            <div className="blog-search-bx">
-              <input
-                type="text"
-                name="blogsearch"
-                id="blogsearch"
-                placeholder="Search..."
-              />
-              <button>
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
-            </div>
-
             <h5>Categories</h5>
 
             <div className="categ-list">
-              <button className="categ-btn">Health</button>
-
-              <button className="categ-btn">Beauty</button>
-
-              <button className="categ-btn">Travel</button>
-
-              <button className="categ-btn">Tips & Tricks</button>
-
-              <button className="categ-btn">Top Rated</button>
+              {climeCategories?.map(({ name }) => (
+                <button
+                  onClick={() => setSelectedCategory(name)}
+                  className={`categ-btn ${
+                    selectedCategory == name ? "active" : ""
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
             </div>
 
             <h5>Popular Posts</h5>
 
             <div className="pop-post-flex">
-              <div className="post-card">
-                <div className="post-c-img">
-                  <img src="/images/customImg/post-2.jpg" alt="" />
-                </div>
-                <div className="post-c-info">
-                  <NavLink to="#">
-                    The biebers just up their couple style.
-                  </NavLink>
-                  <span>June 06, 2020</span>
-                </div>
-              </div>
-
-              <div className="post-card">
-                <div className="post-c-img">
-                  <img src="/images/customImg/post-4.jpg" alt="" />
-                </div>
-                <div className="post-c-info">
-                  <NavLink to="#">
-                    The biebers just up their couple style.
-                  </NavLink>
-                  <span>June 06, 2020</span>
-                </div>
-              </div>
-
-              <div className="post-card">
-                <div className="post-c-img">
-                  <img src="/images/customImg/post-6.jpg" alt="" />
-                </div>
-                <div className="post-c-info">
-                  <NavLink to="#">
-                    The biebers just up their couple style.
-                  </NavLink>
-                  <span>June 06, 2020</span>
-                </div>
-              </div>
-
-              <div className="post-card">
-                <div className="post-c-img">
-                  <img src="/images/customImg/post-3.jpg" alt="" />
-                </div>
-                <div className="post-c-info">
-                  <NavLink to="#">
-                    The biebers just up their couple style.
-                  </NavLink>
-                  <span>June 06, 2020</span>
-                </div>
-              </div>
+              {!posts?.error
+                ? posts
+                    ?.slice(0, 4)
+                    ?.map(({ image, title, id, content, addedOn }) => {
+                      let img = JSON.parse(image || "[]");
+                      return (
+                        <NavLink
+                          to={`/climconnect/blog/${btoa(id)}`}
+                          key={id}
+                          className="post-card"
+                        >
+                          <div className="post-c-img">
+                            <img src={img?.[0]} alt="" />
+                          </div>
+                          <div className="post-c-info">
+                            <NavLink to="#">{title}</NavLink>
+                            <span>
+                              {" "}
+                              {DateTime.fromISO(addedOn, {
+                                zone: "utc",
+                              })
+                                .setZone("Asia/Kolkata")
+                                .toFormat("ccc dd LLL yyyy")}
+                            </span>
+                          </div>
+                        </NavLink>
+                      );
+                    })
+                : null}
             </div>
           </div>
         </div>

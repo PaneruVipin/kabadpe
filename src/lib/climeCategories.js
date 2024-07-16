@@ -8,5 +8,6 @@ export const climeCategories = [
   { name: "Sustainable Fasion & cosmetics", colorCode: "#dfc5ff" },
   { name: "Eco-Tourism", colorCode: "#c8fae3" },
   { name: "Culture, art & food", colorCode: "#dfebff" },
-  { name: "ClimStripe Shift corne", colorCode: "#f7eaee" },
+  { name: "ClimStripe Shift corne", colorCode: "#eabea0" },
+  { name: "Green Jobs", colorCode: "#e8e6ae" },
 ];

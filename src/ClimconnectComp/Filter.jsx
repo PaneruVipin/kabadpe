@@ -6,7 +6,7 @@ const FilterBar = ({ initialFilter = "feed", onFilterChange }) => {
   const filters = [
     { value: "feed", text: "Feed" },
     { value: "trending", text: "Trending" },
-    { value: "thematic", text: "Thematic" },
+    // { value: "thematic", text: "Thematic" },
     { value: "mostLiked", text: "Most Liked" },
     { value: "mostViewed", text: "Most Viewed" },
   ];

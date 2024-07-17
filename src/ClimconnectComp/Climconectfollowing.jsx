@@ -28,7 +28,7 @@ const Climconectfollowing = () => {
                 <div className="climconect-user-folow-bx">
                   <div className="folower-left-bx">
                     <div className="user-folow-img">
-                      <img src={User?.profileImage} alt="" />
+                      <img src={User?.profileImage || "/images/temp/temp-user-profile.png"} alt="" />
                     </div>
                     <div className="user-folow-info">
                       {/* <span>{theahmed08}</span> */}

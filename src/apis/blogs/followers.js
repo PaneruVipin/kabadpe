@@ -44,3 +44,14 @@ export const climeconnectionsFetch = resolvePromise(
     return res?.connections;
   }
 );
+
+export const searchClimeUsers = resolvePromise(async ({ query }) => {
+  const apiUrl = ENV_API_BASE_URL + `/climeconnect/users/search/${query}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.users;
+});

@@ -135,7 +135,12 @@ const Climconnectpost = ({
                   <div className="cc-post-info-data">
                     <div className="cc-post-img-prof">
                       <img
-                        src={User ? User?.profileImage : "/favicon.jpg"}
+                        src={
+                          User
+                            ? User?.profileImage ||
+                              "/images/temp/temp-user-profile.png"
+                            : "/favicon.jpg"
+                        }
                         alt=""
                       />
                       <div className="cc-post-det">

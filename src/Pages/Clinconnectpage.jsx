@@ -20,29 +20,31 @@ import Climconectfollowing from "../ClimconnectComp/Climconectfollowing";
 import Protect from "../Components/Auth/ProtectComp";
 import UserForm from "../Components/UserForm";
 import ClimeOutlet from "./ClimeOutLet";
+import SearchUserPopup from "../ClimconnectComp/SearchUserPopup";
 
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
-
+  const state = useState("");
   return (
     <>
-      <ClimeOutlet>
-        <div className="clim-connect-grid-bx">
-          <div className="clim-connect-side-menu">
-            <div className="clim-conect-side-menu-list-bx">
-              <li
-                onClick={() => setClimConnectMenu("feed")}
-                className={
-                  climConnectMenu === "feed"
-                    ? "clim-connect-menu-btn climconectmenuactive"
-                    : "clim-connect-menu-btn"
-                }
-              >
-                <AiOutlineAppstoreAdd className="clim-icon" />
-                <span>Feed</span>
-              </li>
+      <ClimeOutlet state={state}>
+        {!state?.[0] ? (
+          <div className="clim-connect-grid-bx">
+            <div className="clim-connect-side-menu">
+              <div className="clim-conect-side-menu-list-bx">
+                <li
+                  onClick={() => setClimConnectMenu("feed")}
+                  className={
+                    climConnectMenu === "feed"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <AiOutlineAppstoreAdd className="clim-icon" />
+                  <span>Feed</span>
+                </li>
 
-              {/* <li
+                {/* <li
                   onClick={() => setClimConnectMenu("support")}
                   className={
                     climConnectMenu === "support"
@@ -78,63 +80,69 @@ const Clinconnectpage = () => {
                   <span>My Campaign</span>
                 </li> */}
 
-              <li
-                onClick={() => setClimConnectMenu("message")}
-                className={
-                  climConnectMenu === "message"
-                    ? "clim-connect-menu-btn climconectmenuactive"
-                    : "clim-connect-menu-btn"
-                }
-              >
-                <BiMessageDetail className="clim-icon" />
-                <span>Message</span>
-              </li>
+                <li
+                  onClick={() => setClimConnectMenu("message")}
+                  className={
+                    climConnectMenu === "message"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <BiMessageDetail className="clim-icon" />
+                  <span>Message</span>
+                </li>
 
-              <li
-                onClick={() => setClimConnectMenu("folowing")}
-                className={
-                  climConnectMenu === "folowing"
-                    ? "clim-connect-menu-btn climconectmenuactive"
-                    : "clim-connect-menu-btn"
-                }
-              >
-                <RiUserFollowFill className="clim-icon" />
-                <span>Following</span>
-              </li>
+                <li
+                  onClick={() => setClimConnectMenu("folowing")}
+                  className={
+                    climConnectMenu === "folowing"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <RiUserFollowFill className="clim-icon" />
+                  <span>Following</span>
+                </li>
 
-              <li
-                onClick={() => setClimConnectMenu("profile")}
-                className={
-                  climConnectMenu === "profile"
-                    ? "clim-connect-menu-btn climconectmenuactive"
-                    : "clim-connect-menu-btn"
-                }
-              >
-                <FaUserTag className="clim-icon" />
-                <span>Profile</span>
-              </li>
+                <li
+                  onClick={() => setClimConnectMenu("profile")}
+                  className={
+                    climConnectMenu === "profile"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <FaUserTag className="clim-icon" />
+                  <span>Profile</span>
+                </li>
 
-              <li
-                onClick={() => setClimConnectMenu("notification")}
-                className={
-                  climConnectMenu === "notification"
-                    ? "clim-connect-menu-btn climconectmenuactive"
-                    : "clim-connect-menu-btn"
-                }
-              >
-                <FaBell className="clim-icon" />
-                <span>Notifications</span>
-              </li>
+                <li
+                  onClick={() => setClimConnectMenu("notification")}
+                  className={
+                    climConnectMenu === "notification"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <FaBell className="clim-icon" />
+                  <span>Notifications</span>
+                </li>
+              </div>
             </div>
+
+            {climConnectMenu === "profile" ? <Climconnectrightpart /> : null}
+            {climConnectMenu === "feed" ? <ClimconnectFeed /> : null}
+            {climConnectMenu === "message" ? <ClimconectChat /> : null}
+            {climConnectMenu === "folowing" ? <Climconectfollowing /> : null}
+
+            <Climconeectproduct />
           </div>
-
-          {climConnectMenu === "profile" ? <Climconnectrightpart /> : null}
-          {climConnectMenu === "feed" ? <ClimconnectFeed /> : null}
-          {climConnectMenu === "message" ? <ClimconectChat /> : null}
-          {climConnectMenu === "folowing" ? <Climconectfollowing /> : null}
-
-          <Climconeectproduct />
-        </div>
+        ) : (
+          <SearchUserPopup
+            onCloseClick={() => state?.[1]("")}
+            query={state?.[0]}
+          />
+        )}
       </ClimeOutlet>
     </>
   );

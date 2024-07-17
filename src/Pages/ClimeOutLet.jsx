@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const ClimeOutlet = ({ children, state }) => {
   const [value, setValue] = state || useState("");
@@ -9,9 +10,9 @@ const ClimeOutlet = ({ children, state }) => {
     <>
       <section className="clim-connect-comp">
         <div className="clim-connect-logo-search-flex-bx">
-          <div className="clim-connect-logo">
+          <NavLink to={"/climconnect"} className="clim-connect-logo">
             <img src="/climconnect-logo.png" alt="" />
-          </div>
+          </NavLink>
 
           <div className="clim-conect-search">
             <input

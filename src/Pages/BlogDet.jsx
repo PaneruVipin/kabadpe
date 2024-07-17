@@ -17,6 +17,7 @@ import {
   FacebookShareButton,
   FacebookShareCount,
   LinkedinShareButton,
+  TwitterShareButton,
 } from "react-share";
 import ClimeOutlet from "./ClimeOutLet";
 import { climeCategories } from "../lib/climeCategories";
@@ -190,15 +191,13 @@ export const BlogDetail = ({ id, state }) => {
                         </NavLink>
 
                         <NavLink to="#">
-                          <FacebookShareButton url={path?.href}>
+                          <TwitterShareButton url={path?.href}>
                             <i class="fa-brands fa-twitter"></i>
-                          </FacebookShareButton>
+                          </TwitterShareButton>
                         </NavLink>
 
                         <NavLink to="#">
-                          <LinkedinShareButton
-                            url={"https://kabadpe.com" || path?.href}
-                          >
+                          <LinkedinShareButton url={path?.href}>
                             <i class="fa-brands fa-linkedin"></i>
                           </LinkedinShareButton>
                         </NavLink>
@@ -206,7 +205,7 @@ export const BlogDetail = ({ id, state }) => {
                           to="#"
                           onClick={() => {
                             navigator.share({
-                              title: post?.title || "hello",
+                              title: post?.title,
                               text: path?.href,
                             });
                           }}

@@ -18784,3 +18784,10 @@ video {
 .edit-button.remove{
   color: red;
 }
+
+.edit-button.black{
+  color: black;
+}
+.edit-button.black::after{
+  background-color: black;
+}

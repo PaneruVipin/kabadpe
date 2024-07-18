@@ -119,8 +119,13 @@ export const BlogDetail = ({ id, state }) => {
                           .setZone("Asia/Kolkata")
                           .toFormat("ccc dd LLL yyyy")}
                       </span>
-                      {!post?.userId ? <span>by admin</span> : null}
+                      {!post?.userId ? (
+                        <span>by admin</span>
+                      ) : (
+                        <span>by {post?.User?.fullname}</span>
+                      )}
                       <span>{post?.BlogComments?.length} Comments</span>
+                      <span>{post?.BlogLikes?.length} Likes</span>
                     </div>
 
                     <h6>{post?.title}</h6>

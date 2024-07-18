@@ -12,15 +12,19 @@ import { likeUnlikeBlog } from "../apis/blogs/like.js";
 import { useQuery } from "@tanstack/react-query";
 import Addpostpopup from "./Addpostpopup.jsx";
 import { blogPostEdit } from "../apis/blogs/blog.js";
+import { FaEllipsis } from "react-icons/fa6";
+import ReportPopup from "./ReportPopup.jsx";
 const Climconnectpost = ({
   data,
   comp = "profile",
   refetch: refetchData,
   sortFn = () => {},
 }) => {
+  const [settingPopup, setSettingPopup] = useState({});
   const [showBoxes, setShowBoxes] = useState(4);
   const [loginForm, setLoginForm] = useState(false);
   const [editPost, setEditPost] = useState(false);
+  const [reportPost, setReportPost] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
@@ -86,42 +90,95 @@ const Climconnectpost = ({
                   className={"cc-post-bx"}
                   key={id}
                 >
-                  {comp == "profile" ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "end",
-                        columnGap: "20px",
-                      }}
-                    >
-                      <button
-                        className="edit-button"
-                        onClick={() => {
-                          setSelectedValues({
-                            id,
-                            image,
-                            categoryName,
-                            title,
-                            content,
-                            author,
-                            ...rest,
-                          });
-                          setEditPost(true);
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "end",
+                      columnGap: "20px",
+                    }}
+                  >
+                    <FaEllipsis
+                      onClick={() => setSettingPopup({ [id]: true })}
+                      style={{ color: "black", cursor: "pointer" }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      position: "relative",
+                    }}
+                  >
+                    {settingPopup?.[id] ? (
+                      <div
+                        onMouseLeave={() => setSettingPopup({})}
+                        style={{
+                          position: "absolute",
+                          zIndex: 100,
+                          backgroundColor: "white",
+                          borderRadius: "5px",
+                          top: "-15px",
+                          right: "-10px",
+                          padding: "5px 2px",
                         }}
                       >
-                        Edit
-                      </button>
-                      <button
-                        className="edit-button remove"
-                        onClick={async () => {
-                          await blogPostEdit({ id, blogStatus: "delete" });
-                          refetchData();
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ) : null}
+                        {comp == "profile" ? (
+                          <>
+                            <button
+                              onClick={() => {
+                                setSelectedValues({
+                                  id,
+                                  image,
+                                  categoryName,
+                                  title,
+                                  content,
+                                  author,
+                                  ...rest,
+                                });
+                                setEditPost(true);
+                              }}
+                              style={{
+                                padding: "5px 20px",
+                                color: "black",
+                                textDecoration: "2px",
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className=""
+                              style={{
+                                padding: "5px 20px",
+                                color: "black",
+                                textDecoration: "2px",
+                              }}
+                              onClick={async () => {
+                                await blogPostEdit({
+                                  id,
+                                  blogStatus: "delete",
+                                });
+                                refetchData();
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </>
+                        ) : null}
+                        <button
+                          className=""
+                          style={{
+                            padding: "5px 20px",
+                            color: "black",
+                            textDecoration: "2px",
+                          }}
+                          onClick={protectClick(() => {
+                            setSelectedValues({ id });
+                            setReportPost(true);
+                          })}
+                        >
+                          Report
+                        </button>
+                      </div>
+                    ) : null}
+                  </div>
                   <div className="cc-post-img-flex">
                     <img
                       style={{
@@ -247,6 +304,15 @@ const Climconnectpost = ({
             refetch();
             refetchData();
             setEditPost(false);
+          }}
+        />
+      ) : null}
+      {reportPost ? (
+        <ReportPopup
+          onClickClosePost={() => {
+            refetch();
+            refetchData();
+            setReportPost(false);
           }}
         />
       ) : null}

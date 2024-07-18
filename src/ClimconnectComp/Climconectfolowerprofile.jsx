@@ -7,8 +7,8 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { climeconnectionsFetch } from "../apis/blogs/followers";
 import SharePost from "./SharePost";
+import { NavLink } from "react-router-dom";
 const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
-
   const { userInfo } = useSelector((s) => s.user);
 
   return (
@@ -17,7 +17,22 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
         <div className="left-prof-img-bx-cc">
           <img src={userInfo?.profileImage} alt="" />
         </div>
-
+        <div
+          style={{
+            position: "absolute",
+            top: "0px",
+            right: "0px",
+            display: "flex",
+            gap: "10px",
+          }}
+        >
+          <NavLink to={"/account?edit=true"} className="edit-button black">
+            Edit
+          </NavLink>
+          <NavLink to={"/account"} className="edit-button black">
+            Dashboard
+          </NavLink>
+        </div>
         <div className="right-cc-prof-info">
           <h4>{userInfo?.fullname}</h4>
           <div className="post-folow-flex">

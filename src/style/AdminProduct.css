@@ -25,13 +25,23 @@
     gap: 1rem;
  }
 
+
+
  .breadcrum-main-box h6{
     position: relative;
     font-size: 1rem;
     font-weight: 500;
-    color: #0ea5e9;
+    color: #21272a;
     letter-spacing: .4px;
  }
+
+ .breadcrum-main-box h6.active{
+   color: #2096d0;
+}
+
+.breadcrum-main-box h6:hover{
+   color: #2096d0;
+}
 
  
  .breadcrum-main-box h6:before{
@@ -49,9 +59,9 @@
     display: none;
  }
 
- .breadcrum-main-box h6:nth-child(1){
+ /* .breadcrum-main-box h6:nth-child(1){
     color: #212121;
- }
+ } */
 
  .breadcrum-main-box h6 span{
     color: #3e3d3d;

@@ -16,6 +16,9 @@ const ReportPopup = ({ data, onClickClosePost }) => {
   return (
     <section className="add-post-comp" onClick={onClickClosePost}>
       <div className="add-post-bx" onClick={(e) => e.stopPropagation()}>
+        <div onClick={onClickClosePost} className="close-post-btn">
+          <ion-icon name="close-outline"></ion-icon>
+        </div>
         <div className="comment-main">
           <h5>Report</h5>
           <div className="comnt-messge comnt-inpt">

@@ -309,6 +309,7 @@ const Climconnectpost = ({
       ) : null}
       {reportPost ? (
         <ReportPopup
+          data={selectedValues}
           onClickClosePost={() => {
             refetch();
             refetchData();

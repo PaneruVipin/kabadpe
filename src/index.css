@@ -15077,9 +15077,9 @@ video {
 .categ-btn {
   position: relative;
   font-size: 1rem;
-  padding-left: 1rem;
+  padding-left: 2rem;
   transition: 500ms ease;
-
+  text-align: start;
 }
 
 .categ-btn:hover {
@@ -15609,7 +15609,7 @@ video {
   position: relative;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2rem;
   padding-block: 1rem;
   border-bottom: .1rem solid #eee;
@@ -16615,8 +16615,39 @@ video {
   height: 12.5rem;
   border-radius: 50%;
   border: .5rem solid #2bc2c6;
-
+  overflow: hidden;
+  text-align: center;
 }
+.prof-edit-text-btn3{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  z-index: 1;
+  cursor: pointer;
+  font-size: .95rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: 500ms ease;
+  opacity: 0;
+  color: #000248;
+
+} 
+.prof-edit-text-btn3:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  opacity: 0.8;
+  z-index: -1;
+}
+.left-prof-img-bx-cc:hover .prof-edit-text-btn3{
+         opacity: 1;
+      } 
 
 .left-prof-img-bx-cc img {
   width: 100%;

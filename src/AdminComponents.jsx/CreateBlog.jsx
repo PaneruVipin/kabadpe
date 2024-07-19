@@ -97,7 +97,7 @@ const CreateBlog = ({ data, onClose }) => {
           <div className="create-blog-grid-main">
             {!loading ? (
               <Formik
-                initialValues={edit ? edit : {}}
+                initialValues={edit ? { ...edit, isDraft: false } : {}}
                 onSubmit={handleSubmit}
                 // validationSchema={validationLoginAdmin}
               >

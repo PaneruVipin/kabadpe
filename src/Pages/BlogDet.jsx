@@ -22,10 +22,14 @@ import {
 import ClimeOutlet from "./ClimeOutLet";
 import { climeCategories } from "../lib/climeCategories";
 import Climconnectpost from "../ClimconnectComp/Climconnectpost.jsx";
-
+import { likeUnlikeBlog } from "../apis/blogs/like.js";
+import { scrollToSection } from "../lib/scroll.js";
+import { MdOutlineReport } from "react-icons/md";
+import ReportPopup from "../ClimconnectComp/ReportPopup.jsx";
 const BlogDet = () => {
   const { id } = useParams();
   const state = useState("");
+
   return (
     <>
       <Header />
@@ -44,6 +48,7 @@ export const BlogDetail = ({ id, state }) => {
   const { userInfo } = useSelector((s) => s?.user);
   const [loginForm, setLoginForm] = useState(false);
   const [showBoxes, setShowBoxes] = useState(4);
+  const [reportPopup, setReportPopup] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
@@ -92,6 +97,23 @@ export const BlogDetail = ({ id, state }) => {
     state[1]("");
   }, [id, hello.key]);
 
+  // const { data: connections, refetch } = useQuery({
+  //   queryKey: ["climeconnectionsFetch"],
+  //   queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+  // });
+  // const handleFollowUnfollowClick = async (id, followingStatus) => {
+  //   const res = await climeFollowUnfollow({ id, followingStatus });
+  //   refetch();
+  // };
+  const handleLikeUnlikeClick = async (id, status) => {
+    const res = await likeUnlikeBlog({ id, status });
+    refetch();
+    refetchData();
+  };
+  const likeStatus = post?.BlogLikes?.find(
+    ({ userId }) => userId == userInfo?.id
+  );
+  const newLikeStatus = likeStatus ? "delete" : "active";
   return (
     <section className="blog-front-comp">
       <div className="common-container">
@@ -111,23 +133,69 @@ export const BlogDetail = ({ id, state }) => {
                   </div>
 
                   <div className="blog-det-info">
-                    <div className="blog-date-admin-com-flex">
-                      <span>
-                        {DateTime.fromISO(post?.addedOn, {
-                          zone: "utc",
-                        })
-                          .setZone("Asia/Kolkata")
-                          .toFormat("ccc dd LLL yyyy")}
-                      </span>
-                      {!post?.userId ? (
-                        <span>by admin</span>
-                      ) : (
-                        <span>by {post?.User?.fullname}</span>
-                      )}
-                      <span>{post?.BlogComments?.length} Comments</span>
-                      <span>{post?.BlogLikes?.length} Likes</span>
-                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div className="blog-date-admin-com-flex">
+                        <span>
+                          {DateTime.fromISO(post?.addedOn, {
+                            zone: "utc",
+                          })
+                            .setZone("Asia/Kolkata")
+                            .toFormat("ccc dd LLL yyyy")}
+                        </span>
+                        {!post?.userId ? (
+                          <span>by admin</span>
+                        ) : (
+                          <span>by {post?.User?.fullname}</span>
+                        )}
+                        {/* <span>{post?.BlogComments?.length} Comments</span>
+                        <span>{post?.BlogLikes?.length} Likes</span>
+                        */}
+                      </div>
+                      <div style={{ display: "flex", gap: "20px" }}>
+                        <div className="post-twit-bx">
+                          <div
+                            style={{ cursor: "pointer" }}
+                            className="p-t-icon"
+                            onClick={commentProtectClick(() =>
+                              handleLikeUnlikeClick(post?.id, newLikeStatus)
+                            )}
+                          >
+                            <i class="fa-solid fa-heart"></i>
+                          </div>
+                          <span>{post?.BlogLikes?.length}</span>
+                        </div>
 
+                        <div
+                          style={{ cursor: "pointer" }}
+                          onClick={() => scrollToSection("comment")}
+                          className="post-twit-bx"
+                        >
+                          <div className="p-t-icon">
+                            <i class="fa-regular fa-comment-dots"></i>
+                          </div>
+                          <span>{post?.BlogComments?.length}</span>
+                        </div>
+                        <div className="post-twit-bx">
+                          <div
+                            style={{ cursor: "pointer" }}
+                            className="p-t-icon"
+                            onClick={commentProtectClick(() =>
+                              setReportPopup(true)
+                            )}
+                          >
+                            <MdOutlineReport
+                              style={{ width: "20px", height: "20px" }}
+                            />
+                          </div>
+                          {/* <span>{post?.BlogLikes?.length}</span> */}
+                        </div>
+                      </div>
+                    </div>
                     <h6>{post?.title}</h6>
 
                     <div
@@ -248,7 +316,7 @@ export const BlogDetail = ({ id, state }) => {
                     </button>
                   </div>
                 </div>
-                <div className="comment-main">
+                <div id="comment" className="comment-main">
                   <h5>Leave A Comments</h5>
                   <div className="comnt-messge comnt-inpt">
                     <textarea
@@ -329,6 +397,12 @@ export const BlogDetail = ({ id, state }) => {
       </div>
       {loginForm ? (
         <UserForm closepopUpUserForm={() => setLoginForm(false)} />
+      ) : null}
+      {reportPopup ? (
+        <ReportPopup
+          data={post}
+          onClickClosePost={() => setReportPopup(false)}
+        />
       ) : null}
     </section>
   );

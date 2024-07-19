@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BlogTable from "./BlogTable";
 import { useQuery } from "@tanstack/react-query";
 import { blogPostFetch } from "../apis/blogs/blog";
 import CreateBlog from "./CreateBlog";
+import { filteredData, search } from "../lib/array";
+import { debounceAsync } from "../lib/debounce";
 
 const AllBlogPost = () => {
   const [index, setIndex] = useState(1);
   const [postComnt, setPostComnt] = useState(false);
   const [selectedData, setSelectedData] = useState({});
   const [isEdit, setIsedit] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState([]);
+  const [includeOnly, setIncludeOnly] = useState("all");
   const indexFunc = () => {
     if (index !== 5) {
       setIndex(index + 1);
@@ -26,8 +31,31 @@ const AllBlogPost = () => {
   };
   const { data: posts, refetch } = useQuery({
     queryKey: ["blogposts"],
-    queryFn: () => blogPostFetch({}),
+    queryFn: () => blogPostFetch({ search: searchQuery }),
   });
+  useEffect(() => {
+    debounceAsync(refetch, 500)();
+  }, [searchQuery]);
+  const publishedpost = !posts?.error
+    ? posts?.filter(({ isDraft }) => !isDraft)
+    : [];
+  const draftPost = !posts?.error
+    ? posts?.filter(({ isDraft }) => isDraft)
+    : [];
+  const handleFilterClick = (e) => {
+    const name = e?.target?.id;
+    setIncludeOnly(name);
+    let newFilters = filters?.filter(({ id }) => id != "includeOnly");
+    let filter = { id: "includeOnly" };
+    if (name == "draft") {
+      filter.fn = ({ isDraft }) => isDraft;
+    } else if ("published") {
+      filter.fn = ({ isDraft }) => !isDraft;
+    } else {
+      return;
+    }
+    setFilters([...newFilters, filter]);
+  };
   return (
     <>
       {!isEdit ? (
@@ -40,17 +68,41 @@ const AllBlogPost = () => {
 
             <div className="top-prod-filter-flex-box">
               <div className="breadcrum-main-box">
-                <h6>
+                <h6
+                  className={`${includeOnly == "all" ? "active" : ""}`}
+                  id="all"
+                  onClick={handleFilterClick}
+                  style={{ cursor: "pointer" }}
+                >
                   {" "}
-                  All <span className="num-brck"> (87) </span>{" "}
+                  All{" "}
+                  <span className="num-brck">
+                    {" "}
+                    ({!posts?.error ? posts?.length : 0}){" "}
+                  </span>{" "}
                 </h6>
-                <h6>
+                <h6
+                  className={`${includeOnly == "published" ? "active" : ""}`}
+                  id="published"
+                  onClick={handleFilterClick}
+                  style={{ cursor: "pointer" }}
+                >
                   {" "}
-                  Published <span className="num-brck"> (85) </span>{" "}
+                  Published{" "}
+                  <span className="num-brck">
+                    {" "}
+                    ({publishedpost?.length}){" "}
+                  </span>{" "}
                 </h6>
-                <h6>
+                <h6
+                  id="draft"
+                  className={`${includeOnly == "draft" ? "active" : ""}`}
+                  onClick={handleFilterClick}
+                  style={{ cursor: "pointer" }}
+                >
                   {" "}
-                  Drafts <span className="num-brck"> (2) </span>{" "}
+                  Drafts{" "}
+                  <span className="num-brck"> ({draftPost?.length}) </span>{" "}
                 </h6>
               </div>
 
@@ -62,15 +114,19 @@ const AllBlogPost = () => {
                     id="search"
                     autoComplete="off"
                     placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
 
-                <button className="search-prod-btn">Search Posts</button>
+                {/* <button onClick={refetch} className="search-prod-btn">
+                  Search Posts
+                </button> */}
               </div>
             </div>
 
             <div className="all-prod-filter-flex-box-two">
-              <div className="left-all-prod-filt-sel-flex-box">
+              {/* <div className="left-all-prod-filt-sel-flex-box">
                 <div className="all-prod-sel-apply-flt-box">
                   <div className="all-prod-sel-filt-box">
                     <select name="product" id="product">
@@ -100,16 +156,16 @@ const AllBlogPost = () => {
                 </div>
 
                 <button className="prod-filt-btn prod-filt-btn2">Filter</button>
-              </div>
+              </div> */}
 
-              <div className="right-all-prod-paginat-flex-box">
+              {/* <div className="right-all-prod-paginat-flex-box">
                 <div className="items-num">
-                  <p>85 Items</p>
+                  <p>{!posts?.error ? posts?.length : 0} Items</p>
                 </div>
 
-                {/* <div className="duble-arrow-btn page-filt-btn">
-        <i class="fa-solid fa-angles-left"></i>
-        </div> */}
+                <div className="duble-arrow-btn page-filt-btn">
+                  <i class="fa-solid fa-angles-left"></i>
+                </div>
                 <div
                   onClick={indexFuncPrev}
                   className="sing-arrow-btn page-filt-btn"
@@ -122,9 +178,9 @@ const AllBlogPost = () => {
                   of <span>5</span>
                 </p>
 
-                {/* <div className="duble-arrow-btn page-filt-btn page-filt-btn3">
-        <i class="fa-solid fa-angles-right"></i>
-        </div> */}
+                <div className="duble-arrow-btn page-filt-btn page-filt-btn3">
+                  <i class="fa-solid fa-angles-right"></i>
+                </div>
 
                 <div
                   onClick={indexFunc}
@@ -132,17 +188,19 @@ const AllBlogPost = () => {
                 >
                   <i class="fa-solid fa-angle-right"></i>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <BlogTable
               setIsedit={setIsedit}
               setSelectedData={setSelectedData}
-              data={!posts?.error ? posts : []}
+              selectedData={selectedData}
+              data={!posts?.error ? filteredData(posts, filters) : []}
               onClickShut={() => setPostComnt(false)}
               postComnet={postComnt}
               onClickOpen={() => setPostComnt(true)}
               onClickClose={(e) => e.stopPropagation()}
+              refetch={refetch}
             />
           </div>
         </section>

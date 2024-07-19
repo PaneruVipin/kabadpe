@@ -80,7 +80,7 @@ const Clinconnectpage = () => {
                   <span>My Campaign</span>
                 </li> */}
 
-                <li
+                {/* <li
                   onClick={() => setClimConnectMenu("message")}
                   className={
                     climConnectMenu === "message"
@@ -90,7 +90,7 @@ const Clinconnectpage = () => {
                 >
                   <BiMessageDetail className="clim-icon" />
                   <span>Message</span>
-                </li>
+                </li> */}
 
                 <li
                   onClick={() => setClimConnectMenu("folowing")}

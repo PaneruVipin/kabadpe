@@ -3,10 +3,15 @@ import "../style/Profile.css";
 import { GetWalletDetails, walletFetch } from "../apis/wallet/wallet";
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
+import { climeconnectionsFetch } from "../apis/blogs/followers";
 const UserProfCounter = () => {
   const { data: wallet, refetch } = useQuery({
     queryKey: ["userWalletFetch2"],
     queryFn: () => walletFetch(),
+  });
+  const { data: followers, refetch: refetchFollowers } = useQuery({
+    queryKey: ["climeconnectionsFetch203"],
+    queryFn: () => climeconnectionsFetch({ connectionType: "follower" }),
   });
   return (
     <>
@@ -53,7 +58,7 @@ const UserProfCounter = () => {
 
               <div className="u-prf-c-info">
                 <h5>Followers</h5>
-                <h4>15K</h4>
+                <h4>{followers?.length}</h4>
               </div>
             </div>
           </div>

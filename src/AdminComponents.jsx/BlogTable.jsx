@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaRegCommentDots } from "react-icons/fa6";
 import ComntData from "./PostComntData";
 import { DateTime } from "luxon";
+import CommentPopup from "./CommentPopup";
+import { blogPostEdit } from "../apis/blogs/blog";
 const BlogTable = ({
   data,
   onClickClose,
   postComnet,
   onClickShut,
   onClickOpen,
+  selectedData,
   setSelectedData,
   setIsedit,
+  refetch
 }) => {
+  const [popupType, setPopupType] = useState("comment");
   return (
     <>
       <div className="all-prod-table-comp blog-table">
@@ -33,6 +38,7 @@ const BlogTable = ({
                 {" "}
                 <FaRegCommentDots className="comnt-icon" />{" "}
               </th>
+              <th>Reports</th>
               <th>Dates</th>
             </tr>
           </thead>
@@ -68,7 +74,14 @@ const BlogTable = ({
                       >
                         Edit
                       </span>
-                      <span>Trash</span>
+                      <span
+                        onClick={async () => {
+                          await blogPostEdit({ id, blogStatus: "trash" });
+                          refetch()
+                        }}
+                      >
+                        Trash
+                      </span>
                       <span>Preview</span>
                     </div>
                   </td>
@@ -78,8 +91,39 @@ const BlogTable = ({
                 </td>
 
                 <td>
-                  <span onClick={onClickOpen} className="comnt-btn">
-                    15{" "}
+                  <span
+                    onClick={() => {
+                      setSelectedData({
+                        id,
+                        categoryName,
+                        title,
+                        updatedOn,
+                        ...rest,
+                      });
+                      onClickOpen();
+                      setPopupType("comment");
+                    }}
+                    className="comnt-btn"
+                  >
+                    {rest?.BlogComments?.length}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    onClick={() => {
+                      setSelectedData({
+                        id,
+                        categoryName,
+                        title,
+                        updatedOn,
+                        ...rest,
+                      });
+                      onClickOpen();
+                      setPopupType("report");
+                    }}
+                    className="comnt-btn"
+                  >
+                    {rest?.BlogReports?.length}
                   </span>
                 </td>
                 <td>
@@ -103,42 +147,12 @@ const BlogTable = ({
       </div>
 
       {postComnet ? (
-        <div className="blog-comnet-popup" onClick={onClickShut}>
-          <div className="blog-comnt-popup-bx" onClick={onClickClose}>
-            <h6>Post Comments</h6>
-
-            <div className="close-b" onClick={onClickShut}>
-              <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-
-            <div className="blog-comnt-list">
-              {ComntData.map((curElem, id) => {
-                return (
-                  <>
-                    <li key={curElem.id}>
-                      <div className="blog-comnt-user-bx">
-                        <div className="b-comnt-u-img">
-                          <img src={curElem.img} alt="" />
-                        </div>
-                        <div className="b-comnt-u-info">
-                          <h6> {curElem.name} </h6>
-                          <span> {curElem.email} </span>
-                          <p>{curElem.mesge}</p>
-
-                          <div className="post-btn-flex">
-                            <button className="post-btns">Approve</button>
-                            <button className="post-btns">Disapprove</button>
-                            <button className="post-btns">Delete</button>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <CommentPopup
+          type={popupType}
+          data={selectedData}
+          onClickClose={onClickClose}
+          onClickShut={onClickShut}
+        />
       ) : null}
     </>
   );

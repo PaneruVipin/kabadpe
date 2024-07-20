@@ -14,6 +14,7 @@ import Addpostpopup from "./Addpostpopup.jsx";
 import { blogPostEdit } from "../apis/blogs/blog.js";
 import { FaEllipsis } from "react-icons/fa6";
 import ReportPopup from "./ReportPopup.jsx";
+import { Carousel } from "react-responsive-carousel";
 const Climconnectpost = ({
   data,
   comp = "profile",
@@ -120,7 +121,7 @@ const Climconnectpost = ({
                           padding: "5px 2px",
                         }}
                       >
-                        {comp == "profile" ? (
+                        {userInfo?.id == User?.id && User?.id ? (
                           <>
                             <button
                               onClick={() => {
@@ -161,34 +162,47 @@ const Climconnectpost = ({
                               Delete
                             </button>
                           </>
-                        ) : null}
-                        <button
-                          className=""
-                          style={{
-                            padding: "5px 20px",
-                            color: "black",
-                            textDecoration: "2px",
-                          }}
-                          onClick={protectClick(() => {
-                            setSelectedValues({ id });
-                            setReportPost(true);
-                          })}
-                        >
-                          Report
-                        </button>
+                        ) : (
+                          <button
+                            className=""
+                            style={{
+                              padding: "5px 20px",
+                              color: "black",
+                              textDecoration: "2px",
+                            }}
+                            onClick={protectClick(() => {
+                              setSelectedValues({ id });
+                              setReportPost(true);
+                            })}
+                          >
+                            Report
+                          </button>
+                        )}
                       </div>
                     ) : null}
                   </div>
-                  <div className="cc-post-img-flex">
-                    <img
-                      style={{
-                        width: "100%",
-                      }}
-                      src={img?.[0]}
-                      alt=""
-                    />
-                  </div>
-
+                  <Carousel
+                    showArrows={true}
+                    showStatus={false}
+                    showIndicators={true}
+                    showThumbs={false}
+                    autoPlay
+                    infiniteLoop
+                    interval={5000}
+                    transitionTime={500}
+                  >
+                    {img?.map((e, i) => (
+                      <div key={i} className="cc-post-img-flex">
+                        <img
+                          style={{
+                            width: "100%",
+                          }}
+                          src={e}
+                          alt=""
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
                   <div className="cc-post-info-data">
                     <div className="cc-post-img-prof">
                       <img

@@ -19,6 +19,8 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
 } from "react-share";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 import ClimeOutlet from "./ClimeOutLet";
 import { climeCategories } from "../lib/climeCategories";
 import Climconnectpost from "../ClimconnectComp/Climconnectpost.jsx";
@@ -26,6 +28,10 @@ import { likeUnlikeBlog } from "../apis/blogs/like.js";
 import { scrollToSection } from "../lib/scroll.js";
 import { MdOutlineReport } from "react-icons/md";
 import ReportPopup from "../ClimconnectComp/ReportPopup.jsx";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import Addpostpopup from "../ClimconnectComp/Addpostpopup.jsx";
+import ConfirmDeletePopup from "../ClimconnectComp/ConfirmDeletePopup.jsx";
 const BlogDet = () => {
   const { id } = useParams();
   const state = useState("");
@@ -50,6 +56,8 @@ export const BlogDetail = ({ id, state }) => {
   const [showBoxes, setShowBoxes] = useState(4);
   const [reportPopup, setReportPopup] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [editPost, setEditPost] = useState(false);
+  const [deletePopup, setDeletePopup] = useState(false);
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
   };
@@ -128,10 +136,22 @@ export const BlogDetail = ({ id, state }) => {
             ) : !post?.error ? (
               <>
                 <div className="blog-det-bx">
-                  <div className="blog-det-img">
-                    <img src={image?.[0]} alt="" />
-                  </div>
-
+                  <Carousel
+                    showArrows={true}
+                    showStatus={false}
+                    showIndicators={true}
+                    // showThumbs={false}
+                    // autoPlay
+                    // infiniteLoop
+                    // interval={5000}
+                    // transitionTime={500}
+                  >
+                    {image?.map((img, i) => (
+                      <div key={i} className="blog-det-img">
+                        <img src={img} alt="" />
+                      </div>
+                    ))}
+                  </Carousel>
                   <div className="blog-det-info">
                     <div
                       style={{
@@ -180,20 +200,51 @@ export const BlogDetail = ({ id, state }) => {
                           </div>
                           <span>{post?.BlogComments?.length}</span>
                         </div>
-                        <div className="post-twit-bx">
-                          <div
-                            style={{ cursor: "pointer" }}
-                            className="p-t-icon"
-                            onClick={commentProtectClick(() =>
-                              setReportPopup(true)
-                            )}
-                          >
-                            <MdOutlineReport
-                              style={{ width: "20px", height: "20px" }}
-                            />
+                        {userInfo?.id == post?.User?.id && post?.User?.id ? (
+                          <>
+                            <div className="post-twit-bx">
+                              <div
+                                style={{ cursor: "pointer" }}
+                                className="p-t-icon"
+                                onClick={commentProtectClick(() =>
+                                  setEditPost(true)
+                                )}
+                              >
+                                <FaEdit
+                                  style={{ width: "20px", height: "20px" }}
+                                />
+                              </div>
+                            </div>
+                            <div className="post-twit-bx">
+                              <div
+                                style={{ cursor: "pointer" }}
+                                className="p-t-icon"
+                                onClick={commentProtectClick(() =>
+                                  setDeletePopup(true)
+                                )}
+                              >
+                                <MdDelete
+                                  style={{ width: "20px", height: "20px" }}
+                                />
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="post-twit-bx">
+                            <div
+                              style={{ cursor: "pointer" }}
+                              className="p-t-icon"
+                              onClick={commentProtectClick(() =>
+                                setReportPopup(true)
+                              )}
+                            >
+                              <MdOutlineReport
+                                style={{ width: "20px", height: "20px" }}
+                              />
+                            </div>
+                            {/* <span>{post?.BlogLikes?.length}</span> */}
                           </div>
-                          {/* <span>{post?.BlogLikes?.length}</span> */}
-                        </div>
+                        )}
                       </div>
                     </div>
                     <h6>{post?.title}</h6>
@@ -402,6 +453,24 @@ export const BlogDetail = ({ id, state }) => {
         <ReportPopup
           data={post}
           onClickClosePost={() => setReportPopup(false)}
+        />
+      ) : null}
+      {editPost ? (
+        <Addpostpopup
+          initialValues={post}
+          onClickClosePost={() => {
+            refetch();
+            setEditPost(false);
+          }}
+        />
+      ) : null}
+      {deletePopup ? (
+        <ConfirmDeletePopup
+          data={post}
+          onClickClosePost={() => {
+            setDeletePopup(false);
+            refetch();
+          }}
         />
       ) : null}
     </section>

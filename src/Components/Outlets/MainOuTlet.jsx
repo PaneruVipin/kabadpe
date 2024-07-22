@@ -17,7 +17,7 @@ const MainOutLet = ({
         onProfileNav={onProfileNav}
       />
       <div style={{ flex: "1 1 0%" }}>
-        <Outlet />
+        <Outlet/>
       </div>
       {/*  */}
     </>

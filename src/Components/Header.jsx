@@ -604,7 +604,7 @@ const Header = ({
                         <span>ClimStripe</span>
                         <span>KabadPe</span>
                         <span>Green Saman Shop</span>
-                        <span>Climconnect</span>
+                        <NavLink to={"/climconnect"}><span>Climconnect</span></NavLink>
                       </div>
 
                       <div className="bottom-download-app-box">

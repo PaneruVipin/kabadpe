@@ -19,31 +19,16 @@ import ClimconectChat from "../ClimconnectComp/ClimconectChat";
 import Climconectfollowing from "../ClimconnectComp/Climconectfollowing";
 import Protect from "../Components/Auth/ProtectComp";
 import UserForm from "../Components/UserForm";
+import ClimeOutlet from "./ClimeOutLet";
+import SearchUserPopup from "../ClimconnectComp/SearchUserPopup";
 
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
-
+  const state = useState("");
   return (
     <>
-        <section className="clim-connect-comp">
-          <div className="clim-connect-logo-search-flex-bx">
-            <div className="clim-connect-logo">
-              <img src="/images/customImg/logo.png" alt="" />
-            </div>
-
-            <div className="clim-conect-search">
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search"
-              />
-              <div className="climconect-search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </div>
-            </div>
-          </div>
-
+      <ClimeOutlet state={state}>
+        {!state?.[0] ? (
           <div className="clim-connect-grid-bx">
             <div className="clim-connect-side-menu">
               <div className="clim-conect-side-menu-list-bx">
@@ -95,7 +80,7 @@ const Clinconnectpage = () => {
                   <span>My Campaign</span>
                 </li> */}
 
-                <li
+                {/* <li
                   onClick={() => setClimConnectMenu("message")}
                   className={
                     climConnectMenu === "message"
@@ -105,7 +90,7 @@ const Clinconnectpage = () => {
                 >
                   <BiMessageDetail className="clim-icon" />
                   <span>Message</span>
-                </li>
+                </li> */}
 
                 <li
                   onClick={() => setClimConnectMenu("folowing")}
@@ -152,7 +137,13 @@ const Clinconnectpage = () => {
 
             <Climconeectproduct />
           </div>
-        </section>
+        ) : (
+          <SearchUserPopup
+            onCloseClick={() => state?.[1]("")}
+            query={state?.[0]}
+          />
+        )}
+      </ClimeOutlet>
     </>
   );
 };

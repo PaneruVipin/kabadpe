@@ -2,10 +2,10 @@ import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { climeCategories } from "../lib/climeCategories";
-import { blogPostCreate } from "../apis/blogs/blog";
+import { blogPostCreate, blogPostEdit } from "../apis/blogs/blog";
 import { toast } from "react-toastify";
 
-const Addpostpopup = ({ onClickClosePost }) => {
+const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [images, setImages] = useState([]);
   const handleImageUpload = (e) => {
@@ -22,7 +22,12 @@ const Addpostpopup = ({ onClickClosePost }) => {
   const { userInfo } = useSelector((s) => s.user);
   const handleSubmit = async (data) => {
     const newData = { ...data, image: images };
-    const res = await blogPostCreate(newData);
+    if (initialValues) {
+      newData.images = data?.image || "[]";
+    }
+    const res = initialValues
+      ? await blogPostEdit(newData)
+      : await blogPostCreate(newData);
     if (res?.error) {
       toast.error(res?.message);
       return;
@@ -34,7 +39,7 @@ const Addpostpopup = ({ onClickClosePost }) => {
     <>
       <section className="add-post-comp" onClick={onClickClosePost}>
         <div className="add-post-bx" onClick={(e) => e.stopPropagation()}>
-          <Formik initialValues={{}} onSubmit={handleSubmit}>
+          <Formik initialValues={initialValues || {}} onSubmit={handleSubmit}>
             {({
               handleBlur,
               handleChange,
@@ -45,7 +50,7 @@ const Addpostpopup = ({ onClickClosePost }) => {
             }) => {
               return (
                 <Form>
-                  <h3>Create Post</h3>
+                  <h3>{initialValues ? "Update Post" : "Create Post"}</h3>
 
                   <div className="add-post-user-info-bx">
                     <div className="add-post-user-img">
@@ -95,7 +100,7 @@ const Addpostpopup = ({ onClickClosePost }) => {
                       id="postmessage"
                       cols="30"
                       rows="5"
-                      placeholder="Whats on your mind, Faiz ?"
+                      placeholder="Whats on your mind?"
                       value={values?.content}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -127,11 +132,37 @@ const Addpostpopup = ({ onClickClosePost }) => {
                             src={URL.createObjectURL(image)}
                             alt={`Image ${index}`}
                           />
-                          <button onClick={() => handleDeleteImage(index)}>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteImage(index)}
+                          >
                             <ion-icon name="close-outline"></ion-icon>
                           </button>
                         </div>
                       ))}
+                      {JSON.parse(values?.image || "[]")?.map(
+                        (image, index) => (
+                          <div key={index} className="post_img">
+                            <img src={image} alt={`Image ${index}`} />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                let imgs = JSON.parse(values?.image || "[]");
+                                imgs = imgs?.filter((e, i) => index != i);
+                                imgs = JSON.stringify(imgs);
+                                handleChange({
+                                  target: { name: "image", value: imgs },
+                                });
+                                handleBlur({
+                                  target: { name: "image", value: imgs },
+                                });
+                              }}
+                            >
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
 

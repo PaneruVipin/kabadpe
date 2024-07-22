@@ -1,130 +1,53 @@
 import React from "react";
 import ProtectClimeConnect from "./ProtectClimeConnect";
+import { useQuery } from "@tanstack/react-query";
+import {
+  climeFollowUnfollow,
+  climeconnectionsFetch,
+} from "../apis/blogs/followers";
 
 const Climconectfollowing = () => {
+  const { data: followings, refetch } = useQuery({
+    queryKey: ["climeconnectionsFetch1"],
+    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+  });
+  const { data: followers, refetch: refetchFollowers } = useQuery({
+    queryKey: ["climeconnectionsFetch2"],
+    queryFn: () => climeconnectionsFetch({ connectionType: "follower" }),
+  });
+  const handleFollowUnfollowClick = async (id, followingStatus) => {
+    const res = await climeFollowUnfollow({ id, followingStatus });
+    refetch();
+  };
   return (
     <ProtectClimeConnect>
       <div className="clim-conect-folower-flex">
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/team-3.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>Faizu011</span>
-              <h6>Faiz_Alam</h6>
-            </div>
-          </div>
+        {!followings?.error
+          ? followings?.map(({ User }) => {
+              return (
+                <div className="climconect-user-folow-bx">
+                  <div className="folower-left-bx">
+                    <div className="user-folow-img">
+                      <img src={User?.profileImage || "/images/temp/temp-user-profile.png"} alt="" />
+                    </div>
+                    <div className="user-folow-info">
+                      {/* <span>{theahmed08}</span> */}
+                      <h6>{User?.fullname}</h6>
+                    </div>
+                  </div>
 
-          <button className="folow-btn">Follow</button>
-        </div>
-
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/team-2.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>theahmed08</span>
-              <h6>Ahmed Sheikh</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Unfollow</button>
-        </div>
-
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/team-4.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>aazibsalim </span>
-              <h6>Aazi₿ $alim</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Follow</button>
-        </div>
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/c-1.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>mohd.shehzad.ahmed</span>
-              <h6>KHUSH.DIL</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Follow</button>
-        </div>
-
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/c-2.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>farukh_9718</span>
-              <h6>Farukh Ansari</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Unfollow</button>
-        </div>
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/c-3.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>adnanfahad80</span>
-              <h6>Adnan fahad</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Unfollow</button>
-        </div>
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/c-4.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>mdmonismansoori</span>
-              <h6>Md Monis Mansoori</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Follow</button>
-        </div>
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/team-3.jpg" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>its_md_mamun_01</span>
-              <h6>Md Mamun Rashid</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Follow</button>
-        </div>
-        <div className="climconect-user-folow-bx">
-          <div className="folower-left-bx">
-            <div className="user-folow-img">
-              <img src="/images/customImg/user-prf-img.webp" alt="" />
-            </div>
-            <div className="user-folow-info">
-              <span>mddauodking</span>
-              <h6>Md Daoud</h6>
-            </div>
-          </div>
-
-          <button className="folow-btn">Unfollow</button>
-        </div>
+                  <button
+                    onClick={() =>
+                      handleFollowUnfollowClick(User?.id, "delete")
+                    }
+                    className="folow-btn"
+                  >
+                    Unfollow
+                  </button>
+                </div>
+              );
+            })
+          : null}
       </div>
     </ProtectClimeConnect>
   );

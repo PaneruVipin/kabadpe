@@ -15,6 +15,7 @@ import {
   userUpdateProfileRequset,
 } from "../apis/user";
 import { userFetch } from "../features/user/userActions";
+import UserUpdateProf from "./UserUpdateProf";
 
 const UserProfSearch = () => {
   const user = useSelector((s) => s.user.userInfo);
@@ -155,145 +156,7 @@ const UserProfSearch = () => {
         </section>
 
         {prfEditForm ? (
-          <section
-            className={
-              prfEditForm === true
-                ? "user-prof-edit-popup-comp editpopupcompshow"
-                : "  user-prof-edit-popup-comp"
-            }
-          >
-            <div className="u-prf-edit-popup-bx">
-              <h5>User Profile Change</h5>
-              {user ? (
-                <Formik
-                  initialValues={initialRequsetValues}
-                  onSubmit={handleUpdateProfileSubmit}
-                  validationSchema={validationUpdateProfileRequest}
-                >
-                  {({
-                    handleBlur,
-                    handleChange,
-                    values,
-                    errors,
-                    touched,
-                    ...rest
-                  }) => {
-                    return (
-                      <Form>
-                        <div className="u-prf-edt-inpt-bx">
-                          <input
-                            type="text"
-                            name="fullname"
-                            id="name"
-                            placeholder="Full Name"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.fullname}
-                          />
-                          {touched.fullname && errors.fullname ? (
-                            <div style={{ color: "red" }}>
-                              {errors.fullname}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <div className="u-prf-edt-inpt-bx">
-                          <input
-                            type="text"
-                            name="email"
-                            id="email"
-                            placeholder="Email"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.email}
-                          />
-                          {touched.email && errors.email ? (
-                            <div style={{ color: "red" }}>{errors.email}</div>
-                          ) : null}
-                        </div>
-
-                        <div className="u-prf-edt-inpt-bx">
-                          <input
-                            type="text"
-                            name="phoneNumber"
-                            id="mobile"
-                            placeholder="Mobile"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.phoneNumber}
-                          />
-                          {touched.phoneNumber && errors.phoneNumber ? (
-                            <div style={{ color: "red" }}>
-                              {errors.phoneNumber}
-                            </div>
-                          ) : null}
-                        </div>
-
-                        <button type="submit" className="prof-chagen-btn">
-                          Update
-                        </button>
-                      </Form>
-                    );
-                  }}
-                </Formik>
-              ) : null}
-
-              <div
-                className={
-                  confirmOtp === true
-                    ? "confirm-otp-box otpactive"
-                    : "confirm-otp-box"
-                }
-              >
-                <h6>Confirm OTP</h6>
-                <Formik
-                  initialValues={{ otp: "" }}
-                  onSubmit={handleOTPSubmit}
-                  validationSchema={validationUpdateProfilecallback}
-                >
-                  {({
-                    handleBlur,
-                    handleChange,
-                    values,
-                    errors,
-                    touched,
-                    ...rest
-                  }) => {
-                    return (
-                      <Form>
-                        <div className="otp-field">
-                          <input
-                            type="text"
-                            name="otp"
-                            id="otp"
-                            placeholder="Enter OTP"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.otp}
-                          />
-                          {touched.otp && errors.otp ? (
-                            <div style={{ color: "red" }}>{errors.otp}</div>
-                          ) : null}
-                        </div>
-
-                        <button type="submit" className="otp-btn">
-                          Submit
-                        </button>
-                      </Form>
-                    );
-                  }}
-                </Formik>
-                {apiError ? <p style={{ color: "red" }}>{apiError}</p> : null}
-              </div>
-
-              <div
-                onClick={() => setPrfEditForm(false)}
-                className="prof-user-edit-form-bx-close"
-              >
-                <i class="fa-regular fa-circle-xmark"></i>
-              </div>
-            </div>
-          </section>
+          <UserUpdateProf onCloseClick={() => setPrfEditForm(false)} />
         ) : null}
 
         <UserProfCounter />

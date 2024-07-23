@@ -27,6 +27,11 @@ const CreateBlog = ({ data, onClose }) => {
 
     setImages([...images, ...selectedImage]);
   };
+  const handleDeleteImage = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages.slice());
+  };
   const handleSubmit = async (data) => {
     const newData = {
       seoTags: seoTags?.join(""),
@@ -204,7 +209,7 @@ const CreateBlog = ({ data, onClose }) => {
                                 onChange={handleImageChange}
                               />
                             </div>
-
+                            {/* 
                             <div className="post-image-flex-bx">
                               {images.map((curImage, indx) => {
                                 return (
@@ -215,14 +220,54 @@ const CreateBlog = ({ data, onClose }) => {
                                   />
                                 );
                               })}
-                            </div>
-                            <div className="post-image-flex-bx">
-                              {JSON.parse(values?.image || "[]").map(
-                                (curImage, indx) => {
-                                  return (
-                                    <img key={indx} src={curImage} alt="" />
-                                  );
-                                }
+                            </div> */}
+                            <div className="post-img-grid-bx">
+                              {images.map((image, index) => (
+                                <div key={index} className="post_img">
+                                  <img
+                                    src={URL.createObjectURL(image)}
+                                    alt={`Image ${index}`}
+                                  />
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeleteImage(index)}
+                                  >
+                                    <ion-icon name="close-outline"></ion-icon>
+                                  </button>
+                                </div>
+                              ))}
+                              {JSON.parse(values?.image || "[]")?.map(
+                                (image, index) => (
+                                  <div key={index} className="post_img">
+                                    <img src={image} alt={`Image ${index}`} />
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        let imgs = JSON.parse(
+                                          values?.image || "[]"
+                                        );
+                                        imgs = imgs?.filter(
+                                          (e, i) => index != i
+                                        );
+                                        imgs = JSON.stringify(imgs);
+                                        handleChange({
+                                          target: {
+                                            name: "image",
+                                            value: imgs,
+                                          },
+                                        });
+                                        handleBlur({
+                                          target: {
+                                            name: "image",
+                                            value: imgs,
+                                          },
+                                        });
+                                      }}
+                                    >
+                                      <ion-icon name="close-outline"></ion-icon>
+                                    </button>
+                                  </div>
+                                )
                               )}
                             </div>
                           </div>

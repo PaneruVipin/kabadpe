@@ -19,7 +19,7 @@ import Redirect from "./Auth/RedirectIfLogout";
 import WasteWallet from "./WasteWallet";
 import { hashId } from "../lib/array";
 
-const UserProfile = ({onProfileNav}) => {
+const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHideShow}) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { userInfo: user, loading } = useSelector((s) => s.user);
@@ -71,7 +71,7 @@ const UserProfile = ({onProfileNav}) => {
   return (
     <>
       <Redirect role="user" path="/" />
-      <div className={ onProfileNav ?  "user-profile-side-nav-main userprofilenavactive" : "user-profile-side-nav-main"}>
+      <div className={ onProfileNav ?  "user-profile-side-nav-main " : "user-profile-side-nav-main userprofilenavactive"}>
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
             {loading ? null : (
@@ -117,7 +117,7 @@ const UserProfile = ({onProfileNav}) => {
 
         <div className="user-prof-menu-main-flex-bx">
           <button
-            onClick={() => filterTab(1)}
+            onClick={() => {filterTab(1) }}
             className={profBtn === 1 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
@@ -254,17 +254,17 @@ const UserProfile = ({onProfileNav}) => {
           </div>
         </div>
       </div>
-      {profBtn === 1 ? <UserProfGridComp /> : null}
-      {profBtn === 2 ? <UserProfForm /> : null}
+      {profBtn === 1 ? <UserProfGridComp onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} /> : null}
+      {profBtn === 2 ? <UserProfForm onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow}  /> : null}
       {profBtn === 4 ? <SalesHistoryComp /> : null}
       {profBtn === 3 ? (
-        <AppointmentComp onSupportClick={() => setProfBtn(6)} />
+        <AppointmentComp onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} onSupportClick={() => setProfBtn(6)} />
       ) : null}
   
       {profBtn === 6 ? <Supportticket /> : null}
       {profBtn === 9 ? <UserOrders /> : null}
       {profBtn === 5 ? <ReferEarn /> : null}
-      {profBtn === 7 ? <WasteWallet component="user" /> : null} {/**MyWallet */}
+      {profBtn === 7 ? <WasteWallet onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} component="user" /> : null} {/**MyWallet */}
       {profBtn === 8 ? <MyOffer /> : null}
     </>
   );

@@ -14,7 +14,9 @@ import {
 import { Form, Formik } from "formik";
 import { validationAddressForm } from "../validators/user/addressFormValidator";
 import { AddressForm } from "../HomeComponent/AddAddressList";
-const UserProfForm = () => {
+import { HiMenuAlt3 } from "react-icons/hi";
+import { FaArrowLeftLong } from "react-icons/fa6";
+const UserProfForm = ({onProfileNav , onClickProfileNavHideShow}) => {
   const initailAddress = {
     street: "",
     city: "",
@@ -28,6 +30,8 @@ const UserProfForm = () => {
     queryFn: () => userAddressesFetch(),
   });
   const [fromTypeEdit, setFormTypeEdit] = useState(false);
+  const [notBox, setNotBox] = useState(false);
+
   const [initialValuesAddresss, setInitialValuesAddresss] =
     useState(initailAddress);
   const [inputArr, setInputArr] = useState([]);
@@ -63,7 +67,90 @@ const UserProfForm = () => {
   };
   return (
     <>
-      <section className="user-prof-grid-comp">
+      <section className="user-prof-grid-comp user-prof-grid-comp21">
+      <div className="not-fic-flex-bx">
+        <button
+                        onClick={onClickProfileNavHideShow}
+                        className="w-menu-bar-btn profile-nav-bar-btn"
+                      >
+                        {onProfileNav ? (
+                          <HiMenuAlt3 className="menu-icon" />
+                         ) : ( 
+                          <FaArrowLeftLong className="menu-icon arrow-icon" />
+                        ) }
+                      </button>
+
+              <div className="notif-main-box">
+                <div
+                  onClick={() => setNotBox(!notBox)}
+                  className="bell-icon bell-icon2"
+                >
+                  <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div className={notBox ? "notif-box notactive" : "notif-box"}>
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2">
+                      <h6>KG</h6>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-3.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2 left-not-box3">
+                      <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <button className="sell-all-not-btn">
+                    See all notifications
+                  </button>
+                </div>
+              </div>
+        </div>
+        
         <section className="User-prof-Form-Main-bx User-prof-Form-Main-bx-rem-spce">
           <div className="u-p-f-cont">
             <div className="usr-prof-form-bx">

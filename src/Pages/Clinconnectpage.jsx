@@ -24,13 +24,14 @@ import SearchUserPopup from "../ClimconnectComp/SearchUserPopup";
 
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
+  const [sideClimNav , setSideClimNav] = useState(false);
   const state = useState("");
   return (
     <>
-      <ClimeOutlet state={state}>
+      <ClimeOutlet onClickToggleNav={() => setSideClimNav(!sideClimNav)} state={state}>
         {!state?.[0] ? (
           <div className="clim-connect-grid-bx">
-            <div className="clim-connect-side-menu">
+            <div className={sideClimNav ? "clim-connect-side-menu climconectsidemenuactive" : "clim-connect-side-menu"}>
               <div className="clim-conect-side-menu-list-bx">
                 <li
                   onClick={() => setClimConnectMenu("feed")}

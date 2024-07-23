@@ -13,8 +13,8 @@ const MainOutLet = ({
       <Header
         setUserForm={setUserForm}
         userForm={userForm}
-        onClickProfileNavHideShow={onClickProfileNavHideShow}
-        onProfileNav={onProfileNav}
+        // onClickProfileNavHideShow={onClickProfileNavHideShow}
+        // onProfileNav={onProfileNav}
       />
       <div style={{ flex: "1 1 0%" }}>
         <Outlet/>

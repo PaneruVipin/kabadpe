@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const ClimeOutlet = ({ children, state }) => {
+
+const ClimeOutlet = ({ children, state , onClickToggleNav}) => {
   const [value, setValue] = state || useState("");
   const handleChange = (e) => {
     setValue(e?.target?.value);
   };
+
+  const location  =  useLocation();
+
+  const hideClimMenu = location.pathname === '/climconnect/blog/Mw=='
+  
   return (
     <>
       <section className="clim-connect-comp">
@@ -13,6 +19,22 @@ const ClimeOutlet = ({ children, state }) => {
           <NavLink to={"/climconnect"} className="clim-connect-logo">
             <img src="/climconnect-logo.png" alt="" />
           </NavLink>
+
+          <div className="clim-conect-right-bx">
+
+      {!hideClimMenu &&  <div onClick={onClickToggleNav} className="clim-cnect-menu-btn">
+          <div className="lne lne1"></div>
+          <div className="lne lne2"></div>
+          <div className="lne lne3"></div>
+
+        </div>}
+        <div  className="clim-cnect-menu-btn">
+          <div className="lne lne1"></div>
+          <div className="lne lne2"></div>
+          <div className="lne lne3"></div>
+
+        </div>
+        
 
           <div className="clim-conect-search">
             <input
@@ -27,6 +49,9 @@ const ClimeOutlet = ({ children, state }) => {
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
+          </div>
+
+
         </div>
         {children}
       </section>

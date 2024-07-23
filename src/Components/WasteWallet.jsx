@@ -25,13 +25,16 @@ import { useQuery } from "@tanstack/react-query";
 import { DateTime } from "luxon";
 import { filteredData, hashId, search } from "../lib/array";
 import WalletCreditPopup from "./WalletCreditPopup";
-const WasteWallet = ({ component = "worker" }) => {
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { HiMenuAlt3 } from "react-icons/hi";
+const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHideShow }) => {
   const [waletCredit, setWaletCredit] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [otp, setOtp] = useState(false);
   const [transaction, setTransaction] = useState(false);
   const [addAmount, setAddAmount] = useState(false);
+  const [notBox, setNotBox] = useState(false);
   const [sucesfulyTrnsctin, setSucesfulyTrnsctin] = useState(false);
   const [paymntDet, setPaymntDet] = useState(false);
   const [trnfrAmnt, setTrnfrAmnt] = useState(false);
@@ -187,10 +190,94 @@ const WasteWallet = ({ component = "worker" }) => {
             : "user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5"
         }`}
       >
+
+        <div className="not-fic-flex-bx">
+        <button
+                        onClick={onClickProfileNavHideShow}
+                        className="w-menu-bar-btn profile-nav-bar-btn"
+                      >
+                        {onProfileNav ? (
+                          <HiMenuAlt3 className="menu-icon" />
+                         ) : ( 
+                          <FaArrowLeftLong className="menu-icon arrow-icon" />
+                        ) }
+                      </button>
+
+              <div className="notif-main-box">
+                <div
+                  onClick={() => setNotBox(!notBox)}
+                  className="bell-icon bell-icon2"
+                >
+                  <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <div className={notBox ? "notif-box notactive" : "notif-box"}>
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-2.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2">
+                      <h6>KG</h6>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box">
+                      <img src="/images/customImg/team-3.jpg" alt="" />
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <div className="not-user-box">
+                    <div className="left-not-box left-not-box2 left-not-box3">
+                      <i class="fa-solid fa-house"></i>
+                    </div>
+
+                    <div className="right-not-box">
+                      <h6>Andrew Garfield</h6>
+                      <span> 29 July 2023 - 02:26 pM </span>
+                    </div>
+                  </div>
+
+                  <button className="sell-all-not-btn">
+                    See all notifications
+                  </button>
+                </div>
+              </div>
+        </div>
         <div className="top-wallet-box">
           <h6>Transactions </h6>
 
           <div className="right-wallet-box">
+            <div className="wallet-btuns-flex">
             {userInfo?.role !== "KabadCollector" && !userInfo?.franchiseId ? (
               <>
                 <button
@@ -213,6 +300,7 @@ const WasteWallet = ({ component = "worker" }) => {
                 </button>
               </>
             ) : null}
+            </div>
             <div className="total-walet-main">
               <div className="refrl-balance-box">
                 <p>Balance Eco Coins</p>
@@ -260,6 +348,7 @@ const WasteWallet = ({ component = "worker" }) => {
           </div>
 
           <div className="right-fitler-part-box">
+            <div className="form-inpt-grids-bx">
             <div className="search-wallet-transactions">
               <input
                 type="text"
@@ -297,6 +386,7 @@ const WasteWallet = ({ component = "worker" }) => {
                 <option value="cash">Cash</option>
                 <option value="bank">Bank</option>
               </select>
+            </div>
             </div>
 
             <div className="dates-flex-box">

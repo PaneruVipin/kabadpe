@@ -16,8 +16,10 @@ import {
 } from "../apis/user";
 import { userFetch } from "../features/user/userActions";
 import UserUpdateProf from "./UserUpdateProf";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { HiMenuAlt3 } from "react-icons/hi";
 
-const UserProfSearch = () => {
+const UserProfSearch = ({onProfileNav , onClickProfileNavHideShow}) => {
   const user = useSelector((s) => s.user.userInfo);
   const dispatch = useDispatch();
   const [prfEditForm, setPrfEditForm] = useState(false);
@@ -81,6 +83,17 @@ const UserProfSearch = () => {
               >
                 Edit Profile
               </button>
+
+                      <button
+                        onClick={onClickProfileNavHideShow}
+                        className="w-menu-bar-btn profile-nav-bar-btn"
+                      >
+                        {onProfileNav ? (
+                          <HiMenuAlt3 className="menu-icon" />
+                         ) : ( 
+                          <FaArrowLeftLong className="menu-icon arrow-icon" />
+                        ) }
+                      </button>
 
               <div className="notif-main-box">
                 <div

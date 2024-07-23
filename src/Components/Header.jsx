@@ -95,18 +95,7 @@ const Header = ({
               <div className="outer-box">
                 <div className="header-left-nav-bx">
                   <div className="header-left">
-                    {path?.startsWith("/account") ? (
-                      <button
-                        onClick={onClickProfileNavHideShow}
-                        className="w-menu-bar-btn profile-nav-bar-btn"
-                      >
-                        {onProfileNav ? (
-                          <HiMenuAlt3 className="menu-icon" />
-                        ) : (
-                          <FaArrowLeftLong className="menu-icon arrow-icon" />
-                        )}
-                      </button>
-                    ) : null}
+                 
                     <div className="main-logo-box">
                       <NavLink to="/">
                         <img src="/images/customImg/logo.png" alt="" />

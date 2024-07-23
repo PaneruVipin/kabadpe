@@ -100,7 +100,7 @@ function App() {
             userForm={userForm}
             setUserForm={setUserForm}
             onProfileNav={profileNav}
-            onClickProfileNavHideShow={() => setProfileNav(!profileNav)}
+            // onClickProfileNavHideShow={() => setProfileNav(!profileNav)}
           />
         }
       >
@@ -111,7 +111,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/account"
-          element={<WastecollectorPage onProfileNav={profileNav} />}
+          element={<WastecollectorPage onProfileNav={profileNav} 
+          onClickProfileNavHideShow={() => setProfileNav(!profileNav)}
+          onClickProfileNavHide={() => setProfileNav(false)}/>}
+     
         />
         <Route
           path="/service/zero-waste-societies"

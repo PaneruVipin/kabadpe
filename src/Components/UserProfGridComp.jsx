@@ -2,12 +2,12 @@ import React from 'react'
 import UserProfSearch from './UserProfSearch'
 import UseProfRightbx from './UseProfRightbx'
 
-const UserProfGridComp = () => {
+const UserProfGridComp = ({onProfileNav , onClickProfileNavHideShow}) => {
   return (
     <>
     <section className="user-prof-grid-comp">
 
-      <UserProfSearch />
+      <UserProfSearch  onProfileNav={onProfileNav} onClickProfileNavHideShow={onClickProfileNavHideShow}/>
 
       <UseProfRightbx />
 

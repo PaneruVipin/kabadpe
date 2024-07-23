@@ -105,10 +105,10 @@ export const BlogDetail = ({ id, state }) => {
     state[1]("");
   }, [id, hello.key]);
 
-  // const { data: connections, refetch } = useQuery({
-  //   queryKey: ["climeconnectionsFetch"],
-  //   queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
-  // });
+  const { data: connections, refetch: refetchConnections } = useQuery({
+    queryKey: ["climeconnectionsFetch3425"],
+    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+  });
   // const handleFollowUnfollowClick = async (id, followingStatus) => {
   //   const res = await climeFollowUnfollow({ id, followingStatus });
   //   refetch();
@@ -122,6 +122,10 @@ export const BlogDetail = ({ id, state }) => {
     ({ userId }) => userId == userInfo?.id
   );
   const newLikeStatus = likeStatus ? "delete" : "active";
+  const followingStatus = !connections?.error
+    ? connections?.find(({ followingId }) => followingId === post?.User?.id)
+    : null;
+  const newFollowingStatus = followingStatus ? "delete" : "active";
   return (
     <section className="blog-front-comp">
       <div className="common-container">
@@ -136,6 +140,135 @@ export const BlogDetail = ({ id, state }) => {
             ) : !post?.error ? (
               <>
                 <div className="blog-det-bx">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      // style={{ display: "flex", alignItems: "center" }}
+                      className="cc-post-img-prof"
+                    >
+                      <img
+                        src={
+                          post?.User?.profileImage ||
+                          "/images/temp/temp-user-profile.png"
+                        }
+                        alt=""
+                      />
+                      <div className="cc-post-det">
+                        <div className="post-name-flex">
+                          <h6>{post?.User?.fullname || post?.author}</h6>
+                          <div className="blog-date-admin-com-flex">
+                            <span>
+                              {DateTime.fromISO(post?.addedOn, {
+                                zone: "utc",
+                              })
+                                .setZone("Asia/Kolkata")
+                                .toFormat("ccc dd LLL yyyy")}
+                            </span>
+                            {!post?.userId ? <span>by admin</span> : null}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      {" "}
+                      {userInfo?.id !== post?.User?.id && post?.User?.id ? (
+                        <button
+                          onClick={commentProtectClick(() =>
+                            handleFollowUnfollowClick(
+                              post?.User?.id,
+                              newFollowingStatus
+                            )
+                          )}
+                          className="follow-btn"
+                        >
+                          {followingStatus ? "Unfollow" : "Follow"}
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                  <h6>{post?.title}</h6>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div style={{ display: "flex", gap: "20px" }}>
+                      <div className="post-twit-bx">
+                        <div
+                          style={{ cursor: "pointer" }}
+                          className="p-t-icon"
+                          onClick={commentProtectClick(() =>
+                            handleLikeUnlikeClick(post?.id, newLikeStatus)
+                          )}
+                        >
+                          <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <span>{post?.BlogLikes?.length}</span>
+                      </div>
+
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => scrollToSection("comment")}
+                        className="post-twit-bx"
+                      >
+                        <div className="p-t-icon">
+                          <i class="fa-regular fa-comment-dots"></i>
+                        </div>
+                        <span>{post?.BlogComments?.length}</span>
+                      </div>
+                      {userInfo?.id == post?.User?.id && post?.User?.id ? (
+                        <>
+                          <div className="post-twit-bx">
+                            <div
+                              style={{ cursor: "pointer" }}
+                              className="p-t-icon"
+                              onClick={commentProtectClick(() =>
+                                setEditPost(true)
+                              )}
+                            >
+                              <FaEdit
+                                style={{ width: "20px", height: "20px" }}
+                              />
+                            </div>
+                          </div>
+                          <div className="post-twit-bx">
+                            <div
+                              style={{ cursor: "pointer" }}
+                              className="p-t-icon"
+                              onClick={commentProtectClick(() =>
+                                setDeletePopup(true)
+                              )}
+                            >
+                              <MdDelete
+                                style={{ width: "20px", height: "20px" }}
+                              />
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="post-twit-bx">
+                          <div
+                            style={{ cursor: "pointer" }}
+                            className="p-t-icon"
+                            onClick={commentProtectClick(() =>
+                              setReportPopup(true)
+                            )}
+                          >
+                            <MdOutlineReport
+                              style={{ width: "20px", height: "20px" }}
+                            />
+                          </div>
+                          {/* <span>{post?.BlogLikes?.length}</span> */}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                   <Carousel
                     showArrows={true}
                     showStatus={false}
@@ -153,102 +286,6 @@ export const BlogDetail = ({ id, state }) => {
                     ))}
                   </Carousel>
                   <div className="blog-det-info">
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div className="blog-date-admin-com-flex">
-                        <span>
-                          {DateTime.fromISO(post?.addedOn, {
-                            zone: "utc",
-                          })
-                            .setZone("Asia/Kolkata")
-                            .toFormat("ccc dd LLL yyyy")}
-                        </span>
-                        {!post?.userId ? (
-                          <span>by admin</span>
-                        ) : (
-                          <span>by {post?.User?.fullname}</span>
-                        )}
-                        {/* <span>{post?.BlogComments?.length} Comments</span>
-                        <span>{post?.BlogLikes?.length} Likes</span>
-                        */}
-                      </div>
-                      <div style={{ display: "flex", gap: "20px" }}>
-                        <div className="post-twit-bx">
-                          <div
-                            style={{ cursor: "pointer" }}
-                            className="p-t-icon"
-                            onClick={commentProtectClick(() =>
-                              handleLikeUnlikeClick(post?.id, newLikeStatus)
-                            )}
-                          >
-                            <i class="fa-solid fa-heart"></i>
-                          </div>
-                          <span>{post?.BlogLikes?.length}</span>
-                        </div>
-
-                        <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => scrollToSection("comment")}
-                          className="post-twit-bx"
-                        >
-                          <div className="p-t-icon">
-                            <i class="fa-regular fa-comment-dots"></i>
-                          </div>
-                          <span>{post?.BlogComments?.length}</span>
-                        </div>
-                        {userInfo?.id == post?.User?.id && post?.User?.id ? (
-                          <>
-                            <div className="post-twit-bx">
-                              <div
-                                style={{ cursor: "pointer" }}
-                                className="p-t-icon"
-                                onClick={commentProtectClick(() =>
-                                  setEditPost(true)
-                                )}
-                              >
-                                <FaEdit
-                                  style={{ width: "20px", height: "20px" }}
-                                />
-                              </div>
-                            </div>
-                            <div className="post-twit-bx">
-                              <div
-                                style={{ cursor: "pointer" }}
-                                className="p-t-icon"
-                                onClick={commentProtectClick(() =>
-                                  setDeletePopup(true)
-                                )}
-                              >
-                                <MdDelete
-                                  style={{ width: "20px", height: "20px" }}
-                                />
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="post-twit-bx">
-                            <div
-                              style={{ cursor: "pointer" }}
-                              className="p-t-icon"
-                              onClick={commentProtectClick(() =>
-                                setReportPopup(true)
-                              )}
-                            >
-                              <MdOutlineReport
-                                style={{ width: "20px", height: "20px" }}
-                              />
-                            </div>
-                            {/* <span>{post?.BlogLikes?.length}</span> */}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <h6>{post?.title}</h6>
-
                     <div
                       style={{ color: "black" }}
                       dangerouslySetInnerHTML={{ __html: post?.content }}

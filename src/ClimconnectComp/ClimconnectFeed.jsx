@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Climconnectpost from "./Climconnectpost.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { blogPostFetch } from "../apis/blogs/blog.js";
 import SharePost from "./SharePost.jsx";
 import FilterBar from "./Filter.jsx";
-const ClimconnectFeed = () => {
+import { debounceAsync } from "../lib/debounce.js";
+const ClimconnectFeed = ({ query }) => {
   const [sortFn, setSortFn] = useState({ fn: () => {} });
   const { data: posts, refetch } = useQuery({
     queryKey: ["blogPostFetch3"],
-    queryFn: () => blogPostFetch({ includeOnly: "noDraft" }),
+    queryFn: () => blogPostFetch({ includeOnly: "noDraft", search: query }),
   });
   const filters = [
     { value: "feed", text: "Feed" },
@@ -43,6 +44,9 @@ const ClimconnectFeed = () => {
     }
     setSortFn(newFn);
   };
+  useEffect(() => {
+    debounceAsync(refetch, 300)();
+  }, [query]);
   return (
     <>
       <section

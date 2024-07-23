@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { climeCategories } from "../lib/climeCategories.js";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -6,7 +6,6 @@ import UserForm from "../Components/UserForm.jsx";
 import {
   climeFollowUnfollow,
   climeconnectionsFetch,
-  followingStatusFetch,
 } from "../apis/blogs/followers.js";
 import { likeUnlikeBlog } from "../apis/blogs/like.js";
 import { useQuery } from "@tanstack/react-query";
@@ -15,6 +14,7 @@ import { blogPostEdit } from "../apis/blogs/blog.js";
 import { FaEllipsis } from "react-icons/fa6";
 import ReportPopup from "./ReportPopup.jsx";
 import { Carousel } from "react-responsive-carousel";
+
 const Climconnectpost = ({
   data,
   comp = "profile",
@@ -27,30 +27,62 @@ const Climconnectpost = ({
   const [editPost, setEditPost] = useState(false);
   const [reportPost, setReportPost] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
-  const handleLoadMore = () => {
-    setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
-  };
+  const [loading, setLoading] = useState(false);
+
   const { userInfo } = useSelector((s) => s.user);
-  const protectClick = (fn = () => {}) => {
-    if (userInfo?.role == "user") {
-      return fn;
-    } else {
-      return () => setLoginForm(true);
+
+  // Function to fetch more items
+  const fetchMoreItems = useCallback(() => {
+    setLoading(true);
+    setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
+    setLoading(false);
+    console.log("Loaded more items"); // Debug log
+  }, []);
+
+  // Scroll event handler
+  const handleScroll = useCallback(() => {
+    console.log("Scrolling..."); // Debug log
+    const nearBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 100;
+
+    if (nearBottom && !loading) {
+      console.log("Fetching more items..."); // Debug log
+      fetchMoreItems();
     }
+  }, [fetchMoreItems, loading]);
+
+  // Add and clean up event listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, true);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  // Function to handle follow/unfollow action
+  const handleFollowUnfollowClick = async (id, followingStatus) => {
+    await climeFollowUnfollow({ id, followingStatus });
+    refetch();
   };
+
+  // Function to handle like/unlike action
+  const handleLikeUnlikeClick = async (id, status) => {
+    await likeUnlikeBlog({ id, status });
+    refetch();
+    refetchData();
+  };
+
+  // Function to protect actions with login check
+  const protectClick = (fn = () => {}) => {
+    return userInfo?.role === "user" ? fn : () => setLoginForm(true);
+  };
+
   const { data: connections, refetch } = useQuery({
     queryKey: ["climeconnectionsFetch"],
     queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
   });
-  const handleFollowUnfollowClick = async (id, followingStatus) => {
-    const res = await climeFollowUnfollow({ id, followingStatus });
-    refetch();
-  };
-  const handleLikeUnlikeClick = async (id, status) => {
-    const res = await likeUnlikeBlog({ id, status });
-    refetch();
-    refetchData();
-  };
+
   return (
     <>
       <div className="clim-conect-post-grid-bx">
@@ -72,23 +104,23 @@ const Climconnectpost = ({
               ...rest
             }) => {
               const ctg = climeCategories.find(
-                ({ name }) => name == categoryName
+                ({ name }) => name === categoryName
               );
               const img = JSON.parse(image || "[]");
               const followingStatus = !connections?.error
                 ? connections?.find(
-                    ({ followingId }) => followingId == User?.id
+                    ({ followingId }) => followingId === User?.id
                   )
-                : false;
+                : null;
               const newFollowingStatus = followingStatus ? "delete" : "active";
               const likeStatus = BlogLikes?.find(
-                ({ userId }) => userId == userInfo?.id
+                ({ userId }) => userId === userInfo?.id
               );
               const newLikeStatus = likeStatus ? "delete" : "active";
               return (
                 <div
                   style={{ backgroundColor: ctg?.colorCode, paddingTop: "0px" }}
-                  className={"cc-post-bx"}
+                  className="cc-post-bx"
                   key={id}
                 >
                   <div
@@ -103,66 +135,42 @@ const Climconnectpost = ({
                       style={{ color: "black", cursor: "pointer" }}
                     />
                   </div>
-                  <div
-                    style={{
-                      position: "relative",
-                    }}
-                  >
-                    {settingPopup?.[id] ? (
-                      <div
-                        onMouseLeave={() => setSettingPopup({})}
-                        style={{
-                          position: "absolute",
-                          zIndex: 100,
-                          backgroundColor: "white",
-                          borderRadius: "5px",
-                          top: "-15px",
-                          right: "-10px",
-                          padding: "5px 2px",
-                        }}
-                      >
-                        {userInfo?.id == User?.id && User?.id ? (
-                          <>
-                            <button
-                              onClick={() => {
-                                setSelectedValues({
-                                  id,
-                                  image,
-                                  categoryName,
-                                  title,
-                                  content,
-                                  author,
-                                  ...rest,
-                                });
-                                setEditPost(true);
-                              }}
-                              style={{
-                                padding: "5px 20px",
-                                color: "black",
-                                textDecoration: "2px",
-                              }}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              className=""
-                              style={{
-                                padding: "5px 20px",
-                                color: "black",
-                                textDecoration: "2px",
-                              }}
-                              onClick={async () => {
-                                await blogPostEdit({
-                                  id,
-                                  blogStatus: "delete",
-                                });
-                                refetchData();
-                              }}
-                            >
-                              Delete
-                            </button>
-                          </>
-                        ) : (
+                  {settingPopup?.[id] && (
+                    <div
+                      onMouseLeave={() => setSettingPopup({})}
+                      style={{
+                        position: "absolute",
+                        zIndex: 100,
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                        top: "-15px",
+                        right: "-10px",
+                        padding: "5px 2px",
+                      }}
+                    >
+                      {userInfo?.id === User?.id ? (
+                        <>
+                          <button
+                            onClick={() => {
+                              setSelectedValues({
+                                id,
+                                image,
+                                categoryName,
+                                title,
+                                content,
+                                author,
+                                ...rest,
+                              });
+                              setEditPost(true);
+                            }}
+                            style={{
+                              padding: "5px 20px",
+                              color: "black",
+                              textDecoration: "2px",
+                            }}
+                          >
+                            Edit
+                          </button>
                           <button
                             className=""
                             style={{
@@ -170,17 +178,35 @@ const Climconnectpost = ({
                               color: "black",
                               textDecoration: "2px",
                             }}
-                            onClick={protectClick(() => {
-                              setSelectedValues({ id });
-                              setReportPost(true);
-                            })}
+                            onClick={async () => {
+                              await blogPostEdit({
+                                id,
+                                blogStatus: "delete",
+                              });
+                              refetchData();
+                            }}
                           >
-                            Report
+                            Delete
                           </button>
-                        )}
-                      </div>
-                    ) : null}
-                  </div>
+                        </>
+                      ) : (
+                        <button
+                          className=""
+                          style={{
+                            padding: "5px 20px",
+                            color: "black",
+                            textDecoration: "2px",
+                          }}
+                          onClick={protectClick(() => {
+                            setSelectedValues({ id });
+                            setReportPost(true);
+                          })}
+                        >
+                          Report
+                        </button>
+                      )}
+                    </div>
+                  )}
                   <Carousel
                     showArrows={true}
                     showStatus={false}
@@ -193,13 +219,7 @@ const Climconnectpost = ({
                   >
                     {img?.map((e, i) => (
                       <div key={i} className="cc-post-img-flex">
-                        <img
-                          style={{
-                            width: "100%",
-                          }}
-                          src={e}
-                          alt=""
-                        />
+                        <img style={{ width: "100%" }} src={e} alt="" />
                       </div>
                     ))}
                   </Carousel>
@@ -207,17 +227,15 @@ const Climconnectpost = ({
                     <div className="cc-post-img-prof">
                       <img
                         src={
-                          User
-                            ? User?.profileImage ||
-                              "/images/temp/temp-user-profile.png"
-                            : "/favicon.jpg"
+                          User?.profileImage ||
+                          "/images/temp/temp-user-profile.png"
                         }
                         alt=""
                       />
                       <div className="cc-post-det">
                         <div className="post-name-flex">
                           <h6>{User?.fullname || author}</h6>
-                          {userInfo?.id != User?.id && User?.id ? (
+                          {userInfo?.id !== User?.id && User?.id ? (
                             <button
                               onClick={protectClick(() =>
                                 handleFollowUnfollowClick(
@@ -231,14 +249,11 @@ const Climconnectpost = ({
                             </button>
                           ) : (
                             <button className="follow-btn">
-                              {!User?.id ? "Admin" : "You"}
+                              {User?.id ? "You" : "Admin"}
                             </button>
                           )}
                         </div>
-                        <div
-                          style={{ marginTop: "10px" }}
-                          className="like-share-comment-flex-bx"
-                        >
+                        <div className="like-share-comment-flex-bx">
                           <div className="post-twit-bx">
                             <div
                               style={{ cursor: "pointer" }}
@@ -247,26 +262,20 @@ const Climconnectpost = ({
                                 handleLikeUnlikeClick(id, newLikeStatus)
                               )}
                             >
-                              <i class="fa-solid fa-heart"></i>
+                              <i className="fa-solid fa-heart"></i>
                             </div>
                             <span>{BlogLikes?.length}</span>
                           </div>
-
                           <div className="post-twit-bx">
                             <div className="p-t-icon">
-                              <i class="fa-regular fa-comment-dots"></i>
+                              <i className="fa-regular fa-comment-dots"></i>
                             </div>
                             <span>{BlogComments?.length}</span>
                           </div>
-
-                          <div
-                            className="post-twit-bx"
-                            onClick={(e) => e.stopPropagation()}
-                          >
+                          <div className="post-twit-bx">
                             <div className="p-t-icon">
-                              <i class="fa-solid fa-share"></i>
+                              <i className="fa-solid fa-share"></i>
                             </div>
-                            {/* <span>2</span> */}
                           </div>
                         </div>
                       </div>
@@ -275,8 +284,7 @@ const Climconnectpost = ({
                       to={`/climconnect/blog/${btoa(id)}`}
                       className="post-infor-cc"
                     >
-                      <h5> {title} </h5>
-
+                      <h5>{title}</h5>
                       <div
                         style={{
                           color: "black",
@@ -295,8 +303,7 @@ const Climconnectpost = ({
                         }}
                         dangerouslySetInnerHTML={{ __html: content }}
                       />
-
-                      <span> {categoryName} </span>
+                      <span>{categoryName}</span>
                     </NavLink>
                   </div>
                 </div>
@@ -304,14 +311,8 @@ const Climconnectpost = ({
             }
           )}
       </div>
-
-      <button onClick={handleLoadMore} className="load-more-btn">
-        Load More
-      </button>
-      {loginForm ? (
-        <UserForm closepopUpUserForm={() => setLoginForm(false)} />
-      ) : null}
-      {editPost ? (
+      {loginForm && <UserForm closepopUpUserForm={() => setLoginForm(false)} />}
+      {editPost && (
         <Addpostpopup
           initialValues={selectedValues}
           onClickClosePost={() => {
@@ -320,8 +321,8 @@ const Climconnectpost = ({
             setEditPost(false);
           }}
         />
-      ) : null}
-      {reportPost ? (
+      )}
+      {reportPost && (
         <ReportPopup
           data={selectedValues}
           onClickClosePost={() => {
@@ -330,7 +331,7 @@ const Climconnectpost = ({
             setReportPost(false);
           }}
         />
-      ) : null}
+      )}
     </>
   );
 };

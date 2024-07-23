@@ -4,6 +4,9 @@ const Climconeectproduct = () => {
   return (
     <>
       <section className="clim-conect-product-ads-sec">
+
+        <h5>The Green Saman Shop</h5>
+        
         <div className="prod-sug-card-bx prod-sug-card-bx2">
           <div className="prod-sug-img-bx prod-sug-img-bx2">
             <img src="/images/customImg/product-1.webp" alt="" />

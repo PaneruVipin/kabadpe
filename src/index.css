@@ -15114,18 +15114,24 @@ video {
 
 }
 
+.clim-conect-product-ads-sec h5{
+  font-weight: 600;
+  color: #00224f;
+}
+
 .post-card {
   position: relative;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
 }
 
 .post-c-img {
   position: relative;
-  width: 6rem;
+  max-width: 6rem;
+  width: 100%;
   height: 4.5rem;
 }
 
@@ -16458,6 +16464,11 @@ video {
   height: auto;
 }
 
+.blog-det-bx h6{
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
 @media (min-width: 768px) {
       .navbar-expand-md .navbar-collapse {
           display: block !important;
@@ -16493,7 +16504,47 @@ video {
   align-items: center;
   justify-content: space-between;
   gap: 3.5rem;
+  margin-bottom: 2rem;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px; */
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 5px 10px;
 
+}
+
+.cc-post-bx{
+  height: max-content !important;
+}
+
+.apply-coupn-btn{
+  height: 3.2rem;
+}
+
+.blog-det-img , .blog-det-img img{
+  height: auto;
+}
+
+.blog-det-bx h6{
+  margin-bottom: 1rem;
+}
+
+.like-share-comnt-flex-bx{
+  position: relative;
+  width: 100%;
+  padding-block: .76rem;
+  margin-bottom: 1rem;
+  border-top: .1px solid #ddd;
+  border-bottom: .1px solid #ddd;
+
+}
+
+.post-infor-cc span{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.cc-post-img-flex img{
+  height: auto !important;
 }
 
 .clim-connect-logo {
@@ -16695,7 +16746,7 @@ video {
   width: 100%;
   margin-top: 1rem;
   background-color: #f3f1f2;
-  padding: 2rem 1.87rem;
+  padding: 1.5rem 1.87rem;
   border-radius: .76rem;
 
 
@@ -16711,7 +16762,7 @@ video {
   background-color: #fff;
   border-radius: 5rem;
   padding-block: .2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   cursor: pointer;
 
 
@@ -16992,7 +17043,7 @@ video {
 .add-post-bx {
   position: relative;
   width: 45rem;
-  height: 30rem;
+  height: 32rem;
   overflow-y: auto;
   border-radius: .5rem;
   background-color: #fff;
@@ -17070,7 +17121,7 @@ video {
 .add-post-text-bx {
   position: relative;
   width: 100%;
-  height: 10rem;
+  height: 8rem;
   background-color: #f8fff6;
   padding: .87rem 1rem;
   border-radius: .4rem;

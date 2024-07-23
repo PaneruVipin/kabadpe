@@ -50,7 +50,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
             }) => {
               return (
                 <Form>
-                  <h3>{initialValues ? "Update Post" : "Create Post"}</h3>
+                  <h3>{initialValues ? "Update Post" : "Share your opinion"}</h3>
 
                   <div className="add-post-user-info-bx">
                     <div className="add-post-user-img">
@@ -100,7 +100,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
                       id="postmessage"
                       cols="30"
                       rows="5"
-                      placeholder="Whats on your mind?"
+                      placeholder="Your voice matters: create your post"
                       value={values?.content}
                       onChange={handleChange}
                       onBlur={handleBlur}

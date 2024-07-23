@@ -28,8 +28,8 @@ const Clinconnectpage = () => {
   const state = useState("");
   return (
     <>
-      <ClimeOutlet onClickToggleNav={() => setSideClimNav(!sideClimNav)} state={state}>
-        {!state?.[0] ? (
+      <ClimeOutlet state={state}>
+        {!state?.[0] || climConnectMenu == "feed" ? (
           <div className="clim-connect-grid-bx">
             <div className={sideClimNav ? "clim-connect-side-menu climconectsidemenuactive" : "clim-connect-side-menu"}>
               <div className="clim-conect-side-menu-list-bx">
@@ -117,7 +117,7 @@ const Clinconnectpage = () => {
                   <span>Profile</span>
                 </li>
 
-                <li
+                {/* <li
                   onClick={() => setClimConnectMenu("notification")}
                   className={
                     climConnectMenu === "notification"
@@ -127,23 +127,25 @@ const Clinconnectpage = () => {
                 >
                   <FaBell className="clim-icon" />
                   <span>Notifications</span>
-                </li>
+                </li> */}
               </div>
             </div>
 
             {climConnectMenu === "profile" ? <Climconnectrightpart /> : null}
-            {climConnectMenu === "feed" ? <ClimconnectFeed /> : null}
+            {climConnectMenu === "feed" ? (
+              <ClimconnectFeed query={state?.[0]} />
+            ) : null}
             {climConnectMenu === "message" ? <ClimconectChat /> : null}
             {climConnectMenu === "folowing" ? <Climconectfollowing /> : null}
 
             <Climconeectproduct />
           </div>
-        ) : (
+        ) : climConnectMenu != "feed" ? (
           <SearchUserPopup
             onCloseClick={() => state?.[1]("")}
             query={state?.[0]}
           />
-        )}
+        ) : null}
       </ClimeOutlet>
     </>
   );

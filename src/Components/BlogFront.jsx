@@ -189,7 +189,7 @@ const BlogFront = () => {
                 </button>
               </div>
 
-              <h5>Categories</h5>
+              <h5>Themes</h5>
 
               <div className="categ-list">
                 <button className="categ-btn">Health</button>
@@ -203,7 +203,7 @@ const BlogFront = () => {
                 <button className="categ-btn">Top Rated</button>
               </div>
 
-              <h5>Popular Posts</h5>
+              <h5>Trendings</h5>
 
               <div className="pop-post-flex">
 

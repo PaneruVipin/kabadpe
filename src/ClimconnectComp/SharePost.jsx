@@ -28,33 +28,9 @@ const SharePost = ({ refetch }) => {
           <div className="share-post-img">
             <img src={userInfo?.profileImage} alt="" />
           </div>
-          <span>Share something</span>
+          <span>Share your opinion</span>
         </div>
 
-        <div className="img-tag-fund-cate-main-flex">
-          <div className="img-tag-fund-flex-bx">
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <GrGallery />
-              </div>
-              <span>Image</span>
-            </div>
-
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <FaUserTag />
-              </div>
-              <span>Tag friend</span>
-            </div>
-
-            <div className="cc-share-bx">
-              <div className="cc-share-img">
-                <FaLeaf />
-              </div>
-              <span>Fund raise</span>
-            </div>
-          </div>
-        </div>
       </div>
       {addPost ? (
         <Addpostpopup

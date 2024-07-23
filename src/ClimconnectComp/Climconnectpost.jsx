@@ -300,10 +300,13 @@ const Climconnectpost = ({
                           maxHeight: "calc(1.2em * 5)",
                           whiteSpace: "normal",
                           textOverflow: "ellipsis",
+                          paddingBottom: "20px",
                         }}
-                        dangerouslySetInnerHTML={{ __html: content }}
+                        dangerouslySetInnerHTML={{
+                          __html: content?.substring(0, 200),
+                        }}
                       />
-                      <span>{categoryName}</span>
+                      <span cla>{categoryName}</span>
                     </NavLink>
                   </div>
                 </div>

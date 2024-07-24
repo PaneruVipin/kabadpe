@@ -21,6 +21,7 @@ import Protect from "../Components/Auth/ProtectComp";
 import UserForm from "../Components/UserForm";
 import ClimeOutlet from "./ClimeOutLet";
 import SearchUserPopup from "../ClimconnectComp/SearchUserPopup";
+import { BsGlobe } from "react-icons/bs";
 
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
@@ -28,20 +29,20 @@ const Clinconnectpage = () => {
   const state = useState("");
   return (
     <>
-      <ClimeOutlet state={state}>
+      <ClimeOutlet state={state} onclickMenuClim={() => setSideClimNav(!sideClimNav)} >
         {!state?.[0] || climConnectMenu == "feed" ? (
           <div className="clim-connect-grid-bx">
             <div className={sideClimNav ? "clim-connect-side-menu climconectsidemenuactive" : "clim-connect-side-menu"}>
               <div className="clim-conect-side-menu-list-bx">
                 <li
-                  onClick={() => setClimConnectMenu("feed")}
+                  onClick={() => {setClimConnectMenu("feed"), setSideClimNav(false)}}
                   className={
                     climConnectMenu === "feed"
                       ? "clim-connect-menu-btn climconectmenuactive"
                       : "clim-connect-menu-btn"
                   }
                 >
-                  <AiOutlineAppstoreAdd className="clim-icon" />
+                  <BsGlobe  className="clim-icon" />
                   <span>Feed</span>
                 </li>
 
@@ -94,7 +95,7 @@ const Clinconnectpage = () => {
                 </li> */}
 
                 <li
-                  onClick={() => setClimConnectMenu("folowing")}
+                  onClick={() => {setClimConnectMenu("folowing") , setSideClimNav(false)}}
                   className={
                     climConnectMenu === "folowing"
                       ? "clim-connect-menu-btn climconectmenuactive"
@@ -106,7 +107,7 @@ const Clinconnectpage = () => {
                 </li>
 
                 <li
-                  onClick={() => setClimConnectMenu("profile")}
+                  onClick={() => {setClimConnectMenu("profile") ,setSideClimNav(false)}}
                   className={
                     climConnectMenu === "profile"
                       ? "clim-connect-menu-btn climconectmenuactive"
@@ -146,7 +147,7 @@ const Clinconnectpage = () => {
             query={state?.[0]}
           />
         ) : null}
-      </ClimeOutlet>
+       </ClimeOutlet>
     </>
   );
 };

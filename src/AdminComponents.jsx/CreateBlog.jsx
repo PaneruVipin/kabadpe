@@ -122,7 +122,7 @@ const CreateBlog = ({ data, onClose }) => {
 
                         <div className="add-blog-form">
                           <div className="blog-inpt-bx">
-                            <span>Blog Title</span>
+                            <span>Post Title</span>
                             <div className="blog-inpt">
                               <input
                                 type="text"
@@ -132,7 +132,7 @@ const CreateBlog = ({ data, onClose }) => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values?.title}
-                                placeholder="Blog Title"
+                                placeholder="Post Title"
                               />
                             </div>
                           </div>

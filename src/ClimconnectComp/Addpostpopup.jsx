@@ -90,7 +90,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values?.title}
-                        placeholder="Blog Title"
+                        placeholder="Post Title"
                       />
                     </div>
                   </div>
@@ -100,7 +100,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
                       id="postmessage"
                       cols="30"
                       rows="5"
-                      placeholder="Your voice matters: create your post"
+                      placeholder="Connect with fellow climate champion"
                       value={values?.content}
                       onChange={handleChange}
                       onBlur={handleBlur}

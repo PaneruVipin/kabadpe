@@ -17768,7 +17768,7 @@ video {
 
   .clim-cnect-menu-btn{
     position: relative;
-    width: 2.76rem;
+    width: 2.4rem;
     height: 4rem;
     display: flex;
     flex-direction: column;
@@ -17835,6 +17835,21 @@ video {
 
 .user-prof-grid-comp21{
   margin-top: 2rem ;
+}
+
+
+.message-ylow-bx{
+  position: relative;
+  width: 100%;
+  background-color: #fff0b4;
+  padding: 1rem 1rem;
+  border-radius: .5rem;
+  text-align: center;
+
+}
+
+.message-ylow-bx span{
+  font-size: 15px ;
 }
 
 @media all and (min-width: 768px) and (max-width: 1025px) {
@@ -17932,7 +17947,7 @@ video {
 
   .clim-cnect-menu-btn{
     position: relative;
-    width: 2.76rem;
+    width: 2.4rem;
     height: 4rem;
     display: flex;
     flex-direction: column;
@@ -18265,7 +18280,7 @@ video {
 
   .clim-cnect-menu-btn{
     position: relative;
-    width: 2.4rem;
+    width: 1.87rem;
     height: 4rem;
     display: flex;
     flex-direction: column;
@@ -18785,6 +18800,35 @@ video {
 
   .submit-otp {
     font-size: 1rem;
+  }
+
+  .clim-conect-prof-box{
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .post-folow-flex{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+  .right-cc-prof-info h4{
+    font-size: 1.87rem;
+  }
+
+  .clim-conect-prof-box > div:nth-child(2){
+    top: -20px !important;
+    right: 10px !important;
+  }
+
+  .share-post-main-box{
+    padding: 1.5rem 1.5rem;
+  }
+
+  .left-prof-img-bx-cc{
+    width: 7rem;
+    height: 7.5rem;
   }
 
   .appointment-flex-box {

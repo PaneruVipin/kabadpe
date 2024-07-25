@@ -20,6 +20,10 @@ const SharePost = ({ refetch }) => {
   return (
     <>
       {" "}
+      <div className="message-ylow-bx">
+        <span>Now earn everytime you post something</span>
+      </div>
+      
       <div style={{}} className="share-post-main-box">
         <div
           onClick={protectClick(() => setAddPost(true))}

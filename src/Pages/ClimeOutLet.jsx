@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 
-const ClimeOutlet = ({ children, state , onClickToggleNav}) => {
+const ClimeOutlet = ({ children, state , onclickMenuClim , onClickToggleNav}) => {
   const [value, setValue] = state || useState("");
   const handleChange = (e) => {
     setValue(e?.target?.value);
@@ -11,7 +11,7 @@ const ClimeOutlet = ({ children, state , onClickToggleNav}) => {
   const location  =  useLocation();
 
   const hideClimMenu = location.pathname === '/climconnect/blog/Mw=='
-  
+  const showClimMenu =  location.pathname === '/climconnect'
   return (
     <>
       <section className="clim-connect-comp">
@@ -22,18 +22,19 @@ const ClimeOutlet = ({ children, state , onClickToggleNav}) => {
 
           <div className="clim-conect-right-bx">
 
-      {!hideClimMenu &&  <div onClick={onClickToggleNav} className="clim-cnect-menu-btn">
+      {/* {!hideClimMenu  &&  <div onClick={onClickToggleNav} className="clim-cnect-menu-btn">
+          <div className="lne lne1"></div>
+          <div className="lne lne2"></div>
+          <div className="lne lne3"></div>
+
+        </div>} */}
+
+    {   showClimMenu && <div  onClick={onclickMenuClim} className="clim-cnect-menu-btn">
           <div className="lne lne1"></div>
           <div className="lne lne2"></div>
           <div className="lne lne3"></div>
 
         </div>}
-        <div  className="clim-cnect-menu-btn">
-          <div className="lne lne1"></div>
-          <div className="lne lne2"></div>
-          <div className="lne lne3"></div>
-
-        </div>
         
 
           <div className="clim-conect-search">

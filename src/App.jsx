@@ -76,7 +76,7 @@ function App() {
     loading: { login: loginLoading, verifySignup: verifyLoading },
   } = useSelector((s) => s.auth);
   useEffect(() => {
-    dispatch(userFetch());
+    dispatch(userFetch({}));
   }, [login, verifySignup, loginLoading, verifyLoading]);
   const [userForm, setUserForm] = useState(false);
   useEffect(() => {

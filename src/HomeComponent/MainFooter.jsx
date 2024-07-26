@@ -174,7 +174,7 @@ const MainFooter = () => {
                     <div className="cont-i">
                       <i className="fa-solid fa-envelope"></i>
                     </div>
-                    <span>support@thekabadshop.com</span>
+                    <span>support@kabadpe.com</span>
                   </div>
                   <div className="cont-bx">
                     <div className="cont-i">

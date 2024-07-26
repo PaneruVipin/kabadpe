@@ -52,7 +52,7 @@ const UserProfSearch = ({ onProfileNav, onClickProfileNavHideShow }) => {
       setApiError(message?.message);
       return;
     }
-    dispatch(userFetch());
+    dispatch(userFetch({}));
     setPrfEditForm(false);
     setConfirmOtp(false);
   };

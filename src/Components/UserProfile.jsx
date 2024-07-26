@@ -53,7 +53,7 @@ const UserProfile = ({
   const handleUpadateProfileImage = () => {
     if (profileImage)
       userProfileImageAdd(profileImage).then(() => {
-        dispatch(userFetch());
+        dispatch(userFetch({}));
       });
     setProfChange(false);
   };

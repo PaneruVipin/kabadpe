@@ -120,7 +120,7 @@ const FrenchiesProfile = () => {
         {editForm ? (
           <FrenchEdit
             refetch={() => {
-              dispatch(userFetch());
+              dispatch(userFetch({}));
             }}
             initialValues={userInfo}
             onClickCloseEditForm={frencDetClose}

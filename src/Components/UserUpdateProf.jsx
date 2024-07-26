@@ -44,7 +44,7 @@ const UserUpdateProf = ({ onCloseClick }) => {
       setApiError(message?.message);
       return;
     }
-    dispatch(userFetch());
+    dispatch(userFetch({}));
     onCloseClick();
     setConfirmOtp(false);
   };

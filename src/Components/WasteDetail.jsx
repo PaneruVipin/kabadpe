@@ -47,7 +47,7 @@ const WasteDetail = () => {
   const handleUpadateProfileImage = () => {
     if (profileImage)
       collectorProfileImageAdd(profileImage).then(() => {
-        dispatch(userFetch());
+        dispatch(userFetch({}));
       });
     setProfChange(false);
   };
@@ -79,7 +79,7 @@ const WasteDetail = () => {
     }
     const res = await updateWorkerProfile(newData);
     if (!res?.error) {
-      dispatch(userFetch());
+      dispatch(userFetch({}));
       setAddInfo(!addInfo);
       clearImageState();
       return;

@@ -11,7 +11,7 @@ const Redirect = ({ path = "/", role = "user" }) => {
   } = useSelector((s) => s.auth);
   const { userInfo, success, loading } = useSelector((s) => s.user);
   useEffect(() => {
-    dispatch(userFetch());
+    dispatch(userFetch({}));
   }, [verifySignup, login]);
   useEffect(() => {
     if (loading === false && userInfo?.role != role) {

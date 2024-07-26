@@ -41,7 +41,7 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
   const handleUpadateProfileImage = () => {
     if (profileImage)
       userProfileImageAdd(profileImage).then(() => {
-        dispatch(userFetch());
+        dispatch(userFetch({}));
       });
     setProfChange(false);
   };

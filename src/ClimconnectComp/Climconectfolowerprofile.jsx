@@ -139,7 +139,7 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

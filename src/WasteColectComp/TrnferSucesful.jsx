@@ -9,7 +9,7 @@ const TrnferSucesful = ({ onClose, onclickTrnferDet }) => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="check-bx">
-            <i class="fa-solid fa-check fa-fw"></i>
+            <i className="fa-solid fa-check fa-fw"></i>
           </div>
 
           <p>Tranfer Successfully at 03:15PM on 19 Feb 2024.</p>
@@ -22,8 +22,8 @@ const TrnferSucesful = ({ onClose, onclickTrnferDet }) => {
             View Details
           </button>
           <div onClick={onClose} className="close-otp-btn">
-            <i class="fa-solid fa-xmark"></i>
-            </div>
+            <i className="fa-solid fa-xmark"></i>
+          </div>
         </div>
       </section>
     </>

@@ -1,32 +1,29 @@
-import React from 'react'
+import React from "react";
 
-const AddWorkerComp = ({onClickClose}) => {
+const AddWorkerComp = ({ onClickClose }) => {
   return (
     <>
-
-    <section className="add-worker-comp">
-
+      <section className="add-worker-comp">
         <div className="add-worker-bx">
+          <div className="add-work-field">
+            <label htmlFor="#">Work Type</label>
+            <input
+              type="text"
+              name="worktype"
+              id="worktype"
+              autoComplete="off"
+            />
+          </div>
 
-            <div className="add-work-field">
-                <label htmlFor="#">Work Type</label>
-                <input type="text" name='worktype' id='worktype' autoComplete='off' />
-            </div>
+          <button className="submit-btn add-work-btn">Submit</button>
 
-            <button className="submit-btn add-work-btn">
-                Submit
-            </button>
-
-            <div onClick={onClickClose} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
-            </div>
-            
+          <div onClick={onClickClose} className="close-btn">
+            <i className="fa-solid fa-xmark"></i>
+          </div>
         </div>
-        
-    </section>
-      
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default AddWorkerComp
+export default AddWorkerComp;

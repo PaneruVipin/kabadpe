@@ -33,11 +33,11 @@ const InstaFeed = () => {
                             <img src={thumbnail_url || media_url} alt="" />
                             <div className="insta-like-comment-flex-bx">
                               <div className="post-edit-bx">
-                                <i class="fa-regular fa-heart"></i>
+                                <i className="fa-regular fa-heart"></i>
                                 {/* <span>250</span> */}
                               </div>
                               <div className="post-edit-bx">
-                                <i class="fa-regular fa-comment"></i>
+                                <i className="fa-regular fa-comment"></i>
                                 {/* <span>325</span> */}
                               </div>
                             </div>

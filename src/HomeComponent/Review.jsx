@@ -20,8 +20,8 @@ import {
 // import "owl.carousel/dist/assets/owl.theme.default.css";
 
 const Review = () => {
-  // const left_Arr = `<i class="fa-solid fa-angle-left"></i>`;
-  // const right_Arr = `<i class="fa-solid fa-angle-right"></i>`;
+  // const left_Arr = `<i className="fa-solid fa-angle-left"></i>`;
+  // const right_Arr = `<i className="fa-solid fa-angle-right"></i>`;
 
   // const options = {
   //   loop: true,
@@ -142,11 +142,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -171,11 +171,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -201,11 +201,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -230,11 +230,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -258,11 +258,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -287,11 +287,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -315,11 +315,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -345,11 +345,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -374,11 +374,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>
@@ -402,11 +402,11 @@ const Review = () => {
                       </div>
                       <div className="revw-info-bx">
                         <div className="revw-ratng">
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </div>
 
                         <p>

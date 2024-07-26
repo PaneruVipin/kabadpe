@@ -187,7 +187,7 @@ const IndvdualPlan = ({ onSwitch }) => {
             <div className="upg-li">
               <h6>Plan A Name</h6>
               <div className="current-name">
-                <i class="fa-solid fa-check"></i>
+                <i className="fa-solid fa-check"></i>
               </div>
             </div>
 

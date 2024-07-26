@@ -57,101 +57,89 @@ const ImpactComp = () => {
           </div>
 
           <div className="imp-grid-bx imp-flexx-bx">
-              <div className="imp-bx">
-                <div className="imp-icon">
-                  <img src="/images/customImg/imp-1.png" alt="" />
-                </div>
-                <div className="imp-info">
+            <div className="imp-bx">
+              <div className="imp-icon">
+                <img src="/images/customImg/imp-1.png" alt="" />
+              </div>
+              <div className="imp-info">
                 <h5 className="count" data-count="200">
                   0
                 </h5>
                 <p>KGS. OF PLASTIC WE SAVED</p>
               </div>
-
-             
             </div>
 
-              <div className="imp-bx">
-                <div className="imp-icon imp-icon2">
-                  <img src="/images/customImg/imp-2.png" alt="" />
-                </div>
-                <div className="imp-info">
+            <div className="imp-bx">
+              <div className="imp-icon imp-icon2">
+                <img src="/images/customImg/imp-2.png" alt="" />
+              </div>
+              <div className="imp-info">
                 <h5 className="count" data-count="40">
                   0
                 </h5>
                 <p>NO. OF TREE PLANTED </p>
               </div>
+            </div>
+
+            <div className="imp-bx">
+              <div className="imp-icon imp-icon3">
+                <img src="/images/customImg/imp-3.png" alt="" />
               </div>
-
-            
-
-              <div className="imp-bx">
-                <div className="imp-icon imp-icon3">
-                  <img src="/images/customImg/imp-3.png" alt="" />
-                </div>
-                <div className="imp-info">
+              <div className="imp-info">
                 <h5 className="count" data-count="1200">
                   0
                 </h5>
                 <p>KGS. OF CO2 OFFSET </p>
               </div>
-
-             
             </div>
 
-              <div className="imp-bx">
-                <div className="imp-icon imp-icon4">
-                  <img src="/images/customImg/imp-4.png" alt="" />
-                </div>
-                <div className="imp-info">
+            <div className="imp-bx">
+              <div className="imp-icon imp-icon4">
+                <img src="/images/customImg/imp-4.png" alt="" />
+              </div>
+              <div className="imp-info">
                 <h5 className="count" data-count="450">
                   0
                 </h5>
                 <p>KGS. OF PLASTIC RECYCLED </p>
               </div>
-              </div>
+            </div>
 
-              <div className="imp-bx">
-                <div className="imp-icon imp-icon5">
-                  <img src="/images/customImg/imp-5.png" alt="" />
-                </div>
-                <div className="imp-info">
+            <div className="imp-bx">
+              <div className="imp-icon imp-icon5">
+                <img src="/images/customImg/imp-5.png" alt="" />
+              </div>
+              <div className="imp-info">
                 <h5 className="count" data-count="318">
                   0
                 </h5>
                 <p>PEOPLE MADE AWARE ON CLIMATE CHANGE </p>
               </div>
+            </div>
+
+            <div className="imp-bx imp-bx4">
+              <div className="imp-icon imp-icon-i-font imp-icon5">
+                <i className="fa-solid fa-droplet"></i>
               </div>
-
-              
-
-              <div className="imp-bx imp-bx4">
-                <div className="imp-icon imp-icon-i-font imp-icon5">
-                  <i class="fa-solid fa-droplet"></i>
-                </div>
-                <div className="imp-info">
+              <div className="imp-info">
                 <h5> 13.8 </h5>
                 <p> Cr. Litres of Water Saved </p>
               </div>
+            </div>
+
+            <div className="imp-bx imp-bx4">
+              <div className="imp-icon imp-icon-i-font2 imp-icon5">
+                <i className="fa-solid fa-bolt-lightning"></i>
               </div>
-
-            
-
-              <div className="imp-bx imp-bx4">
-                <div className="imp-icon imp-icon-i-font2 imp-icon5">
-                  <i class="fa-solid fa-bolt-lightning"></i>
-                </div>
-                <div className="imp-info">
+              <div className="imp-info">
                 <h5>5.65</h5>
                 <p> KWH Of Electricity Saved </p>
               </div>
-              </div>
+            </div>
 
-            
-
-              {/* <div className="imp-bx imp-bx4">
+            {/* <div className="imp-bx imp-bx4">
                 <div className="imp-icon imp-icon-i-font2 imp-icon-i-font3 imp-icon5">
-                  <i class="fa-solid fa-bottle-droplet"></i>
+                  <i className="fa-solid fa-bottle-droplet"></i>
                 </div>
                 <div className="imp-info">
                 <h5>2.5</h5>
@@ -159,16 +147,15 @@ const ImpactComp = () => {
               </div>
               </div> */}
 
-              <div className="imp-bx imp-bx4">
-                <div className="imp-icon imp-icon-i-font2 imp-icon-i-font4 imp-icon-i-font3 imp-icon5">
-                  <i class="fa-brands fa-pagelines"></i>
-                </div>
-                <div className="imp-info">
+            <div className="imp-bx imp-bx4">
+              <div className="imp-icon imp-icon-i-font2 imp-icon-i-font4 imp-icon-i-font3 imp-icon5">
+                <i className="fa-brands fa-pagelines"></i>
+              </div>
+              <div className="imp-info">
                 <h5>10.24</h5>
                 <p>Th. Number Of Tree Saved</p>
               </div>
-              </div>
-
+            </div>
           </div>
 
           {/* <div className="imp-grid-bx-2">
@@ -200,7 +187,7 @@ const ImpactComp = () => {
             <div className="imp-main imp-main3">
               <div className="imp-bx">
                 <div className="imp-icon imp-icon-i-font imp-icon5">
-                  <i class="fa-solid fa-droplet"></i>
+                  <i className="fa-solid fa-droplet"></i>
                 </div>
               </div>
 
@@ -213,7 +200,7 @@ const ImpactComp = () => {
             <div className="imp-main imp-main3">
               <div className="imp-bx">
                 <div className="imp-icon imp-icon-i-font2 imp-icon5">
-                  <i class="fa-solid fa-bolt-lightning"></i>
+                  <i className="fa-solid fa-bolt-lightning"></i>
                 </div>
               </div>
 
@@ -226,7 +213,7 @@ const ImpactComp = () => {
             <div className="imp-main imp-main3">
               <div className="imp-bx">
                 <div className="imp-icon imp-icon-i-font2 imp-icon-i-font3 imp-icon5">
-                  <i class="fa-solid fa-bottle-droplet"></i>
+                  <i className="fa-solid fa-bottle-droplet"></i>
                 </div>
               </div>
 
@@ -239,7 +226,7 @@ const ImpactComp = () => {
             <div className="imp-main imp-main3">
               <div className="imp-bx">
                 <div className="imp-icon imp-icon-i-font2 imp-icon-i-font4 imp-icon-i-font3 imp-icon5">
-                  <i class="fa-brands fa-pagelines"></i>
+                  <i className="fa-brands fa-pagelines"></i>
                 </div>
               </div>
 

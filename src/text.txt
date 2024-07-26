@@ -3,7 +3,7 @@ log out button ki posotion set hogi .
 body pr  click krne pr popup close hoge .
 
  <OwlCarousel className="owl-theme review-slider" {...options}>
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -23,7 +23,7 @@ body pr  click krne pr popup close hoge .
               </div>
             </div>
 
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -43,7 +43,7 @@ body pr  click krne pr popup close hoge .
               </div>
             </div>
 
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -63,7 +63,7 @@ body pr  click krne pr popup close hoge .
               </div>
             </div>
 
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -83,7 +83,7 @@ body pr  click krne pr popup close hoge .
               </div>
             </div>
 
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -103,7 +103,7 @@ body pr  click krne pr popup close hoge .
               </div>
             </div>
 
-            <div class="item">
+            <div className="item">
               <div className="review-box">
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.

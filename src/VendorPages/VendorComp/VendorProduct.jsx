@@ -2,38 +2,36 @@ import React, { useState } from "react";
 import ProductData from "./ProductData";
 import AddProduct from "./AddProduct";
 
-const VendorProduct = ({compRedirectProdDet}) => {
+const VendorProduct = ({ compRedirectProdDet }) => {
   const [exportBox, setExportBox] = useState(false);
   const [importBox, setImportBox] = useState(false);
   const [prodList, setProdList] = useState(ProductData);
   const [rangeBtn, setRangeBtn] = useState(false);
   const [rangeNum, setRangeNum] = useState(null);
 
-//   const [selectedOptions, setSelectedOptions] = useState([]);
-//   const [selectedOption, setSelectedOption] = useState('');
+  //   const [selectedOptions, setSelectedOptions] = useState([]);
+  //   const [selectedOption, setSelectedOption] = useState('');
   const rangeActiveFunc = (getValue) => {
     setRangeNum(getValue);
     console.log(rangeNum);
     setRangeBtn(!rangeBtn);
   };
 
+  // const handleChange = (e) => {
+  //   setSelectedOption(e.target.value);
+  // };
 
-  
-    // const handleChange = (e) => {
-    //   setSelectedOption(e.target.value);
-    // };
-  
-    // const handleAddOption = () => {
-    //   if (selectedOption && !selectedOptions.includes(selectedOption)) {
-    //     setSelectedOptions([...selectedOptions, selectedOption]);
-    //     setSelectedOption('');
-    //   }
-    // };
-  
-    // const handleRemoveOption = (optionToRemove) => {
-    //   const updatedOptions = selectedOptions.filter(option => option !== optionToRemove);
-    //   setSelectedOptions(updatedOptions);
-    // };
+  // const handleAddOption = () => {
+  //   if (selectedOption && !selectedOptions.includes(selectedOption)) {
+  //     setSelectedOptions([...selectedOptions, selectedOption]);
+  //     setSelectedOption('');
+  //   }
+  // };
+
+  // const handleRemoveOption = (optionToRemove) => {
+  //   const updatedOptions = selectedOptions.filter(option => option !== optionToRemove);
+  //   setSelectedOptions(updatedOptions);
+  // };
 
   return (
     <>
@@ -45,17 +43,17 @@ const VendorProduct = ({compRedirectProdDet}) => {
                 onClick={() => setExportBox(!exportBox)}
                 className="prod-exp-imp-btn"
               >
-                <i class="fa-solid fa-arrow-up-from-bracket"></i> Export
+                <i className="fa-solid fa-arrow-up-from-bracket"></i> Export
               </button>
 
               {exportBox ? (
                 <div className="export-info-bx">
                   <div className="export-file">
-                    <i class="fa-regular fa-file-lines"></i>{" "}
+                    <i className="fa-regular fa-file-lines"></i>{" "}
                     <span>Export to CSV</span>
                   </div>
                   <div className="export-file">
-                    <i class="fa-regular fa-file-code"></i>{" "}
+                    <i className="fa-regular fa-file-code"></i>{" "}
                     <span>Export to JSON</span>
                   </div>
                 </div>
@@ -67,7 +65,7 @@ const VendorProduct = ({compRedirectProdDet}) => {
                 onClick={() => setImportBox(!importBox)}
                 className="prod-exp-imp-btn prod-exp-imp-btn2"
               >
-                <i class="fa-solid fa-arrow-up-from-bracket"></i> Import
+                <i className="fa-solid fa-arrow-up-from-bracket"></i> Import
               </button>
 
               {importBox ? (
@@ -95,15 +93,15 @@ const VendorProduct = ({compRedirectProdDet}) => {
 
           <div className="right-prod-btns-flex">
             <button className="prod-add-del-btn">
-              <i class="fa-regular fa-pen-to-square"></i> Bulk Action
+              <i className="fa-regular fa-pen-to-square"></i> Bulk Action
             </button>
 
             <button className="prod-add-del-btn prod-add-del-btn2">
-              <i class="fa-solid fa-trash-can"></i> Delete
+              <i className="fa-solid fa-trash-can"></i> Delete
             </button>
 
             <button className="prod-add-del-btn prod-add-del-btn3">
-              <i class="fa-solid fa-plus"></i> Add Product
+              <i className="fa-solid fa-plus"></i> Add Product
             </button>
           </div>
         </div>
@@ -168,7 +166,7 @@ const VendorProduct = ({compRedirectProdDet}) => {
                 <th>
                   <div className="form-check-bxx">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       value=""
                       id="flexCheckDefault"
@@ -194,7 +192,7 @@ const VendorProduct = ({compRedirectProdDet}) => {
                       <td>
                         <div className="form-check-bxx">
                           <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             value=""
                             id="flexCheckDefault"
@@ -242,7 +240,10 @@ const VendorProduct = ({compRedirectProdDet}) => {
                       </td>
 
                       <td>
-                        <div onClick={compRedirectProdDet} className="view-prod-btn">
+                        <div
+                          onClick={compRedirectProdDet}
+                          className="view-prod-btn"
+                        >
                           <ion-icon name="eye-outline"></ion-icon>
                         </div>
                       </td>
@@ -259,33 +260,49 @@ const VendorProduct = ({compRedirectProdDet}) => {
                          
                           <div className="toggle-round"></div>
                         </button> */}
-      {    elem.published === false ?   <div class={ elem.published === false   ?   "form-checkss form-switch unchecked" : "form-checkss form-switch"}>
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"   />
-</div> : null}
+                        {elem.published === false ? (
+                          <div
+                            class={
+                              elem.published === false
+                                ? "form-checkss form-switch unchecked"
+                                : "form-checkss form-switch"
+                            }
+                          >
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              id="flexSwitchCheckDefault"
+                            />
+                          </div>
+                        ) : null}
 
-{ elem.published === true ? <div className="form-switch-main">  
-  <div class={ "form-checkss form-switch form-switch3"}>
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" defaultChecked   />
-</div>
-
-</div> : null}
-
-
+                        {elem.published === true ? (
+                          <div className="form-switch-main">
+                            <div
+                              class={"form-checkss form-switch form-switch3"}
+                            >
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="flexSwitchCheckChecked"
+                                defaultChecked
+                              />
+                            </div>
+                          </div>
+                        ) : null}
                       </td>
 
                       <td>
-
                         <div className="prod-edit-de-flex-btn">
-                            <button>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
+                          <button>
+                            <i className="fa-regular fa-pen-to-square"></i>
+                          </button>
 
-                            <button>
-                            <i class="fa-solid fa-trash"></i>
-                            </button>
+                          <button>
+                            <i className="fa-solid fa-trash"></i>
+                          </button>
                         </div>
-                        
-               </td>
+                      </td>
                     </tr>
                   </>
                 );
@@ -313,7 +330,7 @@ const VendorProduct = ({compRedirectProdDet}) => {
             </button>
           </div>
         </div>
-{/* 
+        {/* 
         <div>
       <select value={selectedOption} onChange={handleChange}>
         <option value="">Select an option</option>
@@ -333,8 +350,7 @@ const VendorProduct = ({compRedirectProdDet}) => {
     </div> */}
       </section>
 
-    <AddProduct />
-
+      <AddProduct />
     </>
   );
 };

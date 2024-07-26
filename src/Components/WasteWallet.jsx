@@ -27,7 +27,11 @@ import { filteredData, hashId, search } from "../lib/array";
 import WalletCreditPopup from "./WalletCreditPopup";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiMenuAlt3 } from "react-icons/hi";
-const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHideShow }) => {
+const WasteWallet = ({
+  component = "worker",
+  onProfileNav,
+  onClickProfileNavHideShow,
+}) => {
   const [waletCredit, setWaletCredit] = useState(false);
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -190,116 +194,113 @@ const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHi
             : "user-prof-grid-comp  referearn-comp wallet-comp  wallet-comp5"
         }`}
       >
-
         <div className="not-fic-flex-bx">
-        <button
-                        onClick={onClickProfileNavHideShow}
-                        className="w-menu-bar-btn profile-nav-bar-btn"
-                      >
-                        {onProfileNav ? (
-                          <HiMenuAlt3 className="menu-icon" />
-                         ) : ( 
-                          <FaArrowLeftLong className="menu-icon arrow-icon" />
-                        ) }
-                      </button>
+          <button
+            onClick={onClickProfileNavHideShow}
+            className="w-menu-bar-btn profile-nav-bar-btn"
+          >
+            {onProfileNav ? (
+              <HiMenuAlt3 className="menu-icon" />
+            ) : (
+              <FaArrowLeftLong className="menu-icon arrow-icon" />
+            )}
+          </button>
 
-              <div className="notif-main-box">
-                <div
-                  onClick={() => setNotBox(!notBox)}
-                  className="bell-icon bell-icon2"
-                >
-                  <i class="fa-regular fa-bell"></i>
+          <div className="notif-main-box">
+            <div
+              onClick={() => setNotBox(!notBox)}
+              className="bell-icon bell-icon2"
+            >
+              <i className="fa-regular fa-bell"></i>
+            </div>
+
+            <div className={notBox ? "notif-box notactive" : "notif-box"}>
+              <div className="not-user-box">
+                <div className="left-not-box">
+                  <img src="/images/customImg/team-2.jpg" alt="" />
                 </div>
 
-                <div className={notBox ? "notif-box notactive" : "notif-box"}>
-                  <div className="not-user-box">
-                    <div className="left-not-box">
-                      <img src="/images/customImg/team-2.jpg" alt="" />
-                    </div>
-
-                    <div className="right-not-box">
-                      <h6>Andrew Garfield</h6>
-                      <span> 29 July 2023 - 02:26 pM </span>
-                    </div>
-                  </div>
-
-                  <div className="not-user-box">
-                    <div className="left-not-box">
-                      <img src="/images/customImg/team-2.jpg" alt="" />
-                    </div>
-
-                    <div className="right-not-box">
-                      <h6>Andrew Garfield</h6>
-                      <span> 29 July 2023 - 02:26 pM </span>
-                    </div>
-                  </div>
-
-                  <div className="not-user-box">
-                    <div className="left-not-box left-not-box2">
-                      <h6>KG</h6>
-                    </div>
-
-                    <div className="right-not-box">
-                      <h6>Andrew Garfield</h6>
-                      <span> 29 July 2023 - 02:26 pM </span>
-                    </div>
-                  </div>
-
-                  <div className="not-user-box">
-                    <div className="left-not-box">
-                      <img src="/images/customImg/team-3.jpg" alt="" />
-                    </div>
-
-                    <div className="right-not-box">
-                      <h6>Andrew Garfield</h6>
-                      <span> 29 July 2023 - 02:26 pM </span>
-                    </div>
-                  </div>
-
-                  <div className="not-user-box">
-                    <div className="left-not-box left-not-box2 left-not-box3">
-                      <i class="fa-solid fa-house"></i>
-                    </div>
-
-                    <div className="right-not-box">
-                      <h6>Andrew Garfield</h6>
-                      <span> 29 July 2023 - 02:26 pM </span>
-                    </div>
-                  </div>
-
-                  <button className="sell-all-not-btn">
-                    See all notifications
-                  </button>
+                <div className="right-not-box">
+                  <h6>Andrew Garfield</h6>
+                  <span> 29 July 2023 - 02:26 pM </span>
                 </div>
               </div>
+
+              <div className="not-user-box">
+                <div className="left-not-box">
+                  <img src="/images/customImg/team-2.jpg" alt="" />
+                </div>
+
+                <div className="right-not-box">
+                  <h6>Andrew Garfield</h6>
+                  <span> 29 July 2023 - 02:26 pM </span>
+                </div>
+              </div>
+
+              <div className="not-user-box">
+                <div className="left-not-box left-not-box2">
+                  <h6>KG</h6>
+                </div>
+
+                <div className="right-not-box">
+                  <h6>Andrew Garfield</h6>
+                  <span> 29 July 2023 - 02:26 pM </span>
+                </div>
+              </div>
+
+              <div className="not-user-box">
+                <div className="left-not-box">
+                  <img src="/images/customImg/team-3.jpg" alt="" />
+                </div>
+
+                <div className="right-not-box">
+                  <h6>Andrew Garfield</h6>
+                  <span> 29 July 2023 - 02:26 pM </span>
+                </div>
+              </div>
+
+              <div className="not-user-box">
+                <div className="left-not-box left-not-box2 left-not-box3">
+                  <i className="fa-solid fa-house"></i>
+                </div>
+
+                <div className="right-not-box">
+                  <h6>Andrew Garfield</h6>
+                  <span> 29 July 2023 - 02:26 pM </span>
+                </div>
+              </div>
+
+              <button className="sell-all-not-btn">
+                See all notifications
+              </button>
+            </div>
+          </div>
         </div>
         <div className="top-wallet-box">
           <h6>Transactions </h6>
 
           <div className="right-wallet-box">
             <div className="wallet-btuns-flex">
-            {userInfo?.role !== "KabadCollector" && !userInfo?.franchiseId ? (
-              <>
-                <button
-                  onClick={
-                    () => setAddAmount(true)
-                  }
-                  className="tranfer-btn add-money-btn"
-                >
-                  Add Money
-                </button>
+              {userInfo?.role !== "KabadCollector" && !userInfo?.franchiseId ? (
+                <>
+                  <button
+                    onClick={() => setAddAmount(true)}
+                    className="tranfer-btn add-money-btn"
+                  >
+                    Add Money
+                  </button>
 
-                <button onClick={() => setOtp(true)} className="tranfer-btn">
-                  Withdraw Now
-                </button>
-                <button
-                  onClick={() => setWaletCredit(true)}
-                  className="tranfer-btn tranfer-btn23 add-money-btn"
-                >
-                  Transfer Amount
-                </button>
-              </>
-            ) : null}
+                  <button onClick={() => setOtp(true)} className="tranfer-btn">
+                    Withdraw Now
+                  </button>
+                  <button
+                    onClick={() => setWaletCredit(true)}
+                    className="tranfer-btn tranfer-btn23 add-money-btn"
+                  >
+                    Transfer Amount
+                  </button>
+                </>
+              ) : null}
             </div>
             <div className="total-walet-main">
               <div className="refrl-balance-box">
@@ -307,7 +308,7 @@ const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHi
                 <div className="bal-bxmain">
                   <div className="balance-box">
                     <div className="rupes-icon">
-                      <i class="fa-solid fa-coins"></i>
+                      <i className="fa-solid fa-coins"></i>
                     </div>
                     <span>{wallet?.balance || "0.00"}</span>
                   </div>
@@ -349,44 +350,44 @@ const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHi
 
           <div className="right-fitler-part-box">
             <div className="form-inpt-grids-bx">
-            <div className="search-wallet-transactions">
-              <input
-                type="text"
-                name="search"
-                id="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
-                autoComplete="off"
-              />
-            </div>
+              <div className="search-wallet-transactions">
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search..."
+                  autoComplete="off"
+                />
+              </div>
 
-            <div className="past-days-selec-box">
-              <i className="fa-regular fa-calendar-days"></i>
-              <select
-                name="timePeriod"
-                id="pastdays"
-                onChange={handleFilterChange}
-              >
-                <option value="">All days</option>
-                <option value="10">Past 10 days</option>
-                <option value="30">Past 30 days</option>
-                <option value="90">Past 90 days</option>
-              </select>
-            </div>
+              <div className="past-days-selec-box">
+                <i className="fa-regular fa-calendar-days"></i>
+                <select
+                  name="timePeriod"
+                  id="pastdays"
+                  onChange={handleFilterChange}
+                >
+                  <option value="">All days</option>
+                  <option value="10">Past 10 days</option>
+                  <option value="30">Past 30 days</option>
+                  <option value="90">Past 90 days</option>
+                </select>
+              </div>
 
-            <div className="past-days-selec-box">
-              <select
-                name="paymentMode"
-                id="pastdays"
-                onChange={handleFilterChange}
-              >
-                <option value="">All Payment Modes</option>
-                <option value="wallet">Wallet</option>
-                <option value="cash">Cash</option>
-                <option value="bank">Bank</option>
-              </select>
-            </div>
+              <div className="past-days-selec-box">
+                <select
+                  name="paymentMode"
+                  id="pastdays"
+                  onChange={handleFilterChange}
+                >
+                  <option value="">All Payment Modes</option>
+                  <option value="wallet">Wallet</option>
+                  <option value="cash">Cash</option>
+                  <option value="bank">Bank</option>
+                </select>
+              </div>
             </div>
 
             <div className="dates-flex-box">
@@ -554,7 +555,7 @@ const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHi
                             <td>
                               <div className="id-dwld-btn text-center-align">
                                 <span className="b-span"></span>
-                                <i class="fa-regular fa-circle-down"></i>
+                                <i className="fa-regular fa-circle-down"></i>
                               </div>
                             </td>
                             <td>
@@ -598,9 +599,7 @@ const WasteWallet = ({ component = "worker" , onProfileNav , onClickProfileNavHi
         />
       ) : null} */}
       {addAmount ? (
-        <AddMoneyAmount
-          onclickCloseAmount={() => setAddAmount(false)}
-        />
+        <AddMoneyAmount onclickCloseAmount={() => setAddAmount(false)} />
       ) : null}
       {sucesfulyTrnsctin ? (
         <SucesfulyTran

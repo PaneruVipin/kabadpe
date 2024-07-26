@@ -258,7 +258,7 @@ const Ratelistcomp = ({ setUserForm }) => {
               <button className="sorting-btn sorting-btn1">
                 {selection?.state || states?.[1]?.name}
 
-                <i class="fa-solid fa-angle-down"></i>
+                <i className="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
                   {states.map(({ id, name }, indx) => {
                     return (
@@ -279,7 +279,7 @@ const Ratelistcomp = ({ setUserForm }) => {
               <button className="sorting-btn sorting-btn1">
                 {selection?.city || cites?.[0]?.name}
 
-                <i class="fa-solid fa-angle-down"></i>
+                <i className="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
                   {cites.map(({ id, name }, indx) => {
                     return (
@@ -300,7 +300,7 @@ const Ratelistcomp = ({ setUserForm }) => {
               <button className="sorting-btn sorting-btn1">
                 {selectedOptionOne?.companyName || "KabadPe"}
 
-                <i class="fa-solid fa-angle-down"></i>
+                <i className="fa-solid fa-angle-down"></i>
                 <div className="dropdwn-tab-box dropdwn-tab-box1">
                   {!franchises?.error && franchises
                     ? [{ companyName: "KabadPe" }, ...franchises]?.map(
@@ -430,25 +430,26 @@ const Ratelistcomp = ({ setUserForm }) => {
                       <span>{enviournmentSaving?.co2} Kg</span>
                       <p>
                         {" "}
-                        <img src="/images/customImg/co2-cloud.png" alt="" /> CO2 Offset
+                        <img src="/images/customImg/co2-cloud.png" alt="" /> CO2
+                        Offset
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.water} Litres</span>
                       <p>
-                        <i class="fa-solid fa-droplet water"></i>Water
+                        <i className="fa-solid fa-droplet water"></i>Water
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.electricty} KWh</span>
                       <p>
-                        <i class="fa-solid fa-bolt electric"></i>Electricity
+                        <i className="fa-solid fa-bolt electric"></i>Electricity
                       </p>
                     </div>
                     <div className="waste-saved-bx">
                       <span>{enviournmentSaving?.oil} No. of trees </span>
                       <p>
-                      <i class="fa-solid fa-tree"></i>Tree
+                        <i className="fa-solid fa-tree"></i>Tree
                       </p>
                     </div>
                   </div>
@@ -570,11 +571,11 @@ const Ratelistcomp = ({ setUserForm }) => {
 
                         <div className="rating-bx">
                           <div className="rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-solid fa-star"></i>
+                            <i className="fa-regular fa-star"></i>
                           </div>
                           <span>90%</span>
                         </div>

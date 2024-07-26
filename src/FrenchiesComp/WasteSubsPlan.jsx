@@ -171,21 +171,21 @@ const WasteSubsPlan = ({ onSuccess }) => {
                         {subs?.A ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
@@ -198,21 +198,21 @@ const WasteSubsPlan = ({ onSuccess }) => {
                         {subs?.A ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
@@ -225,21 +225,21 @@ const WasteSubsPlan = ({ onSuccess }) => {
                         {subs?.A ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
@@ -252,21 +252,21 @@ const WasteSubsPlan = ({ onSuccess }) => {
                         {subs?.A ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
@@ -279,21 +279,21 @@ const WasteSubsPlan = ({ onSuccess }) => {
                         {subs?.A ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.B ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
                         {subs?.C ? (
                           <td>
                             <div className="mark-check">
-                              <i class="fa-solid fa-circle-check"></i>{" "}
+                              <i className="fa-solid fa-circle-check"></i>{" "}
                             </div>
                           </td>
                         ) : null}
@@ -330,7 +330,7 @@ const WasteSubsPlan = ({ onSuccess }) => {
                               onClick={() => setLocat(true)}
                               className="add-area-icon2"
                             >
-                              <i class="fa-solid fa-plus"></i>
+                              <i className="fa-solid fa-plus"></i>
                             </div>{" "}
                           </div>{" "}
                         </td>
@@ -356,7 +356,7 @@ const WasteSubsPlan = ({ onSuccess }) => {
                                 {subAriaName}{" "}
                                 <i
                                   onClick={handleRemoveAriaClick(id)}
-                                  class="fa-solid fa-circle-xmark"
+                                  className="fa-solid fa-circle-xmark"
                                 ></i>
                               </p>
                             </td>
@@ -485,17 +485,17 @@ const WasteSubsPlan = ({ onSuccess }) => {
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                   </tr>
@@ -506,17 +506,17 @@ const WasteSubsPlan = ({ onSuccess }) => {
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                   </tr>
@@ -527,17 +527,17 @@ const WasteSubsPlan = ({ onSuccess }) => {
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                   </tr>
@@ -548,17 +548,17 @@ const WasteSubsPlan = ({ onSuccess }) => {
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                   </tr>
@@ -569,17 +569,17 @@ const WasteSubsPlan = ({ onSuccess }) => {
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                     <td>
                       <div className="mark-check">
-                        <i class="fa-solid fa-circle-check"></i>{" "}
+                        <i className="fa-solid fa-circle-check"></i>{" "}
                       </div>
                     </td>
                   </tr>

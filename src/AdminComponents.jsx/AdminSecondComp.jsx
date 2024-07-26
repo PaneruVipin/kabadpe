@@ -101,7 +101,7 @@ const AdminSecondComp = () => {
               </div>
             </div> */}
 
-<div className="left-ad-progress-bar-main mb-4">
+            <div className="left-ad-progress-bar-main mb-4">
               <h6>Today's Appointments</h6>
 
               <div className="ad-prog-bar-box">
@@ -143,8 +143,6 @@ const AdminSecondComp = () => {
                   </div>
                   <h6>85</h6>
                 </div>
-
-                
 
                 <div className="prog-info-box">
                   <div className="prog-dot-box-flex">
@@ -202,7 +200,7 @@ const AdminSecondComp = () => {
           <div className="right-graph-main-box">
             <div className="edit-main-box2">
               <div onClick={() => setEditBx(!editBx)} className="edit-btn2">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <i className="fa-solid fa-ellipsis-vertical"></i>
               </div>
 
               <div
@@ -250,15 +248,11 @@ const AdminSecondComp = () => {
                       <stop offset="95%" stopColor="#96d884" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#d097ff" stopOpacity={0.2  } />
+                      <stop offset="5%" stopColor="#d097ff" stopOpacity={0.2} />
                       <stop offset="95%" stopColor="#d097ff" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <XAxis
-                    dataKey="date"
-                    axisLine={false}
-                    textAnchor="end"
-                  />
+                  <XAxis dataKey="date" axisLine={false} textAnchor="end" />
                   <YAxis dataKey="amt" axisLine={false} offset={0} />
                   <Tooltip />
                   <Area

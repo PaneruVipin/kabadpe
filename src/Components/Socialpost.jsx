@@ -130,7 +130,7 @@ nesciunt nulla natus ex, qui
           <h4>Social Post</h4>
 
           <div onClick={onclickShowSocPost} className="expand-btn">
-            <i class="fa-solid fa-expand"></i>
+            <i className="fa-solid fa-expand"></i>
           </div>
         </div>
 
@@ -209,16 +209,16 @@ nesciunt nulla natus ex, qui
                     className="post-btn"
                   >
                     {postLike === true ? (
-                      <i class="fa-solid fa-heart"></i>
+                      <i className="fa-solid fa-heart"></i>
                     ) : (
-                      <i class="fa-regular fa-heart"></i>
+                      <i className="fa-regular fa-heart"></i>
                     )}
                   </div>
                   <div className="post-btn">
-                    <i class="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-comment"></i>
                   </div>
                   <div className="post-btn">
-                    <i class="fa-brands fa-telegram"></i>
+                    <i className="fa-brands fa-telegram"></i>
                   </div>
                 </div>
 
@@ -236,7 +236,7 @@ nesciunt nulla natus ex, qui
                       placeholder="Add a Comment"
                     />
                     <div className="send-comment-btn">
-                      <i class="fa-regular fa-paper-plane"></i>
+                      <i className="fa-regular fa-paper-plane"></i>
                     </div>
                   </div>
                 </div>

@@ -5,9 +5,6 @@ import CouponPopup from "./CouponPopup";
 
 const DiscountCoupon = () => {
   const [index, setIndex] = useState(1);
- 
-
- 
 
   const indexFunc = () => {
     if (index !== 5) {
@@ -30,7 +27,9 @@ const DiscountCoupon = () => {
       <section className="all-prod-admin-comp">
         <div className="all-prod-filter-flex-box-two all-coupon-filter-flex">
           <div className="left-all-prod-filt-sel-flex-box">
-          <button className="prod-filt-btn prod-filt-btn2 crt-copn-btn">Create Coupon</button>
+            <button className="prod-filt-btn prod-filt-btn2 crt-copn-btn">
+              Create Coupon
+            </button>
 
             <div className="all-prod-sel-filt-box all-prod-sel-filt-box2">
               <select name="product" id="product">
@@ -44,7 +43,6 @@ const DiscountCoupon = () => {
             </div>
 
             <button className="prod-filt-btn prod-filt-btn2">Filter</button>
-
           </div>
 
           <div className="right-all-prod-paginat-flex-box flex-column align-items-md-end">
@@ -63,39 +61,36 @@ const DiscountCoupon = () => {
             </div>
 
             <div className="pagination">
+              <div className="items-num">
+                <p>446 Items</p>
+              </div>
 
-            <div className="items-num">
-              <p>446 Items</p>
-            </div>
-
-            {/* <div className="duble-arrow-btn page-filt-btn">
-                    <i class="fa-solid fa-angles-left"></i>
+              {/* <div className="duble-arrow-btn page-filt-btn">
+                    <i className="fa-solid fa-angles-left"></i>
                     </div> */}
-            <div
-              onClick={indexFuncPrev}
-              className="sing-arrow-btn page-filt-btn"
-            >
-              <i class="fa-solid fa-angle-left"></i>
-            </div>
-            <div className="page-num-box">{index}</div>
+              <div
+                onClick={indexFuncPrev}
+                className="sing-arrow-btn page-filt-btn"
+              >
+                <i className="fa-solid fa-angle-left"></i>
+              </div>
+              <div className="page-num-box">{index}</div>
 
-            <p>
-              of <span>5</span>
-            </p>
+              <p>
+                of <span>5</span>
+              </p>
 
-            {/* <div className="duble-arrow-btn page-filt-btn page-filt-btn3">
-                    <i class="fa-solid fa-angles-right"></i>
+              {/* <div className="duble-arrow-btn page-filt-btn page-filt-btn3">
+                    <i className="fa-solid fa-angles-right"></i>
                     </div> */}
 
-            <div onClick={indexFunc} className="sing-arrow-btn page-filt-btn">
-              <i class="fa-solid fa-angle-right"></i>
+              <div onClick={indexFunc} className="sing-arrow-btn page-filt-btn">
+                <i className="fa-solid fa-angle-right"></i>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
-
- 
 
       <CouponTable />
       <CouponPopup />

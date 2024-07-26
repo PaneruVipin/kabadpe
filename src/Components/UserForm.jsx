@@ -435,7 +435,11 @@ const UserForm = ({ closepopUpUserForm }) => {
                                     type="button"
                                     className="login-link-bx login-link-bx2"
                                   >
-                                   <img className="google-img-i" src="/images/customImg/google-icon.png" alt="" />
+                                    <img
+                                      className="google-img-i"
+                                      src="/images/customImg/google-icon.png"
+                                      alt=""
+                                    />
                                     Google
                                   </button>
                                 </NavLink>
@@ -597,7 +601,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                   }}
                   className="close-btn"
                 >
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </div>
               </div>
             </div>
@@ -674,7 +678,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                 }}
                 className="close-btn"
               >
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark"></i>
               </div>
             </div>
           </div>

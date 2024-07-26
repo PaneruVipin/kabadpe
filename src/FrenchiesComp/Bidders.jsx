@@ -104,11 +104,11 @@ const Bidders = ({
                                   style={{
                                     background: "green",
                                     color: "white",
-                                    borderRadius:"10px",
-                                    paddingInline:"20px"
+                                    borderRadius: "10px",
+                                    paddingInline: "20px",
                                   }}
                                 >
-                                  {/* <i class="fa-regular fa-square-check"></i> */}
+                                  {/* <i className="fa-regular fa-square-check"></i> */}
                                   Action
                                 </button>
                                 {/* <button
@@ -126,7 +126,7 @@ const Bidders = ({
                                   title="Not Accepted"
                                   className="accept-btn accept-btn2"
                                 >
-                                  <i class="fa-regular fa-circle-xmark"></i>
+                                  <i className="fa-regular fa-circle-xmark"></i>
                                 </button> */}
                               </div>
                             )}

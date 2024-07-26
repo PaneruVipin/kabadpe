@@ -21,14 +21,14 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
                   }
                 />
                 <div className="stars-flex-bx">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star-half-stroke"></i>
-                  <i class="fa-regular fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star-half-stroke"></i>
+                  <i className="fa-regular fa-star"></i>
                 </div>
                 <div className="tick-check">
-                  <i class="fa-solid fa-circle-check"></i>
+                  <i className="fa-solid fa-circle-check"></i>
                 </div>
               </div>
 
@@ -72,7 +72,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
                   alt=""
                 />
                 <div className="tick-check">
-                  <i class="fa-solid fa-circle-check"></i>
+                  <i className="fa-solid fa-circle-check"></i>
                 </div>
               </div>
 
@@ -100,7 +100,7 @@ const UserAppoinmentDetail = ({ showPopup, setPopup, collectorInfo }) => {
           )}
 
           <div onClick={() => setPopup(false)} className="pop-user-info-close">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

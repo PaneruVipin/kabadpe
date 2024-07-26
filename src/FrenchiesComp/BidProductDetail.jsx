@@ -123,7 +123,7 @@ const BidProductDetail = ({ data, onClickDetPage }) => {
                       <span>Trader</span>
                       <div className="loct-flex">
                         <div className="loct-icon">
-                          <i class="fa-solid fa-location-dot"></i>
+                          <i className="fa-solid fa-location-dot"></i>
                         </div>
                         <span>{data?.Franchise?.franchiseAddress}</span>
                       </div>

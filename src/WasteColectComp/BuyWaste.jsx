@@ -7,7 +7,7 @@ const BuyWaste = ({
   onclickCloseBuyWaste,
   onclickRedirectBuywaste,
   onclickVisible,
-  ByWsteTrue
+  ByWsteTrue,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [userInfo, setUserInfo] = useState(null);
@@ -45,14 +45,10 @@ const BuyWaste = ({
     return userData;
   };
 
-
-
-
-
   return (
     <>
       <section className="buy-waste-popup-comp" onClick={onclickCloseBuyWaste}>
-        <div className="buy-waste-bx" onClick={(e)=>e.stopPropagation()}>
+        <div className="buy-waste-bx" onClick={(e) => e.stopPropagation()}>
           <h6>Buy Waste</h6>
 
           <div className="buy-waste-grid-input">
@@ -101,7 +97,7 @@ const BuyWaste = ({
           )}
 
           <div onClick={onclickCloseBuyWaste} className="close-popup-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

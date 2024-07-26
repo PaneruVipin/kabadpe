@@ -131,7 +131,7 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
               </div>
 
               <div className="excel-export-btn">
-                <i class="fa-solid fa-file-excel"></i>
+                <i className="fa-solid fa-file-excel"></i>
               </div>
 
               <button className="clr-stck">Clear Stock</button>
@@ -149,7 +149,7 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
                       Total <br /> Waste (Kg)
                     </th>
                     <th>
-                      Value (<i class="fa-solid fa-indian-rupee-sign"></i>)
+                      Value (<i className="fa-solid fa-indian-rupee-sign"></i>)
                     </th>
                     <th>Name</th>
                     <th>
@@ -278,7 +278,7 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
                                 <td>
                                   <div className="id-dwld-btn text-center-align">
                                     {/* <span className="b-span"> {elem.invoice} </span> */}
-                                    <i class="fa-regular fa-circle-down"></i>
+                                    <i className="fa-regular fa-circle-down"></i>
                                   </div>
                                 </td>
                               </tr>
@@ -303,7 +303,7 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
                       Total <br /> Waste (Kg)
                     </th>
                     <th>
-                      Value (<i class="fa-solid fa-indian-rupee-sign"></i>)
+                      Value (<i className="fa-solid fa-indian-rupee-sign"></i>)
                     </th>
                     {!wasteHistory?.error
                       ? wasteHistory?.products?.map(
@@ -397,7 +397,7 @@ const FrenchiesWasteTable = ({ wasteHistory }) => {
 
                           <td>
                             <div className="id-dwld-btn text-center-align">
-                              <i class="fa-regular fa-circle-down"></i>
+                              <i className="fa-regular fa-circle-down"></i>
                             </div>
                           </td>
                         </tr>

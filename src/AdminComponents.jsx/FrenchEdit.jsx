@@ -360,12 +360,15 @@ const FrenchEdit = ({
                   onClick={() => onClickCloseEditForm()}
                   className="close-popup-btn"
                 >
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
                 <p style={{ color: "red", textAlign: "center", lineHeight: 0 }}>
                   {otherError?.update}
                 </p>
-                <button type="submit" className="submit-btn submit-btn5 submit-btn33">
+                <button
+                  type="submit"
+                  className="submit-btn submit-btn5 submit-btn33"
+                >
                   Save Changes
                 </button>
               </Form>

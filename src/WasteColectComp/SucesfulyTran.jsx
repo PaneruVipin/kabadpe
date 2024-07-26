@@ -1,23 +1,16 @@
 import React from "react";
 import "../style/ReferEarn.css";
 
-const SucesfulyTran = ({
-  txnId,
-  totalAmmount,
-  onCloseClick,
-}) => {
+const SucesfulyTran = ({ txnId, totalAmmount, onCloseClick }) => {
   return (
     <>
-      <section
-        className="sucesfuly-trnsctin-comp"
-        onClick={onCloseClick}
-      >
+      <section className="sucesfuly-trnsctin-comp" onClick={onCloseClick}>
         <div
           className="sucesfuly-trnsctin-box"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="check-bx">
-            <i class="fa-solid fa-check fa-fw"></i>
+            <i className="fa-solid fa-check fa-fw"></i>
           </div>
 
           <p> Total Wallet Tranfer: {totalAmmount}</p>
@@ -37,7 +30,7 @@ const SucesfulyTran = ({
             }}
             className="close-otp-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

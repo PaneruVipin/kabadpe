@@ -282,7 +282,7 @@ const TodayFrenchAppoint = ({
         </div>
 
         <button onClick={onclickRedirectFrenchApnt} className="view-all-bx">
-          <i class="fa-solid fa-arrow-down"></i>
+          <i className="fa-solid fa-arrow-down"></i>
         </button>
       </div>
 

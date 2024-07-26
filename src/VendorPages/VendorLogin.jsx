@@ -8,6 +8,7 @@ import {
   vendorSignupAction,
   vendorVerifySignupAction,
 } from "../features/vendorAuth/vendorAuthActions";
+import { userFetch } from "../features/user/userActions";
 const VendorLogin = () => {
   const [passwordView, setPasswordView] = useState(false);
   const [vendForm, setVendForm] = useState(false);
@@ -25,6 +26,7 @@ const VendorLogin = () => {
   const { user, loading, success, errors, ...rest } = useSelector(
     (s) => s?.vendorAuth
   );
+  const userInfo = useSelector((s) => s?.user);
   const handleChange = (e) => {
     const name = e.target.value;
     setShopName(name);
@@ -40,15 +42,20 @@ const VendorLogin = () => {
 
   const handleSignupSubmit = (data) => {
     dispatch(vendorSignupAction(data));
-    setCreateAccount(true);
   };
   const handleOtpSubmit = ({ otp }) => {
     dispatch(vendorVerifySignupAction({ otp, email: user?.email }));
-    setSelling(true);
   };
   useEffect(() => {
-    console.log("this is user", user, rest);
-  }, [user, loading, success, errors]);
+    if (success?.signup) {
+      setCreateAccount(true);
+    }
+    if (success?.verifySignup) {
+      setSelling(true);
+      dispatch(userFetch({ type: "vendor" }));
+    }
+  }, [success]);
+  useEffect(() => {}, [userInfo]);
   return (
     <>
       <section className="vendor-login-comp">
@@ -128,7 +135,7 @@ const VendorLogin = () => {
                   <div className="vend-check-bx vend-check-bx2">
                     <div className="check-bx cehck-bx-v check-bx-v2">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         value=""
                         id="flexCheckDefault"
@@ -410,19 +417,47 @@ const VendorLogin = () => {
                                   <div className="vend-inpt-bx">
                                     <input
                                       type="text"
-                                      name="businessname"
+                                      name="companyName"
                                       id="businessname"
                                       autoComplete="off"
                                       required
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values?.companyName}
                                     />
                                   </div>
                                 </div>
-                              </div>
 
-                              <span className="comn-text d-inline-block mb-3">
-                                Enter the company / business name a registered
-                                in GST/PAN
-                              </span>
+                                <span className="comn-text d-inline-block mb-3">
+                                  Enter the company / business name a registered
+                                  in GST/PAN
+                                </span>
+                                <div className="vend-bx">
+                                  <div className="top-inpt-text">
+                                    <span>Set a name for your GSS Store</span>
+                                  </div>
+                                  <div className="vend-inpt-bx">
+                                    <input
+                                      type="text"
+                                      name="storeName"
+                                      id="shopname"
+                                      autoComplete="off"
+                                      required
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values?.storeName}
+                                    />
+                                  </div>
+
+                                  {shopName && (
+                                    <p className="avail">
+                                      {isValidName
+                                        ? "This name is available."
+                                        : "This name is not valid."}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
 
                               <div className="seller-agrenmt-bx">
                                 <h6>Seller Agreement</h6>
@@ -430,10 +465,11 @@ const VendorLogin = () => {
                                 <div className="vend-check-bx vend-check-bx2">
                                   <div className="check-bx cehck-bx-v">
                                     <input
-                                      class="form-check-input"
+                                      className="form-check-input"
                                       type="checkbox"
                                       value=""
                                       id="flexCheckDefault"
+                                      required
                                     />
                                   </div>
                                   <p>
@@ -451,7 +487,8 @@ const VendorLogin = () => {
                                 </div>
 
                                 <button
-                                  onClick={() => setShopDetForm(true)}
+                                  type="submit"
+                                  // onClick={() => setShopDetForm(true)}
                                   className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v"
                                 >
                                   Continue
@@ -488,67 +525,7 @@ const VendorLogin = () => {
                                 return (
                                   <Form className="shop-form-bx">
                                     <div className="shop-name-grid">
-                                      <div className="check-avail-bx">
-                                        <div className="vend-bx">
-                                          <div className="top-inpt-text">
-                                            <span>
-                                              Set a name for your GSS Store
-                                            </span>
-                                          </div>
-                                          <div className="vend-inpt-bx">
-                                            <input
-                                              type="text"
-                                              name="shopname"
-                                              id="shopname"
-                                              value={shopName}
-                                              onChange={handleChange}
-                                              autoComplete="off"
-                                              required
-                                            />
-                                          </div>
-
-                                          {/* { isNameAval &&  checked && <p className="avail">This name is available .</p> } */}
-                                          {shopName && (
-                                            <p className="avail">
-                                              {isValidName
-                                                ? "This name is available."
-                                                : "This name is not valid."}
-                                            </p>
-                                          )}
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>Product Category</span>
-                                        <div className="vend-inpt-bx">
-                                          <select
-                                            name="productcategory"
-                                            id="productcategory"
-                                          >
-                                            <option value="productcategory">
-                                              Cloths
-                                            </option>
-                                            <option value="productcategory">
-                                              Toys
-                                            </option>
-                                            <option value="productcategory">
-                                              Electronics
-                                            </option>
-                                            <option value="productcategory">
-                                              Shoes
-                                            </option>
-                                            <option value="productcategory">
-                                              Footwears
-                                            </option>
-                                            <option value="productcategory">
-                                              Furniture
-                                            </option>
-                                            <option value="productcategory">
-                                              Perfumes
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
+                                      <div className="check-avail-bx"></div>
                                     </div>
 
                                     <h6>Enter your busniess address</h6>
@@ -618,23 +595,6 @@ const VendorLogin = () => {
                                             </option>
                                             <option value="state">
                                               State3
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>Country/Region</span>
-                                        <div className="vend-inpt-bx">
-                                          <select name="Country" id="Country">
-                                            <option value="Country">
-                                              country1
-                                            </option>
-                                            <option value="Country">
-                                              country2
-                                            </option>
-                                            <option value="Country">
-                                              country3
                                             </option>
                                           </select>
                                         </div>
@@ -732,7 +692,7 @@ const VendorLogin = () => {
                                     <div className="vend-check-bx vend-check-bx3">
                                       <div className="check-bx cehck-bx-v">
                                         <input
-                                          class="form-check-input"
+                                          className="form-check-input"
                                           type="checkbox"
                                           value=""
                                           id="flexCheckDefault"
@@ -802,7 +762,7 @@ const VendorLogin = () => {
                                     <div className="vend-check-bx mt-4">
                                       <div className="check-bx cehck-bx-v">
                                         <input
-                                          class="form-check-input"
+                                          className="form-check-input"
                                           type="checkbox"
                                           value=""
                                           id="flexCheckDefault"

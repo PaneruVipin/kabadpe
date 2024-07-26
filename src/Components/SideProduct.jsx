@@ -87,7 +87,7 @@ const SideProduct = () => {
                 {" "}
                 Hello{" "}
                 <div className="messge-tick">
-                  <i class="fa-solid fa-check"></i>
+                  <i className="fa-solid fa-check"></i>
                 </div>
               </p>
             </div>
@@ -96,7 +96,7 @@ const SideProduct = () => {
               <p className="right-chat">
                 I am fine{" "}
                 <div className="messge-tick">
-                  <i class="fa-solid fa-check"></i>
+                  <i className="fa-solid fa-check"></i>
                 </div>
               </p>
             </div>
@@ -105,7 +105,7 @@ const SideProduct = () => {
               <p className="right-chat">
                 and you{" "}
                 <div className="messge-tick tickactive">
-                  <i class="fa-solid fa-check"></i>
+                  <i className="fa-solid fa-check"></i>
                 </div>
               </p>
             </div>
@@ -114,7 +114,7 @@ const SideProduct = () => {
               <p className="right-chat">
                 No{" "}
                 <div className="messge-tick tickactive">
-                  <i class="fa-solid fa-check"></i>
+                  <i className="fa-solid fa-check"></i>
                 </div>
               </p>
             </div>
@@ -122,7 +122,7 @@ const SideProduct = () => {
 
           <div className="user-type-message-main-bx">
             <div className="left-type-message-bx">
-              <i class="fa-regular fa-image"></i>
+              <i className="fa-regular fa-image"></i>
             </div>
 
             <div className="type-message-inpt-bx">
@@ -134,13 +134,13 @@ const SideProduct = () => {
               />
 
               <div className="send-message-btn">
-                <i class="fa-solid fa-caret-right"></i>
+                <i className="fa-solid fa-caret-right"></i>
               </div>
             </div>
           </div>
 
           <div onClick={() => setMessage(false)} className="close-chat-bx">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
 
           <div
@@ -151,7 +151,7 @@ const SideProduct = () => {
                 : "minimize-maximize-btn"
             }
           >
-            <i class="fa-solid fa-angle-up"></i>
+            <i className="fa-solid fa-angle-up"></i>
           </div>
         </div>
       </section>

@@ -282,7 +282,7 @@ const FrenchAppointTwo = ({ updatedFrenchAppointData }) => {
                 </div>
 
                 <div className="search-btn">
-                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <i className="fa-solid fa-magnifying-glass"></i>
                 </div>
               </div>
             </div>
@@ -364,13 +364,13 @@ const FrenchAppointTwo = ({ updatedFrenchAppointData }) => {
                           <td>
                             <div className="appoint-flex-btns">
                               {/* <button onClick={() => confirmPopupfunc()}>
-                          <i class="fa-regular fa-circle-check"></i>
+                          <i className="fa-regular fa-circle-check"></i>
                         </button>
                         <button onClick={() => reschedulePopupfunc()}>
-                        <i class="fa-solid fa-calendar-days"></i>
+                        <i className="fa-solid fa-calendar-days"></i>
                         </button>
                         <button onClick={() => cancelPopupFunc()}>
-                        <i class="fa-regular fa-circle-xmark"></i>
+                        <i className="fa-regular fa-circle-xmark"></i>
                         </button> 
 
                          onClick={() => confirmPopupfunc()}

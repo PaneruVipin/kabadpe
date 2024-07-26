@@ -31,7 +31,7 @@ const ClearStock = () => {
         w?.forEach(
           ({ name, image, price, bulkPrice, ammount, weight, productId }) => {
             const exist = newData?.find(
-              ({ id, productId:id2 }) => id == name || id2 == productId
+              ({ id, productId: id2 }) => id == name || id2 == productId
             );
             let newObj = {
               id: name,
@@ -168,7 +168,7 @@ const ClearStock = () => {
                   </div>
 
                   <div className="search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass"></i>
                   </div>
                 </div>
               </div>

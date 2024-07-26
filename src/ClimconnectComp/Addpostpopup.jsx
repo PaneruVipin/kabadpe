@@ -5,7 +5,7 @@ import { climeCategories } from "../lib/climeCategories";
 import { blogPostCreate, blogPostEdit } from "../apis/blogs/blog";
 import { toast } from "react-toastify";
 
-const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
+const Addpostpopup = ({ onClickClosePost, initialValues, refetch }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [images, setImages] = useState([]);
   const handleImageUpload = (e) => {
@@ -50,7 +50,9 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
             }) => {
               return (
                 <Form>
-                  <h3>{initialValues ? "Update Post" : "Share your opinion"}</h3>
+                  <h3>
+                    {initialValues ? "Update Post" : "Share your opinion"}
+                  </h3>
 
                   <div className="add-post-user-info-bx">
                     <div className="add-post-user-img">
@@ -113,7 +115,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues,refetch }) => {
                       <span>Add Post</span>
 
                       <div className="add-post-imge">
-                        <i class="fa-regular fa-image"></i>
+                        <i className="fa-regular fa-image"></i>
                       </div>
                     </label>
                     <input

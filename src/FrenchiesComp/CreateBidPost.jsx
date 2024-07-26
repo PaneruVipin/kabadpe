@@ -113,7 +113,7 @@ const CreateBidPost = ({
             </div>
             <button
               onClick={() => {
-                type =="add" ? redirect() : onClose();
+                type == "add" ? redirect() : onClose();
               }}
               style={{
                 display: "flex",
@@ -305,7 +305,7 @@ const CreateBidPost = ({
                         <div className="same-com-add-bx">
                           <div className="check-bxx">
                             <input
-                              class="form-check-input"
+                              className="form-check-input"
                               type="checkbox"
                               value=""
                               onChange={(e) => {
@@ -409,7 +409,7 @@ const CreateBidPost = ({
                           {/* <div className="same-com-add-bx mt-3">
                             <div className="check-bxx">
                               <input
-                                class="form-check-input"
+                                className="form-check-input"
                                 type="checkbox"
                                 value=""
                                 id="flexCheckDefault"
@@ -422,7 +422,7 @@ const CreateBidPost = ({
                             <div className="check-bxx">
                               <input
                                 name="includeGst"
-                                class="form-check-input"
+                                className="form-check-input"
                                 onChange={(e) => {
                                   values.includeGst = e.target.checked;
                                   handleChange(e);
@@ -438,7 +438,7 @@ const CreateBidPost = ({
                           <div className="same-com-add-bx mt-3">
                             <div className="check-bxx">
                               <input
-                                class="form-check-input"
+                                className="form-check-input"
                                 type="checkbox"
                                 onChange={(e) => {
                                   values.includeTransport = e.target.checked;
@@ -470,7 +470,7 @@ const CreateBidPost = ({
                   <div className="same-com-add-bx ">
                     <div className="check-bxx">
                       <input
-                        class="form-check-input"
+                        className="form-check-input"
                         type="checkbox"
                         value=""
                         id="flexCheckDefault"

@@ -107,7 +107,7 @@ const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
                   <td>
                     <div className="invoice-downlod">
                       <span>2114504750</span>{" "}
-                      <i class="fa-regular fa-circle-down"></i>
+                      <i className="fa-regular fa-circle-down"></i>
                     </div>
                   </td>
                 </tr>
@@ -124,7 +124,7 @@ const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
                   <td>
                     <div className="invoice-downlod">
                       <span>2114504750</span>{" "}
-                      <i class="fa-regular fa-circle-down"></i>
+                      <i className="fa-regular fa-circle-down"></i>
                     </div>
                   </td>
                 </tr>
@@ -141,7 +141,7 @@ const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
                   <td>
                     <div className="invoice-downlod">
                       <span>2114504750</span>{" "}
-                      <i class="fa-regular fa-circle-down"></i>
+                      <i className="fa-regular fa-circle-down"></i>
                     </div>
                   </td>
                 </tr>
@@ -158,7 +158,7 @@ const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
                   <td>
                     <div className="invoice-downlod">
                       <span>2114504750</span>{" "}
-                      <i class="fa-regular fa-circle-down"></i>
+                      <i className="fa-regular fa-circle-down"></i>
                     </div>
                   </td>
                 </tr>
@@ -167,7 +167,7 @@ const FrenchDetPopup = ({ onclickCloseDetFrench }) => {
           </div>
 
           <button onClick={onclickCloseDetFrench} className="close-popup-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
       </section>

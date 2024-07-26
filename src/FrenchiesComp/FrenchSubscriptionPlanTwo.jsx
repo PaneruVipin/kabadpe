@@ -134,7 +134,7 @@ const FrenchSubscriptionPlanTwo = ({
                                 <span>
                                   {" "}
                                   {/* {elem.invoice}{" "} */}
-                                  {/* <i class="fa-regular fa-circle-down"></i>{" "} */}
+                                  {/* <i className="fa-regular fa-circle-down"></i>{" "} */}
                                 </span>{" "}
                               </td>
                               <td>
@@ -239,7 +239,7 @@ const FrenchSubscriptionPlanTwo = ({
                                 <span>
                                   {" "}
                                   {/* {elem.invoice}{" "} */}
-                                  {/* <i class="fa-regular fa-circle-down"></i>{" "} */}
+                                  {/* <i className="fa-regular fa-circle-down"></i>{" "} */}
                                 </span>{" "}
                               </td>
                               <td>

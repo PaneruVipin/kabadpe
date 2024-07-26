@@ -294,7 +294,7 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                             className="apnt-form-submit-btn add-adres-btn"
                           >
                             Address
-                            <i class="fa-solid fa-location-dot"></i>
+                            <i className="fa-solid fa-location-dot"></i>
                           </button>
 
                           <div className="default-add-bx apnt-inpt-bx apnt-inpt-bx-text">
@@ -523,7 +523,7 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                     <IoIosArrowRoundBack
                       style={{ color: "green", width: "30px", height: "20px" }}
                     />
-                    {/* <i class="fa-solid fa-xmark"></i> */}
+                    {/* <i className="fa-solid fa-xmark"></i> */}
                   </div>
 
                   <h3>
@@ -597,7 +597,7 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                                                 : "round-arrow"
                                             }
                                           >
-                                            <i class="fa-solid fa-angle-down"></i>
+                                            <i className="fa-solid fa-angle-down"></i>
                                           </div>
                                         </div>
                                       </div>
@@ -747,7 +747,7 @@ const Appointment = ({ setUserForm, component = "user", userData }) => {
                   : null}
 
                 <div onClick={() => setBookApnt(false)} className="close-btn">
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </div>
               </div>
             </div>

@@ -95,7 +95,7 @@ const WorkCapacity = ({ onclickClose, component = "franchise" }) => {
           </div>
 
           <div onClick={onclickClose} className="close-btn close-btn2">
-            <i class="fa-solid fa-xmark "></i>
+            <i className="fa-solid fa-xmark "></i>
           </div>
         </div>
       </section>

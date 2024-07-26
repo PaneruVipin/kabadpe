@@ -151,9 +151,9 @@ nesciunt nulla natus ex, qui
                       <p>
                         {date}
                         {visibility === "public" ? (
-                          <i class="fa-solid fa-earth-asia"></i>
+                          <i className="fa-solid fa-earth-asia"></i>
                         ) : (
-                          <i class="fa-solid fa-user-group"></i>
+                          <i className="fa-solid fa-user-group"></i>
                         )}
                       </p>
 
@@ -202,16 +202,16 @@ nesciunt nulla natus ex, qui
                     className="post-btn"
                   >
                     {postLike === true ? (
-                      <i class="fa-solid fa-heart"></i>
+                      <i className="fa-solid fa-heart"></i>
                     ) : (
-                      <i class="fa-regular fa-heart"></i>
+                      <i className="fa-regular fa-heart"></i>
                     )}
                   </div>
                   <div className="post-btn">
-                    <i class="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-comment"></i>
                   </div>
                   <div className="post-btn">
-                    <i class="fa-brands fa-telegram"></i>
+                    <i className="fa-brands fa-telegram"></i>
                   </div>
                 </div>
 
@@ -229,7 +229,7 @@ nesciunt nulla natus ex, qui
                       placeholder="Add a Comment"
                     />
                     <div className="send-comment-btn">
-                      <i class="fa-regular fa-paper-plane"></i>
+                      <i className="fa-regular fa-paper-plane"></i>
                     </div>
                   </div>
                 </div>
@@ -246,7 +246,7 @@ nesciunt nulla natus ex, qui
               <div className="right-soc-post-info">
                 <h5>Faiz Alam</h5>
                 <p>
-                  25-10-23 <i class="fa-solid fa-earth-asia"></i>
+                  25-10-23 <i className="fa-solid fa-earth-asia"></i>
                 </p>
               </div>
             </div>
@@ -295,7 +295,7 @@ nesciunt nulla natus ex, qui
               <div className="right-soc-post-info">
                 <h5>Faiz Alam</h5>
                 <p>
-                  25-10-23 <i class="fa-solid fa-earth-asia"></i>
+                  25-10-23 <i className="fa-solid fa-earth-asia"></i>
                 </p>
               </div>
             </div>
@@ -402,7 +402,7 @@ nesciunt nulla natus ex, qui
             <p>Add your Post</p>
             <label htmlFor="input_file">
               {" "}
-              <i class="fa-regular fa-image"></i>{" "}
+              <i className="fa-regular fa-image"></i>{" "}
             </label>
             <input
               type="file"
@@ -415,7 +415,7 @@ nesciunt nulla natus ex, qui
           <button className="post-submit">Post</button>
 
           <div onClick={() => closePopUp()} className="close-cret-post">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

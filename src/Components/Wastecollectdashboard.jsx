@@ -81,7 +81,7 @@ const Wastecollectdashboard = ({}) => {
   });
   return (
     <>
-     <Redirect role="kabadCollector" path="/auth/collector" />
+      <Redirect role="kabadCollector" path="/auth/collector" />
       <TopFixMenu
         setProfBtn={setProfBtn}
         buyWasteUserInfo={buyWasteUserInfo}
@@ -90,7 +90,7 @@ const Wastecollectdashboard = ({}) => {
         onClickSide={() => setSideMenu(!sideMenu)}
         onSideMenu={sideMenu}
       />
-     
+
       <div
         className={
           sideMenu
@@ -116,12 +116,12 @@ const Wastecollectdashboard = ({}) => {
           <h6>{userInfo?.fullname}</h6>
           <span className="em-text">{hashId(userInfo?.id, "worker")}</span>
           <span className="em-text">
-            <i class="fa-regular fa-envelope"></i>
+            <i className="fa-regular fa-envelope"></i>
             {userInfo?.email}
           </span>
 
           <span className="num-text">
-            <i class="fa-solid fa-mobile-screen"></i>
+            <i className="fa-solid fa-mobile-screen"></i>
             {userInfo?.phoneNumber}
           </span>
           <span className="em-text">
@@ -132,11 +132,11 @@ const Wastecollectdashboard = ({}) => {
               : "KabadPe"}
           </span>
           <div className="rating-prof">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <i class="fa-regular fa-star"></i>
+            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star-half-stroke"></i>
+            <i className="fa-regular fa-star"></i>
           </div>
 
           <div className="prog-edit-prof-flex-bx">
@@ -150,7 +150,7 @@ const Wastecollectdashboard = ({}) => {
               className="edit-prof-btn"
               title="edit profile"
             >
-              <i class="fa-solid fa-pen-to-square"></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </div>
           </div>
         </div>
@@ -161,7 +161,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 1 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-chart-line"></i>
+              <i className="fa-solid fa-chart-line"></i>
             </div>
             Dashboard
           </button>
@@ -171,7 +171,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 7 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-wallet"></i>
+              <i className="fa-solid fa-wallet"></i>
             </div>
             My Transactions
           </button>
@@ -181,7 +181,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 2 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-file-pen"></i>
+              <i className="fa-solid fa-file-pen"></i>
             </div>
             My Appointments
           </button>
@@ -195,7 +195,7 @@ const Wastecollectdashboard = ({}) => {
                   }
                 >
                   <div className="u-prf-tab-icon">
-                    <i class="fa-solid fa-seedling"></i>
+                    <i className="fa-solid fa-seedling"></i>
                   </div>
                   My Plans
                 </button>
@@ -206,7 +206,7 @@ const Wastecollectdashboard = ({}) => {
                 className={profBtn === 13 ? "u-prf-bx profactive" : "u-prf-bx"}
               >
                 <div className="u-prf-tab-icon">
-                  <i class="fa-solid fa-layer-group"></i>
+                  <i className="fa-solid fa-layer-group"></i>
                 </div>
                 Subscriptions
               </button>
@@ -217,7 +217,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 3 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </div>
             My Details
           </button>
@@ -228,7 +228,7 @@ const Wastecollectdashboard = ({}) => {
               className={getButtonClassName(12)}
             >
               <div className="u-prf-tab-icon">
-                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <i className="fa-solid fa-money-bill-trend-up"></i>
               </div>
               Manage Waste
             </button>
@@ -262,7 +262,7 @@ const Wastecollectdashboard = ({}) => {
               className={getButtonClassName(21)}
             >
               <div className="u-prf-tab-icon">
-                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <i className="fa-solid fa-money-bill-trend-up"></i>
               </div>
               Safety and Skills
             </button>
@@ -307,7 +307,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-money-bill-trend-up"></i>
+              <i className="fa-solid fa-money-bill-trend-up"></i>
             </div>
             Clear Stock
           </button> */}
@@ -317,7 +317,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 8 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-regular fa-comment-dots"></i>
+              <i className="fa-regular fa-comment-dots"></i>
             </div>
             My Reviews
           </button>
@@ -327,7 +327,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 4 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-street-view"></i>
+              <i className="fa-solid fa-street-view"></i>
             </div>
             My Work Location
           </button> */}
@@ -337,7 +337,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-dumpster"></i>
+              <i className="fa-solid fa-dumpster"></i>
             </div>
             Waste Collection
           </button> */}
@@ -347,7 +347,7 @@ const Wastecollectdashboard = ({}) => {
             className={profBtn === 6 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-capsules"></i>
+              <i className="fa-solid fa-capsules"></i>
             </div>
             My sales history
           </button> */}
@@ -357,7 +357,7 @@ const Wastecollectdashboard = ({}) => {
           onClick={logout}
           className="profile-log-out-btn profile-log-out-btn2"
         >
-          <i class="fa-solid fa-right-from-bracket"></i>
+          <i className="fa-solid fa-right-from-bracket"></i>
           <span>Log Out</span>
         </div>
       </div>

@@ -16,7 +16,7 @@ const AllProdTab = () => {
 
   const handleCheckboxChange = (index) => {
     const updatedCheckboxes = checkboxes.map((checkbox, i) =>
-      index === 'all' || index === i ? !checkbox : checkbox
+      index === "all" || index === i ? !checkbox : checkbox
     );
     setCheckboxes(updatedCheckboxes);
   };
@@ -27,29 +27,25 @@ const AllProdTab = () => {
     setCheckboxes(updatedCheckboxes);
   };
 
-
-
-
-
   return (
     <>
-      <section className="all-prod-table-comp" >
+      <section className="all-prod-table-comp">
         <table>
           <thead>
             <tr>
               <th>
-              <input
-          type="checkbox"
-          checked={checkboxes.every((checkbox) => checkbox)}
-          onChange={handleAllCheckboxChange}
-        />
+                <input
+                  type="checkbox"
+                  checked={checkboxes.every((checkbox) => checkbox)}
+                  onChange={handleAllCheckboxChange}
+                />
               </th>
               <th>S-No.</th>
               <th>Vendor Name</th>
               <th>
                 {" "}
                 <div className="prod-img">
-                  <i class="fa-solid fa-image"></i>
+                  <i className="fa-solid fa-image"></i>
                 </div>{" "}
               </th>
               <th>
@@ -85,22 +81,19 @@ const AllProdTab = () => {
               return (
                 <>
                   <tr key={index}>
-              {checkboxes.map((isChecked, index) => {
-                return (
-                    <>
-                    <td key={index}>
-
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={() => handleCheckboxChange(index)}
-          />
-              </td>
-
-                    </>
-                )
-              })}
-
+                    {checkboxes.map((isChecked, index) => {
+                      return (
+                        <>
+                          <td key={index}>
+                            <input
+                              type="checkbox"
+                              checked={isChecked}
+                              onChange={() => handleCheckboxChange(index)}
+                            />
+                          </td>
+                        </>
+                      );
+                    })}
 
                     <td>
                       <span> {index + 1} </span>
@@ -168,8 +161,6 @@ const AllProdTab = () => {
           </tbody>
         </table>
       </section>
-
-    
     </>
   );
 };

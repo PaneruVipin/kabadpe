@@ -13,7 +13,7 @@ const BlogTable = ({
   selectedData,
   setSelectedData,
   setIsedit,
-  refetch
+  refetch,
 }) => {
   const [popupType, setPopupType] = useState("comment");
   return (
@@ -23,9 +23,9 @@ const BlogTable = ({
           <thead>
             <tr>
               <th>
-                <div class="b-check">
+                <div className="b-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"
@@ -46,9 +46,9 @@ const BlogTable = ({
             {data?.map(({ id, categoryName, title, updatedOn, ...rest }) => (
               <tr key={id}>
                 <td>
-                  <div class="b-check">
+                  <div className="b-check">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       value=""
                       id="flexCheckDefault"
@@ -77,7 +77,7 @@ const BlogTable = ({
                       <span
                         onClick={async () => {
                           await blogPostEdit({ id, blogStatus: "trash" });
-                          refetch()
+                          refetch();
                         }}
                       >
                         Trash

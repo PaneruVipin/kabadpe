@@ -1,15 +1,15 @@
-import React from 'react'
+import React from "react";
 
-const RequestWithdrawlpopoup = ({onClickClose}) => {
+const RequestWithdrawlpopoup = ({ onClickClose }) => {
   return (
     <>
-     <section className="sucesfuly-trnsctin-comp" onClick={onClickClose} >
+      <section className="sucesfuly-trnsctin-comp" onClick={onClickClose}>
         <div
           className="sucesfuly-trnsctin-box"
-            onClick={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="check-bx">
-            <i class="fa-solid fa-check fa-fw"></i>
+            <i className="fa-solid fa-check fa-fw"></i>
           </div>
 
           <p>Status Changed Successfull.</p>
@@ -22,12 +22,12 @@ const RequestWithdrawlpopoup = ({onClickClose}) => {
             View Details
           </button> */}
           <div onClick={onClickClose} className="close-otp-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
-      </section> 
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default RequestWithdrawlpopoup
+export default RequestWithdrawlpopoup;

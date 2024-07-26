@@ -407,7 +407,7 @@ const CreateBlog = ({ data, onClose }) => {
                               }}
                               className="edit-btn-post"
                             >
-                              <i class="fa-regular fa-pen-to-square"></i>
+                              <i className="fa-regular fa-pen-to-square"></i>
                             </div>
                           </div>
                         );

@@ -44,7 +44,7 @@ const ReviewPopup = ({ onclickRevPopupClose }) => {
           <button className="rev-submit-btn">Submit</button>
 
           <div onClick={onclickRevPopupClose} className="close-rating-box">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
 
           <div></div>

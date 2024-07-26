@@ -4,9 +4,9 @@ import AddSubsEdit from "./AddSubsEdit";
 import { useQuery } from "@tanstack/react-query";
 import { adminSubsDelete, adminSubsFetch } from "../apis/admins/subscription";
 
-const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
+const Addsubscription = ({ onSwitch, onactive, onSwitchPrev }) => {
   const [subsPlanBx, setSubsPlanBx] = useState(false);
-  const [btnActive, setBtnActive] = useState('');
+  const [btnActive, setBtnActive] = useState("");
   const [initialUpdateValues, setInitialUpdateValues] = useState({});
   const { data: subscription, refetch } = useQuery({
     queryKey: ["kabadpeSubscription"],
@@ -22,11 +22,11 @@ const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
           <div className="for-french-indi-flex-btn">
             <button
               className={
-                onactive === "addsubscription" ||      onactive === "createplan"
+                onactive === "addsubscription" || onactive === "createplan"
                   ? "switch-btn switch-btn3 switchactive"
                   : "switch-btn switch-btn3 "
-              } onClick={onSwitchPrev}
-            
+              }
+              onClick={onSwitchPrev}
             >
               For Frenchies
             </button>
@@ -111,7 +111,7 @@ const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
                                   }}
                                   className="add-wrok-actn-btn"
                                 >
-                                  <i class="fa-solid fa-pen-to-square"></i>
+                                  <i className="fa-solid fa-pen-to-square"></i>
                                 </button>
 
                                 <button
@@ -121,7 +121,7 @@ const Addsubscription = ({onSwitch , onactive , onSwitchPrev}) => {
                                   }}
                                   className="add-wrok-actn-btn"
                                 >
-                                  <i class="fa-solid fa-trash"></i>
+                                  <i className="fa-solid fa-trash"></i>
                                 </button>
                               </div>
                             </td>

@@ -60,7 +60,7 @@ const ManageWasteTable = ({ wasteData }) => {
             </div>
 
             <div className="excel-export-btn">
-              <i class="fa-solid fa-file-excel"></i>
+              <i className="fa-solid fa-file-excel"></i>
             </div>
 
             <button className="clr-stck">Clear Stock</button>
@@ -77,7 +77,7 @@ const ManageWasteTable = ({ wasteData }) => {
                   Total <br /> Waste (Kg)
                 </th>
                 <th>
-                  Value (<i class="fa-solid fa-indian-rupee-sign"></i>)
+                  Value (<i className="fa-solid fa-indian-rupee-sign"></i>)
                 </th>
                 <th>Name</th>
                 {!wasteData?.error
@@ -183,7 +183,7 @@ const ManageWasteTable = ({ wasteData }) => {
                                   {/* {" "}
                                   {"elem.invoice"}{" "} */}
                                 </span>
-                                <i class="fa-regular fa-circle-down"></i>
+                                <i className="fa-regular fa-circle-down"></i>
                               </div>
                             </td>
                           </tr>

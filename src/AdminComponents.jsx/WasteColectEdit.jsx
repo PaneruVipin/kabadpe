@@ -645,12 +645,14 @@ const WasteColectEdit = ({
                   onClick={onClickCloseEditForm}
                   className="close-popup-btn"
                 >
-                  <i class="fa-solid fa-xmark"></i>
+                  <i className="fa-solid fa-xmark"></i>
                 </button>
                 <p style={{ textAlign: "center", color: "red", lineHeight: 0 }}>
                   {otherErrors?.update}
                 </p>
-                <button className="submit-btn submit-btn-save-chng submit-btn5">Save Changes</button>
+                <button className="submit-btn submit-btn-save-chng submit-btn5">
+                  Save Changes
+                </button>
               </Form>
             );
           }}

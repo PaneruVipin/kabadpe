@@ -10,7 +10,7 @@ const CommentPopup = ({
         <h6>{type == "comment" ? "Post Comments" : "Reports"}</h6>
 
         <div className="close-b" onClick={onClickShut}>
-          <i class="fa-regular fa-circle-xmark"></i>
+          <i className="fa-regular fa-circle-xmark"></i>
         </div>
 
         <div className="blog-comnt-list">

@@ -6,7 +6,7 @@ const AppoinmentPopup = ({
   appoinmentForm,
   setUserForm,
   component,
-  userData
+  userData,
 }) => {
   return (
     <>
@@ -28,13 +28,17 @@ const AppoinmentPopup = ({
               position: "relative",
             }}
           >
-            <Appointment userData={userData} component={component} setUserForm={setUserForm} />
+            <Appointment
+              userData={userData}
+              component={component}
+              setUserForm={setUserForm}
+            />
             <div
               style={{ zIndex: 1000, marginTop: "-15rem" }}
               onClick={() => setAppoinmentForm(false)}
               className="close-btn"
             >
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </div>
           </div>
         </section>

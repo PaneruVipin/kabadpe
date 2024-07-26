@@ -8,7 +8,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 
-const ConfirmOtp = ({refetchTnxHistory, onclickcloseOtp, onClickAddAmount, onClickOpen }) => {
+const ConfirmOtp = ({
+  refetchTnxHistory,
+  onclickcloseOtp,
+  onClickAddAmount,
+  onClickOpen,
+}) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const handleWithdrawalRequest = async () => {
     if (!withdrawalAmount) {
@@ -20,7 +25,7 @@ const ConfirmOtp = ({refetchTnxHistory, onclickcloseOtp, onClickAddAmount, onCli
       return;
     }
     toast.success(res);
-    refetchTnxHistory()
+    refetchTnxHistory();
     onclickcloseOtp();
   };
   return (
@@ -52,7 +57,7 @@ const ConfirmOtp = ({refetchTnxHistory, onclickcloseOtp, onClickAddAmount, onCli
           </button>
 
           <div onClick={onclickcloseOtp} className="close-otp-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
 
@@ -69,7 +74,7 @@ const ConfirmOtp = ({refetchTnxHistory, onclickcloseOtp, onClickAddAmount, onCli
             </button>
 
             <div onClick={onclickcloseOtp} className="close-otp-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
             </div>
             
         </div> */}

@@ -1,11 +1,10 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-const AboutBanner = ({data}) => {
+const AboutBanner = ({ data }) => {
   return (
     <>
-
-    {/* <section className="banner-comp">
+      {/* <section className="banner-comp">
     <div className="comon-container-2">
         <div className="banner-main-bx">
 
@@ -16,7 +15,7 @@ const AboutBanner = ({data}) => {
 
                     <NavLink to="/">Home </NavLink>
 
-                    <span><i class="fa-solid fa-angle-right"></i></span>
+                    <span><i className="fa-solid fa-angle-right"></i></span>
                     
                     <NavLink to="/about"> {data.text}  </NavLink>
                     
@@ -27,9 +26,8 @@ const AboutBanner = ({data}) => {
         </div>
         </div>
     </section> */}
-      
     </>
-  )
-}
+  );
+};
 
-export default AboutBanner
+export default AboutBanner;

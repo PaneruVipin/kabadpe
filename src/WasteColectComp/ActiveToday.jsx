@@ -33,7 +33,7 @@ const ActiveToday = ({ onclickClose, todayTrue, refetch: refetchStatus }) => {
           </button>
 
           <div onClick={onclickClose} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

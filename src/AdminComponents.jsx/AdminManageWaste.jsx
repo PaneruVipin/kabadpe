@@ -170,7 +170,7 @@ const AdminManageWaste = () => {
                   </div>
 
                   <div className="search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass"></i>
                   </div>
                 </div>
               </div>

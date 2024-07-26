@@ -63,7 +63,7 @@ const AddMoneyAmount = ({ onclickCloseAmount }) => {
           </div>
 
           <div onClick={onclickCloseAmount} className="walt-bal-close">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

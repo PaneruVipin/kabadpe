@@ -211,13 +211,13 @@ const GuestBuyWaste = () => {
                   <td>
                     <div className="action-flex-btns d-flex align-items-center">
                       <button className="add-data-btn" onClick={handleAddRow}>
-                        <i class="fa-solid fa-plus"></i>
+                        <i className="fa-solid fa-plus"></i>
                       </button>
                       <button
                         className="add-data-btn delt-data-btn"
                         onClick={() => handleDeleteRow(row.id)}
                       >
-                        <i class="fa-regular fa-trash-can"></i>
+                        <i className="fa-regular fa-trash-can"></i>
                       </button>
                     </div>
                   </td>
@@ -254,7 +254,7 @@ const GuestBuyWaste = () => {
           </button>
 
           <div onClick={() => setPay(false)} className="close-btn ">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
@@ -285,7 +285,7 @@ const GuestBuyWaste = () => {
           <button className="confirm-btn">Confirm</button>
 
           <div onClick={() => setWaltTranfer(false)} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>

@@ -223,7 +223,7 @@ const BookingReviewComp = () => {
 
                 <div className="edit-main-box2 edit-main-box3">
                   <div onClick={() => setEditBx(!editBx)} className="edit-btn2">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                    <i className="fa-solid fa-ellipsis-vertical"></i>
                   </div>
 
                   <div
@@ -261,11 +261,11 @@ const BookingReviewComp = () => {
 
                           <div className="c-btns-flex-bx">
                             <button className="tick-right-btn">
-                              <i class="fa-regular fa-circle-check"></i>
+                              <i className="fa-regular fa-circle-check"></i>
                             </button>
 
                             <button className="tick-right-btn tick-wrong-btn">
-                              <i class="fa-regular fa-circle-xmark"></i>
+                              <i className="fa-regular fa-circle-xmark"></i>
                             </button>
                           </div>
                         </div>
@@ -277,7 +277,7 @@ const BookingReviewComp = () => {
 
               {custoRevwIndex < custRev.length && (
                 <div onClick={handleMoreBox} className="more-rev-arrow-btn">
-                  <i class="fa-regular fa-circle-down"></i>
+                  <i className="fa-regular fa-circle-down"></i>
                 </div>
               )}
             </div>

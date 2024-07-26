@@ -31,7 +31,7 @@ const WaletBalance = ({ oncClickclose, onclickTrnferAmnt }) => {
           </div>
 
           <div onClick={oncClickclose} className="walt-bal-close">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

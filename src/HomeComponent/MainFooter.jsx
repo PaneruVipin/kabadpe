@@ -4,33 +4,31 @@ import { NavLink } from "react-router-dom";
 const MainFooter = () => {
   return (
     <>
-      <footer class="footer-comp">
-        <div class="comon-container-2">
-          <div class="mail-main-bx">
-            <div class="left-mail-text-bx">
-              <div class="mail-icon">
+      <footer className="footer-comp">
+        <div className="comon-container-2">
+          <div className="mail-main-bx">
+            <div className="left-mail-text-bx">
+              <div className="mail-icon">
                 <img src="./images/email.png" alt="" />
               </div>
-              <div class="mail-text">
+              <div className="mail-text">
                 <h6>Subscribe Now to Get Latest Updates</h6>
               </div>
             </div>
 
-            <div class="right-tg-main-bx">
+            <div className="right-tg-main-bx">
               <input
                 type="email"
                 name="email"
                 id="email"
                 placeholder="Email address"
               />
-              <button class="tg-btn">
-                Send
-              </button>
+              <button className="tg-btn">Send</button>
             </div>
           </div>
 
-          <div class="fot-grid grid grid-gap">
-            <div class="left-footer-bx">
+          <div className="fot-grid grid grid-gap">
+            <div className="left-footer-bx">
               <h6>About</h6>
 
               <div className="foter-logo mb-4">
@@ -46,26 +44,26 @@ const MainFooter = () => {
                 to traditional disposal methods
               </p>
 
-              <div class="fot-soc-icons-flex">
+              <div className="fot-soc-icons-flex">
                 <a href="#">
-                  <i class="fa-brands fa-twitter"></i>
+                  <i className="fa-brands fa-twitter"></i>
                 </a>
                 <a href="#">
-                  <i class="fa-brands fa-facebook-f"></i>
+                  <i className="fa-brands fa-facebook-f"></i>
                 </a>
                 <a href="#">
-                  <i class="fa-brands fa-pinterest-p"></i>
+                  <i className="fa-brands fa-pinterest-p"></i>
                 </a>
                 <a href="#">
-                  <i class="fa-brands fa-instagram"></i>
+                  <i className="fa-brands fa-instagram"></i>
                 </a>
               </div>
             </div>
 
-            <div class="right-footer-list-bx">
-              <div class="fot-li-bx">
+            <div className="right-footer-list-bx">
+              <div className="fot-li-bx">
                 <h6>KabadPe</h6>
-                <div class="fot-list">
+                <div className="fot-list">
                   <li>
                     <a href="#">About Us</a>
                   </li>
@@ -105,9 +103,9 @@ const MainFooter = () => {
                 </div>
               </div>
 
-              <div class="fot-li-bx">
+              <div className="fot-li-bx">
                 <h6> Green Saman Shop</h6>
-                <div class="fot-list">
+                <div className="fot-list">
                   <li>
                     <a href="#">Shop</a>
                   </li>
@@ -147,10 +145,10 @@ const MainFooter = () => {
                 </div>
               </div>
 
-              <div class="fot-li-bx">
+              <div className="fot-li-bx">
                 <h6>Contact</h6>
 
-                <div class="fot-list">
+                <div className="fot-list">
                   <li>
                     <a href="#">About Us</a>
                   </li>
@@ -165,45 +163,51 @@ const MainFooter = () => {
                   </li>
                 </div>
 
-                <div class="fot-list mt-3">
-                  <div class="cont-bx">
-                    <div class="cont-i">
-                      <i class="fa-solid fa-phone-volume"></i>
+                <div className="fot-list mt-3">
+                  <div className="cont-bx">
+                    <div className="cont-i">
+                      <i className="fa-solid fa-phone-volume"></i>
                     </div>
                     <a href="#">+91 88002 09988</a>
                   </div>
-                  <div class="cont-bx">
-                    <div class="cont-i">
-                      <i class="fa-solid fa-envelope"></i>
+                  <div className="cont-bx">
+                    <div className="cont-i">
+                      <i className="fa-solid fa-envelope"></i>
                     </div>
                     <span>support@thekabadshop.com</span>
                   </div>
-                  <div class="cont-bx">
-                    <div class="cont-i">
-                      <i class="fa-solid fa-location-dot"></i>
+                  <div className="cont-bx">
+                    <div className="cont-i">
+                      <i className="fa-solid fa-location-dot"></i>
                     </div>
-                    <span>51, Road No 6, Kartarpura Industrial Area, 22 Godam, Jaipur, Rajasthan - 302006</span>
+                    <span>
+                      51, Road No 6, Kartarpura Industrial Area, 22 Godam,
+                      Jaipur, Rajasthan - 302006
+                    </span>
                   </div>
                 </div>
                 <div className="right-download-btns-flex mt-4">
-                <button className="learm-mre-btn">
-          <NavLink to="/auth/collector">  Waste Colect Login </NavLink>
-        </button>
-        <button className="learm-mre-btn">
-            
-          <NavLink to="/frenchieslogin">  Frenchies Login </NavLink>
-
-        </button>
+                  <button className="learm-mre-btn">
+                    <NavLink to="/auth/collector"> Waste Colect Login </NavLink>
+                  </button>
+                  <button className="learm-mre-btn">
+                    <NavLink to="/frenchieslogin"> Frenchies Login </NavLink>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="last-text-bx">
+        <div className="last-text-bx">
           <h6>
-            Copyright © { new Date().getFullYear() } <a href="#"> Climstripe Shift </a> All Rights
-            Reserved. | Developed By: <a href="https://digitaldezire.com/" target="_blank"> Digital Dezire </a>{" "}
+            Copyright © {new Date().getFullYear()}{" "}
+            <a href="#"> Climstripe Shift </a> All Rights Reserved. | Developed
+            By:{" "}
+            <a href="https://digitaldezire.com/" target="_blank">
+              {" "}
+              Digital Dezire{" "}
+            </a>{" "}
           </h6>
         </div>
       </footer>

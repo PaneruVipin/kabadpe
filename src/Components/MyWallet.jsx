@@ -105,7 +105,7 @@ const MyWallet = () => {
                 <div className="bal-bxmain">
                   <div className="balance-box">
                     <div className="rupes-icon">
-                      <i class="fa-solid fa-coins"></i>
+                      <i className="fa-solid fa-coins"></i>
                     </div>
                     <span>{wallet?.balance || "0.00"}</span>
                   </div>
@@ -217,7 +217,7 @@ const MyWallet = () => {
             </div>
 
             <div className="past-days-selec-box">
-              <i class="fa-regular fa-calendar-days"></i>
+              <i className="fa-regular fa-calendar-days"></i>
               <select name="pastdays" id="pastdays">
                 <option value="pastdays">Past 10 days</option>
                 <option value="pastdays">Past 30 days</option>
@@ -251,7 +251,7 @@ const MyWallet = () => {
             </div>
 
             <div className="search-btn">
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
         </div>
@@ -379,7 +379,7 @@ const MyWallet = () => {
                       <td>
                         <div className="id-dwld-btn text-center-align">
                           <span className="b-span"> {curElem.InvoiceId} </span>
-                          <i class="fa-regular fa-circle-down"></i>
+                          <i className="fa-regular fa-circle-down"></i>
                         </div>
                       </td>
                       <td>
@@ -595,7 +595,7 @@ export default MyWallet;
 //             </div>
 
 //             <div className="past-days-selec-box">
-//             <i class="fa-regular fa-calendar-days"></i>
+//             <i className="fa-regular fa-calendar-days"></i>
 //             <select name="pastdays" id="pastdays">
 //                 <option value="pastdays">Past 10 days</option>
 //                 <option value="pastdays">Past 30 days</option>
@@ -679,7 +679,7 @@ export default MyWallet;
 //                         <td>
 //                             <div className="id-dwld-btn">
 //                             <span className='b-span'> {curElem.uniqueID2} </span>
-//                             <i class="fa-regular fa-circle-down"></i>
+//                             <i className="fa-regular fa-circle-down"></i>
 //                             </div>
 //                         </td>
 

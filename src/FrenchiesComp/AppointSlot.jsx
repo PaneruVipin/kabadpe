@@ -340,14 +340,14 @@ const AppointSlot = ({
                 onClick={() => handleDateChange("left")}
                 className="date-btn"
               >
-                <i class="fa-solid fa-angle-left"></i>
+                <i className="fa-solid fa-angle-left"></i>
               </button>
 
               <button
                 onClick={() => handleDateChange("right")}
                 className="date-btn"
               >
-                <i class="fa-solid fa-angle-right"></i>
+                <i className="fa-solid fa-angle-right"></i>
               </button>
             </div>
           </div>
@@ -537,7 +537,7 @@ const AppointSlot = ({
           </div>
 
           <div onClick={onclickCloseApntSlot} className="close-appoint-btn-bx">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

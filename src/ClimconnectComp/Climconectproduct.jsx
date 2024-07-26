@@ -4,9 +4,8 @@ const Climconeectproduct = () => {
   return (
     <>
       <section className="clim-conect-product-ads-sec">
-
         <h5>The Green Saman Shop</h5>
-        
+
         <div className="prod-sug-card-bx prod-sug-card-bx2">
           <div className="prod-sug-img-bx prod-sug-img-bx2">
             <img src="/images/customImg/product-1.webp" alt="" />
@@ -19,11 +18,11 @@ const Climconeectproduct = () => {
 
             <div className="rating-bx">
               <div className="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-regular fa-star"></i>
               </div>
               <span>90%</span>
             </div>
@@ -47,11 +46,11 @@ const Climconeectproduct = () => {
 
             <div className="rating-bx">
               <div className="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-regular fa-star"></i>
               </div>
               <span>90%</span>
             </div>
@@ -75,11 +74,11 @@ const Climconeectproduct = () => {
 
             <div className="rating-bx">
               <div className="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-regular fa-star"></i>
               </div>
               <span>90%</span>
             </div>
@@ -103,11 +102,11 @@ const Climconeectproduct = () => {
 
             <div className="rating-bx">
               <div className="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-regular fa-star"></i>
               </div>
               <span>90%</span>
             </div>
@@ -131,11 +130,11 @@ const Climconeectproduct = () => {
 
             <div className="rating-bx">
               <div className="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-regular fa-star"></i>
               </div>
               <span>90%</span>
             </div>
@@ -147,10 +146,7 @@ const Climconeectproduct = () => {
           </div>
         </div>
 
-        <button className="check-cart-btn  ">
-          Check Cart
-        </button>
-        
+        <button className="check-cart-btn  ">Check Cart</button>
       </section>
     </>
   );

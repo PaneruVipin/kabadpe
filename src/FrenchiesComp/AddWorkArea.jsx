@@ -120,14 +120,14 @@ const AddWorkArea = () => {
                                 }}
                                 className="add-wrok-actn-btn"
                               >
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                               </button>
 
                               <button
                                 onClick={() => handleDeleteAriaClick(id)}
                                 className="add-wrok-actn-btn"
                               >
-                                <i class="fa-solid fa-trash"></i>
+                                <i className="fa-solid fa-trash"></i>
                               </button>
                               <button
                                 onClick={() => {

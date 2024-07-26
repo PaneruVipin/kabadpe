@@ -22,7 +22,7 @@ const CenterSocialPost = ({ onClickCloseSocPost }) => {
           </div>
 
           <div onClick={onClickCloseSocPost} className="close-soc-btn">
-            <i class="fa-regular fa-circle-xmark"></i>
+            <i className="fa-regular fa-circle-xmark"></i>
           </div>
         </section>
       </section>

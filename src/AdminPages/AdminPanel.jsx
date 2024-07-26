@@ -201,9 +201,9 @@ const AdminPanel = () => {
               className="side-admin-nav-btn-box admin-top-comn-btn"
             >
               {barClick ? (
-                <i class="fa-solid fa-arrow-right-long"></i>
+                <i className="fa-solid fa-arrow-right-long"></i>
               ) : (
-                <i class="fa-solid fa-bars-staggered"></i>
+                <i className="fa-solid fa-bars-staggered"></i>
               )}
             </button>
 
@@ -220,7 +220,7 @@ const AdminPanel = () => {
                 autoComplete="off"
               />
 
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
 
             <button
@@ -246,7 +246,7 @@ const AdminPanel = () => {
             </button>
 
             <button className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2">
-              <i class="fa-regular fa-comments"></i>
+              <i className="fa-regular fa-comments"></i>
             </button>
 
             <div className="notif-main-box">
@@ -254,7 +254,7 @@ const AdminPanel = () => {
                 onClick={() => setNotifActive(!notifActive)}
                 className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
               >
-                <i class="fa-regular fa-bell"></i>
+                <i className="fa-regular fa-bell"></i>
               </button>
 
               <div
@@ -977,7 +977,7 @@ const AdminPanel = () => {
               className={getButtonClassName(70)}
             >
               <div className=" a-nv-i a-nv-i2 u-prf-tab-icon">
-                <i class="fa-solid fa-money-bill-trend-up"></i>
+                <i className="fa-solid fa-money-bill-trend-up"></i>
                 {/* <CiShop /> */}
               </div>
               <span> Manage Waste</span>

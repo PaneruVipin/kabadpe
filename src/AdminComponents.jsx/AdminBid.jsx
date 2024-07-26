@@ -42,51 +42,51 @@ const AdminBid = () => {
       <section className="admin-bids-comp">
         <div className="common-container">
           <div className="bids-card-grid">
-            <div class="card-box card-box3">
-              <div class="left-card-info">
+            <div className="card-box card-box3">
+              <div className="left-card-info">
                 <h6>49</h6>
                 <p>Total Active Bids</p>
               </div>
-              <div class="right-card-icon">
-                <i class="fa-solid fa-hammer"></i>
+              <div className="right-card-icon">
+                <i className="fa-solid fa-hammer"></i>
               </div>
             </div>
-            <div class="card-box card-box8">
-              <div class="left-card-info">
+            <div className="card-box card-box8">
+              <div className="left-card-info">
                 <h6>250</h6>
                 <p>Total Active Offers</p>
               </div>
-              <div class="right-card-icon">
-                <i class="fa-solid fa-scale-balanced"></i>
+              <div className="right-card-icon">
+                <i className="fa-solid fa-scale-balanced"></i>
               </div>
             </div>
-            <div class="card-box card-box5">
-              <div class="left-card-info">
+            <div className="card-box card-box5">
+              <div className="left-card-info">
                 <h6>80</h6>
                 <p>Offers Closed</p>
               </div>
-              <div class="right-card-icon">
-                <i class="fa-solid fa-shop-lock"></i>
+              <div className="right-card-icon">
+                <i className="fa-solid fa-shop-lock"></i>
               </div>
             </div>
-            <div class="card-box card-box7">
-              <div class="left-card-info">
+            <div className="card-box card-box7">
+              <div className="left-card-info">
                 <h6>39</h6>
                 <p>On Going</p>
               </div>
-              <div class="right-card-icon">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+              <div className="right-card-icon">
+                <i className="fa-solid fa-arrow-up-from-bracket"></i>
               </div>
             </div>
 
-            <div class="card-box card-box7">
+            <div className="card-box card-box7">
               <div className="left-card-info">
                 <h6>{wallet?.balance || "0.00"}</h6>
                 <p>Wallet Balance</p>
               </div>
 
               <div className="right-card-icon">
-                <i class="fa-solid fa-right-to-bracket"></i>
+                <i className="fa-solid fa-right-to-bracket"></i>
               </div>
             </div>
           </div>

@@ -161,9 +161,3 @@ export const userUpdateProfileCallback = resolvePromise(
     return res?.meassage;
   }
 );
-
-export const testInsta = resolvePromise(async () => {
-  const apiUrl = `https://graph.instagram.com/me/media?media_type=VIDEO&fields=id,media_url,thumbnail_url,caption,timestamp,media_type&access_token=IGQWRPSlRZAWWZAaUS1sWkVYUlMyMFdWalBzVXVYNEdzMGFmejF2T2p0dzBmYUV4ZAnZADN0xsd19DcmtKb0NlU3VzRWdMU3pYYzhYVGs5MjhucGdMQVlBdnBDTjlSTkdzMEJSQWI5REQ4b3lvSEZAVNnlJWjQ1SWRFZAmsZD`;
-  const { data: res } = await axios.get(apiUrl);
-  return res;
-});

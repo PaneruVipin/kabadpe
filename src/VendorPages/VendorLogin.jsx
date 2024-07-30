@@ -271,24 +271,37 @@ const VendorLogin = () => {
                     );
                   }}
                 </Formik>
-                <form action="#" className="forgot-password-vendor">
-                  <div className="vend-bx mb-5">
-                    <span>Email / Mobile No.</span>
-                    <div className="vend-inpt-bx">
-                      <input
-                        type="text"
-                        name="emailmob"
-                        id="emailmob"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
+                <Formik>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form className="forgot-password-vendor">
+                        <div className="vend-bx mb-5">
+                          <span>Email / Mobile No.</span>
+                          <div className="vend-inpt-bx">
+                            <input
+                              type="text"
+                              name="emailmob"
+                              id="emailmob"
+                              autoComplete="off"
+                              required
+                            />
+                          </div>
+                        </div>
 
-                  <button className="vend-submt-btn">
-                    Reset Password Request
-                  </button>
-                </form>
+                        <button type="submit" className="vend-submt-btn">
+                          Reset Password Request
+                        </button>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </div>
 
               <div
@@ -355,7 +368,7 @@ const VendorLogin = () => {
                                 <input
                                   type="email"
                                   name="email"
-                                  id="email"
+                                  // id="email"
                                   autoComplete="off"
                                   required
                                   onChange={handleChange}
@@ -371,11 +384,10 @@ const VendorLogin = () => {
                                 <input
                                   type="password"
                                   name="password"
-                                  id="Password"
+                                  // id="Password"
                                   placeholder="At least 10 characters"
                                   autoComplete="off"
                                   minLength={10}
-                                  min={10}
                                   required
                                   onChange={handleChange}
                                   onBlur={handleBlur}

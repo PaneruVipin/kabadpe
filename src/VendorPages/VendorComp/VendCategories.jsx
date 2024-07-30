@@ -57,7 +57,7 @@ const VendCategories = () => {
                 <th>Name</th>
                 <th>Description</th>
                 <th>Published</th>
-                <th>Actions</th>
+                {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody>
@@ -131,7 +131,7 @@ const VendCategories = () => {
 
                
 
-                <td>
+                {/* <td>
                   <div className="prod-edit-de-flex-btn">
                     <button onClick={() => setCategBox(true)}>
                       <i class="fa-regular fa-pen-to-square"></i>
@@ -141,7 +141,7 @@ const VendCategories = () => {
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
-                </td>
+                </td> */}
               </tr>
 
               <tr>
@@ -210,7 +210,7 @@ const VendCategories = () => {
                 </td>
 
             
-                <td>
+                {/* <td>
                   <div className="prod-edit-de-flex-btn">
                     <button onClick={() => setCategBox(true)}>
                       <i class="fa-regular fa-pen-to-square"></i>
@@ -220,7 +220,7 @@ const VendCategories = () => {
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
-                </td>
+                </td> */}
               </tr>
 
 
@@ -290,14 +290,16 @@ const VendCategories = () => {
                           id="flexSwitchCheckChecked"
                           defaultChecked
                         />
+                        
                       </div>
                     </div>
                   ) : null}
+
                 </td>
 
                
 
-                <td>
+                {/* <td>
                   <div className="prod-edit-de-flex-btn">
                     <button onClick={() => setCategBox(true)}>
                       <i class="fa-regular fa-pen-to-square"></i>
@@ -306,8 +308,10 @@ const VendCategories = () => {
                     <button>
                       <i class="fa-solid fa-trash"></i>
                     </button>
+
+                    
                   </div>
-                </td>
+                </td> */}
               </tr>
              
            
@@ -336,7 +340,7 @@ const VendCategories = () => {
         </div>
 
 
-        { categBox ? <VendAddCateg onClickClose={() => setCategBox(false)} /> : null}
+        {/* { categBox ? <VendAddCateg onClickClose={() => setCategBox(false)} /> : null} */}
         
     </section>
       

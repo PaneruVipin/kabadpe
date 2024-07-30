@@ -17848,6 +17848,10 @@ video {
 
 }
 
+.export-info-bx{
+  z-index: 999;
+}
+
 .message-ylow-bx span{
   font-size: 15px ;
 }

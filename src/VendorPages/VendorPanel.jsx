@@ -8,6 +8,9 @@ import VendOrder from './VendorComp/VendOrder';
 import OrderDet from './VendorComp/OrderDet';
 import VendorProduct from './VendorComp/VendorProduct';
 import VendProdDetail from './VendorComp/VendProdDetail';
+import VendorAttributes from './VendorAttributes';
+import AtributeValues from './VendorComp/AtributeValues';
+import VendCategories from './VendorComp/VendCategories';
 const VendorPanel = () => {
     const [component , setComponent ] = useState('dashboard');
     const [vendBtn , setVendBtn] = useState(null);
@@ -107,7 +110,7 @@ const VendorPanel = () => {
                 <MdCategory  className='v-icon' />
                 </div>
                 
-                <span>Category</span>
+                <span>Catalog</span>
                 </div>
 
                 <div className={getDropDwnBtnClassnameTwo(1)}>
@@ -117,7 +120,7 @@ const VendorPanel = () => {
                         Products
                     </li>
 
-                    <li className="vend-li-btn">
+                    <li onClick={() => handleViewComp('vendcategories')}  className={ component === 'vendcategories' ? "vend-li-btn liactive" : "vend-li-btn"}>
                         Categories
                     </li>
 
@@ -125,7 +128,7 @@ const VendorPanel = () => {
                         Coupons
                     </li>
 
-                    <li className="vend-li-btn">
+                    <li onClick={() => handleViewComp('vendAtribute')}  className={component === "vendAtribute" ? "vend-li-btn liactive" : "vend-li-btn"}>
                         Attributes
                     </li>
                     
@@ -161,6 +164,18 @@ const VendorPanel = () => {
     { component === 'orderDetail' ? <OrderDet compOrderDet={'orderDetail'}    /> : null }
     { component === 'vendProduct' ? <VendorProduct compOrderDet={'orderDetail'} compRedirectProdDet={() => setComponent('vendProdDet')}    /> : null }
     { component === 'vendProdDet' ? <VendProdDetail    /> : null }
+    { component === 'vendAtribute' ? <VendorAttributes  onClickRedirect={() => 
+        setComponent('atributevalues')}   /> : null }
+    { component === 'atributevalues' ? <AtributeValues  
+    onClickRedirect={() => 
+        setComponent('vendAtribute')} 
+      /> : null }
+         { component === 'vendcategories' ? <VendCategories  
+    onClickRedirect={() => 
+        setComponent('vendcategories')} 
+      /> : null }
+
+
     
 
     </div>

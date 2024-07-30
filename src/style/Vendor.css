@@ -1608,7 +1608,7 @@
 
   .ord-filt-bx input , .ord-filt-bx select{
    width: 100%;
-   height: 3rem;
+   min-height: 3rem;
    background-color: #f3f4f6;
    border-radius: .55rem;
    padding-inline: 1rem;
@@ -1619,6 +1619,65 @@
 
 
   }
+
+  .variants-attribute-bx{
+   position: relative;
+   width: 100%;
+  height: 100%;
+   background-color: #f3f4f6;
+   border-radius: .55rem;
+   border: .1rem solid #eee;
+   gap: 10px;
+   flex-wrap: wrap;
+
+  }
+
+  .variants-attribute-bx input{
+   
+   width: 100%;
+   height: 3rem;
+   background-color: #f3f4f6 !important;
+   border: none;
+  }
+
+
+  .variant-elem--bx{
+   position: relative;
+   top: .4rem;
+   left: .4rem;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   gap: .5rem;
+
+  }
+
+  .variant-bx{
+   font-size: 14.5px;
+   width: max-content;
+   padding-inline: 10px;
+   background-color: #e1e1e1;
+   border-radius: .5rem;
+   color: #050404;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
+  }
+
+  .variant-bx button{
+   position: relative;
+   top: .2rem;
+   color: #050404;
+   cursor: pointer;
+  }
+
+  .variant-bx span{
+   display: inline-block;
+  }
+
+  /* e1e1e1 */
 
   .ord-filt-bx input:focus , .ord-filt-bx select:focus{
    box-shadow: none;
@@ -1662,6 +1721,7 @@
    font-size: .9rem;
    font-weight: 500;
    letter-spacing: .4px;
+   padding-inline: .56rem;
   }
 
   .ord-filt-btn-flex{
@@ -2370,6 +2430,10 @@
 
    }
 
+   .product-filter-main32{
+      grid-template-columns: 1fr 1fr;
+   }
+
    .form-check-bxx{
       width: 1rem;
       height: 1rem;
@@ -2500,7 +2564,12 @@
    .prod-edit-de-flex-btn{
       display: flex;
       align-items: center;
-      gap: .76rem;
+      gap: 1rem;
+   }
+
+   .prod-edit-de-flex-btn button{
+      width: max-content;
+      height: max-content;
    }
 
    .prod-edit-de-flex-btn button i{
@@ -2912,8 +2981,9 @@
    .add-product-form-bx{
       position: relative;
       width: 100%;
-      height: 25rem;
+      height: 30rem;
       overflow-y: auto;
+      overflow-x: hidden;
    }
 
    .add-product-form-bx::-webkit-scrollbar{
@@ -2930,7 +3000,7 @@
    .add-prod-inpt-bx{
       position: relative;
       display: grid;
-      grid-template-columns: .5fr 1fr;
+      grid-template-columns: .5fr .9fr;
       column-gap: 1rem;
       row-gap: 1rem;
       margin-bottom: 1.5rem;
@@ -3015,7 +3085,7 @@
       width: 100%;
       margin-top: 1.5rem;
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       column-gap: 1.5rem;
       row-gap: 1.5rem;
       margin-bottom: 1rem;
@@ -3140,3 +3210,291 @@
       justify-content: center;
       text-align: center;
    }
+
+   /* _________________vendor attributes css code
+   ----------------------------------- */
+
+   .vendor-attributes-comp{
+      position: relative;
+      width: 100%;
+      padding: 1.5rem 1rem;
+   }
+
+   .vendor-attributes-comp h4{
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 1.3rem;
+   }
+
+
+   .add-attribute-comp{
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      min-height: 100vh;
+      z-index: 9999;
+   }
+
+   .add-attribute-comp:before{
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #050404;
+      opacity: 0.55;
+      z-index: -1;
+   }
+
+   .add-atribute-bx{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40rem;
+      min-height: 100vh;
+      background-color: #fff;
+   }
+
+   .attribute-heading{
+      position: relative;
+      width: 100%;
+      padding: 2rem 1.76rem;
+      background-color: #f9fafb;
+
+   }
+
+   .atrbiute-heading h6{
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: .2rem;
+      color: #2e2d2d !important;
+   }
+
+   .atrbiute-heading p{
+      margin-bottom: 0;
+      font-size: 16px;
+      max-width: 28rem;
+      line-height: 1.4;
+   }
+
+
+   .delt-btn21221{
+      position: absolute;
+      top: 2rem;
+      right: 1.5rem;
+      height: max-content;
+      width: max-content;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f45b24;
+      border-radius: 50%;
+      font-size: 19px;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+   }
+   
+
+   .atribute-fields-flex-bx{
+      position: relative;
+      width: 100%;
+      padding: 2rem 1.5rem;
+   }
+
+   .at-sel-bx select{
+      appearance: none;
+      -webkit-appearance: none;
+   }
+
+   .at-sel-bx:before{
+      content: "\f107";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 15px;
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 14px;
+      color: #050404;
+      
+      
+   }
+
+   .attribute-btns-flex{
+      position: absolute;
+      bottom: 0 ;
+      left: 0;
+      width: 100%;
+      padding: 1.76rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 20px;
+      background-color: #f9fafb;
+   }
+   
+   .vendor-attributes-comp2 h4{
+      margin-bottom: .87rem;
+   }
+
+   .vendor-attributes-comp h6{
+      font-weight: 400;
+      color: #1b72ec;
+      font-weight: 600;
+      cursor: pointer;
+   }
+
+   .vendor-attributes-comp h6  span{
+      position: relative;
+      padding-left: 25px;
+      color: #2d2c2c;
+      font-weight: 600;
+      cursor: auto;
+
+   }
+
+   .vendor-attributes-comp h6  span:before{
+      content: "\f105";
+      position: absolute;
+      top: 50%;
+      transform:translateY(-50%);
+      left: .3rem;
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: #1e1e1e;
+      font-size: 13px;
+   }
+
+  .swithc-toggle-btn{
+   position: relative;
+   width: 5rem;
+   height: 2rem;
+   border-radius: 3rem;
+   background-color: #e53e3e;
+   transition: 400ms ease;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding-inline: .55rem;
+   cursor: pointer;
+  }
+
+  .swithc-toggle-btn .round-bx{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 2rem;
+   height: 100%;
+   background-color: #fff;
+   border: 2px solid #fff;
+   border-radius: 50%;
+   transition: 200ms ease;
+
+  }
+
+  .swithc-toggle-btn span{
+   display: block;
+   font-size: 15px;
+   color: #fff;
+  }
+
+
+  .swithc-toggle-btn.switchactive{
+   background-color: #0c8848;
+
+  }
+
+  .swithc-toggle-btn.switchactive .round-bx{
+   transform: translateX(150%);
+  }
+
+  .prod-add-del-btn32{
+   opacity: 0.76;
+  }
+
+  .prod-table table tbody tr td img{
+   width: 1.4rem;
+   height: auto;
+  }
+
+  .prod-table table tbody tr td{
+   vertical-align: baseline;
+  }
+
+  .subcateg-bx{
+   display: flex;
+   flex-direction: column;
+   gap: 0;
+   margin-top: .5rem;
+   display: none;
+  }
+
+  .subcateg-bx.subcategactive{
+   display: flex;
+  }
+
+  .subcateg-bx span{
+   position: relative;
+   height: max-content;
+   line-height: 1.3;
+   font-size: 14px;
+   color: #555252 !important;
+   padding-left: 1rem;
+   
+  }
+
+  .subcateg-bx span:before{
+   content: "";
+   position: absolute;
+   top: 45%;
+   transform: translateY(-50%);
+   left: 0;
+   width: .55rem;
+   height: 1.5px;
+   background-color: #5b5a5a;
+
+  }
+
+.swithc-toggle-btn2{
+   width: 8rem;
+}
+
+.swithc-toggle-btn2{
+   background-color: #0c8848 !important;
+   margin-top: 2rem;
+   margin-left: auto;
+}
+
+.swithc-toggle-btn2.switchactive .round-bx{
+   transform: translateX(300%);
+}
+
+.swithc-toggle-btn2 span{
+   transition: 200ms ease;
+}
+
+.swithc-toggle-btn2 span:first-child{
+   opacity: 0;
+}
+
+.swithc-toggle-btn2.switchactive span:first-child{
+   opacity: 1;
+}
+
+.swithc-toggle-btn2.switchactive span:last-child{
+   opacity: 0;
+}
+
+.prod-add-can-flex-btn21{
+   bottom: 0 !important;
+   top: auto;
+   height: max-content !important;
+}
+
+.add-prod-main-bx21{
+   width: 50rem;
+}

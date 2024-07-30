@@ -152,7 +152,7 @@ const FrenchiesSubsPlan = ({ onclickRedirect }) => {
                       }) => (
                         <td>
                           <div className="mark-check">
-                            <i class="fa-solid fa-circle-check"></i>{" "}
+                            <i className="fa-solid fa-circle-check"></i>{" "}
                           </div>
                         </td>
                       )
@@ -173,7 +173,7 @@ const FrenchiesSubsPlan = ({ onclickRedirect }) => {
                       }) => (
                         <td>
                           <div className="mark-check">
-                            <i class="fa-solid fa-circle-check"></i>{" "}
+                            <i className="fa-solid fa-circle-check"></i>{" "}
                           </div>
                         </td>
                       )
@@ -209,7 +209,7 @@ const FrenchiesSubsPlan = ({ onclickRedirect }) => {
                           onClick={() => setLocat(true)}
                           className="add-area-icon2"
                         >
-                          <i class="fa-solid fa-plus"></i>
+                          <i className="fa-solid fa-plus"></i>
                         </div>{" "}
                       </div>{" "}
                     </td>
@@ -250,7 +250,7 @@ const FrenchiesSubsPlan = ({ onclickRedirect }) => {
                             {subAriaName}{" "}
                             <i
                               onClick={handleRemoveAriaClick(id)}
-                              class="fa-solid fa-circle-xmark"
+                              className="fa-solid fa-circle-xmark"
                             ></i>
                           </p>
                         </td>

@@ -58,7 +58,7 @@ const QuaterPlan = ({ onClickCloseQuaterly }) => {
                   </div>
 
                   <div className="plus">
-                    <i class="fa-solid fa-plus"></i>
+                    <i className="fa-solid fa-plus"></i>
                   </div>
 
                   <div className="input-parent-bx input-parent-bx2">

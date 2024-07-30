@@ -16,7 +16,6 @@ const IndPlanForm = ({ formType = "demo", onClickClose, formval, refetch }) => {
     planeName: "",
   };
   const handleSubmit = async (data) => {
-    
     setOtherErrors({});
     const res = await adminWorkerSubsInsert({ ...data, planType: formType });
     if (!res?.error) {
@@ -110,7 +109,7 @@ const IndPlanForm = ({ formType = "demo", onClickClose, formval, refetch }) => {
                           </div>
 
                           <div className="plus">
-                            <i class="fa-solid fa-plus"></i>
+                            <i className="fa-solid fa-plus"></i>
                           </div>
 
                           <div className="input-parent-bx input-parent-bx2">

@@ -18,13 +18,13 @@ const SocFeedHeader = () => {
               placeholder="Search.."
             />
             <div className="soc-f-srch">
-              <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
           </div>
         </div>
 
         <div className="right-user-add-btn">
-          <i class="fa-solid fa-user-plus"></i>
+          <i className="fa-solid fa-user-plus"></i>
         </div>
       </section>
     </>

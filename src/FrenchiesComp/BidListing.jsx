@@ -446,7 +446,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
                               }}
                               className="edit-bid-btn"
                             >
-                              <i class="fa-regular fa-pen-to-square"></i>
+                              <i className="fa-regular fa-pen-to-square"></i>
                             </div>
                           </div>
                         </div>
@@ -495,7 +495,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
               </div>
 
               <div onClick={onClickCreatePost} className="edit-bid-btn">
-                <i class="fa-regular fa-pen-to-square"></i>
+                <i className="fa-regular fa-pen-to-square"></i>
               </div>
             </div> */}
 
@@ -540,7 +540,7 @@ const BidListing = ({ onClickDetPage, onClickCreatePost }) => {
               </div>
 
               <div onClick={onClickCreatePost} className="edit-bid-btn">
-                <i class="fa-regular fa-pen-to-square"></i>
+                <i className="fa-regular fa-pen-to-square"></i>
               </div>
             </div>
 

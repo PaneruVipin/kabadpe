@@ -1,7 +1,7 @@
 import React from "react";
 import TransactionData from "./Trnsctindata";
 
-const LedgerComp = ({onclickClose}) => {
+const LedgerComp = ({ onclickClose }) => {
   return (
     <>
       <section className="ledger-trnsctin-comp">
@@ -9,35 +9,29 @@ const LedgerComp = ({onclickClose}) => {
           <h5>Transactions</h5>
 
           <div className="trans-flex-bx">
+            <div className="trnsctin-info">
+              <h6>
+                {" "}
+                Name : <span>Faiz Alam</span>{" "}
+              </h6>
+              <h6>
+                {" "}
+                Mobile : <span>9971464759</span>{" "}
+              </h6>
+            </div>
 
-          <div className="trnsctin-info">
-            <h6>
-              {" "}
-              Name : <span>Faiz Alam</span>{" "}
-            </h6>
-            <h6>
-              {" "}
-              Mobile : <span>9971464759</span>{" "}
-            </h6>
-          </div>
-
-          <div className="total-waste-amount-flex-bx">
-
-            <div className="total-bx">
+            <div className="total-waste-amount-flex-bx">
+              <div className="total-bx">
                 <h6>Total Waste</h6>
-                    <span>350 (Kg) </span>
-            </div>
+                <span>350 (Kg) </span>
+              </div>
 
-            <div className="total-bx">
+              <div className="total-bx">
                 <h6>Total Amount</h6>
-                    <span>₹ 10000.00/- </span>
+                <span>₹ 10000.00/- </span>
+              </div>
             </div>
-            
           </div>
-          
-          </div>
-
-          
 
           <div className="all-user-table trnsctin-table mt-4">
             <table>
@@ -86,11 +80,11 @@ const LedgerComp = ({onclickClose}) => {
                           {" "}
                           <span> {item.admincomisin} </span>{" "}
                         </td>
-                        
+
                         <td>
-                            <button  className="inovice-btn">
-                            <i class="fa-solid fa-download"></i>
-                            </button>
+                          <button className="inovice-btn">
+                            <i className="fa-solid fa-download"></i>
+                          </button>
                         </td>
                       </tr>
                     </>
@@ -101,7 +95,7 @@ const LedgerComp = ({onclickClose}) => {
           </div>
 
           <div onClick={onclickClose} className="close-btn">
-          <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

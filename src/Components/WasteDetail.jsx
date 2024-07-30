@@ -47,7 +47,7 @@ const WasteDetail = () => {
   const handleUpadateProfileImage = () => {
     if (profileImage)
       collectorProfileImageAdd(profileImage).then(() => {
-        dispatch(userFetch());
+        dispatch(userFetch({}));
       });
     setProfChange(false);
   };
@@ -79,7 +79,7 @@ const WasteDetail = () => {
     }
     const res = await updateWorkerProfile(newData);
     if (!res?.error) {
-      dispatch(userFetch());
+      dispatch(userFetch({}));
       setAddInfo(!addInfo);
       clearImageState();
       return;
@@ -139,7 +139,7 @@ const WasteDetail = () => {
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
@@ -322,7 +322,7 @@ const WasteDetail = () => {
               }}
               className="add-det-btn"
             >
-              {/* <i class="fa-solid fa-plus"></i> */}
+              {/* <i className="fa-solid fa-plus"></i> */}
               Edit
             </button>
 

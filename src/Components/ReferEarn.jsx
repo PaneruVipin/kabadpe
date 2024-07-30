@@ -94,7 +94,7 @@ const ReferEarn = () => {
 
               <button className="share-dwnload-link">
                 Share download link
-                <i class="fa-solid fa-share-nodes"></i>
+                <i className="fa-solid fa-share-nodes"></i>
               </button>
             </div>
 

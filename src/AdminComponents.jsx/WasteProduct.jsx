@@ -151,7 +151,7 @@ const WasteProduct = ({ component = "admin" }) => {
                 </div>
 
                 <div className="user-data-search-btn">
-                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <i className="fa-solid fa-magnifying-glass"></i>
                 </div> */}
               </div>
             </div>
@@ -264,7 +264,7 @@ const WasteProduct = ({ component = "admin" }) => {
                                       });
                                     }}
                                   >
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i className="fa-solid fa-pen-to-square"></i>
                                   </button>
                                   {component == "admin" ? (
                                     <>
@@ -274,7 +274,7 @@ const WasteProduct = ({ component = "admin" }) => {
                                           refetch();
                                         }}
                                       >
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i className="fa-solid fa-trash"></i>
                                       </button>
                                       <button
                                         onClick={() => {

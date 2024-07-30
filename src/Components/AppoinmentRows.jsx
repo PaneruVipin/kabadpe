@@ -56,7 +56,7 @@ const AppointmentRows = ({
                         Arium,
                         KabadCollector,
                         orderStatus,
-                        rescheduleStatus
+                        rescheduleStatus,
                       },
                       index
                     ) => (
@@ -80,7 +80,7 @@ const AppointmentRows = ({
                                     setPopupUser(true);
                                   }}
                                 >
-                                  <i class="fa-solid fa-circle-arrow-right"></i>
+                                  <i className="fa-solid fa-circle-arrow-right"></i>
                                 </NavLink>{" "}
                               </span>
                             </div>
@@ -176,7 +176,7 @@ const AppointmentRows = ({
                             onClick={onSupportClick}
                             className="supp-link-btn supp-link-btn2"
                           >
-                            <i class="fa-solid fa-hands-holding-child"></i>
+                            <i className="fa-solid fa-hands-holding-child"></i>
                             Support
                           </button>
                         </td>
@@ -287,7 +287,7 @@ const AppointmentRows = ({
           </div>
 
           <div onClick={() => setReshBox(false)} className="resh-box-close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

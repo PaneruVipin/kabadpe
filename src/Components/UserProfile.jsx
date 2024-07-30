@@ -19,7 +19,11 @@ import Redirect from "./Auth/RedirectIfLogout";
 import WasteWallet from "./WasteWallet";
 import { hashId } from "../lib/array";
 
-const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHideShow}) => {
+const UserProfile = ({
+  onProfileNav,
+  onClickProfileNavHide,
+  onClickProfileNavHideShow,
+}) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { userInfo: user, loading } = useSelector((s) => s.user);
@@ -49,7 +53,7 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
   const handleUpadateProfileImage = () => {
     if (profileImage)
       userProfileImageAdd(profileImage).then(() => {
-        dispatch(userFetch());
+        dispatch(userFetch({}));
       });
     setProfChange(false);
   };
@@ -71,7 +75,13 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
   return (
     <>
       <Redirect role="user" path="/" />
-      <div className={ onProfileNav ?  "user-profile-side-nav-main " : "user-profile-side-nav-main userprofilenavactive"}>
+      <div
+        className={
+          onProfileNav
+            ? "user-profile-side-nav-main "
+            : "user-profile-side-nav-main userprofilenavactive"
+        }
+      >
         <div className="user-prof-main-bx">
           <div className="user-profi-img ">
             {loading ? null : (
@@ -117,7 +127,9 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
 
         <div className="user-prof-menu-main-flex-bx">
           <button
-            onClick={() => {filterTab(1) }}
+            onClick={() => {
+              filterTab(1);
+            }}
             className={profBtn === 1 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
@@ -161,7 +173,7 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
             className={profBtn === 8 ? "u-prf-bx profactive " : "u-prf-bx "}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-piggy-bank"></i>
+              <i className="fa-solid fa-piggy-bank"></i>
             </div>
             My Offers
           </button>
@@ -171,7 +183,7 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
             className={profBtn === 5 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-              <i class="fa-solid fa-hand-holding-dollar"></i>
+              <i className="fa-solid fa-hand-holding-dollar"></i>
             </div>
             Refer and Earn
           </button>
@@ -212,7 +224,6 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
           <span>Log Out</span>
         </div>
       </div>
-
       <div
         className={
           profChange
@@ -250,21 +261,41 @@ const UserProfile = ({onProfileNav, onClickProfileNavHide , onClickProfileNavHid
             onClick={() => setProfChange(false)}
             className="prof-popup-close-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </div>
-      {profBtn === 1 ? <UserProfGridComp onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} /> : null}
-      {profBtn === 2 ? <UserProfForm onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow}  /> : null}
+      {profBtn === 1 ? (
+        <UserProfGridComp
+          onProfileNav={onProfileNav}
+          onClickProfileNavHideShow={onClickProfileNavHideShow}
+        />
+      ) : null}
+      {profBtn === 2 ? (
+        <UserProfForm
+          onProfileNav={onProfileNav}
+          onClickProfileNavHideShow={onClickProfileNavHideShow}
+        />
+      ) : null}
       {profBtn === 4 ? <SalesHistoryComp /> : null}
       {profBtn === 3 ? (
-        <AppointmentComp onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} onSupportClick={() => setProfBtn(6)} />
+        <AppointmentComp
+          onProfileNav={onProfileNav}
+          onClickProfileNavHideShow={onClickProfileNavHideShow}
+          onSupportClick={() => setProfBtn(6)}
+        />
       ) : null}
-  
       {profBtn === 6 ? <Supportticket /> : null}
       {profBtn === 9 ? <UserOrders /> : null}
       {profBtn === 5 ? <ReferEarn /> : null}
-      {profBtn === 7 ? <WasteWallet onProfileNav={onProfileNav}  onClickProfileNavHideShow={onClickProfileNavHideShow} component="user" /> : null} {/**MyWallet */}
+      {profBtn === 7 ? (
+        <WasteWallet
+          onProfileNav={onProfileNav}
+          onClickProfileNavHideShow={onClickProfileNavHideShow}
+          component="user"
+        />
+      ) : null}{" "}
+      {/**MyWallet */}
       {profBtn === 8 ? <MyOffer /> : null}
     </>
   );

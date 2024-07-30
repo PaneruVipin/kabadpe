@@ -111,7 +111,7 @@ const WasteColectVew = ({ onClickCloseWasteColectData }) => {
             onClick={onClickCloseWasteColectData}
             className="close-popup-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
       </section>

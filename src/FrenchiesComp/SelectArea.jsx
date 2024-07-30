@@ -729,7 +729,7 @@ const SelectArea = ({
                         {subAriaName}{" "}
                         <i
                           onClick={handleRemoveAria(id)}
-                          class="fa-solid fa-circle-xmark"
+                          className="fa-solid fa-circle-xmark"
                         ></i>
                       </span>
                     </div>
@@ -746,7 +746,7 @@ const SelectArea = ({
             </div>
           ) : null}
           <div onClick={onclickClose} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

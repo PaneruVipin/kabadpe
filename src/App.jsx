@@ -63,6 +63,7 @@ import Termscondition from "./Pages/Termscondition";
 import BidProductDetail from "./FrenchiesComp/BidProductDetail";
 import CreateBidPost from "./FrenchiesComp/CreateBidPost";
 import CreateBidPostPage from "./Pages/CreateBidPostPage";
+import Test from "./Test";
 function App() {
   const [component, setComponent] = useState("");
   const [profileNav, setProfileNav] = useState(true);
@@ -75,7 +76,7 @@ function App() {
     loading: { login: loginLoading, verifySignup: verifyLoading },
   } = useSelector((s) => s.auth);
   useEffect(() => {
-    dispatch(userFetch());
+    dispatch(userFetch({}));
   }, [login, verifySignup, loginLoading, verifyLoading]);
   const [userForm, setUserForm] = useState(false);
   useEffect(() => {
@@ -111,10 +112,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route
           path="/account"
-          element={<WastecollectorPage onProfileNav={profileNav} 
-          onClickProfileNavHideShow={() => setProfileNav(!profileNav)}
-          onClickProfileNavHide={() => setProfileNav(false)}/>}
-     
+          element={
+            <WastecollectorPage
+              onProfileNav={profileNav}
+              onClickProfileNavHideShow={() => setProfileNav(!profileNav)}
+              onClickProfileNavHide={() => setProfileNav(false)}
+            />
+          }
         />
         <Route
           path="/service/zero-waste-societies"
@@ -180,6 +184,7 @@ function App() {
       <Route path="/vendorpanel" element={<VendorPanel />} />
       <Route path="/blog" element={<BlogPage />} />
       <Route path="/climconnect/blog/:id" element={<BlogDet />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
   );
 }

@@ -164,13 +164,13 @@ const AllBlogPost = () => {
                 </div>
 
                 <div className="duble-arrow-btn page-filt-btn">
-                  <i class="fa-solid fa-angles-left"></i>
+                  <i className="fa-solid fa-angles-left"></i>
                 </div>
                 <div
                   onClick={indexFuncPrev}
                   className="sing-arrow-btn page-filt-btn"
                 >
-                  <i class="fa-solid fa-angle-left"></i>
+                  <i className="fa-solid fa-angle-left"></i>
                 </div>
                 <div className="page-num-box">{index}</div>
 
@@ -179,14 +179,14 @@ const AllBlogPost = () => {
                 </p>
 
                 <div className="duble-arrow-btn page-filt-btn page-filt-btn3">
-                  <i class="fa-solid fa-angles-right"></i>
+                  <i className="fa-solid fa-angles-right"></i>
                 </div>
 
                 <div
                   onClick={indexFunc}
                   className="sing-arrow-btn page-filt-btn"
                 >
-                  <i class="fa-solid fa-angle-right"></i>
+                  <i className="fa-solid fa-angle-right"></i>
                 </div>
               </div> */}
             </div>

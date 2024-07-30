@@ -11,7 +11,7 @@ const Redirect = ({ path = "/" }) => {
   } = useSelector((s) => s.auth);
   const { userInfo, success } = useSelector((s) => s.user);
   useEffect(() => {
-    dispatch(userFetch());
+    dispatch(userFetch({}));
   }, [verifySignup, login]);
   useEffect(() => {
     if (userInfo || success) {

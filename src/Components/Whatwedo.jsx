@@ -157,7 +157,8 @@ const Whatwedo = () => {
               <div className="ot-serv-list">
                 <li>
                   <a className="servactive" href="#">
-                    EPR Services <i className="fa-solid fa-arrow-right-long"></i>
+                    EPR Services{" "}
+                    <i className="fa-solid fa-arrow-right-long"></i>
                   </a>
                 </li>
 
@@ -201,7 +202,7 @@ const Whatwedo = () => {
                 height="61"
                 viewBox="0 0 60 61"
                 fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="https://www.w3.org/2000/svg"
               >
                 <path
                   fill-rule="evenodd"
@@ -221,7 +222,7 @@ const Whatwedo = () => {
                 height="61"
                 viewBox="0 0 60 61"
                 fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="https://www.w3.org/2000/svg"
               >
                 <path
                   fill-rule="evenodd"
@@ -240,7 +241,7 @@ const Whatwedo = () => {
                 height="61"
                 viewBox="0 0 60 61"
                 fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="https://www.w3.org/2000/svg"
               >
                 <path
                   fill-rule="evenodd"
@@ -260,7 +261,7 @@ const Whatwedo = () => {
                 height="61"
                 viewBox="0 0 60 61"
                 fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="https://www.w3.org/2000/svg"
               >
                 <path
                   fill-rule="evenodd"
@@ -280,7 +281,7 @@ const Whatwedo = () => {
                 height="61"
                 viewBox="0 0 60 61"
                 fill="currentcolor"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns="https://www.w3.org/2000/svg"
               >
                 <path
                   fill-rule="evenodd"

@@ -21,7 +21,7 @@ const FrenchiesProfile = () => {
           onClick={() => setEditForm(true)}
           className="french-prof-edit-btn french-prof-edit-btn545"
         >
-          <i class="fa-solid fa-user-pen"></i>
+          <i className="fa-solid fa-user-pen"></i>
         </button>
 
         <div className="frenchies-prof-main-box">
@@ -120,7 +120,7 @@ const FrenchiesProfile = () => {
         {editForm ? (
           <FrenchEdit
             refetch={() => {
-              dispatch(userFetch());
+              dispatch(userFetch({}));
             }}
             initialValues={userInfo}
             onClickCloseEditForm={frencDetClose}

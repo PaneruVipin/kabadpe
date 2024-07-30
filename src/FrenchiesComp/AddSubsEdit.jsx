@@ -151,7 +151,7 @@ const AddSubsEdit = ({ onclickCloseSubsPlanBx, refetch, values }) => {
             onClick={onclickCloseSubsPlanBx}
             className="close-add-work-bx-btn"
           >
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

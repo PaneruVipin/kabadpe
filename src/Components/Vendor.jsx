@@ -81,12 +81,12 @@ const Vendor = () => {
                 onClick={() => setAddInfo(!addInfo)}
                 className="add-det-btn add-det-btn2"
               >
-                {/* <i class="fa-solid fa-plus"></i> */}
+                {/* <i className="fa-solid fa-plus"></i> */}
                 Edit
               </button>
 
               <button className="add-det-btn vend-btn">
-                {/* <i class="fa-solid fa-plus"></i> */}
+                {/* <i className="fa-solid fa-plus"></i> */}
                 Request To Change Vendor
               </button>
             </div>

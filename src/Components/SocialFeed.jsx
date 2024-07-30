@@ -40,7 +40,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-solid fa-comments"></i>
+            <i className="fa-solid fa-comments"></i>
             Feeds
           </button>
 
@@ -52,7 +52,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-solid fa-comment"></i>
+            <i className="fa-solid fa-comment"></i>
             My Feeds
           </button>
 
@@ -64,7 +64,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-solid fa-arrow-trend-up"></i>
+            <i className="fa-solid fa-arrow-trend-up"></i>
             Trends
           </button>
 
@@ -76,7 +76,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-solid fa-code-fork"></i>
+            <i className="fa-solid fa-code-fork"></i>
             Followers
           </button>
 
@@ -88,7 +88,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-regular fa-images"></i>
+            <i className="fa-regular fa-images"></i>
             Photos
           </button>
 
@@ -100,7 +100,7 @@ const SocialFeed = () => {
                 : "soc-feed-li-bx"
             }
           >
-            <i class="fa-solid fa-blog"></i>
+            <i className="fa-solid fa-blog"></i>
             Blog Post
           </button>
         </div>

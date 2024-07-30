@@ -155,7 +155,7 @@ const AssignArea = ({ onclickCloseBx, user, refetch: refechUsers }) => {
           </div>
 
           <div onClick={onclickCloseBx} className="close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

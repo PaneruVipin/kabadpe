@@ -102,7 +102,7 @@ const TrendComp = () => {
           <h6>Create Post</h6>
 
           <div onClick={() => setCreatePost(false)} className="post-close-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
 
           <div className="create-post-type-box">
@@ -164,7 +164,7 @@ const TrendComp = () => {
             <div className="right-post-label-box">
               <label htmlFor="file">
                 {" "}
-                <i class="fa-regular fa-image"></i>{" "}
+                <i className="fa-regular fa-image"></i>{" "}
               </label>
               <input
                 type="file"
@@ -198,7 +198,7 @@ const TrendComp = () => {
               </div>
 
               <div className="post-btn">
-                <i class="fa-regular fa-image"></i>
+                <i className="fa-regular fa-image"></i>
               </div>
             </div>
           </div>
@@ -232,7 +232,7 @@ const TrendComp = () => {
                         className="three-dot-btn"
                         title="edit"
                       >
-                        <i class="fa-solid fa-ellipsis"></i>
+                        <i className="fa-solid fa-ellipsis"></i>
                       </div>
 
                       <div
@@ -276,7 +276,7 @@ const TrendComp = () => {
                   <div className="soc-post-comnt-share-likes-flex-bx">
                     <div className="soc-post-feed-btn">
                       <div className="feed-icon">
-                        <i class="fa-regular fa-message"></i>
+                        <i className="fa-regular fa-message"></i>
                       </div>
 
                       <h6> {elem.comment} Comments </h6>
@@ -284,7 +284,7 @@ const TrendComp = () => {
 
                     <div className="soc-post-feed-btn">
                       <div className="feed-icon">
-                        <i class="fa-solid fa-share-from-square"></i>
+                        <i className="fa-solid fa-share-from-square"></i>
                       </div>
 
                       <h6> {elem.share} Shares </h6>
@@ -292,7 +292,7 @@ const TrendComp = () => {
 
                     <div className="soc-post-feed-btn">
                       <div className="feed-icon">
-                        <i class="fa-regular fa-heart"></i>
+                        <i className="fa-regular fa-heart"></i>
                       </div>
 
                       <h6> {elem.likes} Likes </h6>
@@ -313,7 +313,7 @@ const TrendComp = () => {
                       />
 
                       <button className="comnt-send">
-                        <i class="fa-regular fa-paper-plane"></i>
+                        <i className="fa-regular fa-paper-plane"></i>
                       </button>
                     </div>
                   </div>

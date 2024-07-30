@@ -19,7 +19,7 @@ const TopFixMenu = ({
   setBuyWasteUserInfo,
   setProfBtn,
   onClickSide,
-  onSideMenu
+  onSideMenu,
 }) => {
   const [notBox, setNotBox] = useState(false);
   const [actToday, setActToday] = useState(false);
@@ -34,7 +34,6 @@ const TopFixMenu = ({
     queryKey: ["franchisefetcPlans:4"],
     queryFn: () => workerPlansFetch(),
   });
- 
 
   const demoPlanData = !plans?.error
     ? plans?.find(({ WorkerSub }) => WorkerSub?.planType == "demo")
@@ -54,11 +53,12 @@ const TopFixMenu = ({
             </h5>
 
             <button onClick={onClickSide} className="w-menu-bar-btn">
-            {onSideMenu ? <HiMenuAlt3 className="menu-icon" /> :
-            <FaArrowLeftLong className="menu-icon arrow-icon"  />  
-            }
+              {onSideMenu ? (
+                <HiMenuAlt3 className="menu-icon" />
+              ) : (
+                <FaArrowLeftLong className="menu-icon arrow-icon" />
+              )}
             </button>
-            
           </div>
 
           <div className="right-user-prof-search-flex-bx">
@@ -92,7 +92,7 @@ const TopFixMenu = ({
               className="u-prf-btn-bx u-prf-btn-bx8"
             >
               <div className="prf-icon">
-                <i class="fa-regular fa-pen-to-square"></i>
+                <i className="fa-regular fa-pen-to-square"></i>
               </div>
               <span> Edit Profile</span>
             </button>
@@ -107,7 +107,7 @@ const TopFixMenu = ({
               className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx11 "
             >
               <div className="prf-icon">
-                <i class="fa-regular fa-user"></i>
+                <i className="fa-regular fa-user"></i>
               </div>
               <span>
                 {" "}
@@ -119,7 +119,7 @@ const TopFixMenu = ({
 
             <button className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx9">
               <div className="prf-icon">
-                <i class="fa-solid fa-coins"></i>
+                <i className="fa-solid fa-coins"></i>
               </div>
               <span> Sale Waste</span>
             </button>
@@ -129,7 +129,7 @@ const TopFixMenu = ({
               className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx6 u-prf-btn-bx66"
             >
               <div className="prf-icon">
-                <i class="fa-solid fa-cart-arrow-down"></i>
+                <i className="fa-solid fa-cart-arrow-down"></i>
               </div>
               <span> Buy Waste </span>
             </button>
@@ -139,35 +139,35 @@ const TopFixMenu = ({
               className="u-prf-btn-bx u-prf-btn-bx5 u-prf-btn-bx8 u-prf-btn-bx10"
             >
               <div className="prf-icon">
-                <i class="fa-solid fa-snowman"></i>
+                <i className="fa-solid fa-snowman"></i>
               </div>
               <span> Leave Request</span>
             </button>
 
-              <div onClick={() => setSideBar(!sideBar)} className="notif-main-box notif-main-box2">
             <div
-               
-                className="bell-icon bell-icon2"
-              >
-                <i class="fa-solid fa-bars-staggered"></i>
+              onClick={() => setSideBar(!sideBar)}
+              className="notif-main-box notif-main-box2"
+            >
+              <div className="bell-icon bell-icon2">
+                <i className="fa-solid fa-bars-staggered"></i>
               </div>
-              </div>
+            </div>
 
-              <div onClick={() => setMobSearch(!mobSearch)}  className="notif-main-box notif-main-box2">
-            <div 
-               
-                className="bell-icon bell-icon2"
-              >
-               <i class="fa-solid fa-magnifying-glass"></i>
+            <div
+              onClick={() => setMobSearch(!mobSearch)}
+              className="notif-main-box notif-main-box2"
+            >
+              <div className="bell-icon bell-icon2">
+                <i className="fa-solid fa-magnifying-glass"></i>
               </div>
-              </div>
+            </div>
 
             <div className="notif-main-box">
               <div
                 onClick={() => setNotBox(!notBox)}
                 className="bell-icon bell-icon2"
               >
-                <i class="fa-regular fa-bell"></i>
+                <i className="fa-regular fa-bell"></i>
               </div>
 
               <div className={notBox ? "notif-box notactive" : "notif-box"}>
@@ -217,7 +217,7 @@ const TopFixMenu = ({
 
                 <div className="not-user-box">
                   <div className="left-not-box left-not-box2 left-not-box3">
-                    <i class="fa-solid fa-house"></i>
+                    <i className="fa-solid fa-house"></i>
                   </div>
 
                   <div className="right-not-box">
@@ -231,12 +231,9 @@ const TopFixMenu = ({
                 </button>
               </div>
             </div>
-            
           </div>
         </div>
 
-     
-        
         {actToday ? (
           <ActiveToday
             refetch={refetch}
@@ -257,53 +254,53 @@ const TopFixMenu = ({
         {guest ? (
           <GuestPopup onclickCloseGuest={() => setGuest(false)} />
         ) : null}
-
-
       </section>
 
-     {mobSearch && (
-      <div className="w-search-bar-main">
-      <div className="search-w-bar-bx">
-            <input type="text" name="search" id="search" placeholder="Search here..." />
+      {mobSearch && (
+        <div className="w-search-bar-main">
+          <div className="search-w-bar-bx">
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Search here..."
+            />
             <div className="w-serch-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
+              <i className="fa-solid fa-magnifying-glass"></i>
             </div>
+          </div>
         </div>
-      </div>
-     ) }
+      )}
 
       <div className={sideBar ? "side-bar-bx sidebaractive" : "side-bar-bx"}>
-
-<div className="side-bar-list">
-
-    <li  onClick={onclickShowDetail} className="side-bar-item">
-    <i class="fa-regular fa-pen-to-square s-i"></i>
-    <span>Edit Profile</span>
-    </li>
-    <li onClick={() => setActToday(true)}  className="side-bar-item">
-    <i class="fa-regular fa-user"></i>
-    <span>
-                {" "}
-                {todayAvail?.availabilityStatus != "leave"
-                  ? "Active"
-                  : "Not Active"}
-              </span>
-    </li>
-    <li   className="side-bar-item">
-    <i class="fa-solid fa-coins s-i"></i>
-    <span>Sale Waste</span>
-    </li>
-    <li    onClick={() => setBuyWaste(true)} className="side-bar-item">
-    <i class="fa-solid fa-cart-arrow-down s-i"></i>
-    <span>Buy Waste</span>
-    </li>
-    <li  onClick={() => setHoliday(true)} className="side-bar-item">
-    <i class="fa-solid fa-snowman s-i"></i>
-    <span>Leave Request</span>
-    </li>
-</div>
-
-</div>
+        <div className="side-bar-list">
+          <li onClick={onclickShowDetail} className="side-bar-item">
+            <i className="fa-regular fa-pen-to-square s-i"></i>
+            <span>Edit Profile</span>
+          </li>
+          <li onClick={() => setActToday(true)} className="side-bar-item">
+            <i className="fa-regular fa-user"></i>
+            <span>
+              {" "}
+              {todayAvail?.availabilityStatus != "leave"
+                ? "Active"
+                : "Not Active"}
+            </span>
+          </li>
+          <li className="side-bar-item">
+            <i className="fa-solid fa-coins s-i"></i>
+            <span>Sale Waste</span>
+          </li>
+          <li onClick={() => setBuyWaste(true)} className="side-bar-item">
+            <i className="fa-solid fa-cart-arrow-down s-i"></i>
+            <span>Buy Waste</span>
+          </li>
+          <li onClick={() => setHoliday(true)} className="side-bar-item">
+            <i className="fa-solid fa-snowman s-i"></i>
+            <span>Leave Request</span>
+          </li>
+        </div>
+      </div>
     </>
   );
 };

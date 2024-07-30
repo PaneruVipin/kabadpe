@@ -35,7 +35,7 @@ const TranferAmnt = ({ onClose, onclickCompltTrnfer }) => {
             Tranfer Now
           </button>
           <div onClick={onClose} className="close-otp-btn">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
       </section>

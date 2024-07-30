@@ -19,7 +19,7 @@ import UserUpdateProf from "./UserUpdateProf";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiMenuAlt3 } from "react-icons/hi";
 
-const UserProfSearch = ({onProfileNav , onClickProfileNavHideShow}) => {
+const UserProfSearch = ({ onProfileNav, onClickProfileNavHideShow }) => {
   const user = useSelector((s) => s.user.userInfo);
   const dispatch = useDispatch();
   const [prfEditForm, setPrfEditForm] = useState(false);
@@ -52,7 +52,7 @@ const UserProfSearch = ({onProfileNav , onClickProfileNavHideShow}) => {
       setApiError(message?.message);
       return;
     }
-    dispatch(userFetch());
+    dispatch(userFetch({}));
     setPrfEditForm(false);
     setConfirmOtp(false);
   };
@@ -84,23 +84,23 @@ const UserProfSearch = ({onProfileNav , onClickProfileNavHideShow}) => {
                 Edit Profile
               </button>
 
-                      <button
-                        onClick={onClickProfileNavHideShow}
-                        className="w-menu-bar-btn profile-nav-bar-btn"
-                      >
-                        {onProfileNav ? (
-                          <HiMenuAlt3 className="menu-icon" />
-                         ) : ( 
-                          <FaArrowLeftLong className="menu-icon arrow-icon" />
-                        ) }
-                      </button>
+              <button
+                onClick={onClickProfileNavHideShow}
+                className="w-menu-bar-btn profile-nav-bar-btn"
+              >
+                {onProfileNav ? (
+                  <HiMenuAlt3 className="menu-icon" />
+                ) : (
+                  <FaArrowLeftLong className="menu-icon arrow-icon" />
+                )}
+              </button>
 
               <div className="notif-main-box">
                 <div
                   onClick={() => setNotBox(!notBox)}
                   className="bell-icon bell-icon2"
                 >
-                  <i class="fa-regular fa-bell"></i>
+                  <i className="fa-regular fa-bell"></i>
                 </div>
 
                 <div className={notBox ? "notif-box notactive" : "notif-box"}>
@@ -150,7 +150,7 @@ const UserProfSearch = ({onProfileNav , onClickProfileNavHideShow}) => {
 
                   <div className="not-user-box">
                     <div className="left-not-box left-not-box2 left-not-box3">
-                      <i class="fa-solid fa-house"></i>
+                      <i className="fa-solid fa-house"></i>
                     </div>
 
                     <div className="right-not-box">

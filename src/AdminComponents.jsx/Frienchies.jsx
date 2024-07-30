@@ -133,7 +133,7 @@ const Frienchies = () => {
               </div>
 
               <div className="user-data-search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
           </div>
@@ -252,7 +252,7 @@ const Frienchies = () => {
                                   }}
                                   className="edit-user-btn"
                                 >
-                                  <i class="fa-regular fa-pen-to-square"></i>
+                                  <i className="fa-regular fa-pen-to-square"></i>
                                 </div>
                               </td>
 
@@ -261,7 +261,7 @@ const Frienchies = () => {
                                   onClick={() => DetView()}
                                   className="edit-user-btn view-btn"
                                 >
-                                  <i class="fa-regular fa-eye"></i>
+                                  <i className="fa-regular fa-eye"></i>
                                 </div>
                               </td> */}
 
@@ -271,13 +271,13 @@ const Frienchies = () => {
                                     className="app-dis-btn"
                                     title="approve"
                                   >
-                                    <i class="fa-regular fa-circle-check"></i>
+                                    <i className="fa-regular fa-circle-check"></i>
                                   </button>
                                   <button
                                     className="app-dis-btn"
                                     title="diapprove"
                                   >
-                                    <i class="fa-regular fa-circle-xmark"></i>
+                                    <i className="fa-regular fa-circle-xmark"></i>
                                   </button>
                                 </div>
                               </td> */}

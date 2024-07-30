@@ -223,7 +223,7 @@ const FrenchiesPanel = () => {
                 <div className="admin-logo">
                   <img src="/images/customImg/logo.png" alt="" />
                 </div>
-               
+
                 <h4 className="admin-top-title">{userInfo?.companyName}</h4>
               </div>
 
@@ -256,7 +256,7 @@ const FrenchiesPanel = () => {
               className=" comp-refrl-bx comp-refrl-bx4"
             >
               <div className="comp-icon">
-                <i class="fa-solid fa-layer-group"></i>
+                <i className="fa-solid fa-layer-group"></i>
               </div>
 
               <span>Bid </span>
@@ -269,7 +269,7 @@ const FrenchiesPanel = () => {
                   className=" comp-refrl-bx comp-refrl-bx3 comp-refrl-bx32"
                 >
                   <div className="comp-icon">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <i className="fa-solid fa-bag-shopping"></i>
                   </div>
 
                   <span>Buy Waste </span>
@@ -289,7 +289,7 @@ const FrenchiesPanel = () => {
                     }}
                     className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
                   >
-                    <i class="fa-solid fa-wallet"></i>
+                    <i className="fa-solid fa-wallet"></i>
                   </button>
 
                   <div
@@ -320,13 +320,13 @@ const FrenchiesPanel = () => {
                             <h6>Faiz Alam</h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-plus"></i> ₹450.00
+                              <i className="fa-solid fa-plus"></i> ₹450.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -341,13 +341,13 @@ const FrenchiesPanel = () => {
                             <h6>Khushi Mehta</h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-plus"></i> ₹560.00
+                              <i className="fa-solid fa-plus"></i> ₹560.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -356,7 +356,7 @@ const FrenchiesPanel = () => {
                       <div className="pyment-info-main">
                         <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
                           <span>
-                            <i class="fa-solid fa-wallet"></i>
+                            <i className="fa-solid fa-wallet"></i>
                           </span>
                         </div>
                         <div className="right-payment-bx">
@@ -364,13 +364,13 @@ const FrenchiesPanel = () => {
                             <h6>Harsh Mehta</h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-plus"></i> ₹880.00
+                              <i className="fa-solid fa-plus"></i> ₹880.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -385,13 +385,13 @@ const FrenchiesPanel = () => {
                             <h6>Faruk</h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-minus"></i> ₹200.00
+                              <i className="fa-solid fa-minus"></i> ₹200.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -406,13 +406,13 @@ const FrenchiesPanel = () => {
                             <h6>Ahmad Hasan</h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-minus"></i> ₹450.00
+                              <i className="fa-solid fa-minus"></i> ₹450.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -421,7 +421,7 @@ const FrenchiesPanel = () => {
                       <div className="pyment-info-main">
                         <div className="left-name-alpha-bx left-name-alpha-bx2 walet-bx">
                           <span>
-                            <i class="fa-solid fa-wallet"></i>
+                            <i className="fa-solid fa-wallet"></i>
                           </span>
                         </div>
                         <div className="right-payment-bx">
@@ -429,13 +429,13 @@ const FrenchiesPanel = () => {
                             <h6> Fahad Alam </h6>
                             <span>
                               {" "}
-                              <i class="fa-solid fa-plus"></i> ₹880.00
+                              <i className="fa-solid fa-plus"></i> ₹880.00
                             </span>
                           </div>
                           <div className="wallet-info-top-bx wallet-info-second-bx walet-bx-right2">
                             <p>Sent on 08 Dec, 08:30 PM</p>
                             <span>
-                              From <i class="fa-solid fa-wallet"></i>{" "}
+                              From <i className="fa-solid fa-wallet"></i>{" "}
                             </span>
                           </div>
                         </div>
@@ -443,7 +443,7 @@ const FrenchiesPanel = () => {
                     </div>
 
                     <div className="view-all-btn">
-                      View All <i class="fa-solid fa-angle-down"></i>
+                      View All <i className="fa-solid fa-angle-down"></i>
                     </div>
                   </div>
                 </div>
@@ -455,7 +455,7 @@ const FrenchiesPanel = () => {
                     }}
                     className="side-admin-nav-btn-box admin-top-comn-btn admin-top-comn-btn2"
                   >
-                    <i class="fa-regular fa-bell"></i>
+                    <i className="fa-regular fa-bell"></i>
                   </button>
 
                   <div
@@ -530,7 +530,7 @@ const FrenchiesPanel = () => {
                     // }}
                     className="comp-icon"
                   >
-                    <i class="fa-regular fa-building"></i>
+                    <i className="fa-regular fa-building"></i>
                   </div>
 
                   <span
@@ -543,7 +543,7 @@ const FrenchiesPanel = () => {
                     {userInfo?.companyCode}{" "}
                     <i
                       onClick={handleShareCompanyCode}
-                      class="fa-solid fa-share-nodes"
+                      className="fa-solid fa-share-nodes"
                     ></i>
                     <MdContentCopy
                       onClick={() => {
@@ -595,18 +595,21 @@ const FrenchiesPanel = () => {
             }
           >
             <div className="side-admin-nav-list-box">
-            <button
-                  onClick={() => {
-                    setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
-                  }}
-                  className="side-admin-nav-btn-box french-toggle-side-nav-btn admin-top-comn-btn"
-                >
-                  {barClick ? (
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                  ) : (
-                    <span> <BsFillGrid3X3GapFill className="grid-icon"  /> Collapse Now</span>
-                  )}
-                </button>
+              <button
+                onClick={() => {
+                  setBarClick(!barClick), setSideAdminNav(!sideAdminNav);
+                }}
+                className="side-admin-nav-btn-box french-toggle-side-nav-btn admin-top-comn-btn"
+              >
+                {barClick ? (
+                  <i className="fa-solid fa-arrow-right-long"></i>
+                ) : (
+                  <span>
+                    {" "}
+                    <BsFillGrid3X3GapFill className="grid-icon" /> Collapse Now
+                  </span>
+                )}
+              </button>
 
               <div className="admin-nv-li admin-nv-li-dashbrd">
                 <div
@@ -734,7 +737,7 @@ const FrenchiesPanel = () => {
                   }
                 >
                   <div className="u-prf-tab-icon a-nv-i">
-                    <i class="fa-solid fa-wallet"></i>
+                    <i className="fa-solid fa-wallet"></i>
                   </div>
                   <span>My Transactions</span>
                 </div>
@@ -1086,10 +1089,7 @@ const FrenchiesPanel = () => {
             {component === "frenchwastecolect" ? (
               <FrenchWasteColect updatedWasteColectData={userFiltData} />
             ) : null}
-            {component === "appointments" ? (
-              <FrenchAppointments
-              />
-            ) : null}
+            {component === "appointments" ? <FrenchAppointments /> : null}
 
             {component === "orders" ? (
               <AdminOrder orderUpdatedData={orderActive} />

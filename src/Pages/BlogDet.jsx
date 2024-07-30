@@ -208,7 +208,7 @@ export const BlogDetail = ({ id, state }) => {
                             handleLikeUnlikeClick(post?.id, newLikeStatus)
                           )}
                         >
-                          <i class="fa-solid fa-heart"></i>
+                          <i className="fa-solid fa-heart"></i>
                         </div>
                         <span>{post?.BlogLikes?.length}</span>
                       </div>
@@ -219,7 +219,7 @@ export const BlogDetail = ({ id, state }) => {
                         className="post-twit-bx"
                       >
                         <div className="p-t-icon">
-                          <i class="fa-regular fa-comment-dots"></i>
+                          <i className="fa-regular fa-comment-dots"></i>
                         </div>
                         <span>{post?.BlogComments?.length}</span>
                       </div>
@@ -348,19 +348,19 @@ export const BlogDetail = ({ id, state }) => {
                       <div className="tag-flex-bx">
                         <NavLink to="#">
                           <FacebookShareButton url={path?.href}>
-                            <i class="fa-brands fa-facebook"></i>
+                            <i className="fa-brands fa-facebook"></i>
                           </FacebookShareButton>
                         </NavLink>
 
                         <NavLink to="#">
                           <TwitterShareButton url={path?.href}>
-                            <i class="fa-brands fa-twitter"></i>
+                            <i className="fa-brands fa-twitter"></i>
                           </TwitterShareButton>
                         </NavLink>
 
                         <NavLink to="#">
                           <LinkedinShareButton url={path?.href}>
-                            <i class="fa-brands fa-linkedin"></i>
+                            <i className="fa-brands fa-linkedin"></i>
                           </LinkedinShareButton>
                         </NavLink>
                         <NavLink

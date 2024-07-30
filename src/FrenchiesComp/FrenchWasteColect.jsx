@@ -95,7 +95,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
               </div>
 
               <div className="user-data-search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                                   }}
                                   className="edit-user-btn"
                                 >
-                                  <i class="fa-regular fa-pen-to-square"></i>
+                                  <i className="fa-regular fa-pen-to-square"></i>
                                 </div>
                               </td>
                               {/* <td>
@@ -243,7 +243,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
                                     className="app-dis-btn"
                                     title="approve"
                                   >
-                                    <i class="fa-solid fa-money-bill-transfer"></i>
+                                    <i className="fa-solid fa-money-bill-transfer"></i>
                                   </button>
                                 </div>
                               </td> */}
@@ -277,7 +277,7 @@ const FrenchWasteColect = ({ updatedWasteColectData }) => {
       {transctn ? <LedgerComp onclickClose={() => setTransctn(false)} /> : null}
       {vwArea ? (
         <AssignArea
-        refetch={refetch}
+          refetch={refetch}
           user={selectedUser}
           onclickCloseBx={() => setVwArea(false)}
         />

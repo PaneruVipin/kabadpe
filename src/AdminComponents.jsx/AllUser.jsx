@@ -200,7 +200,7 @@ const AllUser = ({ updatedFilterData }) => {
               </div>
 
               <div className="user-data-search-btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@ const AllUser = ({ updatedFilterData }) => {
                                   }}
                                   className="edit-user-btn"
                                 >
-                                  <i class="fa-regular fa-pen-to-square"></i>
+                                  <i className="fa-regular fa-pen-to-square"></i>
                                 </div>
                               </td>
                             </tr>
@@ -613,14 +613,14 @@ const AllUser = ({ updatedFilterData }) => {
               onClick={() => setEditableForm(false)}
               className="edit-form-close-btn"
             >
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </div>
 
             {/* <div
               onClick={() => setEditForm(!editForm)}
               className="edit-form-close-btn edit-user-btn2"
             >
-              <i class="fa-solid fa-user-pen"></i>
+              <i className="fa-solid fa-user-pen"></i>
             </div> */}
           </div>
         </section>

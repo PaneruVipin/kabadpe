@@ -41,7 +41,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
             </div>
 
             <div className="right-card-icon">
-              <i class="fa-regular fa-bookmark"></i>
+              <i className="fa-regular fa-bookmark"></i>
             </div>
           </div>
 
@@ -52,7 +52,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
             </div>
 
             <div className="right-card-icon">
-              <i class="fa-regular fa-bookmark"></i>
+              <i className="fa-regular fa-bookmark"></i>
             </div>
           </div>
 
@@ -63,7 +63,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
             </div>
 
             <div className="right-card-icon">
-              <i class="fa-regular fa-calendar-check"></i>
+              <i className="fa-regular fa-calendar-check"></i>
             </div>
           </div>
 
@@ -74,7 +74,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
             </div>
 
             <div className="right-card-icon">
-              <i class="fa-solid fa-right-to-bracket"></i>
+              <i className="fa-solid fa-right-to-bracket"></i>
             </div>
           </div>
 
@@ -85,7 +85,7 @@ const FrenchCard = ({ appoinmentData, todayAppoinments }) => {
             </div>
 
             <div className="right-card-icon">
-              <i class="fa-solid fa-arrows-turn-to-dots"></i>
+              <i className="fa-solid fa-arrows-turn-to-dots"></i>
             </div>
           </div>
         </div>

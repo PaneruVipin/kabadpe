@@ -122,11 +122,11 @@ const AddAddressList = ({
                                   setIsEditForm(true);
                                 }}
                               >
-                                <i class="fa-regular fa-pen-to-square"></i>
+                                <i className="fa-regular fa-pen-to-square"></i>
                               </button>
 
                               <button>
-                                <i class="fa-regular fa-trash-can"></i>
+                                <i className="fa-regular fa-trash-can"></i>
                               </button>
 
                               {selectedAddress?.id != id ? (
@@ -172,7 +172,7 @@ const AddAddressList = ({
           </div>
 
           <div onClick={onclickClose} className="close-btn close-btn-adres">
-            <i class="fa-solid fa-xmark"></i>
+            <i className="fa-solid fa-xmark"></i>
           </div>
 
           {addrsForm ? (

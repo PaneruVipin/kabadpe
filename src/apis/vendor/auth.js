@@ -26,6 +26,33 @@ export const vendorVerifysignup = async ({ ...body }) => {
   return res;
 };
 
+export const vendorForgetPassRequest = async ({ ...body }) => {
+  const apiUrl = ENV_API_BASE_URL + `/vendor/auth/forget_pass/request`;
+  const { data: res } = await axios.put(apiUrl, { ...body });
+  return res?.message;
+};
+
+export const vendorForgetPassCallback = async ({ ...body }) => {
+  const apiUrl = ENV_API_BASE_URL + `/vendor/auth/forget_pass/callback`;
+  const { data: res } = await axios.put(apiUrl, { ...body });
+  return res?.message;
+};
+
+export const vendorChangePassword = async ({ token, ...body }) => {
+  const apiUrl = ENV_API_BASE_URL + `/vendor/auth/change_pass`;
+  const tk = token || getFromLocalStorage("vendorToken");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { ...body },
+    {
+      headers: {
+        Authorization: tk,
+      },
+    }
+  );
+  return res?.message;
+};
+
 export const vendorStoreNameAvailability = resolvePromise(
   async ({ storeName }) => {
     const apiUrl = ENV_API_BASE_URL + `/vendor/store/${storeName}/availability`;

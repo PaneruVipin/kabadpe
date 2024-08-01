@@ -15,20 +15,20 @@ import {
   addCompanyDetails,
   addVendorAddressDetails,
   addVendorTaxDetails,
+  vendorForgetPassRequest,
   vendorSignupResendOtp,
   vendorStoreNameAvailability,
 } from "../apis/vendor/auth";
+import { toast } from "react-toastify";
+import { number, object, string } from "yup";
 const VendorLogin = () => {
   const [passwordView, setPasswordView] = useState(false);
   const [vendForm, setVendForm] = useState(false);
-  const [vendMain, setVendMain] = useState(false);
   const [forgotPasswrd, setForgotPasswrd] = useState(false);
   const [paswrdText, setPaswrdText] = useState("Forgot Password");
   const [createAccount, setCreateAccount] = useState(false);
   const [selling, setSelling] = useState(false);
   const [shopDetForm, setShopDetForm] = useState(false);
-  const [shopName, setShopName] = useState("");
-  const [isValidName, setIsValidName] = useState(false);
   const [taxDet, setTaxDet] = useState(false);
   const [confrmMesage, setConfrmMesage] = useState(false);
   const [storeName, setStoreName] = useState("");
@@ -39,18 +39,14 @@ const VendorLogin = () => {
   const initialTime = 60;
   const [remainingTime, setRemainingTime] = useState(initialTime);
   const [isResendActive, setIsResendActive] = useState(false);
-  const { user, loading, success, errors, ...rest } = useSelector(
-    (s) => s?.vendorAuth
-  );
+  const {
+    user,
+    loading,
+    success,
+    errors: authErrors,
+    ...rest
+  } = useSelector((s) => s?.vendorAuth);
   const { userInfo, loading: vendorLoading } = useSelector((s) => s?.user);
-  const handleChange = (e) => {
-    const name = e.target.value;
-    setShopName(name);
-
-    const isValid = /^[a-zA-Z\s]+$/.test(name);
-
-    setIsValidName(name.length >= 6 && isValid);
-  };
 
   const handleSignupSubmit = (data) => {
     dispatch(vendorSignupAction(data));
@@ -98,6 +94,14 @@ const VendorLogin = () => {
     setTaxDet(true);
     dispatch(userFetch({ type: "vendor" }));
   };
+  const handleForgetPassSubmit = async (data) => {
+    console.log("this i data data", data);
+    const res = await vendorForgetPassRequest(data);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+  };
   useEffect(() => {
     if (success?.signup) {
       setCreateAccount(true);
@@ -129,7 +133,6 @@ const VendorLogin = () => {
       setConfrmMesage(true);
     }
   }, [userInfo, vendorLoading]);
-  console.log("userinfo loading", userInfo, vendorLoading);
   const handleResendClick = () => {
     setIsResendActive(false);
     setRemainingTime(initialTime);
@@ -256,7 +259,11 @@ const VendorLogin = () => {
                         >
                           Forgot Password ?
                         </div>
-
+                        {authErrors?.login && !loading?.login ? (
+                          <span style={{ color: "red" }}>
+                            {authErrors?.login}
+                          </span>
+                        ) : null}
                         <button type="submit" className="vend-submt-btn">
                           Sign In
                         </button>
@@ -271,7 +278,7 @@ const VendorLogin = () => {
                     );
                   }}
                 </Formik>
-                <Formik>
+                <Formik initialValues={{}} onSubmit={handleForgetPassSubmit}>
                   {({
                     handleBlur,
                     handleChange,
@@ -287,10 +294,13 @@ const VendorLogin = () => {
                           <div className="vend-inpt-bx">
                             <input
                               type="text"
-                              name="emailmob"
+                              name="emailOrPhone"
                               id="emailmob"
                               autoComplete="off"
                               required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.emailOrPhone}
                             />
                           </div>
                         </div>
@@ -312,7 +322,16 @@ const VendorLogin = () => {
                 }
               >
                 <div className="vendor-reg-bx vendor-login-bx">
-                  <Formik initialValues={{}} onSubmit={handleSignupSubmit}>
+                  <Formik
+                    initialValues={{}}
+                    onSubmit={handleSignupSubmit}
+                    validationSchema={object().shape({
+                      password: string().required().min(10),
+                      email: string().required().email(),
+                      phoneNumber: string().required().min(10).max(10),
+                      fullname: string().required(),
+                    })}
+                  >
                     {({
                       handleBlur,
                       handleChange,
@@ -344,6 +363,11 @@ const VendorLogin = () => {
                                   value={values?.fullname}
                                 />
                               </div>
+                              {touched?.fullname && errors?.fullname ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.fullname}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx">
@@ -355,11 +379,18 @@ const VendorLogin = () => {
                                   id="phone"
                                   autoComplete="off"
                                   required
+                                  minLength={10}
+                                  maxLength={10}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   value={values?.phoneNumber}
                                 />
                               </div>
+                              {touched?.phoneNumber && errors?.phoneNumber ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.phoneNumber}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx">
@@ -376,6 +407,11 @@ const VendorLogin = () => {
                                   value={values?.email}
                                 />
                               </div>
+                              {touched?.email && errors?.email ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.email}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx vend-bx-p">
@@ -394,10 +430,11 @@ const VendorLogin = () => {
                                   value={values?.password}
                                 />
                               </div>
-
-                              {/* <span>
-                                Password must be at least 10 characters
-                              </span> */}
+                              {touched?.password && errors?.password ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.password}
+                                </span>
+                              ) : null}
                             </div>
                           </div>
 

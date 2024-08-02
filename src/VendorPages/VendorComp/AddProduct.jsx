@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const AddProduct = () => {
+const AddProduct = ({onClickClose}) => {
     const [switchBtn , setSwitchBtn] = useState(false);
     const [tabActive , setTabActive] = useState('basic');
     const [images , setImages] = useState([]);
@@ -21,9 +21,9 @@ const AddProduct = () => {
     
   return (
     <>
-    <section className="add-prod-comp">
+    <section className="add-prod-comp" onClick={onClickClose}>
         
-        <div className="add-prod-main-bx">
+        <div className="add-prod-main-bx" onClick={(e) => e.stopPropagation()}>
 
             <div className="top-add-prod-flex-bx">
 
@@ -49,7 +49,7 @@ const AddProduct = () => {
                         </select>
                     </div>
 
-                    <div className="add-prod-close-btn">
+                    <div onClick={onClickClose} className="add-prod-close-btn">
                     <ion-icon name="close-outline"></ion-icon>
                     </div>
                     

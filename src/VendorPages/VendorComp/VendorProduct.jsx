@@ -8,6 +8,7 @@ const VendorProduct = ({ compRedirectProdDet }) => {
   const [prodList, setProdList] = useState(ProductData);
   const [rangeBtn, setRangeBtn] = useState(false);
   const [rangeNum, setRangeNum] = useState(null);
+  const [addProd , setAddProd] = useState(false);
 
   //   const [selectedOptions, setSelectedOptions] = useState([]);
   //   const [selectedOption, setSelectedOption] = useState('');
@@ -100,7 +101,7 @@ const VendorProduct = ({ compRedirectProdDet }) => {
               <i className="fa-solid fa-trash-can"></i> Delete
             </button>
 
-            <button className="prod-add-del-btn prod-add-del-btn3">
+            <button onClick={() => setAddProd(true)} className="prod-add-del-btn prod-add-del-btn3">
               <i className="fa-solid fa-plus"></i> Add Product
             </button>
           </div>
@@ -353,7 +354,7 @@ const VendorProduct = ({ compRedirectProdDet }) => {
     </div> */}
       </section>
 
-    {/* <AddProduct /> */}
+    { addProd ? <AddProduct onClickClose={() => setAddProd(false)} /> : null}
 
       {/* <AddProduct /> */}
     </>

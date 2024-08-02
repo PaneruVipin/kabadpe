@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { MdCategory } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineLogout } from "react-icons/md";
+import { RiOrganizationChart } from "react-icons/ri";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import VendorDasgboard from './VendorComp/VendorDasgboard';
 import VendOrder from './VendorComp/VendOrder';
@@ -11,10 +14,17 @@ import VendProdDetail from './VendorComp/VendProdDetail';
 import VendorAttributes from './VendorAttributes';
 import AtributeValues from './VendorComp/AtributeValues';
 import VendCategories from './VendorComp/VendCategories';
+import VendEditProf from "./VendorComp/VendEditProf";
+import VendEditOrg from "./VendorComp/VendEditOrg";
 const VendorPanel = () => {
   const [component, setComponent] = useState("dashboard");
   const [vendBtn, setVendBtn] = useState(null);
   const [sideNav, setSideNav] = useState(true);
+  const [prof , setProf] = useState(false);
+  const [editProfile , setEditProfile] = useState(false);
+  const [vendOrg , setVendOrg] = useState(false);
+
+
 
   const handleViewComp = (getCompName) => {
     setComponent(getCompName);
@@ -65,8 +75,35 @@ const VendorPanel = () => {
               <i className="fa-solid fa-bell"></i>
             </div>
 
-            <div className="vend-prof-img">
+            <div className="vend-prof-main">
+            <div onClick={() => setProf(!prof)} className="vend-prof-img">
               <img src="/images/customImg/c-1.jpg" alt="" />
+            </div>
+
+          { prof ? <div className="vend-porf-dropdown-bx">
+
+                <div onClick={() => {handleViewComp("dashboard"), setProf(false)} } className="dropdown-btn-bx">
+                <RxDashboard className="dp-icon" />
+                <span>Dashboard</span>
+                </div>
+
+                <div onClick={() => {setEditProfile(true), setProf(false)} } className="dropdown-btn-bx">
+                <IoSettingsOutline  className="dp-icon" />
+                <span>Edit Profile</span>
+                </div>
+                <div onClick={() => {setVendOrg(true) , setProf(false)}} className="dropdown-btn-bx">
+                <RiOrganizationChart  className="dp-icon" />
+                <span>Edit Organization</span>
+                </div>
+
+                <div className="dropdown-btn-bx">
+                <MdOutlineLogout  className="dp-icon" />
+                <span>Log Out</span>
+                </div>
+
+                
+            </div> : null}
+            
             </div>
           </div>
         </div>
@@ -186,6 +223,8 @@ const VendorPanel = () => {
     </div>
     </div>
 
+    {editProfile ? <VendEditProf onclickClose={() => setEditProfile(false)} /> : null}
+    {vendOrg ? <VendEditOrg onclickClose={() => setVendOrg(false)} /> : null}
     </>
   );
 };

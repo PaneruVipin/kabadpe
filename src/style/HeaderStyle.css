@@ -2122,7 +2122,9 @@ section.whatWeDo .tabContent .tabs.active {
         transform: rotate(45deg) translateX(5px) translateY(-1px);
     }
 
-
+    .header-right a:hover{
+        background-color: transparent !important;
+    }
 
 }
 

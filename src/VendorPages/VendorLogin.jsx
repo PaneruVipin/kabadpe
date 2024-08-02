@@ -1,50 +1,106 @@
 import React, { useEffect, useState } from "react";
 import "../style/Vendor.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Accordion from "./VendorComp/Accordion";
 import { Form, Formik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  vendorLoginAction,
   vendorSignupAction,
   vendorVerifySignupAction,
 } from "../features/vendorAuth/vendorAuthActions";
 import { userFetch } from "../features/user/userActions";
+import { debounceAsync } from "../lib/debounce";
+import {
+  addCompanyDetails,
+  addVendorAddressDetails,
+  addVendorTaxDetails,
+  vendorForgetPassRequest,
+  vendorSignupResendOtp,
+  vendorStoreNameAvailability,
+} from "../apis/vendor/auth";
+import { toast } from "react-toastify";
+import { number, object, string } from "yup";
 const VendorLogin = () => {
   const [passwordView, setPasswordView] = useState(false);
   const [vendForm, setVendForm] = useState(false);
-  const [vendMain, setVendMain] = useState(false);
   const [forgotPasswrd, setForgotPasswrd] = useState(false);
   const [paswrdText, setPaswrdText] = useState("Forgot Password");
   const [createAccount, setCreateAccount] = useState(false);
   const [selling, setSelling] = useState(false);
   const [shopDetForm, setShopDetForm] = useState(false);
-  const [shopName, setShopName] = useState("");
-  const [isValidName, setIsValidName] = useState(false);
   const [taxDet, setTaxDet] = useState(false);
   const [confrmMesage, setConfrmMesage] = useState(false);
+  const [storeName, setStoreName] = useState("");
+  const [apiErrors, setApiErrors] = useState({});
+  const [haveGst, setHaveGst] = useState(false);
   const dispatch = useDispatch();
-  const { user, loading, success, errors, ...rest } = useSelector(
-    (s) => s?.vendorAuth
-  );
-  const userInfo = useSelector((s) => s?.user);
-  const handleChange = (e) => {
-    const name = e.target.value;
-    setShopName(name);
-
-    const isValid = /^[a-zA-Z\s]+$/.test(name);
-
-    setIsValidName(name.length >= 6 && isValid);
-  };
-
-  const callFunc = () => {
-    setConfrmMesage(true);
-  };
+  const navigate = useNavigate();
+  const initialTime = 60;
+  const [remainingTime, setRemainingTime] = useState(initialTime);
+  const [isResendActive, setIsResendActive] = useState(false);
+  const {
+    user,
+    loading,
+    success,
+    errors: authErrors,
+    ...rest
+  } = useSelector((s) => s?.vendorAuth);
+  const { userInfo, loading: vendorLoading } = useSelector((s) => s?.user);
 
   const handleSignupSubmit = (data) => {
     dispatch(vendorSignupAction(data));
   };
   const handleOtpSubmit = ({ otp }) => {
-    dispatch(vendorVerifySignupAction({ otp, email: user?.email }));
+    dispatch(
+      vendorVerifySignupAction({
+        otp,
+        email: user?.email,
+        phoneNumber: user?.phoneNumber,
+      })
+    );
+  };
+  const handleCompanyDetailSubmit = async (data) => {
+    if (apiErrors?.storeName) {
+      return;
+    }
+    const res = await addCompanyDetails(data);
+    if (res?.eroor) {
+      return;
+    }
+    dispatch(userFetch({ type: "vendor" }));
+    setShopDetForm(true);
+  };
+  const handleLoginSubmit = (data) => {
+    dispatch(vendorLoginAction(data));
+  };
+  const handleTaxDetailSubmit = async (data) => {
+    const newData = { ...data };
+    if (!haveGst) {
+      newData.gstNumber = "";
+    }
+    const res = await addVendorTaxDetails(newData);
+    if (res?.error) {
+      return;
+    }
+    setConfrmMesage(true);
+    dispatch(userFetch({ type: "vendor" }));
+  };
+  const handleAddressSubmit = async (data) => {
+    const res = await addVendorAddressDetails(data);
+    if (res?.error) {
+      return;
+    }
+    setTaxDet(true);
+    dispatch(userFetch({ type: "vendor" }));
+  };
+  const handleForgetPassSubmit = async (data) => {
+    console.log("this i data data", data);
+    const res = await vendorForgetPassRequest(data);
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
   };
   useEffect(() => {
     if (success?.signup) {
@@ -52,10 +108,46 @@ const VendorLogin = () => {
     }
     if (success?.verifySignup) {
       setSelling(true);
-      dispatch(userFetch({ type: "vendor" }));
     }
+    dispatch(userFetch({ type: "vendor" }));
   }, [success]);
-  useEffect(() => {}, [userInfo]);
+  useEffect(() => {
+    if (userInfo?.role != "vendor") {
+      return;
+    }
+    if (!userInfo?.isOtpVerified) {
+      setVendForm(true);
+      setCreateAccount(true);
+    } else if (userInfo?.vendorStatus == "active") {
+      navigate("/vendorpanel");
+    } else if (!userInfo?.VendorDetail) {
+      setVendForm(true);
+      setCreateAccount(true);
+      setSelling(true);
+    } else {
+      setVendForm(true);
+      setCreateAccount(true);
+      setSelling(true);
+      setShopDetForm(true);
+      setTaxDet(true);
+      setConfrmMesage(true);
+    }
+  }, [userInfo, vendorLoading]);
+  const handleResendClick = () => {
+    setIsResendActive(false);
+    setRemainingTime(initialTime);
+    vendorSignupResendOtp({ ...user });
+  };
+
+  useEffect(() => {
+    let timer;
+    if (remainingTime > 0) {
+      timer = setInterval(() => setRemainingTime(remainingTime - 1), 1000);
+    } else {
+      setIsResendActive(true);
+    }
+    return () => clearInterval(timer);
+  }, [remainingTime]);
   return (
     <>
       <section className="vendor-login-comp">
@@ -84,101 +176,142 @@ const VendorLogin = () => {
                 </div>
 
                 <h6> {forgotPasswrd ? paswrdText : "Vendor Log In"} </h6>
+                <Formik initialValues={{}} onSubmit={handleLoginSubmit}>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form className="ven-log-form">
+                        <div className="vend-bx">
+                          <span>Email</span>
+                          <div className="vend-inpt-bx">
+                            <input
+                              type="email"
+                              name="email"
+                              id="email"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.email}
+                            />
+                          </div>
+                        </div>
 
-                <form action="#" className="ven-log-form">
-                  <div className="vend-bx">
-                    <span>Email</span>
-                    <div className="vend-inpt-bx">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
+                        <div className="vend-bx">
+                          <span>Password</span>
+                          <div className="vend-inpt-bx vend-inpt-bx2">
+                            <input
+                              type={passwordView ? "password" : "text"}
+                              name="password"
+                              id="password"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.password}
+                            />
+                            <div
+                              className={
+                                passwordView
+                                  ? "passwrd-btn-bx hidepassword"
+                                  : "passwrd-btn-bx"
+                              }
+                            >
+                              <button
+                                type="button"
+                                onClick={() => setPasswordView(true)}
+                                className="view-btn view-btn1"
+                              >
+                                <ion-icon name="eye-outline"></ion-icon>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setPasswordView(false)}
+                                className="view-btn view-btn2"
+                              >
+                                <ion-icon name="eye-off-outline"></ion-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
-                  <div className="vend-bx">
-                    <span>Password</span>
-                    <div className="vend-inpt-bx vend-inpt-bx2">
-                      <input
-                        type={passwordView ? "password" : "text"}
-                        name="password"
-                        id="password"
-                        autoComplete="off"
-                        required
-                      />
-                      <div
-                        className={
-                          passwordView
-                            ? "passwrd-btn-bx hidepassword"
-                            : "passwrd-btn-bx"
-                        }
-                      >
-                        <button
-                          onClick={() => setPasswordView(true)}
-                          className="view-btn view-btn1"
+                        <div className="vend-check-bx vend-check-bx2">
+                          <div className="check-bx cehck-bx-v check-bx-v2">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              value=""
+                              id="flexCheckDefault"
+                            />
+                          </div>
+                          <span>Remember my preference</span>
+                        </div>
+
+                        <div
+                          onClick={() => setForgotPasswrd(true)}
+                          className="vend-forgt-paswrd-btn"
                         >
-                          <ion-icon name="eye-outline"></ion-icon>
+                          Forgot Password ?
+                        </div>
+                        {authErrors?.login && !loading?.login ? (
+                          <span style={{ color: "red" }}>
+                            {authErrors?.login}
+                          </span>
+                        ) : null}
+                        <button type="submit" className="vend-submt-btn">
+                          Sign In
                         </button>
-                        <button
-                          onClick={() => setPasswordView(false)}
-                          className="view-btn view-btn2"
-                        >
-                          <ion-icon name="eye-off-outline"></ion-icon>
+
+                        <p className="vend-text">
+                          Don't have an account ?{" "}
+                          <span onClick={() => setVendForm(true)}>
+                            Create Account
+                          </span>
+                        </p>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+                <Formik initialValues={{}} onSubmit={handleForgetPassSubmit}>
+                  {({
+                    handleBlur,
+                    handleChange,
+                    values,
+                    errors,
+                    touched,
+                    ...rest
+                  }) => {
+                    return (
+                      <Form className="forgot-password-vendor">
+                        <div className="vend-bx mb-5">
+                          <span>Email / Mobile No.</span>
+                          <div className="vend-inpt-bx">
+                            <input
+                              type="text"
+                              name="emailOrPhone"
+                              id="emailmob"
+                              autoComplete="off"
+                              required
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.emailOrPhone}
+                            />
+                          </div>
+                        </div>
+
+                        <button type="submit" className="vend-submt-btn">
+                          Reset Password Request
                         </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="vend-check-bx vend-check-bx2">
-                    <div className="check-bx cehck-bx-v check-bx-v2">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                    </div>
-                    <span>Remember my preference</span>
-                  </div>
-
-                  <div
-                    onClick={() => setForgotPasswrd(true)}
-                    className="vend-forgt-paswrd-btn"
-                  >
-                    Forgot Password ?
-                  </div>
-
-                  <button className="vend-submt-btn">Sign In</button>
-
-                  <p className="vend-text">
-                    Don't have an account ?{" "}
-                    <span onClick={() => setVendForm(true)}>
-                      Create Account
-                    </span>
-                  </p>
-                </form>
-
-                <form action="#" className="forgot-password-vendor">
-                  <div className="vend-bx mb-5">
-                    <span>Email / Mobile No.</span>
-                    <div className="vend-inpt-bx">
-                      <input
-                        type="text"
-                        name="emailmob"
-                        id="emailmob"
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <button className="vend-submt-btn">
-                    Reset Password Request
-                  </button>
-                </form>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </div>
 
               <div
@@ -189,7 +322,16 @@ const VendorLogin = () => {
                 }
               >
                 <div className="vendor-reg-bx vendor-login-bx">
-                  <Formik initialValues={{}} onSubmit={handleSignupSubmit}>
+                  <Formik
+                    initialValues={{}}
+                    onSubmit={handleSignupSubmit}
+                    validationSchema={object().shape({
+                      password: string().required().min(10),
+                      email: string().required().email(),
+                      phoneNumber: string().required().min(10).max(10),
+                      fullname: string().required(),
+                    })}
+                  >
                     {({
                       handleBlur,
                       handleChange,
@@ -221,6 +363,11 @@ const VendorLogin = () => {
                                   value={values?.fullname}
                                 />
                               </div>
+                              {touched?.fullname && errors?.fullname ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.fullname}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx">
@@ -232,11 +379,18 @@ const VendorLogin = () => {
                                   id="phone"
                                   autoComplete="off"
                                   required
+                                  minLength={10}
+                                  maxLength={10}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   value={values?.phoneNumber}
                                 />
                               </div>
+                              {touched?.phoneNumber && errors?.phoneNumber ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.phoneNumber}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx">
@@ -245,7 +399,7 @@ const VendorLogin = () => {
                                 <input
                                   type="email"
                                   name="email"
-                                  id="email"
+                                  // id="email"
                                   autoComplete="off"
                                   required
                                   onChange={handleChange}
@@ -253,6 +407,11 @@ const VendorLogin = () => {
                                   value={values?.email}
                                 />
                               </div>
+                              {touched?.email && errors?.email ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.email}
+                                </span>
+                              ) : null}
                             </div>
 
                             <div className="vend-bx vend-bx-p">
@@ -261,21 +420,21 @@ const VendorLogin = () => {
                                 <input
                                   type="password"
                                   name="password"
-                                  id="Password"
+                                  // id="Password"
                                   placeholder="At least 10 characters"
                                   autoComplete="off"
                                   minLength={10}
-                                  min={10}
                                   required
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   value={values?.password}
                                 />
                               </div>
-
-                              {/* <span>
-                                Password must be at least 10 characters
-                              </span> */}
+                              {touched?.password && errors?.password ? (
+                                <span style={{ color: "red" }}>
+                                  {errors?.password}
+                                </span>
+                              ) : null}
                             </div>
                           </div>
 
@@ -338,8 +497,8 @@ const VendorLogin = () => {
                               <span>Enter OTP</span>
                               <div className="vend-inpt-bx">
                                 <input
-                                  type="password"
                                   name="otp"
+                                  type="number"
                                   id="otp"
                                   autoComplete="off"
                                   required
@@ -350,7 +509,17 @@ const VendorLogin = () => {
                               </div>
                             </div>
 
-                            <span className="resend-otp-text">Resend OTP</span>
+                            <button
+                              type="button"
+                              onClick={handleResendClick}
+                              disabled={!isResendActive}
+                              className="resend-otp-text"
+                            >
+                              Resend OTP{" "}
+                              {remainingTime
+                                ? "in " + remainingTime + " Seconds"
+                                : ""}
+                            </button>
 
                             <button
                               type="submit"
@@ -376,129 +545,156 @@ const VendorLogin = () => {
                         : "about-your-busniess-main-bx"
                     }
                   >
-                    <Formik
-                      initialValues={{}}
-                      // onSubmit={handleSubmit}
-                    >
-                      {({
-                        handleBlur,
-                        handleChange,
-                        values,
-                        errors,
-                        touched,
-                        ...rest
-                      }) => {
-                        return (
-                          <Form>
-                            <div className="reg-start-sell-bx ">
-                              <h6>Register and Start Selling</h6>
-                              <p>Please have the following before you again:</p>
+                    {selling && !vendorLoading && userInfo?.role == "vendor" ? (
+                      <Formik
+                        initialValues={userInfo || {}}
+                        onSubmit={handleCompanyDetailSubmit}
+                      >
+                        {({
+                          handleBlur,
+                          handleChange,
+                          values,
+                          errors,
+                          touched,
+                          ...rest
+                        }) => {
+                          return (
+                            <Form>
+                              <div className="reg-start-sell-bx ">
+                                <h6>Register and Start Selling</h6>
+                                <p>
+                                  Please have the following before you again:
+                                </p>
 
-                              <div className="seling-list">
-                                <li>
-                                  Your bank account details for receiving
-                                  payments from TGSS{" "}
-                                </li>
-                                <li>Tax (GST/PAN) details of your business </li>
-                              </div>
-
-                              <span className="comn-text">
-                                Please ensure that all the information you
-                                submit is accurate .
-                              </span>
-
-                              <h5>
-                                Enter details below to continue registration{" "}
-                              </h5>
-
-                              <div className="busin-inpt-bx">
-                                <div className="vend-bx">
-                                  <span>Company/Business name</span>
-                                  <div className="vend-inpt-bx">
-                                    <input
-                                      type="text"
-                                      name="companyName"
-                                      id="businessname"
-                                      autoComplete="off"
-                                      required
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      value={values?.companyName}
-                                    />
-                                  </div>
+                                <div className="seling-list">
+                                  <li>
+                                    Your bank account details for receiving
+                                    payments from TGSS{" "}
+                                  </li>
+                                  <li>
+                                    Tax (GST/PAN) details of your business{" "}
+                                  </li>
                                 </div>
 
-                                <span className="comn-text d-inline-block mb-3">
-                                  Enter the company / business name a registered
-                                  in GST/PAN
+                                <span className="comn-text">
+                                  Please ensure that all the information you
+                                  submit is accurate .
                                 </span>
-                                <div className="vend-bx">
-                                  <div className="top-inpt-text">
-                                    <span>Set a name for your GSS Store</span>
-                                  </div>
-                                  <div className="vend-inpt-bx">
-                                    <input
-                                      type="text"
-                                      name="storeName"
-                                      id="shopname"
-                                      autoComplete="off"
-                                      required
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      value={values?.storeName}
-                                    />
+
+                                <h5>
+                                  Enter details below to continue registration{" "}
+                                </h5>
+
+                                <div className="busin-inpt-bx">
+                                  <div className="vend-bx">
+                                    <span>Company/Business name</span>
+                                    <div className="vend-inpt-bx">
+                                      <input
+                                        type="text"
+                                        name="companyName"
+                                        id="businessname"
+                                        autoComplete="off"
+                                        required
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values?.companyName}
+                                      />
+                                    </div>
                                   </div>
 
-                                  {shopName && (
-                                    <p className="avail">
-                                      {isValidName
-                                        ? "This name is available."
-                                        : "This name is not valid."}
+                                  <span className="comn-text d-inline-block mb-3">
+                                    Enter the company / business name a
+                                    registered in GST/PAN
+                                  </span>
+                                  <div className="vend-bx">
+                                    <div className="top-inpt-text">
+                                      <span>Set a name for your GSS Store</span>
+                                    </div>
+                                    <div className="vend-inpt-bx">
+                                      <input
+                                        type="text"
+                                        name="storeName"
+                                        id="shopname"
+                                        autoComplete="off"
+                                        required
+                                        onChange={(e) => {
+                                          setStoreName("");
+                                          setApiErrors({});
+                                          debounceAsync(async () => {
+                                            const res =
+                                              await vendorStoreNameAvailability(
+                                                e.target.value
+                                              );
+                                            if (res?.error) {
+                                              setApiErrors({
+                                                storeName: res?.message,
+                                              });
+                                              return;
+                                            }
+                                            setStoreName(e.target.value);
+                                          }, 300)();
+                                          handleChange(e);
+                                        }}
+                                        onBlur={handleBlur}
+                                        value={values?.storeName}
+                                      />
+                                    </div>
+
+                                    {apiErrors?.storeName ? (
+                                      <p
+                                        className="avail"
+                                        style={{ color: "red" }}
+                                      >
+                                        {apiErrors?.storeName}
+                                      </p>
+                                    ) : storeName ? (
+                                      <p className="avail">
+                                        Store Name {storeName} is Available
+                                      </p>
+                                    ) : null}
+                                  </div>
+                                </div>
+
+                                <div className="seller-agrenmt-bx">
+                                  <h6>Seller Agreement</h6>
+
+                                  <div className="vend-check-bx vend-check-bx2">
+                                    <div className="check-bx cehck-bx-v">
+                                      <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="flexCheckDefault"
+                                        required
+                                      />
+                                    </div>
+                                    <p>
+                                      I have read and agree to comply with
+                                      and/or be bound by terms and conditions of{" "}
+                                      <span>
+                                        TGSS services business Solutions
+                                        Agreement , Terms and Conditions{" "}
+                                      </span>{" "}
+                                      and{" "}
+                                      <span>
+                                        TGSS business Terms & conditions .{" "}
+                                      </span>
                                     </p>
-                                  )}
-                                </div>
-                              </div>
-
-                              <div className="seller-agrenmt-bx">
-                                <h6>Seller Agreement</h6>
-
-                                <div className="vend-check-bx vend-check-bx2">
-                                  <div className="check-bx cehck-bx-v">
-                                    <input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      value=""
-                                      id="flexCheckDefault"
-                                      required
-                                    />
                                   </div>
-                                  <p>
-                                    I have read and agree to comply with and/or
-                                    be bound by terms and conditions of{" "}
-                                    <span>
-                                      TGSS services business Solutions Agreement
-                                      , Terms and Conditions{" "}
-                                    </span>{" "}
-                                    and{" "}
-                                    <span>
-                                      TGSS business Terms & conditions .{" "}
-                                    </span>
-                                  </p>
-                                </div>
 
-                                <button
-                                  type="submit"
-                                  // onClick={() => setShopDetForm(true)}
-                                  className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v"
-                                >
-                                  Continue
-                                </button>
+                                  <button
+                                    type="submit"
+                                    className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v"
+                                  >
+                                    Continue
+                                  </button>
+                                </div>
                               </div>
-                            </div>
-                          </Form>
-                        );
-                      }}
-                    </Formik>
+                            </Form>
+                          );
+                        }}
+                      </Formik>
+                    ) : null}
                     <div
                       className={
                         taxDet
@@ -510,107 +706,129 @@ const VendorLogin = () => {
                         <div className="shop-grid-bx">
                           <div className="shop-left-bx">
                             <h5>Tell us about your business</h5>
-                            <Formik
-                              initialValues={{}}
-                              // onSubmit={handleSubmit}
-                            >
-                              {({
-                                handleBlur,
-                                handleChange,
-                                values,
-                                errors,
-                                touched,
-                                ...rest
-                              }) => {
-                                return (
-                                  <Form className="shop-form-bx">
-                                    <div className="shop-name-grid">
-                                      <div className="check-avail-bx"></div>
-                                    </div>
+                            {shopDetForm &&
+                            !vendorLoading &&
+                            userInfo?.role == "vendor" ? (
+                              <Formik
+                                initialValues={userInfo?.VendorAddress || {}}
+                                onSubmit={handleAddressSubmit}
+                              >
+                                {({
+                                  handleBlur,
+                                  handleChange,
+                                  values,
+                                  errors,
+                                  touched,
+                                  ...rest
+                                }) => {
+                                  return (
+                                    <Form className="shop-form-bx">
+                                      <div className="shop-name-grid">
+                                        <div className="check-avail-bx"></div>
+                                      </div>
 
-                                    <h6>Enter your busniess address</h6>
+                                      <h6>Enter your busniess address</h6>
 
-                                    <div className="address-form-grid">
-                                      <div className="vend-bx">
-                                        <span>Pincode</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="pincode"
-                                            id="pincode"
-                                            autoComplete="off"
-                                            required
-                                          />
+                                      <div className="address-form-grid">
+                                        <div className="vend-bx">
+                                          <span>Pincode</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="pincode"
+                                              id="pincode"
+                                              autoComplete="off"
+                                              required
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.pincode}
+                                            />
+                                          </div>
+                                        </div>
+
+                                        <div className="vend-bx">
+                                          <span>Address Line 1</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="addressLine1"
+                                              id="addressone"
+                                              autoComplete="off"
+                                              required
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.addressLine1}
+                                            />
+                                          </div>
+                                        </div>
+
+                                        <div className="vend-bx">
+                                          <span>Address Line 2</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="addressLine2"
+                                              id="addresstwo"
+                                              autoComplete="off"
+                                              required
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.addressLine2}
+                                            />
+                                          </div>
+                                        </div>
+
+                                        <div className="vend-bx">
+                                          <span>City</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="city"
+                                              id="city"
+                                              autoComplete="off"
+                                              required
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.city}
+                                            />
+                                          </div>
+                                        </div>
+
+                                        <div className="vend-bx">
+                                          <span>State</span>
+                                          <div className="vend-inpt-bx">
+                                            <select
+                                              name="state"
+                                              id="state"
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.state}
+                                            >
+                                              <option value="state">
+                                                State1
+                                              </option>
+                                              <option value="state">
+                                                State2
+                                              </option>
+                                              <option value="state">
+                                                State3
+                                              </option>
+                                            </select>
+                                          </div>
                                         </div>
                                       </div>
 
-                                      <div className="vend-bx">
-                                        <span>Address Line 1</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="addressone"
-                                            id="addressone"
-                                            autoComplete="off"
-                                            required
-                                          />
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>Address Line 2</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="addresstwo"
-                                            id="addresstwo"
-                                            autoComplete="off"
-                                            required
-                                          />
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>City</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="city"
-                                            id="city"
-                                            autoComplete="off"
-                                            required
-                                          />
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>Product Category</span>
-                                        <div className="vend-inpt-bx">
-                                          <select name="state" id="state">
-                                            <option value="state">
-                                              State1
-                                            </option>
-                                            <option value="state">
-                                              State2
-                                            </option>
-                                            <option value="state">
-                                              State3
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
-                                    </div>
-
-                                    <button
-                                      onClick={() => setTaxDet(true)}
-                                      className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v btn-left"
-                                    >
-                                      Continue
-                                    </button>
-                                  </Form>
-                                );
-                              }}
-                            </Formik>
+                                      <button
+                                        type="submit"
+                                        className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v btn-left"
+                                      >
+                                        Continue
+                                      </button>
+                                    </Form>
+                                  );
+                                }}
+                              </Formik>
+                            ) : null}
                           </div>
 
                           <div className="shop-left-bx right-accordion-box">
@@ -674,114 +892,109 @@ const VendorLogin = () => {
                         <h6>Update your Tax details </h6>
 
                         <div className="shop-grid-bx">
-                          <Formik
-                            initialValues={{}}
-                            // onSubmit={handleSubmit}
-                          >
-                            {({
-                              handleBlur,
-                              handleChange,
-                              values,
-                              errors,
-                              touched,
-                              ...rest
-                            }) => {
-                              return (
-                                <Form>
-                                  <div className="tax-det-form-bx">
-                                    <div className="vend-check-bx vend-check-bx3">
-                                      <div className="check-bx cehck-bx-v">
-                                        <input
-                                          className="form-check-input"
-                                          type="checkbox"
-                                          value=""
-                                          id="flexCheckDefault"
-                                        />
-                                      </div>
-                                      <span>I have GSTIN number</span>
-                                    </div>
-
-                                    <div className="tax-det-form-grid">
-                                      <div className="vend-bx">
-                                        <span>Enter your tax details</span>
-                                        <div className="vend-inpt-bx">
-                                          <select name="taxdet" id="taxdet">
-                                            <option value="option">
-                                              Option1
-                                            </option>
-                                            <option value="option">
-                                              Option2
-                                            </option>
-                                            <option value="option">
-                                              Option3
-                                            </option>
-                                            <option value="option">
-                                              Option4
-                                            </option>
-                                          </select>
-                                        </div>
-                                      </div>
-
-                                      <div className="vend-bx">
-                                        <span>Seller Legal Name</span>
-                                        <div className="vend-inpt-bx">
+                          {taxDet &&
+                          !vendorLoading &&
+                          userInfo?.role == "vendor" ? (
+                            <Formik
+                              initialValues={userInfo?.VendorDetail || {}}
+                              onSubmit={handleTaxDetailSubmit}
+                            >
+                              {({
+                                handleBlur,
+                                handleChange,
+                                values,
+                                errors,
+                                touched,
+                                ...rest
+                              }) => {
+                                return (
+                                  <Form>
+                                    <div className="tax-det-form-bx">
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                        }}
+                                        className="vend-check-bx vend-check-bx3"
+                                      >
+                                        <div className="check-bx cehck-bx-v">
                                           <input
-                                            type="text"
-                                            name="sellername"
-                                            id="sellername"
-                                            autoComplete="off"
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            value=""
+                                            checked={haveGst}
+                                            id="flexCheckDefault"
+                                            onChange={() =>
+                                              setHaveGst(!haveGst)
+                                            }
                                           />
                                         </div>
+                                        <span style={{ marginBottom: "2rem" }}>
+                                          I have GSTIN number
+                                        </span>
                                       </div>
-
-                                      <div className="vend-bx">
-                                        <span>GST Number</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="gst"
-                                            id="gst"
-                                            autoComplete="off"
-                                          />
+                                      <div className="tax-det-form-grid">
+                                        <div className="vend-bx">
+                                          <span>Seller Legal Name</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="sellarLegalName"
+                                              id="sellername"
+                                              autoComplete="off"
+                                              required
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.sellarLegalName}
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
 
-                                      <div className="vend-bx">
-                                        <span>PAN Number</span>
-                                        <div className="vend-inpt-bx">
-                                          <input
-                                            type="text"
-                                            name="pan"
-                                            id="pan"
-                                            autoComplete="off"
-                                          />
+                                        <div className="vend-bx">
+                                          <span>PAN Number</span>
+                                          <div className="vend-inpt-bx">
+                                            <input
+                                              type="text"
+                                              name="panNumber"
+                                              id="pan"
+                                              autoComplete="off"
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values?.panNumber}
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
-                                    </div>
 
-                                    <div className="vend-check-bx mt-4">
-                                      <div className="check-bx cehck-bx-v">
-                                        <input
-                                          className="form-check-input"
-                                          type="checkbox"
-                                          value=""
-                                          id="flexCheckDefault"
-                                        />
+                                        {haveGst ? (
+                                          <div className="vend-bx">
+                                            <span>GST Number</span>
+                                            <div className="vend-inpt-bx">
+                                              <input
+                                                type="text"
+                                                name="gstNumber"
+                                                id="gst"
+                                                autoComplete="off"
+                                                required
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values?.gstNumber}
+                                              />
+                                            </div>
+                                          </div>
+                                        ) : null}
                                       </div>
-                                      <span>I do not have GSTIN number</span>
+                                      <button
+                                        type="submit"
+                                        className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v btn-left"
+                                      >
+                                        Submit
+                                      </button>
                                     </div>
-
-                                    <button
-                                      onClick={() => callFunc()}
-                                      className="vend-submt-btn reg-btn-vend otp-btn mt-4 cont-btn-v btn-left"
-                                    >
-                                      Submit
-                                    </button>
-                                  </div>
-                                </Form>
-                              );
-                            }}
-                          </Formik>
+                                  </Form>
+                                );
+                              }}
+                            </Formik>
+                          ) : null}
                           <div className="shop-left-bx right-accordion-box">
                             <h5>FAQ</h5>
 

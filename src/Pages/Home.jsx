@@ -16,7 +16,6 @@ import MainFooter from "../HomeComponent/MainFooter";
 import Discover from "../HomeComponent/Discover";
 import { useLocation } from "react-router-dom";
 import { scrollToParam } from "../lib/scroll";
-import { testInsta } from "../apis/user";
 import InfiniteSliderWaste from "../AdminComponents.jsx/InfiniteSliderWaste";
 import DownloadApp from "../HomeComponent/DownloadApp";
 // import AdsBanner from "../HomeComponent/AdsBanner";
@@ -28,9 +27,6 @@ const Home = ({ setUserForm,}) => {
   useEffect(() => {
     scrollToParam(location, "s");
   }, [location.search]);
-  useEffect(() => {
-    testInsta();
-  }, []);
 
   // useEffect(() => {
   //   const interval = setInterval(() => {

@@ -59,6 +59,7 @@ const ClimconnectFeed = ({ query }) => {
           <Climconnectpost
             comp="feed"
             sortFn={sortFn?.fn}
+            setSortFn={setSortFn}
             refetch={refetch}
             data={!posts?.error ? posts : []}
           />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { climeCategories } from "../lib/climeCategories.js";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -20,7 +20,10 @@ const Climconnectpost = ({
   comp = "profile",
   refetch: refetchData,
   sortFn = () => {},
+  setSortFn,
 }) => {
+  const containerRef = useRef(null);
+  const [itemHeights, setItemHeights] = useState([]);
   const [settingPopup, setSettingPopup] = useState({});
   const [showBoxes, setShowBoxes] = useState(4);
   const [loginForm, setLoginForm] = useState(false);
@@ -28,9 +31,8 @@ const Climconnectpost = ({
   const [reportPost, setReportPost] = useState(false);
   const [selectedValues, setSelectedValues] = useState({});
   const [loading, setLoading] = useState(false);
-
   const { userInfo } = useSelector((s) => s.user);
-
+  const [otherSortFn, setOtherSortFn] = useState({ fn: () => {} });
   // Function to fetch more items
   const fetchMoreItems = useCallback(() => {
     setLoading(true);
@@ -77,32 +79,80 @@ const Climconnectpost = ({
   const protectClick = (fn = () => {}) => {
     return userInfo?.role === "user" ? fn : () => setLoginForm(true);
   };
+  const handleReletedClick = (category) => {
+    setSortFn({
+      fn: (a, b) => {
+        if (a?.categoryName == category && b?.categoryName != category) {
+          return -1;
+        } else if (a?.categoryName != category && b?.categoryName == category) {
+          return 1;
+        } else {
+          return 0;
+        }
+      },
+    });
+  };
 
   const { data: connections, refetch } = useQuery({
     queryKey: ["climeconnectionsFetch"],
     queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
   });
 
+  useEffect(() => {
+    const calculateHeights = () => {
+      const items = containerRef?.current?.children;
+      const heights = [];
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const height = item.offsetHeight;
+        heights.push(height);
+      }
+
+      setItemHeights(heights);
+    };
+
+    calculateHeights();
+    window.addEventListener("resize", calculateHeights);
+
+    return () => {
+      window.removeEventListener("resize", calculateHeights);
+    };
+  }, [data, sortFn, showBoxes]);
   return (
     <>
-      <div className="clim-conect-post-grid-bx">
+      <div
+        ref={containerRef}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, minmax(200px, 1fr))",
+          gap: "10px",
+          gridAutoRows: "minmax(100px, auto)",
+          position: "relative",
+        }}
+        className="clim-conect-post-grid-bx"
+      >
         {data
           ?.sort(sortFn)
+          // ?.sort(otherSortFn?.fn)
           ?.slice(0, showBoxes)
           ?.map(
-            ({
-              id,
-              image,
-              categoryName,
-              title,
-              content,
-              User,
-              author,
-              BlogComments,
-              BlogLikes,
-              BlogViews,
-              ...rest
-            }) => {
+            (
+              {
+                id,
+                image,
+                categoryName,
+                title,
+                content,
+                User,
+                author,
+                BlogComments,
+                BlogLikes,
+                BlogViews,
+                ...rest
+              },
+              index
+            ) => {
               const ctg = climeCategories.find(
                 ({ name }) => name === categoryName
               );
@@ -117,9 +167,26 @@ const Climconnectpost = ({
                 ({ userId }) => userId === userInfo?.id
               );
               const newLikeStatus = likeStatus ? "delete" : "active";
+              let top = 0;
+              const heightBefore = itemHeights?.filter(
+                (e, i) => index % 2 == i % 2 && index > i
+              );
+              top =
+                heightBefore?.reduce((a, b) => a + b, 0) +
+                heightBefore?.length * 20;
               return (
                 <div
-                  style={{ backgroundColor: ctg?.colorCode, paddingTop: "0px" }}
+                  style={{
+                    background: "#f0f0f0",
+                    padding: "10px",
+                    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                    borderRadius: "5px",
+                    position: "absolute",
+                    width: "48%",
+                    right: index % 2 ? null : "0px",
+                    left: !(index % 2) ? null : "0px",
+                    top: `${top}px`,
+                  }}
                   className="cc-post-bx"
                   key={id}
                 >
@@ -207,6 +274,37 @@ const Climconnectpost = ({
                       )}
                     </div>
                   )}
+                  <div className="cc-post-img-prof">
+                    <img
+                      src={
+                        User?.profileImage ||
+                        "/images/temp/temp-user-profile.png"
+                      }
+                      alt=""
+                    />
+                    <div className="cc-post-det">
+                      <div className="post-name-flex">
+                        <h6>{User?.fullname || author}</h6>
+                        {userInfo?.id !== User?.id && User?.id ? (
+                          <button
+                            onClick={protectClick(() =>
+                              handleFollowUnfollowClick(
+                                User?.id,
+                                newFollowingStatus
+                              )
+                            )}
+                            className="follow-btn"
+                          >
+                            {followingStatus ? "Unfollow" : "Follow"}
+                          </button>
+                        ) : (
+                          <button className="follow-btn">
+                            {User?.id ? "You" : "Admin"}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                   <Carousel
                     showArrows={true}
                     showStatus={false}
@@ -225,15 +323,15 @@ const Climconnectpost = ({
                   </Carousel>
                   <div className="cc-post-info-data">
                     <div className="cc-post-img-prof">
-                      <img
+                      {/* <img
                         src={
                           User?.profileImage ||
                           "/images/temp/temp-user-profile.png"
                         }
                         alt=""
-                      />
+                      /> */}
                       <div className="cc-post-det">
-                        <div className="post-name-flex">
+                        {/* <div className="post-name-flex">
                           <h6>{User?.fullname || author}</h6>
                           {userInfo?.id !== User?.id && User?.id ? (
                             <button
@@ -252,7 +350,7 @@ const Climconnectpost = ({
                               {User?.id ? "You" : "Admin"}
                             </button>
                           )}
-                        </div>
+                        </div> */}
                         <div className="like-share-comment-flex-bx">
                           <div className="post-twit-bx">
                             <div
@@ -316,7 +414,37 @@ const Climconnectpost = ({
                           __html: content,
                         }}
                       />
-                      <span cla>{categoryName}</span>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                        }}
+                        style={{
+                          // zIndex: 10,
+                          position: "absolute",
+                          bottom: "-10px",
+                          right: "0px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-end",
+                        }}
+                      >
+                        <p
+                          style={{
+                            display: "block",
+                            marginBottom: "0px",
+                            color: "black",
+                          }}
+                        >
+                          {categoryName}
+                        </p>
+                        <p
+                          onClick={() => handleReletedClick(categoryName)}
+                          style={{ display: "block", marginBottom: "0px" }}
+                        >
+                          View More Releted Category
+                        </p>
+                      </div>
                     </NavLink>
                   </div>
                 </div>

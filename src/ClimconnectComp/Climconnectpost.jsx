@@ -284,26 +284,36 @@ const Climconnectpost = ({
                       to={`/climconnect/blog/${btoa(id)}`}
                       className="post-infor-cc"
                     >
-                      <h5>{title}</h5>
+                      <h5
+                        style={{
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                          maxHeight: "60px",
+                          textOverflow: "ellipsis",
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          boxSizing: "border-box",
+                        }}
+                      >
+                        {title}
+                      </h5>
                       <div
                         style={{
                           color: "black",
                           width: "100%",
-                          height: "max-content",
-                          overflow: "hidden",
-                          border: "1px solid transparent",
-                          padding: "10px",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: "5",
+                          // border: "1px solid transparent",
+                          // padding: "10px",
                           lineHeight: "1.2em",
-                          // maxHeight: "calc(1.4em * 5)",
-                          whiteSpace: "normal",
+                          margin: "20px 0px",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 5,
                           textOverflow: "ellipsis",
-                          paddingBottom: "20px",
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          boxSizing: "border-box",
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: content?.substring(0, 200),
+                          __html: content,
                         }}
                       />
                       <span cla>{categoryName}</span>

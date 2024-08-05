@@ -124,10 +124,6 @@ const Climconnectpost = ({
       <div
         ref={containerRef}
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, minmax(200px, 1fr))",
-          gap: "10px",
-          gridAutoRows: "minmax(100px, auto)",
           position: "relative",
         }}
         className="clim-conect-post-grid-bx"
@@ -177,12 +173,10 @@ const Climconnectpost = ({
               return (
                 <div
                   style={{
-                    background: "#f0f0f0",
+                    background: ctg?.colorCode,
                     padding: "10px",
                     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    position: "absolute",
-                    width: "48%",
                     right: index % 2 ? null : "0px",
                     left: !(index % 2) ? null : "0px",
                     top: `${top}px`,
@@ -442,7 +436,7 @@ const Climconnectpost = ({
                           onClick={() => handleReletedClick(categoryName)}
                           style={{ display: "block", marginBottom: "0px" }}
                         >
-                          View More Releted Category
+                         Similar Posts
                         </p>
                       </div>
                     </NavLink>

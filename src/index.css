@@ -16857,8 +16857,8 @@ video {
 }
 
 .cc-post-bx {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  width: 48%;
   background-color: #edf5f1;
   border-radius: .55rem;
   padding: .76rem .76rem;
@@ -18264,11 +18264,19 @@ video {
   }
 
   .clim-conect-post-grid-bx{
-    grid-template-columns: 1fr ;
+    /* grid-template-columns: 1fr ; */
+    display: flex;
+    flex-direction: column;
+  }
+   
+  .cc-post-bx{
+    position: static;
+    width: 100%;
   }
 
   .clim-connect-grid-bx{
-    grid-template-columns: repeat(1, 1fr);
+    /* grid-template-columns: repeat(1, 1fr); */
+    display: block;
   }
 
   .clim-conect-search{

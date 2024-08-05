@@ -2134,6 +2134,10 @@ section.whatWeDo .tabContent .tabs.active {
         height: 20rem !important;
     }
 
+    .clim-conect-post-grid-bx{
+        grid-template-columns: repeat(1 , 1fr) !important;
+    }
+
 }
 
 

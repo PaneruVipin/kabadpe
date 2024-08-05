@@ -46,6 +46,10 @@ import AllBlogPost from "../AdminComponents.jsx/AllBlogPost";
 import CreateBlog from "../AdminComponents.jsx/CreateBlog";
 import AdminBid from "../AdminComponents.jsx/AdminBid";
 import { toast } from "react-toastify";
+import AdminProdAtribute from "../AdminComponents.jsx/AdminProdAtribute";
+import AdminProdAtributeValue from "../AdminComponents.jsx/AdminProdAtributeValue";
+import AdminProdCateg from "./AdminProdCateg";
+import AdminProdCategValue from "../AdminComponents.jsx/AdminProdCategValue";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -543,7 +547,13 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#">Top Selling Products</NavLink>{" "}
               </li>
-              <li>
+              <li 
+               onClick={() => handleViewComp("adminproductatribute")}
+               className={
+                 component === "adminproductatribute"
+                   ? "page-link-btn pagelinkactive"
+                   : "page-link-btn"
+               }>
                 {" "}
                 <NavLink to="#">Product Attributes </NavLink>{" "}
               </li>
@@ -551,9 +561,15 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#">Product Reviews</NavLink>{" "}
               </li>
-              <li>
+              <li
+               onClick={() => handleViewComp("adminprodcateg")}
+               className={
+                 component === "adminprodcateg"
+                   ? "page-link-btn pagelinkactive"
+                   : "page-link-btn"
+               }>
                 {" "}
-                <NavLink to="#">Discount Coupons</NavLink>{" "}
+                <NavLink to="#">Product Category</NavLink>{" "}
               </li>
             </div>
           </div>
@@ -1239,25 +1255,7 @@ const AdminPanel = () => {
                 </div>
               </div>
 
-              {/* <li 
-                onClick={() => handleViewComp("kabadpepages")}
-                className={
-                  component === "kabadpepages"
-                    ? "page-link-btn pagelinkactive"
-                    : "page-link-btn"
-                }
-              >
-                {" "}
-                <NavLink to="#">KabadPe</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">TGSS</NavLink>{" "}
-              </li>
-              <li>
-                {" "}
-                <NavLink to="#">ClimStripe </NavLink>{" "}
-              </li> */}
+            
             </div>
           </div>
         </div>
@@ -1444,6 +1442,13 @@ const AdminPanel = () => {
           <CreateBlog onClose={() => setComponent("allpost")} />
         ) : null}
         {component === "adminbid" ? <AdminBid /> : null}
+        {component === "adminproductatribute" ? <AdminProdAtribute onClickRedirect={() => handleViewComp("adminproductatributevalues")} /> : null}
+        {component === "adminproductatributevalues" ? <AdminProdAtributeValue /> : null}
+        {component === "adminprodcateg" ? <AdminProdCateg onClickRedirect={() => handleViewComp("adminprodcategvalue")} /> : null}
+        {component === "adminprodcategvalue" ? <AdminProdCategValue /> : null}
+
+
+
       </section>
     </>
   );

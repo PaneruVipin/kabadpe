@@ -3398,3 +3398,178 @@ side nav icon Btn on hover show list box
 .b-inpt input{
   text-align: center;
 }
+
+.admin-prod-atribute-comp{
+  position: relative;
+  width: 100%;
+  padding: 1.4rem 1.3rem 0 .76rem;
+}
+
+
+.admin-prod-atribute-comp h4{
+  font-weight: 600;
+  font-size: 24px;
+  color: #242424;
+  margin-bottom: 20px;
+}
+
+.admin-prod-atribute-top-flex-bx{
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  border-radius: .55rem;
+  padding: 25px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 26px;
+}
+
+.prod-atr-search-bx{
+  position: relative;
+  width: 30rem;
+  height: 2.78rem;
+  background-color: #fff;
+  border: .05rem solid #ced0d3;
+  border-radius: .45rem;
+  
+
+}
+
+.prod-atr-search-bx input{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding-inline: 1rem;
+  font-size: 15.5px;
+
+}
+
+.prod-atribute-buton-flex{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+
+}
+
+.prod-atribute-buton-flex button{
+  position: relative;
+  width: max-content;
+  padding-inline: 30px;
+  font-size: 15px;
+  height: 2.6rem;
+  border-radius: .45rem;
+  border: .05rem solid #0ea5e9;
+  transition: 400ms ease;
+}
+
+.prod-atribute-buton-flex button:nth-child(1){
+  background-color: #fff;
+  color: #0ea5e9;
+}
+
+.prod-atribute-buton-flex button:nth-child(3){
+  background-color: #0ea5e9;
+  color: #fff;
+}
+
+.admin-prod-atribute-table table thead tr th{
+  background-color: #0ea5e9 !important;
+}
+
+.admin-prod-atribute-table table tbody tr {
+  background-color: #ffffff !important;
+}
+
+.admin-prod-atribute-table table tbody tr:nth-child(2n + 2) {
+  background-color: #f1f6fb !important;
+}
+
+.prod-atribute-buton-flex button:nth-child(2){
+  border-color: #f78080;
+  background-color: #f78080;
+  color: #fff;
+}
+
+.admin-prod-atribute-main-bx{
+  height: 34rem ;
+}
+
+.confirm-btn-aa{
+  position: absolute  !important;
+  bottom: 2rem  !important;
+  left: 50% !important; 
+  transform: translateX(-50%);
+  background-color: #0ea5e9 !important; 
+}
+
+.confirm-btn{
+  background-color: #0ea5e9 !important; 
+
+}
+
+.variants-attribute-bx-admin{
+  background-color: #fff5e3 !important;
+  border-color: #fff5e3 !important;
+}
+
+
+
+.prod-atribute-buton-flex1 button:nth-child(2){
+  opacity: 0.7;
+}
+
+.prod-atribute-buton-flex1{
+  margin-top: 0;
+}
+
+.atribute-value-flex-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.admin-prod-atribute-main-bx2{
+  height: 23rem;
+}
+
+.search-btn-flex{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.search-btn-flex ion-icon{
+  font-size: 16px;
+}
+
+.admin-login-fild34 {
+  position: relative;
+  width: 100%;
+}
+
+
+.admin-login-fild34 textarea{
+  width: 100%;
+  height: 7rem;
+  font-size: 15px;
+  color: #262626;
+  font-weight: 500;
+  background-color: transparent;
+  resize: none;
+  background-color: #fff5e3;
+  border-radius: .55rem;
+  padding-block: .5rem;
+  padding-inline: 1rem;
+
+}
+
+.three-fild-grid{
+  grid-template-columns: repeat(3, 1fr);
+}

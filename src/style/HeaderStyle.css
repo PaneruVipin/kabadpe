@@ -2126,6 +2126,14 @@ section.whatWeDo .tabContent .tabs.active {
         background-color: transparent !important;
     }
 
+    .header-right a{
+        width: max-content !important;
+    }
+
+    .left-tab-view-img3{
+        height: 20rem !important;
+    }
+
 }
 
 

@@ -3560,3 +3560,24 @@
    width: 50rem;
 }
 
+.variants-attribute-bx-admin input{
+   background-color: #fff5e3 !important;
+ }
+
+ .ord-page-num2.pageactive{
+   background-color: #0ea5e9;
+
+ }
+
+ .swithc-toggle-btn23{
+   background-color: #0ea5e9 !important;
+ }
+
+ .admin-prod-atribute-table table tbody tr td{
+   vertical-align: baseline !important;
+ }
+
+ .admin-prod-atribute-table table tbody tr td img{
+   width: 1.5rem;
+   height: 1.5rem;
+ }

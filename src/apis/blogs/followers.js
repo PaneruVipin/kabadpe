@@ -32,9 +32,9 @@ export const followingStatusFetch = resolvePromise(async ({ id }) => {
 });
 
 export const climeconnectionsFetch = resolvePromise(
-  async ({ connectionType }) => {
+  async ({ connectionType, id }) => {
     const apiUrl =
-      ENV_API_BASE_URL + `/climeconnect/connections/${connectionType}`;
+      ENV_API_BASE_URL + `/climeconnect/connections/${connectionType}?id=${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {

@@ -5,15 +5,19 @@ import {
   climeFollowUnfollow,
   climeconnectionsFetch,
 } from "../apis/blogs/followers";
+import { useSelector } from "react-redux";
 
 const Climconectfollowing = () => {
+  const { userInfo } = useSelector((s) => s?.user);
   const { data: followings, refetch } = useQuery({
     queryKey: ["climeconnectionsFetch1"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "following", id: userInfo?.id }),
   });
   const { data: followers, refetch: refetchFollowers } = useQuery({
     queryKey: ["climeconnectionsFetch2"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "follower" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "follower", id: userInfo?.id }),
   });
   const handleFollowUnfollowClick = async (id, followingStatus) => {
     const res = await climeFollowUnfollow({ id, followingStatus });
@@ -28,7 +32,13 @@ const Climconectfollowing = () => {
                 <div className="climconect-user-folow-bx">
                   <div className="folower-left-bx">
                     <div className="user-folow-img">
-                      <img src={User?.profileImage || "/images/temp/temp-user-profile.png"} alt="" />
+                      <img
+                        src={
+                          User?.profileImage ||
+                          "/images/temp/temp-user-profile.png"
+                        }
+                        alt=""
+                      />
                     </div>
                     <div className="user-folow-info">
                       {/* <span>{theahmed08}</span> */}

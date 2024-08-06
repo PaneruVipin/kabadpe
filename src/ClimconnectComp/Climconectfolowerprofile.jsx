@@ -67,7 +67,9 @@ const Climconectfolowerprofile = ({
             src={
               comp == "me"
                 ? userInfo?.profileImage
-                : post?.[0]?.User?.profileImage
+                : post?.[0]?.User
+                ? post?.[0]?.User?.profileImage
+                : "/favicon.jpg"
             }
             alt=""
           />
@@ -104,7 +106,11 @@ const Climconectfolowerprofile = ({
         ) : null}
         <div className="right-cc-prof-info">
           <h4>
-            {comp == "me" ? userInfo?.fullname : post?.[0]?.User?.fullname}
+            {comp == "me"
+              ? userInfo?.fullname
+              : post?.[0]?.User
+              ? post?.[0]?.User?.fullname
+              : "Admin"}
           </h4>
           <div className="post-folow-flex">
             <h6>

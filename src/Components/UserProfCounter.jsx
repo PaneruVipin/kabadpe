@@ -5,13 +5,15 @@ import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { climeconnectionsFetch } from "../apis/blogs/followers";
 const UserProfCounter = () => {
+  const { userInfo } = useSelector((s) => s?.user);
   const { data: wallet, refetch } = useQuery({
     queryKey: ["userWalletFetch2"],
     queryFn: () => walletFetch(),
   });
   const { data: followers, refetch: refetchFollowers } = useQuery({
     queryKey: ["climeconnectionsFetch203"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "follower" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "follower", id: userInfo?.id }),
   });
   return (
     <>

@@ -35,6 +35,11 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Addpostpopup from "../ClimconnectComp/Addpostpopup.jsx";
 import ConfirmDeletePopup from "../ClimconnectComp/ConfirmDeletePopup.jsx";
+import { FaRegCopy } from "react-icons/fa";
+import {
+  climeconnectionsFetch,
+  climeFollowUnfollow,
+} from "../apis/blogs/followers.js";
 const BlogDet = () => {
   const { id } = useParams();
   const state = useState("");
@@ -112,12 +117,14 @@ export const BlogDetail = ({ id, state }) => {
 
   const { data: connections, refetch: refetchConnections } = useQuery({
     queryKey: ["climeconnectionsFetch3425"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "following", id: userInfo?.id }),
   });
-  // const handleFollowUnfollowClick = async (id, followingStatus) => {
-  //   const res = await climeFollowUnfollow({ id, followingStatus });
-  //   refetch();
-  // };
+  const handleFollowUnfollowClick = async (id, followingStatus) => {
+    const res = await climeFollowUnfollow({ id, followingStatus });
+    refetch();
+    refetchConnections();
+  };
   const handleLikeUnlikeClick = async (id, status) => {
     const res = await likeUnlikeBlog({ id, status });
     refetch();
@@ -389,6 +396,14 @@ export const BlogDetail = ({ id, state }) => {
                           }}
                         >
                           <FaShareAlt />
+                        </NavLink>
+                        <NavLink
+                          to="#"
+                          onClick={() => {
+                            navigator.clipboard.writeText(path?.href);
+                          }}
+                        >
+                          <FaRegCopy />
                         </NavLink>
                       </div>
                     </div>

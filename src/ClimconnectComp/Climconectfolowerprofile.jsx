@@ -10,8 +10,15 @@ import SharePost from "./SharePost";
 import { NavLink, useLocation } from "react-router-dom";
 import UserUpdateProf from "../Components/UserUpdateProf";
 import { userProfileImageAdd } from "../apis/user";
-const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
-  const { userInfo } = useSelector((s) => s.user);
+const Climconectfolowerprofile = ({
+  refetch,
+  followers,
+  followings,
+  post,
+  userInfo,
+  selectedData,
+  comp,
+}) => {
   const [editProf, setEditProf] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -49,41 +56,62 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
   useEffect(() => {
     if (userInfo?.profileImage) setSelectedImage(userInfo?.profileImage);
   }, [userInfo?.profileImage]);
-
+  const { userInfo: user } = useSelector((s) => s.user);
+  const enableActions =
+    (user?.id == selectedData?.userId && user?.role == "user") || comp == "me";
   return (
     <>
       <div className="clim-conect-prof-box">
         <div className="left-prof-img-bx-cc">
-          <img src={userInfo?.profileImage} alt="" />
+          <img
+            src={
+              comp == "me"
+                ? userInfo?.profileImage
+                : post?.[0]?.User
+                ? post?.[0]?.User?.profileImage
+                : "/favicon.jpg"
+            }
+            alt=""
+          />
+          {enableActions ? (
+            <div
+              onClick={() => setProfChange(true)}
+              className="prof-edit-text-btn3"
+            >
+              Edit
+            </div>
+          ) : null}
+        </div>
+        {enableActions ? (
           <div
-            onClick={() => setProfChange(true)}
-            className="prof-edit-text-btn3"
+            style={{
+              position: "absolute",
+              top: "0px",
+              right: "0px",
+              display: "flex",
+              gap: "10px",
+            }}
           >
-            Edit
+            <NavLink
+              to={"#"}
+              onClick={() => setEditProf(true)}
+              className="edit-button black"
+            >
+              Edit
+            </NavLink>
+            <NavLink to={"/account"} className="edit-button black">
+              Dashboard
+            </NavLink>
           </div>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "0px",
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <NavLink
-            to={"#"}
-            onClick={() => setEditProf(true)}
-            className="edit-button black"
-          >
-            Edit
-          </NavLink>
-          <NavLink to={"/account"} className="edit-button black">
-            Dashboard
-          </NavLink>
-        </div>
+        ) : null}
         <div className="right-cc-prof-info">
-          <h4>{userInfo?.fullname}</h4>
+          <h4>
+            {comp == "me"
+              ? userInfo?.fullname
+              : post?.[0]?.User
+              ? post?.[0]?.User?.fullname
+              : "Admin"}
+          </h4>
           <div className="post-folow-flex">
             <h6>
               {post?.length || 0} <span>Post</span>{" "}
@@ -98,7 +126,7 @@ const Climconectfolowerprofile = ({ refetch, followers, followings, post }) => {
         </div>
       </div>
 
-      <SharePost refetch={refetch} />
+      {enableActions ? <SharePost refetch={refetch} /> : null}
       {editProf ? (
         <UserUpdateProf onCloseClick={() => setEditProf(false)} />
       ) : null}

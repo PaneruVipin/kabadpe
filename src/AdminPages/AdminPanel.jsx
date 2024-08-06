@@ -50,6 +50,7 @@ import AdminProdAtribute from "../AdminComponents.jsx/AdminProdAtribute";
 import AdminProdAtributeValue from "../AdminComponents.jsx/AdminProdAtributeValue";
 import AdminProdCateg from "./AdminProdCateg";
 import AdminProdCategValue from "../AdminComponents.jsx/AdminProdCategValue";
+import AdminVendor from "./AdminVendor";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -507,9 +508,9 @@ const AdminPanel = () => {
                 <NavLink to="#">Workers</NavLink>{" "}
               </li>
               <li
-                onClick={() => handleViewComp("vendor")}
+                onClick={() => handleViewComp("adminvendor")}
                 className={
-                  component === "vendor"
+                  component === "adminvendor"
                     ? "page-link-btn pagelinkactive"
                     : "page-link-btn"
                 }
@@ -1446,6 +1447,7 @@ const AdminPanel = () => {
         {component === "adminproductatributevalues" ? <AdminProdAtributeValue /> : null}
         {component === "adminprodcateg" ? <AdminProdCateg onClickRedirect={() => handleViewComp("adminprodcategvalue")} /> : null}
         {component === "adminprodcategvalue" ? <AdminProdCategValue /> : null}
+        {component === "adminvendor" ? <AdminVendor /> : null}
 
 
 

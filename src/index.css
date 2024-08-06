@@ -9789,7 +9789,7 @@ __________ */
 }
 
 .all-user-table::-webkit-scrollbar-thumb {
-  background-color: #e4fed7;
+  background-color: #0ea5e9;
 }
 
 .act-btn-flex-bx {
@@ -10190,7 +10190,8 @@ __________ */
 }
 
 .all-user-table table thead tr th {
-  background-color: #2BC2C6;
+  background-color: #0ea5e9;
+  /* color: #007bff; */
 }
 
 .apnt-inpt-bx-autotype {
@@ -17856,6 +17857,10 @@ video {
   font-size: 15px ;
 }
 
+.right-blog-box-toggle{
+  display: none;
+}
+
 @media all and (min-width: 768px) and (max-width: 1025px) {
 
   html {
@@ -19355,6 +19360,51 @@ video {
 .k-icon2{
   max-width: 3.2rem;
   height: 3.3rem;
+}
+
+
+.right-blog-box-toggle{
+  position: absolute;
+  top: -1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+
+}
+
+.blog-menu-btn{
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  background-color: #fff;
+  border-radius: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: 400ms ease;
+}
+
+.blog-menu-btn .b-icon{
+  font-size: 1.55rem;
+  color: #212421;
+  cursor: pointer;
+}
+
+.blog-right-main{
+  transform: translateX(100%) !important;
+}
+
+.blog-right-main{
+  overflow-y: auto;
+}
+
+.blog-right-main.blogrightactive{
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) !important;
 }
 
 }

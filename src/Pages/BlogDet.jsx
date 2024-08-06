@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "../Components/Header";
 import InstaFeed from "../HomeComponent/InstaFeed";
 import MainFooter from "../HomeComponent/MainFooter";
 import { useQuery } from "@tanstack/react-query";
 import { blogPostFetch, blogPostFetchOne } from "../apis/blogs/blog";
 import { FaShareAlt } from "react-icons/fa";
+import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 import { DateTime } from "luxon";
 import { commentBlogPost } from "../apis/blogs/comment";
 import { toast } from "react-toastify";
 import UserForm from "../Components/UserForm";
 import { useSelector } from "react-redux";
 import { debounceAsync } from "../lib/debounce";
+import { RiMenu2Fill } from "react-icons/ri";
+
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -58,6 +61,8 @@ export const BlogDetail = ({ id, state }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editPost, setEditPost] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false);
+  const [blogRight , setBlogRight] = useState(false);
+
   const handleLoadMore = () => {
     setShowBoxes((prevShowBoxes) => prevShowBoxes + 4);
   };
@@ -126,8 +131,19 @@ export const BlogDetail = ({ id, state }) => {
     ? connections?.find(({ followingId }) => followingId === post?.User?.id)
     : null;
   const newFollowingStatus = followingStatus ? "delete" : "active";
+
+  const handleClick = () => {
+
+    if(blogRight){
+      setBlogRight(false)
+    }
+    
+  }
+
+  const navigate = useNavigate();
+  
   return (
-    <section className="blog-front-comp">
+    <section className="blog-front-comp" onClick={handleClick}>
       <div className="common-container">
         <div className="blog-front-grid-main">
           <div className="blog-det-left-box">
@@ -427,12 +443,25 @@ export const BlogDetail = ({ id, state }) => {
                     Submit Comment
                   </button>
                 </div>
+
+                <div className="right-blog-box-toggle">
+
+                  <div className="blog-menu-btn" onClick={() => setBlogRight(true)}>
+                  <RiMenu2Fill className="b-icon" />
+                  </div>
+
+                  <div className="blog-menu-btn" onClick={() => {navigate(-1)}}>
+                  <FaRegArrowAltCircleLeft  className="b-icon" />
+                  </div>
+                        
+                </div>
+                
               </>
             ) : (
               <div>Post Not Found</div>
             )}
           </div>
-          <div className="blog-right-main">
+          <div onClick={(e) => e.stopPropagation()} className={ blogRight ? "blog-right-main blogrightactive" : "blog-right-main"}>
             <h5>Themes</h5>
 
             <div className="categ-list">

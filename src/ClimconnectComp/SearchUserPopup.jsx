@@ -13,7 +13,8 @@ const SearchUserPopup = ({ query, onCloseClick }) => {
   const [loginForm, setLoginForm] = useState(false);
   const { data: followings, refetch } = useQuery({
     queryKey: ["climeconnectionsFetch1"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "following", id: userInfo?.id }),
   });
   const { data: users, refetch: refetchUsers } = useQuery({
     queryKey: ["searchClimeUsers"],

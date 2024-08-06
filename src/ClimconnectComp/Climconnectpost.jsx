@@ -21,6 +21,8 @@ const Climconnectpost = ({
   refetch: refetchData,
   sortFn = () => {},
   setSortFn,
+  onProfileClick = () => {},
+  setSelectedProfile = () => {},
 }) => {
   const containerRef = useRef(null);
   const [itemHeights, setItemHeights] = useState([]);
@@ -95,7 +97,8 @@ const Climconnectpost = ({
 
   const { data: connections, refetch } = useQuery({
     queryKey: ["climeconnectionsFetch"],
-    queryFn: () => climeconnectionsFetch({ connectionType: "following" }),
+    queryFn: () =>
+      climeconnectionsFetch({ connectionType: "following", id: userInfo?.id }),
   });
 
   useEffect(() => {
@@ -177,8 +180,8 @@ const Climconnectpost = ({
                     padding: "10px",
                     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
                     borderRadius: "5px",
-                    right: index % 2 ? null : "0px",
-                    left: !(index % 2) ? null : "0px",
+                    right: !(index % 2) ? null : "0px",
+                    left: index % 2 ? null : "0px",
                     top: `${top}px`,
                   }}
                   className="cc-post-bx"
@@ -270,6 +273,11 @@ const Climconnectpost = ({
                   )}
                   <div className="cc-post-img-prof">
                     <img
+                      onClick={() => {
+                        setSelectedProfile({ id, userId: rest?.userId });
+                        onProfileClick();
+                      }}
+                      style={{ cursor: "pointer" }}
                       src={
                         User?.profileImage ||
                         "/images/temp/temp-user-profile.png"
@@ -364,7 +372,17 @@ const Climconnectpost = ({
                             </div>
                             <span>{BlogComments?.length}</span>
                           </div>
-                          <div className="post-twit-bx">
+                          <div
+                            style={{ cursor: "pointer" }}
+                            className="post-twit-bx"
+                            onClick={() => {
+                              navigator.share({
+                                url: `https://www.kabadpe.com/climconnect/blog/${btoa(
+                                  id
+                                )}`,
+                              });
+                            }}
+                          >
                             <div className="p-t-icon">
                               <i className="fa-solid fa-share"></i>
                             </div>
@@ -379,7 +397,7 @@ const Climconnectpost = ({
                       <h5
                         style={{
                           WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
+                          WebkitLineClamp: 1,
                           maxHeight: "60px",
                           textOverflow: "ellipsis",
                           display: "-webkit-box",
@@ -398,7 +416,7 @@ const Climconnectpost = ({
                           lineHeight: "1.2em",
                           margin: "20px 0px",
                           WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 5,
+                          WebkitLineClamp: 2,
                           textOverflow: "ellipsis",
                           display: "-webkit-box",
                           overflow: "hidden",
@@ -436,7 +454,7 @@ const Climconnectpost = ({
                           onClick={() => handleReletedClick(categoryName)}
                           style={{ display: "block", marginBottom: "0px" }}
                         >
-                         Similar Posts
+                          Similar Posts
                         </p>
                       </div>
                     </NavLink>

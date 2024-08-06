@@ -10,4 +10,5 @@ export const climeCategories = [
   { name: "Culture, art & food", colorCode: "#dfebff" },
   // { name: "ClimStripe Shift corne", colorCode: "#eabea0" },
   { name: "Green Jobs", colorCode: "#e8e6ae" },
+   { name: "Information", colorCode: "#fed5b4" },
 ];

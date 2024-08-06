@@ -112,7 +112,7 @@ const Addpostpopup = ({ onClickClosePost, initialValues, refetch }) => {
 
                   <div className="add-post-img-bx-2">
                     <label htmlFor="input_file">
-                      <span>Add Post</span>
+                      <span>Add Image</span>
 
                       <div className="add-post-imge">
                         <i className="fa-regular fa-image"></i>

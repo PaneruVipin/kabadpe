@@ -37,7 +37,7 @@ const Climconnectrightpart = ({ selectedData = {}, comp = "me" }) => {
       }),
   });
   return (
-    <ProtectClimeConnect>
+    <ProtectClimeConnect disable={comp == "user" ? true : false}>
       <section className="clim-connect-right-side-box">
         <div className="comon-container">
           <Climconectfolowerprofile

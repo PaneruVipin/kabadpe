@@ -180,6 +180,10 @@ const FrenchAppointments = ({ component = "franchise", type = "all" }) => {
           </p>
           <p>
             {" "}
+            <span>Phone Number :</span> {addressdetails?.appointmentContactNumber}
+          </p>
+          <p>
+            {" "}
             <span>Created At:</span>
             {DateTime.fromISO(addressdetails?.addedOn, {
               zone: "utc",
@@ -402,6 +406,7 @@ const FrenchAppointments = ({ component = "franchise", type = "all" }) => {
                                           city: UserAddress?.city,
                                           zipCode: UserAddress?.zipCode,
                                           addedOn,
+                                          appointmentContactNumber
                                         });
                                         setAddressPopup(true);
                                       }}

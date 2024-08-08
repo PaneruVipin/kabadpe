@@ -42,9 +42,10 @@ const Header = ({
           <div className="auto-container">
             <div className="outer-box outer-box2">
               <div className="t-headr-left-links-bx">
-                <a href="#"> Climstripe Shift </a>
+                <NavLink to="https://www.climstripeshift.com/"> Climstripe Shift </NavLink>
+                
                 <NavLink
-                  to="/"
+                  to="https://www.kabadpe.com/"
                   onClick={() => setTopMenu("kabadpe")}
                   className={
                     !path?.startsWith("/climconnect") ? "linkactive" : ""
@@ -53,7 +54,7 @@ const Header = ({
                   <span>|</span> Kabadpe
                 </NavLink>
                 <NavLink
-                  to="httos://thegreensamanshop.com/"
+                  to="https://thegreensamanshop.com/"
                   onClick={() => setTopMenu("greensaman")}
                   className={topMenu === "greensaman" ? "linkactive" : ""}
                 >
@@ -589,7 +590,7 @@ const Header = ({
                         {/* </Protect> */}
                       </ul>
 
-                      <div className="mobile-tags-flex-bx">
+                      <div className="mobile-tags-flex-bx ">
                       <NavLink to={"https://www.climstripeshift.com/"} target="_blank"> <span>ClimStripe</span> </NavLink>
                         <NavLink to={"https://www.kabadpe.com/"} target="_blank">   <span>KabadPe</span></NavLink>
                         <NavLink to={"https://thegreensamanshop.com/"} target="_blank"> <span>Green Saman Shop</span></NavLink>

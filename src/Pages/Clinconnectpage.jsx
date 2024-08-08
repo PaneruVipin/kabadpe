@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import "../style/Ratelist.css";
 import "../style/MyAccount.css";
+import { GiDetour } from "react-icons/gi";
 import Climconnectrightpart from "../ClimconnectComp/Climconnectrightpart";
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { PiTreeStructureFill } from "react-icons/pi";
+import { HiMiniInformationCircle } from "react-icons/hi2";
 import {
   FaGlobeAmericas,
   FaUserTag,
   FaGlobeAfrica,
   FaBell,
 } from "react-icons/fa";
-import { SiHelpscout } from "react-icons/si";
+import { SiHackster, SiHelpscout } from "react-icons/si";
 import { BiMessageDetail } from "react-icons/bi";
 import { RiUserFollowFill } from "react-icons/ri";
 import ClimconnectFeed from "../ClimconnectComp/ClimconnectFeed";
@@ -22,80 +25,51 @@ import UserForm from "../Components/UserForm";
 import ClimeOutlet from "./ClimeOutLet";
 import SearchUserPopup from "../ClimconnectComp/SearchUserPopup";
 import { BsGlobe } from "react-icons/bs";
+import { MdLiving, MdOutlineCottage, MdOutlineEventSeat } from "react-icons/md";
+import { FaAffiliatetheme, FaArtstation, FaNewspaper } from "react-icons/fa6";
+import { IoIosPricetags } from "react-icons/io";
+import { NavLink } from "react-router-dom";
+import { theme } from "antd";
 
 const Clinconnectpage = () => {
   const [climConnectMenu, setClimConnectMenu] = useState("feed");
-  const [sideClimNav , setSideClimNav] = useState(false);
+  const [sideClimNav, setSideClimNav] = useState(false);
+  const [themes , setThemes] = useState(true);
   const state = useState("");
   return (
     <>
-      <ClimeOutlet state={state} onclickMenuClim={() => setSideClimNav(!sideClimNav)} >
+      <ClimeOutlet
+        state={state}
+        onclickMenuClim={() => setSideClimNav(!sideClimNav)}
+      >
         {!state?.[0] || climConnectMenu == "feed" ? (
           <div className="clim-connect-grid-bx">
-            <div className={sideClimNav ? "clim-connect-side-menu climconectsidemenuactive" : "clim-connect-side-menu"}>
+            <div
+              className={
+                sideClimNav
+                  ? "clim-connect-side-menu climconectsidemenuactive"
+                  : "clim-connect-side-menu"
+              }
+            >
               <div className="clim-conect-side-menu-list-bx">
                 <li
-                  onClick={() => {setClimConnectMenu("feed"), setSideClimNav(false)}}
+                  onClick={() => {
+                    setClimConnectMenu("feed"), setSideClimNav(false);
+                  }}
                   className={
                     climConnectMenu === "feed"
                       ? "clim-connect-menu-btn climconectmenuactive"
                       : "clim-connect-menu-btn"
                   }
                 >
-                  <BsGlobe  className="clim-icon" />
+                  <BsGlobe className="clim-icon" />
                   <span>Feed</span>
                 </li>
 
-                {/* <li
-                  onClick={() => setClimConnectMenu("support")}
-                  className={
-                    climConnectMenu === "support"
-                      ? "clim-connect-menu-btn climconectmenuactive"
-                      : "clim-connect-menu-btn"
-                  }
-                >
-                  <SiHelpscout className="clim-icon" />
-                  <span>Support Climate</span>
-                </li>
-
                 <li
-                  onClick={() => setClimConnectMenu("contribution")}
-                  className={
-                    climConnectMenu === "contribution"
-                      ? "clim-connect-menu-btn climconectmenuactive"
-                      : "clim-connect-menu-btn"
-                  }
-                >
-                  <FaGlobeAmericas className="clim-icon" />
-                  <span>My Contribution</span>
-                </li>
-
-                <li
-                  onClick={() => setClimConnectMenu("campaign")}
-                  className={
-                    climConnectMenu === "campaign"
-                      ? "clim-connect-menu-btn climconectmenuactive"
-                      : "clim-connect-menu-btn"
-                  }
-                >
-                  <FaGlobeAfrica className="clim-icon" />
-                  <span>My Campaign</span>
-                </li> */}
-
-                {/* <li
-                  onClick={() => setClimConnectMenu("message")}
-                  className={
-                    climConnectMenu === "message"
-                      ? "clim-connect-menu-btn climconectmenuactive"
-                      : "clim-connect-menu-btn"
-                  }
-                >
-                  <BiMessageDetail className="clim-icon" />
-                  <span>Message</span>
-                </li> */}
-
-                <li
-                  onClick={() => {setClimConnectMenu("folowing") , setSideClimNav(false)}}
+                  onClick={() => {
+                    setClimConnectMenu("folowing"), setSideClimNav(false);
+                  }}
                   className={
                     climConnectMenu === "folowing"
                       ? "clim-connect-menu-btn climconectmenuactive"
@@ -107,7 +81,9 @@ const Clinconnectpage = () => {
                 </li>
 
                 <li
-                  onClick={() => {setClimConnectMenu("profile") ,setSideClimNav(false)}}
+                  onClick={() => {
+                    setClimConnectMenu("profile"), setSideClimNav(false);
+                  }}
                   className={
                     climConnectMenu === "profile"
                       ? "clim-connect-menu-btn climconectmenuactive"
@@ -118,17 +94,157 @@ const Clinconnectpage = () => {
                   <span>Profile</span>
                 </li>
 
-                {/* <li
-                  onClick={() => setClimConnectMenu("notification")}
+                <li
+                   onClick={() => {
+                    
+                    setThemes(!themes)
+
+                  }}
                   className={
-                    climConnectMenu === "notification"
+                    climConnectMenu === "Themes"
+                      ? "clim-connect-menu-btn clim-connect-menu-btn-theme climconectmenuactive"
+                      : "clim-connect-menu-btn clim-connect-menu-btn-theme"
+                  }
+                >
+                  <FaAffiliatetheme  className="clim-icon" />
+                  <span>Themes</span>
+                </li>
+
+              {themes ?  <div className="dropdown-theme-bx">
+
+                <li
+                  className={
+                    climConnectMenu === "events"
                       ? "clim-connect-menu-btn climconectmenuactive"
                       : "clim-connect-menu-btn"
                   }
                 >
-                  <FaBell className="clim-icon" />
-                  <span>Notifications</span>
-                </li> */}
+                  <MdOutlineEventSeat className="clim-icon" />
+                  <span>Events</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "news"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <FaNewspaper className="clim-icon" />
+                  <span>News</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "hacks"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <SiHackster className="clim-icon" />
+                  <span>Sustainability hacks</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "inovations"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <MdOutlineCottage className="clim-icon" />
+                  <span>Innovations & Eco-finds</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "living"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <MdLiving className="clim-icon" />
+                  <span>Sustainable Living</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "fashioncosmetic"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <IoIosPricetags className="clim-icon" />
+                  <span>Sustainable Fashion & cosmetics</span>
+                </li>
+                <li
+                  className={
+                    climConnectMenu === "tourism"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <GiDetour className="clim-icon" />
+                  <span>Eco-Tourism</span>
+                </li>
+                <li
+                  className={
+                    climConnectMenu === "culture"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <FaArtstation className="clim-icon" />
+                  <span>Culture , art & food</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "greenjob"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <PiTreeStructureFill className="clim-icon" />
+                  <span>Green Jobs</span>
+                </li>
+
+                <li
+                  className={
+                    climConnectMenu === "information"
+                      ? "clim-connect-menu-btn climconectmenuactive"
+                      : "clim-connect-menu-btn"
+                  }
+                >
+                  <HiMiniInformationCircle className="clim-icon" />
+                  <span>Information</span>
+                </li>
+
+                </div> : null}
+
+                <div className="mobile-tags-flex-bx ">
+                  <NavLink
+                    to={"https://www.climstripeshift.com/"}
+                    target="_blank"
+                  >
+                    {" "}
+                    <span>ClimStripe</span>{" "}
+                  </NavLink>
+                  <NavLink to={"https://www.kabadpe.com/"} target="_blank">
+                    {" "}
+                    <span>KabadPe</span>
+                  </NavLink>
+                  <NavLink
+                    to={"https://thegreensamanshop.com/"}
+                    target="_blank"
+                  >
+                    {" "}
+                    <span>Green Saman Shop</span>
+                  </NavLink>
+                  <NavLink to={"/climconnect"}>
+                    <span>Climconnect</span>
+                  </NavLink>
+                </div>
               </div>
             </div>
 
@@ -147,7 +263,7 @@ const Clinconnectpage = () => {
             query={state?.[0]}
           />
         ) : null}
-       </ClimeOutlet>
+      </ClimeOutlet>
     </>
   );
 };

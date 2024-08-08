@@ -154,7 +154,9 @@ const VendorPanel = () => {
                 >
                   Products
                 </li>
-
+                <li onClick={() => handleViewComp('vendAtribute')}  className={component === "vendAtribute" ? "vend-li-btn liactive" : "vend-li-btn"}>
+                        Attributes
+                    </li>
 
                     <li onClick={() => handleViewComp('vendcategories')}  className={ component === 'vendcategories' ? "vend-li-btn liactive" : "vend-li-btn"}>
                         Categories
@@ -164,9 +166,7 @@ const VendorPanel = () => {
                         Coupons
                     </li>
 
-                    <li onClick={() => handleViewComp('vendAtribute')}  className={component === "vendAtribute" ? "vend-li-btn liactive" : "vend-li-btn"}>
-                        Attributes
-                    </li>
+                   
                     
                 </div>
                 

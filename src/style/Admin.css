@@ -3573,3 +3573,35 @@ side nav icon Btn on hover show list box
 .three-fild-grid{
   grid-template-columns: repeat(3, 1fr);
 }
+
+.user-det-top-flex-box{
+  flex-direction: column !important;
+}
+
+.user-det-top-flex-box221{
+  justify-content: space-between !important;
+}
+
+.user-det-top-flex-box221{
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.add-btn{
+  position: relative;
+  width: max-content;
+  padding: .3rem 1.5rem;
+  background-color: #0ea5e9;
+  border-radius: .55rem;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.right-user-filter-data-flex-box{
+  justify-content: flex-start !important;
+  margin-bottom: 2rem !important;
+}
+
+.colororange{
+  color: #f3a20d !important;
+}

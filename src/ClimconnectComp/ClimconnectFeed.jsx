@@ -6,13 +6,17 @@ import SharePost from "./SharePost.jsx";
 import FilterBar from "./Filter.jsx";
 import { debounceAsync } from "../lib/debounce.js";
 import ClimeProfilePopUp from "./ClimeProfilePopup.jsx";
-const ClimconnectFeed = ({ query }) => {
+const ClimconnectFeed = ({ query, selectedCategory }) => {
   const [sortFn, setSortFn] = useState({ fn: () => {} });
   const [showProfile, setShowProfile] = useState(false);
   const [selectedData, setSelectedProfile] = useState();
   const { data: posts, refetch } = useQuery({
     queryKey: ["blogPostFetch3"],
-    queryFn: () => blogPostFetch({ includeOnly: "noDraft", search: query }),
+    queryFn: () =>
+      blogPostFetch({
+        includeOnly: "noDraft",
+        search: query || selectedCategory,
+      }),
   });
   const filters = [
     { value: "feed", text: "Feed" },
@@ -49,7 +53,7 @@ const ClimconnectFeed = ({ query }) => {
   };
   useEffect(() => {
     debounceAsync(refetch, 300)();
-  }, [query]);
+  }, [query, selectedCategory]);
   return (
     <>
       <section

@@ -71,6 +71,7 @@ const AdminPanel = () => {
   const [apntTab, setApntTab] = useState(null);
   const [apntTabTwo, setApntTabTwo] = useState(null);
   const [switchActive, setSwitchActive] = useState("frenchies");
+  const [attributeData, setAttributeData] = useState([]);
 
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
@@ -548,13 +549,14 @@ const AdminPanel = () => {
                 {" "}
                 <NavLink to="#">Top Selling Products</NavLink>{" "}
               </li>
-              <li 
-               onClick={() => handleViewComp("adminproductatribute")}
-               className={
-                 component === "adminproductatribute"
-                   ? "page-link-btn pagelinkactive"
-                   : "page-link-btn"
-               }>
+              <li
+                onClick={() => handleViewComp("adminproductatribute")}
+                className={
+                  component === "adminproductatribute"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
                 {" "}
                 <NavLink to="#">Product Attributes </NavLink>{" "}
               </li>
@@ -563,12 +565,13 @@ const AdminPanel = () => {
                 <NavLink to="#">Product Reviews</NavLink>{" "}
               </li>
               <li
-               onClick={() => handleViewComp("adminprodcateg")}
-               className={
-                 component === "adminprodcateg"
-                   ? "page-link-btn pagelinkactive"
-                   : "page-link-btn"
-               }>
+                onClick={() => handleViewComp("adminprodcateg")}
+                className={
+                  component === "adminprodcateg"
+                    ? "page-link-btn pagelinkactive"
+                    : "page-link-btn"
+                }
+              >
                 {" "}
                 <NavLink to="#">Product Category</NavLink>{" "}
               </li>
@@ -1255,8 +1258,6 @@ const AdminPanel = () => {
                   </div>
                 </div>
               </div>
-
-            
             </div>
           </div>
         </div>
@@ -1443,14 +1444,24 @@ const AdminPanel = () => {
           <CreateBlog onClose={() => setComponent("allpost")} />
         ) : null}
         {component === "adminbid" ? <AdminBid /> : null}
-        {component === "adminproductatribute" ? <AdminProdAtribute onClickRedirect={() => handleViewComp("adminproductatributevalues")} /> : null}
-        {component === "adminproductatributevalues" ? <AdminProdAtributeValue /> : null}
-        {component === "adminprodcateg" ? <AdminProdCateg onClickRedirect={() => handleViewComp("adminprodcategvalue")} /> : null}
+        {component === "adminproductatribute" ? (
+          <AdminProdAtribute
+            onClickRedirect={(data) => {
+              setAttributeData(data);
+              handleViewComp("adminproductatributevalues");
+            }}
+          />
+        ) : null}
+        {component === "adminproductatributevalues" ? (
+          <AdminProdAtributeValue data={attributeData} />
+        ) : null}
+        {component === "adminprodcateg" ? (
+          <AdminProdCateg
+            onClickRedirect={() => handleViewComp("adminprodcategvalue")}
+          />
+        ) : null}
         {component === "adminprodcategvalue" ? <AdminProdCategValue /> : null}
         {component === "adminvendor" ? <AdminVendor /> : null}
-
-
-
       </section>
     </>
   );

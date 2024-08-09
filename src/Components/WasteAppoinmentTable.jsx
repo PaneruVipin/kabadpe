@@ -169,7 +169,7 @@ export const AddressPopup = ({
       }
     >
       <div className="cust-add-bx" onClick={(e) => e.stopPropagation()}>
-        <h3>Customer Address</h3>
+        <h3>Customer Address </h3>
 
         <div className="cust-add">
           <h6>

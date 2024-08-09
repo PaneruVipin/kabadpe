@@ -286,7 +286,15 @@ const Climconnectpost = ({
                     />
                     <div className="cc-post-det">
                       <div className="post-name-flex">
-                        <h6>{User?.fullname || author}</h6>
+                        <h6
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setSelectedProfile({ id, userId: rest?.userId });
+                            onProfileClick();
+                          }}
+                        >
+                          {User?.fullname || author}
+                        </h6>
                         {userInfo?.id !== User?.id && User?.id ? (
                           <button
                             onClick={protectClick(() =>
@@ -450,12 +458,12 @@ const Climconnectpost = ({
                         >
                           {categoryName}
                         </p>
-                        <p
+                        {/* <p
                           onClick={() => handleReletedClick(categoryName)}
                           style={{ display: "block", marginBottom: "0px" }}
                         >
                           Similar Posts
-                        </p>
+                        </p> */}
                       </div>
                     </NavLink>
                   </div>

@@ -254,6 +254,7 @@ const AtributeValues = () => {
           </div>
         </div>
 
+                  
 
         { atributeValues ? <Atributevalueupdate data={data} onClickClose={() => setAtributeValues(false)} /> : null}
       </section>

@@ -6,6 +6,7 @@ import {
 } from "../apis/products/attribute";
 import { toast } from "react-toastify";
 
+
 const AdminProdAtributeEdit = ({ onClickClose, initialValues }) => {
   const [attribute, setAttribute] = useState(
     initialValues?.ProdAttributeValues?.map(({ value }) => value) || []
@@ -40,6 +41,7 @@ const AdminProdAtributeEdit = ({ onClickClose, initialValues }) => {
     toast.success(res);
     onClickClose();
   };
+
   return (
     <>
       <section className="waste-prod-edit-comp" onClick={onClickClose}>

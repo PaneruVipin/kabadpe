@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AdminProdAtributeEdit from "./AdminProdAtributeEdit";
 import { useQuery } from "@tanstack/react-query";
 import {
+  greenProductsAttributeDelete,
   greenProductsAttributeFetch,
   greenProductsAttributeUpdate,
 } from "../apis/products/attribute";
@@ -61,7 +62,7 @@ const AdminProdAtribute = ({ onClickRedirect }) => {
 
             <button
               onClick={() => {
-                selectedAttribute(null);
+                setSelectedAttribute(null);
                 setAdminProdAtribute(true);
               }}
             >
@@ -95,46 +96,47 @@ const AdminProdAtribute = ({ onClickRedirect }) => {
               </tr>
             </thead>
             <tbody>
-              {attributes?.map(
-                ({
-                  id,
-                  name,
-                  label,
-                  ProdAttributeValues,
-                  style,
-                  attributeStatus,
-                }) => {
-                  return (
-                    <tr key={id}>
-                      <td>
-                        <div className="form-check-bxx">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </div>
-                      </td>
+              {!attributes?.error
+                ? attributes?.map(
+                    ({
+                      id,
+                      name,
+                      label,
+                      ProdAttributeValues,
+                      style,
+                      attributeStatus,
+                    }) => {
+                      return (
+                        <tr key={id}>
+                          <td>
+                            <div className="form-check-bxx">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                            </div>
+                          </td>
 
-                      <td>
-                        <span>{id}</span>
-                      </td>
+                          <td>
+                            <span>{id}</span>
+                          </td>
 
-                      <td>
-                        <span>{name}</span>
-                      </td>
+                          <td>
+                            <span>{name}</span>
+                          </td>
 
-                      <td>
-                        <span>{label}</span>
-                      </td>
+                          <td>
+                            <span>{label}</span>
+                          </td>
 
-                      <td>
-                        <span>{ProdAttributeValues?.length}</span>
-                      </td>
+                          <td>
+                            <span>{ProdAttributeValues?.length}</span>
+                          </td>
 
-                      <td>
-                        {/* <button
+                          <td>
+                            {/* <button
                           className={
                             rangeBtn
                               ? "toggle-range-btn rangeactive"
@@ -146,31 +148,31 @@ const AdminProdAtribute = ({ onClickRedirect }) => {
                           <div className="toggle-round"></div>
                         </button> */}
 
-                        <div
-                          class={
-                            // attributeStatus == "active"
-                            "form-checkss form-switch unchecked"
-                            // : "form-checkss form-switch"
-                          }
-                        >
-                          <input
-                            onChange={async () => {
-                              await greenProductsAttributeUpdate({
-                                id,
-                                attributeStatus:
-                                  attributeStatus == "active"
-                                    ? "inactive"
-                                    : "active",
-                              });
-                              refetch();
-                            }}
-                            class="form-check-input"
-                            type="checkbox"
-                            id="flexSwitchCheckDefault"
-                            checked={attributeStatus == "active"}
-                          />
-                        </div>
-                        {/* <div className="form-switch-main">
+                            <div
+                              class={
+                                // attributeStatus == "active"
+                                "form-checkss form-switch unchecked"
+                                // : "form-checkss form-switch"
+                              }
+                            >
+                              <input
+                                onChange={async () => {
+                                  await greenProductsAttributeUpdate({
+                                    id,
+                                    attributeStatus:
+                                      attributeStatus == "active"
+                                        ? "inactive"
+                                        : "active",
+                                  });
+                                  refetch();
+                                }}
+                                class="form-check-input"
+                                type="checkbox"
+                                id="flexSwitchCheckDefault"
+                                checked={attributeStatus == "active"}
+                              />
+                            </div>
+                            {/* <div className="form-switch-main">
                             <div
                               class={"form-checkss form-switch form-switch3"}
                             >
@@ -182,42 +184,61 @@ const AdminProdAtribute = ({ onClickRedirect }) => {
                               />
                             </div>
                           </div> */}
-                      </td>
+                          </td>
 
-                      <td>
-                        <div className="prod-edit-de-flex-btn">
-                          <button onClick={() => onClickRedirect({ id })}>
-                            <i class="fa-regular fa-pen-to-square"></i>
-                          </button>
-                        </div>
-                      </td>
+                          <td>
+                            <div className="prod-edit-de-flex-btn">
+                              <button
+                                onClick={() =>
+                                  onClickRedirect({
+                                    id,
+                                    name,
+                                    label,
+                                    ProdAttributeValues,
+                                    style,
+                                    attributeStatus,
+                                  })
+                                }
+                              >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                              </button>
+                            </div>
+                          </td>
 
-                      <td>
-                        <div className="prod-edit-de-flex-btn">
-                          <button
-                            onClick={() => {
-                              setSelectedAttribute({
-                                id,
-                                name,
-                                label,
-                                ProdAttributeValues,
-                                style,
-                              });
-                              setAdminProdAtribute(true);
-                            }}
-                          >
-                            <i class="fa-regular fa-pen-to-square"></i>
-                          </button>
+                          <td>
+                            <div className="prod-edit-de-flex-btn">
+                              <button
+                                onClick={() => {
+                                  setSelectedAttribute({
+                                    id,
+                                    name,
+                                    label,
+                                    ProdAttributeValues,
+                                    style,
+                                  });
+                                  setAdminProdAtribute(true);
+                                }}
+                              >
+                                <i class="fa-regular fa-pen-to-square"></i>
+                              </button>
 
-                          <button>
-                            <i class="fa-solid fa-trash"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
+                              <button
+                                onClick={async () => {
+                                  await greenProductsAttributeDelete({
+                                    ids: id,
+                                  });
+                                  refetch();
+                                }}
+                              >
+                                <i class="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>

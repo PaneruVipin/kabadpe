@@ -4,10 +4,10 @@ const combData  = [
     {
         index : 1,
         id : 24541,
-        size: [ "S" , "M" , "L" ],
-        colors : ["Red" , "Blue" , "Black"],
-        fabric :["Cotton", "Denim" , "Linen Blend"],
-        patterns : ["Graphic" , "Checked", "Plain"],
+        size: "Small",
+        colors : "Red",
+        fabric :"Cotton",
+        patterns : "Checked",
 
 
     },
@@ -15,10 +15,10 @@ const combData  = [
     {
         index : 2,
         id : 24542,
-        size: [ "XL" , "XXL" , "L" ],
-        colors : ["Yellow" , "Mustard" , "White"],
-        fabric :["Denim", "Cotton Twil" , "Corduroy"],
-        patterns : ["Knitted" , "Polo", "Plain"],
+        size: "Large",
+        colors : "White",
+        fabric :"Corduroy",
+        patterns : "Polo",
         
 
     },
@@ -27,10 +27,10 @@ const combData  = [
     {
         index : 3,
         id : 24543,
-        size: [ "M" , "XL" , "L" ],
-        colors : ["Pink" , "Dark Blue" , "Green"],
-        fabric :["Denim", "Cotton Twil" , "Corduroy"],
-        patterns : ["Knitted" , "Polo", "Plain"],
+        size: "Medium",
+        colors : "Forest Green",
+        fabric :"Cotton Twil",
+        patterns : "Plain",
         
 
     },
@@ -40,9 +40,9 @@ const combData  = [
         index : 4,
         id : 24544,
         size: [ 29 , 32 , 49 ],
-        colors : ["Orange" , "Forest Green" , "Gray"],
-        fabric :["Denim", "Cotton Twil" , "Corduroy"],
-        patterns : ["Graphic" , "Polo", "Plain"],
+        colors : "Blue",
+        fabric :"Denim",
+        patterns : "Plain",
         
 
     },

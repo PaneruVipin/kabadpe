@@ -140,18 +140,16 @@ const Clinconnectpage = () => {
                 <div className="mobile-tags-flex-bx ">
                   <NavLink
                     to={"https://www.climstripeshift.com/"}
-                    target="_blank"
                   >
                     {" "}
                     <span>ClimStripe</span>{" "}
                   </NavLink>
-                  <NavLink to={"https://www.kabadpe.com/"} target="_blank">
+                  <NavLink to={"https://www.kabadpe.com/"}>
                     {" "}
                     <span>KabadPe</span>
                   </NavLink>
                   <NavLink
                     to={"https://thegreensamanshop.com/"}
-                    target="_blank"
                   >
                     {" "}
                     <span>Green Saman Shop</span>

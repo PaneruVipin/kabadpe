@@ -15,7 +15,7 @@ const ClimeOutlet = ({
   const location = useLocation();
 
   const hideClimMenu = location.pathname === "/climconnect/blog/Mw==";
-  const showClimMenu = location.pathname === "/climconnect";
+  const showClimMenu = location.pathname === "/climconnect" ||  "/climconnect/";
   return (
     <>
       <section className="clim-connect-comp">

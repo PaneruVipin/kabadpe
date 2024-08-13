@@ -79,9 +79,13 @@
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag("js", new Date());
+      gtag("js", new Date(), {
+        cookie_flags: "SameSite=None;Secure",
+      });
 
-      gtag("config", "G-13338GBHKL");
+      gtag("config", "G-13338GBHKL", {
+        cookie_flags: "SameSite=None;Secure",
+      });
     </script>
   </head>
 

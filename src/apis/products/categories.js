@@ -2,22 +2,22 @@ import axios from "axios";
 import { resolvePromise } from "../../lib/http";
 import { getFromLocalStorage } from "../../lib/localStorage";
 
-export const greenProductsAttributeFetch = resolvePromise(
+export const greenProdCategoryFetch = resolvePromise(
   async ({ includeRes }) => {
     const apiUrl =
-      ENV_API_BASE_URL + `/green/product/attribute?includeRes=${includeRes}`;
+      ENV_API_BASE_URL + `/green/product/category?includeRes=${includeRes}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {
         Authorization: token,
       },
     });
-    return res?.attributes;
+    return res?.categories;
   }
 );
 
-export const greenProductsAttributeAdd = resolvePromise(async (data) => {
-  const apiUrl = ENV_API_BASE_URL + `/green/product/attribute`;
+export const greenProdCategoryAdd = resolvePromise(async (data) => {
+  const apiUrl = ENV_API_BASE_URL + `/green/product/category`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.post(
     apiUrl,
@@ -31,9 +31,9 @@ export const greenProductsAttributeAdd = resolvePromise(async (data) => {
   return res?.message;
 });
 
-export const greenProductsAttributeUpdate = resolvePromise(
+export const greenProdCategoryUpdate = resolvePromise(
   async ({ id, ...data }) => {
-    const apiUrl = ENV_API_BASE_URL + `/green/product/attribute/${id}`;
+    const apiUrl = ENV_API_BASE_URL + `/green/product/category/${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
@@ -48,24 +48,24 @@ export const greenProductsAttributeUpdate = resolvePromise(
   }
 );
 
-export const greenProductsAttributeValueFetch = resolvePromise(
+export const greenProdSubCategoryFetch = resolvePromise(
   async ({ id, includeRes }) => {
     const apiUrl =
       ENV_API_BASE_URL +
-      `/green/product/attribute/${id}/value?includeRes=${includeRes}`;
+      `/green/product/category/${id}/sub_category?includeRes=${includeRes}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.get(apiUrl, {
       headers: {
         Authorization: token,
       },
     });
-    return res?.values;
+    return res?.categories;
   }
 );
 
-export const greenProductsAttributeValueAdd = resolvePromise(
+export const greenProdSubCategoryAdd = resolvePromise(
   async ({ id, ...data }) => {
-    const apiUrl = ENV_API_BASE_URL + `/green/product/attribute/${id}/value`;
+    const apiUrl = ENV_API_BASE_URL + `/green/product/category/${id}/sub_category`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.post(
       apiUrl,
@@ -80,9 +80,9 @@ export const greenProductsAttributeValueAdd = resolvePromise(
   }
 );
 
-export const greenProductsAttributeValueUpdate = resolvePromise(
+export const greenProdSubCategoryUpdate = resolvePromise(
   async ({ id, ...data }) => {
-    const apiUrl = ENV_API_BASE_URL + `/green/product/attribute/value/${id}`;
+    const apiUrl = ENV_API_BASE_URL + `/green/product/category/sub_category/${id}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.put(
       apiUrl,
@@ -97,8 +97,8 @@ export const greenProductsAttributeValueUpdate = resolvePromise(
   }
 );
 
-export const greenProductsAttributeDelete = resolvePromise(async ({ ids }) => {
-  const apiUrl = ENV_API_BASE_URL + `/green/product/attribute?ids=${ids}`;
+export const greenProdCategoryDelete = resolvePromise(async ({ ids }) => {
+  const apiUrl = ENV_API_BASE_URL + `/green/product/category?ids=${ids}`;
   const token = getFromLocalStorage("token");
   const { data: res } = await axios.delete(apiUrl, {
     headers: {
@@ -108,10 +108,10 @@ export const greenProductsAttributeDelete = resolvePromise(async ({ ids }) => {
   return res?.message;
 });
 
-export const greenProductsAttributeValueDelete = resolvePromise(
+export const greenProdSubCategoryDelete = resolvePromise(
   async ({ ids }) => {
     const apiUrl =
-      ENV_API_BASE_URL + `/green/product/attribute/value?ids=${ids}`;
+      ENV_API_BASE_URL + `/green/product/category/sub_category?ids=${ids}`;
     const token = getFromLocalStorage("token");
     const { data: res } = await axios.delete(apiUrl, {
       headers: {

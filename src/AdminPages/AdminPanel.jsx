@@ -72,7 +72,7 @@ const AdminPanel = () => {
   const [apntTabTwo, setApntTabTwo] = useState(null);
   const [switchActive, setSwitchActive] = useState("frenchies");
   const [attributeData, setAttributeData] = useState([]);
-
+  const [productCategoryData, setProductCategoryData] = useState(null);
   const handleButtonClick = (buttonName) => {
     setAdminNavBtn(buttonName === adminNavBtn ? null : buttonName);
   };
@@ -1457,10 +1457,15 @@ const AdminPanel = () => {
         ) : null}
         {component === "adminprodcateg" ? (
           <AdminProdCateg
-            onClickRedirect={() => handleViewComp("adminprodcategvalue")}
+            onClickRedirect={(data) => {
+              setProductCategoryData(data);
+              handleViewComp("adminprodcategvalue");
+            }}
           />
         ) : null}
-        {component === "adminprodcategvalue" ? <AdminProdCategValue /> : null}
+        {component === "adminprodcategvalue" ? (
+          <AdminProdCategValue data={productCategoryData} />
+        ) : null}
         {component === "adminvendor" ? <AdminVendor /> : null}
       </section>
     </>

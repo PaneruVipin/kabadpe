@@ -11722,7 +11722,7 @@ __________ */
   color: #fff;
 }
 
-.edit-upgrade-btns button:nth-child(1) {
+.edit-upgrade-btns button:nth-child(1),.edit-upgrade-btns button:nth-child(3) {
   padding: .1rem .65rem;
   background-color: #ed4129;
   border-radius: .55rem;

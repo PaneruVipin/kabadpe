@@ -5,15 +5,19 @@ import "react-calendar/dist/Calendar.css";
 import {
   adminExtendPlan,
   adminIndPlansFetch,
+  adminUpdatePlan,
 } from "../apis/admins/franchisePlans";
 import { DateTime } from "luxon";
+import SelectArea from "../FrenchiesComp/SelectArea";
+import { toast } from "react-toastify";
 
 const IndvdualPlan = ({ onSwitch }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const [upgrade, setUpgrade] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState({});
-
+  const [addAriaPopup, setAddAriaPopup] = useState(false);
+  const [selectedArias, setSelectedArias] = useState([]);
   const handleCalendarChange = (date) => {
     setSelectedDate(date);
   };
@@ -28,6 +32,19 @@ const IndvdualPlan = ({ onSwitch }) => {
     queryKey: ["adminfetchIndPlans"],
     queryFn: () => adminIndPlansFetch(),
   });
+  const handleUpdateAreas = async () => {
+    const res = await adminUpdatePlan({
+      id: selectedPlan?.id,
+      ariaIds: JSON.stringify(selectedArias?.map(({ id }) => id)),
+    });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    refetch();
+    toast.success(res);
+    setAddAriaPopup();
+  };
   return (
     <>
       <div className="all-user-table mt-5">
@@ -59,6 +76,7 @@ const IndvdualPlan = ({ onSwitch }) => {
                       id,
                       planStatus,
                       startDate,
+                      ...rest
                     },
                     i
                   ) => {
@@ -146,6 +164,17 @@ const IndvdualPlan = ({ onSwitch }) => {
                             <button onClick={() => setUpgrade(true)}>
                               Upgrade
                             </button>
+                            <button
+                              onClick={() => {
+                                setSelectedPlan({
+                                  id,
+                                });
+                                setSelectedArias(arias);
+                                setAddAriaPopup(true);
+                              }}
+                            >
+                              Update Areas
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -203,6 +232,15 @@ const IndvdualPlan = ({ onSwitch }) => {
           </div>
         </div>
       )}
+      {addAriaPopup ? (
+        <SelectArea
+          selectedArias={selectedArias}
+          setSelectedArias={setSelectedArias}
+          onclickClose={() => setAddAriaPopup(false)}
+          component="admin"
+          nextFn={handleUpdateAreas}
+        />
+      ) : null}
     </>
   );
 };

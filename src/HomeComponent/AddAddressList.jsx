@@ -227,7 +227,7 @@ export const AddressForm = ({
             (e) =>
               e?.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim()
           )
-          .map((e, i) => e?.city)
+          .map((e, i) => e?.city?.toLowerCase()?.trim())
       ),
     ].map((name, i) => ({ id: i, name }));
   };
@@ -241,7 +241,7 @@ export const AddressForm = ({
               e.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim() &&
               e.city?.toLowerCase()?.trim() == city?.toLowerCase()?.trim()
           )
-          .map((e, i) => e?.pincode)
+          .map((e, i) => e?.pincode?.toLowerCase()?.trim())
       ),
     ].map((name, i) => ({ id: i, name }));
   };
@@ -256,7 +256,7 @@ export const AddressForm = ({
               e?.pincode?.toLowerCase()?.trim() ==
                 pincode?.toLowerCase()?.trim()
           )
-          .map((e, i) => e?.ariaName)
+          .map((e, i) => e?.ariaName?.toLowerCase()?.trim())
       ),
     ].map((name, i) => ({ id: i, name }));
   };

@@ -221,7 +221,14 @@ export const AddressForm = ({
   });
   const getCities = (state, res) => {
     return [
-      ...new Set(res.filter((e) => e.state == state).map((e, i) => e?.city)),
+      ...new Set(
+        res
+          .filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim()
+          )
+          .map((e, i) => e?.city?.toLowerCase()?.trim())
+      ),
     ].map((name, i) => ({ id: i, name }));
   };
 
@@ -229,8 +236,12 @@ export const AddressForm = ({
     return [
       ...new Set(
         res
-          .filter((e) => e.state == state && e.city == city)
-          .map((e, i) => e?.pincode)
+          .filter(
+            (e) =>
+              e.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim() &&
+              e.city?.toLowerCase()?.trim() == city?.toLowerCase()?.trim()
+          )
+          .map((e, i) => e?.pincode?.toLowerCase()?.trim())
       ),
     ].map((name, i) => ({ id: i, name }));
   };
@@ -239,9 +250,13 @@ export const AddressForm = ({
       ...new Set(
         res
           .filter(
-            (e) => e.state == state && e.city == city && e?.pincode == pincode
+            (e) =>
+              e.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim() &&
+              e.city?.toLowerCase()?.trim() == city?.toLowerCase()?.trim() &&
+              e?.pincode?.toLowerCase()?.trim() ==
+                pincode?.toLowerCase()?.trim()
           )
-          .map((e, i) => e?.ariaName)
+          .map((e, i) => e?.ariaName?.toLowerCase()?.trim())
       ),
     ].map((name, i) => ({ id: i, name }));
   };
@@ -249,10 +264,10 @@ export const AddressForm = ({
   const getSubArias = (state, city, pincode, aria, res) => {
     return res.filter(
       (e) =>
-        e.state == state &&
-        e.city == city &&
-        e?.pincode == pincode &&
-        e?.ariaName == aria
+        e.state?.toLowerCase()?.trim() == state?.toLowerCase()?.trim() &&
+        e.city?.toLowerCase()?.trim() == city?.toLowerCase()?.trim() &&
+        e?.pincode?.toLowerCase()?.trim() == pincode?.toLowerCase()?.trim() &&
+        e?.ariaName?.toLowerCase()?.trim() == aria?.toLowerCase()?.trim()
     );
   };
 

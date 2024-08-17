@@ -11,6 +11,7 @@ const SelectArea = ({
   setSelectedArias,
   onclickClose,
   component = "franchise",
+  nextFn = onclickClose,
 }) => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -29,12 +30,6 @@ const SelectArea = ({
     queryKey: ["subscripionArias"],
     queryFn: () => franchiseAriasFetch(),
   });
-
-  useEffect(() => {
-    if (!dataAriasSubs?.error) {
-      setariaSubs(search(dataAriasSubs, searchQuery));
-    }
-  }, [dataAriasSubs, searchQuery]);
   const getStates = (res) =>
     [...new Set(res.map((e, i) => e?.state))].map((name, i) => ({
       id: i,
@@ -203,37 +198,14 @@ const SelectArea = ({
 
   useEffect(() => {
     if (!ariasSubs || !ariasSubs?.length || ariasSubs?.error) {
-      // setStates([]);
-      // setCities([]);
-      // setPincodes({
-      //   state: "",
-      //   city: "",
-      //   pincode: "",
-      //   aria: "",
-      // });
-      // setSelection([]);
-      // setSubArias([]);
-      // setArias([]);
       return;
     }
     const states = getStates(ariasSubs);
     setStates(states);
-    if (!states?.length) {
-      return;
-    }
-    setSelection((selection) => ({ ...selection, state: states[0]?.name }));
     const cities = getCities(states[0]?.name, ariasSubs);
     setCities(cities);
-    if (!cities?.length) {
-      return;
-    }
-    setSelection((selection) => ({ ...selection, city: cities[0]?.name }));
     const pincodes = getPincodes(states[0]?.name, cities[0]?.name, ariasSubs);
     setPincodes(pincodes);
-    if (!pincodes?.length) {
-      return;
-    }
-    setSelection((selection) => ({ ...selection, pincode: pincodes[0]?.name }));
     const arias = getArias(
       states[0]?.name,
       cities[0]?.name,
@@ -241,10 +213,6 @@ const SelectArea = ({
       ariasSubs
     );
     setArias(arias);
-    if (!arias?.length) {
-      return;
-    }
-    setSelection((selection) => ({ ...selection, aria: arias[0]?.name }));
     const subArias = getSubArias(
       states[0]?.name,
       cities[0]?.name,
@@ -253,6 +221,12 @@ const SelectArea = ({
       ariasSubs
     );
     setSubArias(subArias);
+    setSelection({
+      aria: arias[0]?.name,
+      pincode: pincodes[0]?.name,
+      city: cities[0]?.name,
+      state: states[0]?.name,
+    });
   }, [ariasSubs]);
 
   const handleAddRemove = (key, name, type = "add") => {
@@ -260,55 +234,31 @@ const SelectArea = ({
     return (e) => {
       switch (key) {
         case "state": {
-          const cities = getCities(name, ariasSubs);
-          const pincodes = getPincodes(name, cities?.[0]?.name, ariasSubs);
-          const arias = getArias(
-            name,
-            cities?.[0]?.name,
-            pincodes?.[0]?.name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            name,
-            cities?.[0]?.name,
-            pincodes?.[0]?.name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           fn(subArias);
           break;
         }
         case "city": {
-          const pincodes = getPincodes(selection.state, name, ariasSubs);
-          const arias = getArias(
-            selection.state,
-            name,
-            pincodes?.[0]?.name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            selection.state,
-            name,
-            pincodes?.[0]?.name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() ==
+                selection?.state?.toLowerCase()?.trim() &&
+              e?.city?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           fn(subArias);
           break;
         }
         case "pincode": {
-          const arias = getArias(
-            selection.state,
-            selection.city,
-            name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            selection.state,
-            selection.city,
-            name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() ==
+                selection?.state?.toLowerCase()?.trim() &&
+              e?.city?.toLowerCase()?.trim() ==
+                selection?.city?.toLowerCase()?.trim() &&
+              e?.pincode?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           fn(subArias);
           break;
@@ -360,55 +310,31 @@ const SelectArea = ({
     return (e) => {
       switch (key) {
         case "state": {
-          const cities = getCities(name, ariasSubs);
-          const pincodes = getPincodes(name, cities?.[0]?.name, ariasSubs);
-          const arias = getArias(
-            name,
-            cities?.[0]?.name,
-            pincodes?.[0]?.name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            name,
-            cities?.[0]?.name,
-            pincodes?.[0]?.name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           return isAllSelected(subArias);
           break;
         }
         case "city": {
-          const pincodes = getPincodes(selection?.state, name, ariasSubs);
-          const arias = getArias(
-            selection.state,
-            name,
-            pincodes?.[0]?.name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            selection.state,
-            name,
-            pincodes?.[0]?.name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() ==
+                selection.state?.toLowerCase()?.trim() &&
+              e?.city?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           return isAllSelected(subArias);
           break;
         }
         case "pincode": {
-          const arias = getArias(
-            selection.state,
-            selection.city,
-            name,
-            ariasSubs
-          );
-          const subArias = getSubArias(
-            selection.state,
-            selection.city,
-            name,
-            arias?.[0]?.name,
-            ariasSubs
+          const subArias = ariasSubs?.filter(
+            (e) =>
+              e?.state?.toLowerCase()?.trim() ==
+                selection?.state?.toLowerCase()?.trim() &&
+              e?.city?.toLowerCase()?.trim() ==
+                selection?.city?.toLowerCase()?.trim() &&
+              e?.pincode?.toLowerCase()?.trim() == name?.toLowerCase()?.trim()
           );
           return isAllSelected(subArias);
           break;
@@ -427,6 +353,12 @@ const SelectArea = ({
       }
     };
   };
+  useEffect(() => {
+    if (!dataAriasSubs?.error) {
+      const areas = search(dataAriasSubs, searchQuery);
+      setariaSubs(areas);
+    }
+  }, [dataAriasSubs, searchQuery]);
   return (
     <>
       <section className="selct-area-comp" onClick={onclickClose}>
@@ -544,7 +476,7 @@ const SelectArea = ({
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     {" "}
-                    <span> {name} </span>
+                    <span> {name}</span>
                     {!isOthersAllSelected("pincode", name)() ? (
                       <button
                         onClick={handleAddRemove("pincode", name)}
@@ -737,7 +669,7 @@ const SelectArea = ({
                 )}
               </div>
               <button
-                onClick={onclickClose}
+                onClick={nextFn}
                 style={{ width: "100px", height: "40px" }}
                 className="next-button "
               >

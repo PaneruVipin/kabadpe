@@ -8,6 +8,8 @@ const combData  = [
         colors : "Red",
         fabric :"Cotton",
         patterns : "Checked",
+        gst : '18%',
+        finalcost : 1800,
 
 
     },
@@ -19,7 +21,8 @@ const combData  = [
         colors : "White",
         fabric :"Corduroy",
         patterns : "Polo",
-        
+        gst : '15%',
+        finalcost : 1500,
 
     },
     
@@ -31,6 +34,8 @@ const combData  = [
         colors : "Forest Green",
         fabric :"Cotton Twil",
         patterns : "Plain",
+        gst : '20%',
+        finalcost : 1200,
         
 
     },
@@ -43,7 +48,8 @@ const combData  = [
         colors : "Blue",
         fabric :"Denim",
         patterns : "Plain",
-        
+        gst : '19%',
+        finalcost : 900,
 
     },
     

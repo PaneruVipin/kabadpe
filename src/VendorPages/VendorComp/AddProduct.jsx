@@ -10,6 +10,44 @@ const AddProduct = ({ onClickClose }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
+  const [checkBxOne , setCheckBxOne] = useState(false);
+  const [checkBxTwo , setCheckBxTwo] = useState(false);
+  const [messagePublish  , setMessagePublish] = useState(false);
+  const [messageDraft  , setMessageDraft] = useState(false);
+
+
+  const handleMesasagePublish = () => {
+    setMessagePublish(true)
+
+    setTimeout(() => {
+        setMessagePublish(false)
+    }, 3000);
+    
+  }
+
+  const handleMesasageDraft = () => {
+    setMessageDraft(true)
+
+    setTimeout(() => {
+      setMessageDraft(false)
+    }, 3000);
+  }
+
+
+
+  const handleCheckValueOne = () => {
+    setCheckBxOne(true)
+    setCheckBxTwo(false)
+
+  }
+
+  const handleCheckValueTwo = () => {
+    setCheckBxOne(false)
+    setCheckBxTwo(true)
+
+  }
+
+
   const [value, setValue] = useState({
     sizes: "",
     colors: "",
@@ -173,7 +211,7 @@ const AddProduct = ({ onClickClose }) => {
                 <div className="ord-filt-bx add-prod-inpt-bx ">
                   <span>Choose Category</span>
 
-                  <div className="add-prod-inpt-bx21">
+                  <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
                     <select name="category" id="category">
                       <option value="category">Choose Category</option>
                       <option value="category">Choose Category1</option>
@@ -359,6 +397,47 @@ const AddProduct = ({ onClickClose }) => {
                 </div>
 
                 <div className="ord-filt-bx add-prod-inpt-bx">
+                  <span>GST</span>
+                  <div className="check-box-flex-bx">
+                    <div className="check-bx-gst">
+                  <input
+                    type="checkbox"
+                    name="gst"
+                    id="gst"
+                    checked={checkBxOne}
+                    className="checkbox212 "
+                    onChange={handleCheckValueOne}
+
+                  />
+                  <span>Includes</span>
+                  </div>
+                  <div className="check-bx-gst">
+                  <input
+                    type="checkbox"
+                    name="gstextra"
+                    id="gstextra"
+                    checked={checkBxTwo}
+                    className="checkbox212 "
+                    onChange={handleCheckValueTwo}
+
+                  />
+                  <span>Extra</span>
+                  </div>
+
+                {checkBxTwo ?  <div className="add-prod-inpt-bx21 add-prod-inpt-bx2121">
+                    <select name="GST" id="GST">
+                      <option value="GST">Choose GST</option>
+                      <option value="18%">18%</option>
+                      <option value="20%">20%</option>
+                      <option value="15%">15%</option>
+                      <option value="19%">19%</option>
+                    </select>
+                  </div> : null}
+                  
+                  </div>
+                </div>
+
+                <div className="ord-filt-bx add-prod-inpt-bx">
                   <span>Product Size Chart</span>
 
                   <div className="right-prod-img-add-bx">
@@ -487,6 +566,8 @@ const AddProduct = ({ onClickClose }) => {
 
           {tabActive === "combination" ? (
             <div className="add-prod-form-main shipping-info-bx">
+              <h4>Attributes</h4>
+
               <div
                 className={
                   genComb
@@ -626,7 +707,9 @@ const AddProduct = ({ onClickClose }) => {
                             <th>Colors</th>
                             <th>Fabric</th>
                             <th>Patterns</th>
+                            <th>GST</th>
                             <th>Price</th>
+                            <th>Final Cost</th>
                             <th>Action </th>
                           </tr>
                         </thead>
@@ -648,6 +731,9 @@ const AddProduct = ({ onClickClose }) => {
                               <td className="">
                                 <span> {curElem.patterns} </span>
                               </td>
+                              <td>
+                                <span> {curElem.gst} </span>
+                              </td>
                               <td className="price-btn ">
                                 <button
                                   onClick={() => setformHide(true)}
@@ -655,6 +741,9 @@ const AddProduct = ({ onClickClose }) => {
                                 >
                                   Add Price
                                 </button>
+                              </td>
+                              <td>
+                                <span> {curElem.finalcost} </span>
                               </td>
                               <td>
                                 <div className="btns-flex">
@@ -834,13 +923,16 @@ const AddProduct = ({ onClickClose }) => {
               )}
               <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                 {genComb ? (
-                  <button className="prod-add-del-btn upld-add-prod gen-comb">
+                  <button
+                    onClick={() => setTabActive("groupproduct")}
+                    className="prod-add-del-btn upld-add-prod gen-comb"
+                  >
                     Create Group
                   </button>
                 ) : null}
 
                 {genComb ? (
-                  <button className="prod-add-del-btn upld-add-prod gen-comb">
+                  <button onClick={handleMesasagePublish} className="prod-add-del-btn upld-add-prod gen-comb">
                     Publish
                   </button>
                 ) : null}
@@ -854,6 +946,10 @@ const AddProduct = ({ onClickClose }) => {
                   </button>
                 )}
               </div>
+
+             {messagePublish ?   <div className="mesagebx">
+              <p className="mesagetext">Your Request has been submitted, You will be active once verified!</p>
+              </div> : null}
             </div>
           ) : null}
 
@@ -910,13 +1006,20 @@ const AddProduct = ({ onClickClose }) => {
                 </div>
               </div>
               <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
-                <button className="prod-add-del-btn upld-add-prod dft-btn">
+                <button onClick={handleMesasageDraft} className="prod-add-del-btn upld-add-prod dft-btn">
                   Draft
                 </button>
-                <button className="prod-add-del-btn upld-add-prod dft-btn">
+                <button onClick={handleMesasagePublish} className="prod-add-del-btn upld-add-prod dft-btn">
                   Publish
                 </button>
               </div>
+
+              {messagePublish ?   <div className="mesagebx">
+              <p className="mesagetext">Your Request has been submitted, You will be active once verified!</p>
+              </div> : null}
+              {messageDraft ?   <div className="mesagebx">
+              <p className="mesagetext">Your Product is saved as a draft, It is not visible to anyone. Edit and Publish to make it visible to the public.</p>
+              </div> : null}
             </div>
           ) : null}
         </div>

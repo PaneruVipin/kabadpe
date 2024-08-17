@@ -19565,13 +19565,21 @@ font-size: 1.5rem;
 .add-prod-inpt-bx21:before{
   content: "\f107";
   position: absolute;
-  top: 26%;
+  top: 50%;
   transform: translateY(-50%);
   right: 1rem;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
   color: #232524;
   font-size: 14px;
+}
+
+.add-prod-inpt-bx21221:before{
+  top: 26%;
+}
+
+.add-prod-inpt-bx2121:before{
+  display: none;
 }
 
 .product-tag-main-bx{
@@ -19938,4 +19946,61 @@ gap: 0 ;
   padding-inline: .55rem;
   border-radius: .55rem;
 
+}
+
+.shipping-info-bx h4{
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+
+.form-check-input21{
+  background-color: #000248;
+}
+
+.check-box-flex-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.check-bx-gst{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .76rem;
+
+}
+
+.check-bx-gst input{
+  width: 1.2rem;
+  height: 1.2rem;
+  border-color: #ddd !important;
+}
+
+
+.check-bx-gst input:checked{
+  background-color: #006063 !important;
+}
+
+.check-bx-gst span{
+  font-size: 15px;
+}
+
+
+.mesagebx{
+  position: relative;
+  width:  100%;
+  text-align: right;
+}
+
+.mesagetext{
+  position: relative;
+  color: #000248;
+  font-weight: 600;
+  line-height: 1.4;
+  width: 30rem;
+  margin-left:  auto;
 }

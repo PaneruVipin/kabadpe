@@ -57,7 +57,8 @@ const HomeSlider = () => {
           // plays-inline
           autoPlay
         >
-          <source src="/images/customImg/waste-video.mp4" type="video/mp4" />
+          {/* <source src="/images/customImg/waste-video.mp4" type="video/mp4" /> */}
+          <source src="/images/customImg/video-bg.mp4" type="video/mp4" />
         </video>
       </section>
     </>

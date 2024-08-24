@@ -1,4 +1,4 @@
-export const indianStatesData = [
+export const indianStatesAndUTsData = [
     { id: 1, name: "Andhra Pradesh", label: "Andhra Pradesh" },
     { id: 2, name: "Arunachal Pradesh", label: "Arunachal Pradesh" },
     { id: 3, name: "Assam", label: "Assam" },
@@ -26,6 +26,7 @@ export const indianStatesData = [
     { id: 25, name: "Tripura", label: "Tripura" },
     { id: 26, name: "Uttar Pradesh", label: "Uttar Pradesh" },
     { id: 27, name: "Uttarakhand", label: "Uttarakhand" },
-    { id: 28, name: "West Bengal", label: "West Bengal" }
+    { id: 28, name: "West Bengal", label: "West Bengal" },
+    { id: 29, name: "Delhi", label: "Delhi" }  // Delhi added here
   ];
   

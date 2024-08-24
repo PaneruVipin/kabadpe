@@ -27,6 +27,7 @@ import {
   kabadpeFranchisesFetch,
   kabadpeRatelistFetch,
 } from "../apis/kbadpeUser/ratelist";
+import { greenProductsFetchAll } from "../apis/products/product";
 
 const Ratelistcomp = ({ setUserForm }) => {
   const data = {
@@ -243,6 +244,10 @@ const Ratelistcomp = ({ setUserForm }) => {
       setRateList(newRateList);
     }
   }, [selection]);
+  const { data: products, refetch: refetchProduct } = useQuery({
+    queryKey: ["greenProductsFetchAll"],
+    queryFn: () => greenProductsFetchAll({}),
+  });
   return (
     <>
       <AppoinmentPopup
@@ -556,39 +561,72 @@ const Ratelistcomp = ({ setUserForm }) => {
             </div>
 
             <div className="prod-sug-grid-bx">
-              {prodSug.slice(0, visibleProd).map((curelem, indx) => {
-                return (
-                  <>
-                    <div className="prod-sug-card-bx" key={indx}>
-                      <div className="prod-sug-img-bx">
-                        <img src={curelem.img1} alt="" />
-                        <img src={curelem.img2} alt="" />
-                      </div>
+              {!products?.error
+                ? products
+                    ?.sort(
+                      (a, b) => new Date(b?.addedOn) - new Date(a?.addedOn)
+                    )
+                    ?.slice(0, visibleProd)
+                    .map(
+                      (
+                        {
+                          ProdCategory,
+                          ProdImages,
+                          categoryId,
+                          gst,
+                          hsn,
+                          id,
+                          longDesc,
+                          name,
+                          productPrice,
+                          productStatus,
+                          quantity,
+                          sellPrice,
+                          shortDesc,
+                          sku,
+                          vendorId,
+                          ...curelem
+                        },
+                        indx
+                      ) => {
+                        return (
+                          <div className="prod-sug-card-bx" key={id}>
+                            <div className="prod-sug-img-bx">
+                              <img src={ProdImages?.[0]?.image} alt="" />
+                              <img
+                                src={
+                                  ProdImages?.[1]?.image ||
+                                  ProdImages?.[0]?.image
+                                }
+                                alt=""
+                              />
+                            </div>
 
-                      <div className="prod-sugg-info">
-                        <span>armani</span>
-                        <h6>Ample Lamp Basket</h6>
+                            <div className="prod-sugg-info">
+                              <span>{ProdCategory?.name}</span>
+                              <h6>{name}</h6>
 
-                        <div className="rating-bx">
-                          <div className="rating">
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-solid fa-star"></i>
-                            <i className="fa-regular fa-star"></i>
+                              {/* <div className="rating-bx">
+                                <div className="rating">
+                                  <i className="fa-solid fa-star"></i>
+                                  <i className="fa-solid fa-star"></i>
+                                  <i className="fa-solid fa-star"></i>
+                                  <i className="fa-solid fa-star"></i>
+                                  <i className="fa-regular fa-star"></i>
+                                </div>
+                                <span>90%</span>
+                              </div> */}
+                              <div className="price-buy-now-btn-bx">
+                                <h6>₹{sellPrice}</h6>
+
+                                <a href="#">Buy Now</a>
+                              </div>
+                            </div>
                           </div>
-                          <span>90%</span>
-                        </div>
-                        <div className="price-buy-now-btn-bx">
-                          <h6>₹500</h6>
-
-                          <a href="#">Buy Now</a>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                );
-              })}
+                        );
+                      }
+                    )
+                : null}
             </div>
 
             <button onClick={() => loadMore()} className="load-btn">

@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import ProductData from "./ProductData";
 import AddProduct from "./AddProduct";
+import { useQuery } from "@tanstack/react-query";
+import {
+  greenProductsFetch,
+  greenProductsUpdate,
+} from "../../apis/products/product";
 
 const VendorProduct = ({ compRedirectProdDet }) => {
   const [exportBox, setExportBox] = useState(false);
@@ -8,7 +13,8 @@ const VendorProduct = ({ compRedirectProdDet }) => {
   const [prodList, setProdList] = useState(ProductData);
   const [rangeBtn, setRangeBtn] = useState(false);
   const [rangeNum, setRangeNum] = useState(null);
-  const [addProd , setAddProd] = useState(false);
+  const [addProd, setAddProd] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   //   const [selectedOptions, setSelectedOptions] = useState([]);
   //   const [selectedOption, setSelectedOption] = useState('');
@@ -33,6 +39,10 @@ const VendorProduct = ({ compRedirectProdDet }) => {
   //   const updatedOptions = selectedOptions.filter(option => option !== optionToRemove);
   //   setSelectedOptions(updatedOptions);
   // };
+  const { data: products, refetch } = useQuery({
+    queryKey: ["greenProductsFetch"],
+    queryFn: () => greenProductsFetch({}),
+  });
 
   return (
     <>
@@ -101,7 +111,13 @@ const VendorProduct = ({ compRedirectProdDet }) => {
               <i className="fa-solid fa-trash-can"></i> Delete
             </button>
 
-            <button onClick={() => setAddProd(true)} className="prod-add-del-btn prod-add-del-btn3">
+            <button
+              onClick={() => {
+                setSelectedRow(null);
+                setAddProd(true);
+              }}
+              className="prod-add-del-btn prod-add-del-btn3"
+            >
               <i className="fa-solid fa-plus"></i> Add Product
             </button>
           </div>
@@ -179,78 +195,98 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                 <th>Price</th>
                 <th>Sale Price</th>
                 <th>Stock</th>
-                <th>Status</th>
+                {/* <th>Status</th> */}
                 <th>View</th>
                 <th>Published</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {prodList.map((elem) => {
-                return (
-                  <>
-                    <tr>
-                      <td>
-                        <div className="form-check-bxx">
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </div>
-                      </td>
+              {!products?.error
+                ? products?.map(
+                    ({
+                      id,
+                      ProdImages,
+                      name,
+                      ProdCategory,
+                      productPrice,
+                      sellPrice,
+                      quantity,
+                      productStatus,
+                      ...rest
+                    }) => {
+                      const img = ProdImages?.[0]?.image;
+                      return (
+                        <tr key={id}>
+                          <td>
+                            <div className="form-check-bxx">
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value=""
+                                id="flexCheckDefault"
+                              />
+                            </div>
+                          </td>
 
-                      <td>
-                        <div className="prod-info-v">
-                          <img
-                            src={elem.prodImg}
-                            className="prod-img-bx"
-                            alt=""
-                          />
-                          <span> {elem.prodName} </span>
-                        </div>
-                      </td>
+                          <td>
+                            <div className="prod-info-v">
+                              <img src={img} className="prod-img-bx" alt="" />
+                              <span> {name} </span>
+                            </div>
+                          </td>
 
-                      <td>
-                        <span> {elem.category} </span>
-                      </td>
+                          <td>
+                            <span> {ProdCategory?.name} </span>
+                          </td>
 
-                      <td>
-                        <span> {elem.price} </span>
-                      </td>
+                          <td>
+                            <span> {productPrice} </span>
+                          </td>
 
-                      <td>
-                        <span> {elem.saleprice} </span>
-                      </td>
+                          <td>
+                            <span> {sellPrice} </span>
+                          </td>
 
-                      <td>
-                        <span> {elem.stock} </span>
-                      </td>
+                          <td>
+                            <span> {quantity} </span>
+                          </td>
 
-                      <td>
-                        <div
-                          className={
-                            elem.status === "Sold Out"
-                              ? " inv-stat-del-bx inv-stat-del-bx3 sold-out-text"
-                              : "inv-stat-del-bx inv-stat-del-bx3"
-                          }
-                        >
-                          <span> {elem.status} </span>
-                        </div>
-                      </td>
+                          {/* <td>
+                            <div
+                              className={
+                                elem.status === "Sold Out"
+                                  ? " inv-stat-del-bx inv-stat-del-bx3 sold-out-text"
+                                  : "inv-stat-del-bx inv-stat-del-bx3"
+                              }
+                            >
+                              <span> {elem.status} </span>
+                            </div>
+                          </td> */}
 
-                      <td>
-                        <div
-                          onClick={compRedirectProdDet}
-                          className="view-prod-btn"
-                        >
-                          <ion-icon name="eye-outline"></ion-icon>
-                        </div>
-                      </td>
+                          <td>
+                            <div
+                              onClick={() =>
+                                compRedirectProdDet({
+                                  id,
+                                  ProdImages,
+                                  name,
+                                  ProdCategory,
+                                  productPrice,
+                                  sellPrice,
+                                  quantity,
+                                  productStatus,
+                                  ...rest,
+                                })
+                              }
+                              className="view-prod-btn"
+                            >
+                              <ion-icon name="eye-outline"></ion-icon>
+                            </div>
+                          </td>
 
-                      <td>
-                        {/* <button
+                          <td>
+                            {/* <button
                           className={
                             rangeBtn
                               ? "toggle-range-btn rangeactive"
@@ -261,56 +297,72 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                          
                           <div className="toggle-round"></div>
                         </button> */}
-                        {elem.published === false ? (
-                          <div
-                            class={
-                              elem.published === false
-                                ? "form-checkss form-switch unchecked"
-                                : "form-checkss form-switch"
-                            }
-                          >
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="flexSwitchCheckDefault"
-                            />
-                          </div>
-                        ) : null}
 
-                        {elem.published === true ? (
-                          <div className="form-switch-main">
                             <div
-                              class={"form-checkss form-switch form-switch3"}
+                              class={
+                                "form-checkss form-switch unchecked"
+                                //  "form-checkss form-switch"
+                              }
                             >
                               <input
                                 className="form-check-input"
                                 type="checkbox"
-                                id="flexSwitchCheckChecked"
-                                defaultChecked
+                                id="flexSwitchCheckDefault"
+                                onChange={async () => {
+                                  await greenProductsUpdate({
+                                    id,
+                                    productStatus:
+                                      productStatus == "active"
+                                        ? "inactive"
+                                        : "active",
+                                  });
+                                  refetch();
+                                }}
+                                checked={productStatus == "active"}
                               />
                             </div>
-                          </div>
-                        ) : null}
-                      </td>
+                          </td>
 
-                      <td>
-                        <div className="prod-edit-de-flex-btn">
-                          <button>
-                            <i className="fa-regular fa-pen-to-square"></i>
-                          </button>
+                          <td>
+                            <div className="prod-edit-de-flex-btn">
+                              <button
+                                onClick={() => {
+                                  setSelectedRow({
+                                    id,
+                                    ProdImages,
+                                    name,
+                                    ProdCategory,
+                                    productPrice,
+                                    sellPrice,
+                                    quantity,
+                                    productStatus,
+                                    ...rest,
+                                  });
+                                  setAddProd(true);
+                                }}
+                              >
+                                <i className="fa-regular fa-pen-to-square"></i>
+                              </button>
 
-                          <button>
-                            <i className="fa-solid fa-trash"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-
-                    
-                    
-                  </>
-                );
-              })}
+                              <button
+                                onClick={async () => {
+                                  await greenProductsUpdate({
+                                    id,
+                                    productStatus: "delete",
+                                    imageIds: [],
+                                  });
+                                  refetch();
+                                }}
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )
+                : null}
             </tbody>
           </table>
         </div>
@@ -354,9 +406,15 @@ const VendorProduct = ({ compRedirectProdDet }) => {
     </div> */}
       </section>
 
-    { addProd ? <AddProduct onClickClose={() => setAddProd(false)} /> : null}
-
-      {/* <AddProduct /> */}
+      {addProd ? (
+        <AddProduct
+          initialValues={selectedRow}
+          onClickClose={() => {
+            refetch();
+            setAddProd(false);
+          }}
+        />
+      ) : null}
     </>
   );
 };

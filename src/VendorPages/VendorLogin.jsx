@@ -21,6 +21,7 @@ import {
 } from "../apis/vendor/auth";
 import { toast } from "react-toastify";
 import { number, object, string } from "yup";
+import { indianStatesData } from "../lib/states";
 const VendorLogin = () => {
   const [passwordView, setPasswordView] = useState(false);
   const [vendForm, setVendForm] = useState(false);
@@ -804,15 +805,13 @@ const VendorLogin = () => {
                                               onBlur={handleBlur}
                                               value={values?.state}
                                             >
-                                              <option value="state">
-                                                State1
-                                              </option>
-                                              <option value="state">
-                                                State2
-                                              </option>
-                                              <option value="state">
-                                                State3
-                                              </option>
+                                              {indianStatesData?.map(
+                                                ({ id, name, label }) => (
+                                                  <option key={id} value={name}>
+                                                    {label}
+                                                  </option>
+                                                )
+                                              )}
                                             </select>
                                           </div>
                                         </div>

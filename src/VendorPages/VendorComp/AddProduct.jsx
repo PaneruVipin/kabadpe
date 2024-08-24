@@ -11,7 +11,9 @@ import { toast } from "react-toastify";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
-  const [tagValue, setTagValue] = useState([]);
+  const [tagValue, setTagValue] = useState(
+    JSON.parse(initialValues?.tags || "[]")
+  );
   const [formHide, setformHide] = useState(false);
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);

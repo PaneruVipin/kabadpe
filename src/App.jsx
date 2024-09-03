@@ -93,7 +93,7 @@ function App() {
     setComponent(compName);
   };
   return (
-    <Routes>
+    <Routes >
       <Route
         path="/"
         element={
@@ -105,7 +105,7 @@ function App() {
           />
         }
       >
-        <Route index element={<Home setUserForm={setUserForm} />} />
+        <Route  index element={<Home setUserForm={setUserForm} />} />
         <Route path="/frenchies" element={<About />} />
         <Route path="/about" element={<AboutPage />} />
 

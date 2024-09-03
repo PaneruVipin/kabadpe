@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { MdCategory } from "react-icons/md";
@@ -6,26 +6,30 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 import { RiOrganizationChart } from "react-icons/ri";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
-import VendorDasgboard from './VendorComp/VendorDasgboard';
-import VendOrder from './VendorComp/VendOrder';
-import OrderDet from './VendorComp/OrderDet';
-import VendorProduct from './VendorComp/VendorProduct';
-import VendProdDetail from './VendorComp/VendProdDetail';
-import VendorAttributes from './VendorAttributes';
-import AtributeValues from './VendorComp/AtributeValues';
-import VendCategories from './VendorComp/VendCategories';
+import VendorDasgboard from "./VendorComp/VendorDasgboard";
+import VendOrder from "./VendorComp/VendOrder";
+import OrderDet from "./VendorComp/OrderDet";
+import VendorProduct from "./VendorComp/VendorProduct";
+import VendProdDetail from "./VendorComp/VendProdDetail";
+import VendorAttributes from "./VendorAttributes";
+import AtributeValues from "./VendorComp/AtributeValues";
+import VendCategories from "./VendorComp/VendCategories";
 import VendEditProf from "./VendorComp/VendEditProf";
 import VendEditOrg from "./VendorComp/VendEditOrg";
+import { useDispatch, useSelector } from "react-redux";
+import { userFetch } from "../features/user/userActions";
+import Redirect from "../Components/Auth/RedirectIfLogout";
+import { useNavigate } from "react-router-dom";
 const VendorPanel = () => {
   const [component, setComponent] = useState("dashboard");
   const [vendBtn, setVendBtn] = useState(null);
   const [sideNav, setSideNav] = useState(true);
-  const [prof , setProf] = useState(false);
-  const [editProfile , setEditProfile] = useState(false);
-  const [vendOrg , setVendOrg] = useState(false);
-
-
-
+  const [prof, setProf] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
+  const [vendOrg, setVendOrg] = useState(false);
+  const [productData, setProductData] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleViewComp = (getCompName) => {
     setComponent(getCompName);
   };
@@ -51,8 +55,23 @@ const VendorPanel = () => {
       ? "vend-tab-dropdwn-btn tabdrpdwnactive"
       : "vend-tab-dropdwn-btn";
   };
-
+  const {
+    success: { login, verifySignup },
+    loading: { login: loginLoading, verifySignup: verifyLoading },
+  } = useSelector((s) => s.vendorAuth);
+  useEffect(() => {
+    dispatch(userFetch({ type: "vendor" }));
+  }, [login, verifySignup, loginLoading, verifyLoading]);
+  const { userInfo, success, loading } = useSelector((s) => s.user);
   // vend-tab-dropdwn-btn
+  useEffect(() => {
+    if (
+      loading === false &&
+      (userInfo?.role != "vendor" || userInfo?.vendorStatus == "inactive")
+    ) {
+      navigate("/vendorlogin");
+    }
+  }, [userInfo, success, loading]);
   return (
     <>
       <section className="vendor-top-header-comp">
@@ -76,34 +95,47 @@ const VendorPanel = () => {
             </div>
 
             <div className="vend-prof-main">
-            <div onClick={() => setProf(!prof)} className="vend-prof-img">
-              <img src="/images/customImg/c-1.jpg" alt="" />
-            </div>
+              <div onClick={() => setProf(!prof)} className="vend-prof-img">
+                <img src="/images/customImg/c-1.jpg" alt="" />
+              </div>
 
-          { prof ? <div className="vend-porf-dropdown-bx">
+              {prof ? (
+                <div className="vend-porf-dropdown-bx">
+                  <div
+                    onClick={() => {
+                      handleViewComp("dashboard"), setProf(false);
+                    }}
+                    className="dropdown-btn-bx"
+                  >
+                    <RxDashboard className="dp-icon" />
+                    <span>Dashboard</span>
+                  </div>
 
-                <div onClick={() => {handleViewComp("dashboard"), setProf(false)} } className="dropdown-btn-bx">
-                <RxDashboard className="dp-icon" />
-                <span>Dashboard</span>
+                  <div
+                    onClick={() => {
+                      setEditProfile(true), setProf(false);
+                    }}
+                    className="dropdown-btn-bx"
+                  >
+                    <IoSettingsOutline className="dp-icon" />
+                    <span>Edit Profile</span>
+                  </div>
+                  <div
+                    onClick={() => {
+                      setVendOrg(true), setProf(false);
+                    }}
+                    className="dropdown-btn-bx"
+                  >
+                    <RiOrganizationChart className="dp-icon" />
+                    <span>Edit Organization</span>
+                  </div>
+
+                  <div className="dropdown-btn-bx">
+                    <MdOutlineLogout className="dp-icon" />
+                    <span>Log Out</span>
+                  </div>
                 </div>
-
-                <div onClick={() => {setEditProfile(true), setProf(false)} } className="dropdown-btn-bx">
-                <IoSettingsOutline  className="dp-icon" />
-                <span>Edit Profile</span>
-                </div>
-                <div onClick={() => {setVendOrg(true) , setProf(false)}} className="dropdown-btn-bx">
-                <RiOrganizationChart  className="dp-icon" />
-                <span>Edit Organization</span>
-                </div>
-
-                <div className="dropdown-btn-bx">
-                <MdOutlineLogout  className="dp-icon" />
-                <span>Log Out</span>
-                </div>
-
-                
-            </div> : null}
-            
+              ) : null}
             </div>
           </div>
         </div>
@@ -139,9 +171,9 @@ const VendorPanel = () => {
                 <div className="v-tab-i">
                   <MdCategory className="v-icon" />
                 </div>
-                
+
                 <span>Catalog</span>
-                </div>
+              </div>
 
               <div className={getDropDwnBtnClassnameTwo(1)}>
                 <li
@@ -154,41 +186,48 @@ const VendorPanel = () => {
                 >
                   Products
                 </li>
-                <li onClick={() => handleViewComp('vendAtribute')}  className={component === "vendAtribute" ? "vend-li-btn liactive" : "vend-li-btn"}>
-                        Attributes
-                    </li>
+                <li
+                  onClick={() => handleViewComp("vendAtribute")}
+                  className={
+                    component === "vendAtribute"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Attributes
+                </li>
 
-                    <li onClick={() => handleViewComp('vendcategories')}  className={ component === 'vendcategories' ? "vend-li-btn liactive" : "vend-li-btn"}>
-                        Categories
-                    </li>
+                <li
+                  onClick={() => handleViewComp("vendcategories")}
+                  className={
+                    component === "vendcategories"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Categories
+                </li>
 
-                    <li className="vend-li-btn">
-                        Coupons
-                    </li>
-
-                   
-                    
-                </div>
-                
-
+                <li className="vend-li-btn">Coupons</li>
               </div>
-            </div>
-
-            <div
-              className={
-                component === "orders"
-                  ? "vend-tab-btn vendbtnactive"
-                  : " vend-tab-btn"
-              }
-              onClick={() => handleViewComp("orders")}
-            >
-              <div className="v-tab-i">
-                <MdOutlineProductionQuantityLimits className="v-icon" />
-              </div>
-
-              <span>Orders</span>
             </div>
           </div>
+
+          <div
+            className={
+              component === "orders"
+                ? "vend-tab-btn vendbtnactive"
+                : " vend-tab-btn"
+            }
+            onClick={() => handleViewComp("orders")}
+          >
+            <div className="v-tab-i">
+              <MdOutlineProductionQuantityLimits className="v-icon" />
+            </div>
+
+            <span>Orders</span>
+          </div>
+        </div>
         {/* </div> */}
       </section>
 
@@ -200,31 +239,53 @@ const VendorPanel = () => {
         }
       >
         <div className="common-container-vend">
+          {component === "dashboard" ? (
+            <VendorDasgboard
+              compTrue={"orders"}
+              onOrdRed={() => setComponent("orderDetail")}
+              onRedirect={() => setComponent("orders")}
+            />
+          ) : null}
+          {component === "orders" ? (
+            <VendOrder onOrdRed={() => setComponent("orderDetail")} />
+          ) : null}
+          {component === "orderDetail" ? (
+            <OrderDet compOrderDet={"orderDetail"} />
+          ) : null}
+          {component === "vendProduct" ? (
+            <VendorProduct
+              compOrderDet={"orderDetail"}
+              compRedirectProdDet={(data) => {
+                setProductData(data);
+                setComponent("vendProdDet");
+              }}
+            />
+          ) : null}
+          {component === "vendProdDet" ? (
+            <VendProdDetail data={productData} />
+          ) : null}
+          {component === "vendAtribute" ? (
+            <VendorAttributes
+              onClickRedirect={() => setComponent("atributevalues")}
+            />
+          ) : null}
+          {component === "atributevalues" ? (
+            <AtributeValues
+              onClickRedirect={() => setComponent("vendAtribute")}
+            />
+          ) : null}
+          {component === "vendcategories" ? (
+            <VendCategories
+              onClickRedirect={() => setComponent("vendcategories")}
+            />
+          ) : null}
+        </div>
+      </div>
 
-    { component === 'dashboard' ? <VendorDasgboard compTrue ={'orders'} onOrdRed={() => setComponent('orderDetail')} onRedirect={() => setComponent('orders')} /> : null}
-    { component === 'orders' ? <VendOrder onOrdRed={() => setComponent('orderDetail')}  /> : null }
-    { component === 'orderDetail' ? <OrderDet compOrderDet={'orderDetail'}    /> : null }
-    { component === 'vendProduct' ? <VendorProduct compOrderDet={'orderDetail'} compRedirectProdDet={() => setComponent('vendProdDet')}    /> : null }
-    { component === 'vendProdDet' ? <VendProdDetail    /> : null }
-    { component === 'vendAtribute' ? <VendorAttributes  onClickRedirect={() => 
-        setComponent('atributevalues')}   /> : null }
-    { component === 'atributevalues' ? <AtributeValues  
-    onClickRedirect={() => 
-        setComponent('vendAtribute')} 
-      /> : null }
-         { component === 'vendcategories' ? <VendCategories  
-    onClickRedirect={() => 
-        setComponent('vendcategories')} 
-      /> : null }
-
-
-    
-
-    </div>
-    </div>
-
-    {editProfile ? <VendEditProf onclickClose={() => setEditProfile(false)} /> : null}
-    {vendOrg ? <VendEditOrg onclickClose={() => setVendOrg(false)} /> : null}
+      {editProfile ? (
+        <VendEditProf onclickClose={() => setEditProfile(false)} />
+      ) : null}
+      {vendOrg ? <VendEditOrg onclickClose={() => setVendOrg(false)} /> : null}
     </>
   );
 };

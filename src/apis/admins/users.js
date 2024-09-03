@@ -35,6 +35,33 @@ export const adminGetWorkers = resolvePromise(async () => {
   return res?.workers;
 });
 
+export const adminGetVendors = resolvePromise(async () => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/vendors`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.vendors;
+});
+
+export const adminUpdateVendors = resolvePromise(async ({ id, ...data }) => {
+  const apiUrl = ENV_API_BASE_URL + `/admin/vendors/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { ...data },
+    {
+      headers: {
+        Authorization: token,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return res?.message;
+});
+
 export const adminGetUsers = resolvePromise(async () => {
   const apiUrl = ENV_API_BASE_URL + `/admin/users`;
   const token = getFromLocalStorage("token");

@@ -22,7 +22,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
-<<<<<<< HEAD
   const [checkBxOne , setCheckBxOne] = useState(false);
   const [checkBxTwo , setCheckBxTwo] = useState(false);
   const [messagePublish  , setMessagePublish] = useState(false);
@@ -52,9 +51,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   }
 
 
-=======
-  const [messagePublish, setMessagePublish] = useState(false);
-  const [messageDraft, setMessageDraft] = useState(false);
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [variations, setVariations] = useState([]);
   const [payload, setPayload] = useState(initialValues || {});
@@ -71,7 +67,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     { value: "medium", label: "Medium", id: 1 },
     { value: "sneakers", label: "Sneakers", id: 1 },
   ];
->>>>>>> 3845883a870833085c3372bd1e7cc96921072082
   const handleMesasagePublish = () => {
     setMessagePublish(true);
 
@@ -722,11 +717,9 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           ) : null}
                         </div>
                       </div>
-<<<<<<< HEAD
-                    ) : null}
-                  </div>
-                </div>
+                    </div>
 
+                    
                 <div className="ord-filt-bx add-prod-inpt-bx">
                   <span>Badges</span>
                   <div className="check-box-flex-bx">
@@ -900,11 +893,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                   </div>
                   
                 </div>
-                
-              </div>
-=======
-                    </div>
->>>>>>> 3845883a870833085c3372bd1e7cc96921072082
+                    
 
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
                       {/* <button

@@ -20004,3 +20004,57 @@ gap: 0 ;
   width: 30rem;
   margin-left:  auto;
 }
+
+.brakcet{
+  display: block;
+  font-size:.87rem !important;
+  line-height: 1.5 !important;
+}
+
+.select-bx-two-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+
+.select-bx-two-bx2{
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.add-prod-inpt-bx21{
+  position: relative;
+}
+
+.price-bxx select{
+  width: 100% !important;
+}
+
+.check-box-flex-bx{
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.total-right-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-inline-end: .5rem;
+
+}
+
+.color-bx{
+  position: relative;
+  width: 5rem;
+  height: 2rem;
+  background-color: green;
+}
+
+.total-right-bx span{
+  font-size: 1rem;
+}

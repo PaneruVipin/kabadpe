@@ -148,3 +148,13 @@ export const climeQuestions = [
     ],
   },
 ];
+const climeColors = {
+  "0-20": "#f86f6d",
+  "20-40": "#ff9360",
+  "40-60": "#e6de68",
+  "60-80": "#2bc2c6",
+  "80-100": "#6ec9ec",
+}
+export const getClimeColor = (marks) => {
+  return marks < 20 ? climeColors["0-20"] : marks < 40 ? climeColors["20-40"] : marks < 60 ? climeColors["40-60"] : marks < 80 ? climeColors["60-80"] : climeColors["80-100"]
+}

@@ -11,7 +11,7 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { generateCombinations } from "../../lib/variations";
-import { climeQuestions } from "../../lib/climeQuestions";
+import { climeQuestions, getClimeColor } from "../../lib/climeQuestions";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -43,8 +43,19 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   };
 
   const [selectedAttributes, setSelectedAttributes] = useState({});
-  const [variations, setVariations] = useState([]);
-  const [payload, setPayload] = useState(initialValues || {});
+  const [variations, setVariations] = useState({
+    variations: initialValues?.ProdVariations || [],
+  });
+  console.log("variations variations variations variations variations variations variations",variations)
+  const [payload, setPayload] = useState(
+    initialValues
+      ? {
+          ...initialValues,
+          material_used: JSON.parse(initialValues?.material_used || "[]"),
+          badges: JSON.parse(initialValues?.badges || "[]"),
+        }
+      : {}
+  );
   const [tabFn, setTabFn] = useState({
     1: () => {},
     2: () => {},
@@ -167,14 +178,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setInptBx([...inptBx, ""]);
   };
   const enableTabButton = (button = 2) => {
-    const buttons = { 2: "shipping", 3: "combination", 4: "groupproduct" };
+    const buttons = { 2: "shipping", 3: "combination", 4: "climconect" };
     setTabFn((prev) => ({ ...prev, [button]: buttons?.[button] }));
   };
   const handleAddProductSubmit = async (data) => {
     const payload = {
       ...data,
       tags: JSON.stringify(tagValue),
+      badges: JSON.stringify(data?.badges || []),
       productImages: images,
+      returnDays: +data?.returnDays || 0,
       sizeChartImage: chart,
       gst: +data?.gst || null,
     };
@@ -219,23 +232,22 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setVariations((prev) => ({ ...prev, variations: variation }));
     setformHide(false);
   };
-  const handlePublishSubmit = (productStatus) => async () => {
+  const handlePublishSubmit = async (data) => {
     const finalPayload = {
       ...payload,
-      productStatus,
       variations: JSON.stringify(variations?.variations || []),
+      ...data,
+      material_used: JSON.stringify(data?.material_used || []),
     };
-    if (initialValues) {
+    const res = initialValues
+      ? await greenProductsUpdate(finalPayload)
+      : await greenProductsAdd(finalPayload);
+    if (res?.error) {
+      toast.error(res?.message);
       return;
-    } else {
-      const res = await greenProductsAdd(finalPayload);
-      if (res?.error) {
-        toast.error(res?.message);
-        return;
-      }
-      onClickClose();
-      toast.success(res);
     }
+    onClickClose();
+    toast.success(res);
   };
   const { data: categories, refetch } = useQuery({
     queryKey: ["greenProdCategoryFetch"],
@@ -334,10 +346,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           </div>
 
           {tabActive === "basic" ? (
-            <Formik
-              initialValues={initialValues || payload}
-              onSubmit={handleAddProductSubmit}
-            >
+            <Formik initialValues={payload} onSubmit={handleAddProductSubmit}>
               {({
                 handleBlur,
                 handleChange,
@@ -788,9 +797,9 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
                       <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
                         <select
-                          name="return"
+                          name="returnDays"
                           id="category"
-                          value={values?.return}
+                          value={values?.returnDays}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         >
@@ -867,7 +876,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
           {tabActive === "shipping" ? (
             <Formik
-              initialValues={initialValues || payload}
+              initialValues={payload}
               onSubmit={handleAddProductShipingSubmit}
             >
               {({
@@ -979,7 +988,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
               <div
                 className={
-                  genComb
+                  (genComb || variations?.variations?.length) 
                     ? "add-product-form-bx add-product-form-bx212 add-product-form-bx22222"
                     : "add-product-form-bx add-product-form-bx212 "
                 }
@@ -1041,7 +1050,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     )
                   : null}
               </div>
-              {genComb && (
+              {(genComb || variations?.variations?.length) ? (
                 <div className="add-prod-form-main  shipping-info-bx">
                   <div className="add-product-form-bx add-product-form-bx22222    add-product-form-bx212">
                     <div className="comb-table">
@@ -1338,7 +1347,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     </div>
                   </div>
                 </div>
-              )}
+              ):null}
               <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                 <button
                   onClick={() => {
@@ -1366,7 +1375,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 </button> */}
                 <button
                   onClick={() => {
-                    setTabActive("groupproduct");
+                    setTabActive("climconect");
                     enableTabButton(4);
                   }}
                   // onClick={handleMesasagePublish}
@@ -1476,7 +1485,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           ) : null} */}
 
           {tabActive === "climconect" ? (
-            <Formik initialValues={payload} onSubmit={handleAddProductSubmit}>
+            <Formik initialValues={payload} onSubmit={handlePublishSubmit}>
               {({
                 handleBlur,
                 handleChange,
@@ -1582,18 +1591,22 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         )}
                       <div className="total-right-bx">
                         <span>Clim Connect Valuation</span>
-                        <div className="color-bx"></div>
+                        <div
+                          style={{ backgroundColor: getClimeColor(totalMarks) }}
+                          className="color-bx"
+                        ></div>
                       </div>
 
                       <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                        <button className="prod-add-del-btn upld-can-prod">
+                        {/* <button className="prod-add-del-btn upld-can-prod">
                           Cancel
-                        </button>
+                        </button> */}
                         <button
-                          onClick={() => setTabActive("shipping")}
+                          type="submit"
+                          // onClick={() => setTabActive("shipping")}
                           className="prod-add-del-btn upld-add-prod"
                         >
-                          Save & Next
+                          Save
                         </button>
                       </div>
                     </div>

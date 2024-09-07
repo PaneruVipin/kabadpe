@@ -154,7 +154,30 @@ const climeColors = {
   "40-60": "#e6de68",
   "60-80": "#2bc2c6",
   "80-100": "#6ec9ec",
-}
+};
 export const getClimeColor = (marks) => {
-  return marks < 20 ? climeColors["0-20"] : marks < 40 ? climeColors["20-40"] : marks < 60 ? climeColors["40-60"] : marks < 80 ? climeColors["60-80"] : climeColors["80-100"]
-}
+  return marks < 20
+    ? climeColors["0-20"]
+    : marks < 40
+    ? climeColors["20-40"]
+    : marks < 60
+    ? climeColors["40-60"]
+    : marks < 80
+    ? climeColors["60-80"]
+    : climeColors["80-100"];
+};
+export const getMarksCount = (values = {}) => {
+  const totalMarks = climeQuestions?.reduce((a, b) => {
+    let mark;
+    if (b?.isChekBox) {
+      mark = (values?.[b?.id] || [])?.reduce((a, c) => {
+        const newMark = b?.answers?.find(({ id }) => id == c)?.marks || 0;
+        return a + newMark / values?.[b?.id]?.length;
+      }, 0);
+    } else {
+      mark = +b?.answers?.find(({ id }) => values?.[b?.id] == id)?.marks || 0;
+    }
+    return a + mark;
+  }, 0);
+  return totalMarks
+};

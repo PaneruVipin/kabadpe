@@ -11,7 +11,7 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { generateCombinations } from "../../lib/variations";
-import { climeQuestions, getClimeColor } from "../../lib/climeQuestions";
+import { climeQuestions, getClimeColor, getMarksCount } from "../../lib/climeQuestions";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -46,7 +46,10 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [variations, setVariations] = useState({
     variations: initialValues?.ProdVariations || [],
   });
-  console.log("variations variations variations variations variations variations variations",variations)
+  console.log(
+    "variations variations variations variations variations variations variations",
+    variations
+  );
   const [payload, setPayload] = useState(
     initialValues
       ? {
@@ -593,19 +596,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         />
                       </div>
 
-                      <div className="ord-filt-bx add-prod-inpt-bx">
-                        <span>Product Slug</span>
-                        <input
-                          type="text"
-                          name="slug"
-                          id="slug"
-                          placeholder="Product Slug"
-                          autoComplete="off"
-                          value={values?.slug}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>Product Tags</span>
@@ -988,7 +978,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
               <div
                 className={
-                  (genComb || variations?.variations?.length) 
+                  genComb || variations?.variations?.length
                     ? "add-product-form-bx add-product-form-bx212 add-product-form-bx22222"
                     : "add-product-form-bx add-product-form-bx212 "
                 }
@@ -1050,7 +1040,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     )
                   : null}
               </div>
-              {(genComb || variations?.variations?.length) ? (
+              {genComb || variations?.variations?.length ? (
                 <div className="add-prod-form-main  shipping-info-bx">
                   <div className="add-product-form-bx add-product-form-bx22222    add-product-form-bx212">
                     <div className="comb-table">
@@ -1347,7 +1337,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     </div>
                   </div>
                 </div>
-              ):null}
+              ) : null}
               <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                 <button
                   onClick={() => {
@@ -1494,21 +1484,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 touched,
                 ...rest
               }) => {
-                const totalMarks = climeQuestions?.reduce((a, b) => {
-                  let mark;
-                  if (b?.isChekBox) {
-                    mark = (values?.[b?.id] || [])?.reduce((a, c) => {
-                      const newMark =
-                        b?.answers?.find(({ id }) => id == c)?.marks || 0;
-                      return a + newMark / values?.[b?.id]?.length;
-                    }, 0);
-                  } else {
-                    mark =
-                      +b?.answers?.find(({ id }) => values?.[b?.id] == id)
-                        ?.marks || 0;
-                  }
-                  return a + mark;
-                }, 0);
+                const totalMarks = getMarksCount(values);
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
                     <div className="add-product-form-bx">

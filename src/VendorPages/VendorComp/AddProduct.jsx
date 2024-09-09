@@ -23,7 +23,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
-<<<<<<< HEAD
   const [checkBxOne , setCheckBxOne] = useState(false);
   const [checkBxTwo , setCheckBxTwo] = useState(false);
   const [messagePublish  , setMessagePublish] = useState(false);
@@ -31,16 +30,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [selValue , setSelValue] = useState(false);
   const [kpChoose , setKpChoose] =  useState(false);
   const [blkOrder , setBlkOrder] =  useState(false);
-
-
-=======
-  const [checkBxOne, setCheckBxOne] = useState(false);
-  const [checkBxTwo, setCheckBxTwo] = useState(false);
-  const [messagePublish, setMessagePublish] = useState(false);
-  const [messageDraft, setMessageDraft] = useState(false);
-  const [selValue, setSelValue] = useState(false);
-  const [kpChoose, setKpChoose] = useState(false);
->>>>>>> 4ecff671ff8b96f0422a787d253375393e2d6ebb
 
   const handleKpChange = (e) => {
     setKpChoose(e.target.value);
@@ -1613,15 +1602,15 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
 
                       <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                        {/* <button className="prod-add-del-btn upld-can-prod">
-                          Cancel
-                        </button> */}
+                        <button className="prod-add-del-btn pb-btn upld-can-prod">
+                          Publish Without Bulk Order
+                        </button>
                         <button
                           type="submit"
-                          // onClick={() => setTabActive("shipping")}
+                          onClick={() => { setTabActive('bulkorder')}}
                           className="prod-add-del-btn upld-add-prod"
                         >
-                          Save
+                          Create Bulk Order
                         </button>
                       </div>
                     </div>
@@ -1630,391 +1619,9 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               }}
             </Formik>
           ) : null}
-<<<<<<< HEAD
 
-          {
-            tabActive === 'climconect' ? (
-              <div className="add-prod-form-main basic-info-bx">
-              <div className="add-product-form-bx">
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Type of product   </span>
-                  <span className="brakcet">
-                 ( Metal, Glass, Cloth, Wood, Bamboo, Oil, Wax, Electronic)
-                  </span>
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Virgin 
-                      </option>
-                      <option value="category">Recycled </option>
-                      <option value="category">Refurb (not more than 20% virgin plastic)
-                      </option>
-                      <option value="category">Upcycled  (not more than 20% virgin plastic) (Metal, Glass, Cloth)
-                      </option>
-                      <option value="category">Natural (Not processed)
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Does your product contain plastic ?   </span>
-               
-                  </div>
-                <div className={selValue === "Yes" ?  "select-bx-two-bx select-bx-two-bx2" : "select-bx-two-bx"}>
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category" onChange={handleprodChange}>
-                    <option value="category">Choose One </option>
-
-                      <option value="Yes">Yes </option>
-                      <option value="No">No
-                      </option>
-            
-                    </select>
-                
-                  </div>
-
-                  {selValue === "Yes"  ? 
-                   <div className="add-prod-inpt-bx21 ">
-                   <select name="category" id="category">
-                   <option value="category">Choose One </option>
-
-                     <option value="category">100% </option>
-                     <option value="category">75-99% </option>
-                     <option value="category">40-75% </option>
-                     <option value="category">1-40% </option>
-           
-                   </select>
-               
-                 </div> : null}
-                  
-                  </div>
-
-                  
-                  
-                </div>
-                
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Type of product   </span>
-                  <span className="brakcet">
-                 ( Metal, Glass, Cloth, Wood, Bamboo, Oil, Wax, Electronic)
-                  </span>
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Virgin 
-                      </option>
-                      <option value="category">Recycled </option>
-                      <option value="category">Refurb (not more than 20% virgin plastic)
-                      </option>
-                      <option value="category">Upcycled  (not more than 20% virgin plastic) (Metal, Glass, Cloth)
-                      </option>
-                      <option value="category">Natural (Not processed)
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Material used in product 
-                  </span>
-                  <span className="brakcet">
-                  (Checkbox)
-                  </span>
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Cotton 
-                      </option>
-                      <option value="category">Jute </option>
-                      <option value="category">Paper
-                      </option>
-                      <option value="category">Chemicals
-                      </option>
-                      <option value="category">Bamboo
-                      </option>
-                      <option value="category">Other eco-friendly
-                      </option>
-                      <option value="category">Organic
-                      </option>
-                      <option value="category">Natural oil/wax
-
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Type of packaging material used for shipping   </span>
-                
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Plastic 
-                      </option>
-                      <option value="category">Recycled/upcycled packaging </option>
-                      <option value="category">Plastic free packaging and shipping (including celotape)
-
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Type of primary and secondary packaging material 
-                  </span>
-                  <span className="brakcet">
-                  (including label)
-                  </span>
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Plastic 
-                      </option>
-                      <option value="category">Recycled/upcycled packaging </option>
-                      <option value="category">Plastic free
-
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span> 
- 	
-   Is your product a plastic replacement?   </span>
-                  <span className="brakcet">
-                 ( Metal, Glass, Cloth, Wood, Bamboo, Oil, Wax, Electronic)
-                  </span>
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                    
-                      <option value="category">Yes </option>
-                      <option value="category">No
-                      </option>
-                
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Electricity consumption   </span>
-            
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Electric Machine made 
-                      </option>
-                      <option value="category">Partial machine made
-                      </option>
-                      <option value="category">Handmade
-                      </option>
-               
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Is ground water used while making the product?
-                  </span>
-            
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Yes 
-                      </option>
-                      <option value="category">No </option>
-             
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>What happens to the product at the end of its life cycle?   </span>
-               
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Landfill 
-                      </option>
-                      <option value="category">Bio-degradable </option>
-                      <option value="category">Recycled
-                      </option>
-       
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Materials used in making product are sourced from within   </span>
-               
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">400 KM 
-                      </option>
-                      <option value="category">Country </option>
-                      <option value="category">Imported
-                      </option>
-                 
-                   
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Is your product KabadPe returned?
-                  </span>
-               
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Yes 
-                      </option>
-                      <option value="category">No </option>
-             
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Is your product in any way toxic to environment   </span>
-                
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Whole product 
-                      </option>
-                      <option value="category">Product only </option>
-                      <option value="category">Packaging only
-
-                      </option>
-                      <option value="category">Label only
-                      </option>
-                      <option value="category">Not at all
-
-                      </option>
-                    </select>
-                
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx">
-                  <div className="left-label">
-                  <span>Is this best product from environment
-                  </span>
-                  <span> (admin)</span>
-                
-                  </div>
-
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category">
-                    <option value="category">Choose One </option>
-                      <option value="Virgin 
-">Best 
-                      </option>
-                      <option value="category">Better for environment </option>
-                      <option value="category">Okay for environment
-
-                      </option>
-                      <option value="category">Bad
-                      </option>
-                      <option value="category">Worst
-
-                      </option>
-                    </select>
-                
-                  </div>
-
-
-                  
-                </div>
-
-
-                <div className="total-right-bx">
-                  <span>Clim Connect Valuation</span>
-                  <div className="color-bx"></div>
-                </div>
-
-                <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                <button className="prod-add-del-btn pb-btn  upld-can-prod">
-                  Publish Without Bulk Orders
-                </button>
-                <button
-                  onClick={() =>{ setTabActive("shipping"), setTabActive('bulkorder')}}
-                  className="prod-add-del-btn upld-add-prod" style={{ width : 'max-content'}}
-                >
-                  Create Bulk Orders
-                </button>
-              </div>
-
-                </div>
-                </div>
-            ) : null
-          }
-
-          {
+          
+{
             tabActive === 'bulkorder' ? <div className="bulk-order-main">
 
               <h5>This Product is available for bulk order and customization.</h5>
@@ -2241,11 +1848,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               
             </div> : null
           }
-
-
           
-=======
->>>>>>> 4ecff671ff8b96f0422a787d253375393e2d6ebb
         </div>
       </section>
     </>

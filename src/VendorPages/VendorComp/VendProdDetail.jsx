@@ -10,6 +10,7 @@ const VendProdDetail = ({ data }) => {
     queryFn: () => greenProductsFetchOne({ id: data?.id }),
   });
   const images = !product?.error ? product?.ProdImages : [];
+  const variations = !product?.error ? product?.ProdVariations : [];
   return (
     <>
       <section className="vend-prod-det-comp">
@@ -56,7 +57,7 @@ const VendProdDetail = ({ data }) => {
               </div>
             </div>
 
-            {/* <div className="prod-varent-list-main">
+            <div className="prod-varent-list-main">
               <h6>Product Variant List</h6>
 
               <div className="prod-var-table recent-ord-table all-user-table">
@@ -65,109 +66,56 @@ const VendProdDetail = ({ data }) => {
                     <tr>
                       <th>SR</th>
                       <th>IMAGE</th>
-                      <th>Combination</th>
                       <th>SKU</th>
-                      <th>BarCODE</th>
+                      {/* <th>BarCODE</th> */}
                       <th>Original Price</th>
                       <th>Sale Price</th>
-                      <th>Quantity</th>
+                      <th>Stock Available</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        <span>1</span>
-                      </td>
-                      <td>
-                        {" "}
-                        <div className="prod-info-v">
-                          <img
-                            src="/images/customImg/prod-img-det.jpg"
-                            className="prod-img-bx"
-                            alt=""
-                          />
-                        </div>
-                      </td>
-                      <td>
-                        {" "}
-                        <span>(65c1dd3a9976080008ae99e1-0)</span>{" "}
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span>200.00</span>
-                      </td>
-                      <td>
-                        <span>150.00</span>{" "}
-                      </td>
-                      <td>
-                        <span>100</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span>2</span>
-                      </td>
-                      <td>
-                        {" "}
-                        <div className="prod-info-v">
-                          <img
-                            src="/images/customImg/prod-img-det.jpg"
-                            className="prod-img-bx"
-                            alt=""
-                          />
-                        </div>
-                      </td>
-                      <td>
-                        {" "}
-                        <span>(65c1dd3a9976080008ae99e1-0)</span>{" "}
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span>200.00</span>
-                      </td>
-                      <td>
-                        <span>150.00</span>{" "}
-                      </td>
-                      <td>
-                        <span>100</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span>3</span>
-                      </td>
-                      <td>
-                        {" "}
-                        <div className="prod-info-v">
-                          <img
-                            src="/images/customImg/prod-img-det.jpg"
-                            className="prod-img-bx"
-                            alt=""
-                          />
-                        </div>
-                      </td>
-                      <td>
-                        {" "}
-                        <span>(65c1dd3a9976080008ae99e1-0)</span>{" "}
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <span>200.00</span>
-                      </td>
-                      <td>
-                        <span>150.00</span>{" "}
-                      </td>
-                      <td>
-                        <span>100</span>
-                      </td>
-                    </tr>
+                    {variations?.map(
+                      (
+                        { sku, id, productPrice, sellPrice, stockStatus },
+                        index
+                      ) => {
+                        return (
+                          <tr key={id}>
+                            <td>
+                              <span>{index + 1}</span>
+                            </td>
+                            <td>
+                              {" "}
+                              <div className="prod-info-v">
+                                <img
+                                  src={images?.[index]||images?.[0]}
+                                  className="prod-img-bx"
+                                  alt=""
+                                />
+                              </div>
+                            </td>
+                            <td>
+                              {" "}
+                              <span>{sku}</span>{" "}
+                            </td>
+                            {/* <td></td> */}
+                            <td>
+                              <span>{productPrice}</span>
+                            </td>
+                            <td>
+                              <span>{sellPrice}</span>{" "}
+                            </td>
+                            <td>
+                              <span>{stockStatus == "in" ? "Yes" : "No"}</span>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )}
                   </tbody>
                 </table>
               </div>
-            </div> */}
+            </div>
 
             {/* <div className="ord-pagination-flex-bx">
               <span>Showing 1-8 of 30</span>

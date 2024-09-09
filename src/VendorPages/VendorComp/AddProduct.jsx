@@ -11,6 +11,7 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { generateCombinations } from "../../lib/variations";
+import { climeQuestions, getClimeColor, getMarksCount } from "../../lib/climeQuestions";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -22,6 +23,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
+<<<<<<< HEAD
   const [checkBxOne , setCheckBxOne] = useState(false);
   const [checkBxTwo , setCheckBxTwo] = useState(false);
   const [messagePublish  , setMessagePublish] = useState(false);
@@ -31,31 +33,44 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [blkOrder , setBlkOrder] =  useState(false);
 
 
+=======
+  const [checkBxOne, setCheckBxOne] = useState(false);
+  const [checkBxTwo, setCheckBxTwo] = useState(false);
+  const [messagePublish, setMessagePublish] = useState(false);
+  const [messageDraft, setMessageDraft] = useState(false);
+  const [selValue, setSelValue] = useState(false);
+  const [kpChoose, setKpChoose] = useState(false);
+>>>>>>> 4ecff671ff8b96f0422a787d253375393e2d6ebb
 
   const handleKpChange = (e) => {
-
     setKpChoose(e.target.value);
-    
-  }
-
+  };
 
   const handleprodChange = (e) => {
-    if(selValue === ' No'){
+    if (selValue === " No") {
       setSelValue(false);
-  
-      }else{
-        setSelValue(e.target.value);
-
-      }
-
- 
-    
-  }
-
+    } else {
+      setSelValue(e.target.value);
+    }
+  };
 
   const [selectedAttributes, setSelectedAttributes] = useState({});
-  const [variations, setVariations] = useState([]);
-  const [payload, setPayload] = useState(initialValues || {});
+  const [variations, setVariations] = useState({
+    variations: initialValues?.ProdVariations || [],
+  });
+  console.log(
+    "variations variations variations variations variations variations variations",
+    variations
+  );
+  const [payload, setPayload] = useState(
+    initialValues
+      ? {
+          ...initialValues,
+          material_used: JSON.parse(initialValues?.material_used || "[]"),
+          badges: JSON.parse(initialValues?.badges || "[]"),
+        }
+      : {}
+  );
   const [tabFn, setTabFn] = useState({
     1: () => {},
     2: () => {},
@@ -178,14 +193,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setInptBx([...inptBx, ""]);
   };
   const enableTabButton = (button = 2) => {
-    const buttons = { 2: "shipping", 3: "combination", 4: "groupproduct" };
+    const buttons = { 2: "shipping", 3: "combination", 4: "climconect" };
     setTabFn((prev) => ({ ...prev, [button]: buttons?.[button] }));
   };
   const handleAddProductSubmit = async (data) => {
     const payload = {
       ...data,
       tags: JSON.stringify(tagValue),
+      badges: JSON.stringify(data?.badges || []),
       productImages: images,
+      returnDays: +data?.returnDays || 0,
       sizeChartImage: chart,
       gst: +data?.gst || null,
     };
@@ -230,23 +247,22 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setVariations((prev) => ({ ...prev, variations: variation }));
     setformHide(false);
   };
-  const handlePublishSubmit = (productStatus) => async () => {
+  const handlePublishSubmit = async (data) => {
     const finalPayload = {
       ...payload,
-      productStatus,
       variations: JSON.stringify(variations?.variations || []),
+      ...data,
+      material_used: JSON.stringify(data?.material_used || []),
     };
-    if (initialValues) {
+    const res = initialValues
+      ? await greenProductsUpdate(finalPayload)
+      : await greenProductsAdd(finalPayload);
+    if (res?.error) {
+      toast.error(res?.message);
       return;
-    } else {
-      const res = await greenProductsAdd(finalPayload);
-      if (res?.error) {
-        toast.error(res?.message);
-        return;
-      }
-      onClickClose();
-      toast.success(res);
     }
+    onClickClose();
+    toast.success(res);
   };
   const { data: categories, refetch } = useQuery({
     queryKey: ["greenProdCategoryFetch"],
@@ -257,6 +273,18 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     queryKey: ["greenProductsAttributeFetch"],
     queryFn: () => greenProductsAttributeFetch({}),
   });
+  const badges = [
+    "Cruelty free",
+    "Toxin free",
+    "Organic",
+    "Made in India",
+    "Women empowerment",
+    "Vegan / natural",
+    "Plastic free",
+    "Locally sourced ingredients",
+    "Sustainable product",
+  ];
+
   return (
     <>
       <section className="add-prod-comp" onClick={onClickClose}>
@@ -309,7 +337,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               >
                 Combinations
               </button>
-              <button
+              {/* <button
                 onClick={() => setTabActive("groupproduct")}
                 className={
                   tabActive === "groupproduct"
@@ -318,7 +346,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 }
               >
                 Questions
-              </button>
+              </button> */}
               <button
                 onClick={() => setTabActive("climconect")}
                 className={
@@ -343,10 +371,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           </div>
 
           {tabActive === "basic" ? (
-            <Formik
-              initialValues={initialValues || payload}
-              onSubmit={handleAddProductSubmit}
-            >
+            <Formik initialValues={payload} onSubmit={handleAddProductSubmit}>
               {({
                 handleBlur,
                 handleChange,
@@ -593,19 +618,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         />
                       </div>
 
-                      <div className="ord-filt-bx add-prod-inpt-bx">
-                        <span>Product Slug</span>
-                        <input
-                          type="text"
-                          name="slug"
-                          id="slug"
-                          placeholder="Product Slug"
-                          autoComplete="off"
-                          value={values?.slug}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                      </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>Product Tags</span>
@@ -731,181 +743,128 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
                     </div>
 
-                    
-                <div className="ord-filt-bx add-prod-inpt-bx">
-                  <span>Badges</span>
-                  <div className="check-box-flex-bx">
-                    <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Cruelty free</span>
-                  </div>
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Toxin free</span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Organic</span>
-                  </div>
-
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Made in India
-                  </span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Women empowerment
-                  </span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Vegan / natural
-                  </span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Plastic free
-
-                  </span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Locally sourced ingredients
-                  </span>
-                  </div>
-
-                  <div className="check-bx-gst">
-                  <input
-                    type="checkbox"
-                    name="badges"
-                    id="badges"
-                    className="checkbox212 "
-
-                  />
-                  <span>Sustainable product
-                  </span>
-                  </div>
-           
-                  
-                  </div>
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx ">
-                  <span>Packaging Type</span>
-
-                  <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
-                    <select name="category" id="category">
-                      <option value="category">Choose Packaging</option>
-                      <option value="category">100% Eco Friendly</option>
-                      <option value="category">Partial Plastic Packing</option>
-                      <option value="category">Plastic Packing</option>
-                    </select>
-                    {/* <p>
-                      the text is , the platform commission or this category
-                      will be <span>10%</span>{" "}
-                    </p> */}
-                  </div>
-                  
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx ">
-                  <span>Return</span>
-
-                  <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
-                    <select name="category" id="category">
-                      <option value="category">Choose One</option>
-                      <option value="category">NON Returnable </option>
-                      <option value="category">7 Days</option>
-                      <option value="category">15 Days</option>
-                    </select>
-                    {/* <p>
-                      the text is , the platform commission or this category
-                      will be <span>10%</span>{" "}
-                    </p> */}
-                  </div>
-                  
-                </div>
-
-                <div className="ord-filt-bx add-prod-inpt-bx ">
-                  <span>KP Return</span>
-                    <div className={ kpChoose === 'Yes' ? "select-bx-two-bx select-bx-two-bx2" : "select-bx-two-bx"}>
-                  <div className="add-prod-inpt-bx21 ">
-                    <select name="category" id="category"  onChange={handleKpChange}>
-                      <option value="ChooseOne">Choose One</option>
-                      <option value="Yes">Yes </option>
-                      <option value="No">No</option>
-                    </select>
-
+                    <div className="ord-filt-bx add-prod-inpt-bx">
+                      <span>Badges</span>
+                      <div className="check-box-flex-bx">
+                        {badges?.map((e) => {
+                          return (
+                            <div className="check-bx-gst">
+                              <input
+                                type="checkbox"
+                                id="badges"
+                                onChange={() => {
+                                  let badge = values?.badges || [];
+                                  if (badge?.includes(e)) {
+                                    badge = badge?.filter((el) => el != e);
+                                  } else {
+                                    badge = [...badge, e];
+                                  }
+                                  handleChange({
+                                    target: { name: "badges", value: badge },
+                                  });
+                                }}
+                                checked={(values?.badges || [])?.includes(e)}
+                                className="checkbox212 "
+                              />
+                              <span>{e}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-{kpChoose === 'Yes' ?
-                      <div className="add-prod-inpt-bx2 ">
-                        <input type="text"
-                        name="price"
-                        id="price"
-                        placeholder="Enter Price"
-                        autoComplete="off" />
-  
-                      </div> : null}
-                   
-                  </div>
-                  
-                </div>
-                    
+
+                    <div className="ord-filt-bx add-prod-inpt-bx ">
+                      <span>Packaging Type</span>
+
+                      <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
+                        <select
+                          name="packaging"
+                          value={values?.packaging}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          id="category"
+                        >
+                          <option value="" hidden>
+                            Choose Packaging
+                          </option>
+                          <option value="100%_eco_friendly">
+                            100% Eco Friendly
+                          </option>
+                          <option value="partial_plastic_packing">
+                            Partial Plastic Packing
+                          </option>
+                          <option value="plastic_packing">
+                            Plastic Packing
+                          </option>
+                        </select>
+                        {/* <p>
+                      the text is , the platform commission or this category
+                      will be <span>10%</span>{" "}
+                    </p> */}
+                      </div>
+                    </div>
+
+                    <div className="ord-filt-bx add-prod-inpt-bx ">
+                      <span>Return</span>
+
+                      <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
+                        <select
+                          name="returnDays"
+                          id="category"
+                          value={values?.returnDays}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option value="" hidden>
+                            Choose One
+                          </option>
+                          <option value="0">NON Returnable </option>
+                          <option value="7">7 Days</option>
+                          <option value="15">15 Days</option>
+                        </select>
+                        {/* <p>
+                      the text is , the platform commission or this category
+                      will be <span>10%</span>{" "}
+                    </p> */}
+                      </div>
+                    </div>
+
+                    <div className="ord-filt-bx add-prod-inpt-bx ">
+                      <span>KP Return</span>
+                      <div
+                        className={
+                          kpChoose === "Yes"
+                            ? "select-bx-two-bx select-bx-two-bx2"
+                            : "select-bx-two-bx"
+                        }
+                      >
+                        <div className="add-prod-inpt-bx21 ">
+                          <select
+                            name="kpReturn"
+                            id="category"
+                            onChange={handleKpChange}
+                          >
+                            <option value="ChooseOne">Choose One</option>
+                            <option value="Yes">Yes </option>
+                            <option value="No">No</option>
+                          </select>
+                        </div>
+                        {kpChoose === "Yes" ? (
+                          <div className="add-prod-inpt-bx2 ">
+                            <input
+                              type="text"
+                              name="kpReturn"
+                              value={values?.kpReturn}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              id="price"
+                              placeholder="Enter Price"
+                              autoComplete="off"
+                            />
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
 
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
                       {/* <button
@@ -929,7 +888,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
           {tabActive === "shipping" ? (
             <Formik
-              initialValues={initialValues || payload}
+              initialValues={payload}
               onSubmit={handleAddProductShipingSubmit}
             >
               {({
@@ -1058,7 +1017,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
               <div
                 className={
-                  genComb
+                  genComb || variations?.variations?.length
                     ? "add-product-form-bx add-product-form-bx212 add-product-form-bx22222"
                     : "add-product-form-bx add-product-form-bx212 "
                 }
@@ -1120,7 +1079,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     )
                   : null}
               </div>
-              {genComb && (
+              {genComb || variations?.variations?.length ? (
                 <div className="add-prod-form-main  shipping-info-bx">
                   <div className="add-product-form-bx add-product-form-bx22222    add-product-form-bx212">
                     <div className="comb-table">
@@ -1417,7 +1376,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
               <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                 <button
                   onClick={() => {
@@ -1445,7 +1404,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 </button> */}
                 <button
                   onClick={() => {
-                    setTabActive("groupproduct");
+                    setTabActive("climconect");
                     enableTabButton(4);
                   }}
                   // onClick={handleMesasagePublish}
@@ -1466,7 +1425,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
             </div>
           ) : null}
 
-          {tabActive === "groupproduct" ? (
+          {/* {tabActive === "groupproduct" ? (
             <div className="add-prod-form-main shipping-info-bx">
               <div className="add-product-form-bx add-product-form-bx212">
                 {inptBx.map((inptValue, indx) => (
@@ -1552,7 +1511,126 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 </div>
               ) : null}
             </div>
+          ) : null} */}
+
+          {tabActive === "climconect" ? (
+            <Formik initialValues={payload} onSubmit={handlePublishSubmit}>
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                const totalMarks = getMarksCount(values);
+                return (
+                  <Form className="add-prod-form-main basic-info-bx">
+                    <div className="add-product-form-bx">
+                      {climeQuestions
+                        ?.filter(
+                          ({ isQuestionForAdmin }) => !isQuestionForAdmin
+                        )
+                        ?.map(
+                          ({ question, id, answers, perfix, isChekBox }) => {
+                            return (
+                              <div
+                                key={id}
+                                className="ord-filt-bx add-prod-inpt-bx mock-inpt-bx"
+                              >
+                                <div className="left-label">
+                                  <span>{question} </span>
+                                  {perfix ? (
+                                    <span className="brakcet">{perfix}</span>
+                                  ) : null}
+                                </div>
+
+                                {isChekBox ? (
+                                  <div className="check-box-flex-bx">
+                                    {answers?.map(
+                                      ({ answer, id: answerId }) => {
+                                        return (
+                                          <div className="check-bx-gst">
+                                            <input
+                                              type="checkbox"
+                                              // name="badges"
+                                              id="badges"
+                                              onChange={() => {
+                                                let badge = values?.[id] || [];
+                                                if (badge?.includes(answerId)) {
+                                                  badge = badge?.filter(
+                                                    (el) => el != answerId
+                                                  );
+                                                } else {
+                                                  badge = [...badge, answerId];
+                                                }
+                                                handleChange({
+                                                  target: {
+                                                    name: id,
+                                                    value: badge,
+                                                  },
+                                                });
+                                              }}
+                                              checked={(
+                                                values?.[id] || []
+                                              )?.includes(answerId)}
+                                              className="checkbox212 "
+                                            />
+                                            <span>{answer}</span>
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                ) : (
+                                  <div className="add-prod-inpt-bx21 ">
+                                    <select
+                                      name={id}
+                                      id="category"
+                                      value={values?.[id]}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                    >
+                                      <option value="" hidden>
+                                        Choose One{" "}
+                                      </option>
+                                      {answers?.map(({ answer, id }) => (
+                                        <option value={id}>{answer}</option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
+                        )}
+                      <div className="total-right-bx">
+                        <span>Clim Connect Valuation</span>
+                        <div
+                          style={{ backgroundColor: getClimeColor(totalMarks) }}
+                          className="color-bx"
+                        ></div>
+                      </div>
+
+                      <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
+                        {/* <button className="prod-add-del-btn upld-can-prod">
+                          Cancel
+                        </button> */}
+                        <button
+                          type="submit"
+                          // onClick={() => setTabActive("shipping")}
+                          className="prod-add-del-btn upld-add-prod"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
           ) : null}
+<<<<<<< HEAD
 
           {
             tabActive === 'climconect' ? (
@@ -2166,6 +2244,8 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
 
           
+=======
+>>>>>>> 4ecff671ff8b96f0422a787d253375393e2d6ebb
         </div>
       </section>
     </>

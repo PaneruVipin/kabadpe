@@ -28,6 +28,8 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [messageDraft  , setMessageDraft] = useState(false);
   const [selValue , setSelValue] = useState(false);
   const [kpChoose , setKpChoose] =  useState(false);
+  const [blkOrder , setBlkOrder] =  useState(false);
+
 
 
   const handleKpChange = (e) => {
@@ -327,6 +329,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               >
                 Clim Connect
               </button>
+            {tabActive === 'bulkorder' ?  <button
+                onClick={() => setTabActive("bulkorder")}
+                className={
+                  tabActive === "bulkorder"
+                    ? "tab-add-prod tabactive"
+                    : "tab-add-prod"
+                }
+              >
+                Bulk Orders
+              </button> : null}
             </div>
           </div>
 
@@ -973,7 +985,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           type="number"
                           name="length"
                           id="length"
-                          placeholder="in (cm) "
+                          placeholder="in (cm)"
                           autoComplete="off"
                           value={values?.length}
                           onChange={handleChange}
@@ -987,7 +999,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           type="number"
                           name="width"
                           id="Width"
-                          placeholder="in (cm) "
+                          placeholder="in (cm)"
                           autoComplete="off"
                           value={values?.width}
                           onChange={handleChange}
@@ -1001,13 +1013,30 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           type="number"
                           name="height"
                           id="height"
-                          placeholder="in (cm) "
+                          placeholder="in (cm)"
                           autoComplete="off"
                           value={values?.height}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
                       </div>
+
+                      <div className="ord-filt-bx add-prod-inpt-bx ">
+                        <span>Is this product available for 2-hour delivery</span>
+
+                        <div className="add-prod-inpt-bx21">
+                          <select
+                            name="shipping"
+                            id="Shipping"
+                           
+                          >
+                            <option value="Choose Option">Choose Option</option>
+                            <option value="Yes">Yes</option>
+                           
+                          </select>
+                        </div>
+                      </div>
+                      
                     </div>
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                       <button
@@ -1891,14 +1920,14 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 </div>
 
                 <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                <button className="prod-add-del-btn upld-can-prod">
-                  Cancel
+                <button className="prod-add-del-btn pb-btn  upld-can-prod">
+                  Publish Without Bulk Orders
                 </button>
                 <button
-                  onClick={() => setTabActive("shipping")}
-                  className="prod-add-del-btn upld-add-prod"
+                  onClick={() =>{ setTabActive("shipping"), setTabActive('bulkorder')}}
+                  className="prod-add-del-btn upld-add-prod" style={{ width : 'max-content'}}
                 >
-                  Save & Next
+                  Create Bulk Orders
                 </button>
               </div>
 
@@ -1906,6 +1935,236 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 </div>
             ) : null
           }
+
+          {
+            tabActive === 'bulkorder' ? <div className="bulk-order-main">
+
+              <h5>This Product is available for bulk order and customization.</h5>
+
+              <div className="bulk-ord-flex bulk-ord-flex1">
+                
+                <div className="left-blk-order-bx">
+
+                  <h6>Number Of Quantity</h6>
+
+                  
+
+                </div>
+
+                <div className="right-blk-order-flex-bx">
+
+                  <h6>Price ( pcs. / kg ) </h6>
+                  <h6>Customization ( price pcs. / kg) </h6>
+                  <h6>Delivery (In days)</h6>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+                <div className="bulk-ord-flex bulk-ord-flex2">
+                
+                <div className="left-blk-order-bx left-blk-order-bx1">
+
+                  <h6>100 - 500</h6>
+
+                  <div className="chse-type-bx">
+                    <select name="chose" id="chose">
+                      <option value="Choose One">Choose One</option>
+                      <option value="kg">kg</option>
+                      <option value="pcs">pcs.</option>
+
+                    </select>
+                  </div>
+                </div>
+
+                <div className="right-blk-order-flex-bx">
+
+                <div className="blk-ord-inpt">
+                  <input type="text" name="price" id="price" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="customization" id="customization" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="days" id="days" placeholder="" />
+                </div>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+                <div className="bulk-ord-flex bulk-ord-flex2">
+                
+                <div className="left-blk-order-bx left-blk-order-bx1">
+
+                  <h6>501 - 1000</h6>
+
+                  <div className="chse-type-bx">
+                    <select name="chose" id="chose">
+                      <option value="Choose One">Choose One</option>
+                      <option value="kg">kg</option>
+                      <option value="pcs">pcs.</option>
+
+                    </select>
+                  </div>
+
+                </div>
+
+                <div className="right-blk-order-flex-bx">
+
+                <div className="blk-ord-inpt">
+                  <input type="text" name="price" id="price" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="customization" id="customization" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="days" id="days" placeholder="" />
+                </div>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+                <div className="bulk-ord-flex bulk-ord-flex2">
+                
+                <div className="left-blk-order-bx left-blk-order-bx1">
+
+                  <h6>1001 - 2000</h6>
+                  <div className="chse-type-bx">
+                    <select name="chose" id="chose">
+                      <option value="Choose One">Choose One</option>
+                      <option value="kg">kg</option>
+                      <option value="pcs">pcs.</option>
+
+                    </select>
+                  </div>
+                </div>
+
+                <div className="right-blk-order-flex-bx">
+
+                <div className="blk-ord-inpt">
+                  <input type="text" name="price" id="price" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="customization" id="customization" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="days" id="days" placeholder="" />
+                </div>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+                <div className="bulk-ord-flex  bulk-ord-flex2">
+                
+                <div className="left-blk-order-bx left-blk-order-bx1">
+
+                  <h6>2001 - 5000</h6>
+                  <div className="chse-type-bx">
+                    <select name="chose" id="chose">
+                      <option value="Choose One">Choose One</option>
+                      <option value="kg">kg</option>
+                      <option value="pcs">pcs.</option>
+
+                    </select>
+                  </div>
+                </div>
+
+                <div className="right-blk-order-flex-bx">
+
+                <div className="blk-ord-inpt">
+                  <input type="text" name="price" id="price" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="customization" id="customization" placeholder="" />
+                </div>
+                <div className="blk-ord-inpt">
+                  <input type="text" name="days" id="days" placeholder="" />
+                </div>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+
+                  <div className="bulk-ord-flex bulk-ord-flex2 bulk-ord-flex3">
+                
+                <div className="left-blk-order-bx left-blk-order-bx2">
+
+                  <h6>Type your customization details</h6>
+
+                </div>
+
+                <div className="det-bx">
+
+                <textarea name="details" id="details" rows='3'></textarea>
+                  
+                </div>
+
+
+
+                
+                </div>
+
+                <div className="bulk-ord-flex  bulk-ord-flex3 bulk-ord-flex4">
+                
+                <div className="left-blk-order-bx left-blk-order-bx2">
+
+                  <h6>Add your logo</h6>
+
+                </div>
+
+                <div className="upload-logo-bx">
+
+                  <div className="logo-bx">
+                    <img src={ '/images/customImg/836.jpg' } alt="" />
+                  </div>
+                  
+                  <h6>Please Upload your Logo</h6>
+
+                  <input type="file" name="logo_file" id="logo_file" accept="image/* " />
+
+                <label htmlFor="logo_file" className="upload">Upload</label>
+                  
+                </div>
+
+
+
+
+                
+                </div>
+
+                <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
+           
+                <button
+                  onClick={() =>{ setTabActive("shipping"), setTabActive('bulkorder')}}
+                  className="prod-add-del-btn upld-add-prod"
+                >
+                  Publish
+                </button>
+              </div>
+              
+            </div> : null
+          }
+
+
           
         </div>
       </section>

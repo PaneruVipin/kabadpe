@@ -20058,3 +20058,196 @@ gap: 0 ;
 .total-right-bx span{
   font-size: 1rem;
 }
+
+.pb-btn{
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  width: max-content;
+}
+
+.bulk-order-main{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-top: 2rem;
+  padding-inline: 1rem;
+
+}
+
+
+
+.bulk-order-main h5{
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: .1px;
+  margin-bottom: 2rem;
+  color: #008000;
+}
+
+.bulk-ord-flex{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+
+}
+
+.bulk-ord-flex1{
+  margin-bottom: 2.5rem;
+
+}
+
+.left-blk-order-bx{
+  position: relative;
+  width: 15rem;
+}
+
+.right-blk-order-flex-bx{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+}
+
+.right-blk-order-flex-bx h6{
+  width: 15rem;
+}
+
+.left-blk-order-bx h6 , .right-blk-order-flex-bx h6{
+  position: relative;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.bulk-ord-flex2{
+  margin-bottom: 1.5rem;
+}
+
+.blk-ord-inpt {
+  position: relative;
+  width: 15rem;
+  height: 2.5rem;
+  background-color: #f3f4f6;
+  border-radius: .5rem;
+}
+
+.blk-ord-inpt input{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  padding-inline: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+}
+
+.left-blk-order-bx2{
+  width: 20rem;
+}
+
+.bulk-ord-flex3{
+  align-items: flex-start;
+}
+
+.det-bx{
+  position: relative;
+  width: 49rem;
+  background-color: #f3f4f6;
+  border-radius: .55rem;
+
+}
+
+.det-bx textarea{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #212421;
+  padding-inline: 1rem;
+  padding-block: 1rem;
+}
+
+
+
+.upload-logo-bx{
+  position: relative;
+  width: 13rem;
+  background-color: #f3f1f2;
+  border-radius: .55rem;
+  padding: 2rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.logo-bx{
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.logo-bx img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.upload-logo-bx  h6{
+  position: relative;
+  margin-top: .87rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+
+}
+
+.upload{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  background-color: #00224f;
+  color: #fff;
+  font-size: 1rem;
+  padding-block: .3rem;
+  border-radius: .55rem;
+  cursor: pointer;
+}
+
+.left-blk-order-bx1{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+}
+
+.chse-type-bx{
+  position: relative;
+  width: max-content;
+  width: max-content;
+  height: 2rem;
+  background-color: #f3f4f6;
+  border-radius: .5rem;
+  padding-inline: .55rem;
+
+}
+
+.chse-type-bx select{
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  font-size: .89rem;
+
+}

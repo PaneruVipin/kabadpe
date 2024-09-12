@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import { useQuery } from "@tanstack/react-query";
 import { greenProdCategoryFetch } from "../../apis/products/categories";
@@ -58,13 +58,12 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     initialValues
       ? {
           ...initialValues,
-          material_used: JSON.parse(initialValues?.material_used || "[]"),
           badges: JSON.parse(initialValues?.badges || "[]"),
         }
       : {}
   );
   const [tabFn, setTabFn] = useState({
-    1: () => {},
+    5: () => {},
     2: () => {},
     3: () => {},
     4: () => {},
@@ -185,8 +184,20 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setInptBx([...inptBx, ""]);
   };
   const enableTabButton = (button = 2) => {
-    const buttons = { 2: "shipping", 3: "combination", 4: "climconect" };
-    setTabFn((prev) => ({ ...prev, [button]: buttons?.[button] }));
+    const buttons = {
+      2: () => setTabActive("shipping"),
+      3: () => setTabActive("combination"),
+      4: () => setTabActive("climconect"),
+      5: () => setTabActive("bulkorder"),
+    };
+    if (button == "all") {
+      setTabFn(buttons);
+      return;
+    }
+    setTabFn((prev) => ({
+      ...prev,
+      [button]: () => buttons?.[button],
+    }));
   };
   const handleAddProductSubmit = async (data) => {
     const payload = {
@@ -282,6 +293,11 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     "Locally sourced ingredients",
     "Sustainable product",
   ];
+  useEffect(() => {
+    if (initialValues) {
+      enableTabButton("all");
+    }
+  }, [initialValues]);
 
   return (
     <>
@@ -316,7 +332,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Basic Info
               </button>
               <button
-                onClick={() => setTabActive("shipping")}
+                onClick={tabFn?.[2]}
                 className={
                   tabActive === "shipping"
                     ? "tab-add-prod tabactive"
@@ -326,7 +342,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Shipping
               </button>
               <button
-                onClick={() => setTabActive("combination")}
+                onClick={tabFn?.[3]}
                 className={
                   tabActive === "combination"
                     ? "tab-add-prod tabactive"
@@ -346,7 +362,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Questions
               </button> */}
               <button
-                onClick={() => setTabActive("climconect")}
+                onClick={tabFn?.[4]}
                 className={
                   tabActive === "climconect"
                     ? "tab-add-prod tabactive"
@@ -355,18 +371,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               >
                 Clim Connect
               </button>
-              {tabActive === "bulkorder" ? (
-                <button
-                  onClick={() => setTabActive("bulkorder")}
-                  className={
-                    tabActive === "bulkorder"
-                      ? "tab-add-prod tabactive"
-                      : "tab-add-prod"
-                  }
-                >
-                  Bulk Orders
-                </button>
-              ) : null}
+              <button
+                onClick={tabFn?.[5]}
+                className={
+                  tabActive === "bulkorder"
+                    ? "tab-add-prod tabactive"
+                    : "tab-add-prod"
+                }
+              >
+                Bulk Orders
+              </button>
             </div>
           </div>
 
@@ -1627,6 +1641,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           type="button"
                           onClick={() => {
                             values.next = true;
+                            enableTabButton(5);
                             handleSubmit();
                           }}
                           className="prod-add-del-btn upld-add-prod"
@@ -1643,7 +1658,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
           {tabActive === "bulkorder" ? (
             <Formik
-              initialValues={{ unit: "kg" }}
+              initialValues={initialValues?.ProdBulkDetal || { unit: "kg" }}
               onSubmit={(data) =>
                 handlePublishSubmit({ bulkOrderDetail: JSON.stringify(data) })
               }

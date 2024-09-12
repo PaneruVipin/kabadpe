@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import combData from "./CombinationData";
 import { Form, Formik } from "formik";
 import { useQuery } from "@tanstack/react-query";
 import { greenProdCategoryFetch } from "../../apis/products/categories";
@@ -11,7 +10,12 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { generateCombinations } from "../../lib/variations";
-import { climeQuestions, getClimeColor, getMarksCount } from "../../lib/climeQuestions";
+import {
+  climeQuestions,
+  getClimeColor,
+  getMarksCount,
+} from "../../lib/climeQuestions";
+import { parse } from "postcss";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -23,14 +27,17 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
-  const [checkBxOne , setCheckBxOne] = useState(false);
-  const [checkBxTwo , setCheckBxTwo] = useState(false);
-  const [messagePublish  , setMessagePublish] = useState(false);
-  const [messageDraft  , setMessageDraft] = useState(false);
-  const [selValue , setSelValue] = useState(false);
-  const [kpChoose , setKpChoose] =  useState(false);
-  const [blkOrder , setBlkOrder] =  useState(false);
-
+  const [messagePublish, setMessagePublish] = useState(false);
+  const [messageDraft, setMessageDraft] = useState(false);
+  const [selValue, setSelValue] = useState(false);
+  const [kpChoose, setKpChoose] = useState(false);
+  const [blkOrder, setBlkOrder] = useState(false);
+  const bulkOrderVariants = [
+    { lable: "100 - 500", value: "100_500", id: 1 },
+    { lable: "501 - 1000", value: "501_1000", id: 2 },
+    { lable: "1001 - 2000", value: "1001_2000", id: 3 },
+    { lable: "2001 - 5000", value: "2001_5000", id: 4 },
+  ];
   const handleKpChange = (e) => {
     setKpChoose(e.target.value);
   };
@@ -47,10 +54,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [variations, setVariations] = useState({
     variations: initialValues?.ProdVariations || [],
   });
-  console.log(
-    "variations variations variations variations variations variations variations",
-    variations
-  );
   const [payload, setPayload] = useState(
     initialValues
       ? {
@@ -242,7 +245,13 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       variations: JSON.stringify(variations?.variations || []),
       ...data,
       material_used: JSON.stringify(data?.material_used || []),
+      next: "",
     };
+    if (data?.next) {
+      setPayload(finalPayload);
+      setTabActive("bulkorder");
+      return;
+    }
     const res = initialValues
       ? await greenProductsUpdate(finalPayload)
       : await greenProductsAdd(finalPayload);
@@ -346,16 +355,18 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               >
                 Clim Connect
               </button>
-            {tabActive === 'bulkorder' ?  <button
-                onClick={() => setTabActive("bulkorder")}
-                className={
-                  tabActive === "bulkorder"
-                    ? "tab-add-prod tabactive"
-                    : "tab-add-prod"
-                }
-              >
-                Bulk Orders
-              </button> : null}
+              {tabActive === "bulkorder" ? (
+                <button
+                  onClick={() => setTabActive("bulkorder")}
+                  className={
+                    tabActive === "bulkorder"
+                      ? "tab-add-prod tabactive"
+                      : "tab-add-prod"
+                  }
+                >
+                  Bulk Orders
+                </button>
+              ) : null}
             </div>
           </div>
 
@@ -606,7 +617,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           onBlur={handleBlur}
                         />
                       </div>
-
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>Product Tags</span>
@@ -970,21 +980,17 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx ">
-                        <span>Is this product available for 2-hour delivery</span>
+                        <span>
+                          Is this product available for 2-hour delivery
+                        </span>
 
                         <div className="add-prod-inpt-bx21">
-                          <select
-                            name="shipping"
-                            id="Shipping"
-                           
-                          >
+                          <select name="shipping" id="Shipping">
                             <option value="Choose Option">Choose Option</option>
                             <option value="Yes">Yes</option>
-                           
                           </select>
                         </div>
                       </div>
-                      
                     </div>
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                       <button
@@ -1503,15 +1509,24 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           ) : null} */}
 
           {tabActive === "climconect" ? (
-            <Formik initialValues={payload} onSubmit={handlePublishSubmit}>
+            <Formik
+              initialValues={{
+                ...payload,
+                material_used: JSON.parse(payload?.material_used || "[]"),
+              }}
+              onSubmit={handlePublishSubmit}
+            >
               {({
                 handleBlur,
                 handleChange,
                 values,
                 errors,
                 touched,
+                handleSubmit,
                 ...rest
               }) => {
+                //heloo
+                console.log("values values", values, payload);
                 const totalMarks = getMarksCount(values);
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
@@ -1602,12 +1617,18 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
 
                       <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                        <button className="prod-add-del-btn pb-btn upld-can-prod">
+                        <button
+                          type="submit"
+                          className="prod-add-del-btn pb-btn upld-can-prod"
+                        >
                           Publish Without Bulk Order
                         </button>
                         <button
-                          type="submit"
-                          onClick={() => { setTabActive('bulkorder')}}
+                          type="button"
+                          onClick={() => {
+                            values.next = true;
+                            handleSubmit();
+                          }}
                           className="prod-add-del-btn upld-add-prod"
                         >
                           Create Bulk Order
@@ -1620,235 +1641,162 @@ const AddProduct = ({ onClickClose, initialValues }) => {
             </Formik>
           ) : null}
 
-          
-{
-            tabActive === 'bulkorder' ? <div className="bulk-order-main">
-
-              <h5>This Product is available for bulk order and customization.</h5>
-
-              <div className="bulk-ord-flex bulk-ord-flex1">
-                
-                <div className="left-blk-order-bx">
-
-                  <h6>Number Of Quantity</h6>
-
-                  
-
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                  <h6>Price ( pcs. / kg ) </h6>
-                  <h6>Customization ( price pcs. / kg) </h6>
-                  <h6>Delivery (In days)</h6>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>100 - 500</h6>
-
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>501 - 1000</h6>
-
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>1001 - 2000</h6>
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex  bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>2001 - 5000</h6>
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-
-                  <div className="bulk-ord-flex bulk-ord-flex2 bulk-ord-flex3">
-                
-                <div className="left-blk-order-bx left-blk-order-bx2">
-
-                  <h6>Type your customization details</h6>
-
-                </div>
-
-                <div className="det-bx">
-
-                <textarea name="details" id="details" rows='3'></textarea>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex  bulk-ord-flex3 bulk-ord-flex4">
-                
-                <div className="left-blk-order-bx left-blk-order-bx2">
-
-                  <h6>Add your logo</h6>
-
-                </div>
-
-                <div className="upload-logo-bx">
-
-                  <div className="logo-bx">
-                    <img src={ '/images/customImg/836.jpg' } alt="" />
-                  </div>
-                  
-                  <h6>Please Upload your Logo</h6>
-
-                  <input type="file" name="logo_file" id="logo_file" accept="image/* " />
-
-                <label htmlFor="logo_file" className="upload">Upload</label>
-                  
-                </div>
-
-
-
-
-                
-                </div>
-
-                <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-           
-                <button
-                  onClick={() =>{ setTabActive("shipping"), setTabActive('bulkorder')}}
-                  className="prod-add-del-btn upld-add-prod"
-                >
-                  Publish
-                </button>
-              </div>
-              
-            </div> : null
-          }
-          
+          {tabActive === "bulkorder" ? (
+            <Formik
+              initialValues={{ unit: "kg" }}
+              onSubmit={(data) =>
+                handlePublishSubmit({ bulkOrderDetail: JSON.stringify(data) })
+              }
+            >
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                //heloo
+                return (
+                  <Form className="bulk-order-main">
+                    <h5>
+                      This Product is available for bulk order and
+                      customization.
+                    </h5>
+
+                    <div className="bulk-ord-flex bulk-ord-flex1">
+                      <div className="left-blk-order-bx">
+                        <h6>Number Of Quantity</h6>
+                      </div>
+
+                      <div className="right-blk-order-flex-bx">
+                        <h6>Price ( {values?.unit}) </h6>
+                        <h6>Customization ( {values?.unit}) </h6>
+                        <h6>Delivery ( days )</h6>
+                      </div>
+                    </div>
+
+                    {bulkOrderVariants.map(({ id, lable, value }) => {
+                      return (
+                        <div key={id} className="bulk-ord-flex bulk-ord-flex2">
+                          <div className="left-blk-order-bx left-blk-order-bx1">
+                            <h6>{lable}</h6>
+
+                            <div className="chse-type-bx">
+                              <select
+                                name="unit"
+                                id="chose"
+                                value={values?.unit}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              >
+                                <option value="" hidden>
+                                  Choose One
+                                </option>
+                                <option value="kg">kg</option>
+                                <option value="pcs">pcs.</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="right-blk-order-flex-bx">
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`p${value}`}
+                                id="price"
+                                placeholder=""
+                                value={values?.[`p${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                              />
+                            </div>
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`c${value}`}
+                                id="customization"
+                                placeholder=""
+                                value={values?.[`c${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`d${value}`}
+                                id="days"
+                                placeholder=""
+                                value={values?.[`d${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="bulk-ord-flex bulk-ord-flex2 bulk-ord-flex3">
+                      <div className="left-blk-order-bx left-blk-order-bx2">
+                        <h6>Type your customization details</h6>
+                      </div>
+
+                      <div className="det-bx">
+                        <textarea
+                          name="customization"
+                          id="details"
+                          rows="3"
+                          value={values?.customization}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div className="bulk-ord-flex  bulk-ord-flex3 bulk-ord-flex4">
+                      <div className="left-blk-order-bx left-blk-order-bx2">
+                        <h6>Add your logo</h6>
+                      </div>
+
+                      <div className="upload-logo-bx">
+                        <div className="logo-bx">
+                          <img src={"/images/customImg/836.jpg"} alt="" />
+                        </div>
+
+                        <h6>Please Upload your Logo</h6>
+
+                        <input
+                          type="file"
+                          name="logo_file"
+                          id="logo_file"
+                          accept="image/* "
+                        />
+
+                        <label htmlFor="logo_file" className="upload">
+                          Upload
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
+                      <button
+                        type="submit"
+                        className="prod-add-del-btn upld-add-prod"
+                      >
+                        Publish
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          ) : null}
         </div>
       </section>
     </>

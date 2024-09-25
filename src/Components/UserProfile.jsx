@@ -18,6 +18,7 @@ import { logout } from "../lib/logout";
 import Redirect from "./Auth/RedirectIfLogout";
 import WasteWallet from "./WasteWallet";
 import { hashId } from "../lib/array";
+import MyOrder from "./MyOrder";
 
 const UserProfile = ({
   onProfileNav,
@@ -168,6 +169,16 @@ const UserProfile = ({
             My Appointments
           </button>
 
+          <button
+            onClick={() => filterTab(12)}
+            className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
+          >
+            <div className="u-prf-tab-icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            My Orders
+          </button>
+
           {/* <button
             // onClick={() => filterTab(8)}
             className={profBtn === 8 ? "u-prf-bx profactive " : "u-prf-bx "}
@@ -248,11 +259,10 @@ const UserProfile = ({
 
           <div>
             <button
-              onClick={handleUpadateProfileImage}
+              onClick={handleUpadateProfileImage} 
               className="prof-input-file-bx"
               style={{ color: "white" }}
             >
-              {" "}
               Save
             </button>
           </div>
@@ -297,6 +307,7 @@ const UserProfile = ({
       ) : null}{" "}
       {/**MyWallet */}
       {profBtn === 8 ? <MyOffer /> : null}
+      {profBtn === 12 ? <MyOrder /> : null}
     </>
   );
 };

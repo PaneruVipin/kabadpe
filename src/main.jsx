@@ -10,9 +10,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import OrderContextProvider from "./Context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <OrderContextProvider>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter >
@@ -28,5 +30,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </QueryClientProvider>
     </Provider>
+    </OrderContextProvider>
   </React.StrictMode>
 );

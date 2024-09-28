@@ -179,5 +179,5 @@ export const getMarksCount = (values = {}) => {
     }
     return a + mark;
   }, 0);
-  return totalMarks
+  return totalMarks;
 };

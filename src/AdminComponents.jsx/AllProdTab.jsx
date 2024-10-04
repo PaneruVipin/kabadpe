@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import allProducts from "../AllProdData";
+import { useQuery } from "@tanstack/react-query";
+import { greenProductsFetchAll } from "../apis/products/product";
+import { DateTime } from "luxon";
 
 const AllProdTab = () => {
   const [check, setCheck] = useState(false);
@@ -26,7 +29,10 @@ const AllProdTab = () => {
     const updatedCheckboxes = checkboxes.map(() => !allChecked);
     setCheckboxes(updatedCheckboxes);
   };
-
+  const { data: products, refetch: refetchProduct } = useQuery({
+    queryKey: ["greenProductsFetchAll"],
+    queryFn: () => greenProductsFetchAll({}),
+  });
   return (
     <>
       <section className="all-prod-table-comp">
@@ -65,11 +71,11 @@ const AllProdTab = () => {
                 <span>Categories</span>
               </th>
 
-              <th>
+              {/* <th>
                 <div className="star-icon">
                   <i className="fa-regular fa-star"></i>
                 </div>
-              </th>
+              </th> */}
 
               <th>
                 <span>Date</span>
@@ -77,87 +83,101 @@ const AllProdTab = () => {
             </tr>
           </thead>
           <tbody>
-            {prodData.map((elem, index) => {
-              return (
-                <>
-                  <tr key={index}>
-                    {checkboxes.map((isChecked, index) => {
-                      return (
-                        <>
-                          <td key={index}>
-                            <input
-                              type="checkbox"
-                              checked={isChecked}
-                              onChange={() => handleCheckboxChange(index)}
-                            />
-                          </td>
-                        </>
-                      );
-                    })}
+            {!products?.error
+              ? products?.map(
+                  (
+                    {
+                      id,
+                      Vendor,
+                      sku,
+                      quantity,
+                      productPrice,
+                      sellPrice,
+                      ProdImages,
+                      ProdCategory,
+                      name,addedOn,
+                      ...rest
+                    },
+                    index
+                  ) => {
+                    return (
+                      <tr key={id}>
+                        <td key={index}>
+                          <input type="checkbox" />
+                        </td>
 
-                    <td>
-                      <span> {index + 1} </span>
-                    </td>
+                        <td>
+                          <span> {index + 1} </span>
+                        </td>
 
-                    <td>
-                      <span> {elem.vendName} </span>
-                    </td>
+                        <td>
+                          <span> {Vendor?.fullname} </span>
+                        </td>
 
-                    <td>
-                      <div className="prod-imge">
-                        <img src={elem.prodImg} alt="" />
-                      </div>
-                    </td>
+                        <td>
+                          <div className="prod-imge">
+                            <img src={ProdImages?.[0]?.image} alt="" />
+                          </div>
+                        </td>
 
-                    <td>
-                      <span> {elem.prodName} </span>
-                      <div className="prod-edit-bin-vw-flx-box">
-                        <span>Id: {elem.id} </span>
-                        <span>Edit</span>
-                        <span>Bin</span>
-                        <span>View</span>
-                        <span>Duplicate</span>
-                      </div>
-                    </td>
+                        <td>
+                          <span> {name} </span>
+                          <div className="prod-edit-bin-vw-flx-box">
+                            <span>Id: {id} </span>
+                            <span>Edit</span>
+                            <span>Bin</span>
+                            <span>View</span>
+                            <span>Duplicate</span>
+                          </div>
+                        </td>
 
-                    <td>
-                      <span> {elem.sku} </span>
-                    </td>
+                        <td>
+                          <span> {sku} </span>
+                        </td>
 
-                    <td>
-                      <span
-                        style={{
-                          color: elem.stock === "In Stock" ? "green" : "red",
-                        }}
-                      >
-                        {" "}
-                        {elem.stock}{" "}
-                      </span>
-                    </td>
+                        <td>
+                          <span
+                            style={{
+                              color: quantity ? "green" : "red",
+                            }}
+                          >
+                            {" "}
+                            {quantity}
+                          </span>
+                        </td>
 
-                    <td>
-                      <div className="price-prod-text">
-                        {" "}
-                        <span> {elem.old_price} </span>{" "}
-                        <span>₹{elem.price}</span>{" "}
-                      </div>
-                    </td>
+                        <td>
+                          <div className="price-prod-text">
+                            {" "}
+                            <span>₹{productPrice} </span>{" "}
+                            <span>₹{sellPrice}</span>{" "}
+                          </div>
+                        </td>
 
-                    <td>
-                      <span> {elem.Category} </span>
-                    </td>
+                        <td>
+                          <span> {ProdCategory?.name} </span>
+                        </td>
 
-                    <td>
-                      <i className="fa-solid fa-star"></i>
-                    </td>
+                        {/* <td>
+                          <i className="fa-solid fa-star"></i>
+                        </td> */}
 
-                    <td>
-                      <span> {elem.Date} </span>
-                    </td>
-                  </tr>
-                </>
-              );
-            })}
+                        <td>
+                          <span> {DateTime.fromISO(addedOn, {
+                      zone: "utc",
+                    })
+                      .setZone("Asia/Kolkata")
+                      .toFormat("ccc dd LLL yyyy")} at {DateTime.fromISO(addedOn, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("hh:mm a")} </span>
+                        </td>
+                      </tr>
+                    );
+                  }
+                )
+              : null}
           </tbody>
         </table>
       </section>

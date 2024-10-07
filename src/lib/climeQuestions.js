@@ -1,7 +1,7 @@
 export const climeQuestions = [
   {
     question: "Type of product",
-    perfix: "( Metal, Glass, Cloth, Wood, Bamboo, Oil, Wax,Electronic)",
+    // perfix: "( Metal, Glass, Cloth, Wood, Bamboo, Oil, Wax,Electronic)",
     id: "product_type",
     answers: [
       { answer: "Virgin", marks: 5, id: "virgin" },
@@ -107,7 +107,7 @@ export const climeQuestions = [
     question: "Materials used in making product are sourced from",
     id: "sourced_from",
     answers: [
-      { answer: "400 KM", marks: 5, id: "400_km" },
+      { answer: "Within 400 KM", marks: 5, id: "400_km" },
       { answer: "Country", marks: 2, id: "country" },
       { answer: "Imported", marks: 0, id: "imported" },
     ],

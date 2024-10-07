@@ -16,6 +16,8 @@ import {
   getMarksCount,
 } from "../../lib/climeQuestions";
 import { parse } from "postcss";
+import { generateUniqueSku } from "../../lib/sku";
+import { object } from "yup";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -60,7 +62,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           ...initialValues,
           badges: JSON.parse(initialValues?.badges || "[]"),
         }
-      : {}
+      : { sku: generateUniqueSku() }
   );
   const [tabFn, setTabFn] = useState({
     5: () => {},
@@ -298,7 +300,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       enableTabButton("all");
     }
   }, [initialValues]);
-
+  console.log("selected attribute", selectedAttributes);
   return (
     <>
       <section className="add-prod-comp" onClick={onClickClose}>
@@ -433,6 +435,34 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                               </span>{" "}
                             </p>
                           ) : null}
+                        </div>
+                      </div>
+
+                      <div className="ord-filt-bx add-prod-inpt-bx ">
+                        <span>Choose Sub-category</span>
+
+                        <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
+                          <select
+                            name="subCategoryId"
+                            id="category"
+                            value={values?.subCategoryId}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // required
+                          >
+                            <option value="" hidden>
+                              Choose Sub-category
+                            </option>
+                            {!categories?.error
+                              ? categories
+                                  ?.find(({ id }) => id == values?.categoryId)
+                                  ?.ProdSubCategories?.map(({ id, name }) => (
+                                    <option key={id} value={id}>
+                                      {name}
+                                    </option>
+                                  ))
+                              : null}
+                          </select>
                         </div>
                       </div>
 
@@ -787,37 +817,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     </div>
 
                     <div className="ord-filt-bx add-prod-inpt-bx ">
-                      <span>Packaging Type</span>
-
-                      <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
-                        <select
-                          name="packaging"
-                          value={values?.packaging}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          id="category"
-                        >
-                          <option value="" hidden>
-                            Choose Packaging
-                          </option>
-                          <option value="100%_eco_friendly">
-                            100% Eco Friendly
-                          </option>
-                          <option value="partial_plastic_packing">
-                            Partial Plastic Packing
-                          </option>
-                          <option value="plastic_packing">
-                            Plastic Packing
-                          </option>
-                        </select>
-                        {/* <p>
-                      the text is , the platform commission or this category
-                      will be <span>10%</span>{" "}
-                    </p> */}
-                      </div>
-                    </div>
-
-                    <div className="ord-filt-bx add-prod-inpt-bx ">
                       <span>Return</span>
 
                       <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
@@ -839,43 +838,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       the text is , the platform commission or this category
                       will be <span>10%</span>{" "}
                     </p> */}
-                      </div>
-                    </div>
-
-                    <div className="ord-filt-bx add-prod-inpt-bx ">
-                      <span>KP Return</span>
-                      <div
-                        className={
-                          kpChoose === "Yes"
-                            ? "select-bx-two-bx select-bx-two-bx2"
-                            : "select-bx-two-bx"
-                        }
-                      >
-                        <div className="add-prod-inpt-bx21 ">
-                          <select
-                            name="kpReturn"
-                            id="category"
-                            onChange={handleKpChange}
-                          >
-                            <option value="ChooseOne">Choose One</option>
-                            <option value="Yes">Yes </option>
-                            <option value="No">No</option>
-                          </select>
-                        </div>
-                        {kpChoose === "Yes" ? (
-                          <div className="add-prod-inpt-bx2 ">
-                            <input
-                              type="text"
-                              name="kpReturn"
-                              value={values?.kpReturn}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              id="price"
-                              placeholder="Enter Price"
-                              autoComplete="off"
-                            />
-                          </div>
-                        ) : null}
                       </div>
                     </div>
 
@@ -1023,7 +985,38 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           {tabActive === "combination" ? (
             <div className="add-prod-form-main shipping-info-bx">
               <h4>Attributes</h4>
-
+              <div className="check-box-flex-bx">
+                {!attributes?.error
+                  ? attributes?.map(({ id, label, name }) => {
+                      return (
+                        <div className="check-bx-gst">
+                          <input
+                            type="checkbox"
+                            // name="badges"
+                            checked={Object.keys(selectedAttributes)?.includes(
+                              name
+                            )}
+                            id="badges"
+                            className="checkbox212 "
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              const newSelectedAttributes = {
+                                ...selectedAttributes,
+                              };
+                              if (checked) {
+                                newSelectedAttributes[name] = [];
+                              } else {
+                                delete newSelectedAttributes?.[name];
+                              }
+                              setSelectedAttributes(newSelectedAttributes);
+                            }}
+                          />
+                          <span>{label}</span>
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
               <div
                 className={
                   genComb || variations?.variations?.length
@@ -1032,60 +1025,46 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 }
               >
                 {!attributes?.error
-                  ? attributes?.map(
-                      ({
-                        ProdAttributeValues,
-                        addedOn,
-                        attributeStatus,
-                        id,
-                        label,
-                        name,
-                        style,
-                        updatedOn,
-                      }) => {
-                        return (
-                          <div
-                            key={id}
-                            className="ord-filt-bx add-prod-inpt-bx"
-                          >
-                            <span>{label}</span>
+                  ? Object.keys(selectedAttributes || {}).map((key) => {
+                      const { id, label, name, ProdAttributeValues } =
+                        attributes?.find((e) => e?.name == key);
+                      return (
+                        <div key={id} className="ord-filt-bx add-prod-inpt-bx">
+                          <span>{label}</span>
 
-                            <div className="variants-attribute-bx">
-                              <Select
-                                options={(ProdAttributeValues || [])?.map(
-                                  ({ value }) => ({ value, label: value })
-                                )}
-                                components={{ NoOptionsMessage: () => {} }}
-                                name={name}
-                                id="sizes"
-                                isMulti
-                                onChange={(v) => {
-                                  const newValues = v?.map(
-                                    ({ value }) => value
-                                  );
-                                  setSelectedAttributes((prev) => ({
-                                    ...prev,
-                                    [name]: newValues,
-                                  }));
-                                }}
-                                placeholder={`Please enter ${label}`}
-                                menuIsOpen={menuIsOpen?.[id]}
-                                onBlur={() => setMenuIsOpen({ [id]: false })}
-                                onMenuOpen={() => setMenuIsOpen({ [id]: true })}
-                                styles={{
-                                  indicatorSeparator: () => ({
-                                    display: "none",
-                                  }),
-                                  dropdownIndicator: () => ({
-                                    display: "none",
-                                  }),
-                                }}
-                              />
-                            </div>
+                          <div className="variants-attribute-bx">
+                            <Select
+                              options={(ProdAttributeValues || [])?.map(
+                                ({ value }) => ({ value, label: value })
+                              )}
+                              components={{ NoOptionsMessage: () => {} }}
+                              name={name}
+                              id="sizes"
+                              isMulti
+                              onChange={(v) => {
+                                const newValues = v?.map(({ value }) => value);
+                                setSelectedAttributes((prev) => ({
+                                  ...prev,
+                                  [name]: newValues,
+                                }));
+                              }}
+                              placeholder={`Please enter ${label}`}
+                              menuIsOpen={menuIsOpen?.[id]}
+                              onBlur={() => setMenuIsOpen({ [id]: false })}
+                              onMenuOpen={() => setMenuIsOpen({ [id]: true })}
+                              styles={{
+                                indicatorSeparator: () => ({
+                                  display: "none",
+                                }),
+                                dropdownIndicator: () => ({
+                                  display: "none",
+                                }),
+                              }}
+                            />
                           </div>
-                        );
-                      }
-                    )
+                        </div>
+                      );
+                    })
                   : null}
               </div>
               {genComb || variations?.variations?.length ? (
@@ -1540,7 +1519,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 ...rest
               }) => {
                 //heloo
-                console.log("values values", values, payload);
                 const totalMarks = getMarksCount(values);
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
@@ -1599,6 +1577,46 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                                         );
                                       }
                                     )}
+                                  </div>
+                                ) : id == "kabadpe_returned" ? (
+                                  <div
+                                    className={
+                                      values?.[id] === "yes"
+                                        ? "select-bx-two-bx select-bx-two-bx2"
+                                        : "select-bx-two-bx"
+                                    }
+                                  >
+                                    <div className="add-prod-inpt-bx21 ">
+                                      <select
+                                        name={id}
+                                        id="category"
+                                        value={values?.[id]}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      >
+                                        <option value="" hidden>
+                                          Choose One{" "}
+                                        </option>
+                                        {answers?.map(({ answer, id }) => (
+                                          <option value={id}>{answer}</option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                    {values?.[id] == "yes" ? (
+                                      <div className="add-prod-inpt-bx2 ">
+                                        <input
+                                          type="number"
+                                          name="kpReturn"
+                                          value={values?.kpReturn}
+                                          onChange={handleChange}
+                                          onBlur={handleBlur}
+                                          id="price"
+                                          placeholder="Enter KP Return Price"
+                                          autoComplete="off"
+                                          required
+                                        />
+                                      </div>
+                                    ) : null}
                                   </div>
                                 ) : (
                                   <div className="add-prod-inpt-bx21 ">

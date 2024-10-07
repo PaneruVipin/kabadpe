@@ -6,7 +6,9 @@ import {
   greenProductsFetch,
   greenProductsUpdate,
 } from "../../apis/products/product";
-
+import { FaEdit } from "react-icons/fa";
+import { IoIosCloudDone } from "react-icons/io";
+import { toast } from "react-toastify";
 const VendorProduct = ({ compRedirectProdDet }) => {
   const [exportBox, setExportBox] = useState(false);
   const [importBox, setImportBox] = useState(false);
@@ -14,6 +16,8 @@ const VendorProduct = ({ compRedirectProdDet }) => {
   const [rangeBtn, setRangeBtn] = useState(false);
   const [rangeNum, setRangeNum] = useState(null);
   const [addProd, setAddProd] = useState(false);
+  const [editPrice, setEditPrice] = useState("");
+  const [editPriceValues, setEditPriceValues] = useState({});
   const [selectedRow, setSelectedRow] = useState(null);
 
   //   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -43,7 +47,19 @@ const VendorProduct = ({ compRedirectProdDet }) => {
     queryKey: ["greenProductsFetch"],
     queryFn: () => greenProductsFetch({}),
   });
-
+  const handleSavePriceClick = async () => {
+    const res = await greenProductsUpdate({
+      ...editPriceValues,
+      id: editPrice,
+    });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    refetch();
+    toast.success(res);
+    setEditPrice("");
+  };
   return (
     <>
       <section className="product-comp">
@@ -241,11 +257,56 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                           </td>
 
                           <td>
-                            <span> {productPrice} </span>
+                            <input
+                              value={
+                                id == editPrice
+                                  ? editPriceValues?.productPrice
+                                  : productPrice
+                              }
+                              onChange={(e) => {
+                                setEditPriceValues((prev) => ({
+                                  ...prev,
+                                  productPrice: e.target.value,
+                                }));
+                              }}
+                              disabled={!(id == editPrice)}
+                              type="text"
+                            />
                           </td>
 
                           <td>
-                            <span> {sellPrice} </span>
+                            <input
+                              value={
+                                id == editPrice
+                                  ? editPriceValues?.sellPrice
+                                  : sellPrice
+                              }
+                              onChange={(e) => {
+                                setEditPriceValues((prev) => ({
+                                  ...prev,
+                                  sellPrice: e.target.value,
+                                }));
+                              }}
+                              disabled={!(id == editPrice)}
+                              type="text"
+                            />
+                            <span style={{ cursor: "pointer" }}>
+                              {id == editPrice ? (
+                                <IoIosCloudDone
+                                  onClick={handleSavePriceClick}
+                                />
+                              ) : (
+                                <FaEdit
+                                  onClick={() => {
+                                    setEditPriceValues({
+                                      productPrice,
+                                      sellPrice,
+                                    });
+                                    setEditPrice(id);
+                                  }}
+                                />
+                              )}
+                            </span>
                           </td>
 
                           <td>

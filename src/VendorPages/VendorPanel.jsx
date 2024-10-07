@@ -186,7 +186,7 @@ const VendorPanel = () => {
                 >
                   Products
                 </li>
-                <li
+                {/* <li
                   onClick={() => handleViewComp("vendAtribute")}
                   className={
                     component === "vendAtribute"
@@ -206,7 +206,7 @@ const VendorPanel = () => {
                   }
                 >
                   Categories
-                </li>
+                </li> */}
 
                 <li className="vend-li-btn">Coupons</li>
               </div>

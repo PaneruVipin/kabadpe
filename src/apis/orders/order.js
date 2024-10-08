@@ -12,3 +12,14 @@ export const userOrdersfetch = resolvePromise(async ({}) => {
   });
   return res?.orders;
 });
+
+export const vendorOrderFetch = resolvePromise(async ({}) => {
+  const apiUrl = ENV_API_BASE_URL + `/green/vendor/orders`;
+  const token = getFromLocalStorage("vendorToken");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.orders;
+});

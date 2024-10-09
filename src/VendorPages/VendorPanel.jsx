@@ -28,6 +28,7 @@ const VendorPanel = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [vendOrg, setVendOrg] = useState(false);
   const [productData, setProductData] = useState(null);
+  const [vendorOrderData, setVendorOrderData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleViewComp = (getCompName) => {
@@ -247,10 +248,15 @@ const VendorPanel = () => {
             />
           ) : null}
           {component === "orders" ? (
-            <VendOrder onOrdRed={() => setComponent("orderDetail")} />
+            <VendOrder
+              onOrdRed={(data) => {
+                setVendorOrderData(data);
+                setComponent("orderDetail");
+              }}
+            />
           ) : null}
           {component === "orderDetail" ? (
-            <OrderDet compOrderDet={"orderDetail"} />
+            <OrderDet data={vendorOrderData} compOrderDet={"orderDetail"} />
           ) : null}
           {component === "vendProduct" ? (
             <VendorProduct

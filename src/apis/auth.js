@@ -162,7 +162,7 @@ export const userForgetPassResendOTP = resolvePromise(async (email) => {
 });
 
 export const googleAuth = resolvePromise(async () => {
-  const apiUrl = ENV_API_BASE_URL + "/auth/google";
+  const apiUrl = ENV_API_BASE_URL + "/auth/kabadpe/google";
   const { data: res } = await axios.get(apiUrl, { email });
   return res?.code;
 });

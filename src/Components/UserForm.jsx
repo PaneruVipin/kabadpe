@@ -430,7 +430,7 @@ const UserForm = ({ closepopUpUserForm }) => {
                                   <i className="fa-brands fa-facebook"></i>
                                   Facebook
                                 </button>
-                                <NavLink to={`${ENV_API_BASE_URL}/auth/google`}>
+                                <NavLink to={`${ENV_API_BASE_URL}/auth/kabadpe/google`}>
                                   <button
                                     type="button"
                                     className="login-link-bx login-link-bx2"

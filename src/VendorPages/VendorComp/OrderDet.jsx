@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaTruck } from "react-icons/fa6";
+import { DateTime } from "luxon";
 const OrderDet = ({ data = {} }) => {
   console.log("this is data", data);
   return (
@@ -16,8 +17,23 @@ const OrderDet = ({ data = {} }) => {
                   <div className="invoice-stat-bx">
                     <h5>Order#{data?.id} details</h5>
                     <p>
-                      Payment via Direct bak tranfer . Paid on February 4 2024 @
-                      8:19 pm.
+                      {data?.paymentMethod == "cash"
+                        ? data?.paymentStatus == "pending"
+                          ? "Payment via COD, pending until the delivery date"
+                          : `Payment via COD. Paid on ${DateTime.fromISO(
+                              data?.deliveryDate,
+                              {
+                                zone: "utc",
+                              }
+                            )
+                              .setZone("Asia/Kolkata")
+                              .toFormat("ccc dd LLL yyyy @ hh:mm a")}`
+                        : `Payment via ${data?.paymentMethod} . Paid on{" "}
+                      ${DateTime.fromISO(data?.addedOn, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("ccc dd LLL yyyy @ hh:mm a")}.`}
                       {/* Customer IP: 223.190.87.57 */}
                     </p>
                   </div>
@@ -81,8 +97,8 @@ const OrderDet = ({ data = {} }) => {
                     <tr>
                       <th>SR.</th>
                       <th>PRODUCT</th>
-                      <th>Cost of Goods</th>
-                      <th>Cost </th>
+                      {/* <th>Cost of Goods</th> */}
+                      <th>Sell Price </th>
                       <th>Qty</th>
                       <th>Total</th>
                     </tr>
@@ -125,9 +141,9 @@ const OrderDet = ({ data = {} }) => {
                               </div>
                             </td>
 
-                            <td>
+                            {/* <td>
                               <span>₹2,4799.00</span>
-                            </td>
+                            </td> */}
 
                             <td>
                               <span>₹{unitPrice}</span>
@@ -144,7 +160,7 @@ const OrderDet = ({ data = {} }) => {
                         );
                       }
                     )}
-                    <tr>
+                    {/* <tr>
                       <td>
                         <span>2</span>
                       </td>
@@ -178,7 +194,7 @@ const OrderDet = ({ data = {} }) => {
                       <td>
                         <span>₹5,4799.00</span>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -193,12 +209,15 @@ const OrderDet = ({ data = {} }) => {
                     <h6>Flat rate</h6>
                     <p>
                       Items :{" "}
-                      <span>Adidas Freak 3 FG Football Shoes, UK6 x 1</span>
+                      {data?.OrderItems?.map(
+                        ({ id, productName, quantity }, i) =>
+                          `${productName} x${quantity}`
+                      ).join(", ")}
                     </p>
                   </div>
                 </div>
 
-                <h6>₹200.00</h6>
+                <h6>₹{data?.shippingAmount}</h6>
               </div>
 
               {/* <div className="ord-det-payment-flex-bx">
@@ -228,44 +247,62 @@ const OrderDet = ({ data = {} }) => {
               <div className="order-pyamnt-det-main">
                 <div className="order-paymnt-det-bx">
                   <h6>Item Subtotal: </h6>
-                  <span>₹4,499.00</span>
+                  <span>₹{data?.orderAmount}</span>
                 </div>
                 <div className="order-paymnt-det-bx">
                   <h6>Voucher(s): </h6>
-                  <span>₹225.00</span>
+                  <span>₹{data?.orderDiscount}</span>
                 </div>
 
                 <div className="order-paymnt-det-bx">
                   <h6>Shipping: </h6>
-                  <span>₹200.00</span>
+                  <span>₹{data?.shippingAmount}</span>
+                </div>
+
+                <div className="order-paymnt-det-bx">
+                  <h6>Shipping Discount: </h6>
+                  <span>₹{data?.shippingDiscount}</span>
                 </div>
                 <div className="order-paymnt-det-bx">
                   <h6>Order Total: </h6>
-                  <span>₹4,479.00</span>
+                  <span>₹{data?.orderAmount}</span>
                 </div>
 
                 <div className="line"></div>
 
-                <div className="order-paymnt-det-bx">
-                  <h6>Order Total: </h6>
-                  <span>₹4,479.00</span>
-                </div>
-
                 <div className="line1"></div>
 
                 <div className="order-paymnt-det-bx">
-                  <h6>Paid: </h6>
-                  <span>₹4,479.00</span>
+                  <h6>
+                    {data?.paymentStatus == "pending" ? "Pending" : "Paid"}:
+                  </h6>
+                  <span>₹{data?.orderAmount}</span>
                 </div>
 
                 <div className="order-paymnt-det-bx order-note-flex3">
-                  <h6>February 4 2024 via Direct bank transfer: </h6>
+                  <h6> {data?.paymentMethod == "cash"
+                        ? data?.paymentStatus == "pending"
+                          ? "Payment via COD, pending until the delivery date"
+                          : `Payment via COD. Paid on ${DateTime.fromISO(
+                              data?.deliveryDate,
+                              {
+                                zone: "utc",
+                              }
+                            )
+                              .setZone("Asia/Kolkata")
+                              .toFormat("ccc dd LLL yyyy @ hh:mm a")}`
+                        : `Payment via ${data?.paymentMethod} . Paid on{" "}
+                      ${DateTime.fromISO(data?.addedOn, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("ccc dd LLL yyyy @ hh:mm a")}.`}: </h6>
                 </div>
 
-                <div className="order-paymnt-det-bx">
+                {/* <div className="order-paymnt-det-bx">
                   <h6>Cost of Goods: </h6>
                   <span>₹2,479.00</span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

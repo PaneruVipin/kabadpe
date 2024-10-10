@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { FaTruck } from "react-icons/fa6";
 import { DateTime } from "luxon";
 const OrderDet = ({ data = {} }) => {
-  console.log("this is data", data);
   return (
     <>
       <section className="order-Det-comp">
@@ -46,7 +45,10 @@ const OrderDet = ({ data = {} }) => {
                       </div>
                       <div className="inv-comn-text  inv-stat-del-bx mt-3">
                         <p>Status</p>
-                        <span>Delivered</span>
+                        <span>
+                          {data?.orderStatus?.substring(0, 1)?.toUpperCase() +
+                            data?.orderStatus?.substring(1)}
+                        </span>
                       </div>
                     </div>
 
@@ -75,7 +77,12 @@ const OrderDet = ({ data = {} }) => {
                     <p>
                       {data?.email} <span> {data?.phoneNumber}</span>
                     </p>
-                    <span>{data?.addressType}</span>
+                    {data?.addressType ? (
+                      <span>
+                        {data?.addressType?.substring(0, 1)?.toUpperCase() +
+                          data?.addressType?.substring(1)}
+                      </span>
+                    ) : null}
                     <span>{data?.billingAddress || data?.shippingAddress}</span>
                   </div>
 
@@ -85,7 +92,12 @@ const OrderDet = ({ data = {} }) => {
                     <p>
                       {data?.email} <span>{data?.phoneNumber}</span>
                     </p>
-                    <span>{data?.addressType}</span>
+                    {data?.addressType ? (
+                      <span>
+                        {data?.addressType?.substring(0, 1)?.toUpperCase() +
+                          data?.addressType?.substring(1)}
+                      </span>
+                    ) : null}
                     <span>{data?.shippingAddress}</span>
                   </div>
                 </div>
@@ -280,23 +292,27 @@ const OrderDet = ({ data = {} }) => {
                 </div>
 
                 <div className="order-paymnt-det-bx order-note-flex3">
-                  <h6> {data?.paymentMethod == "cash"
-                        ? data?.paymentStatus == "pending"
-                          ? "Payment via COD, pending until the delivery date"
-                          : `Payment via COD. Paid on ${DateTime.fromISO(
-                              data?.deliveryDate,
-                              {
-                                zone: "utc",
-                              }
-                            )
-                              .setZone("Asia/Kolkata")
-                              .toFormat("ccc dd LLL yyyy @ hh:mm a")}`
-                        : `Payment via ${data?.paymentMethod} . Paid on{" "}
+                  <h6>
+                    {" "}
+                    {data?.paymentMethod == "cash"
+                      ? data?.paymentStatus == "pending"
+                        ? "Payment via COD, pending until the delivery date"
+                        : `Payment via COD. Paid on ${DateTime.fromISO(
+                            data?.deliveryDate,
+                            {
+                              zone: "utc",
+                            }
+                          )
+                            .setZone("Asia/Kolkata")
+                            .toFormat("ccc dd LLL yyyy @ hh:mm a")}`
+                      : `Payment via ${data?.paymentMethod} . Paid on{" "}
                       ${DateTime.fromISO(data?.addedOn, {
                         zone: "utc",
                       })
                         .setZone("Asia/Kolkata")
-                        .toFormat("ccc dd LLL yyyy @ hh:mm a")}.`}: </h6>
+                        .toFormat("ccc dd LLL yyyy @ hh:mm a")}.`}
+                    :{" "}
+                  </h6>
                 </div>
 
                 {/* <div className="order-paymnt-det-bx">
@@ -336,33 +352,20 @@ const OrderDet = ({ data = {} }) => {
                 </select>
               </div>
 
-              <span className="del-nt-btn curent-stat">Current status</span>
+              <span className="del-nt-btn curent-stat">
+                {data?.orderStatus?.substring(0, 1)?.toUpperCase() +
+                  data?.orderStatus?.substring(1)}
+              </span>
             </div>
 
             <div className="ord-note">
               <h6>Order notes</h6>
 
               <div className="order-note-bx">
-                <p>Order status changed from On hold to Completed.</p>
+                <p>{data?.orderNote}</p>
                 <div className="order-note-flex">
-                  <span>February 4 , 2024 at 8:19 pm by admin</span>
-                  <button className="del-nt-btn">Delete note</button>
-                </div>
-              </div>
-
-              <div className="order-note-bx">
-                <p>Order status changed from On hold to Completed.</p>
-                <div className="order-note-flex ">
-                  <span>February 4 , 2024 at 8:19 pm by admin</span>
-                  <button className="del-nt-btn">Delete note</button>
-                </div>
-              </div>
-
-              <div className="order-note-bx">
-                <p>Order status changed from On hold to Completed.</p>
-                <div className="order-note-flex">
-                  <span>February 4 , 2024 at 8:19 pm by admin</span>
-                  <button className="del-nt-btn">Delete note</button>
+                  {/* <span>February 4 , 2024 at 8:19 pm by admin</span>
+                  <button className="del-nt-btn">Delete note</button> */}
                 </div>
               </div>
             </div>

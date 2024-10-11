@@ -23,3 +23,18 @@ export const vendorOrderFetch = resolvePromise(async ({}) => {
   });
   return res?.orders;
 });
+
+export const vendorOrderEdit = resolvePromise(async ({ id, orderStatus }) => {
+  const apiUrl = ENV_API_BASE_URL + `/green/order/${id}`;
+  const token = getFromLocalStorage("vendorToken");
+  const { data: res } = await axios.put(
+    apiUrl,
+    { orderStatus },
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  return res?.message;
+});

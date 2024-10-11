@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import RecentOrdData from "../RecentOrdData";
 import { NavLink } from "react-router-dom";
 import { DateTime } from "luxon";
+import { vendorOrderEdit } from "../../apis/orders/order";
+import { toast } from "react-toastify";
 
-const RecentOrd = ({ data = [], compTrue, onOrdComp }) => {
+const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
+  const handleStatusChange = async (id, orderStatus) => {
+    const res = await vendorOrderEdit({ id, orderStatus });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    refetchOrders()
+  };
   return (
     <>
       <section className="recent-ord-comp">
@@ -103,14 +114,23 @@ const RecentOrd = ({ data = [], compTrue, onOrdComp }) => {
                       </td>
                       <td>
                         <div className="act-select-bx">
-                          <select name="option" id="option">
-                            <option value="option">Pending Payment</option>
-                            <option value="option">Processing</option>
-                            <option value="option">On hold</option>
-                            <option value="option">Completed</option>
-                            <option value="option">Refunded</option>
-                            <option value="option">Failed</option>
-                            <option value="option">Draft</option>
+                          <select
+                            value={orderStatus}
+                            onChange={(e) => {
+                              handleStatusChange(id, e.target.value);
+                            }}
+                          >
+                            {[
+                              "processing",
+                              "shipped",
+                              "delivered",
+                              "cancelled",
+                              "returned",
+                            ].map((e) => (
+                              <option value={e}>
+                                {e?.substring(0, 1) + e?.substring(1)}
+                              </option>
+                            ))}
                           </select>
                         </div>
                       </td>

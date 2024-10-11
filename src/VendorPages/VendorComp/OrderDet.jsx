@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaTruck } from "react-icons/fa6";
 import { DateTime } from "luxon";
-const OrderDet = ({ data = {} }) => {
+import { toast } from "react-toastify";
+import { vendorOrderEdit } from "../../apis/orders/order";
+const OrderDet = ({ data: initialData = {} }) => {
+  const [data, setData] = useState(initialData);
+  const handleStatusChange = async (id, orderStatus) => {
+    const res = await vendorOrderEdit({ id, orderStatus });
+    if (res?.error) {
+      toast.error(res?.message);
+      return;
+    }
+    toast.success(res);
+    setData({ ...data, orderStatus });
+  };
   return (
     <>
       <section className="order-Det-comp">
@@ -332,23 +344,28 @@ const OrderDet = ({ data = {} }) => {
                   <option value="action">
                     Email invoice / order details to customer
                   </option>
-                  <option value="action">Resend new order notification</option>
-                  <option value="action">
-                    Regenerate download permissions
-                  </option>
                 </select>
               </div>
 
               <div className="ord-det-action-sel-bx">
                 <span>Update Status</span>
-                <select name="option" id="option">
-                  <option value="option">Pending Payment</option>
-                  <option value="option">Processing</option>
-                  <option value="option">On hold</option>
-                  <option value="option">Completed</option>
-                  <option value="option">Refunded</option>
-                  <option value="option">Failed</option>
-                  <option value="option">Draft</option>
+                <select
+                  defaultValue={data?.orderStatus}
+                  onChange={(e) => {
+                    handleStatusChange(data?.id, e.target.value);
+                  }}
+                >
+                  {[
+                    "processing",
+                    "shipped",
+                    "delivered",
+                    "cancelled",
+                    "returned",
+                  ].map((e) => (
+                    <option value={e}>
+                      {e?.substring(0, 1) + e?.substring(1)}
+                    </option>
+                  ))}
                 </select>
               </div>
 

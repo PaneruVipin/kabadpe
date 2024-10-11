@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { vendorOrderFetch } from "../../apis/orders/order";
 
 const VendOrder = ({ onOrdRed }) => {
-  const { data: orders,refetch } = useQuery({
+  const { data: orders, refetch } = useQuery({
     queryKey: ["ordersVendor"],
     queryFn: () => vendorOrderFetch({}),
   });
@@ -77,7 +77,11 @@ const VendOrder = ({ onOrdRed }) => {
         </div>
       </section>
 
-      <RecentOrd data={!orders?.error ? orders : []} onOrdComp={onOrdRed} />
+      <RecentOrd
+        refetchOrders={refetch}
+        data={!orders?.error ? orders : []}
+        onOrdComp={onOrdRed}
+      />
     </>
   );
 };

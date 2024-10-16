@@ -54,7 +54,18 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [variations, setVariations] = useState({
-    variations: initialValues?.ProdVariations || [],
+    variations:
+      initialValues?.ProdVariations?.map(({ variation, ...e }) => ({
+        ...e,
+        variation: JSON.parse(variation || "{}"),
+      })) || [],
+    keys:
+      initialValues?.ProdVariations?.reduce((a, b) => {
+        const keys = Object.keys(JSON.parse(b?.variation || "{}"));
+        let allKeys = [...a];
+        allKeys = [...new Set([...allKeys, ...keys])];
+        return allKeys;
+      }, []) || [],
   });
   const [payload, setPayload] = useState(
     initialValues
@@ -64,6 +75,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
         }
       : { sku: generateUniqueSku() }
   );
+  console.log("trhis is variation", variations);
   const [tabFn, setTabFn] = useState({
     5: () => {},
     2: () => {},
@@ -300,7 +312,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       enableTabButton("all");
     }
   }, [initialValues]);
-  console.log("selected attribute", selectedAttributes);
   return (
     <>
       <section className="add-prod-comp" onClick={onClickClose}>

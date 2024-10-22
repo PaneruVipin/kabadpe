@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { setInLocalStorage } from "../../lib/localStorage";
 import { userLogin, userSignup, userVerifySignup } from "./authActions";
-import { openNewWindow } from "../../lib/refrer";
+// import { openNewWindow } from "../../lib/refrer";
 
 const initialState = {
   loading: {
@@ -46,7 +46,7 @@ const authSlice = createSlice({
       userLogin.fulfilled,
       (state, { payload: { data, payload } }) => {
         setInLocalStorage("token", data?.token);
-        openNewWindow("https://thegreensamanshop.com?t=" + data?.token,);
+        // openNewWindow("https://thegreensamanshop.com?t=" + data?.token,);
         state.success = {
           ...state.success,
           login: true,

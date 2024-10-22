@@ -83,8 +83,8 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const t = params.get("t");
-    const hello=params.get("hello")
-    window.location.assign(hello)
+    const refer = params.get("refer");
+    window.location.assign(refer);
     if (t) {
       setInLocalStorage("token", t);
       navigate("/");
@@ -96,7 +96,7 @@ function App() {
     setComponent(compName);
   };
   return (
-    <Routes >
+    <Routes>
       <Route
         path="/"
         element={
@@ -108,7 +108,7 @@ function App() {
           />
         }
       >
-        <Route  index element={<Home setUserForm={setUserForm} />} />
+        <Route index element={<Home setUserForm={setUserForm} />} />
         <Route path="/frenchies" element={<About />} />
         <Route path="/about" element={<AboutPage />} />
 
@@ -189,7 +189,6 @@ function App() {
       <Route path="/climconnect/blog/:id" element={<BlogDet />} />
       <Route path="/test" element={<Test />} />
       {/* <Route path="/orderDet/:id" element={<MyOrderDet />} /> */}
-
     </Routes>
   );
 }

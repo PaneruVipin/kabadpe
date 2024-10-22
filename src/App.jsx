@@ -83,6 +83,8 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const t = params.get("t");
+    const hello=params.get("hello")
+    window.location.assign(hello)
     if (t) {
       setInLocalStorage("token", t);
       navigate("/");

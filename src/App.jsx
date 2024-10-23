@@ -84,7 +84,9 @@ function App() {
     const params = new URLSearchParams(location.search);
     const t = params.get("t");
     const refer = params.get("refer");
-    window.location.assign(refer);
+    if (refer) {
+      window.location.assign(refer);
+    }
     if (t) {
       setInLocalStorage("token", t);
       navigate("/");

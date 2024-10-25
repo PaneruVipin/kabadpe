@@ -219,101 +219,105 @@ const VendorProduct = ({ compRedirectProdDet }) => {
             </thead>
             <tbody>
               {!products?.error
-                ? products?.map(
-                    ({
-                      id,
-                      ProdImages,
-                      name,
-                      ProdCategory,
-                      productPrice,
-                      sellPrice,
-                      quantity,
-                      productStatus,
-                      ...rest
-                    }) => {
-                      const img = ProdImages?.[0]?.image;
-                      return (
-                        <tr key={id}>
-                          <td>
-                            <div className="form-check-bxx">
+                ? products
+                    ?.sort(
+                      (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                    )
+                    ?.map(
+                      ({
+                        id,
+                        ProdImages,
+                        name,
+                        ProdCategory,
+                        productPrice,
+                        sellPrice,
+                        quantity,
+                        productStatus,
+                        ...rest
+                      }) => {
+                        const img = ProdImages?.[0]?.image;
+                        return (
+                          <tr key={id}>
+                            <td>
+                              <div className="form-check-bxx">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  value=""
+                                  id="flexCheckDefault"
+                                />
+                              </div>
+                            </td>
+
+                            <td>
+                              <div className="prod-info-v">
+                                <img src={img} className="prod-img-bx" alt="" />
+                                <span> {name} </span>
+                              </div>
+                            </td>
+
+                            <td>
+                              <span> {ProdCategory?.name} </span>
+                            </td>
+
+                            <td>
                               <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
+                                value={
+                                  id == editPrice
+                                    ? editPriceValues?.productPrice
+                                    : productPrice
+                                }
+                                onChange={(e) => {
+                                  setEditPriceValues((prev) => ({
+                                    ...prev,
+                                    productPrice: e.target.value,
+                                  }));
+                                }}
+                                disabled={!(id == editPrice)}
+                                type="text"
                               />
-                            </div>
-                          </td>
+                            </td>
 
-                          <td>
-                            <div className="prod-info-v">
-                              <img src={img} className="prod-img-bx" alt="" />
-                              <span> {name} </span>
-                            </div>
-                          </td>
+                            <td>
+                              <input
+                                value={
+                                  id == editPrice
+                                    ? editPriceValues?.sellPrice
+                                    : sellPrice
+                                }
+                                onChange={(e) => {
+                                  setEditPriceValues((prev) => ({
+                                    ...prev,
+                                    sellPrice: e.target.value,
+                                  }));
+                                }}
+                                disabled={!(id == editPrice)}
+                                type="text"
+                              />
+                              <span style={{ cursor: "pointer" }}>
+                                {id == editPrice ? (
+                                  <IoIosCloudDone
+                                    onClick={handleSavePriceClick}
+                                  />
+                                ) : (
+                                  <FaEdit
+                                    onClick={() => {
+                                      setEditPriceValues({
+                                        productPrice,
+                                        sellPrice,
+                                      });
+                                      setEditPrice(id);
+                                    }}
+                                  />
+                                )}
+                              </span>
+                            </td>
 
-                          <td>
-                            <span> {ProdCategory?.name} </span>
-                          </td>
+                            <td>
+                              <span> {quantity} </span>
+                            </td>
 
-                          <td>
-                            <input
-                              value={
-                                id == editPrice
-                                  ? editPriceValues?.productPrice
-                                  : productPrice
-                              }
-                              onChange={(e) => {
-                                setEditPriceValues((prev) => ({
-                                  ...prev,
-                                  productPrice: e.target.value,
-                                }));
-                              }}
-                              disabled={!(id == editPrice)}
-                              type="text"
-                            />
-                          </td>
-
-                          <td>
-                            <input
-                              value={
-                                id == editPrice
-                                  ? editPriceValues?.sellPrice
-                                  : sellPrice
-                              }
-                              onChange={(e) => {
-                                setEditPriceValues((prev) => ({
-                                  ...prev,
-                                  sellPrice: e.target.value,
-                                }));
-                              }}
-                              disabled={!(id == editPrice)}
-                              type="text"
-                            />
-                            <span style={{ cursor: "pointer" }}>
-                              {id == editPrice ? (
-                                <IoIosCloudDone
-                                  onClick={handleSavePriceClick}
-                                />
-                              ) : (
-                                <FaEdit
-                                  onClick={() => {
-                                    setEditPriceValues({
-                                      productPrice,
-                                      sellPrice,
-                                    });
-                                    setEditPrice(id);
-                                  }}
-                                />
-                              )}
-                            </span>
-                          </td>
-
-                          <td>
-                            <span> {quantity} </span>
-                          </td>
-
-                          {/* <td>
+                            {/* <td>
                             <div
                               className={
                                 elem.status === "Sold Out"
@@ -325,29 +329,29 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                             </div>
                           </td> */}
 
-                          <td>
-                            <div
-                              onClick={() =>
-                                compRedirectProdDet({
-                                  id,
-                                  ProdImages,
-                                  name,
-                                  ProdCategory,
-                                  productPrice,
-                                  sellPrice,
-                                  quantity,
-                                  productStatus,
-                                  ...rest,
-                                })
-                              }
-                              className="view-prod-btn"
-                            >
-                              <ion-icon name="eye-outline"></ion-icon>
-                            </div>
-                          </td>
+                            <td>
+                              <div
+                                onClick={() =>
+                                  compRedirectProdDet({
+                                    id,
+                                    ProdImages,
+                                    name,
+                                    ProdCategory,
+                                    productPrice,
+                                    sellPrice,
+                                    quantity,
+                                    productStatus,
+                                    ...rest,
+                                  })
+                                }
+                                className="view-prod-btn"
+                              >
+                                <ion-icon name="eye-outline"></ion-icon>
+                              </div>
+                            </td>
 
-                          <td>
-                            {/* <button
+                            <td>
+                              {/* <button
                           className={
                             rangeBtn
                               ? "toggle-range-btn rangeactive"
@@ -359,70 +363,70 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                           <div className="toggle-round"></div>
                         </button> */}
 
-                            <div
-                              class={
-                                "form-checkss form-switch unchecked"
-                                //  "form-checkss form-switch"
-                              }
-                            >
-                              <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="flexSwitchCheckDefault"
-                                onChange={async () => {
-                                  await greenProductsUpdate({
-                                    id,
-                                    productStatus:
-                                      productStatus == "active"
-                                        ? "inactive"
-                                        : "active",
-                                  });
-                                  refetch();
-                                }}
-                                checked={productStatus == "active"}
-                              />
-                            </div>
-                          </td>
-
-                          <td>
-                            <div className="prod-edit-de-flex-btn">
-                              <button
-                                onClick={() => {
-                                  setSelectedRow({
-                                    id,
-                                    ProdImages,
-                                    name,
-                                    ProdCategory,
-                                    productPrice,
-                                    sellPrice,
-                                    quantity,
-                                    productStatus,
-                                    ...rest,
-                                  });
-                                  setAddProd(true);
-                                }}
+                              <div
+                                class={
+                                  "form-checkss form-switch unchecked"
+                                  //  "form-checkss form-switch"
+                                }
                               >
-                                <i className="fa-regular fa-pen-to-square"></i>
-                              </button>
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  id="flexSwitchCheckDefault"
+                                  onChange={async () => {
+                                    await greenProductsUpdate({
+                                      id,
+                                      productStatus:
+                                        productStatus == "active"
+                                          ? "inactive"
+                                          : "active",
+                                    });
+                                    refetch();
+                                  }}
+                                  checked={productStatus == "active"}
+                                />
+                              </div>
+                            </td>
 
-                              <button
-                                onClick={async () => {
-                                  await greenProductsUpdate({
-                                    id,
-                                    productStatus: "delete",
-                                    imageIds: [],
-                                  });
-                                  refetch();
-                                }}
-                              >
-                                <i className="fa-solid fa-trash"></i>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )
+                            <td>
+                              <div className="prod-edit-de-flex-btn">
+                                <button
+                                  onClick={() => {
+                                    setSelectedRow({
+                                      id,
+                                      ProdImages,
+                                      name,
+                                      ProdCategory,
+                                      productPrice,
+                                      sellPrice,
+                                      quantity,
+                                      productStatus,
+                                      ...rest,
+                                    });
+                                    setAddProd(true);
+                                  }}
+                                >
+                                  <i className="fa-regular fa-pen-to-square"></i>
+                                </button>
+
+                                <button
+                                  onClick={async () => {
+                                    await greenProductsUpdate({
+                                      id,
+                                      productStatus: "delete",
+                                      imageIds: [],
+                                    });
+                                    refetch();
+                                  }}
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )
                 : null}
             </tbody>
           </table>

@@ -62,16 +62,11 @@ const UserProfile = ({
   useEffect(() => {
     if (user?.profileImage) setSelectedImage(user?.profileImage);
   }, [user?.profileImage]);
+  const sections = { dashboard: 1, appoinment: 3, details: 2, orders: 12 };
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const sectionName = params.get("sec");
-    if (sectionName == "dashboard") {
-      setProfBtn(1);
-    } else if (sectionName == "appoinment") {
-      setProfBtn(3);
-    } else if (sectionName == "details") {
-      setProfBtn(2);
-    }
+    setProfBtn(sections?.[sectionName] || 1);
   }, [location]);
   return (
     <>
@@ -174,7 +169,7 @@ const UserProfile = ({
             className={profBtn === 12 ? "u-prf-bx profactive" : "u-prf-bx"}
           >
             <div className="u-prf-tab-icon">
-            <i class="fa-solid fa-bag-shopping"></i>
+              <i class="fa-solid fa-bag-shopping"></i>
             </div>
             My Orders
           </button>
@@ -259,7 +254,7 @@ const UserProfile = ({
 
           <div>
             <button
-              onClick={handleUpadateProfileImage} 
+              onClick={handleUpadateProfileImage}
               className="prof-input-file-bx"
               style={{ color: "white" }}
             >

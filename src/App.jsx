@@ -88,7 +88,9 @@ function App() {
     const refrerPath = params.get("refrerPath");
     if (refrerWithAuth && refrerPath) {
       setInLocalStorage("token", refrerWithAuth);
-      navigate(refrerPath);
+      setTimeout(() => {
+        navigate(refrerPath);
+      }, 300);
     }
     if (refer) {
       window.location.assign(refer);

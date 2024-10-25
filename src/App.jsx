@@ -84,6 +84,12 @@ function App() {
     const params = new URLSearchParams(location.search);
     const t = params.get("t");
     const refer = params.get("refer");
+    const refrerWithAuth = params.get("refrerWithAuthToken");
+    const refrerPath = params.get("refrerPath");
+    if (refrerWithAuth && refrerPath) {
+      setInLocalStorage("token", refrerWithAuth);
+      navigate(refrerPath);
+    }
     if (refer) {
       window.location.assign(refer);
     }

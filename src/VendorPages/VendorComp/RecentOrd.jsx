@@ -35,7 +35,9 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
               </tr>
             </thead>
             <tbody>
-              {data?.map(
+              {data?.sort(
+                    (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                  )?.map(
                 ({
                   addedOn,
                   email,

@@ -220,8 +220,8 @@ const VendorProduct = ({ compRedirectProdDet }) => {
             <tbody>
               {!products?.error
                 ? products
-                    .sort(
-                      (a, b) => new Date(a.updatedOn) - new Date(b.updatedOn)
+                    ?.sort(
+                      (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
                     ?.map(
                       ({

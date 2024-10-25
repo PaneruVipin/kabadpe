@@ -90,7 +90,7 @@ function App() {
       setInLocalStorage("token", refrerWithAuth);
       setTimeout(() => {
         navigate(refrerPath);
-      }, 300);
+      }, 1000);
     }
     if (refer) {
       window.location.assign(refer);

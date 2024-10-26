@@ -9,7 +9,9 @@ import {
 import { FaEdit } from "react-icons/fa";
 import { IoIosCloudDone } from "react-icons/io";
 import { toast } from "react-toastify";
+import { search } from "../../lib/array";
 const VendorProduct = ({ compRedirectProdDet }) => {
+  const [searchValue, setSearchValue] = useState("");
   const [exportBox, setExportBox] = useState(false);
   const [importBox, setImportBox] = useState(false);
   const [prodList, setProdList] = useState(ProductData);
@@ -146,6 +148,8 @@ const VendorProduct = ({ compRedirectProdDet }) => {
               name="searchproduct"
               id="searchproduct"
               placeholder="Search Product"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
             />
           </div>
 
@@ -219,7 +223,7 @@ const VendorProduct = ({ compRedirectProdDet }) => {
             </thead>
             <tbody>
               {!products?.error
-                ? products
+                ? search(products, searchValue)
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )

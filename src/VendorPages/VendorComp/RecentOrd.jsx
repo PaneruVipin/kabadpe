@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { DateTime } from "luxon";
 import { vendorOrderEdit } from "../../apis/orders/order";
 import { toast } from "react-toastify";
+import { capitalizeFirstLetter } from "../../lib/string";
 
 const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
   const handleStatusChange = async (id, orderStatus) => {
@@ -111,7 +112,7 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
                               : "stat-btn"
                           }
                         >
-                          {orderStatus}
+                          {capitalizeFirstLetter(orderStatus)}
                         </span>
                       </td>
                       <td>
@@ -130,7 +131,7 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
                               "returned",
                             ].map((e) => (
                               <option value={e}>
-                                {e?.substring(0, 1) + e?.substring(1)}
+                                {capitalizeFirstLetter(e)}
                               </option>
                             ))}
                           </select>

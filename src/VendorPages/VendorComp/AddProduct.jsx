@@ -51,7 +51,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       setSelValue(e.target.value);
     }
   };
-
+ 
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [variations, setVariations] = useState({
     variations:
@@ -76,6 +76,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
         }
       : { sku: generateUniqueSku() }
   );
+  console.log("this is payload", payload);
   console.log("trhis is variation", variations);
   const [tabFn, setTabFn] = useState({
     5: () => {},
@@ -181,6 +182,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
         return;
       }
       toast.success(res);
+      setPayload((prev) => ({ ...prev, ...payload }));
     } else {
       setPayload((prev) => ({ ...prev, ...payload }));
       setTabActive("shipping");
@@ -226,7 +228,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     const variationImages = variations?.variations?.map(({ image }) => {
       return { image };
     });
-    console.log("variationImages variationImages", variationImages);
     const finalPayload = {
       ...payload,
       variations: JSON.stringify(variations?.variations || []),
@@ -1392,7 +1393,13 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       initId: `${payload?.sku}-${i}`,
                       id: null,
                     }));
-                    setVariations({ variations: combinations, keys });
+                    setVariations({
+                      variations: [
+                        ...(variations?.variations || []),
+                        ...combinations,
+                      ],
+                      keys,
+                    });
                     setGenComb("generatecomb");
                   }}
                   className="prod-add-del-btn upld-add-prod gen-comb"

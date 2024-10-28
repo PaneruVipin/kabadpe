@@ -51,7 +51,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       setSelValue(e.target.value);
     }
   };
- 
+
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [variations, setVariations] = useState({
     variations:
@@ -827,7 +827,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         type="submit"
                         className="prod-add-del-btn upld-add-prod"
                       >
-                        Next
+                       {!initialValues ? "Next" : "Save"}
                       </button>
                     </div>
                   </Form>
@@ -936,9 +936,18 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         </span>
 
                         <div className="add-prod-inpt-bx21">
-                          <select name="shipping" id="Shipping">
-                            <option value="Choose Option">Choose Option</option>
-                            <option value="Yes">Yes</option>
+                          <select
+                            name="availableForTwoHourDelivery"
+                            id="availableForTwoHourDelivery"
+                            value={values?.availableForTwoHourDelivery}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          >
+                            <option value="" hidden>
+                              Choose Option
+                            </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
                           </select>
                         </div>
                       </div>
@@ -948,7 +957,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         type="submit"
                         className="prod-add-del-btn upld-add-prod"
                       >
-                        Next
+                        {!initialValues ? "Next" : "Save"}
                       </button>
                     </div>
                   </Form>

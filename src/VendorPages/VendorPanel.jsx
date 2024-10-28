@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "../features/user/userActions";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useNavigate } from "react-router-dom";
+import { removeFromLocalStorage } from "../lib/localStorage";
 const VendorPanel = () => {
   const [component, setComponent] = useState("dashboard");
   const [vendBtn, setVendBtn] = useState(null);
@@ -131,7 +132,13 @@ const VendorPanel = () => {
                     <span>Edit Organization</span>
                   </div>
 
-                  <div className="dropdown-btn-bx">
+                  <div
+                    className="dropdown-btn-bx"
+                    onClick={() => {
+                      removeFromLocalStorage("vendorToken");
+                      window.location.reload();
+                    }}
+                  >
                     <MdOutlineLogout className="dp-icon" />
                     <span>Log Out</span>
                   </div>

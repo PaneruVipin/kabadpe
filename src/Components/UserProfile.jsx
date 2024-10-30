@@ -62,7 +62,13 @@ const UserProfile = ({
   useEffect(() => {
     if (user?.profileImage) setSelectedImage(user?.profileImage);
   }, [user?.profileImage]);
-  const sections = { dashboard: 1, appoinment: 3, details: 2, orders: 12 };
+  const sections = {
+    dashboard: 1,
+    appoinment: 3,
+    details: 2,
+    orders: 12,
+    tnx: 7,
+  };
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const sectionName = params.get("sec");

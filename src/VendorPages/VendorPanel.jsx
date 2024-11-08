@@ -98,7 +98,10 @@ const VendorPanel = () => {
 
             <div className="vend-prof-main">
               <div onClick={() => setProf(!prof)} className="vend-prof-img">
-                <img src="/images/customImg/c-1.jpg" alt="" />
+                <img
+                  src={userInfo?.profileImage || "/images/no_profile.webp"}
+                  alt=""
+                />
               </div>
 
               {prof ? (

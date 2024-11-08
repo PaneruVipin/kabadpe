@@ -1,15 +1,16 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { vendorProfileUpdate } from "../../apis/vendor/vendor";
 import { toast } from "react-toastify";
+import { userFetch } from "../../features/user/userActions";
 
 const VendEditProf = ({ onclickClose }) => {
   const [switchBtn, setSwitchBtn] = useState(false);
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState();
   const { userInfo } = useSelector((s) => s?.user);
-  console.log("userInfouserInfouserInfouserInfo", userInfo);
+  const dispatch = useDispatch();
   const handleImageChange = (e) => {
     const selectedImage = Array.from(e.target.files);
     const imageUrl = selectedImage.map((image) => URL.createObjectURL(image));
@@ -26,6 +27,8 @@ const VendEditProf = ({ onclickClose }) => {
       return;
     }
     toast.success(res);
+    dispatch(userFetch({}));
+    onclickClose()
   };
   return (
     <>

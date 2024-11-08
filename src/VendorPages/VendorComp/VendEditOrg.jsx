@@ -1,13 +1,15 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { vendorOrgainazationUpdate } from "../../apis/vendor/vendor";
 import { toast } from "react-toastify";
+import { userFetch } from "../../features/user/userActions";
 
 const VendEditOrg = ({ onclickClose }) => {
   const [switchBtn, setSwitchBtn] = useState(false);
   const [tabActive, setTabActive] = useState("basic");
   const { userInfo } = useSelector((s) => s?.user);
+  const dispatch = useDispatch();
   const handleSubmit = async (data) => {
     const res = await vendorOrgainazationUpdate(data);
     if (res?.error) {
@@ -15,6 +17,8 @@ const VendEditOrg = ({ onclickClose }) => {
       return;
     }
     toast.success(res);
+    dispatch(userFetch({}));
+    onclickClose();
   };
   return (
     <>

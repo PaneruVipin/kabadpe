@@ -247,6 +247,21 @@ const VendEditOrg = ({ onclickClose }) => {
                         onBlur={handleBlur}
                       />
                     </div>
+                    <div className="ord-filt-bx add-prod-inpt-bx  add-prod-desc-bx">
+                      <span>About </span>
+                      <textarea
+                        name="aboutBrand"
+                        id="address"
+                        cols="30"
+                        rows="3"
+                        placeholder=""
+                        autoComplete="off"
+                        required
+                        value={values?.aboutBrand}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      ></textarea>
+                    </div>
                   </div>
 
                   <div className="prod-add-can-flex-btn prod-add-can-flex-btn21">

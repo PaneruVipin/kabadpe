@@ -28,7 +28,7 @@ const VendEditProf = ({ onclickClose }) => {
     }
     toast.success(res);
     dispatch(userFetch({}));
-    onclickClose()
+    onclickClose();
   };
   return (
     <>
@@ -55,6 +55,7 @@ const VendEditProf = ({ onclickClose }) => {
               email: userInfo?.email,
               phoneNumber: userInfo?.phoneNumber,
               profileImage: userInfo?.profileImage,
+              coverImage: userInfo?.coverImage,
             }}
             onSubmit={handleSubmit}
           >
@@ -67,7 +68,7 @@ const VendEditProf = ({ onclickClose }) => {
               ...rest
             }) => {
               return (
-                <Form  className="add-prod-form-main">
+                <Form className="add-prod-form-main">
                   <div className="add-product-form-bx">
                     <div className="ord-filt-bx add-prod-inpt-bx">
                       <span>Name</span>
@@ -84,9 +85,12 @@ const VendEditProf = ({ onclickClose }) => {
                       />
                     </div>
 
-                    <div className="ord-filt-bx add-prod-inpt-bx">
+                    <div
+                      style={{ alignItems: "center" }}
+                      className="ord-filt-bx add-prod-inpt-bx"
+                    >
                       <div>
-                        <span>Profile Picture</span>{" "}
+                        <span>Profile Image</span>{" "}
                         <div className="image-add-prof">
                           <div className="upld-prod-img-bx upld-prod-img-bx21">
                             <img
@@ -132,6 +136,70 @@ const VendEditProf = ({ onclickClose }) => {
                           />
 
                           <label htmlFor="imageUpload">
+                            <ion-icon name="cloud-upload-outline"></ion-icon>
+                            <p>Update your images here</p>
+                            <span>
+                              {" "}
+                              (Only *jpeg, *webp and * png images will be
+                              accepted){" "}
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{ alignItems: "center" }}
+                      className="ord-filt-bx add-prod-inpt-bx"
+                    >
+                      <div>
+                        <span>Cover Image</span>{" "}
+                        <div className="image-add-prof">
+                          <div className="upld-prod-img-bx upld-prod-img-bx21">
+                            <img
+                              style={{ objectFit: "contain" }}
+                              src={
+                                !values?.coverImage ||
+                                typeof values?.coverImage == "string"
+                                  ? values?.coverImage ||
+                                    "/images/no_profile.webp"
+                                  : URL.createObjectURL(values?.coverImage)
+                              }
+                              alt=""
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                handleChange({
+                                  target: { name: "coverImage", value: "" },
+                                });
+                              }}
+                              className="delete-prod-img-bx"
+                            >
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="right-prod-img-add-bx">
+                        <div className="right-prod-upload-img-bx-main">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            id="imageUpload2"
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              if (file) {
+                                handleChange({
+                                  target: { name: "coverImage", value: file },
+                                });
+                              }
+                            }}
+                          />
+
+                          <label htmlFor="imageUpload2">
                             <ion-icon name="cloud-upload-outline"></ion-icon>
                             <p>Update your images here</p>
                             <span>

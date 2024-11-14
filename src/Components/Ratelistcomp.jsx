@@ -598,6 +598,9 @@ const Ratelistcomp = ({ setUserForm }) => {
                                   ProdImages?.[1]?.image ||
                                   ProdImages?.[0]?.image
                                 }
+                                onError={(e) =>
+                                  (e.target.src = "/images/no_img.jpg")
+                                }
                                 alt=""
                               />
                             </div>
@@ -619,7 +622,11 @@ const Ratelistcomp = ({ setUserForm }) => {
                               <div className="price-buy-now-btn-bx">
                                 <h6>₹{sellPrice}</h6>
 
-                                <a href="#">Buy Now</a>
+                                <a
+                                  href={`https://thegreensamanshop.com/product/${id}`}
+                                >
+                                  Buy Now
+                                </a>
                               </div>
                             </div>
                           </div>

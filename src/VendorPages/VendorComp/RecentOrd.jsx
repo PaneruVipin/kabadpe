@@ -14,7 +14,7 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
       return;
     }
     toast.success(res);
-    refetchOrders()
+    refetchOrders();
   };
   return (
     <>
@@ -30,119 +30,45 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
                 <th>Customer Name</th>
                 <th>Method</th>
                 <th>Amount</th>
+                <th>Delivery Type</th>
                 <th>Status</th>
                 <th>Action</th>
                 <th>Invoice</th>
               </tr>
             </thead>
             <tbody>
-              {data?.sort(
-                    (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
-                  )?.map(
-                ({
-                  addedOn,
-                  email,
-                  fullname,
-                  id,
-                  orderAmount,
-                  orderDate,
-                  orderStatus,
-                  paymentMethod,
-                  OrderItems,
-                  ...rest
-                }) => {
-                  return (
-                    <tr key={id}>
-                      <td>
-                        <span>
-                          {" "}
-                          {DateTime.fromISO(orderDate, {
-                            zone: "utc",
-                          })
-                            .setZone("Asia/Kolkata")
-                            .toFormat("ccc dd, LLL yyyy hh:mm a")}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span
-                          onClick={() =>
-                            onOrdComp({
-                              addedOn,
-                              email,
-                              fullname,
-                              id,
-                              orderAmount,
-                              orderDate,
-                              orderStatus,
-                              paymentMethod,
-                              OrderItems,
-                              ...rest,
+              {data
+                ?.sort(
+                  (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
+                )
+                ?.map(
+                  ({
+                    addedOn,
+                    email,
+                    fullname,
+                    id,
+                    orderAmount,
+                    orderDate,
+                    orderStatus,
+                    paymentMethod,
+                    OrderItems,
+                    deliveryType,
+                    ...rest
+                  }) => {
+                    return (
+                      <tr key={id}>
+                        <td>
+                          <span>
+                            {" "}
+                            {DateTime.fromISO(orderDate, {
+                              zone: "utc",
                             })
-                          }
-                        >
-                          {" "}
-                          {id}{" "}
-                        </span>
-                      </td>
-                      <td>
-                        <span> {fullname} </span>
-                      </td>
-                      <td>
-                        <NavLink
-                          to="#"
-                          className={paymentMethod != "cash" ? "datacolr" : ""}
-                          title={paymentMethod != "cash" ? "Bank Transfer" : ""}
-                        >
-                          {paymentMethod == "cash" ? "COD" : "Prepaid"}
-                        </NavLink>
-                      </td>
-                      <td>
-                        <span> ₹{orderAmount} </span>
-                      </td>
-                      <td>
-                        <span
-                          style={{
-                            backgroundColor:
-                              orderStatus == "pending" ? "#fef9c3" : "",
-                            color: orderStatus == "pending" ? "#887e0e" : "",
-                          }}
-                          className={
-                            orderStatus == "cancel"
-                              ? " stat-btn cancelClor"
-                              : "stat-btn"
-                          }
-                        >
-                          {capitalizeFirstLetter(orderStatus)}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="act-select-bx">
-                          <select
-                            value={orderStatus}
-                            onChange={(e) => {
-                              handleStatusChange(id, e.target.value);
-                            }}
-                          >
-                            {[
-                              "processing",
-                              "shipped",
-                              "delivered",
-                              "cancelled",
-                              "returned",
-                            ].map((e) => (
-                              <option value={e}>
-                                {capitalizeFirstLetter(e)}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="inv-dwld-btn">
-                          <button className="inv-dwld-btn">
-                            <ion-icon name="cloud-download-outline"></ion-icon>
-                          </button>
-                          <button
+                              .setZone("Asia/Kolkata")
+                              .toFormat("ccc dd, LLL yyyy hh:mm a")}{" "}
+                          </span>
+                        </td>
+                        <td>
+                          <span
                             onClick={() =>
                               onOrdComp({
                                 addedOn,
@@ -154,19 +80,105 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
                                 orderStatus,
                                 paymentMethod,
                                 OrderItems,
+                                deliveryType,
                                 ...rest,
                               })
                             }
-                            className="inv-dwld-btn"
                           >
-                            <ion-icon name="eye-outline"></ion-icon>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
+                            {" "}
+                            {id}{" "}
+                          </span>
+                        </td>
+                        <td>
+                          <span> {fullname} </span>
+                        </td>
+                        <td>
+                          <NavLink
+                            to="#"
+                            className={
+                              paymentMethod != "cash" ? "datacolr" : ""
+                            }
+                            title={
+                              paymentMethod != "cash" ? "Bank Transfer" : ""
+                            }
+                          >
+                            {paymentMethod == "cash" ? "COD" : "Prepaid"}
+                          </NavLink>
+                        </td>
+                        <td>
+                          <span> ₹{orderAmount} </span>
+                        </td>
+                        <td>
+                          <span> {deliveryType} </span>
+                        </td>
+                        <td>
+                          <span
+                            style={{
+                              backgroundColor:
+                                orderStatus == "pending" ? "#fef9c3" : "",
+                              color: orderStatus == "pending" ? "#887e0e" : "",
+                            }}
+                            className={
+                              orderStatus == "cancel"
+                                ? " stat-btn cancelClor"
+                                : "stat-btn"
+                            }
+                          >
+                            {capitalizeFirstLetter(orderStatus)}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="act-select-bx">
+                            <select
+                              value={orderStatus}
+                              onChange={(e) => {
+                                handleStatusChange(id, e.target.value);
+                              }}
+                            >
+                              {[
+                                "processing",
+                                "shipped",
+                                "delivered",
+                                "cancelled",
+                                "returned",
+                              ].map((e) => (
+                                <option value={e}>
+                                  {capitalizeFirstLetter(e)}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="inv-dwld-btn">
+                            <button className="inv-dwld-btn">
+                              <ion-icon name="cloud-download-outline"></ion-icon>
+                            </button>
+                            <button
+                              onClick={() =>
+                                onOrdComp({
+                                  addedOn,
+                                  email,
+                                  fullname,
+                                  id,
+                                  orderAmount,
+                                  orderDate,
+                                  orderStatus,
+                                  paymentMethod,
+                                  OrderItems,
+                                  ...rest,
+                                })
+                              }
+                              className="inv-dwld-btn"
+                            >
+                              <ion-icon name="eye-outline"></ion-icon>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
             </tbody>
           </table>
           <div className="ord-pagination-flex-bx">

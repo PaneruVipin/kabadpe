@@ -210,6 +210,8 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                     />
                   </div>
                 </th>
+
+                <th>Actions</th>
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -218,7 +220,6 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                 {/* <th>Status</th> */}
                 <th>View</th>
                 <th>Published</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -252,7 +253,41 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                                 />
                               </div>
                             </td>
+                            <td>
+                              <div className="prod-edit-de-flex-btn">
+                                <button
+                                  onClick={() => {
+                                    setSelectedRow({
+                                      id,
+                                      ProdImages,
+                                      name,
+                                      ProdCategory,
+                                      productPrice,
+                                      sellPrice,
+                                      quantity,
+                                      productStatus,
+                                      ...rest,
+                                    });
+                                    setAddProd(true);
+                                  }}
+                                >
+                                  <i className="fa-regular fa-pen-to-square"></i>
+                                </button>
 
+                                <button
+                                  onClick={async () => {
+                                    await greenProductsUpdate({
+                                      id,
+                                      productStatus: "delete",
+                                      imageIds: [],
+                                    });
+                                    refetch();
+                                  }}
+                                >
+                                  <i className="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td>
                             <td>
                               <div className="prod-info-v">
                                 <img src={img} className="prod-img-bx" alt="" />
@@ -389,42 +424,6 @@ const VendorProduct = ({ compRedirectProdDet }) => {
                                   }}
                                   checked={productStatus == "active"}
                                 />
-                              </div>
-                            </td>
-
-                            <td>
-                              <div className="prod-edit-de-flex-btn">
-                                <button
-                                  onClick={() => {
-                                    setSelectedRow({
-                                      id,
-                                      ProdImages,
-                                      name,
-                                      ProdCategory,
-                                      productPrice,
-                                      sellPrice,
-                                      quantity,
-                                      productStatus,
-                                      ...rest,
-                                    });
-                                    setAddProd(true);
-                                  }}
-                                >
-                                  <i className="fa-regular fa-pen-to-square"></i>
-                                </button>
-
-                                <button
-                                  onClick={async () => {
-                                    await greenProductsUpdate({
-                                      id,
-                                      productStatus: "delete",
-                                      imageIds: [],
-                                    });
-                                    refetch();
-                                  }}
-                                >
-                                  <i className="fa-solid fa-trash"></i>
-                                </button>
                               </div>
                             </td>
                           </tr>

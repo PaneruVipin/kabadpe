@@ -18,6 +18,7 @@ import {
 import { parse } from "postcss";
 import { generateUniqueSku } from "../../lib/sku";
 import { object } from "yup";
+import { calculatePercentageValue } from "../../lib/number";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -371,6 +372,10 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 touched,
                 ...rest
               }) => {
+                const gstPrice = calculatePercentageValue(
+                  +values?.gst,
+                  +values?.sellPrice
+                );
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
                     <div className="add-product-form-bx">
@@ -574,6 +579,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>HSN Code</span>
+                        <div>
                         <input
                           type="text"
                           name="hsn"
@@ -584,6 +590,30 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
+                        <p
+                          style={{
+                            fontSize: "0.9em",
+                            color: "gray",
+                            marginTop: "0",
+                          }}
+                        >
+                          HSN (Harmonized System of Nomenclature) is a globally
+                          recognized coding system for goods. To find the
+                          correct HSN code for your product, visit{" "}
+                          <a
+                            href="https://services.gst.gov.in/services/searchhsnsac"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "blue",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            GST HSN Lookup
+                          </a>
+                          .
+                        </p>
+                        </div>
                       </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
@@ -691,7 +721,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                               // id="gst1"
                               // checked={checkBxTwo}
                               className="checkbox212 "
-                              value="18"
+                              value="5"
                               onChange={handleChange}
                               onBlur={handleBlur}
                               checked={+values?.gst}
@@ -700,8 +730,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           </div>
 
                           {+values?.gst ? (
-                            <div className="add-prod-inpt-bx21 add-prod-inpt-bx2121">
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "20px",
+                                width: "50%",
+                              }}
+                              className="add-prod-inpt-bx21 add-prod-inpt-bx2121"
+                            >
                               <select
+                                style={{ width: "50%" }}
                                 name="gst"
                                 id="GST"
                                 value={+values?.gst}
@@ -711,11 +749,12 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                                 <option value="" hidden>
                                   Choose GST
                                 </option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
                                 <option value="18">18%</option>
-                                <option value="20">20%</option>
-                                <option value="15">15%</option>
-                                <option value="19">19%</option>
+                                <option value="28">28%</option>
                               </select>
+                              <span>₹{gstPrice?.toFixed(2)}</span>
                             </div>
                           ) : null}
                         </div>
@@ -827,7 +866,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         type="submit"
                         className="prod-add-del-btn upld-add-prod"
                       >
-                       {!initialValues ? "Next" : "Save"}
+                        {!initialValues ? "Next" : "Save"}
                       </button>
                     </div>
                   </Form>

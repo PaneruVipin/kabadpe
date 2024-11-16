@@ -46,6 +46,7 @@ const OrderDet = ({ data: initialData = {} }) => {
                         .setZone("Asia/Kolkata")
                         .toFormat("ccc dd LLL yyyy @ hh:mm a")}.`}
                       {/* Customer IP: 223.190.87.57 */}
+                      <p>{data?.deliveryType}</p>
                     </p>
                   </div>
 

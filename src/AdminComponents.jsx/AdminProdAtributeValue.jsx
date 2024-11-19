@@ -17,11 +17,6 @@ const AdminProdAtributeValue = ({ data: atributeData }) => {
         includeRes: "draft",
       }),
   });
-  console.log(
-    "attributesValues attributesValues attributesValues attributesValues attributesValues",
-    attributesValues,
-    atributeData
-  );
   return (
     <>
       <section className="admin-prod-atribute-comp vendor-attributes-comp vendor-attributes-comp2">
@@ -68,7 +63,9 @@ const AdminProdAtributeValue = ({ data: atributeData }) => {
                 </th>
                 <th>ID</th>
                 <th>Name</th>
-                {/* <th>Type</th> */}
+                {atributeData?.name?.toLocaleLowerCase()?.trim() == "color" ? (
+                  <th>Color</th>
+                ) : null}
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -76,7 +73,14 @@ const AdminProdAtributeValue = ({ data: atributeData }) => {
             <tbody>
               {!attributesValues?.error
                 ? attributesValues?.map(
-                    ({ attributeId, id, value, valueStatus, ...rest }) => {
+                    ({
+                      attributeId,
+                      id,
+                      value,
+                      valueStatus,
+                      colorCode,
+                      ...rest
+                    }) => {
                       return (
                         <tr key={id}>
                           <td>
@@ -98,9 +102,19 @@ const AdminProdAtributeValue = ({ data: atributeData }) => {
                             <span>{value}</span>
                           </td>
 
-                          {/* <td>
-                            <span>Check Box</span>
-                          </td> */}
+                          {atributeData?.name?.toLocaleLowerCase()?.trim() ==
+                          "color" ? (
+                            <td>
+                              <div
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  borderRadius: "50%",
+                                  backgroundColor: colorCode,
+                                }}
+                              ></div>
+                            </td>
+                          ) : null}
 
                           <td>
                             {/* <button
@@ -149,6 +163,7 @@ const AdminProdAtributeValue = ({ data: atributeData }) => {
                                     id,
                                     value,
                                     valueStatus,
+                                    colorCode,
                                     ...rest,
                                   });
                                   setProdAtrbte(true);

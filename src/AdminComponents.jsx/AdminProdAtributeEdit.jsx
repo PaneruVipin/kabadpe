@@ -6,7 +6,6 @@ import {
 } from "../apis/products/attribute";
 import { toast } from "react-toastify";
 
-
 const AdminProdAtributeEdit = ({ onClickClose, initialValues }) => {
   const [attribute, setAttribute] = useState(
     initialValues?.ProdAttributeValues?.map(({ value }) => value) || []
@@ -89,7 +88,7 @@ const AdminProdAtributeEdit = ({ onClickClose, initialValues }) => {
                   </div>
                 </div>
 
-                <div className="admin-login-fild admin-login-fild3 mt-3 mb-4">
+                {/* <div className="admin-login-fild admin-login-fild3 mt-3 mb-4">
                   <label htmlFor="#">Options</label>
                   <select
                     type="text"
@@ -107,38 +106,40 @@ const AdminProdAtributeEdit = ({ onClickClose, initialValues }) => {
                     <option value="checkbox">Check Box</option>
                     <option value="select">Select</option>
                   </select>
-                </div>
+                </div> */}
 
-                <div className="admin-login-fild admin-login-fild3">
-                  <label htmlFor="#">Display Name</label>
-                  <div className="variants-attribute-bx variants-attribute-bx-admin">
-                    <div className="variant-elem--bx">
-                      {attribute.map((curElem, indx) => (
-                        <div className="variant-bx" key={indx}>
-                          <span> {curElem} </span>
-                          <button
-                            type="button"
-                            onClick={() => handleDelteChange(indx)}
-                          >
-                            <ion-icon name="close-outline"></ion-icon>
-                          </button>
-                        </div>
-                      ))}
+                {values?.name?.toLocaleLowerCase()?.trim() != "color" ? (
+                  <div className="admin-login-fild admin-login-fild3">
+                    <label htmlFor="#">Values</label>
+                    <div className="variants-attribute-bx variants-attribute-bx-admin">
+                      <div className="variant-elem--bx">
+                        {attribute.map((curElem, indx) => (
+                          <div className="variant-bx" key={indx}>
+                            <span> {curElem} </span>
+                            <button
+                              type="button"
+                              onClick={() => handleDelteChange(indx)}
+                            >
+                              <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+
+                      <input
+                        type="text"
+                        name="varint"
+                        id="varint"
+                        value={value}
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
+                        placeholder="Please enter to add variants"
+                        autoComplete="off"
+                        required={attribute?.length ? false : true}
+                      />
                     </div>
-
-                    <input
-                      type="text"
-                      name="varint"
-                      id="varint"
-                      value={value}
-                      onChange={handleInputChange}
-                      onKeyDown={handleKeyPress}
-                      placeholder="Please enter to add variants"
-                      autoComplete="off"
-                      required={attribute?.length ? false : true}
-                    />
                   </div>
-                </div>
+                ) : null}
 
                 <button
                   type="submit"

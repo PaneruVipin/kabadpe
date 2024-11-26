@@ -196,9 +196,19 @@ const AdminPanel = () => {
       <Redirect role="superAdmin" path="/adminlogin" />
       <section className="top-admin-header-comp">
         <FloatingInstagramButton
+          text="Authorize KabadPe"
+          style={{ bottom: "50px" }}
           onClick={() => {
             window.location.assign(
               ENV_API_BASE_URL + "/kabadPe/insta/authorize"
+            );
+          }}
+        />
+        <FloatingInstagramButton
+          text="Authorize TGSS"
+          onClick={() => {
+            window.location.assign(
+              ENV_API_BASE_URL + "/theGreenSamanShop/insta/authorize"
             );
           }}
         />

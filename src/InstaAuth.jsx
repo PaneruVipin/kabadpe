@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 
-const FloatingInstagramButton = ({ onClick = () => {} }) => {
+const FloatingInstagramButton = ({
+  onClick = () => {},
+  style = {},
+  text = "",
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-    onClick={onClick}
+      onClick={onClick}
       style={{
         ...containerStyles,
-        width: isHovered ? "200px" : "50px", // Expand on hover
+        width: isHovered ? "200px" : "50px",
+        ...style, // Expand on hover
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -18,7 +23,7 @@ const FloatingInstagramButton = ({ onClick = () => {} }) => {
         alt="Instagram Logo"
         style={{ ...iconStyles, marginRight: isHovered ? "10px" : "0px" }}
       />
-      {isHovered ? <span style={textStyles}>Authorize Instagram</span> : null}
+      {isHovered ? <span style={textStyles}>{text}</span> : null}
     </div>
   );
 };
@@ -33,8 +38,8 @@ const containerStyles = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  padding: "10px",
-  borderRadius: "25px",
+  padding: "5px 0px",
+  borderRadius: "25px 0px 0px 25px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   transition: "width 0.3s ease",
   cursor: "pointer",

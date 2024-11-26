@@ -7,7 +7,7 @@ const InstaFeed = () => {
   const [insta, setInsta] = useState(InstaSlides);
   const { data: feed, refetch } = useQuery({
     queryKey: ["instafeedFetch"],
-    queryFn: () => instafeedFetch(),
+    queryFn: () => instafeedFetch({}),
   });
   return (
     <>

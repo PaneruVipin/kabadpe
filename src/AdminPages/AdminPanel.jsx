@@ -198,7 +198,7 @@ const AdminPanel = () => {
         <FloatingInstagramButton
           onClick={() => {
             window.location.assign(
-              ENV_API_BASE_URL + "/kabadpe/insta/authorize"
+              ENV_API_BASE_URL + "/kabadPe/insta/authorize"
             );
           }}
         />

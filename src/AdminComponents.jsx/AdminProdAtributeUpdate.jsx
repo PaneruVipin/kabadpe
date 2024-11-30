@@ -8,13 +8,22 @@ import { toast } from "react-toastify";
 const AdminProdAtributeUpdate = ({ data, onClickClose, attributeData }) => {
   const [switchActive, setSwitchActive] = useState(false);
   const [value, setValue] = useState(data?.value || "");
+  const [colorCode, setColorCode] = useState(data?.colorCode || "");
   const handleSubmitClick = async () => {
     if (!value) {
       return;
     }
+    const payload = {
+      add: { id: attributeData?.id, value },
+      update: { id: data?.id, value },
+    };
+    if (colorCode) {
+      payload.add.colorCode = colorCode;
+      payload.update.colorCode = colorCode;
+    }
     const res = data
-      ? await greenProductsAttributeValueUpdate({ id: data?.id, value })
-      : await greenProductsAttributeValueAdd({ id: attributeData?.id, value });
+      ? await greenProductsAttributeValueUpdate(payload.update)
+      : await greenProductsAttributeValueAdd(payload.add);
     if (res?.error) {
       toast.error(res?.message);
       return;
@@ -44,6 +53,20 @@ const AdminProdAtributeUpdate = ({ data, onClickClose, attributeData }) => {
             />
           </div>
 
+          {attributeData?.name?.toLocaleLowerCase()?.trim() == "color" ? (
+            <div className="admin-login-fild admin-login-fild3">
+              <label htmlFor="colorCode">Color Code</label>
+              <input
+                type="text"
+                name="colorCode"
+                id="colorCode"
+                autoComplete="off"
+                placeholder="Color Code..."
+                value={colorCode}
+                onChange={(e) => setColorCode(e.target.value)}
+              />
+            </div>
+          ) : null}
           {/* <div className="admin-login-fild admin-login-fild3 mt-4">
             <label htmlFor="#">Display Name</label>
             <div

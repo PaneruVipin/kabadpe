@@ -84,6 +84,20 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const t = params.get("t");
+    const refer = params.get("refer");
+    const refrerWithAuth = params.get("refrerWithAuthToken");
+    const refrerPath = params.get("refrerPath");
+    if (refrerWithAuth && refrerPath) {
+      setInLocalStorage("token", refrerWithAuth);
+      navigate(`?refrerPath=${refrerPath}`);
+      window.location.reload();
+      return;
+    } else if (refrerPath) {
+      navigate(refrerPath);
+    }
+    if (refer) {
+      window.location.assign(refer);
+    }
     if (t) {
       setInLocalStorage("token", t);
       navigate("/");
@@ -95,7 +109,7 @@ function App() {
     setComponent(compName);
   };
   return (
-    <Routes >
+    <Routes>
       <Route
         path="/"
         element={
@@ -107,7 +121,7 @@ function App() {
           />
         }
       >
-        <Route  index element={<Home setUserForm={setUserForm} />} />
+        <Route index element={<Home setUserForm={setUserForm} />} />
         <Route path="/frenchies" element={<About />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/invoice" element={<Invoice />} />
@@ -190,7 +204,6 @@ function App() {
       <Route path="/climconnect/blog/:id" element={<BlogDet />} />
       <Route path="/test" element={<Test />} />
       {/* <Route path="/orderDet/:id" element={<MyOrderDet />} /> */}
-
     </Routes>
   );
 }

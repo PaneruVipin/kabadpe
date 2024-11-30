@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userFetch } from "../features/user/userActions";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useNavigate } from "react-router-dom";
+import { removeFromLocalStorage } from "../lib/localStorage";
 const VendorPanel = () => {
   const [component, setComponent] = useState("dashboard");
   const [vendBtn, setVendBtn] = useState(null);
@@ -28,6 +29,7 @@ const VendorPanel = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [vendOrg, setVendOrg] = useState(false);
   const [productData, setProductData] = useState(null);
+  const [vendorOrderData, setVendorOrderData] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleViewComp = (getCompName) => {
@@ -96,7 +98,10 @@ const VendorPanel = () => {
 
             <div className="vend-prof-main">
               <div onClick={() => setProf(!prof)} className="vend-prof-img">
-                <img src="/images/customImg/c-1.jpg" alt="" />
+                <img
+                  src={userInfo?.profileImage || "/images/no_profile.webp"}
+                  alt=""
+                />
               </div>
 
               {prof ? (
@@ -130,7 +135,13 @@ const VendorPanel = () => {
                     <span>Edit Organization</span>
                   </div>
 
-                  <div className="dropdown-btn-bx">
+                  <div
+                    className="dropdown-btn-bx"
+                    onClick={() => {
+                      removeFromLocalStorage("vendorToken");
+                      window.location.reload();
+                    }}
+                  >
                     <MdOutlineLogout className="dp-icon" />
                     <span>Log Out</span>
                   </div>
@@ -186,7 +197,7 @@ const VendorPanel = () => {
                 >
                   Products
                 </li>
-                <li
+                {/* <li
                   onClick={() => handleViewComp("vendAtribute")}
                   className={
                     component === "vendAtribute"
@@ -206,7 +217,7 @@ const VendorPanel = () => {
                   }
                 >
                   Categories
-                </li>
+                </li> */}
 
                 <li className="vend-li-btn">Coupons</li>
               </div>
@@ -247,10 +258,15 @@ const VendorPanel = () => {
             />
           ) : null}
           {component === "orders" ? (
-            <VendOrder onOrdRed={() => setComponent("orderDetail")} />
+            <VendOrder
+              onOrdRed={(data) => {
+                setVendorOrderData(data);
+                setComponent("orderDetail");
+              }}
+            />
           ) : null}
           {component === "orderDetail" ? (
-            <OrderDet compOrderDet={"orderDetail"} />
+            <OrderDet data={vendorOrderData} compOrderDet={"orderDetail"} />
           ) : null}
           {component === "vendProduct" ? (
             <VendorProduct

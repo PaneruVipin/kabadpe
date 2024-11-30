@@ -88,7 +88,9 @@ const VendProdDetail = ({ data }) => {
                               {" "}
                               <div className="prod-info-v">
                                 <img
-                                  src={images?.[index]||images?.[0]}
+                                  src={
+                                    images?.[index]?.image || images?.[0]?.image
+                                  }
                                   className="prod-img-bx"
                                   alt=""
                                 />

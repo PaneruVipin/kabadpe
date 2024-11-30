@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-import combData from "./CombinationData";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Formik } from "formik";
 import { useQuery } from "@tanstack/react-query";
 import { greenProdCategoryFetch } from "../../apis/products/categories";
@@ -11,7 +10,15 @@ import {
 import Select from "react-select";
 import { toast } from "react-toastify";
 import { generateCombinations } from "../../lib/variations";
-import { climeQuestions, getClimeColor, getMarksCount } from "../../lib/climeQuestions";
+import {
+  climeQuestions,
+  getClimeColor,
+  getMarksCount,
+} from "../../lib/climeQuestions";
+import { parse } from "postcss";
+import { generateUniqueSku } from "../../lib/sku";
+import { object } from "yup";
+import { calculatePercentageValue } from "../../lib/number";
 const AddProduct = ({ onClickClose, initialValues }) => {
   const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
@@ -23,14 +30,17 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   const [genComb, setGenComb] = useState(false);
   const [chart, setChart] = useState(null);
   const [inptBx, setInptBx] = useState([""]);
-  const [checkBxOne , setCheckBxOne] = useState(false);
-  const [checkBxTwo , setCheckBxTwo] = useState(false);
-  const [messagePublish  , setMessagePublish] = useState(false);
-  const [messageDraft  , setMessageDraft] = useState(false);
-  const [selValue , setSelValue] = useState(false);
-  const [kpChoose , setKpChoose] =  useState(false);
-  const [blkOrder , setBlkOrder] =  useState(false);
-
+  const [messagePublish, setMessagePublish] = useState(false);
+  const [messageDraft, setMessageDraft] = useState(false);
+  const [selValue, setSelValue] = useState(false);
+  const [kpChoose, setKpChoose] = useState(false);
+  const [blkOrder, setBlkOrder] = useState(false);
+  const bulkOrderVariants = [
+    { lable: "100 - 500", value: "100_500", id: 1 },
+    { lable: "501 - 1000", value: "501_1000", id: 2 },
+    { lable: "1001 - 2000", value: "1001_2000", id: 3 },
+    { lable: "2001 - 5000", value: "2001_5000", id: 4 },
+  ];
   const handleKpChange = (e) => {
     setKpChoose(e.target.value);
   };
@@ -45,23 +55,32 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
   const [selectedAttributes, setSelectedAttributes] = useState({});
   const [variations, setVariations] = useState({
-    variations: initialValues?.ProdVariations || [],
+    variations:
+      initialValues?.ProdVariations?.map(({ variation, ...e }, i) => ({
+        ...e,
+        initId: `${e?.sku}-${i}`,
+        variation: JSON.parse(variation || "{}"),
+      })) || [],
+    keys:
+      initialValues?.ProdVariations?.reduce((a, b) => {
+        const keys = Object.keys(JSON.parse(b?.variation || "{}"));
+        let allKeys = [...a];
+        allKeys = [...new Set([...allKeys, ...keys])];
+        return allKeys;
+      }, []) || [],
   });
-  console.log(
-    "variations variations variations variations variations variations variations",
-    variations
-  );
   const [payload, setPayload] = useState(
     initialValues
       ? {
           ...initialValues,
-          material_used: JSON.parse(initialValues?.material_used || "[]"),
           badges: JSON.parse(initialValues?.badges || "[]"),
         }
-      : {}
+      : { sku: generateUniqueSku() }
   );
+  console.log("this is payload", payload);
+  console.log("trhis is variation", variations);
   const [tabFn, setTabFn] = useState({
-    1: () => {},
+    5: () => {},
     2: () => {},
     3: () => {},
     4: () => {},
@@ -73,21 +92,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     { value: "medium", label: "Medium", id: 1 },
     { value: "sneakers", label: "Sneakers", id: 1 },
   ];
-  const handleMesasagePublish = () => {
-    setMessagePublish(true);
-
-    setTimeout(() => {
-      setMessagePublish(false);
-    }, 3000);
-  };
-
-  const handleMesasageDraft = () => {
-    setMessageDraft(true);
-
-    setTimeout(() => {
-      setMessageDraft(false);
-    }, 3000);
-  };
 
   const [value, setValue] = useState({
     sizes: "",
@@ -136,35 +140,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setTagValue(updatedTags);
   };
 
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setValue((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
-
-  const handleKeyPressDown = (e) => {
-    if (e.key === "Enter" && e.target.value.trim() !== "") {
-      const { name, value } = e.target;
-
-      setTags((prev) => ({
-        ...prev,
-        [name]: [...prev[name], value.trim()],
-      }));
-
-      setValue((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
-  const handleDeleteFunc = (name, index) => {
-    setTags((prev) => {
-      return { ...prev, [name]: prev[name].filter((_, i) => i !== index) };
-    });
-  };
-
   const handleChartChange = (e) => {
     const fileImg = e.target.files[0];
     if (fileImg) {
@@ -172,18 +147,21 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     }
   };
 
-  const handleInptAdd = (indx, event) => {
-    const newInptBx = [...inptBx];
-    newInptBx[indx] = event.target.value;
-    setInptBx(newInptBx);
-  };
-
-  const copyInptBx = () => {
-    setInptBx([...inptBx, ""]);
-  };
   const enableTabButton = (button = 2) => {
-    const buttons = { 2: "shipping", 3: "combination", 4: "climconect" };
-    setTabFn((prev) => ({ ...prev, [button]: buttons?.[button] }));
+    const buttons = {
+      2: () => setTabActive("shipping"),
+      3: () => setTabActive("combination"),
+      4: () => setTabActive("climconect"),
+      5: () => setTabActive("bulkorder"),
+    };
+    if (button == "all") {
+      setTabFn(buttons);
+      return;
+    }
+    setTabFn((prev) => ({
+      ...prev,
+      [button]: () => buttons?.[button],
+    }));
   };
   const handleAddProductSubmit = async (data) => {
     const payload = {
@@ -205,6 +183,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
         return;
       }
       toast.success(res);
+      setPayload((prev) => ({ ...prev, ...payload }));
     } else {
       setPayload((prev) => ({ ...prev, ...payload }));
       setTabActive("shipping");
@@ -236,13 +215,33 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     setVariations((prev) => ({ ...prev, variations: variation }));
     setformHide(false);
   };
+  const deleteVariationClick = (id) => () => {
+    const variation = variations?.variations?.map((e) => {
+      if (e?.initId == id) {
+        return { ...e, productStatus: "delete" };
+      } else {
+        return e;
+      }
+    });
+    setVariations((prev) => ({ ...prev, variations: variation }));
+  };
   const handlePublishSubmit = async (data) => {
+    const variationImages = variations?.variations?.map(({ image }) => {
+      return { image };
+    });
     const finalPayload = {
       ...payload,
       variations: JSON.stringify(variations?.variations || []),
       ...data,
       material_used: JSON.stringify(data?.material_used || []),
+      variationImages,
+      next: "",
     };
+    if (data?.next) {
+      setPayload(finalPayload);
+      setTabActive("bulkorder");
+      return;
+    }
     const res = initialValues
       ? await greenProductsUpdate(finalPayload)
       : await greenProductsAdd(finalPayload);
@@ -273,7 +272,11 @@ const AddProduct = ({ onClickClose, initialValues }) => {
     "Locally sourced ingredients",
     "Sustainable product",
   ];
-
+  useEffect(() => {
+    if (initialValues) {
+      enableTabButton("all");
+    }
+  }, [initialValues]);
   return (
     <>
       <section className="add-prod-comp" onClick={onClickClose}>
@@ -307,7 +310,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Basic Info
               </button>
               <button
-                onClick={() => setTabActive("shipping")}
+                onClick={tabFn?.[2]}
                 className={
                   tabActive === "shipping"
                     ? "tab-add-prod tabactive"
@@ -317,7 +320,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Shipping
               </button>
               <button
-                onClick={() => setTabActive("combination")}
+                onClick={tabFn?.[3]}
                 className={
                   tabActive === "combination"
                     ? "tab-add-prod tabactive"
@@ -337,7 +340,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Questions
               </button> */}
               <button
-                onClick={() => setTabActive("climconect")}
+                onClick={tabFn?.[4]}
                 className={
                   tabActive === "climconect"
                     ? "tab-add-prod tabactive"
@@ -346,8 +349,8 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               >
                 Clim Connect
               </button>
-            {tabActive === 'bulkorder' ?  <button
-                onClick={() => setTabActive("bulkorder")}
+              <button
+                onClick={tabFn?.[5]}
                 className={
                   tabActive === "bulkorder"
                     ? "tab-add-prod tabactive"
@@ -355,7 +358,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 }
               >
                 Bulk Orders
-              </button> : null}
+              </button>
             </div>
           </div>
 
@@ -369,6 +372,10 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 touched,
                 ...rest
               }) => {
+                const gstPrice = calculatePercentageValue(
+                  +values?.gst,
+                  +values?.sellPrice
+                );
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
                     <div className="add-product-form-bx">
@@ -408,6 +415,34 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                               </span>{" "}
                             </p>
                           ) : null}
+                        </div>
+                      </div>
+
+                      <div className="ord-filt-bx add-prod-inpt-bx ">
+                        <span>Choose Sub-category</span>
+
+                        <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
+                          <select
+                            name="subCategoryId"
+                            id="category"
+                            value={values?.subCategoryId}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            // required
+                          >
+                            <option value="" hidden>
+                              Choose Sub-category
+                            </option>
+                            {!categories?.error
+                              ? categories
+                                  ?.find(({ id }) => id == values?.categoryId)
+                                  ?.ProdSubCategories?.map(({ id, name }) => (
+                                    <option key={id} value={id}>
+                                      {name}
+                                    </option>
+                                  ))
+                              : null}
+                          </select>
                         </div>
                       </div>
 
@@ -544,6 +579,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>HSN Code</span>
+                        <div>
                         <input
                           type="text"
                           name="hsn"
@@ -554,6 +590,30 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
+                        <p
+                          style={{
+                            fontSize: "0.9em",
+                            color: "gray",
+                            marginTop: "0",
+                          }}
+                        >
+                          HSN (Harmonized System of Nomenclature) is a globally
+                          recognized coding system for goods. To find the
+                          correct HSN code for your product, visit{" "}
+                          <a
+                            href="https://services.gst.gov.in/services/searchhsnsac"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: "blue",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            GST HSN Lookup
+                          </a>
+                          .
+                        </p>
+                        </div>
                       </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
@@ -606,7 +666,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           onBlur={handleBlur}
                         />
                       </div>
-
 
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>Product Tags</span>
@@ -662,7 +721,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                               // id="gst1"
                               // checked={checkBxTwo}
                               className="checkbox212 "
-                              value="18"
+                              value="5"
                               onChange={handleChange}
                               onBlur={handleBlur}
                               checked={+values?.gst}
@@ -671,8 +730,16 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           </div>
 
                           {+values?.gst ? (
-                            <div className="add-prod-inpt-bx21 add-prod-inpt-bx2121">
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: "20px",
+                                width: "50%",
+                              }}
+                              className="add-prod-inpt-bx21 add-prod-inpt-bx2121"
+                            >
                               <select
+                                style={{ width: "50%" }}
                                 name="gst"
                                 id="GST"
                                 value={+values?.gst}
@@ -682,11 +749,12 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                                 <option value="" hidden>
                                   Choose GST
                                 </option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
                                 <option value="18">18%</option>
-                                <option value="20">20%</option>
-                                <option value="15">15%</option>
-                                <option value="19">19%</option>
+                                <option value="28">28%</option>
                               </select>
+                              <span>₹{gstPrice?.toFixed(2)}</span>
                             </div>
                           ) : null}
                         </div>
@@ -763,37 +831,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                     </div>
 
                     <div className="ord-filt-bx add-prod-inpt-bx ">
-                      <span>Packaging Type</span>
-
-                      <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
-                        <select
-                          name="packaging"
-                          value={values?.packaging}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          id="category"
-                        >
-                          <option value="" hidden>
-                            Choose Packaging
-                          </option>
-                          <option value="100%_eco_friendly">
-                            100% Eco Friendly
-                          </option>
-                          <option value="partial_plastic_packing">
-                            Partial Plastic Packing
-                          </option>
-                          <option value="plastic_packing">
-                            Plastic Packing
-                          </option>
-                        </select>
-                        {/* <p>
-                      the text is , the platform commission or this category
-                      will be <span>10%</span>{" "}
-                    </p> */}
-                      </div>
-                    </div>
-
-                    <div className="ord-filt-bx add-prod-inpt-bx ">
                       <span>Return</span>
 
                       <div className="add-prod-inpt-bx21 add-prod-inpt-bx21221">
@@ -818,43 +855,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
                     </div>
 
-                    <div className="ord-filt-bx add-prod-inpt-bx ">
-                      <span>KP Return</span>
-                      <div
-                        className={
-                          kpChoose === "Yes"
-                            ? "select-bx-two-bx select-bx-two-bx2"
-                            : "select-bx-two-bx"
-                        }
-                      >
-                        <div className="add-prod-inpt-bx21 ">
-                          <select
-                            name="kpReturn"
-                            id="category"
-                            onChange={handleKpChange}
-                          >
-                            <option value="ChooseOne">Choose One</option>
-                            <option value="Yes">Yes </option>
-                            <option value="No">No</option>
-                          </select>
-                        </div>
-                        {kpChoose === "Yes" ? (
-                          <div className="add-prod-inpt-bx2 ">
-                            <input
-                              type="text"
-                              name="kpReturn"
-                              value={values?.kpReturn}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              id="price"
-                              placeholder="Enter Price"
-                              autoComplete="off"
-                            />
-                          </div>
-                        ) : null}
-                      </div>
-                    </div>
-
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
                       {/* <button
                         type="button"
@@ -866,7 +866,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         type="submit"
                         className="prod-add-del-btn upld-add-prod"
                       >
-                        Next
+                        {!initialValues ? "Next" : "Save"}
                       </button>
                     </div>
                   </Form>
@@ -970,28 +970,33 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
 
                       <div className="ord-filt-bx add-prod-inpt-bx ">
-                        <span>Is this product available for 2-hour delivery</span>
+                        <span>
+                          Is this product available for 2-hour delivery
+                        </span>
 
                         <div className="add-prod-inpt-bx21">
                           <select
-                            name="shipping"
-                            id="Shipping"
-                           
+                            name="availableForTwoHourDelivery"
+                            id="availableForTwoHourDelivery"
+                            value={values?.availableForTwoHourDelivery}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                           >
-                            <option value="Choose Option">Choose Option</option>
-                            <option value="Yes">Yes</option>
-                           
+                            <option value="" hidden>
+                              Choose Option
+                            </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
                           </select>
                         </div>
                       </div>
-                      
                     </div>
                     <div className="prod-add-can-flex-btn prod-add-can-flex-btn3121 prod-add-can-flex-btn31 ">
                       <button
                         type="submit"
                         className="prod-add-del-btn upld-add-prod"
                       >
-                        Next
+                        {!initialValues ? "Next" : "Save"}
                       </button>
                     </div>
                   </Form>
@@ -1003,7 +1008,38 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           {tabActive === "combination" ? (
             <div className="add-prod-form-main shipping-info-bx">
               <h4>Attributes</h4>
-
+              <div className="check-box-flex-bx">
+                {!attributes?.error
+                  ? attributes?.map(({ id, label, name }) => {
+                      return (
+                        <div className="check-bx-gst">
+                          <input
+                            type="checkbox"
+                            // name="badges"
+                            checked={Object.keys(selectedAttributes)?.includes(
+                              name
+                            )}
+                            id="badges"
+                            className="checkbox212 "
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              const newSelectedAttributes = {
+                                ...selectedAttributes,
+                              };
+                              if (checked) {
+                                newSelectedAttributes[name] = [];
+                              } else {
+                                delete newSelectedAttributes?.[name];
+                              }
+                              setSelectedAttributes(newSelectedAttributes);
+                            }}
+                          />
+                          <span>{label}</span>
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
               <div
                 className={
                   genComb || variations?.variations?.length
@@ -1012,60 +1048,46 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 }
               >
                 {!attributes?.error
-                  ? attributes?.map(
-                      ({
-                        ProdAttributeValues,
-                        addedOn,
-                        attributeStatus,
-                        id,
-                        label,
-                        name,
-                        style,
-                        updatedOn,
-                      }) => {
-                        return (
-                          <div
-                            key={id}
-                            className="ord-filt-bx add-prod-inpt-bx"
-                          >
-                            <span>{label}</span>
+                  ? Object.keys(selectedAttributes || {}).map((key) => {
+                      const { id, label, name, ProdAttributeValues } =
+                        attributes?.find((e) => e?.name == key);
+                      return (
+                        <div key={id} className="ord-filt-bx add-prod-inpt-bx">
+                          <span>{label}</span>
 
-                            <div className="variants-attribute-bx">
-                              <Select
-                                options={(ProdAttributeValues || [])?.map(
-                                  ({ value }) => ({ value, label: value })
-                                )}
-                                components={{ NoOptionsMessage: () => {} }}
-                                name={name}
-                                id="sizes"
-                                isMulti
-                                onChange={(v) => {
-                                  const newValues = v?.map(
-                                    ({ value }) => value
-                                  );
-                                  setSelectedAttributes((prev) => ({
-                                    ...prev,
-                                    [name]: newValues,
-                                  }));
-                                }}
-                                placeholder={`Please enter ${label}`}
-                                menuIsOpen={menuIsOpen?.[id]}
-                                onBlur={() => setMenuIsOpen({ [id]: false })}
-                                onMenuOpen={() => setMenuIsOpen({ [id]: true })}
-                                styles={{
-                                  indicatorSeparator: () => ({
-                                    display: "none",
-                                  }),
-                                  dropdownIndicator: () => ({
-                                    display: "none",
-                                  }),
-                                }}
-                              />
-                            </div>
+                          <div className="variants-attribute-bx">
+                            <Select
+                              options={(ProdAttributeValues || [])?.map(
+                                ({ value }) => ({ value, label: value })
+                              )}
+                              components={{ NoOptionsMessage: () => {} }}
+                              name={name}
+                              id="sizes"
+                              isMulti
+                              onChange={(v) => {
+                                const newValues = v?.map(({ value }) => value);
+                                setSelectedAttributes((prev) => ({
+                                  ...prev,
+                                  [name]: newValues,
+                                }));
+                              }}
+                              placeholder={`Please enter ${label}`}
+                              menuIsOpen={menuIsOpen?.[id]}
+                              onBlur={() => setMenuIsOpen({ [id]: false })}
+                              onMenuOpen={() => setMenuIsOpen({ [id]: true })}
+                              styles={{
+                                indicatorSeparator: () => ({
+                                  display: "none",
+                                }),
+                                dropdownIndicator: () => ({
+                                  display: "none",
+                                }),
+                              }}
+                            />
                           </div>
-                        );
-                      }
-                    )
+                        </div>
+                      );
+                    })
                   : null}
               </div>
               {genComb || variations?.variations?.length ? (
@@ -1086,280 +1108,321 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {variations?.variations?.map(
-                            ({ variation, ...rest }, indx) => (
-                              <tr key={indx}>
-                                <td className="">
-                                  <span className="id-text"> {indx + 1} </span>
-                                </td>
-                                {variations?.keys?.map((k) => {
-                                  return (
-                                    <td className="">
-                                      <span> {variation?.[k]} </span>
-                                    </td>
-                                  );
-                                })}
-                                <td>
-                                  <span> {rest?.gst} </span>
-                                </td>
-                                <td className="price-btn ">
-                                  <button
-                                    onClick={() => setformHide(true)}
-                                    className="add-price-btn"
-                                  >
-                                    Add Price
-                                  </button>
-                                </td>
-                                <td>
-                                  <span> {rest?.sellPrice} </span>
-                                </td>
-                                <td>
-                                  <div className="btns-flex">
-                                    <button className="act-btns">
-                                      <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                  </div>
-                                </td>
-                                {formHide ? (
-                                  <div
-                                    className="comb-form-comp"
-                                    onClick={() => setformHide(false)}
-                                  >
-                                    <div
-                                      className="form-below-main-bx"
-                                      onClick={(e) => e.stopPropagation()}
+                          {variations?.variations
+                            ?.filter(
+                              ({ productStatus }) => productStatus != "delete"
+                            )
+                            ?.map(({ variation, ...rest }, indx) => {
+                              return (
+                                <tr key={indx}>
+                                  <td className="">
+                                    <span className="id-text">
+                                      {" "}
+                                      {indx + 1}{" "}
+                                    </span>
+                                  </td>
+                                  {variations?.keys?.map((k) => {
+                                    return (
+                                      <td className="">
+                                        <span> {variation?.[k]} </span>
+                                      </td>
+                                    );
+                                  })}
+                                  <td>
+                                    <span> {rest?.gst} </span>
+                                  </td>
+                                  <td className="price-btn ">
+                                    <button
+                                      onClick={() => setformHide(rest?.initId)}
+                                      className="add-price-btn"
                                     >
-                                      <Formik
-                                        initialValues={rest || {}}
-                                        onSubmit={handleUpdateVariationSubmit(
+                                      Add Price
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <span> {rest?.sellPrice} </span>
+                                  </td>
+                                  <td>
+                                    <div className="btns-flex">
+                                      <button
+                                        className="act-btns"
+                                        onClick={deleteVariationClick(
                                           rest?.initId
                                         )}
                                       >
-                                        {({
-                                          handleBlur,
-                                          handleChange,
-                                          values,
-                                          errors,
-                                          touched,
-                                          ...rest
-                                        }) => {
-                                          return (
-                                            <Form>
-                                              <div className="top-form-comb-flex-bx">
-                                                <div className="left-comb-img-bx">
-                                                  <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    name="id_file"
-                                                    id="id_file"
-                                                    onChange={handleImgChange}
-                                                  />
-                                                  <label htmlFor="id_file">
-                                                    <div className="comb-file-img-bx">
-                                                      <img
-                                                        src={
-                                                          selectImg ||
-                                                          "/images/customImg/836.jpg"
-                                                        }
-                                                        alt=""
-                                                      />
-                                                    </div>
-                                                  </label>
+                                        <i class="fa-regular fa-trash-can"></i>
+                                      </button>
+                                    </div>
+                                  </td>
+                                  {formHide == rest?.initId ? (
+                                    <div
+                                      className="comb-form-comp"
+                                      onClick={() => setformHide(false)}
+                                    >
+                                      <div
+                                        className="form-below-main-bx"
+                                        onClick={(e) => e.stopPropagation()}
+                                      >
+                                        <Formik
+                                          initialValues={rest || {}}
+                                          onSubmit={handleUpdateVariationSubmit(
+                                            rest?.initId
+                                          )}
+                                        >
+                                          {({
+                                            handleBlur,
+                                            handleChange,
+                                            values,
+                                            errors,
+                                            touched,
+                                            ...rest
+                                          }) => {
+                                            return (
+                                              <Form>
+                                                <div className="top-form-comb-flex-bx">
+                                                  <div className="left-comb-img-bx">
+                                                    <input
+                                                      type="file"
+                                                      accept="image/*"
+                                                      id="id_file"
+                                                      // name="image"
+                                                      onChange={(e) => {
+                                                        handleChange({
+                                                          target: {
+                                                            name: "image",
+                                                            value:
+                                                              e.target
+                                                                ?.files?.[0],
+                                                          },
+                                                        });
+                                                      }}
+                                                    />
+                                                    <label htmlFor="id_file">
+                                                      <div className="comb-file-img-bx">
+                                                        <img
+                                                          src={
+                                                            (typeof values?.image ==
+                                                              "string" ||
+                                                            !values?.image
+                                                              ? values?.image
+                                                              : URL.createObjectURL(
+                                                                  values?.image
+                                                                )) ||
+                                                            "/images/no_img.jpg"
+                                                          }
+                                                          onError={(e) => {
+                                                            e.currentTarget.src =
+                                                              "/images/no_img.jpg";
+                                                          }}
+                                                          alt=""
+                                                        />
+                                                      </div>
+                                                    </label>
+                                                  </div>
+
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx">
+                                                    <span>SKU</span>
+                                                    <input
+                                                      type="text"
+                                                      name="sku"
+                                                      id="sku"
+                                                      placeholder="Enter SKU"
+                                                      autoComplete="off"
+                                                      value={values?.sku}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
                                                 </div>
 
-                                                <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx">
-                                                  <span>SKU</span>
-                                                  <input
-                                                    type="text"
-                                                    name="sku"
-                                                    id="sku"
-                                                    placeholder="Enter SKU"
-                                                    autoComplete="off"
-                                                    value={values?.sku}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                  />
-                                                </div>
-                                              </div>
+                                                <div className="comb-grid-inpt-bx">
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Regular Price</span>
+                                                    <input
+                                                      type="text"
+                                                      name="productPrice"
+                                                      id="price"
+                                                      placeholder="Variation Price"
+                                                      autoComplete="off"
+                                                      value={
+                                                        values?.productPrice
+                                                      }
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
 
-                                              <div className="comb-grid-inpt-bx">
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Sale Price</span>
+                                                    <input
+                                                      type="text"
+                                                      name="sellPrice"
+                                                      id="saleprice"
+                                                      placeholder="Enter Sales Price"
+                                                      autoComplete="off"
+                                                      value={values?.sellPrice}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
+                                                </div>
+
+                                                <div className="comb-grid-inpt-bx">
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Stock Status</span>
+                                                    <select
+                                                      name="stockStatus"
+                                                      id="stockstatus"
+                                                      value={
+                                                        values?.stockStatus
+                                                      }
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    >
+                                                      <option value="in">
+                                                        In Stock
+                                                      </option>
+                                                      <option value="out">
+                                                        Out of Stock
+                                                      </option>
+                                                    </select>
+                                                  </div>
+
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Weight (kg) </span>
+                                                    <input
+                                                      type="text"
+                                                      name="weight"
+                                                      id="weight"
+                                                      placeholder="0"
+                                                      autoComplete="off"
+                                                      value={values?.weight}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
+                                                </div>
+
+                                                <div className="comb-grid-inpt-bx comb-grid-inpt-bx2">
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Length (cm) </span>
+                                                    <input
+                                                      type="text"
+                                                      name="length"
+                                                      id="length"
+                                                      placeholder="Length"
+                                                      autoComplete="off"
+                                                      value={values?.length}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
+
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Width (cm) </span>
+                                                    <input
+                                                      type="text"
+                                                      name="width"
+                                                      id="width"
+                                                      placeholder="Widht"
+                                                      autoComplete="off"
+                                                      value={values?.width}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
+
+                                                  <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
+                                                    <span>Height (cm) </span>
+                                                    <input
+                                                      type="text"
+                                                      name="height"
+                                                      id="height"
+                                                      placeholder="Height"
+                                                      autoComplete="off"
+                                                      value={values?.height}
+                                                      onChange={handleChange}
+                                                      onBlur={handleBlur}
+                                                    />
+                                                  </div>
+                                                </div>
+
                                                 <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Regular Price</span>
-                                                  <input
-                                                    type="text"
-                                                    name="productPrice"
-                                                    id="price"
-                                                    placeholder="Variation Price"
-                                                    autoComplete="off"
-                                                    value={values?.productPrice}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                  />
-                                                </div>
-
-                                                <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Sale Price</span>
-                                                  <input
-                                                    type="text"
-                                                    name="sellPrice"
-                                                    id="saleprice"
-                                                    placeholder="Enter Sales Price"
-                                                    autoComplete="off"
-                                                    value={values?.sellPrice}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                  />
-                                                </div>
-                                              </div>
-
-                                              <div className="comb-grid-inpt-bx">
-                                                <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Stock Status</span>
+                                                  <span>Shipping Class</span>
                                                   <select
-                                                    name="stockStatus"
-                                                    id="stockstatus"
-                                                    value={values?.stockStatus}
+                                                    name="shipping"
+                                                    id="shipingclass"
+                                                    value={values?.shipping}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                   >
-                                                    <option value="in">
-                                                      In Stock
-                                                    </option>
-                                                    <option value="out">
-                                                      Out of Stock
-                                                    </option>
+                                                    {shipingOptions?.map(
+                                                      ({
+                                                        value,
+                                                        label,
+                                                        id,
+                                                      }) => {
+                                                        return (
+                                                          <option
+                                                            key={id}
+                                                            value={value}
+                                                          >
+                                                            {label}
+                                                          </option>
+                                                        );
+                                                      }
+                                                    )}
                                                   </select>
                                                 </div>
 
                                                 <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Weight (kg) </span>
-                                                  <input
-                                                    type="text"
-                                                    name="weight"
-                                                    id="weight"
-                                                    placeholder="0"
-                                                    autoComplete="off"
-                                                    value={values?.weight}
+                                                  <span>
+                                                    Short Diescription
+                                                  </span>
+                                                  <textarea
+                                                    name="shortDesc"
+                                                    id="message"
+                                                    rows="2"
+                                                    value={values?.shortDesc}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                  />
-                                                </div>
-                                              </div>
-
-                                              <div className="comb-grid-inpt-bx comb-grid-inpt-bx2">
-                                                <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Length (cm) </span>
-                                                  <input
-                                                    type="text"
-                                                    name="length"
-                                                    id="length"
-                                                    placeholder="Length"
-                                                    autoComplete="off"
-                                                    value={values?.length}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                  />
+                                                  ></textarea>
                                                 </div>
 
                                                 <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Width (cm) </span>
-                                                  <input
-                                                    type="text"
-                                                    name="width"
-                                                    id="width"
-                                                    placeholder="Widht"
-                                                    autoComplete="off"
-                                                    value={values?.width}
+                                                  <span>Long Diescription</span>
+                                                  <textarea
+                                                    name="longDesc"
+                                                    id="message"
+                                                    rows="2"
+                                                    value={values?.longDesc}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
-                                                  />
+                                                  ></textarea>
                                                 </div>
 
-                                                <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                  <span>Height (cm) </span>
-                                                  <input
-                                                    type="text"
-                                                    name="height"
-                                                    id="height"
-                                                    placeholder="Height"
-                                                    autoComplete="off"
-                                                    value={values?.height}
-                                                    onChange={handleChange}
-                                                    onBlur={handleBlur}
-                                                  />
-                                                </div>
-                                              </div>
-
-                                              <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                <span>Shipping Class</span>
-                                                <select
-                                                  name="shipping"
-                                                  id="shipingclass"
-                                                  value={values?.shipping}
-                                                  onChange={handleChange}
-                                                  onBlur={handleBlur}
+                                                <button
+                                                  type="submit"
+                                                  className="prod-add-del-btn upld-add-prod gen-comb m-auto"
                                                 >
-                                                  {shipingOptions?.map(
-                                                    ({ value, label, id }) => {
-                                                      return (
-                                                        <option
-                                                          key={id}
-                                                          value={value}
-                                                        >
-                                                          {label}
-                                                        </option>
-                                                      );
-                                                    }
-                                                  )}
-                                                </select>
-                                              </div>
-
-                                              <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                <span>Short Diescription</span>
-                                                <textarea
-                                                  name="shortDesc"
-                                                  id="message"
-                                                  rows="2"
-                                                  value={values?.shortDesc}
-                                                  onChange={handleChange}
-                                                  onBlur={handleBlur}
-                                                ></textarea>
-                                              </div>
-
-                                              <div className="ord-filt-bx add-prod-inpt-bx comb-inpt-bx comb-inpt-bx2">
-                                                <span>Long Diescription</span>
-                                                <textarea
-                                                  name="longDesc"
-                                                  id="message"
-                                                  rows="2"
-                                                  value={values?.longDesc}
-                                                  onChange={handleChange}
-                                                  onBlur={handleBlur}
-                                                ></textarea>
-                                              </div>
-
-                                              <button
-                                                type="submit"
-                                                className="prod-add-del-btn upld-add-prod gen-comb m-auto"
-                                              >
-                                                Save
-                                              </button>
-                                            </Form>
-                                          );
-                                        }}
-                                      </Formik>
-                                      <div
-                                        onClick={() => setformHide(false)}
-                                        className="close-btn close-btn-comb"
-                                      >
-                                        <i class="fa-solid fa-xmark"></i>
+                                                  Save
+                                                </button>
+                                              </Form>
+                                            );
+                                          }}
+                                        </Formik>
+                                        <div
+                                          onClick={() => setformHide(false)}
+                                          className="close-btn close-btn-comb"
+                                        >
+                                          <i class="fa-solid fa-xmark"></i>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                ) : null}
-                              </tr>
-                            )
-                          )}
+                                  ) : null}
+                                </tr>
+                              );
+                            })}
                         </tbody>
                       </table>
                     </div>
@@ -1376,8 +1439,15 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       variation: e,
                       sku: `${payload?.sku}-${i}`,
                       initId: `${payload?.sku}-${i}`,
+                      id: null,
                     }));
-                    setVariations({ variations: combinations, keys });
+                    setVariations({
+                      variations: [
+                        ...(variations?.variations || []),
+                        ...combinations,
+                      ],
+                      keys,
+                    });
                     setGenComb("generatecomb");
                   }}
                   className="prod-add-del-btn upld-add-prod gen-comb"
@@ -1503,15 +1573,23 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           ) : null} */}
 
           {tabActive === "climconect" ? (
-            <Formik initialValues={payload} onSubmit={handlePublishSubmit}>
+            <Formik
+              initialValues={{
+                ...payload,
+                material_used: JSON.parse(payload?.material_used || "[]"),
+              }}
+              onSubmit={handlePublishSubmit}
+            >
               {({
                 handleBlur,
                 handleChange,
                 values,
                 errors,
                 touched,
+                handleSubmit,
                 ...rest
               }) => {
+                //heloo
                 const totalMarks = getMarksCount(values);
                 return (
                   <Form className="add-prod-form-main basic-info-bx">
@@ -1571,6 +1649,46 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                                       }
                                     )}
                                   </div>
+                                ) : id == "kabadpe_returned" ? (
+                                  <div
+                                    className={
+                                      values?.[id] === "yes"
+                                        ? "select-bx-two-bx select-bx-two-bx2"
+                                        : "select-bx-two-bx"
+                                    }
+                                  >
+                                    <div className="add-prod-inpt-bx21 ">
+                                      <select
+                                        name={id}
+                                        id="category"
+                                        value={values?.[id]}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      >
+                                        <option value="" hidden>
+                                          Choose One{" "}
+                                        </option>
+                                        {answers?.map(({ answer, id }) => (
+                                          <option value={id}>{answer}</option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                    {values?.[id] == "yes" ? (
+                                      <div className="add-prod-inpt-bx2 ">
+                                        <input
+                                          type="number"
+                                          name="kpReturn"
+                                          value={values?.kpReturn}
+                                          onChange={handleChange}
+                                          onBlur={handleBlur}
+                                          id="price"
+                                          placeholder="Enter KP Return Price"
+                                          autoComplete="off"
+                                          required
+                                        />
+                                      </div>
+                                    ) : null}
+                                  </div>
                                 ) : (
                                   <div className="add-prod-inpt-bx21 ">
                                     <select
@@ -1602,12 +1720,19 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       </div>
 
                       <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-                        <button className="prod-add-del-btn pb-btn upld-can-prod">
+                        <button
+                          type="submit"
+                          className="prod-add-del-btn pb-btn upld-can-prod"
+                        >
                           Publish Without Bulk Order
                         </button>
                         <button
-                          type="submit"
-                          onClick={() => { setTabActive('bulkorder')}}
+                          type="button"
+                          onClick={() => {
+                            values.next = true;
+                            enableTabButton(5);
+                            handleSubmit();
+                          }}
                           className="prod-add-del-btn upld-add-prod"
                         >
                           Create Bulk Order
@@ -1620,235 +1745,162 @@ const AddProduct = ({ onClickClose, initialValues }) => {
             </Formik>
           ) : null}
 
-          
-{
-            tabActive === 'bulkorder' ? <div className="bulk-order-main">
-
-              <h5>This Product is available for bulk order and customization.</h5>
-
-              <div className="bulk-ord-flex bulk-ord-flex1">
-                
-                <div className="left-blk-order-bx">
-
-                  <h6>Number Of Quantity</h6>
-
-                  
-
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                  <h6>Price ( pcs. / kg ) </h6>
-                  <h6>Customization ( price pcs. / kg) </h6>
-                  <h6>Delivery (In days)</h6>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>100 - 500</h6>
-
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>501 - 1000</h6>
-
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>1001 - 2000</h6>
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex  bulk-ord-flex2">
-                
-                <div className="left-blk-order-bx left-blk-order-bx1">
-
-                  <h6>2001 - 5000</h6>
-                  <div className="chse-type-bx">
-                    <select name="chose" id="chose">
-                      <option value="Choose One">Choose One</option>
-                      <option value="kg">kg</option>
-                      <option value="pcs">pcs.</option>
-
-                    </select>
-                  </div>
-                </div>
-
-                <div className="right-blk-order-flex-bx">
-
-                <div className="blk-ord-inpt">
-                  <input type="text" name="price" id="price" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="customization" id="customization" placeholder="" />
-                </div>
-                <div className="blk-ord-inpt">
-                  <input type="text" name="days" id="days" placeholder="" />
-                </div>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-
-                  <div className="bulk-ord-flex bulk-ord-flex2 bulk-ord-flex3">
-                
-                <div className="left-blk-order-bx left-blk-order-bx2">
-
-                  <h6>Type your customization details</h6>
-
-                </div>
-
-                <div className="det-bx">
-
-                <textarea name="details" id="details" rows='3'></textarea>
-                  
-                </div>
-
-
-
-                
-                </div>
-
-                <div className="bulk-ord-flex  bulk-ord-flex3 bulk-ord-flex4">
-                
-                <div className="left-blk-order-bx left-blk-order-bx2">
-
-                  <h6>Add your logo</h6>
-
-                </div>
-
-                <div className="upload-logo-bx">
-
-                  <div className="logo-bx">
-                    <img src={ '/images/customImg/836.jpg' } alt="" />
-                  </div>
-                  
-                  <h6>Please Upload your Logo</h6>
-
-                  <input type="file" name="logo_file" id="logo_file" accept="image/* " />
-
-                <label htmlFor="logo_file" className="upload">Upload</label>
-                  
-                </div>
-
-
-
-
-                
-                </div>
-
-                <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
-           
-                <button
-                  onClick={() =>{ setTabActive("shipping"), setTabActive('bulkorder')}}
-                  className="prod-add-del-btn upld-add-prod"
-                >
-                  Publish
-                </button>
-              </div>
-              
-            </div> : null
-          }
-          
+          {tabActive === "bulkorder" ? (
+            <Formik
+              initialValues={initialValues?.ProdBulkDetal || { unit: "kg" }}
+              onSubmit={(data) =>
+                handlePublishSubmit({ bulkOrderDetail: JSON.stringify(data) })
+              }
+            >
+              {({
+                handleBlur,
+                handleChange,
+                values,
+                errors,
+                touched,
+                ...rest
+              }) => {
+                //heloo
+                return (
+                  <Form className="bulk-order-main">
+                    <h5>
+                      This Product is available for bulk order and
+                      customization.
+                    </h5>
+
+                    <div className="bulk-ord-flex bulk-ord-flex1">
+                      <div className="left-blk-order-bx">
+                        <h6>Number Of Quantity</h6>
+                      </div>
+
+                      <div className="right-blk-order-flex-bx">
+                        <h6>Price ( {values?.unit}) </h6>
+                        <h6>Customization ( {values?.unit}) </h6>
+                        <h6>Delivery ( days )</h6>
+                      </div>
+                    </div>
+
+                    {bulkOrderVariants.map(({ id, lable, value }) => {
+                      return (
+                        <div key={id} className="bulk-ord-flex bulk-ord-flex2">
+                          <div className="left-blk-order-bx left-blk-order-bx1">
+                            <h6>{lable}</h6>
+
+                            <div className="chse-type-bx">
+                              <select
+                                name="unit"
+                                id="chose"
+                                value={values?.unit}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              >
+                                <option value="" hidden>
+                                  Choose One
+                                </option>
+                                <option value="kg">kg</option>
+                                <option value="pcs">pcs.</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="right-blk-order-flex-bx">
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`p${value}`}
+                                id="price"
+                                placeholder=""
+                                value={values?.[`p${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                              />
+                            </div>
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`c${value}`}
+                                id="customization"
+                                placeholder=""
+                                value={values?.[`c${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              />
+                            </div>
+                            <div className="blk-ord-inpt">
+                              <input
+                                type="number"
+                                onWheel={(e) => e.currentTarget.blur()}
+                                name={`d${value}`}
+                                id="days"
+                                placeholder=""
+                                value={values?.[`d${value}`]}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="bulk-ord-flex bulk-ord-flex2 bulk-ord-flex3">
+                      <div className="left-blk-order-bx left-blk-order-bx2">
+                        <h6>Type your customization details</h6>
+                      </div>
+
+                      <div className="det-bx">
+                        <textarea
+                          name="customization"
+                          id="details"
+                          rows="3"
+                          value={values?.customization}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div className="bulk-ord-flex  bulk-ord-flex3 bulk-ord-flex4">
+                      <div className="left-blk-order-bx left-blk-order-bx2">
+                        <h6>Add your logo</h6>
+                      </div>
+
+                      <div className="upload-logo-bx">
+                        <div className="logo-bx">
+                          <img src={"/images/customImg/836.jpg"} alt="" />
+                        </div>
+
+                        <h6>Please Upload your Logo</h6>
+
+                        <input
+                          type="file"
+                          name="logo_file"
+                          id="logo_file"
+                          accept="image/* "
+                        />
+
+                        <label htmlFor="logo_file" className="upload">
+                          Upload
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 ">
+                      <button
+                        type="submit"
+                        className="prod-add-del-btn upld-add-prod"
+                      >
+                        Publish
+                      </button>
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          ) : null}
         </div>
       </section>
     </>

@@ -51,6 +51,7 @@ import AdminProdAtributeValue from "../AdminComponents.jsx/AdminProdAtributeValu
 import AdminProdCateg from "./AdminProdCateg";
 import AdminProdCategValue from "../AdminComponents.jsx/AdminProdCategValue";
 import AdminVendor from "./AdminVendor";
+import FloatingInstagramButton from "../InstaAuth";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -194,6 +195,23 @@ const AdminPanel = () => {
     <>
       <Redirect role="superAdmin" path="/adminlogin" />
       <section className="top-admin-header-comp">
+        <FloatingInstagramButton
+          text="Authorize KabadPe"
+          style={{ bottom: "50px" }}
+          onClick={() => {
+            window.location.assign(
+              ENV_API_BASE_URL + "/kabadPe/insta/authorize"
+            );
+          }}
+        />
+        <FloatingInstagramButton
+          text="Authorize TGSS"
+          onClick={() => {
+            window.location.assign(
+              ENV_API_BASE_URL + "/theGreenSamanShop/insta/authorize"
+            );
+          }}
+        />
         <div className="admin-head-flex-box">
           <div className="left-admin-logo-box">
             <div className="admin-logo">

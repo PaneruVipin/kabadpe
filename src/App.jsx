@@ -65,6 +65,7 @@ import CreateBidPost from "./FrenchiesComp/CreateBidPost";
 import CreateBidPostPage from "./Pages/CreateBidPostPage";
 import Test from "./Test";
 import MyOrderDet from "./Components/MyOrderDet";
+import Invoice from './Pages/Invoice'
 function App() {
   const [component, setComponent] = useState("");
   const [profileNav, setProfileNav] = useState(true);
@@ -109,6 +110,8 @@ function App() {
         <Route  index element={<Home setUserForm={setUserForm} />} />
         <Route path="/frenchies" element={<About />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/invoice" element={<Invoice />} />
+
 
         <Route path="/contact" element={<Contact />} />
         <Route

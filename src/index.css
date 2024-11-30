@@ -17929,6 +17929,321 @@ video {
   font-size: 13px;
 }
 
+/* Invoice comp css code */
+
+.invoice-comp{
+  position: relative;
+  width: 100%;
+  padding-inline: 1.8rem;
+  padding-block: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.invoice-container{
+  max-width: 65rem;
+  margin: 0 auto;
+  background-color: #fff;
+  border: .1rem solid #d7d7d7;
+  padding: 1.5rem 4rem;
+
+}
+
+.invoice-top-logo-flex-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.clim-logo{
+  position: relative;
+  width: 20rem;
+}
+
+.clim-logo img{
+  width: 100%;
+  height: auto;
+}
+
+.invoice-top-text-flex{
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.invoice-top-text-flex h6{
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 0;
+}
+
+.invoice-top-text-flex p{
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+.invoice-two-grid-bx{
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+}
+
+.invoice-info-bx h6{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0;
+}
+
+.invoice-info-bx p{
+  font-size: 1rem;
+  font-weight: 500;
+  color: #3c3d3d;
+  margin-bottom: 0;
+  line-height: 1.5;
+  max-width:25rem;
+}
+
+.invoice-info-bx2{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.invoice-relt{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.invoice-info-bx3{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.invoice-table{
+  position: relative;
+  width: 100%;
+  margin-top: 5rem;
+  border-collapse: collapse;
+}
+
+.invoice-table table{
+  border-collapse: collapse;
+}
+
+.invoice-table table thead tr th{
+    font-size: .95rem;
+    line-height: 1.1;
+    color: #212421;
+    background-color: #bcbcbc;
+    padding-inline: .78rem;
+    padding-block: .4rem;
+    border-right: .1rem solid #3c3d3d;
+}
+
+.invoice-table table thead tr th:nth-child(1){
+  border-left: .1rem solid #3c3d3d;
+
+}
+
+.invoice-table table tbody tr td{
+  padding-inline: .78rem;
+  padding-block: .4rem;
+  border-right: .1rem solid #3c3d3d;
+
+
+}
+
+.invoice-table table tbody tr td span{
+  font-size: .9rem;
+  color: #3f3f3f;
+  font-weight: 600;
+  display: block;
+  line-height: 1.6;
+}
+
+.invoice-table table tbody tr td:nth-child(1){
+  border-left: .1rem solid #3c3d3d;
+
+}
+
+.invoice-table table tbody tr , 
+.total-amount-bx{
+  border-bottom: .1rem solid #3c3d3d;
+
+}
+
+.invoice-table table thead tr {
+  border-top: .1rem solid #3c3d3d;
+
+}
+
+.total-amount-bx{
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-inline: .1rem solid #3c3d3d;
+  padding: 0;
+
+}
+
+.total-amount-bx h6{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0d0d0d;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  padding-inline: 1rem;
+  line-height: normal;
+  padding-block: 1rem;
+  margin-bottom: 0;
+
+}
+
+.price-flex{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.price-flex p{
+  padding-inline:1rem;
+  font-weight: 500;
+  color: #3e3e3e;
+  margin-bottom: 0;
+  font-size: .9rem;
+  line-height: normal;
+  background-color: #c0c0c0;
+  padding-block: 1rem;
+
+}
+
+.amount-words-bx{
+  position: relative;
+  width: 100%;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  border-inline: .15rem solid #3c3d3d;
+  border-bottom: .15rem solid #3c3d3d;
+}
+
+.amount-words-bx h6{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 0;
+}
+
+.amount-words-bx p{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 0;
+}
+
+
+.sign-bx{
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.sign-bx h5{
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.sign{
+  position: relative;
+  width: 10rem;
+}
+
+.sign img{
+  width: 100%;
+  height: auto;
+}
+
+.outer-bx-text{
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  color: #424141;
+}
+
+.payment-trans-grid-bx{
+  position: relative;
+  width: 100%;
+  margin-top: 3rem;
+  border-block: .15rem solid #3c3d3d;
+  border-inline: .15rem solid #3c3d3d;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.payment-trnas-bx {
+  position: relative;
+  width: 100%;
+  border-right: .15rem solid #3c3d3d;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+}
+
+.payment-trnas-bx:last-child{border-right: none;}
+
+.payment-trnas-bx h6{
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #0d0d0d;
+  margin-bottom: 0;
+
+}
+
+.payment-trnas-bx p{
+  margin-bottom: 0;
+  font-size: .9rem;
+  font-weight: 500;
+  color: #3c3d3d;
+  line-height: 1.4;
+}
+
+.bottom-line{
+  position: relative;
+  text-align: center;
+  margin-top: 6rem;
+  max-width: 62rem;
+  font-size: .96rem;
+  color: #3f3f3f;
+  padding-bottom: 4rem;
+  line-height: 1.5;
+}
+
+.pageno{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #868484;
+}
+
 @media all and (min-width: 768px) and (max-width: 1025px) {
 
   html {

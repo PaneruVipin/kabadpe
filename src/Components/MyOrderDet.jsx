@@ -1,8 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { OrderContext } from "../Context";
+import Invoice from "../Pages/Invoice";
+import generatePDF from "react-to-pdf";
 
 const MyOrderDet = ({ orderData, data }) => {
+  const targetRef = useRef();
   const [carot, setCarot] = useState("");
   const product = data?.OrderItems?.[0]?.Product;
   const images = product?.ProdImages;
@@ -93,7 +96,16 @@ const MyOrderDet = ({ orderData, data }) => {
                 <p>Download Invoice</p>
               </div>
 
-              <button className="inv-btn">Download</button>
+              <button
+                onClick={() =>
+                  generatePDF(targetRef, {
+                    filename: `TGSS-invoice-${data?.id}`,
+                  })
+                }
+                className="inv-btn"
+              >
+                Download
+              </button>
             </div>
           </div>
         </div>
@@ -330,6 +342,12 @@ const MyOrderDet = ({ orderData, data }) => {
               <h6>Delivery was made with OTP verification</h6>
             </div>
           ) : null}
+        </div>
+        <div
+          ref={targetRef}
+          style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
+        >
+          <Invoice  orderId={data?.id} />
         </div>
       </section>
     </>

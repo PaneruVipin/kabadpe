@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import RecentOrdData from "../RecentOrdData";
 import { NavLink } from "react-router-dom";
 import { DateTime } from "luxon";
 import { vendorOrderEdit } from "../../apis/orders/order";
 import { toast } from "react-toastify";
 import { capitalizeFirstLetter } from "../../lib/string";
+import Invoice from "../../Pages/Invoice";
+import generatePDF from "react-to-pdf";
 
 const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
+  const targetRef = useRef();
+  const [selectedData, setSelectedData] = useState({});
   const handleStatusChange = async (id, orderStatus) => {
     const res = await vendorOrderEdit({ id, orderStatus });
     if (res?.error) {
@@ -151,7 +155,20 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
                         </td>
                         <td>
                           <div className="inv-dwld-btn">
-                            <button className="inv-dwld-btn">
+                            <button
+                              onClick={() => {
+                                setSelectedData({});
+                                setTimeout(() => {
+                                  setSelectedData({ id });
+                                });
+                                setTimeout(() => {
+                                  generatePDF(targetRef, {
+                                    filename: `TGSS-invoice-${id}`,
+                                  });
+                                }, 100);
+                              }}
+                              className="inv-dwld-btn"
+                            >
                               <ion-icon name="cloud-download-outline"></ion-icon>
                             </button>
                             <button
@@ -202,6 +219,14 @@ const RecentOrd = ({ data = [], refetchOrders, compTrue, onOrdComp }) => {
             </div>
           </div>
         </div>
+        {selectedData?.id ? (
+          <div
+            ref={targetRef}
+            style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
+          >
+            <Invoice orderId={selectedData?.id} />
+          </div>
+        ) : null}
       </section>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { RxDashboard } from "react-icons/rx";
 import { MdCategory } from "react-icons/md";
@@ -21,7 +21,9 @@ import { userFetch } from "../features/user/userActions";
 import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useNavigate } from "react-router-dom";
 import { removeFromLocalStorage } from "../lib/localStorage";
+import Invoice from "../Pages/Invoice";
 const VendorPanel = () => {
+  const targetRef = useRef();
   const [component, setComponent] = useState("dashboard");
   const [vendBtn, setVendBtn] = useState(null);
   const [sideNav, setSideNav] = useState(true);
@@ -302,6 +304,14 @@ const VendorPanel = () => {
         <VendEditProf onclickClose={() => setEditProfile(false)} />
       ) : null}
       {vendOrg ? <VendEditOrg onclickClose={() => setVendOrg(false)} /> : null}
+      <div
+        ref={targetRef}
+        style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
+      >
+        <Invoice
+        // orderId={data?.id}
+        />
+      </div>
     </>
   );
 };

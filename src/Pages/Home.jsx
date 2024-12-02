@@ -28,29 +28,13 @@ const Home = ({ setUserForm,}) => {
     scrollToParam(location, "s");
   }, [location.search]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCounter(prevCounter => {
-  //       const nextCounter = prevCounter + 1;
-  //       if (nextCounter > 100) {
-  //         clearInterval(interval);
-  //       }
-  //       return nextCounter;
-  //     });
-  //   }, 50); // Adjust interval to control the animation speed
 
-  //   return () => clearInterval(interval);
-  // }, []);
 
   return (
     <>
       <Preloader />
 
-      {/* <div className="preloader-container">
-<div className="preloader-box" style={{ width: `${counter}%` }}>
-  {counter === 100 && <span>Loading Complete!</span>}
-</div>
-</div> */}
+   
 
       <div className="mainwrap">
         <HomeSlider />

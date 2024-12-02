@@ -1,233 +1,332 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
+import { userOrderDetailfetch } from "../apis/orders/order";
+import { DateTime } from "luxon";
+import { numberToWords } from "../lib/number";
+import generatePDF from "react-to-pdf";
 
-const Invoice = () => {
+const Invoice = ({ orderId }, ref) => {
+  const targetRef = useRef();
+  const { id } = useParams();
+  const { data: order, refetch } = useQuery({
+    queryKey: ["orderdetail2729"],
+    queryFn: () => userOrderDetailfetch({ id: orderId || id }),
+  });
+  console.log("ref & targetRef", ref, targetRef, order,orderId);
+
+  const OrderItems = order?.OrderItems || [];
+  const vendor = OrderItems?.[0]?.Product?.Vendor;
+  const vendorAdddress = vendor?.VendorAddress;
+  const vendorDetail = vendor?.VendorDetail;
+
+  const total = OrderItems?.reduce(
+    (a, b) => {
+      const gstAmount = +b?.gst ? (b?.netPrice * +b?.gst) / 100 : 0;
+      return {
+        gst: a?.gst + +(gstAmount * +b?.quantity) || 0,
+        total: a?.total + +(b?.totalPrice || 0),
+        netPrice: a?.netPrice + +(b?.netPrice || b.unitPrice * b.quantity || 0),
+        unitPrice: a?.unitPrice + +(b?.unitPrice || 0),
+      };
+    },
+    { netPrice: 0, unitPrice: 0, gst: 0, total: 0 }
+  );
   return (
     <>
-      <section className="invoice-comp">
-        <div className="invoice-container">
-          <div className="invoice-top-logo-flex-bx">
-            <div className="clim-logo">
-              <img src="./images/clim-logo.png" alt="" />
+      {!order?.error && order ? (
+        <section className="invoice-comp">
+          {orderId ? null : (
+            <button
+              onClick={() =>
+                generatePDF(targetRef, {
+                  filename: `TGSS-invoice-${order?.id}`,
+                })
+              }
+              style={{
+                padding: "12px 24px",
+                backgroundColor: "#007bff",
+                color: "white",
+                fontSize: "16px",
+                border: "none",
+                borderRadius: "8px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                cursor: "pointer",
+                transition: "background-color 0.3s ease, transform 0.2s ease",
+                outline: "none",
+                position: "fixed",
+                top: "20px",
+                right: "20px",
+                width: "200px",
+                height: "50px",
+              }}
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = "#0056b3";
+                e.target.style.transform = "scale(1.05)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = "#007bff";
+                e.target.style.transform = "scale(1)";
+              }}
+            >
+              📄 Download Invoice
+            </button>
+          )}
+          <div ref={ref?.ref || targetRef} className="invoice-container">
+            <div className="invoice-top-logo-flex-bx">
+              <div className="clim-logo">
+                <img src="/images/clim-logo.png" alt="" />
+              </div>
+
+              <div className="invoice-top-text-flex">
+                <h6>Tax Invoice/Bill of Supply/Cash Memo</h6>
+                <p>(Original for Recipient)</p>
+              </div>
             </div>
 
-            <div className="invoice-top-text-flex">
-              <h6>Tax Invoice/Bill of Supply/Cash Memo</h6>
-              <p>(Original for Recipient)</p>
-            </div>
-          </div>
-
-          <div className="invoice-two-grid-bx">
-            <div className="invoice-info-bx">
-              <h6>Sold By :</h6>
-              <p>
-                GEORGIAN ENTERPRISES PRIVATE LIMITED * Kh No 554 to 558,560 to
-                583,600 to 606, Bagru Rawan,N.H.8,Tehsil Sanganer BAGRU,
-                RAJASTHAN, 303007 IN
-              </p>
-            </div>
-
-            <div className="invoice-info-bx invoice-info-bx2">
-              <h6>Billing Address :</h6>
-              <p>Gayathri Nair</p>
-              <p>
-                S1, 9/656, Sector 9, Chitrakoot Scheme, Vaishali Nagar,
-                Chitrakoot JAIPUR, RAJASTHAN, 302021
-              </p>
-
-              <p>IN</p>
-              <h6>
-                State/UT Code: <span>08</span>{" "}
-              </h6>
-            </div>
-          </div>
-
-          <div className="invoice-two-grid-bx">
-            <div className="invoice-relt">
+            <div className="invoice-two-grid-bx">
               <div className="invoice-info-bx">
-                <h6>
-                  PAN No: <span> AAGCG7857C</span>
-                </h6>
-                <h6>
-                  GST Registration No: <span> 08AAGCG7857C1ZF </span>
-                </h6>
+                <h6>Sold By :</h6>
+                <p>
+                  {vendor?.companyName}
+                  <br />
+                  {`${vendorAdddress?.addressLine1}, ${
+                    vendorAdddress?.addressLine2
+                      ? vendorAdddress?.addressLine2 + ","
+                      : ""
+                  } ${vendorAdddress?.city}, ${vendorAdddress?.state}`}
+                  <br /> {`${vendorAdddress?.pincode} IN`}
+                </p>
               </div>
 
-              <div className="invoice-info-bx invoice-info-bx3">
-                <h6>
-                  Order Number: <span> 404-7373172-3425162</span>
-                </h6>
-                <h6>
-                  Order Date: <span> 14.11.2024 </span>
-                </h6>
-              </div>
-            </div>
+              <div className="invoice-info-bx invoice-info-bx2">
+                <h6>Billing Address :</h6>
+                <p>{vendor?.fullname} </p>
+                <p>{order?.billingAddress || order?.shippingAddress}</p>
 
-            <div className="invoice-info-bx invoice-info-bx2">
-              <h6>Shipping Address :</h6>
-              <p>Gayathri Nair </p>
-              <p>Gayathri Nair</p>
-              <p>
-                S1, 9/656, Sector 9, Chitrakoot Scheme, Vaishali Nagar,
-                Chitrakoot JAIPUR, RAJASTHAN, 302021
-              </p>
-
-              <p>IN</p>
-              <h6>
+                <p>IN</p>
+                {/* <h6>
                 State/UT Code: <span>08</span>{" "}
-              </h6>
-              <h6>
-                Place of supply: <span>RAJASTHAN</span>{" "}
-              </h6>
-              <h6>
-                Place of delivery: <span>RAJASTHAN</span>{" "}
-              </h6>
-              <h6>
-                Invoice Number: <span>JPX2-353</span>{" "}
-              </h6>
-              <h6>
+              </h6> */}
+              </div>
+            </div>
+
+            <div className="invoice-two-grid-bx">
+              <div className="invoice-relt">
+                <div className="invoice-info-bx">
+                  <h6>
+                    PAN No: <span> {vendorDetail?.panNumber}</span>
+                  </h6>
+                  <h6>
+                    GST Registration No:{" "}
+                    <span> {vendorDetail?.gstNumber} </span>
+                  </h6>
+                </div>
+
+                <div className="invoice-info-bx invoice-info-bx3">
+                  <h6>
+                    Order Number: <span> {order?.id}</span>
+                  </h6>
+                  <h6>
+                    Order Date:{" "}
+                    <span>
+                      {" "}
+                      {DateTime.fromISO(order?.orderDate, {
+                        zone: "utc",
+                      })
+                        .setZone("Asia/Kolkata")
+                        .toFormat("dd.LL.yyyy")}{" "}
+                    </span>
+                  </h6>
+                </div>
+              </div>
+
+              <div className="invoice-info-bx invoice-info-bx2">
+                <h6>Shipping Address :</h6>
+                <p>{vendor?.fullname} </p>
+                <p>{order?.shippingAddress}</p>
+
+                <p>IN</p>
+                {/* <h6>
+                State/UT Code: <span>08</span>{" "}
+              </h6> */}
+                <h6>
+                  Place of supply: <span>{vendorAdddress?.state}</span>{" "}
+                </h6>
+                <h6>
+                  Place of delivery: <span>{order?.state}</span>{" "}
+                </h6>
+                <h6>
+                  Invoice Number: <span>{order?.id}</span>{" "}
+                </h6>
+                {/* <h6>
                 Invoice Details: <span> RJ-JPX2-137392831-2425</span>{" "}
-              </h6>
-              <h6>
-                Invoice Date: <span>14.11.2024</span>{" "}
-              </h6>
+              </h6> */}
+                <h6>
+                  Invoice Date:{" "}
+                  <span>
+                    {DateTime.fromISO(new Date().toISOString(), {
+                      zone: "utc",
+                    })
+                      .setZone("Asia/Kolkata")
+                      .toFormat("dd.LL.yyyy")}
+                  </span>{" "}
+                </h6>
+              </div>
             </div>
-          </div>
 
-          <div className="invoice-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Sl. No</th>
-                  <th>Description</th>
-                  <th>Unit Price</th>
-                  <th>Qty</th>
-                  <th>Net Amount</th>
-                  <th>Tax Rate</th>
-                  <th>Tax Type</th>
-                  <th>Tax Amoun</th>
-                  <th>Total Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
+            <div className="invoice-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Sl. No</th>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Qty</th>
+                    <th>Net Amount</th>
+                    <th>Tax Rate</th>
+                    <th>Tax Type</th>
+                    <th>Tax Amoun</th>
+                    <th>Total Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {OrderItems?.map(
+                    ({
+                      id,
+                      productName,
+                      quantity,
+                      unitPrice,
+                      totalPrice,
+                      netPrice,
+                      gst,
+                    }) => {
+                      const gstAmount = gst ? (netPrice * gst) / 100 : 0;
+                      return (
+                        <tr key={id}>
+                          <td>
+                            <span>1</span>
+                          </td>
+                          <td>
+                            <span>{productName}</span>
+                          </td>
+
+                          <td>
+                            <span>₹{unitPrice}</span>
+                          </td>
+                          <td>
+                            <span>{quantity}</span>
+                          </td>
+                          <td>
+                            <span>
+                              ₹
+                              {netPrice ||
+                                (unitPrice * quantity || 0)?.toFixed(2)}
+                            </span>
+                          </td>
+                          <td>
+                            <span>{gst / 2}%</span>
+                            <br />
+                            <span>{gst / 2}%</span>
+                          </td>
+                          <td>
+                            <span>CGST</span>
+                            <br />
+                            <span>SGST</span>
+                          </td>
+                          <td>
+                            <span> ₹{(gstAmount / 2)?.toFixed(2)}</span>
+                            <br />
+                            <span> ₹{(gstAmount / 2).toFixed(2)}</span>
+                          </td>
+                          <td>
+                            <span>₹{totalPrice}</span>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
+                  <tr>
+                    <td></td>
                     <td>
-                        <span>1</span>
-                    </td>
-                    <td>
-                        <span>RAEGR MagFix Arc M500 15W Mag-Safe Compatible Wireless
-Charger | Made in India | Magnetic Wireless Charging Pad
-Compatible with Mag-Safe on iPhone 16 / iPhone 15 / iPhone 14
-Series - RG10472 | B0CBQ13JSJ ( RG10472 )
-HSN:85044090
-</span>
+                      <span></span>
                     </td>
 
                     <td>
-                        <span>₹905.94</span>
+                      {" "}
+                      <span> ₹{total?.unitPrice?.toFixed(2)}</span>
+                    </td>
+                    <td></td>
+                    <td>
+                      {" "}
+                      <span> ₹{total?.netPrice?.toFixed(2)}</span>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <span> ₹{total?.gst?.toFixed(2)}</span>
                     </td>
                     <td>
-                        <span>1</span>
+                      <span>₹{total?.total?.toFixed(2)}</span>
                     </td>
-                    <td>
-                        <span>₹905.94</span>
-                    </td>
-                    <td>
-                        <span>9%</span>
-                        <span>9%</span>
-                    </td>
-                    <td>
-                        <span>CGST</span>
-                        <span>SGST</span>
-
-                    </td>
-                    <td>
-                        <span> ₹81.53</span>
-                        <span> ₹81.53</span>
-
-                    </td>
-                    <td>
-                        <span>
-                        ₹1,069.00
-                        </span>
-                    </td>
-
-                    
-                </tr>
-               
-              </tbody>
-            </table>
-            <div className="total-amount-bx">
-                <h6>Total:</h6>
-                <div className="price-flex">
-                <p>₹163.06</p>
-                <p> ₹1,069.00</p>
-                </div>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
 
-          <div className="amount-words-bx">
-            <h6>Amount in Words:</h6>
-            <p>One Thousand Sixty-nine only</p>
-          </div>
+            <div className="amount-words-bx">
+              <h6>Amount in Words:</h6>
+              <p>{numberToWords(Math.floor(total?.total))}</p>
+            </div>
 
-          <div className="sign-bx amount-words-bx">
-                <h5>For GEORGIAN ENTERPRISES PRIVATE LIMITED:</h5>
+            <div className="sign-bx amount-words-bx with_border">
+              <h5>For {vendor?.companyName}:</h5>
 
-                <div className="sign">
-                    <img src="./images/my-sign.jpg" alt="" />
-                </div>
+              {/* <div className="sign">
+                <img src="/images/my-sign.jpg" alt="" />
+              </div> */}
 
-                <h5>Authorized Signatory</h5>
-                
-          </div>
-          <p className="outer-bx-text">Whether tax is payable under reverse charge - No
-          </p>
+              <h5>{vendor?.fullname}</h5>
+            </div>
+            <p className="outer-bx-text">
+              Whether tax is payable under reverse charge - No
+            </p>
 
-
-          <div className="payment-trans-grid-bx">
-
-            <div className="payment-trnas-bx">
+            <div className="payment-trans-grid-bx">
+              <div className="payment-trnas-bx">
                 <h6>Payment Transaction ID: </h6>
-                <p>2iItNxUGVjdD2cVO7WeY
-                </p>
-            </div>
-            <div className="payment-trnas-bx">
+                <p>{order?.TnxRecord?.txnId}</p>
+              </div>
+              <div className="payment-trnas-bx">
                 <h6>Date & Time: 1 </h6>
-                <p>14/11/2024, 16:44:43
-hrs
-
+                <p>
+                  {DateTime.now()
+                    .setZone("Asia/Kolkata")
+                    .toFormat("dd/LL/yyyy, HH:mm:ss 'hrs'")}
                 </p>
-            </div>
-            <div className="payment-trnas-bx">
+              </div>
+              <div className="payment-trnas-bx">
                 <h6>Invoice Value: </h6>
-                <p>1,069.00
-                </p>
-            </div>
+                <p>{total?.total}</p>
+              </div>
 
-            <div className="payment-trnas-bx">
+              <div className="payment-trnas-bx">
                 <h6>Mode of Payment: </h6>
-                <p>Credit
-Card
-
-                </p>
+                <p>{`${order?.paymentMethod} (${order?.paymentStatus})`}</p>
+              </div>
             </div>
-            
+            <p className="bottom-line">
+              *ASSPL-Amazon Seller Services Pvt. Ltd., ARIPL-Amazon Retail India
+              Pvt. Ltd. (only where Amazon Retail India Pvt. Ltd. fulfillment
+              center is co-located) Customers desirous of availing input GST
+              credit are requested to create a Business account and purchase on
+              Amazon.in/business from Business eligible offers Please note that
+              this invoice is not a demand for payment
+              {/* <p className="pageno">Page 1 of 1</p> */}
+            </p>
           </div>
-          
-          
-        </div>
-
-        <p className="bottom-line">
-        *ASSPL-Amazon Seller Services Pvt. Ltd., ARIPL-Amazon Retail India Pvt. Ltd. (only where Amazon Retail India Pvt. Ltd. fulfillment center is co-located)
-Customers desirous of availing input GST credit are requested to create a Business account and purchase on Amazon.in/business from Business eligible offers
-Please note that this invoice is not a demand for payment
-
-<p className="pageno">Page 1 of 1</p>
-
-        </p>
-
-        
-      </section>
+        </section>
+      ) : null}
     </>
   );
 };

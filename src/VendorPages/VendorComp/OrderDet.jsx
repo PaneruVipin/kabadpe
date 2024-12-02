@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaTruck } from "react-icons/fa6";
 import { DateTime } from "luxon";
 import { toast } from "react-toastify";
 import { vendorOrderEdit } from "../../apis/orders/order";
+import Invoice from "../../Pages/Invoice";
+import generatePDF from "react-to-pdf";
 const OrderDet = ({ data: initialData = {} }) => {
+  const targetRef = useRef();
   const [data, setData] = useState(initialData);
   const handleStatusChange = async (id, orderStatus) => {
     const res = await vendorOrderEdit({ id, orderStatus });
@@ -392,7 +395,14 @@ const OrderDet = ({ data: initialData = {} }) => {
 
         <div className="order-det-paymt-btn">
           <div className="left-ord-det-paymt-btn-flex">
-            <button className="filt-ord-btn filt-ord-btn2">
+            <button
+              onClick={() =>
+                generatePDF(targetRef, {
+                  filename: `TGSS-invoice-${data?.id}`,
+                })
+              }
+              className="filt-ord-btn filt-ord-btn2"
+            >
               Download Invoice{" "}
               <ion-icon name="cloud-download-outline"></ion-icon>
             </button>
@@ -403,6 +413,12 @@ const OrderDet = ({ data: initialData = {} }) => {
           <button className="filt-ord-btn filt-ord-btn2">
             Print Shipping Invoice <ion-icon name="print-outline"></ion-icon>
           </button>
+        </div>
+        <div
+          ref={targetRef}
+          style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
+        >
+          <Invoice orderId={data?.id} />
         </div>
       </section>
     </>

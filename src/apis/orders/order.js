@@ -38,3 +38,14 @@ export const vendorOrderEdit = resolvePromise(async ({ id, orderStatus }) => {
   );
   return res?.message;
 });
+
+export const userOrderDetailfetch = resolvePromise(async ({ id }) => {
+  const apiUrl = ENV_API_BASE_URL + `/green/order/${id}`;
+  const token = getFromLocalStorage("token");
+  const { data: res } = await axios.get(apiUrl, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  return res?.order;
+});

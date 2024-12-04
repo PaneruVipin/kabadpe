@@ -6,67 +6,38 @@ export function calculatePercentageValue(percentage, whole) {
 export function numberToWords(num) {
   if (num === 0) return "Zero";
 
-  const units = [
-    "",
-    "One",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine",
-  ];
-  const teens = [
-    "Eleven",
-    "Twelve",
-    "Thirteen",
-    "Fourteen",
-    "Fifteen",
-    "Sixteen",
-    "Seventeen",
-    "Eighteen",
-    "Nineteen",
-  ];
-  const tens = [
-    "",
-    "Ten",
-    "Twenty",
-    "Thirty",
-    "Forty",
-    "Fifty",
-    "Sixty",
-    "Seventy",
-    "Eighty",
-    "Ninety",
-  ];
+  const units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+  const teens = ["Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+  const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
   const thousands = ["", "Thousand", "Lakh", "Crore"];
 
-  function convertToWords(n, suffix) {
-    if (n === 0) return "";
-
+  function convertToWords(n) {
     let str = "";
     if (n > 19) {
       str += tens[Math.floor(n / 10)] + " " + units[n % 10];
-    } else if (n > 10) {
+    } else if (n >= 11) {
       str += teens[n - 11];
     } else {
       str += units[n];
     }
-    return str.trim() + " " + suffix + " ";
+    return str.trim();
   }
 
   let output = "";
-  let count = 0;
+  let parts = [];
 
+  // Split the number as per Indian numbering system
+  parts.push(num % 1000); // Last three digits for thousands
+  num = Math.floor(num / 1000);
   while (num > 0) {
-    let rem = num % 100;
-    if (rem > 0) {
-      output = convertToWords(rem, thousands[count]) + output;
-    }
-    count++;
+    parts.push(num % 100); // Handle lakhs, crores, etc. in two-digit pairs
     num = Math.floor(num / 100);
+  }
+
+  for (let i = parts.length - 1; i >= 0; i--) {
+    if (parts[i] > 0) {
+      output += convertToWords(parts[i]) + " " + thousands[i] + " ";
+    }
   }
 
   return output.trim();

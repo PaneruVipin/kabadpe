@@ -164,13 +164,22 @@ const Ratelistcomp = ({ setUserForm }) => {
     queryFn: () => adminAriaFetch(),
   });
   const getStates = (res) =>
-    [...new Set(res?.map((e, i) => e?.state))].map((name, i) => ({
-      id: i,
-      name,
-    }));
+    [...new Set(res?.map((e, i) => e?.state?.trim()?.toLowerCase()))].map(
+      (name, i) => ({
+        id: i,
+        name,
+      })
+    );
   const getCities = (state, res) => {
     return [
-      ...new Set(res?.filter((e) => e?.state == state)?.map((e, i) => e?.city)),
+      ...new Set(
+        res
+          ?.filter(
+            (e) =>
+              e?.state?.trim()?.toLowerCase() == state?.trim()?.toLowerCase()
+          )
+          ?.map((e, i) => e?.city?.trim()?.toLowerCase())
+      ),
     ].map((name, i) => ({ id: i, name }));
   };
   const totalRate = filteredData(selectedRates, filters)?.reduce((a, b) => {
@@ -236,7 +245,12 @@ const Ratelistcomp = ({ setUserForm }) => {
       const filter = {
         id: "area",
         fn: (e) => {
-          return e?.state == selection?.state && e?.city == selection?.city;
+          return (
+            e?.state?.trim()?.toLowerCase() ==
+              selection?.state?.trim()?.toLowerCase() &&
+            e?.city?.trim()?.toLowerCase() ==
+              selection?.city?.trim()?.toLowerCase()
+          );
         },
       };
       setFilters([filter]);

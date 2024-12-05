@@ -75,7 +75,7 @@ const Invoice = ({ orderId }, ref) => {
           <div ref={ref?.ref || targetRef} className="invoice-container">
             <div className="invoice-top-logo-flex-bx">
               <div className="clim-logo">
-                <img src="/images/clim-logo.png" alt="" />
+                <img src="/images/climeLogo.png" alt="" />
               </div>
 
               <div className="invoice-top-text-flex">

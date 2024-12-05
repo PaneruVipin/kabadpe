@@ -13,7 +13,7 @@ const Invoice = ({ orderId }, ref) => {
     queryKey: ["orderdetail2729"],
     queryFn: () => userOrderDetailfetch({ id: orderId || id }),
   });
-  console.log("ref & targetRef", ref, targetRef, order,orderId);
+  console.log("ref & targetRef", ref, targetRef, order, orderId);
 
   const OrderItems = order?.OrderItems || [];
   const vendor = OrderItems?.[0]?.Product?.Vendor;
@@ -30,7 +30,7 @@ const Invoice = ({ orderId }, ref) => {
         unitPrice: a?.unitPrice + +(b?.unitPrice || 0),
       };
     },
-    { netPrice: 0, unitPrice: 0, gst: 0, total: 0 }
+    { netPrice: 0, unitPrice: 0, gst: 0, total: +order?.donation || 0 }
   );
   return (
     <>
@@ -186,7 +186,8 @@ const Invoice = ({ orderId }, ref) => {
                     <th>Net Amount</th>
                     <th>Tax Rate</th>
                     <th>Tax Type</th>
-                    <th>Tax Amoun</th>
+                    <th>Tax Amount</th>
+                    <th>Donation</th>
                     <th>Total Amount</th>
                   </tr>
                 </thead>
@@ -240,6 +241,9 @@ const Invoice = ({ orderId }, ref) => {
                             <span> ₹{(gstAmount / 2).toFixed(2)}</span>
                           </td>
                           <td>
+                            <span></span>
+                          </td>
+                          <td>
                             <span>₹{totalPrice}</span>
                           </td>
                         </tr>
@@ -265,6 +269,9 @@ const Invoice = ({ orderId }, ref) => {
                     <td></td>
                     <td>
                       <span> ₹{total?.gst?.toFixed(2)}</span>
+                    </td>
+                    <td>
+                      <span>₹{order?.donation}</span>
                     </td>
                     <td>
                       <span>₹{total?.total?.toFixed(2)}</span>

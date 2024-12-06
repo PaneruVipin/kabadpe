@@ -66,6 +66,7 @@ import CreateBidPostPage from "./Pages/CreateBidPostPage";
 import Test from "./Test";
 import MyOrderDet from "./Components/MyOrderDet";
 import Invoice from "./Pages/Invoice";
+import Shiping from "./Pages/Shipinglabel";
 function App() {
   const [component, setComponent] = useState("");
   const [profileNav, setProfileNav] = useState(true);
@@ -204,6 +205,8 @@ function App() {
       {/* <Route path="/orderDet/:id" element={<MyOrderDet />} /> */}
 
       <Route path="/invoice/order/:id" element={<Invoice />} />
+
+      <Route path="/shiping/order/:id" element={<Shiping />} />
     </Routes>
   );
 }

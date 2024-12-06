@@ -18197,6 +18197,15 @@ video {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
+.payment-trans-grid-bx2{
+  position: relative;
+  width: 100%;
+  margin-top: 3rem;
+  border-block: .15rem solid #3c3d3d;
+  border-inline: .15rem solid #3c3d3d;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 
 .payment-trnas-bx {
   position: relative;

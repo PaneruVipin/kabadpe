@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import { vendorOrderEdit } from "../../apis/orders/order";
 import Invoice from "../../Pages/Invoice";
 import generatePDF from "react-to-pdf";
+import Shiping from "../../Pages/Shipinglabel";
 const OrderDet = ({ data: initialData = {} }) => {
   const targetRef = useRef();
+  const targetRef2 = useRef();
   const [data, setData] = useState(initialData);
   const handleStatusChange = async (id, orderStatus) => {
     const res = await vendorOrderEdit({ id, orderStatus });
@@ -410,7 +412,14 @@ const OrderDet = ({ data: initialData = {} }) => {
             <button className="ref-btn">Refund</button>
           </div>
 
-          <button className="filt-ord-btn filt-ord-btn2">
+          <button
+            onClick={() =>
+              generatePDF(targetRef2, {
+                filename: `shipping-label-${data?.id}`,
+              })
+            }
+            className="filt-ord-btn filt-ord-btn2"
+          >
             Print Shipping Invoice <ion-icon name="print-outline"></ion-icon>
           </button>
         </div>
@@ -419,6 +428,12 @@ const OrderDet = ({ data: initialData = {} }) => {
           style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
         >
           <Invoice orderId={data?.id} />
+        </div>
+        <div
+          ref={targetRef2}
+          style={{ position: "fixed", bottom: "-200px", right: "-2000px" }}
+        >
+          <Shiping orderId={data?.id} />
         </div>
       </section>
     </>

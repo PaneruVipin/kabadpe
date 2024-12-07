@@ -3581,3 +3581,176 @@
    width: 1.5rem;
    height: 1.5rem;
  }
+
+ .combo-products-comp{
+   position: relative;
+   width: 100%;
+   padding: 1.5rem 2rem;
+ }
+
+ .combo-products-flex-bx{
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   gap: 2rem;
+   margin-bottom: 3rem;
+ }
+
+ .combo-products-flex-bx > h6{
+   position: relative;
+   width: 8rem;
+   font-size: .95rem;
+   font-weight: 600;
+   color: #7a7a7a;
+ }
+
+ .right-combo-products-form-bx{
+   position: relative;
+   width: 100%;
+ }
+
+ .add-products-input-main{
+   position: relative;
+   width: 80%;
+   height: 10rem;
+   background-color: #f3f3f3;
+   border-top-left-radius: .55rem;
+   border-top-right-radius: .55rem;
+   overflow-y: auto;
+ }
+
+ .add-products-input-main::-webkit-scrollbar{
+   width: .234rem;
+   background-color: transparent;
+ }
+
+ .add-products-input-main::-webkit-scrollbar-thumb{
+   background-color: #0ea5e9;
+ }
+
+ .add-products-inpt-bx{
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   overflow-y: auto;
+   height: max-content;
+   background-color: #ececec;
+   overflow: visible;
+ }
+
+ .add-products-inpt-bx input{
+   width: 100%;
+   height: 2.4rem;
+   background-color: transparent;
+   font-size: .95rem;
+   font-weight: 500;
+   letter-spacing: .5px;
+   color: #1e1e1e;
+   padding-inline: 1.4rem;
+ }
+
+ .add-products-input-main > h6{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50% , -50%);
+   font-weight: 500;
+   font-size: 1.56rem;
+   width: max-content;
+   color: #3d3c3c;
+ }
+
+ .suggestions-products{
+   position: absolute;
+   top: 100%;
+   left: 0;
+   width: 80%;
+   height: 20rem;
+   overflow-y: auto;
+   background-color: #ececec;
+   z-index: 1000;
+ }
+
+ .suggestions-products li{
+   position: relative;
+   width: 100%;
+   font-size: .9rem;
+   color: #3a3a3a;
+   padding-inline: 1.3rem;
+   transition: 500ms ease;
+   cursor: pointer;
+ }
+
+ .suggestions-products li:hover{
+   background-color: #d1d1d1;
+   
+ }
+
+
+ .Add-products-lists{
+   position: absolute;
+   top: 1rem;
+   left: 0 ;
+   width: 100%;
+   height: 60%;
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+   flex-wrap: wrap;
+   gap: .65rem;
+   overflow-y: auto;
+   padding-inline: 1rem;
+ }
+
+ .Add-products-lists button{
+   position: relative;
+   width: max-content;
+   height:2.2rem;
+   padding-inline: 1rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: .5rem;
+   font-size: .9rem;
+   font-weight: 500;
+   background-color: #b1b1b1;
+   color: #fff;
+   border-radius: .5rem;
+ }
+
+ .Add-products-lists button span{
+   display: block;
+   font-size: .87rem;
+ }
+
+ .discount-select-flex-bx{
+   position: relative;
+   width: 80%;
+   margin-top: 1.5rem;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   column-gap: 3rem;
+   row-gap: 2rem;
+ }
+
+ .discount-bx{
+   position: relative;
+   width: 100%;
+   background-color: #f3f3f3;
+   height: 2.5rem;
+   padding-inline: 1rem;
+   border-radius: .55rem;
+
+ }
+
+ .discount-bx select{
+   width: 100%;
+   height: 100%;
+   color: #3b3a3a;
+   font-weight: 500;
+   background-color: transparent;
+   cursor: pointer;
+ }

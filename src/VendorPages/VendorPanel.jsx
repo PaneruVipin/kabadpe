@@ -22,6 +22,7 @@ import Redirect from "../Components/Auth/RedirectIfLogout";
 import { useNavigate } from "react-router-dom";
 import { removeFromLocalStorage } from "../lib/localStorage";
 import Invoice from "../Pages/Invoice";
+import VendorCombos from "./VendorComp/VendorCombos";
 const VendorPanel = () => {
   const targetRef = useRef();
   const [component, setComponent] = useState("dashboard");
@@ -199,6 +200,16 @@ const VendorPanel = () => {
                 >
                   Products
                 </li>
+                <li
+                  onClick={() => handleViewComp("combos")}
+                  className={
+                    component === "combos"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Combos
+                </li>
                 {/* <li
                   onClick={() => handleViewComp("vendAtribute")}
                   className={
@@ -279,6 +290,7 @@ const VendorPanel = () => {
               }}
             />
           ) : null}
+          {component === "combos" ? <VendorCombos /> : null}
           {component === "vendProdDet" ? (
             <VendProdDetail data={productData} />
           ) : null}

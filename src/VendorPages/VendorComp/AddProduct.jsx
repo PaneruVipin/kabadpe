@@ -21,7 +21,7 @@ import { object } from "yup";
 import { calculatePercentageValue } from "../../lib/number";
 import PreaddProduct from "./PreaddProduct";
 const AddProduct = ({ onClickClose, initialValues }) => {
-  const [tabActive, setTabActive] = useState("combogroups");
+  const [tabActive, setTabActive] = useState("basic");
   const [images, setImages] = useState([]);
   const [menuIsOpen, setMenuIsOpen] = useState({});
   const [tagValue, setTagValue] = useState(
@@ -81,7 +81,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
   console.log("this is payload", payload);
   console.log("trhis is variation", variations);
   const [tabFn, setTabFn] = useState({
-    // 6: () => {},
+    6: () => {},
     5: () => {},
     2: () => {},
     3: () => {},
@@ -155,7 +155,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       3: () => setTabActive("combination"),
       4: () => setTabActive("climconect"),
       5: () => setTabActive("bulkorder"),
-      // 6: () => setTabActive("combogroups"),
+      6: () => setTabActive("combogroups"),
     };
     if (button == "all") {
       setTabFn(buttons);
@@ -241,8 +241,9 @@ const AddProduct = ({ onClickClose, initialValues }) => {
       next: "",
     };
     if (data?.next) {
+      const nextTabs = { 1: "bulkorder", 2: "combogroups" };
       setPayload(finalPayload);
-      setTabActive("bulkorder");
+      setTabActive(nextTabs?.[data?.next]);
       return;
     }
     const res = initialValues
@@ -363,9 +364,8 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 Bulk Orders
               </button>
 
-              <button
+              {/* <button
                 onClick={tabFn?.[6]}
-                // onClick={setTabActive('combogroups')}
                 className={
                   tabActive === "combogroups"
                     ? "tab-add-prod tabactive"
@@ -373,7 +373,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 }
               >
                 Combos & Groups
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -595,39 +595,39 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                       <div className="ord-filt-bx add-prod-inpt-bx">
                         <span>HSN Code</span>
                         <div>
-                        <input
-                          type="text"
-                          name="hsn"
-                          id="hsn"
-                          placeholder="Enter HSN Code"
-                          autoComplete="off"
-                          value={values?.hsn}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        />
-                        <p
-                          style={{
-                            fontSize: "0.9em",
-                            color: "gray",
-                            marginTop: "0",
-                          }}
-                        >
-                          HSN (Harmonized System of Nomenclature) is a globally
-                          recognized coding system for goods. To find the
-                          correct HSN code for your product, visit{" "}
-                          <a
-                            href="https://services.gst.gov.in/services/searchhsnsac"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <input
+                            type="text"
+                            name="hsn"
+                            id="hsn"
+                            placeholder="Enter HSN Code"
+                            autoComplete="off"
+                            value={values?.hsn}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                          />
+                          <p
                             style={{
-                              color: "blue",
-                              textDecoration: "underline",
+                              fontSize: "0.9em",
+                              color: "gray",
+                              marginTop: "0",
                             }}
                           >
-                            GST HSN Lookup
-                          </a>
-                          .
-                        </p>
+                            HSN (Harmonized System of Nomenclature) is a
+                            globally recognized coding system for goods. To find
+                            the correct HSN code for your product, visit{" "}
+                            <a
+                              href="https://services.gst.gov.in/services/searchhsnsac"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                color: "blue",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              GST HSN Lookup
+                            </a>
+                            .
+                          </p>
                         </div>
                       </div>
 
@@ -889,105 +889,6 @@ const AddProduct = ({ onClickClose, initialValues }) => {
               }}
             </Formik>
           ) : null}
-
-          {tabActive === "combogroups" ? (
-             <div className="combo-products-comp">
-
-              <div className="combo-products-flex-bx">
-
-                <h6>
-                  Select Combo <br/>  Products
-                </h6>
-
-                <div className="right-combo-products-form-bx">
-
-                  <PreaddProduct />
-
-                  <div className="discount-select-flex-bx">
-
-<div className="discount-bx">
-    <select name="Combodiscount" id="Combodiscount">
-    <option value="comboDiscount">Select Combo Discount on 2</option>
-    
-        <option value="1%">1%</option>
-        <option value="2%">2%</option>
-        <option value="3%">3%</option>
-        <option value="4%">4%</option>
-        <option value="5%">5%</option>
-
-    </select>
-</div>
-
-
-<div className="discount-bx">
-    <select name="Combodiscount" id="Combodiscount">
-    <option value="comboDiscount">Select Combo Discount on 3</option>
-    
-        <option value="1%">1%</option>
-        <option value="2%">2%</option>
-        <option value="3%">3%</option>
-        <option value="4%">4%</option>
-        <option value="5%">5%</option>
-
-    </select>
-</div>
-
-</div>
-                  
-                </div>
-                
-              </div>
-
-
-              <div className="combo-products-flex-bx">
-
-<h6>
-  Select Group <br/>  Products
-</h6>
-
-<div className="right-combo-products-form-bx">
-
-  <PreaddProduct />
-
-  <div className="discount-select-flex-bx">
-
-<div className="discount-bx">
-    <select name="Combodiscount" id="Combodiscount">
-    <option value="comboDiscount">Select Combo Discount on 2</option>
-    
-        <option value="1%">1%</option>
-        <option value="2%">2%</option>
-        <option value="3%">3%</option>
-        <option value="4%">4%</option>
-        <option value="5%">5%</option>
-
-    </select>
-</div>
-
-
-<div className="discount-bx">
-    <select name="Combodiscount" id="Combodiscount">
-    <option value="comboDiscount">Select Combo Discount on 3</option>
-    
-        <option value="1%">1%</option>
-        <option value="2%">2%</option>
-        <option value="3%">3%</option>
-        <option value="4%">4%</option>
-        <option value="5%">5%</option>
-
-    </select>
-</div>
-
-</div>
-
-  
-  
-</div>
-
-</div>
-                
-             </div>
-          ): null}
 
           {tabActive === "shipping" ? (
             <Formik
@@ -1843,7 +1744,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                         <button
                           type="button"
                           onClick={() => {
-                            values.next = true;
+                            values.next = 1;
                             enableTabButton(5);
                             handleSubmit();
                           }}
@@ -1862,9 +1763,12 @@ const AddProduct = ({ onClickClose, initialValues }) => {
           {tabActive === "bulkorder" ? (
             <Formik
               initialValues={initialValues?.ProdBulkDetal || { unit: "kg" }}
-              onSubmit={(data) =>
-                handlePublishSubmit({ bulkOrderDetail: JSON.stringify(data) })
-              }
+              onSubmit={({ next, ...data }) => {
+                handlePublishSubmit({
+                  bulkOrderDetail: JSON.stringify(data),
+                  next,
+                });
+              }}
             >
               {({
                 handleBlur,
@@ -1872,6 +1776,7 @@ const AddProduct = ({ onClickClose, initialValues }) => {
                 values,
                 errors,
                 touched,
+                handleSubmit,
                 ...rest
               }) => {
                 //heloo

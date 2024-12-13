@@ -28,9 +28,16 @@ const Invoice = ({ orderId }, ref) => {
         total: a?.total + +(b?.totalPrice || 0),
         netPrice: a?.netPrice + +(b?.netPrice || b.unitPrice * b.quantity || 0),
         unitPrice: a?.unitPrice + +(b?.unitPrice || 0),
+        discount: a?.discount + +(b?.discount || 0),
       };
     },
-    { netPrice: 0, unitPrice: 0, gst: 0, total: +order?.donation || 0 }
+    {
+      netPrice: 0,
+      unitPrice: 0,
+      gst: 0,
+      total: +order?.donation || 0,
+      discount: 0,
+    }
   );
   return (
     <>
@@ -187,6 +194,7 @@ const Invoice = ({ orderId }, ref) => {
                     <th>Tax Rate</th>
                     <th>Tax Type</th>
                     <th>Tax Amount</th>
+                    <th>Discount</th>
                     <th>Donation</th>
                     <th>Total Amount</th>
                   </tr>
@@ -201,6 +209,7 @@ const Invoice = ({ orderId }, ref) => {
                       totalPrice,
                       netPrice,
                       gst,
+                      discount,
                     }) => {
                       const gstAmount = gst ? (netPrice * gst) / 100 : 0;
                       return (
@@ -241,6 +250,9 @@ const Invoice = ({ orderId }, ref) => {
                             <span> ₹{(gstAmount / 2).toFixed(2)}</span>
                           </td>
                           <td>
+                            <span>₹{discount}</span>
+                          </td>
+                          <td>
                             <span></span>
                           </td>
                           <td>
@@ -271,10 +283,13 @@ const Invoice = ({ orderId }, ref) => {
                       <span> ₹{total?.gst?.toFixed(2)}</span>
                     </td>
                     <td>
+                      <span>₹{total?.discount?.toFixed(2)}</span>
+                    </td>
+                    <td>
                       <span>₹{order?.donation}</span>
                     </td>
                     <td>
-                      <span>₹{total?.total?.toFixed(2)}</span>
+                      <span>₹{order?.orderAmount}</span>
                     </td>
                   </tr>
                 </tbody>

@@ -201,21 +201,24 @@ const Invoice = ({ orderId }, ref) => {
                 </thead>
                 <tbody>
                   {OrderItems?.map(
-                    ({
-                      id,
-                      productName,
-                      quantity,
-                      unitPrice,
-                      totalPrice,
-                      netPrice,
-                      gst,
-                      discount,
-                    }) => {
+                    (
+                      {
+                        id,
+                        productName,
+                        quantity,
+                        unitPrice,
+                        totalPrice,
+                        netPrice,
+                        gst,
+                        discount,
+                      },
+                      index
+                    ) => {
                       const gstAmount = gst ? (netPrice * gst) / 100 : 0;
                       return (
                         <tr key={id}>
                           <td>
-                            <span>1</span>
+                            <span>{index + 1}</span>
                           </td>
                           <td>
                             <span>{productName}</span>
@@ -338,12 +341,12 @@ const Invoice = ({ orderId }, ref) => {
               </div>
             </div>
             <p className="bottom-line">
-              *ASSPL-Amazon Seller Services Pvt. Ltd., ARIPL-Amazon Retail India
-              Pvt. Ltd. (only where Amazon Retail India Pvt. Ltd. fulfillment
-              center is co-located) Customers desirous of availing input GST
-              credit are requested to create a Business account and purchase on
-              Amazon.in/business from Business eligible offers Please note that
-              this invoice is not a demand for payment
+              *CSSPL-Climstripe Shift Private Limited, CSSPL-Climstripe Shift
+              Private Limited (only where Climstripe Shift Private Limited
+              fulfillment center is co-located) Customers desirous of availing
+              input GST credit are requested to create a Business account and
+              purchase on thegreensamanshop.com from Business eligible offers
+              Please note that this invoice is not a demand for payment.
               {/* <p className="pageno">Page 1 of 1</p> */}
             </p>
           </div>

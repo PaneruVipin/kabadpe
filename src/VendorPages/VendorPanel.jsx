@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { removeFromLocalStorage } from "../lib/localStorage";
 import Invoice from "../Pages/Invoice";
 import VendorCombos from "./VendorComp/VendorCombos";
+import VendorBoxes from "./VendorComp/VendorBoxes";
 const VendorPanel = () => {
   const targetRef = useRef();
   const [component, setComponent] = useState("dashboard");
@@ -210,6 +211,17 @@ const VendorPanel = () => {
                 >
                   Combos
                 </li>
+
+                <li
+                  onClick={() => handleViewComp("boxes")}
+                  className={
+                    component === "boxes"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Boxes
+                </li>
                 {/* <li
                   onClick={() => handleViewComp("vendAtribute")}
                   className={
@@ -291,6 +303,7 @@ const VendorPanel = () => {
             />
           ) : null}
           {component === "combos" ? <VendorCombos /> : null}
+          {component === "boxes" ? <VendorBoxes /> : null}
           {component === "vendProdDet" ? (
             <VendProdDetail data={productData} />
           ) : null}

@@ -60,7 +60,7 @@ const VendorBoxes = ({}) => {
                 <th>Combo Title</th>
                 <th>Product Name</th>
                 <th>Price</th>
-                <th>Box Size</th>
+                <th>Number Of Products</th>
               </tr>
             </thead>
             <tbody>

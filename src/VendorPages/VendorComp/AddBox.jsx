@@ -60,7 +60,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
       <div className="add-prod-main-bx" onClick={(e) => e.stopPropagation()}>
         <div className="top-add-prod-flex-bx">
           <div className="left-add-prod-title-bx">
-            <h6>{initialValues ? "Update" : "Add"} Box </h6>
+            <h6>{initialValues ? "Update" : "Add"} Combo </h6>
           </div>
 
           <div className="right-lang-sel-bx-flex">
@@ -86,7 +86,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
             return (
               <Form className="combo-products-comp">
                 <div className="right-combo-products-form-bx">
-                <div className="discount-select-flex-bx">
+                  <div className="discount-select-flex-bx">
                     <p>Combo Title</p>
                     <div className="user-edit-inpt">
                       <input
@@ -103,7 +103,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
                     </div>
                   </div>
                   <div className="discount-select-flex-bx">
-                    <p>Box Size</p>
+                    <p>Number Of Products</p>
                     <div className="discount-bx">
                       <select
                         name="size"
@@ -114,7 +114,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
                         required
                       >
                         <option hidden value="">
-                          Select Box Size
+                          Select
                         </option>
 
                         <option value="2">2</option>
@@ -143,7 +143,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
                           setSelectedProd(p);
                           setSelectedVariants([]);
                         }}
-                        placeholder={`Please enter product id`}
+                        placeholder={`Please Enter Product`}
                         styles={{
                           indicatorSeparator: () => ({
                             display: "none",
@@ -168,7 +168,7 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
                           setSelectedVariants(v);
                         }}
                         value={selectedVariants}
-                        placeholder={`Please enter Variants`}
+                        placeholder={`Please Enter Variants`}
                         menuIsOpen={menuIsOpen?.["variantIds"]}
                         onBlur={() => setMenuIsOpen({ ["variantIds"]: false })}
                         onMenuOpen={() =>

@@ -27,7 +27,7 @@ const VendorCombos = ({}) => {
               }}
               className="prod-add-del-btn prod-add-del-btn3"
             >
-              <i className="fa-solid fa-plus"></i> Add Combo
+              <i className="fa-solid fa-plus"></i> Add Group
             </button>
           </div>
         </div>

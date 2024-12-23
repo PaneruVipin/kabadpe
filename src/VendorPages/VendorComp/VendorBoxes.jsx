@@ -32,7 +32,7 @@ const VendorBoxes = ({}) => {
               }}
               className="prod-add-del-btn prod-add-del-btn3"
             >
-              <i className="fa-solid fa-plus"></i> Add Box
+              <i className="fa-solid fa-plus"></i> Add Combo
             </button>
           </div>
         </div>
@@ -57,6 +57,7 @@ const VendorBoxes = ({}) => {
             <thead>
               <tr>
                 <th>Actions</th>
+                <th>Combo Title</th>
                 <th>Product Name</th>
                 <th>Price</th>
                 <th>Box Size</th>
@@ -68,7 +69,7 @@ const VendorBoxes = ({}) => {
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
-                    ?.map(({ id, variantIds, price, Product, size }) => {
+                    ?.map(({ id, variantIds, price, Product, size, name }) => {
                       return (
                         <tr key={id}>
                           <td>
@@ -81,6 +82,7 @@ const VendorBoxes = ({}) => {
                                     price,
                                     Product,
                                     size,
+                                    name,
                                   });
                                 }}
                               >
@@ -99,6 +101,9 @@ const VendorBoxes = ({}) => {
                                 <i className="fa-solid fa-trash"></i>
                               </button>
                             </div>
+                          </td>
+                          <td>
+                            <span> {name} </span>
                           </td>
                           <td>
                             <div

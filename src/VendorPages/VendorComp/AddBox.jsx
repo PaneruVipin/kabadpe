@@ -86,6 +86,22 @@ const AddBox = ({ initialValues, onClickClose, allGroupIds }) => {
             return (
               <Form className="combo-products-comp">
                 <div className="right-combo-products-form-bx">
+                <div className="discount-select-flex-bx">
+                    <p>Combo Title</p>
+                    <div className="user-edit-inpt">
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="Combo Title..."
+                        value={values?.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        onWheel={(e) => e.currentTarget.blur()}
+                        required
+                      />
+                    </div>
+                  </div>
                   <div className="discount-select-flex-bx">
                     <p>Box Size</p>
                     <div className="discount-bx">

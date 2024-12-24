@@ -225,22 +225,34 @@ const Invoice = ({ orderId }, ref) => {
                           </td>
 
                           <td>
-                            <span>₹{unitPrice}</span>
+                            <span>
+                              {+unitPrice ? `₹${unitPrice}` : "Combo"}
+                            </span>
                           </td>
                           <td>
                             <span>{quantity}</span>
                           </td>
                           <td>
                             <span>
-                              ₹
-                              {netPrice ||
-                                (unitPrice * quantity || 0)?.toFixed(2)}
+                              {+unitPrice
+                                ? `₹${
+                                    netPrice ||
+                                    (unitPrice * quantity || 0)?.toFixed(2)
+                                  }`
+                                : "Combo"}
                             </span>
                           </td>
                           <td>
-                            <span>{gst / 2}%</span>
-                            <br />
-                            <span>{gst / 2}%</span>
+                            {+unitPrice ? (
+                              <>
+                                {" "}
+                                <span>{gst / 2}%</span>
+                                <br />
+                                <span>{gst / 2}%</span>
+                              </>
+                            ) : (
+                              ""
+                            )}
                           </td>
                           <td>
                             <span>CGST</span>
@@ -259,7 +271,10 @@ const Invoice = ({ orderId }, ref) => {
                             <span></span>
                           </td>
                           <td>
-                            <span>₹{totalPrice}</span>
+                            <span>
+                              {" "}
+                              {+unitPrice ? `₹${totalPrice}` : "Combo"}
+                            </span>
                           </td>
                         </tr>
                       );
@@ -347,7 +362,6 @@ const Invoice = ({ orderId }, ref) => {
               input GST credit are requested to create a Business account and
               purchase on thegreensamanshop.com from Business eligible offers
               Please note that this invoice is not a demand for payment.
-              {/* <p className="pageno">Page 1 of 1</p> */}
             </p>
           </div>
         </section>

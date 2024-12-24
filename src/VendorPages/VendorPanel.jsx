@@ -209,7 +209,7 @@ const VendorPanel = () => {
                       : "vend-li-btn"
                   }
                 >
-                  Combos
+                  Groups
                 </li>
 
                 <li
@@ -220,7 +220,7 @@ const VendorPanel = () => {
                       : "vend-li-btn"
                   }
                 >
-                  Boxes
+                  Combos
                 </li>
                 {/* <li
                   onClick={() => handleViewComp("vendAtribute")}

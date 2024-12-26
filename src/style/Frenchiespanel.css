@@ -655,7 +655,7 @@ button:before {
     width: 100%;
     padding-inline-end: 1.4rem;
     padding-inline-start: .5rem;
-    padding-block: 2rem;
+    /* padding-block: 2rem; */
 }
 
 .add-work-btn-flex-bx {

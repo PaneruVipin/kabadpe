@@ -16,38 +16,15 @@ const Addsubscription = ({ onSwitch, onactive, onSwitchPrev }) => {
   return (
     <>
       <section className="add-work-comn-comp">
-        <div className="add-work-btn-flex-bx">
-          <h6 className="banktext mb-0">Subscriptions Plans</h6>
-
-          <div className="for-french-indi-flex-btn">
-            <button
-              className={
-                onactive === "addsubscription" || onactive === "createplan"
-                  ? "switch-btn switch-btn3 switchactive"
-                  : "switch-btn switch-btn3 "
-              }
-              onClick={onSwitchPrev}
-            >
-              For Frenchies
-            </button>
-
-            <button
-              className={
-                onactive === "individuals"
-                  ? "switch-btn switch-btn3 switchactive"
-                  : "switch-btn switch-btn3 "
-              }
-              onClick={onSwitch}
-            >
-              For Individuals
-            </button>
-          </div>
-
+        <div style={{position:"relative"}} className="add-work-btn-flex-bx">
+       
           <button
+          style={{position:"absolute",right:"0px",top:"-80px"}}
             onClick={() => {
               setInitialUpdateValues();
               setSubsPlanBx(true);
             }}
+          
             className="add-work-btn-comn add-work-btn-comn2 addnew-work-btn"
           >
             Add New Subscription Plan

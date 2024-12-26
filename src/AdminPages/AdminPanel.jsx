@@ -52,6 +52,7 @@ import AdminProdCateg from "./AdminProdCateg";
 import AdminProdCategValue from "../AdminComponents.jsx/AdminProdCategValue";
 import AdminVendor from "./AdminVendor";
 import FloatingInstagramButton from "../InstaAuth";
+import Plan from "../FrenchiesComp/Plans";
 const AdminPanel = () => {
   const [barClick, setBarClick] = useState(false);
   const [adminNavBtn, setAdminNavBtn] = useState(false);
@@ -1431,22 +1432,10 @@ const AdminPanel = () => {
         ) : null}
         {component === "discount" ? <DiscountCoupon /> : null}
         {component === "wasteproduct" ? <WasteProduct /> : null}
-        {component === "createplan" ? (
-          <Createplan
-            onSwitchPrev={() => handleViewComp("createplan")}
-            onactive={component}
-            onSwitch={() => handleViewComp("individuals")}
-          />
-        ) : null}
+        {component === "createplan" ? <Plan /> : null}
         {component === "kabadpepages" ? <KabadPePagesLink /> : null}
         {component === "ContentEditComp" ? <ContentEditComp /> : null}
-        {component === "individuals" ? (
-          <ForIndividuals
-            onSwitchPrev={() => handleViewComp("addsubscription")}
-            onactive={component}
-            onSwitch={() => handleViewComp("individuals")}
-          />
-        ) : null}
+        {component === "individuals" ? <Plan /> : null}
 
         {component === "AllAppointment" ? (
           <FrenchAppointments component="admin" />

@@ -16,32 +16,9 @@ const ForIndividuals = ({ onSwitch, onactive, onSwitchPrev }) => {
   return (
     <>
       <section className="add-work-comn-comp">
-        <div className="add-work-btn-flex-bx">
-          <h6 className="banktext mb-0">Subscriptions Plans </h6>
-          <div className="for-french-indi-flex-btn">
-            <button
-              className={
-                onactive === "addsubscription"
-                  ? "switch-btn switchactive"
-                  : "switch-btn "
-              }
-              onClick={onSwitchPrev}
-            >
-              For Frenchies
-            </button>
-
-            <button
-              className={
-                onactive === "individuals"
-                  ? "switch-btn switchactive"
-                  : "switch-btn "
-              }
-              onClick={onSwitch}
-            >
-              For Individuals
-            </button>
-          </div>
+        <div style={{ position: "relative" }} className="add-work-btn-flex-bx">
           <button
+            style={{ position: "absolute", right: "0px", top: "-80px" }}
             // onClick={() => {
             //   setInitialUpdateValues();
             //   setSubsPlanBx(true);

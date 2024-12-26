@@ -7,13 +7,18 @@ import {
   greenProdComboFetch,
   greenProdComboUpdate,
 } from "../../apis/products/combos";
+import AddBox from "./AddBox";
+import {
+  greenProdBoxFetch,
+  greenProdBoxUpdate,
+} from "../../apis/products/boxes";
 
-const VendorCombos = ({}) => {
+const VendorBoxes = ({}) => {
   const [selectedRow, setSelectedRow] = useState(undefined);
   const [searchValue, setSearchValue] = useState("");
   const { data: products, refetch } = useQuery({
-    queryKey: ["greenprodcombo"],
-    queryFn: () => greenProdComboFetch({}),
+    queryKey: ["greenProdBoxFetch"],
+    queryFn: () => greenProdBoxFetch({}),
   });
   console.log("this is c ombo products ", products);
   return (
@@ -27,7 +32,7 @@ const VendorCombos = ({}) => {
               }}
               className="prod-add-del-btn prod-add-del-btn3"
             >
-              <i className="fa-solid fa-plus"></i> Add Group
+              <i className="fa-solid fa-plus"></i> Add Combo
             </button>
           </div>
         </div>
@@ -52,17 +57,19 @@ const VendorCombos = ({}) => {
             <thead>
               <tr>
                 <th>Actions</th>
+                <th>Combo Title</th>
                 <th>Product Name</th>
-                <th>Discount</th>
+                <th>Price</th>
+                <th>Number Of Products</th>
               </tr>
             </thead>
             <tbody>
               {!products?.error
-                ? search(products?.combos, searchValue)
+                ? search(products, searchValue)
                     ?.sort(
                       (a, b) => new Date(b?.updatedOn) - new Date(a?.updatedOn)
                     )
-                    ?.map(({ id, groupIds, groupDiscount, items }) => {
+                    ?.map(({ id, variantIds, price, Product, size, name }) => {
                       return (
                         <tr key={id}>
                           <td>
@@ -71,8 +78,11 @@ const VendorCombos = ({}) => {
                                 onClick={() => {
                                   setSelectedRow({
                                     id,
-                                    groupIds,
-                                    groupDiscount,
+                                    variantIds,
+                                    price,
+                                    Product,
+                                    size,
+                                    name,
                                   });
                                 }}
                               >
@@ -81,7 +91,7 @@ const VendorCombos = ({}) => {
 
                               <button
                                 onClick={async () => {
-                                  await greenProdComboUpdate({
+                                  await greenProdBoxUpdate({
                                     id,
                                     status: "delete",
                                   });
@@ -93,6 +103,9 @@ const VendorCombos = ({}) => {
                             </div>
                           </td>
                           <td>
+                            <span> {name} </span>
+                          </td>
+                          <td>
                             <div
                               style={{
                                 display: "flex",
@@ -101,21 +114,32 @@ const VendorCombos = ({}) => {
                               }}
                               className="prod-info-v"
                             >
-                              {items?.map(({ name, id }) => {
+                              <p> {Product?.name}</p>
+                              {variantIds?.map((variationId, index) => {
+                                const variation = Product?.ProdVariations?.find(
+                                  ({ id }) => id == variationId
+                                );
+                                let label = JSON.parse(
+                                  variation?.variation || "{}"
+                                );
+                                const keys = Object.keys(label);
+                                label = keys
+                                  ?.map((key) => `${key} : ${label?.[key]}`)
+                                  .join(", ");
                                 return (
-                                  <>
-                                    {" "}
-                                    <p style={{ lineHeight: "1px" }}>
-                                      {name?.substring(0, 80)}{" "}
-                                    </p>
-                                  </>
+                                  <p key={id} style={{ lineHeight: "1px" }}>
+                                    {index + 1} - {label}
+                                  </p>
                                 );
                               })}
                             </div>
                           </td>
 
                           <td>
-                            <span> {groupDiscount}% </span>
+                            <span> {price} </span>
+                          </td>
+                          <td>
+                            <span> {size} </span>
                           </td>
                         </tr>
                       );
@@ -127,9 +151,9 @@ const VendorCombos = ({}) => {
       </section>
 
       {selectedRow !== undefined ? (
-        <AddCombo
+        <AddBox
           initialValues={selectedRow}
-          allGroupIds={products?.allGroupIds||[]}
+          allGroupIds={products?.allGroupIds || []}
           onClickClose={() => {
             refetch();
             setSelectedRow(undefined);
@@ -140,4 +164,4 @@ const VendorCombos = ({}) => {
   );
 };
 
-export default VendorCombos;
+export default VendorBoxes;

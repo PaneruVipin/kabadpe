@@ -27,6 +27,7 @@ import VendorCombos from "./VendorComp/VendorCombos";
 import VendorProducts from "./VendorComp/VendorProducts";
 import VendSubscription from "./VendorComp/VendSubscription";
 import VendQueries from "./VendorComp/VendQueries";
+import VendorBoxes from "./VendorComp/VendorBoxes";
 const VendorPanel = () => {
   const targetRef = useRef();
   const [component, setComponent] = useState("dashboard");
@@ -212,6 +213,17 @@ const VendorPanel = () => {
                       : "vend-li-btn"
                   }
                 >
+                  Groups
+                </li>
+
+                <li
+                  onClick={() => handleViewComp("boxes")}
+                  className={
+                    component === "boxes"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
                   Combos
                 </li>
                 <li
@@ -350,6 +362,7 @@ const VendorPanel = () => {
             />
           ) : null}
           {component === "combos" ? <VendorCombos /> : null}
+          {component === "boxes" ? <VendorBoxes /> : null}
           {component === "vendProdDet" ? (
             <VendProdDetail data={productData} />
           ) : null}

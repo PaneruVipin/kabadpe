@@ -24,7 +24,7 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
       <div className="add-prod-main-bx" onClick={(e) => e.stopPropagation()}>
         <div className="top-add-prod-flex-bx">
           <div className="left-add-prod-title-bx">
-            <h6>{initialValues ? "Update" : "Add"} Combo Products </h6>
+            <h6>{initialValues ? "Update" : "Add"} Group </h6>
           </div>
 
           <div className="right-lang-sel-bx-flex">

@@ -6,7 +6,7 @@ import {
 } from "../../apis/products/combos";
 import { toast } from "react-toastify";
 
-const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
+const AddComboProducts = ({ initialValues, onClickClose, allGroupIds }) => {
   const handleSubmit = async ({ groupIds, ...data }) => {
     if (!groupIds?.length) return;
     const res = initialValues
@@ -24,7 +24,7 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
       <div className="add-prod-main-bx" onClick={(e) => e.stopPropagation()}>
         <div className="top-add-prod-flex-bx">
           <div className="left-add-prod-title-bx">
-            <h6>{initialValues ? "Update" : "Add"} Group </h6>
+            <h6>{initialValues ? "Update" : "Add"} Combo Products </h6>
           </div>
 
           <div className="right-lang-sel-bx-flex">
@@ -34,7 +34,65 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
           </div>
         </div>
 
-     
+        <div className="combo-products-comp">
+
+        <div className="combo-products-flex-bx ">
+                  <h6>
+                    Combo Title
+                  </h6>
+
+                  <div className="right-combo-products-form-bx right-combo-products-form-bx2">
+                 
+
+                    <div className="discount-select-flex-bx prod-offer-combo">
+                   
+
+                      <div className="discount-bx prod-offer-combo">
+                       <input type="text" name="prodTitle" id="prodTitle" placeholder="Enter Combo Title" />
+                      </div>
+                    </div>
+
+                 
+                  </div>
+                </div>
+            
+                <div className="combo-products-flex-bx ">
+                  <h6>
+                     Products offer in <br /> Combo
+                  </h6>
+
+                  <div className="right-combo-products-form-bx right-combo-products-form-bx2">
+                 
+
+                    <div className="discount-select-flex-bx prod-offer-combo">
+                      <div className="discount-bx prod-offer-combo">
+                        <select
+                          name="offerCombo"
+                          id="offerCombo"
+                          required
+                        >
+                          <option  value="">
+                            Select number of products
+                          </option>
+                          <option  value="2">
+                            2
+                          </option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                        </select>
+                      </div>
+
+                      <div className="discount-bx prod-offer-combo">
+                       <input type="text" name="comboprice" id="comboprice" placeholder="Enter Combo Price" />
+                      </div>
+                    </div>
+
+                 
+                  </div>
+                </div>
+                </div>
         
         <Formik initialValues={initialValues || {}} onSubmit={handleSubmit}>
           {({ handleBlur, handleChange, values, errors, touched, ...rest }) => {
@@ -62,7 +120,7 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
                       }}
                     />
 
-                    <div className="discount-select-flex-bx">
+                    {/* <div className="discount-select-flex-bx">
                       <div className="discount-bx">
                         <select
                           name="groupDiscount"
@@ -83,7 +141,7 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
                           <option value="5">Combo Discount 5%</option>
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="prod-add-can-flex-btn prod-add-can-flex-btn31 remove-bg-combo-btn">
@@ -103,4 +161,4 @@ const AddCombo = ({ initialValues, onClickClose, allGroupIds }) => {
   );
 };
 
-export default AddCombo;
+export default AddComboProducts;

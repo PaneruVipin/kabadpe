@@ -6,6 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineLogout } from "react-icons/md";
 import { RiOrganizationChart } from "react-icons/ri";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { FaBoxesStacked } from "react-icons/fa6";
 import VendorDasgboard from "./VendorComp/VendorDasgboard";
 import VendOrder from "./VendorComp/VendOrder";
 import OrderDet from "./VendorComp/OrderDet";
@@ -23,6 +24,9 @@ import { useNavigate } from "react-router-dom";
 import { removeFromLocalStorage } from "../lib/localStorage";
 import Invoice from "../Pages/Invoice";
 import VendorCombos from "./VendorComp/VendorCombos";
+import VendorProducts from "./VendorComp/VendorProducts";
+import VendSubscription from "./VendorComp/VendSubscription";
+import VendQueries from "./VendorComp/VendQueries";
 const VendorPanel = () => {
   const targetRef = useRef();
   const [component, setComponent] = useState("dashboard");
@@ -155,8 +159,8 @@ const VendorPanel = () => {
         </div>
       </section>
 
-      <section
-        className={
+      <section  
+        className={ 
           sideNav ? "vend-side-nav-main sidenavactive" : "vend-side-nav-main"
         }
       >
@@ -164,9 +168,9 @@ const VendorPanel = () => {
           <div className="vend-tab-btn-main">
             <div
               className={
-                component === "dashboard"
+                component === "dashboard"     
                   ? "vend-tab-btn vendbtnactive"
-                  : " vend-tab-btn"
+                  : " vend-tab-btn" 
               }
               onClick={() => handleViewComp("dashboard")}
             >
@@ -178,7 +182,7 @@ const VendorPanel = () => {
             </div>
 
             <div className={getDropDwnBtnClassnameThree("vendProduct")}>
-              <div
+              <div  
                 onClick={() => handleDropDwnBtnClick(1)}
                 className={getDropDwnBtnClassname(1)}
               >
@@ -209,6 +213,16 @@ const VendorPanel = () => {
                   }
                 >
                   Combos
+                </li>
+                <li
+                  onClick={() => handleViewComp("comboprod")}
+                  className={
+                    component === "comboprod"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Combo Products
                 </li>
                 {/* <li
                   onClick={() => handleViewComp("vendAtribute")}
@@ -251,6 +265,45 @@ const VendorPanel = () => {
 
             <span>Orders</span>
           </div>
+
+          <div className={getDropDwnBtnClassnameThree("vendBulk")}>
+              <div  
+                onClick={() => handleDropDwnBtnClick(9)}
+                className={getDropDwnBtnClassname(9)}
+              >
+                <div className="v-tab-i">
+                  <MdCategory className="v-icon" />
+                </div>
+
+                <span>Bulk</span>
+              </div>
+
+              <div className={getDropDwnBtnClassnameTwo(9)}>
+                <li
+                  onClick={() => handleViewComp("subsc")}
+                  className={
+                    component === "subsc"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Subscription
+                </li>
+                <li
+                  onClick={() => handleViewComp("quer")}
+                  className={
+                    component === "quer"
+                      ? "vend-li-btn liactive"
+                      : "vend-li-btn"
+                  }
+                >
+                  Queries    
+                </li>        
+                     
+
+              </div>
+            </div>
+          
         </div>
         {/* </div> */}
       </section>
@@ -278,6 +331,12 @@ const VendorPanel = () => {
               }}
             />
           ) : null}
+ {component === "comboprod" ? (
+            <VendorProducts />
+         
+          ) : null}
+
+          
           {component === "orderDetail" ? (
             <OrderDet data={vendorOrderData} compOrderDet={"orderDetail"} />
           ) : null}
@@ -307,6 +366,15 @@ const VendorPanel = () => {
           {component === "vendcategories" ? (
             <VendCategories
               onClickRedirect={() => setComponent("vendcategories")}
+            />
+          ) : null}
+           {component === "subsc" ? (
+            <VendSubscription
+            />
+          ) : null}
+          {/* quer */}
+          {component === "quer" ? (
+            <VendQueries
             />
           ) : null}
         </div>

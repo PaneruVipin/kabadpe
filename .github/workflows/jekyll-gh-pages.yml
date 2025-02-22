@@ -37,13 +37,8 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          name: production-files
-          path: ./dist # Upload only the 'dist' folder (Vite's output)
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          publish_dir: ./dist
+          path: "dist"
